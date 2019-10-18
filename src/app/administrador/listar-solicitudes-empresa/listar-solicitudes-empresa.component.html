@@ -1,0 +1,24 @@
+<h2>Solicitudes de aprobación:</h2>
+<div class="table-responsive rounded shadow">
+  <table class="table table-striped table-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th class="col-1">#</th>
+        <th class="col-2">Nombre</th>
+        <th class="col-2">Fecha Solicitud</th>
+        <th class="col-2">Estado</th>      
+        <th class="col-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let objPaciente of pacientes">
+        <td>{{getNum()}}</td>
+        <td>{{objPaciente.nombre}}</td>        
+        <td>{{objPaciente.fecha}}</td>
+        <td><a >En Espera</a></td>
+        <td><a href="#">Ver Información</a></td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>

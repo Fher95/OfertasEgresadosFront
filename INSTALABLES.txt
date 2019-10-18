@@ -1,0 +1,6 @@
+-JQuery
+	npm install jquery --save
+-JQuery:
+	npm install popper.js --save
+-Bootstrap:
+	npm install ngx-bootstrap bootstrap
