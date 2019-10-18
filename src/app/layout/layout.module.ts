@@ -10,7 +10,9 @@ import { MaterialModule } from './material/material.module';
     CommonModule
   ],
   exports: [
-    MaterialModule
+    MaterialModule,
+    HeaderComponent,
+    NavbarHomeOfertasComponent,
   ]
 })
 export class LayoutModule { }

@@ -7,7 +7,10 @@ import { MaterialModule } from 'src/app/layout/material/material.module';
   declarations: [RegistrarComponent],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+  ],
+  exports: [
+    RegistrarComponent,
   ]
 })
 export class EmpresaModule { }
