@@ -11,6 +11,8 @@ import { HeaderComponent } from './layout/header/header.component';
 import { NavbarHomeOfertasComponent } from './layout/navbar-home-ofertas/navbar-home-ofertas.component';
 import { PrincipalComponent } from './pages/administrador/principal/principal.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    PaginationModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { lstSolicitudes } from './Solicitud';
 import { Solicitud } from './Solicitud';
 import { Location } from '@angular/common';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-listar-solicitudes-empresa',
@@ -10,14 +11,21 @@ import { Location } from '@angular/common';
 })
 export class ListarSolicitudesEmpresaComponent implements OnInit {
 
+  solicitudes = lstSolicitudes;
+  displayedColumns: string[] = ['nombre', 'fecha', 'estado','acciones'];
+  dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
+
+  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
+
   objSolicitudSeleccionada: Solicitud;
   constructor(
     private location: Location
   ) { }
   contador = 0;
-  solicitudes = lstSolicitudes;
+  
   ngOnInit() {
-  }
+    this.objSolicitudSeleccionada = this.solicitudes[0];
+    }
   getNum(): number {
     this.contador = this.contador + 1;
     return this.contador;
