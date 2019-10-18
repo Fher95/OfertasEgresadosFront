@@ -6,7 +6,6 @@ import { HomeOfertasComponent } from './home-ofertas/home-ofertas.component';
   declarations: [HomeOfertasComponent],
   imports: [
     CommonModule
-  ],
-  exports: [HomeOfertasComponent]
+  ]
 })
 export class HomeModule { }

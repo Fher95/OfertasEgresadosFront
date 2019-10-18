@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeOfertasComponent } from './home/home-ofertas/home-ofertas.component';
-import { ListarSolicitudesEmpresaComponent } from './administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component'
-import { PrincipalComponent } from './administrador/principal/principal.component';
+import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.component';
+
 @NgModule({
   declarations: [
-    AppComponent, HomeOfertasComponent, ListarSolicitudesEmpresaComponent, PrincipalComponent
+    AppComponent,
+    HomeOfertasComponent, 
   ],
   imports: [
     BrowserModule,
