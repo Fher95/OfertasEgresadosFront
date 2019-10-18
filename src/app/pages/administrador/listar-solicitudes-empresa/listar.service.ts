@@ -8,7 +8,7 @@ import { Solicitud } from './Solicitud';
 
 @Injectable({ providedIn: 'root' })
 export class ListarService {
-    private heroesUrl = 'api/listaSolic';  // URL to web api
+    private urlSolicitud = 'api/listaSolic';  // URL to web api
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -16,20 +16,20 @@ export class ListarService {
         private http: HttpClient
     ) { }
     getSolicitudes(): Observable<Solicitud[]> {
-        return this.http.get<Solicitud[]>(this.heroesUrl)
+        return this.http.get<Solicitud[]>(this.urlSolicitud)
             .pipe(
                 catchError(this.handleError<Solicitud[]>('getSolicitudes', []))
             );
     }
     getSolicitud(id: number): Observable<Solicitud> {
-        const url = `${this.heroesUrl}/${id}`;
+        const url = `${this.urlSolicitud}/${id}`;
         return this.http.get<Solicitud>(url).pipe(
             catchError(this.handleError<Solicitud>(`getSolicitud id=${id}`))
         );
     }
     /** PUT: update the hero on the server */
-  updateHero(hero: Solicitud): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+  updateSolicitud(objSolicitud: Solicitud): Observable<any> {
+    return this.http.put(this.urlSolicitud, objSolicitud, this.httpOptions).pipe(
       catchError(this.handleError<any>('actualizarSolicitudes'))
     );
   }
