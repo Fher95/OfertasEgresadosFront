@@ -7,6 +7,7 @@ import { PrincipalComponent } from './principal/principal.component';
   declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [ListarSolicitudesEmpresaComponent]
 })
 export class AdministradorModule { }
