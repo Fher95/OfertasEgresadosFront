@@ -1,0 +1,8 @@
+Crear una nueva rama (Local): 
+	git branch nombre_rama
+Cambiar de una rama a otra (primera se debe hacer commit desde la rama de la que se está cambiando):
+	git checkout nombre_rama
+Subir una rama creada local al repositorio remoto:
+	git push --set-upstream origin nombre_rama
+Actualizar una rama desde otra modificada (se debe hacer commit sobre la rama recién modificada, después cambiar a la rama que se quiere actualizar):
+	git merge nombre_rama
