@@ -1,20 +1,22 @@
 <h2>Solicitudes de aprobación:</h2>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
+
+    
   
-      <!-- Position Column -->
+      <!-- Nombre Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef> Nombre </th>
         <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
       </ng-container>
   
-      <!-- Name Column -->
+      <!-- Fecha Column -->
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef> Fecha </th>
         <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
       </ng-container>
   
-      <!-- Weight Column -->
+      <!-- Estado Column -->
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
         <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
@@ -34,7 +36,7 @@
   
 
 
-<!--
+<!-- Este codigo es la primera versión de la tabla, sin paginación pero con mejor diseño visual
 <h2>Solicitudes de aprobación:</h2>
 <div class="table-responsive rounded shadow">
   <table class="table table-striped table-sm text-center">
@@ -73,7 +75,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body w-10">
+      <div class="modal-body">
         
         <h4>Nombre: </h4> <p>{{objSolicitudSeleccionada.nombre}}</p>
         <h4>NIT: </h4> <p>{{objSolicitudSeleccionada.id}}</p>

@@ -7,7 +7,7 @@ import { Solicitud } from './Solicitud';
 
 
 @Injectable({ providedIn: 'root' })
-export class ListarService {
+export class ListarSolicitudesService {
     private urlSolicitud = 'api/listaSolic';  // URL to web api
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,13 +27,22 @@ export class ListarService {
             catchError(this.handleError<Solicitud>(`getSolicitud id=${id}`))
         );
     }
-    /** PUT: update the hero on the server */
-  updateSolicitud(objSolicitud: Solicitud): Observable<any> {
-    return this.http.put(this.urlSolicitud, objSolicitud, this.httpOptions).pipe(
-      catchError(this.handleError<any>('actualizarSolicitudes'))
-    );
-  }
-
+    /** PUT: update the solicitud on the server */
+    updateSolicitud(objSolicitud: Solicitud): Observable<any> {
+        return this.http.put(this.urlSolicitud, objSolicitud, this.httpOptions).pipe(
+            catchError(this.handleError<any>('actualizarSolicitudes'))
+        );
+    }
+    activarSolicitud(parId: number): Observable<any>{
+        return this.http.put(this.urlSolicitud, parId, this.httpOptions).pipe(
+            catchError(this.handleError<any>('activarSolicitud'))
+        );
+    }
+    desactivarSolicitud(parId: number): Observable<any>{
+        return this.http.put(this.urlSolicitud, parId, this.httpOptions).pipe(
+            catchError(this.handleError<any>('desactivarSolicitud'))
+        );
+    }
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             // TODO: send the error to remote logging infrastructure
