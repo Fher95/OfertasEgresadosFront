@@ -12,6 +12,7 @@ import { NavbarHomeOfertasComponent } from './layout/navbar-home-ofertas/navbar-
 import { PrincipalComponent } from './pages/administrador/principal/principal.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     BrowserAnimationsModule,
     MaterialModule,
     PaginationModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
