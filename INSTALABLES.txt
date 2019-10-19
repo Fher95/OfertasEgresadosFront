@@ -5,5 +5,5 @@
 -Bootstrap:
 	npm install ngx-bootstrap bootstrap
 -Angular Material:
-	ng add @angular/material
+	ng add @angular/material@7.3.7
 	
