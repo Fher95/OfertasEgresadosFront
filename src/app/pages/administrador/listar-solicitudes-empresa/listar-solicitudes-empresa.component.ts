@@ -12,7 +12,7 @@ import { ListarSolicitudesService } from "./listar-solicitudes.service";
 })
 export class ListarSolicitudesEmpresaComponent implements OnInit {
 
-  solicitudes = lstSolicitudes;
+  solicitudes = [];
   displayedColumns: string[] = ['nombre', 'fecha', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
 
@@ -23,9 +23,12 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     private location: Location,
     private servicioLista: ListarSolicitudesService
   ) { }
+
   contador = 0;
+
   ngOnInit() {
-    this.objSolicitudSeleccionada = this.solicitudes[0];
+    this.getSolicitudes();
+    this.objSolicitudSeleccionada = {nombre: 'primero', id: 1231, fecha: '2019-01-8', estado: 'En espera' };
     }
   getNum(): number {
     this.contador = this.contador + 1;

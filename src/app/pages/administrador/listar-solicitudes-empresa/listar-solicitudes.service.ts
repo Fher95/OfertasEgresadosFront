@@ -8,7 +8,7 @@ import { Solicitud } from './Solicitud';
 
 @Injectable({ providedIn: 'root' })
 export class ListarSolicitudesService {
-    private urlSolicitud = 'api/listaSolic';  // URL to web api
+    private urlSolicitud = 'api/solicitudes';  // URL to web api
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
