@@ -47,8 +47,18 @@
           <a class="dropdown-item" href="#">Empresa</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Iniciar Sesion</a>
+      <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">Iniciar Sesion</a>
+          <form class="dropdown-menu p-2" #formLogin="ngForm" (ngSubmit)="onLogin(loginForm)" >
+              <div class="form-group">
+                <input name='email' type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.email" required> 
+              </div>
+              <div class="form-group">
+                <input name='password' type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="user.password" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Ingresar</button>
+            </form>
       </li>
     </ul>
   </div>
