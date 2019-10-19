@@ -1,3 +1,92 @@
-<p>
-  listar-solicitudes-empresa works!
-</p>
+<h2>Solicitudes de aprobación:</h2>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+    
+  
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+  
+      <!-- Fecha Column -->
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+      </ng-container>
+  
+      <!-- Estado Column -->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+      </ng-container>
+      <ng-container matColumnDef="acciones" >
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalCenter" (click)="setSolicitudActual(element)">Ver Informacion</a></td>
+        </ng-container>
+      
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  
+
+
+<!-- Este codigo es la primera versión de la tabla, sin paginación pero con mejor diseño visual
+<h2>Solicitudes de aprobación:</h2>
+<div class="table-responsive rounded shadow">
+  <table class="table table-striped table-sm text-center">
+    <thead class="thead-dark">
+      <tr>
+        <th class="col-1">#</th>
+        <th class="col-2">Nombre</th>
+        <th class="col-2">Fecha Solicitud</th>
+        <th class="col-2">Estado</th>      
+        <th class="col-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let objSolicitud of solicitudes; let i = index ">
+        <td>{{i+1}}</td>
+        <td>{{objSolicitud.nombre}}</td>        
+        <td>{{objSolicitud.fecha}}</td>
+        <td><a >{{objSolicitud.estado}}</a></td>
+        <td><a href="" data-toggle="modal" data-target="#exampleModalCenter" (click)="setSolicitudActual(objSolicitud)">
+          Ver Información</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+-->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Información de la Empresa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <h4>Nombre: </h4> <p>{{objSolicitudSeleccionada.nombre}}</p>
+        <h4>NIT: </h4> <p>{{objSolicitudSeleccionada.id}}</p>
+        <h4>Fecha de Solicitud: </h4> <p>{{objSolicitudSeleccionada.fecha}}</p>
+        <h4>Estado: </h4> <p>{{objSolicitudSeleccionada.estado}}</p>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="ActivarDesactivar(objSolicitudSeleccionada)" data-dismiss="modal">  {{getEstadoBoton()}}  </button>        
+      </div>
+    </div>
+  </div>
+</div>
+

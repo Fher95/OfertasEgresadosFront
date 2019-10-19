@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registrar.component.css']
 })
 export class RegistrarComponent implements OnInit {
+  
+  areasInteresEmpresa: string[] = ['Alimentos', 'Asegurador', 'Bebidas y tabaco', 'Comercial',
+  'Comercio por mayor', 'Comercio por menor', 'Construccion', 'Ingenieria'];
 
   constructor() { }
 

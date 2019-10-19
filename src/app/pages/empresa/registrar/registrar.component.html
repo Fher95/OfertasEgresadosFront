@@ -1,1 +1,211 @@
+<mat-card class="carta-registro">
+    <form>
+        <mat-card-header>
+            <mat-card-title>
+                Necesitamos algunos datos de tu empresa
+            </mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <mat-horizontal-stepper>
+                <mat-step label="Datos de empresa">
+                    <div>
+                        <p class="text-center">Cuentanos un poco sobre tu empresa</p>
+                        <mat-divider [inset]="true"></mat-divider>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-auto">
+                            <mat-form-field floatLabel="auto" hintLabel="Max 16 characters">
+                                <mat-label>NIT</mat-label>
+                                <input matInput #input maxlength="16" required>
+                                <mat-hint align="end">{{input.value?.length || 0}}/16</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field floatLabel="auto">
+                                <mat-label>Nombre Empresa</mat-label>
+                                <input matInput required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <mat-form-field floatLabel="auto">
+                        <mat-label>Razon Social</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker>
+                        <mat-label>Año de creacion</mat-label>
+                        <input matInput type="number">
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto">
+                        <mat-label>Número de empleados</mat-label>
+                        <input matInput type="number" required>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Ingresos de la empresa" type="number">
+                        <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" class="full-width">
+                        <mat-label>Descripcion de la empresa</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
 
+                    <div class="botonesStepper">
+                        <button mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </mat-step>
+                <mat-step label="Cuenta">
+                    <mat-card>
+                        <div class="p-4">
+                            <p class="text-center">Selecciona los datos de tu interés</p>
+                            <mat-divider [inset]="true"></mat-divider>
+                        </div>
+                        <mat-selection-list #areas>
+                            <mat-list-option *ngFor="let areaInteresEmp of areasInteresEmpresa">
+                                {{areaInteresEmp}}
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-card>
+                    <div class="botonesStepper">
+                        <button mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </mat-step>
+                <mat-step label="Localizacion">
+                    <div class="p-4">
+                        <p class="text-center">Necesitamos localizar tu empresa</p>
+                        <mat-divider [inset]="true"></mat-divider>
+                    </div>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>País Empresa</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Departamento</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Ciudad Empresa</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Direccion de la empresa</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Barrio/Localidad</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Codigo Postal</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Telefono de la empresa</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Email de la empresa</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Sitio Web</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <div class="botonesStepper">
+                        <button mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </mat-step>
+
+                <mat-step label="Datos de contacto">
+                    <div class="p-4">
+                        <p class="text-center">Algunos datos personales</p>
+                        <mat-divider [inset]="true"></mat-divider>
+                    </div>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Nombre Responsable</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Apellido Responsable</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Cargo</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Telefono</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Telefono móvil</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Departamento</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Ciudad</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Barrio/localidad</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Codigo Postal</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Direccion</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Horario contacto</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Fax</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Email corporativo</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <div class="botonesStepper">
+                        <button mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                    </div>
+                </mat-step>
+                <mat-step label="Cuenta">
+                    <div class="p-4">
+                        <p class="text-center">Finalmente, crea tu cuenta</p>
+                        <mat-divider [inset]="true"></mat-divider>
+                    </div>
+                    <mat-form-field class="full-width" floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <mat-form-field class="full-width" floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-label>No soy robot</mat-label>
+                        <input matInput required>
+                    </mat-form-field>
+                    <div class="botonesStepper">
+                        <button mat-raised-button color="primary" matStepperNext>Finalizar</button>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </mat-card-content>
+    </form>
+</mat-card>
