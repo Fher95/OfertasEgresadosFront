@@ -77,14 +77,14 @@
       </div>
       <div class="modal-body">
         
-        <h4>Nombre: </h4> <p>{{objSolicitudSeleccionada.nombre}}</p>
-        <h4>NIT: </h4> <p>{{objSolicitudSeleccionada.id}}</p>
-        <h4>Fecha de Solicitud: </h4> <p>{{objSolicitudSeleccionada.fecha}}</p>
-        <h4>Estado: </h4> <p>{{objSolicitudSeleccionada.estado}}</p>
+        <h4>Nombre: </h4> <p>{{varSolicitudActual.nombre}}</p>
+        <h4>NIT: </h4> <p>{{varSolicitudActual.id}}</p>
+        <h4>Fecha de Solicitud: </h4> <p>{{varSolicitudActual.fecha}}</p>
+        <h4>Estado: </h4> <p>{{varSolicitudActual.estado}}</p>
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="ActivarDesactivar(objSolicitudSeleccionada)" data-dismiss="modal">  {{getEstadoBoton()}}  </button>        
+        <button type="button" class="btn btn-primary" (click)="ActivarDesactivar(varSolicitudActual.id)" data-dismiss="modal">  {{getEstadoBoton()}}  </button>        
       </div>
     </div>
   </div>
