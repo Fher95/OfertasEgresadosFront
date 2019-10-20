@@ -1,27 +1,25 @@
 <h2>Solicitudes de aprobación:</h2>
+<!--
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
-      <!-- Nombre Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef> Nombre </th>
         <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
       </ng-container>
 
-      <!-- Fecha Column -->
+
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef> Fecha </th>
         <td mat-cell *matCellDef="let element"> {{element.fecha_registro}} </td>
       </ng-container>
-
-      <!-- Estado Column -->
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
         <td mat-cell *matCellDef="let element"> Primero veamos si funciona </td>
       </ng-container>
       <ng-container matColumnDef="acciones" >
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
-          <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalCenter" (click)="setSolicitudActual(element)">Ver Informacion</a></td>
+          <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalCenter" >Ver Informacion</a></td>
         </ng-container>
 
 
@@ -32,9 +30,9 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 
+-->
 
 
-<!-- Este codigo es la primera versión de la tabla, sin paginación pero con mejor diseño visual
 <h2>Solicitudes de aprobación:</h2>
 <div class="table-responsive rounded shadow">
   <table class="table table-striped table-sm text-center">
@@ -50,14 +48,14 @@
     <tbody>
       <tr *ngFor="let objSolicitud of solicitudes; let i = index ">
         <td>{{i+1}}</td>
+
         <td>{{objSolicitud.nombre}}</td>
-        <td>{{objSolicitud.fecha}}</td>
-        <td><a >{{objSolicitud.estado}}</a></td>
-        <td><a href="" data-toggle="modal" data-target="#exampleModalCenter" (click)="setSolicitudActual(objSolicitud)">
+        <td>{{objSolicitud.fecha_registro}}</td>
+        <td><a >primero veamos si funciona</a></td>
+        <td><a href="" data-toggle="modal" data-target="#exampleModalCenter">
           Ver Información</a></td>
       </tr>
     </tbody>
   </table>
 
 </div>
--->
