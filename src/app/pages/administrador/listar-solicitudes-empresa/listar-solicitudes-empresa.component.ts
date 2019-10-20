@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { lstSolicitudes } from './Solicitud';
 import { Solicitud } from './Solicitud';
 import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
