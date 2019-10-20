@@ -53,7 +53,7 @@
         <td>{{objSolicitud.nombre}}</td>        
         <td>{{objSolicitud.fecha_registro}}</td>
         <td><a >{{getEstado(objSolicitud.estado)}}</a></td>
-        <td><a href="" data-toggle="modal" data-target="#exampleModalScrollableTitle" (click)="setSolicitudActual(objSolicitud)">
+        <td><a href="" data-toggle="modal" data-target="#exampleModalScrollableTitle" (click)="setSolicitudActual(objSolicitud.id)">
           Ver Información</a></td>
       </tr>
     </tbody>
@@ -82,7 +82,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">{{getEstadoBoton(solicitudSeleccionada)}}</button>
+          <button type="button" class="btn btn-primary" (click)="activarEmpresa()">{{getEstadoBoton(solicitudSeleccionada)}}</button>
         </div>
       </div>
     </div>

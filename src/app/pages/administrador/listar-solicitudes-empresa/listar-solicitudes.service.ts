@@ -22,9 +22,16 @@ export class ListarSolicitudesService {
                 catchError(this.handleError<Solicitud[]>('getSolicitudes', []))
             );
     }
-    activarSolicitud(parId: number): void {
-        
-    }
+    /** PUT: update the hero on the server */
+  activarEmpresa(parId: number): Observable<any> {
+      let peticion = {'estado': true}
+      let nuevarUrl=this.urlSolicitud.concat('/').concat(parId.toString());
+    return this.http.put(nuevarUrl, peticion, this.httpOptions).pipe(
+
+      catchError(this.handleError<any>('activarEmpresa'))
+    );
+  }
+
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {

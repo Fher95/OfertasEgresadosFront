@@ -38,8 +38,15 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     } else { return "Inactivo"; }
 
   }
-  setSolicitudActual(parSolicitud: Solicitud): void {
-    this.solicitudSeleccionada = parSolicitud;
+  setSolicitudActual(parId: number): void {
+    // tslint:disable-next-line: prefer-for-of
+    for (let index = 0; index < this.solicitudes.length; index++) {
+
+      if( this.solicitudes[index].id === parId) {
+        this.solicitudSeleccionada = this.solicitudes[index];
+      }
+
+    }    
   }
   getEstadoBoton(parSolicitud: Solicitud): string {
     let accion = "Pendiente";
@@ -49,5 +56,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       accion = "Desactivar";
     }
     return accion;
+  }
+  activarEmpresa(): void{
+    this.servicioLista.activarEmpresa(this.solicitudSeleccionada.id);
   }
 }
