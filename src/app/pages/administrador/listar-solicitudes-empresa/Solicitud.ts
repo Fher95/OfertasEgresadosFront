@@ -1,19 +1,19 @@
-class Solicitud {
-    nombre: string;
+export class Solicitud {
+
     id: number;
-    fecha: string;
+    nit: string;
+    nombre: string;
+    razon_social: string;
+    anio_creacion: number;
+    numero_empleados: number;
+    ingresos: number;
+    sitio_web: string;
+    id_direccion: number;
+    estado: boolean;
+    fecha_registro: string;
+    fecha_activacion: string;
+    total_publicaciones: number;
+    limite_publicaciones: number;
+    num_publicaciones_actuales: number;
 }
 
-export const lstSolicitudes: Solicitud[] = [
-    {nombre: 'primero', id: 1234, fecha: '2019-01-8'},
-    {nombre: 'segundo', id: 5678, fecha: '2019-02-9'},
-    {nombre: 'Tercero', id: 9101, fecha: '2019-03-10'},
-    {nombre: 'primero', id: 1234, fecha: '2019-04-11'},
-    {nombre: 'segundo', id: 5678, fecha: '2019-05-12'},
-    {nombre: 'Tercero', id: 9101, fecha: '2019-06-13'},
-    {nombre: 'primero', id: 1234, fecha: '2019-07-14'},
-    {nombre: 'segundo', id: 5678, fecha: '2019-08-15'},
-    {nombre: 'Tercero', id: 9101, fecha: '2019-09-16'},
-    {nombre: 'primero', id: 1234, fecha: '2019-10-17'},
-    {nombre: 'segundo', id: 5678, fecha: '2019-11-18'}
-];
