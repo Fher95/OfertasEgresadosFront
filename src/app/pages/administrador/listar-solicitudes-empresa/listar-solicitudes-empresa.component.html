@@ -53,7 +53,7 @@
         <td>{{objSolicitud.nombre}}</td>        
         <td>{{objSolicitud.fecha_registro}}</td>
         <td><a >{{getEstado(objSolicitud.estado)}}</a></td>
-        <td><a href="" data-toggle="modal" data-target="#exampleModalScrollableTitle">
+        <td><a href="" data-toggle="modal" data-target="#exampleModalScrollableTitle" (click)="setSolicitudActual(objSolicitud)">
           Ver Información</a></td>
       </tr>
     </tbody>
@@ -73,11 +73,16 @@
           </button>
         </div>
         <div class="modal-body">
-          ...
+          
+            <h4>Nombre: </h4> <p>{{solicitudSeleccionada.nombre}}</p>
+            <h4>NIT: </h4> <p>{{solicitudSeleccionada.nit}}</p>
+            <h4>Fecha de Solicitud: </h4> <p>{{solicitudSeleccionada.fecha_registro}}</p>
+            <h4>Estado: </h4> <p>{{getEstado(solicitudSeleccionada.estado)}}</p>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary">{{getEstadoBoton(solicitudSeleccionada)}}</button>
         </div>
       </div>
     </div>

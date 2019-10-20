@@ -14,7 +14,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   solicitudes: Solicitud[];
   displayedColumns: string[] = ['nombre', 'fecha', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
-  
+  solicitudSeleccionada: Solicitud;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private location: Location,
@@ -37,5 +37,17 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       return "En Espera";
     } else { return "Inactivo"; }
 
+  }
+  setSolicitudActual(parSolicitud: Solicitud): void {
+    this.solicitudSeleccionada = parSolicitud;
+  }
+  getEstadoBoton(parSolicitud: Solicitud): string {
+    let accion = "Pendiente";
+    if(!parSolicitud.estado){
+      accion = "Activar";
+    } else {
+      accion = "Desactivar";
+    }
+    return accion;
   }
 }
