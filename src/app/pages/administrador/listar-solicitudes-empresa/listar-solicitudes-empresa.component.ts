@@ -28,6 +28,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   getSolicitudes(): void {
     this.servicioLista.getSolicitudes()
-      .subscribe(solicitudes => this.solicitudes = solicitudes);
+      .subscribe(solicitudes => {this.solicitudes = solicitudes; console.log(this.solicitudes);});
+
   }
 }
