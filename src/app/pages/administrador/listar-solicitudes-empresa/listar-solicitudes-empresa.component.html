@@ -52,10 +52,37 @@
         <td>{{objSolicitud.nombre}}</td>
         <td>{{objSolicitud.fecha_registro}}</td>
         <td><a >{{getEstado(objSolicitud.estado)}}</a></td>
-        <td><a href="" data-toggle="modal" data-target="#exampleModalCenter">
+        <td><a href="" data-toggle="modal" data-target="#exampleModalScrollableTitle" (click)="setSolicitudActual(objSolicitud)">
           Ver Información</a></td>
       </tr>
     </tbody>
   </table>
 
 </div>
+
+
+<!--Modal-->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Información de la Empresa</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <h4>Nombre: </h4> <p>{{solicitudSeleccionada.nombre}}</p>
+            <h4>NIT: </h4> <p>{{solicitudSeleccionada.nit}}</p>
+            <h4>Fecha de Solicitud: </h4> <p>{{solicitudSeleccionada.fecha_registro}}</p>
+            <h4>Estado: </h4> <p>{{getEstado(solicitudSeleccionada.estado)}}</p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">{{getEstadoBoton(solicitudSeleccionada)}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
