@@ -31,4 +31,12 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       .subscribe(solicitudes => {this.solicitudes = solicitudes; console.log(this.solicitudes);});
 
   }
+  getEstado(parEstado: boolean): string {
+    if (parEstado) {
+      return "Activo";
+    } else if (parEstado===null){
+      return "En Espera";
+    } else { return "Inactivo"; }
+
+  }
 }
