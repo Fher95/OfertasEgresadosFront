@@ -3,6 +3,22 @@ export class Solicitud {
     id: number;
     fecha: string;
     estado: string;
+
+    "id": 0,
+    "nit": "100",
+    "nombre": "Big Company",
+    "razon_social": "Desarrollo",
+    "anio_creacion": 2010,
+    "numero_empleados": 10,
+    "ingresos": 10000000,
+    "sitio_web": "www.company.com",
+    "id_direccion": 0,
+    "estado": true,
+    "fecha_registro": "2019-10-19",
+    "fecha_activacion": null,
+    "total_publicaciones": 0,
+    "limite_publicaciones": 100,
+    "num_publicaciones_actuales": 0
 }
 
 export const lstSolicitudes: Solicitud[] = [
