@@ -5,6 +5,7 @@ import { PrincipalComponent } from './principal/principal.component';
 import { MaterialModule } from 'src/app/layout/material/material.module';
 
 
+
 @NgModule({
   declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent],
   imports: [
