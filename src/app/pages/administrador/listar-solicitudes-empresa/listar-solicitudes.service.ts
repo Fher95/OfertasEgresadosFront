@@ -23,7 +23,7 @@ export class ListarSolicitudesService {
                 catchError(this.handleError<Solicitud[]>('getSolicitudes', []))
             );
     }
-    
+
     getSolicitud(id: number): Observable<Solicitud> {
         const url = `${this.urlSolicitud}/${id}`;
         return this.http.get<Solicitud>(url).pipe(
