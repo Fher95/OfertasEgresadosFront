@@ -12,7 +12,7 @@ export class ListarSolicitudesService {
     httpOptions = {
         headers: new HttpHeaders({
           "Content-Type": "application/x-www-form-urlencoded",
-          "Authorization": localStorage.getItem("accessToken")
+          "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjAsImVtYWlsIjoianVhbkBhZG1pbi5jb20iLCJpZF9yb2wiOjAsImZpcnN0X25hbWUiOiJKdWFuIiwibGFzdF9uYW1lIjoiVmVsZXoiLCJpYXQiOjE1NzE1MzI2MjcsImV4cCI6MTU3MjEzNzQyN30.ggfsEewjLgzg9PNKf8a4onkpYVTbBS2FFeYbFDh2QXE"
         })
     };
 

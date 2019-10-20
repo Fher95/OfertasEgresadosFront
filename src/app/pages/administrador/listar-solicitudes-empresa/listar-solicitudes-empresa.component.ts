@@ -12,12 +12,12 @@ import { ListarSolicitudesService } from './listar-solicitudes.service';
 })
 export class ListarSolicitudesEmpresaComponent implements OnInit {
 
-  solicitudes = [];
+  solicitudes: Solicitud[];
   displayedColumns: string[] = ['nombre', 'fecha', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
   frase = 'Aqui va la frase';
   idSolicitudActual = -1;
-  varSolicitudActual: Solicitud;
+  varSolicitudActual: Solicitud = {nombre: 'primero', id: 1234, fecha: '2019-01-08', estado: 'En espera'};
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private location: Location,

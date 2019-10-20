@@ -2,20 +2,20 @@
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
-    
-  
+
+
       <!-- Nombre Column -->
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef> Nombre </th>
         <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
       </ng-container>
-  
+
       <!-- Fecha Column -->
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef> Fecha </th>
         <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
       </ng-container>
-  
+
       <!-- Estado Column -->
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
@@ -25,15 +25,15 @@
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalCenter" (click)="setSolicitudActual(element)">Ver Informacion</a></td>
         </ng-container>
-      
-  
+
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-  
+
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
-  
+
 
 
 <!-- Este codigo es la primera versión de la tabla, sin paginación pero con mejor diseño visual
@@ -45,14 +45,14 @@
         <th class="col-1">#</th>
         <th class="col-2">Nombre</th>
         <th class="col-2">Fecha Solicitud</th>
-        <th class="col-2">Estado</th>      
+        <th class="col-2">Estado</th>
         <th class="col-2">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let objSolicitud of solicitudes; let i = index ">
         <td>{{i+1}}</td>
-        <td>{{objSolicitud.nombre}}</td>        
+        <td>{{objSolicitud.nombre}}</td>
         <td>{{objSolicitud.fecha}}</td>
         <td><a >{{objSolicitud.estado}}</a></td>
         <td><a href="" data-toggle="modal" data-target="#exampleModalCenter" (click)="setSolicitudActual(objSolicitud)">
@@ -76,17 +76,16 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
         <h4>Nombre: </h4> <p>{{varSolicitudActual.nombre}}</p>
         <h4>NIT: </h4> <p>{{varSolicitudActual.id}}</p>
         <h4>Fecha de Solicitud: </h4> <p>{{varSolicitudActual.fecha}}</p>
         <h4>Estado: </h4> <p>{{varSolicitudActual.estado}}</p>
-      
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="ActivarDesactivar(varSolicitudActual.id)" data-dismiss="modal">  {{getEstadoBoton()}}  </button>        
+        <button type="button" class="btn btn-primary" (click)="ActivarDesactivar(varSolicitudActual.id)" data-dismiss="modal">  {{getEstadoBoton()}}  </button>
       </div>
     </div>
   </div>
 </div>
-
