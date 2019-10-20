@@ -38,10 +38,7 @@ import { InMemoryDataService }  from './in-memory-data.service';
     BrowserAnimationsModule,
     MaterialModule,
     PaginationModule.forRoot(),
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
