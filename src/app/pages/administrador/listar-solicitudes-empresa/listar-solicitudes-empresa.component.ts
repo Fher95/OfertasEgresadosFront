@@ -30,4 +30,12 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     this.servicioLista.getSolicitudes()
       .subscribe(solicitudes => this.solicitudes = solicitudes);
   }
+  getEstado(parEstado: boolean): string {
+    if (parEstado) {
+      return "Activo";
+    } else if (parEstado===null){
+      return "En Espera";
+    } else { return "Inactivo"; }
+
+  }
 }
