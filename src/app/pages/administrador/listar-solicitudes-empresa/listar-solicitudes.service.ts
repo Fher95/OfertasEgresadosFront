@@ -26,33 +26,7 @@ export class ListarSolicitudesService {
                 catchError(this.handleError<Solicitud[]>('getSolicitudes', []))
             );
     }
-
-    getSolicitud(id: number): Observable<Solicitud> {
-        const url = `${this.urlSolicitud}/${id}`;
-        return this.http.get<Solicitud>(url).pipe(
-            catchError(this.handleError<Solicitud>(`getSolicitud id=${id}`))
-        );
-    }
-
-    /** PUT: update the solicitud on the server */
-    updateSolicitud(objSolicitud: Solicitud): Observable<any> {
-        return this.http.put(this.urlSolicitud, objSolicitud, this.httpOptions).pipe(
-            catchError(this.handleError<any>('actualizarSolicitudes'))
-        );
-    }
-
-    activarSolicitud(parId: number): Observable<any>{
-        return this.http.put(this.urlSolicitud, parId, this.httpOptions).pipe(
-            catchError(this.handleError<any>('activarSolicitud'))
-        );
-    }
-
-    desactivarSolicitud(parId: number): Observable<any>{
-        return this.http.put(this.urlSolicitud, parId, this.httpOptions).pipe(
-            catchError(this.handleError<any>('desactivarSolicitud'))
-        );
-    }
-
+    
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             // TODO: send the error to remote logging infrastructure
