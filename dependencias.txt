@@ -1,0 +1,1 @@
+captcha: npm i ng-recaptcha --save
