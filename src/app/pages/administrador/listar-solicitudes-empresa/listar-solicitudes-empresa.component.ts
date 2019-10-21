@@ -15,6 +15,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'fecha', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
   solicitudSeleccionada: Solicitud;
+  palabra = "Hola";
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private location: Location,
@@ -40,7 +41,9 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   }
   setSolicitudActual(parSolicitud: Solicitud): void {
+
     this.solicitudSeleccionada = parSolicitud;
+    console.log(this.solicitudSeleccionada.nombre);
   }
   getEstadoBoton(parSolicitud: Solicitud): string {
     let accion = "Pendiente";
