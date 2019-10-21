@@ -7,6 +7,9 @@ import {
   MatCardModule,
   MatButtonToggleModule,
   MatListModule,
+  MatSelectModule,
+  MatExpansionModule,
+  MatIconModule,
   MatTableModule,
   MatPaginatorModule,
 
@@ -20,6 +23,9 @@ const MaterialComponents = [
   MatCardModule,
   MatButtonToggleModule,
   MatListModule,
+  MatSelectModule,
+  MatExpansionModule,
+  MatIconModule,
   MatTableModule,
   MatPaginatorModule
 ]

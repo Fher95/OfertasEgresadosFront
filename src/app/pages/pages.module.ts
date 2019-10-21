@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GeneralesService } from '../shared/servicios/generales.service';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [GeneralesService],
   imports: [
     CommonModule
   ],

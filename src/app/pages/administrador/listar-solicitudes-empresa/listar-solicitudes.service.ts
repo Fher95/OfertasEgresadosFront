@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Solicitud } from './Solicitud';
+import { lstSolicitudes } from './Solicitud';
 
 
 @Injectable({ providedIn: 'root' })
@@ -25,9 +26,28 @@ export class ListarSolicitudesService {
                 catchError(this.handleError<Solicitud[]>('getSolicitudes', []))
             );
     }
-    activarSolicitud(parId: number): void {
-
+    getSolicitudes2(): Solicitud[] {
+        return lstSolicitudes;
     }
+    /** PUT: update the hero on the server */
+    activarSolicitud(parId: number): Observable<any> {
+        const peticion = { estado: true };
+        const nuevarUrl = this.urlSolicitud.concat('/').concat(parId.toString());
+        return this.http.put(nuevarUrl, peticion, this.httpOptions).pipe(
+
+            catchError(this.handleError<any>('activarEmpresa'))
+        );
+    }
+    desactivarSolicitud(parId: number): Observable<any> {
+        const peticion = { estado: false };
+        const nuevarUrl = this.urlSolicitud.concat('/').concat(parId.toString());
+        return this.http.put(nuevarUrl, peticion, this.httpOptions).pipe(
+
+            catchError(this.handleError<any>('activarEmpresa'))
+        );
+    }
+
+
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             // TODO: send the error to remote logging infrastructure
