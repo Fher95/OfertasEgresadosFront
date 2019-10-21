@@ -28,7 +28,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudes = null;
-    this.getSolicitudes2();
+    this.getSolicitudes();
     if (isNull(this.solicitudes)) {
       this.arregloVacio = true;
     } else {
