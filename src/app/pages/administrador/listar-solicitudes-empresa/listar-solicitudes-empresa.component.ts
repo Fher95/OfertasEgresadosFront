@@ -18,6 +18,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
   solicitudSeleccionada = solicitudGenerica;
   arregloVacio = false;
+  auxiliar = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -27,11 +28,14 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudes = null;
-    this.getSolicitudes();
+    this.getSolicitudes2();
     if (isNull(this.solicitudes)) {
       this.arregloVacio = true;
     } else {
       this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
+    }
+    if(this.solicitudes===null){
+      this.auxiliar = true;
     }
     console.log(this.arregloVacio);
   }
