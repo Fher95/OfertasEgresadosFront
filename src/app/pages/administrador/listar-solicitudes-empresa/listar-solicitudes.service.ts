@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Solicitud } from './Solicitud';
+import { Solicitud, Activacion } from './Solicitud';
 import { lstSolicitudes } from './Solicitud';
-
 
 @Injectable({ providedIn: 'root' })
 export class ListarSolicitudesService {
@@ -15,7 +14,7 @@ export class ListarSolicitudesService {
           // "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjAsImVtYWlsIjoianVhbkBhZG1pbi5jb20iLCJpZF9yb2wiOjAsImZpcnN0X25hbWUiOiJKdWFuIiwibGFzdF9uYW1lIjoiVmVsZXoiLCJpYXQiOjE1NzE1MzI2MjcsImV4cCI6MTU3MjEzNzQyN30.ggfsEewjLgzg9PNKf8a4onkpYVTbBS2FFeYbFDh2QXE"
         })
     };
-
+    objActivacion: Activacion;
     constructor(
         private http: HttpClient
     ) { }
@@ -31,17 +30,21 @@ export class ListarSolicitudesService {
     }
     /** PUT: update the hero on the server */
     activarSolicitud(parId: number): Observable<any> {
-        const peticion = { estado: true };
+        
+        this.objActivacion = {estado:true};
         const nuevarUrl = this.urlSolicitud.concat('/').concat(parId.toString());
-        return this.http.put(nuevarUrl, peticion, this.httpOptions).pipe(
+        console.log(nuevarUrl);
+        return this.http.put(nuevarUrl, this.objActivacion, this.httpOptions).pipe(
 
             catchError(this.handleError<any>('activarEmpresa'))
         );
     }
     desactivarSolicitud(parId: number): Observable<any> {
-        const peticion = { estado: false };
+                
+        this.objActivacion = {estado:false};
         const nuevarUrl = this.urlSolicitud.concat('/').concat(parId.toString());
-        return this.http.put(nuevarUrl, peticion, this.httpOptions).pipe(
+        console.log(nuevarUrl);
+        return this.http.put(nuevarUrl, this.objActivacion, this.httpOptions).pipe(
 
             catchError(this.handleError<any>('activarEmpresa'))
         );
