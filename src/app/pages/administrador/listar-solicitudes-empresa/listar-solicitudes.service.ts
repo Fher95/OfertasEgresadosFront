@@ -12,6 +12,7 @@ export class ListarSolicitudesService {
     httpOptions = {
         headers: new HttpHeaders({
           "Content-Type": "application/x-www-form-urlencoded",
+          // "Content-Type": "application/json",
           // "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjAsImVtYWlsIjoianVhbkBhZG1pbi5jb20iLCJpZF9yb2wiOjAsImZpcnN0X25hbWUiOiJKdWFuIiwibGFzdF9uYW1lIjoiVmVsZXoiLCJpYXQiOjE1NzE1MzI2MjcsImV4cCI6MTU3MjEzNzQyN30.ggfsEewjLgzg9PNKf8a4onkpYVTbBS2FFeYbFDh2QXE"
         })
     };
@@ -31,16 +32,17 @@ export class ListarSolicitudesService {
     }
     /** PUT: update the hero on the server */
     activarSolicitud(parId: number): Observable<any> {
-        const peticion = { estado: true };
-        const nuevarUrl = this.urlSolicitud.concat('/').concat(parId.toString());
+        const peticion = 'json={ "estado": ' + true + ' }';
+        console.log(peticion);
+        const nuevarUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
         return this.http.put(nuevarUrl, peticion, this.httpOptions).pipe(
 
             catchError(this.handleError<any>('activarEmpresa'))
         );
     }
     desactivarSolicitud(parId: number): Observable<any> {
-        const peticion = { estado: false };
-        const nuevarUrl = this.urlSolicitud.concat('/').concat(parId.toString());
+        const peticion = 'json={ "estado": "' + false + '" }';
+        const nuevarUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
         return this.http.put(nuevarUrl, peticion, this.httpOptions).pipe(
 
             catchError(this.handleError<any>('activarEmpresa'))

@@ -86,6 +86,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       } else if (parSolicitud.estado) {
         this.servicioLista.desactivarSolicitud(parSolicitud.id);
       }
+
     }
   }
 
