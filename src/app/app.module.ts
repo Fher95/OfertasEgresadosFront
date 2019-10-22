@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.component';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './layout/material/material.module';
 import { RegistrarComponent } from './pages/empresa/registrar/registrar.component';
@@ -17,6 +17,9 @@ import { PrincipalComponent } from './pages/administrador/principal/principal.co
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { VerificarModule } from './pages/administrador/egresados/verificar/verificar.module';
+import { PagesModule } from './pages/pages.module';
+import { VerificarRoutingModule } from './pages/administrador/egresados/verificar/verificar-routing.module';
 
 
 
@@ -28,13 +31,13 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
     RegistrarComponent,
     HeaderComponent,
     NavbarHomeOfertasComponent,
-    PrincipalComponent,
-    ListarSolicitudesEmpresaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    VerificarRoutingModule,
     FormsModule,
+    PagesModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
