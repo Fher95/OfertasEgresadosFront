@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GeneralesService } from './servicios/generales.service';
+import { EmpresaService } from './servicios/empresa/empresa.service';
 
 @NgModule({
   declarations: [],
@@ -13,6 +14,7 @@ import { GeneralesService } from './servicios/generales.service';
   ],
   exports: [
     GeneralesService,
+    EmpresaService,
   ]
 })
 export class SharedModule { }

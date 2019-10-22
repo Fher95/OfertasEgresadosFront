@@ -10,9 +10,11 @@
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-        <mat-horizontal-stepper [linear]="isLinear" #stepper>
-            <mat-step [stepControl]="primerFormReg" label="Cuenta">
-                <form [formGroup]="primerFormReg">
+        <form id="registro" [formGroup]="formRegistroEmp">
+            <mat-horizontal-stepper #stepper>
+                <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
+                <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
+                    label="Cuenta">
                     <div class="Subtitulos-card">
                         <p class="text-center">Cree su cuenta</p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -31,30 +33,29 @@
                         <mat-icon matSuffix (click)="contOculto = !contOculto">
                             {{contOculto ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </mat-form-field>
-                    <div class="row justify-content-center">
+                    <!--<div class="row justify-content-center">
                         <div class="col-12 justify-content-center">
                             <captcha width="200" height="70" (generateCode)="onGenerateCode($event)"></captcha>
                         </div>
                         <div class="col-12 justify-content-center">
                             <mat-form-field [style.fontSize.px]="10" floatLabel="auto" appearance="outline">
                                 <mat-label>Ingrese el codigo de la imagen</mat-label>
-                                <input formControlName="captchaDigitado" matInput required name="captcha">
+                                <input formControlName="captchaDigitado" matInput required name="captcha" id="capt">
                             </mat-form-field>
                         </div>
                         <div class="col-12 justify-content-center">
                             <button (click)="verify()">Verificar</button>
                         </div>
-                    </div>
+                    </div>-->
                     <!--<re-captcha (resolved)="resolved($event)" siteKey="YOUR_SITE_KEY"></re-captcha>-->
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
+                        <button id="1" type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
-                </form>
-            </mat-step>
+                </mat-step>
 
-            <mat-step [stepControl]="segundoFormReg" label="Datos de empresa">
-                <form [formGroup]="segundoFormReg">
+                <mat-step formGroupName="datos-generales-empresa"
+                    [stepControl]="formRegistroEmp.get('datos-generales-empresa')" label="Datos de empresa">
                     <div class="Subtitulos-card">
                         <p class="text-center">Cuentenos un poco sobre su empresa</p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -75,7 +76,19 @@
                         </mat-form-field>
                     </div>
                     <div class="row">
-                        <mat-form-field floatLabel="auto" appearance="outline">
+                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                            <mat-label>Año de creacion</mat-label>
+                            <input matInput maxlength="15" type="number" formControlName="anioCreacion" required>
+                        </mat-form-field>
+                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                            <mat-label>Numero de empleados</mat-label>
+                            <input matInput maxlength="15" type="number" formControlName="numEmpleados" required>
+                        </mat-form-field>
+                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                            <mat-label>Ingresos de la empresa</mat-label>
+                            <input matInput maxlength="15" type="number" formControlName="ingresosEmp" required>
+                        </mat-form-field>
+                        <!--<mat-form-field floatLabel="auto" appearance="outline">
                             <mat-select formControlName="anioCreacion" placeholder="Año de creacion">
                                 <mat-option *ngFor="let anio of anios" [value]="anio">{{anio}}</mat-option>
                             </mat-select>
@@ -104,7 +117,7 @@
                                 <mat-option value="option">Más de 100.000.000</mat-option>
                             </mat-select>
                             <mat-label>Ingresos de la empresa</mat-label>
-                        </mat-form-field>
+                        </mat-form-field>-->
                     </div>
                     <div class="row">
                         <mat-form-field floatLabel="auto" class="full-width" appearance="outline">
@@ -114,47 +127,66 @@
                     </div>
                     <div class="botonesStepper">
                         <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <!--<button (click)="mostrar()" type="button" mat-raised-button color="primary"
+                            matStepperNext>Guardar y
+                            Continuar</button>-->
                         <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="tercerFormReg" label="Areas">
-                <form [formGroup]="tercerFormReg">
+                </mat-step>
+
+                <mat-step formGroupName="sectores" [stepControl]="formRegistroEmp.get('sectores')" label="Sectores">
                     <div>
                         <p class="text-center">Seleccione los datos de su interés</p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
-                    <!--Acordeon que contiene la lista desplegable-->
-                    <div class="example-container">
-                        <mat-accordion>
-                            <!--Lista desplegable-->
-                            <mat-expansion-panel *ngFor="let areaInteresEmp of areasInteresEmpresa">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        {{ areaInteresEmp.Nombre }}
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                <!--Contenido-->
-                                <mat-selection-list formControlName="areas" #areas dense required>
-                                    <mat-list-option *ngFor="let subArea of areaInteresEmp.subAreas">
-                                        {{subArea}}
-                                    </mat-list-option>
-                                </mat-selection-list>
-                                <!--Fin contenido-->
-                            </mat-expansion-panel>
-                            <!--Lista desplegable-->
-                        </mat-accordion>
+                    <div class="row">
+                        <div class="col-6 example-container">
+                            <!--Acordeon que contiene la lista desplegable-->
+                            <mat-accordion>
+                                <!--Lista desplegable-->
+                                <mat-expansion-panel *ngFor="let sector of sectoresInteresEmpresa">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{ sector.Nombre }}
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!--Contenido-->
+                                    <!--<mat-selection-list formControlName="sectores" #sectores dense required>
+                                        <mat-list-option *ngFor="let subSector of sector.subSector">
+                                            {{subSector}}
+                                        </mat-list-option>
+                                    </mat-selection-list>-->
+                                    <mat-list-item dense *ngFor="let subSector of sector.subSectores">
+
+                                        <button mat-icon-button (click)="seleccionarSubSector(sector, subSector)">
+                                            {{ subSector.nombre }}<mat-icon matListIcon>add</mat-icon>
+                                        </button>
+                                    </mat-list-item>
+                                    <!--Fin contenido-->
+                                </mat-expansion-panel>
+                                <!--Fin Lista desplegable-->
+                            </mat-accordion>
+                        </div>
+                        <div class="col-6 example-container">
+                            <mat-nav-list>
+                                <mat-list-item *ngFor="let subSector of subSecEscogidos">
+                                    <button mat-icon-button
+                                        (click)="eliminarSubSectorEscogido(subSector)">{{ subSector.nombre }}<mat-icon
+                                            matListIcon>close</mat-icon></button>
+                                </mat-list-item>
+                            </mat-nav-list>
+                        </div>
                     </div>
                     <div class="botonesStepper">
                         <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button type="button" mat-raised-button (click)="prueba()" color="primary" matStepperNext>Guardar y
+                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="cuartoFormReg" label="Localizacion">
-                <form [formGroup]="cuartoFormReg">
+                </mat-step>
+
+                <mat-step formGroupName="loc-contact-empresa" [stepControl]="formRegistroEmp.get('loc-contact-empresa')"
+                    label="Localizacion">
                     <div class="Subtitulos-card">
                         <p class="text-center">Necesitamos localizar su empresa</p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -165,8 +197,8 @@
                     <div class="row">
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>País</mat-label>
-                            <mat-select formControlName="paisEmp" [(value)]="paisSeleccionado"
-                                (selectionChange)="cargarDepartamentosEmp($event.value, formControlName)">
+                            <mat-select formControlName="paisEmp"
+                                (selectionChange)="cargarDepartamentosEmp($event.value)">
                                 <mat-option *ngFor="let pais of paises" [value]="pais.id">
                                     {{pais.name}}
                                 </mat-option>
@@ -184,7 +216,7 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Ciudad</mat-label>
                             <mat-select formControlName="ciudadEmp">
-                                <mat-option *ngFor="let ciudad of ciudadesEmp" [value]="ciudad.name">
+                                <mat-option *ngFor="let ciudad of ciudadesEmp" [value]="ciudad.id">
                                     {{ciudad.name}}
                                 </mat-option>
                             </mat-select>
@@ -226,12 +258,10 @@
                         <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
-                </form>
-            </mat-step>
+                </mat-step>
 
-            <mat-step [stepControl]="quintoFormReg" label="Datos de contacto">
-
-                <form [formGroup]="quintoFormReg">
+                <mat-step formGroupName="datos-resp" [stepControl]="formRegistroEmp.get('datos-resp')"
+                    label="Datos de contacto">
                     <div class="Subtitulos-card">
                         <p class="text-center">Algunos datos personales</p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -261,7 +291,7 @@
                             <mat-label>País</mat-label>
                             <mat-select formControlName="paisResp" [(value)]="paisSeleccionadoResp"
                                 (selectionChange)="cargarDepartamentosResp($event.value, representante)">
-                                <mat-option *ngFor="let pais of paises" [value]="pais.id">
+                                <mat-option *ngFor="let pais of paises" [value]="pais.name">
                                     {{pais.name}}
                                 </mat-option>
                             </mat-select>
@@ -270,7 +300,7 @@
                             <mat-label>Departamento</mat-label>
                             <mat-select formControlName="departamentoResp"
                                 (selectionChange)="cargarCiudadesResp($event.value, representante)">
-                                <mat-option *ngFor="let departamento of departamentosResp" [value]="departamento.id">
+                                <mat-option *ngFor="let departamento of departamentosResp" [value]="departamento.name">
                                     {{departamento.name}}
                                 </mat-option>
                             </mat-select>
@@ -322,12 +352,13 @@
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button [disabled]="!quintoFormReg.valid" mat-raised-button
-                            (click)="registrarEmpresa(quintoFormReg)" color="primary">Finalizar</button>
+                        <button [disabled]="!formRegistroEmp.valid" type="button" mat-raised-button color="primary"
+                            matStepperPrevious>Atras</button>
+                        <button mat-raised-button (click)="registrarEmpresa(formRegistroEmp)"
+                            color="primary">Finalizar</button>
                     </div>
-                </form>
-            </mat-step>
-        </mat-horizontal-stepper>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </form>
     </mat-card-content>
 </mat-card>
