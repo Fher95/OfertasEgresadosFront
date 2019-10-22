@@ -1,89 +1,114 @@
+
 <h2>Solicitudes de aprobación:</h2>
-<!--
-<div class="mat-elevation-z8">
+<div *ngIf="!auxiliar">
+    <h3 class="text-centered"> Cargando Solicitudes... </h3>
+</div>
+<h3 *ngIf="arregloVacio" class="text-centered"> No se encontraron solicitudes </h3>
+<div  *ngIf="!arregloVacio" class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef> Nombre </th>
         <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
       </ng-container>
-  
-      
+
+
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef> Fecha </th>
         <td mat-cell *matCellDef="let element"> {{element.fecha_registro}} </td>
       </ng-container>
-  
-      
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element"> Primero veamos si funciona </td>
+        <td mat-cell *matCellDef="let element"> {{getEstado(element.estado)}} </td>
       </ng-container>
       <ng-container matColumnDef="acciones" >
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
-          <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalCenter" >Ver Informacion</a></td>
+          <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalScrollable" (click)="setSolicitudActual(element.id)">
+            Ver Informacion</a></td>
         </ng-container>
-      
-  
+
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-  
+
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
-  
--->
 
 
+<!--
 <h2>Solicitudes de aprobación:</h2>
-<div class="table-responsive rounded shadow">
-  <table class="table table-striped table-sm text-center">
-    <thead class="thead-dark">
-      <tr>
-        <th class="col-1">#</th>
-        <th class="col-2">Nombre</th>
-        <th class="col-2">Fecha Solicitud</th>
-        <th class="col-2">Estado</th>      
-        <th class="col-2">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let objSolicitud of solicitudes; let i = index ">
-        <td>{{i+1}}</td>
-        <td>{{objSolicitud.nombre}}</td>        
-        <td>{{objSolicitud.fecha_registro}}</td>
-        <td><a >{{getEstado(objSolicitud.estado)}}</a></td>
-        <td><a href="" data-toggle="modal" data-target="#exampleModalScrollableTitle" (click)="setSolicitudActual(objSolicitud.id)">
-          Ver Información</a></td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="!auxiliar">
+    <h3 class="text-centered"> Cargando Solicitudes... </h3>
+</div>
+<div>
+  <h3 *ngIf="arregloVacio" class="text-centered"> No se encontraron solicitudes </h3>
+  <div *ngIf="!arregloVacio" class="table-responsive rounded shadow mt-3">
 
+    <table class="table table-striped table-sm text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th class="col-1">#</th>
+          <th class="col-2">Nombre</th>
+          <th class="col-2">Fecha Solicitud</th>
+          <th class="col-2">Estado</th>
+          <th class="col-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let objSolicitud of solicitudes; let i = index ">
+          <td>{{i+1}}</td>
+          <td>{{objSolicitud.nombre}}</td>
+          <td>{{objSolicitud.fecha_registro}}</td>
+          <td><a>{{getEstado(objSolicitud.estado)}}</a></td>
+          <td><a href="" data-toggle="modal" data-target="#exampleModalScrollable"
+              (click)="setSolicitudActual(objSolicitud.id)">
+              Ver Información</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
-<!--Modal-->
-<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalScrollableTitle">Información de la Empresa</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          
-            <h4>Nombre: </h4> <p>{{solicitudSeleccionada.nombre}}</p>
-            <h4>NIT: </h4> <p>{{solicitudSeleccionada.nit}}</p>
-            <h4>Fecha de Solicitud: </h4> <p>{{solicitudSeleccionada.fecha_registro}}</p>
-            <h4>Estado: </h4> <p>{{getEstado(solicitudSeleccionada.estado)}}</p>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="activarEmpresa()">{{getEstadoBoton(solicitudSeleccionada)}}</button>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Informacion De La Empresa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <strong>Nombre de la empresa: </strong> <a>{{this.solicitudSeleccionada.nombre}}</a>
+        <p></p>
+        <strong>NIT: </strong> <a>{{this.solicitudSeleccionada.nit}}</a>
+        <p></p>
+        <strong>Año de creación: </strong> <a>{{this.solicitudSeleccionada.anio_creacion}}</a>
+        <p></p>
+        <strong>Razon social: </strong> <a>{{this.solicitudSeleccionada.razon_social}}</a>
+        <p></p>
+        <strong>Sitio Web: </strong> <a
+          href={{this.solicitudSeleccionada.sitio_web}}>{{this.solicitudSeleccionada.sitio_web}}</a>
+        <p></p>
+        <strong>Numero de empleados: </strong> <a>{{this.solicitudSeleccionada.numero_empleados}}</a>
+        <p></p>
+        <strong>Fecha de registro: </strong> <a>{{this.solicitudSeleccionada.fecha_registro}}</a>
+        <p></p>
+        <strong>Estado: </strong> <a>{{getEstado(this.solicitudSeleccionada.estado)}}</a>
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary"
+        (click)="activarDesactivarEmpresa(solicitudSeleccionada)"
+          data-dismiss="modal">{{getEstadoBoton(solicitudSeleccionada)}}</button>
       </div>
     </div>
   </div>
+</div>

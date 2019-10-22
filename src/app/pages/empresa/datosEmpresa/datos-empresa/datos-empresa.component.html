@@ -1,0 +1,110 @@
+<app-header></app-header>
+<app-navbar-home-ofertas></app-navbar-home-ofertas>
+<div class="container-fluid p-4">
+    <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()">
+        <h2>Datos</h2>  
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="nit" class="col-sm-3 col-form-label">Nit</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="nit" readonly>
+                </div>
+            </div>
+            <div class="form-group row col-md-6">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="inputEmail3" placeholder="example@gmail.com" required>
+                </div>
+              </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="nombre" required>
+                </div>
+            </div>
+            <div class="form-group row col-md-6">
+                <label for="razonSocial" class="col-sm-3 col-form-label">Razon Social</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="razonSocial" readonly>
+                </div>
+              </div>
+        </div>    
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="anoCreacion" class="col-sm-3 col-form-label">Año creacion</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="anoCreacion" readonly>
+                </div>
+            </div>
+        </div>
+        <h2>Localidad</h2>  
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="pais" class="col-sm-3 col-form-label">Pais</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="pais" readonly>
+                </div>
+            </div>
+            <div class="form-group row col-md-6">
+                <label for="departamento" class="col-sm-3 col-form-label">Departamento</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="departamento" readonly>
+                </div>
+              </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="ciudad" class="col-sm-3 col-form-label">Ciudad</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="ciudad" readonly>
+                </div>
+            </div>
+            <div class="form-group row col-md-6">
+                <label for="localidad" class="col-sm-3 col-form-label">Localidad</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="localidad">
+                </div>
+              </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="codigoPostal" class="col-sm-3 col-form-label">Codigo postal</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="codigoPostal" required>
+                </div>
+            </div>
+            <div class="form-group row col-md-6">
+                <label for="direccion" class="col-sm-3 col-form-label">Direccion</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="direccion" required>
+                </div>
+              </div>
+        </div>
+        <h2>Información empresa</h2>  
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="empleados" class="col-sm-3 col-form-label">Numero empleados</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="empleados" required>
+                </div>
+            </div>
+            <div class="form-group row col-md-6">
+                <label for="ingresos" class="col-sm-3 col-form-label">Ingresos</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="ingresos" required>
+                </div>
+              </div>
+        </div> 
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="descripcion" class="col-sm-3 col-form-label">Descripcion</label>
+                <div class="col-sm-8">
+                  <textarea  class="form-control" id="descripcion" rows="3" ></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="submit"  class="btn btn-primary" [disabled]="!empresaForm.valid">Submit</button>
+      </form>
+</div>

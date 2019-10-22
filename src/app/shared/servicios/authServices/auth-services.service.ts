@@ -12,12 +12,13 @@ export class AuthServicesService {
 
   constructor(private http: HttpClient) { }
   headers: HttpHeaders = new HttpHeaders({
-    "Content-Type": "application/json"
+    "Content-Type": "application/x-www-form-urlencoded"
   });
 
   loginUser ( email: string, password: string): Observable<any>{
-    const url_api = 'htttp://localhost:8081/api/login'
-    return this.http.post<authInterface>(url_api,{email,password},{headers: this.headers})
+    const url_api = 'http://localhost:8081/api/login'
+    let params = 'json={"email": "'+ email + '", "password": "'+ password+'"}';
+    return this.http.post<authInterface>(url_api, params, {headers: this.headers})
     .pipe(map(data => data));
   }
   setUser(user : authInterface ){
@@ -43,9 +44,18 @@ export class AuthServicesService {
       return null;
     }
   }
+  getDatos(): Observable<any>{
+      let user = this.getCurrentUser()
+      const url_api = 'htttp://localhost:8081/api/login'
+      const params ='json={"email": "' + user.email + '", "password": "'+ user.password + '","getToken":"true"}';
+      return this.http.post(url_api,params,{headers: this.headers})
+      .pipe(map(data => data));
+    }
+    
+  
 
   logout(){
-    
+
   }
 
 }
