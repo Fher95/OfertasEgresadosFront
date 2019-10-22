@@ -16,7 +16,9 @@ export class Solicitud {
     limite_publicaciones: number;
     num_publicaciones_actuales: number;
 }
-
+export class Activacion {
+    estado: boolean;
+}
 export const lstSolicitudes: Solicitud[] = [
     {
         nombre: 'primero', id: 1231, fecha_registro: '2019-01-8', estado: null, razon_social: 'Cualquiera',

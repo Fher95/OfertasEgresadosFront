@@ -41,15 +41,21 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
         this.dataSource.paginator = this.paginator;
 
-        if (this.solicitudes.length == 0  || isNull(this.solicitudes)) {
+        if (this.solicitudes.length == 0 || isNull(this.solicitudes)) {
           this.arregloVacio = true;
         }
       });
   }
 
   getSolicitudes2(): void {
-    this.solicitudes = this.servicioLista.getSolicitudes2();
-
+    this.solicitudes = this.servicioLista.getSolicitudes2()
+    this.auxiliar = true;
+    this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
+    this.dataSource.paginator = this.paginator;
+    if (this.solicitudes.length == 0 || isNull(this.solicitudes)) {
+      this.arregloVacio = true;
+    }
+    this.dataSource.paginator = this.paginator;
   }
 
   getEstado(parEstado: boolean): string {
@@ -80,6 +86,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }
 
   activarDesactivarEmpresa(parSolicitud: Solicitud): void {
+    console.log("Enviando peticion!!!!!");
     if (parSolicitud != null) {
       if (parSolicitud.estado === null) {
         this.servicioLista.activarSolicitud(parSolicitud.id);
