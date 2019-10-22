@@ -19,6 +19,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   solicitudSeleccionada = solicitudGenerica;
   arregloVacio = false;
+  auxiliar = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -29,18 +30,21 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   ngOnInit() {
     this.solicitudes = null;
     this.getSolicitudes();
-    if (isNull(this.solicitudes)) {
-      this.arregloVacio = true;
-    } else {
-      this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
-    }
-    console.log(this.arregloVacio);
   }
 
   getSolicitudes(): void {
     this.servicioLista.getSolicitudes()
-      .subscribe(solicitudes => {this.solicitudes = solicitudes; console.log(this.solicitudes);});
+      .subscribe(solicitudes => {
+        this.solicitudes = solicitudes;
+        this.auxiliar = true;
 
+        this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
+        this.dataSource.paginator = this.paginator;
+
+        if (this.solicitudes.length == 0  || isNull(this.solicitudes)) {
+          this.arregloVacio = true;
+        }
+      });
   }
 
   getSolicitudes2(): void {
