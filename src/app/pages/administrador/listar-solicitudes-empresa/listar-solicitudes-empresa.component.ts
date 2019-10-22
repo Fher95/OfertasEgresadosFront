@@ -79,7 +79,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     return accion;
   }
 
-  activarEmpresa(parSolicitud: Solicitud): void {
+  activarDesactivarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null) {
       if (parSolicitud.estado === null) {
         this.servicioLista.activarSolicitud(parSolicitud.id);
