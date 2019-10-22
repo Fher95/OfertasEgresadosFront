@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralesService } from '../shared/servicios/generales.service';
+import { AdministradorModule } from './administrador/administrador.module';
+import { VerificarRoutingModule } from './administrador/egresados/verificar/verificar-routing.module';
 
 
 @NgModule({
-  declarations: [GeneralesService],
+  declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    VerificarRoutingModule
   ],
-  exports: []
+  exports: [AdministradorModule]
 })
 export class PagesModule { }
