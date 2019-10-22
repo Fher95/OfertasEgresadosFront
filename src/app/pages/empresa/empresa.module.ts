@@ -6,9 +6,10 @@ import { NavbarHomeOfertasComponent } from 'src/app/layout/navbar-home-ofertas/n
 import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormsModule } from "@angular/forms";
+import { DatosEmpresaComponent } from './datosEmpresa/datos-empresa/datos-empresa.component';
 
 @NgModule({
-  declarations: [RegistrarComponent],
+  declarations: [RegistrarComponent, DatosEmpresaComponent],
   imports: [
     CommonModule,
     MaterialModule,

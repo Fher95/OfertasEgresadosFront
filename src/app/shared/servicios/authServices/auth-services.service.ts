@@ -44,6 +44,15 @@ export class AuthServicesService {
       return null;
     }
   }
+  getDatos(): Observable<any>{
+      let user = this.getCurrentUser()
+      const url_api = 'htttp://localhost:8081/api/login'
+      const params ='json={"email": "' + user.email + '", "password": "'+ user.password + '","getToken":"true"}';
+      return this.http.post(url_api,params,{headers: this.headers})
+      .pipe(map(data => data));
+    }
+    
+  
 
   logout(){
 
