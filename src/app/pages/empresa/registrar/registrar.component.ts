@@ -75,7 +75,7 @@ export class RegistrarComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         usuario: ['', Validators.required],
         contrasenia: ['', Validators.required],
-        captchaDigitado: ['', [Validators.required]]
+        captchaDigitado: ['']
       }),
       'datos-generales-empresa': this.formBuilder.group({
         NIT: ['', [Validators.required, Validators.minLength(8)]],
@@ -83,11 +83,11 @@ export class RegistrarComponent implements OnInit {
         nombreEmpresa: ['', Validators.required],
         anioCreacion: ['', Validators.required],
         numEmpleados: ['', Validators.required],
-        ingresosEmp: ['', Validators.required],
+        ingresosEmp: [''],
         descripcionEmpresa: ['', Validators.required]
       }),
       'sectores': this.formBuilder.group({
-        sectores: ['', Validators.required],
+        sectores: [''],
       }),
       'loc-contact-empresa': this.formBuilder.group({
         paisEmp: ['', [Validators.required]],
@@ -95,10 +95,10 @@ export class RegistrarComponent implements OnInit {
         ciudadEmp: ['', Validators.required],
         direccionEmp: ['', Validators.required],
         barrioEmp: ['', Validators.required],
-        codigoPostalEmp: ['', Validators.required],
+        codigoPostalEmp: [''],
         telefonoEmp: ['', Validators.required],
-        emailEmp: ['', [Validators.required, Validators.email]],
-        sitioWebEmp: ['', Validators.required]
+        emailEmp: ['', [Validators.email]],
+        sitioWebEmp: ['']
       }),
       'datos-resp': this.formBuilder.group({
         nombreResp: ['', Validators.required],
@@ -109,11 +109,11 @@ export class RegistrarComponent implements OnInit {
         ciudadResp: ['', Validators.required],
         barrioResp: ['', Validators.required],
         direccionResp: ['', Validators.required],
-        codigoPostalResp: ['', Validators.required],
-        telefonoResp: ['', Validators.required],
+        codigoPostalResp: [''],
+        telefonoResp: [''],
         telefonoMovilResp: ['', Validators.required],
-        horarioContacto: ['', Validators.required],
-        faxResp: ['', Validators.required],
+        horarioContacto: [''],
+        faxResp: [''],
         emailCorpResp: ['', [Validators.required, Validators.email]]
       })
     });
@@ -194,8 +194,11 @@ export class RegistrarComponent implements OnInit {
   }
 
   registrarEmpresa(formulario) {
-    console.log(formulario);
-    console.log(this.empService.registrarUsuario(formulario.value));
+    console.log('formulario', formulario);
+    this.empService.registrarUsuario(formulario.value).toPromise().then(data=>{
+      console.log(data);
+    });
+    console.log('salio del reg')
   }
 
   eliminarSubSectorEscogido(subSector: ISubSector){
@@ -223,5 +226,4 @@ export class RegistrarComponent implements OnInit {
     console.log(this.subSecEscogidos);
     this.subSecEscogidos.push(subSector);
   }
-
 }
