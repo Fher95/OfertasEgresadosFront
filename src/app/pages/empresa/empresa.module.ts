@@ -8,9 +8,10 @@ import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormsModule } from "@angular/forms";
 import { DatosEmpresaComponent } from './datosEmpresa/datos-empresa/datos-empresa.component';
 import { DialogFinalRegistroComponent } from './dialog-final-registro/dialog-final-registro.component';
+import { HistorialOfertasComponent } from './historial-ofertas/historial-ofertas.component';
 
 @NgModule({
-  declarations: [RegistrarComponent, DatosEmpresaComponent, DialogFinalRegistroComponent],
+  declarations: [RegistrarComponent, DatosEmpresaComponent, DialogFinalRegistroComponent, HistorialOfertasComponent],
   imports: [
     CommonModule,
     MaterialModule,
