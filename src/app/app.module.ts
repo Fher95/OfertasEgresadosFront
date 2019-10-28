@@ -34,9 +34,9 @@ import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-regis
     PrincipalComponent,
     ListarSolicitudesEmpresaComponent,
     DatosEmpresaComponent,
-    EditarEmpresaComponent
-    
-    DialogFinalRegistroComponent
+    EditarEmpresaComponent,
+
+    DialogFinalRegistroComponent,
   ],
   entryComponents: [DialogFinalRegistroComponent],
   imports: [

@@ -17,21 +17,21 @@ export class DatosEmpresaComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, private router: Router) { }
 
-  
+
 
   modificarDatos() {
     this.router.navigate(['/editarEmpresa', JSON.stringify(this.data)]);
-  } 
+  }
 
- 
- 
 
-  ngOnInit() {   
+
+
+  ngOnInit() {
     this.empresaService.getDatos()
     .subscribe(data => {
       console.log(data);
       // obtener la data y pasarla al form
-      this.formRegistroEmp = this.formBuilder.group({
+    /*  this.formRegistroEmp = this.formBuilder.group({
         'datos-cuenta': this.formBuilder.group({
           email: [{value: data.datosCuenta.email, disabled:true} ],
           usuario: [{value: data.datosCuenta.usuario, disabled:true}],
@@ -81,10 +81,10 @@ export class DatosEmpresaComponent implements OnInit {
           faxResp: [{value: data.datosRespCuentaEmpresa.faxResp, disabled:true}],
           emailCorpResp: [{value: data.datosRespCuentaEmpresa.emailCorpResp, disabled:true}]
         })
-      });
+      });*/
     }),
-    error => console.log(error)   
-   /* this.formRegistroEmp = this.formBuilder.group({
+    error => console.log(error)
+    this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: this.data, disabled:true} ],
         usuario: [{value: this.data, disabled:true}],
@@ -135,9 +135,9 @@ export class DatosEmpresaComponent implements OnInit {
         emailCorpResp: [{value: this.data, disabled:true}]
       })
     });
-    */
+    
   }
 
-  
-  
+
+
 }
