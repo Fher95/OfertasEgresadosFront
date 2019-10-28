@@ -27,7 +27,7 @@ export class NavbarHomeOfertasComponent implements OnInit {
     .subscribe(data => {
       console.log(data)
       this.authService.setUser(data.user)
-      this.authService.setToken(data.email)
+      this.authService.setToken(data)
       this.router.navigate(['/datosEmpresa'])
     }),
     error => console.log(error)

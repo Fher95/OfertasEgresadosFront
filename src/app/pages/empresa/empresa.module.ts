@@ -7,9 +7,10 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormsModule } from "@angular/forms";
 import { DatosEmpresaComponent } from './datosEmpresa/datos-empresa/datos-empresa.component';
+import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.component';
 
 @NgModule({
-  declarations: [RegistrarComponent, DatosEmpresaComponent],
+  declarations: [RegistrarComponent, DatosEmpresaComponent, EditarEmpresaComponent],
   imports: [
     CommonModule,
     MaterialModule,

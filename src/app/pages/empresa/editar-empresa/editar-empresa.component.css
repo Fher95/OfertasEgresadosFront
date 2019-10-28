@@ -1,0 +1,44 @@
+mat-form-field{
+    margin-right: 20px;
+    margin-left: 0px;
+}
+
+.carta-registro{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-right: 10%;
+    margin-left: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+
+.Subtitulos-card{
+    margin-bottom: 5%;
+}
+
+.botonesStepper{
+    text-align: end;
+}
+
+.botonesStepper button,
+.botonesStepper a {
+  margin-right: 8px;
+}
+
+.full-width {
+  width: 100%;
+}
+.cartaCuenta{
+  margin-right: 20%;
+  margin-left: 20%;
+}
+.mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: 0 0px 20px rgba(0,0,0,0.19),
+    0 6px 6px rgba(0,0,0,0.23);
+  
+  }

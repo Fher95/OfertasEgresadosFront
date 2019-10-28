@@ -16,9 +16,10 @@ import { CaptchaModule } from 'ng-captcha';
 import { PrincipalComponent } from './pages/administrador/principal/principal.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
-
+import { MatGridListModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
 
 
 
@@ -31,7 +32,9 @@ import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empres
     NavbarHomeOfertasComponent,
     PrincipalComponent,
     ListarSolicitudesEmpresaComponent,
-    DatosEmpresaComponent
+    DatosEmpresaComponent,
+    EditarEmpresaComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -47,8 +50,11 @@ import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empres
     FormsModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
+    MatGridListModule,
+    MatDialogModule ,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
