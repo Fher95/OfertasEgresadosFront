@@ -36,6 +36,8 @@ export class EditarEmpresaComponent implements OnInit {
 
   ngOnInit() {
     console.log(JSON.parse(this.activatedRoute.snapshot.paramMap.get('data')));
+    this.empService.getDatos()
+
     this.formEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: ['', [Validators.required, Validators.email]],
@@ -89,8 +91,8 @@ export class EditarEmpresaComponent implements OnInit {
       })
     });
     this.cargarPaises();
-    this.cargarAnios(); 
-  }  
+    this.cargarAnios();
+  }
   cargarPaises() {
     this.servGenerales.obtenerListaPaises().subscribe(resultado => {
       this.paises = resultado.countries;
@@ -194,5 +196,5 @@ export class EditarEmpresaComponent implements OnInit {
     console.log(this.subSecEscogidos);
     this.subSecEscogidos.push(subSector);
   }
-  
+
 }
