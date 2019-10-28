@@ -47,7 +47,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       });
   }
 
-  getSolicitudes2(): void {
+  /*getSolicitudes2(): void {
     this.solicitudes = this.servicioLista.getSolicitudes2()
     this.auxiliar = true;
     this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
@@ -56,36 +56,39 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       this.arregloVacio = true;
     }
     this.dataSource.paginator = this.paginator;
-  }
+  }*/
 
-  getEstado(parEstado: boolean): string {
-    if (parEstado === null) {
+  getEstado(parEstado: string): string {
+    /*if (parEstado === null) {
       return 'En Espera';
     } else if (parEstado) {
       return 'Activo';
-    } else { return 'Inactivo'; }
+    } else { return 'Inactivo'; }*/
+    return parEstado;
   }
 
   setSolicitudActual(parId: number): void {
+    console.log('parID: '+parId);
     for (let index = 0; index < this.solicitudes.length; index++) {
-      if (this.solicitudes[index].id === parId) {
+      if (this.solicitudes[index].id_aut_empresa === parId) {
         this.solicitudSeleccionada = this.solicitudes[index];
       }
     }
     console.log(this.solicitudSeleccionada);
   }
 
-  getEstadoBoton(parSolicitud: Solicitud): string {
+  /*getEstadoBoton(parSolicitud: Solicitud): string {
     let accion = 'Pendiente';
+    console.log(parSolicitud.estado);
     if (!parSolicitud.estado) {
       accion = 'Activar';
     } else {
       accion = 'Desactivar';
     }
     return accion;
-  }
+  }*/
 
-  activarDesactivarEmpresa(parSolicitud: Solicitud): void {
+  /*activarDesactivarEmpresa(parSolicitud: Solicitud): void {
     console.log("Enviando peticion!!!!!");
     if (parSolicitud != null) {
       if (parSolicitud.estado === null) {
@@ -93,6 +96,26 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       } else if (parSolicitud.estado) {
         this.servicioLista.desactivarSolicitud(parSolicitud.id);
       }
+    }
+  }*/
+
+  activarEmpresa(parSolicitud: Solicitud): void {
+    if (parSolicitud != null){
+      this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa)
+        .subscribe(result => {
+          console.log(result);
+          this.getSolicitudes();
+        });
+    }
+  }
+  desactivarEmpresa(parSolicitud: Solicitud): void {
+    if (parSolicitud != null){
+      console.log(parSolicitud);
+      this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
+        .subscribe(result => {
+          console.log(result);
+          this.getSolicitudes();
+        });
     }
   }
 

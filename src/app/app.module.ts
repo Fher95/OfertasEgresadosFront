@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
 
 
+import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-em
     DatosEmpresaComponent,
     EditarEmpresaComponent
     
+    DialogFinalRegistroComponent
   ],
+  entryComponents: [DialogFinalRegistroComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

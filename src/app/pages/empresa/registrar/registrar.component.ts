@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
-import { FormGroup, Validators, FormBuilder, AbstractControl, FormArray } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ISubSector, ISector } from '../../../shared/interfaces/subSector'
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
+import { MatDialog } from '@angular/material';
+import { DialogFinalRegistroComponent } from '../dialog-final-registro/dialog-final-registro.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar',
@@ -47,16 +50,15 @@ export class RegistrarComponent implements OnInit {
     { "Nombre": "Vehiculos y Partes", "subSector": ["Academia Automovilística", "Carrocerías, Partes y Piezas", "Comercialización de Partes", "Concesionarios", "Emsambladoras de Vehículos", "Importadores de Vehículos", "Talleres"] }
   ];*/
   sectoresInteresEmpresa: ISector[] = [
-    { "Nombre": "Estatal y Relacionados", "subSectores": [{"idSector":0, "nombre": "Medio ambiente"}, {"idSector":1, "nombre": "Minas y Energia"}] },
-    { "Nombre": "Alimentos", "subSectores": [ {"idSector":1, "nombre": "Azúcar"}] }
+    { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
+    { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
   ];
+  debouncer: any;
   subSecEscogidos: ISubSector[] = [];
   anios: any[] = [];
   paises: Object;
-  departamentosEmp: Object;
-  ciudadesEmp: Object;
-  departamentosResp: Object;
-  ciudadesResp: Object;
+  departamentos: Object;
+  ciudades: Object;
   code: string;
   formRegistroEmp: FormGroup;
   isLinear = true;
@@ -65,19 +67,18 @@ export class RegistrarComponent implements OnInit {
     private servGenerales: GeneralesService,
     private formBuilder: FormBuilder,
     private empService: EmpresaService,
+    private matDialog: MatDialog,
+    private router: Router,
   ) {
-
-  }
-
-  ngOnInit() {
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
+        //email: ['', [Validators.required, Validators.email, this.validarExistenciaEmail.bind(this)]],
         email: ['', [Validators.required, Validators.email]],
-        usuario: ['', Validators.required],
         contrasenia: ['', Validators.required],
         captchaDigitado: ['']
       }),
       'datos-generales-empresa': this.formBuilder.group({
+        //NIT: ['', [Validators.required, Validators.minLength(8), this.validarExistenciaNIT.bind(this)]],
         NIT: ['', [Validators.required, Validators.minLength(8)]],
         razonSocial: ['', Validators.required],
         nombreEmpresa: ['', Validators.required],
@@ -87,12 +88,15 @@ export class RegistrarComponent implements OnInit {
         descripcionEmpresa: ['', Validators.required]
       }),
       'sectores': this.formBuilder.group({
-        sectores: [''],
+        sectores: [[], [Validators.required, this.sectorValidator]],
       }),
       'loc-contact-empresa': this.formBuilder.group({
-        paisEmp: ['', [Validators.required]],
+        /*paisEmp: ['', [Validators.required]],
         departamentoEmp: ['', Validators.required],
-        ciudadEmp: ['', Validators.required],
+        ciudadEmp: ['', Validators.required],*/
+        paisEmp: [''],
+        departamentoEmp: [''],
+        ciudadEmp: [''],
         direccionEmp: ['', Validators.required],
         barrioEmp: ['', Validators.required],
         codigoPostalEmp: [''],
@@ -101,22 +105,23 @@ export class RegistrarComponent implements OnInit {
         sitioWebEmp: ['']
       }),
       'datos-resp': this.formBuilder.group({
+        nombrereplegal: ['', Validators.required],
+        apellidoreplegal: ['', Validators.required],
+        telefonoreplegal: [''],
+        telefonoMovilreplegal: ['', Validators.required],
         nombreResp: ['', Validators.required],
         apellidoResp: ['', Validators.required],
-        cargo: ['', Validators.required], //se recibe de la base de datos
-        paisResp: ['', Validators.required],
-        departamentoResp: ['', Validators.required],
-        ciudadResp: ['', Validators.required],
-        barrioResp: ['', Validators.required],
-        direccionResp: ['', Validators.required],
-        codigoPostalResp: [''],
+        cargoResp: ['', Validators.required], //se recibe de la base de datos
         telefonoResp: [''],
         telefonoMovilResp: ['', Validators.required],
-        horarioContacto: [''],
-        faxResp: [''],
+        horarioContactoResp: [''],
+        direccionTrabajoResp: ['', Validators.required],
         emailCorpResp: ['', [Validators.required, Validators.email]]
       })
     });
+  }
+
+  ngOnInit() {
     this.cargarPaises();
     this.cargarAnios();
   }
@@ -130,37 +135,20 @@ export class RegistrarComponent implements OnInit {
       });
   }
 
-  cargarDepartamentosEmp(evento: string) {
+  cargarDepartamentos(evento: string) {
     console.log(evento);
-    this.servGenerales.obtenerListaDepartamentos().subscribe(resultado => {
-      this.departamentosEmp = resultado.states.filter(item => item.country_id == evento);
+    this.servGenerales.obtenerListaDepartamentos(evento).subscribe(resultado => {
+      this.departamentos = resultado.states.filter(item => item.country_id == evento);
     },
       error => {
         console.log("Error al obtener los deprtamentos: ", JSON.stringify(error));
       });
   }
 
-  cargarCiudadesEmp(evento: string) {
-    this.servGenerales.obtenerListaCiudades().subscribe(resultado => {
-      this.ciudadesEmp = resultado.cities.filter(item => item.state_id == evento);
-    },
-      error => {
-        console.log("Error al obtener las ciudades: ", JSON.stringify(error));
-      });
-  }
-
-  cargarDepartamentosResp(evento: string) {
-    this.servGenerales.obtenerListaDepartamentos().subscribe(resultado => {
-      this.departamentosResp = resultado.states.filter(item => item.country_id == evento);
-    },
-      error => {
-        console.log("Error al obtener los deprtamentos: ", JSON.stringify(error));
-      });
-  }
-
-  cargarCiudadesResp(evento: string) {
-    this.servGenerales.obtenerListaCiudades().subscribe(resultado => {
-      this.ciudadesResp = resultado.cities.filter(item => item.state_id == evento);
+  cargarCiudades(evento: string) {
+    //Llama al servicio general de peticiones http
+    this.servGenerales.obtenerListaCiudades(evento).subscribe(resultado => {
+      this.ciudades = resultado.cities.filter(item => item.state_id == evento);
     },
       error => {
         console.log("Error al obtener las ciudades: ", JSON.stringify(error));
@@ -168,10 +156,20 @@ export class RegistrarComponent implements OnInit {
   }
 
   cargarAnios() {
+    //Toma el año actual
     let anio = new Date().getFullYear();
+    //Empieza a llenar los años desde 1990 hasta el año actual
     for (let i = anio; i >= 1900; i--) {
       this.anios.push(i);
     }
+  }
+  cargarSectoresInteres(){
+    this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
+      this.sectoresInteresEmpresa = resultado;
+    },
+      error => {
+        console.log("Error al obtener los Sectores: ", JSON.stringify(error));
+      });
   }
 
   resolved(captchaResponse: string) {
@@ -195,35 +193,98 @@ export class RegistrarComponent implements OnInit {
 
   registrarEmpresa(formulario) {
     console.log('formulario', formulario);
-    this.empService.registrarUsuario(formulario.value).toPromise().then(data=>{
+    //Llama al servicio de peticiones http para registro
+    this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
+      //Si la peticion esta bien
       console.log(data);
-    });
-    console.log('salio del reg')
+      this.openDialog();
+    },
+      error => {
+        //Si la peticion tiene algun error
+        alert("Error en la peticion al servidor, por favor intentelo de nuevo");
+        console.log(error);
+      });
   }
 
-  eliminarSubSectorEscogido(subSector: ISubSector){
-    const posSubSector = this.subSecEscogidos.indexOf(subSector);
-    this.subSecEscogidos.splice(posSubSector,1);
+  eliminarSubSectorEscogido(subSector: ISubSector) {
+    //Se busca en la lista de escogidos
+    let posSubSector = this.subSecEscogidos.indexOf(subSector);
+    //Se elimina en la lista de escogidos
+    this.subSecEscogidos.splice(posSubSector, 1);
+    //Se busca en la lista general
+    posSubSector = this.sectoresInteresEmpresa[subSector.idSector].subSectores.indexOf(subSector);
+    //Se devuelve a la lista general
     this.sectoresInteresEmpresa[subSector.idSector].subSectores.push(subSector);
+    //Se iguala nuevamente el valor del formControl
+    this.formRegistroEmp.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
   }
 
-  /*Busca la posicion del sector al que pertenece un subsector */
-  buscarPosicionSectorParaSubSector(subSector: ISubSector) {
-    let posicionSector;
-    for (let i = 0; i < this.sectoresInteresEmpresa.length; i++) {
-      posicionSector = this.sectoresInteresEmpresa[i].subSectores.indexOf(subSector);
-      if(posicionSector != 1){
-        break;
-      }
-    }
-    return posicionSector;
-  }
-
-  seleccionarSubSector(sector: ISector, subSector: ISubSector){
+  seleccionarSubSector(sector: ISector, subSector: ISubSector) {
+    //Se busca la posicion del sector en la lista de sectores general
     const posSector = this.sectoresInteresEmpresa.indexOf(sector);
+    //Se busca la posicion del subSector en la lista de general
     const posSubSector = this.sectoresInteresEmpresa[posSector].subSectores.indexOf(subSector);
-    this.sectoresInteresEmpresa[posSector].subSectores.splice(posSubSector,1);
-    console.log(this.subSecEscogidos);
+    //se elimina en sector de la lista general
+    this.sectoresInteresEmpresa[posSector].subSectores.splice(posSubSector, 1);
+    //Se el subsector a la lista de escogidos
     this.subSecEscogidos.push(subSector);
+    //Se actualiza el valor del formControl
+    this.formRegistroEmp.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
+  }
+
+  sectorValidator(control: FormControl) {
+    let lista = control.value;
+    //Si la lista esta vacia se invalida
+    if (lista.length != 0) {
+      return true;
+    }
+    //En caso contrario se deja pasar
+    return null;
+  }
+
+  validarExistenciaEmail(control: FormControl): any {
+
+    clearTimeout(this.debouncer);
+
+    return new Promise(resolve => {
+
+      this.debouncer = setTimeout(() => {
+
+        this.servGenerales.validarEmail(control.value).subscribe((res) => {
+          if (res !== control.value) {
+            resolve(null);
+          }
+        }, (err) => {
+          resolve({ 'EmailExiste': true });
+        });
+
+      }, 1000);
+    });
+  }
+  validarExistenciaNIT(control: FormControl): any {
+
+    clearTimeout(this.debouncer);
+
+    return new Promise(resolve => {
+
+      this.debouncer = setTimeout(() => {
+
+        this.servGenerales.validarNIT(control.value).subscribe((res) => {
+          if (res !== control.value) {
+            resolve(null);
+          }
+        }, (err) => {
+          resolve({ 'NITExiste': true });
+        });
+
+      }, 1000);
+    });
+  }
+
+  openDialog() {
+    const dialogRef = this.matDialog.open(DialogFinalRegistroComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(['/']);
+    });
   }
 }
