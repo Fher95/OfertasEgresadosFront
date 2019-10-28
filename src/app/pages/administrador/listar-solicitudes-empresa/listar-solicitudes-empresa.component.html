@@ -23,7 +23,7 @@
       </ng-container>
       <ng-container matColumnDef="acciones" >
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
-          <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalScrollable" (click)="setSolicitudActual(element.id)">
+          <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalScrollable" (click)="setSolicitudActual(element.id_aut_empresa)">
             Ver Informacion</a></td>
         </ng-container>
 
@@ -106,8 +106,11 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary"
-        (click)="activarDesactivarEmpresa(solicitudSeleccionada)"
-          data-dismiss="modal">{{getEstadoBoton(solicitudSeleccionada)}}</button>
+        (click)="activarEmpresa(solicitudSeleccionada)"
+          data-dismiss="modal">Activar</button>
+        <button type="button" class="btn btn-primary"
+        (click)="desactivarEmpresa(solicitudSeleccionada)"
+          data-dismiss="modal">Rechazar</button>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Solicitud, Activacion } from './Solicitud';
-import { lstSolicitudes } from './Solicitud';
+// import { lstSolicitudes } from './Solicitud';
 
 @Injectable({ providedIn: 'root' })
 export class ListarSolicitudesService {
@@ -21,30 +21,32 @@ export class ListarSolicitudesService {
     ) { }
 
     getSolicitudes(): Observable<Solicitud[]> {
-        return this.http.get<Solicitud[]>(this.urlSolicitud, this.httpOptions)
+        const urlSol = 'http://localhost:8081/api/empresa/enEspera';
+        return this.http.get<Solicitud[]>(urlSol, this.httpOptions)
             .pipe(
                 catchError(this.handleError<Solicitud[]>('getSolicitudes', []))
             );
     }
-    getSolicitudes2(): Solicitud[] {
+    /*getSolicitudes2(): Solicitud[] {
         return lstSolicitudes;
-    }
+    }*/
     /** PUT: update the hero on the server */
     activarSolicitud(parId: number): Observable<any> {
-        this.objActivacion = {estado : true};
-        const nuevarUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
-        console.log(nuevarUrl);
-        return this.http.put(nuevarUrl, this.objActivacion, this.httpOptions).pipe(
+        let json =  JSON.stringify({ estado : 'Activo' });
+        let params = "json="+json;
+        const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
+        return this.http.put(nuevaUrl, params, this.httpOptions).pipe(
 
             catchError(this.handleError<any>('activarEmpresa'))
         );
     }
     desactivarSolicitud(parId: number): Observable<any> {
 
-        this.objActivacion =  {estado : true};
-        const nuevarUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
-        console.log(nuevarUrl);
-        return this.http.put(nuevarUrl, this.objActivacion, this.httpOptions).pipe(
+        let json =  JSON.stringify({ estado : 'Inactivo' });
+        let params = "json="+json;
+        console.log(params);
+        const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
+        return this.http.put(nuevaUrl, params, this.httpOptions).pipe(
 
             catchError(this.handleError<any>('activarEmpresa'))
         );
