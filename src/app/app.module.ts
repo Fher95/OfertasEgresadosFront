@@ -16,8 +16,12 @@ import { CaptchaModule } from 'ng-captcha';
 import { PrincipalComponent } from './pages/administrador/principal/principal.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
+import { MatGridListModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
+
+
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 
 @NgModule({
@@ -30,7 +34,9 @@ import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-regis
     PrincipalComponent,
     ListarSolicitudesEmpresaComponent,
     DatosEmpresaComponent,
-    DialogFinalRegistroComponent
+    EditarEmpresaComponent,
+
+    DialogFinalRegistroComponent,
   ],
   entryComponents: [DialogFinalRegistroComponent],
   imports: [
@@ -47,8 +53,11 @@ import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-regis
     FormsModule,
     ReactiveFormsModule,
     PaginationModule.forRoot(),
+    MatGridListModule,
+    MatDialogModule ,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
