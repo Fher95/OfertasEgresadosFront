@@ -101,7 +101,7 @@ export class EditarEmpresaComponent implements OnInit {
   }
   cargarDepartamentosEmp(evento: string) {
     console.log(evento);
-    this.servGenerales.obtenerListaDepartamentos().subscribe(resultado => {
+    this.servGenerales.obtenerListaDepartamentos(evento).subscribe(resultado => {
       this.departamentosEmp = resultado.states.filter(item => item.country_id == evento);
     },
       error => {
@@ -109,7 +109,7 @@ export class EditarEmpresaComponent implements OnInit {
       });
   }
   cargarCiudadesEmp(evento: string) {
-    this.servGenerales.obtenerListaCiudades().subscribe(resultado => {
+    this.servGenerales.obtenerListaCiudades(evento).subscribe(resultado => {
       this.ciudadesEmp = resultado.cities.filter(item => item.state_id == evento);
     },
       error => {
@@ -117,7 +117,7 @@ export class EditarEmpresaComponent implements OnInit {
       });
   }
   cargarDepartamentosResp(evento: string) {
-    this.servGenerales.obtenerListaDepartamentos().subscribe(resultado => {
+    this.servGenerales.obtenerListaDepartamentos(evento).subscribe(resultado => {
       this.departamentosResp = resultado.states.filter(item => item.country_id == evento);
     },
       error => {
@@ -125,7 +125,7 @@ export class EditarEmpresaComponent implements OnInit {
       });
   }
   cargarCiudadesResp(evento: string) {
-    this.servGenerales.obtenerListaCiudades().subscribe(resultado => {
+    this.servGenerales.obtenerListaCiudades(evento).subscribe(resultado => {
       this.ciudadesResp = resultado.cities.filter(item => item.state_id == evento);
     },
       error => {
