@@ -3,222 +3,294 @@
 
 <mat-card class="carta-registro">
 
-    <mat-card-header>
-        <mat-card-title>
-            Necesitamos algunos datos de su empresa
-        </mat-card-title>
+    <mat-card-header class="headerCartaRegistro">
+        <!--<mat-card-title>
+            Registre su empresa
+        </mat-card-title>-->
+        <mat-toolbar color="primary">
+            <span>Necesitamos algunos datos de su empresa</span>
+        </mat-toolbar>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-        <mat-horizontal-stepper [linear]="isLinear" #stepper>
-            <mat-step [stepControl]="primerFormReg" label="Cuenta">
-                <form [formGroup]="primerFormReg">
+        <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
+
+                <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
+                    label="Cuenta">
                     <div class="Subtitulos-card">
-                        <p class="text-center">Cree su cuenta</p>
+                        <p class="text-center"><b>Cree su cuenta</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
-                    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input formControlName="email" matInput required>
-                    </mat-form-field>
-                    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                        <mat-label>Usuario</mat-label>
-                        <input formControlName="usuario" matInput required>
-                    </mat-form-field>
-                    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                        <mat-label>Contraseña</mat-label>
-                        <input formControlName="contrasenia" matInput [type]="contOculto ? 'password' : 'text'">
-                        <mat-icon matSuffix (click)="contOculto = !contOculto">
-                            {{contOculto ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </mat-form-field>
-                    <div class="row justify-content-center">
+                    <div class="cartaCuenta">
+                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input formControlName="email" matInput required>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.required">campo
+                                requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.hasError('EmailExiste')">
+                                Usted ya posee una cuenta</mat-error>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.email">Digite
+                                un correo valido. ej: ejemplo@gmail.com</mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input formControlName="contrasenia" matInput [type]="contOculto ? 'password' : 'text'"
+                                required>
+
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.required">
+                                campo
+                                requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!--<div class="row justify-content-center">
                         <div class="col-12 justify-content-center">
                             <captcha width="200" height="70" (generateCode)="onGenerateCode($event)"></captcha>
                         </div>
                         <div class="col-12 justify-content-center">
                             <mat-form-field [style.fontSize.px]="10" floatLabel="auto" appearance="outline">
                                 <mat-label>Ingrese el codigo de la imagen</mat-label>
-                                <input formControlName="captchaDigitado" matInput required name="captcha">
+                                <input formControlName="captchaDigitado" matInput required name="captcha" id="capt">
                             </mat-form-field>
                         </div>
                         <div class="col-12 justify-content-center">
                             <button (click)="verify()">Verificar</button>
                         </div>
-                    </div>
+                    </div>-->
                     <!--<re-captcha (resolved)="resolved($event)" siteKey="YOUR_SITE_KEY"></re-captcha>-->
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
+                        <button id="1" type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
-                </form>
-            </mat-step>
+                </mat-step>
 
-            <mat-step [stepControl]="segundoFormReg" label="Datos de empresa">
-                <form [formGroup]="segundoFormReg">
-                    <div class="Subtitulos-card">
-                        <p class="text-center">Cuentenos un poco sobre su empresa</p>
+                <mat-step formGroupName="datos-generales-empresa"
+                    [stepControl]="formRegistroEmp.get('datos-generales-empresa')" label="Datos de empresa">
+                    <div class="container">
+                        <div class="Subtitulos-card">
+                            <p class="text-center"><b>Cuentenos un poco sobre su empresa</b></p>
+                            <mat-divider [inset]="true"></mat-divider>
+                        </div>
+                        <div class="row centrarContenidoRow">
+                            <mat-form-field floatLabel="auto" appearance="outline" hintLabel="entre 8-15 caracteres">
+                                <mat-label>NIT</mat-label>
+                                <input type="number" formControlName="NIT" matInput #input maxlength="15" required>
+                                <mat-hint align="end">{{input.value?.length || 0}}/15</mat-hint>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.NIT.errors?.required">
+                                    campo requerido</mat-error>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.NIT.hasError('NITExiste')">
+                                    NIT ya registrado</mat-error>
+                            </mat-form-field>
+                            <mat-form-field floatLabel="auto" appearance="outline">
+                                <mat-label>Razon Social</mat-label>
+                                <input formControlName="razonSocial" matInput required>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.razonSocial.errors?.required">
+                                    campo requerido</mat-error>
+                            </mat-form-field>
+                            <mat-form-field floatLabel="auto" appearance="outline">
+                                <mat-label>Nombre Empresa</mat-label>
+                                <input formControlName="nombreEmpresa" matInput required>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.nombreEmpresa.errors?.required">
+                                    campo requerido</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="row centrarContenidoRow">
+                            <mat-form-field floatLabel="auto" appearance="outline">
+                                <mat-select formControlName="anioCreacion" required>
+                                    <mat-option *ngFor="let anio of anios" value="{{anio}}">{{anio}}</mat-option>
+                                </mat-select>
+                                <mat-label>Año de creacion</mat-label>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.anioCreacion.errors?.required">
+                                    campo requerido</mat-error>
+                            </mat-form-field>
+                            <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
+                                <mat-select formControlName="numEmpleados">
+                                    <mat-option value="1-10">1-10</mat-option>
+                                    <mat-option value="11-50">11-50</mat-option>
+                                    <mat-option value="51-150">51-150</mat-option>
+                                    <mat-option value="151-300">151-300</mat-option>
+                                    <mat-option value="301-500">301-500</mat-option>
+                                    <mat-option value="501-1000">501-1000</mat-option>
+                                    <mat-option value="1001-5000">1001-5000</mat-option>
+                                    <mat-option value="Mas de 5000">Más de 5000</mat-option>
+                                </mat-select>
+                                <mat-label>Numero de empleados</mat-label>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
+                                    campo requerido</mat-error>
+                            </mat-form-field>
+                            <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
+                                <mat-select formControlName="ingresosEmp">
+                                    <mat-option value="0-3.000.000">0-3.000.000</mat-option>
+                                    <mat-option value="3.000.000-10.000.000">3.000.000-10.000.000</mat-option>
+                                    <mat-option value="10.000.000-25.000.000">10.000.000-25.000.000</mat-option>
+                                    <mat-option value="25.000.000-50.000.000">25.000.000-50.000.000</mat-option>
+                                    <mat-option value="50.000.000-100.000.000">50.000.000-100.000.000</mat-option>
+                                    <mat-option value="Más de 100.000.000">Más de 100.000.000</mat-option>
+                                </mat-select>
+                                <mat-label>Ingresos de la empresa</mat-label>
+                            </mat-form-field>
+                        </div>
+                        <div class="row centrarContenidoRow">
+                            <div class="col-9 no-padding">
+                                <mat-form-field floatLabel="auto" class="full-width" appearance="outline">
+                                    <textarea matInput formControlName="descripcionEmpresa" required></textarea>
+                                    <mat-error
+                                        *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.descripcionEmpresa.errors?.required">
+                                        campo requerido</mat-error>
+                                    <mat-label>Descripción de la empresa</mat-label>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="botonesStepper">
+                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <!--<button (click)="mostrar()" type="button" mat-raised-button color="primary"
+                            matStepperNext>Guardar y
+                            Continuar</button>-->
+                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
+                            Continuar</button>
+                    </div>
+                </mat-step>
+
+                <mat-step formGroupName="sectores" [stepControl]="formRegistroEmp.get('sectores')" label="Sectores">
+                    <div>
+                        <p class="text-center"><b>Seleccione los datos de su interés</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
                     <div class="row">
-                        <mat-form-field floatLabel="auto" appearance="outline" hintLabel="8-15 caracteres">
-                            <mat-label>NIT</mat-label>
-                            <input formControlName="NIT" matInput #input maxlength="15" required>
-                            <mat-hint align="end">{{input.value?.length || 0}}/15</mat-hint>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Razon Social</mat-label>
-                            <input formControlName="razonSocial" matInput required>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Nombre Empresa</mat-label>
-                            <input formControlName="nombreEmpresa" matInput required>
-                        </mat-form-field>
-                    </div>
-                    <div class="row">
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-select formControlName="anioCreacion" placeholder="Año de creacion">
-                                <mat-option *ngFor="let anio of anios" [value]="anio">{{anio}}</mat-option>
-                            </mat-select>
-                            <mat-label>Año de creacion</mat-label>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-select formControlName="numEmpleados">
-                                <mat-option value="option">1-10</mat-option>
-                                <mat-option value="option">11-50</mat-option>
-                                <mat-option value="option">51-150</mat-option>
-                                <mat-option value="option">151-300</mat-option>
-                                <mat-option value="option">301-500</mat-option>
-                                <mat-option value="option">501-1000</mat-option>
-                                <mat-option value="option">1001-5000</mat-option>
-                                <mat-option value="option">más de 5000</mat-option>
-                            </mat-select>
-                            <mat-label>Numero de empleados</mat-label>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-select formControlName="ingresosEmp">
-                                <mat-option value="option">0-3.000.000</mat-option>
-                                <mat-option value="option">3.000.000-10.000.000</mat-option>
-                                <mat-option value="option">10.000.000-25.000.000</mat-option>
-                                <mat-option value="option">25.000.000-50.000.000</mat-option>
-                                <mat-option value="option">50.000.000-100.000.000</mat-option>
-                                <mat-option value="option">Más de 100.000.000</mat-option>
-                            </mat-select>
-                            <mat-label>Ingresos de la empresa</mat-label>
-                        </mat-form-field>
-                    </div>
-                    <div class="row">
-                        <mat-form-field floatLabel="auto" class="full-width" appearance="outline">
-                            <textarea matInput formControlName="descripcionEmpresa"
-                                placeholder="Descripcion de la empresa"></textarea>
-                        </mat-form-field>
+                        <div class="col-6 example-container">
+                            <!--Acordeon que contiene la lista desplegable-->
+                            <mat-accordion>
+                                <!--Lista desplegable-->
+                                <mat-expansion-panel *ngFor="let sector of sectoresInteresEmpresa">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            {{ sector.Nombre }}
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!--Contenido-->
+                                    <mat-action-list dense *ngFor="let subSector of sector.subSectores">
+                                        <button type="button" mat-list-item value="{{subSector.nombre}}"
+                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.nombre }}
+                                            <mat-icon matListIcon>add</mat-icon>
+                                        </button>
+                                    </mat-action-list>
+                                    <!--Fin contenido-->
+                                </mat-expansion-panel>
+                                <!--Fin Lista desplegable-->
+                            </mat-accordion>
+                        </div>
+                        <div class="col-6 example-container">
+                            <mat-error *ngIf="formRegistroEmp.get('sectores').controls.sectores.errors?.required">
+                                *Seleccione sus areas de interés</mat-error>
+                            <mat-nav-list>
+                                <mat-list-item *ngFor="let subSector of subSecEscogidos">
+                                    <button type="button" mat-icon-button
+                                        (click)="eliminarSubSectorEscogido(subSector)">{{ subSector.nombre }}<mat-icon
+                                            matListIcon>close</mat-icon></button>
+                                </mat-list-item>
+                            </mat-nav-list>
+                        </div>
                     </div>
                     <div class="botonesStepper">
                         <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
                         <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="tercerFormReg" label="Areas">
-                <form [formGroup]="tercerFormReg">
-                    <div>
-                        <p class="text-center">Seleccione los datos de su interés</p>
-                        <mat-divider [inset]="true"></mat-divider>
-                    </div>
-                    <!--Acordeon que contiene la lista desplegable-->
-                    <div class="example-container">
-                        <mat-accordion>
-                            <!--Lista desplegable-->
-                            <mat-expansion-panel *ngFor="let areaInteresEmp of areasInteresEmpresa">
-                                <mat-expansion-panel-header>
-                                    <mat-panel-title>
-                                        {{ areaInteresEmp.Nombre }}
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                <!--Contenido-->
-                                <mat-selection-list formControlName="areas" #areas dense required>
-                                    <mat-list-option *ngFor="let subArea of areaInteresEmp.subAreas">
-                                        {{subArea}}
-                                    </mat-list-option>
-                                </mat-selection-list>
-                                <!--Fin contenido-->
-                            </mat-expansion-panel>
-                            <!--Lista desplegable-->
-                        </mat-accordion>
-                    </div>
-                    <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button type="button" mat-raised-button (click)="prueba()" color="primary" matStepperNext>Guardar y
-                            Continuar</button>
-                    </div>
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="cuartoFormReg" label="Localizacion">
-                <form [formGroup]="cuartoFormReg">
+                </mat-step>
+
+                <mat-step formGroupName="loc-contact-empresa" [stepControl]="formRegistroEmp.get('loc-contact-empresa')"
+                    label="Localizacion">
                     <div class="Subtitulos-card">
-                        <p class="text-center">Necesitamos localizar su empresa</p>
+                        <p class="text-center"><b>Localizacion de su empresa</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
-                    <div>
+                    <div class="text-center">
                         <p>¿Donde se ubica su empresa?</p>
                     </div>
-                    <div class="row">
+                    <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>País</mat-label>
-                            <mat-select formControlName="paisEmp" [(value)]="paisSeleccionado"
-                                (selectionChange)="cargarDepartamentosEmp($event.value, formControlName)">
+                            <mat-select formControlName="paisEmp" (selectionChange)="cargarDepartamentos($event.value)">
                                 <mat-option *ngFor="let pais of paises" [value]="pais.id">
                                     {{pais.name}}
                                 </mat-option>
                             </mat-select>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.paisEmp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Departamento</mat-label>
                             <mat-select formControlName="departamentoEmp"
-                                (selectionChange)="cargarCiudadesEmp($event.value)">
-                                <mat-option *ngFor="let departamento of departamentosEmp" [value]="departamento.id">
+                                (selectionChange)="cargarCiudades($event.value)">
+                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id">
                                     {{departamento.name}}
                                 </mat-option>
                             </mat-select>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.departamentoEmp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Ciudad</mat-label>
                             <mat-select formControlName="ciudadEmp">
-                                <mat-option *ngFor="let ciudad of ciudadesEmp" [value]="ciudad.name">
+                                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">
                                     {{ciudad.name}}
                                 </mat-option>
                             </mat-select>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.ciudadEmp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="row">
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                    <div class="row centrarContenidoRow">
+                        <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Direccion de la empresa</mat-label>
                             <input formControlName="direccionEmp" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.direccionEmp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                        <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Barrio/Localidad</mat-label>
                             <input formControlName="barrioEmp" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.barrioEmp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Codigo Postal</mat-label>
-                            <input matInput maxlength="15" type="number" formControlName="codigoPostalEmp" required>
+                            <input matInput maxlength="15" type="number" formControlName="codigoPostalEmp">
                         </mat-form-field>
                     </div>
-                    <div>
+                    <div class="text-center">
                         <p>¿Como podemos contactar a su empresa?</p>
                     </div>
-                    <div class="row">
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                    <div class="row centrarContenidoRow">
+                        <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Telefono de la empresa</mat-label>
                             <input type="number" formControlName="telefonoEmp" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.telefonoEmp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Email de la empresa</mat-label>
-                            <input formControlName="emailEmp" matInput required>
+                            <input formControlName="emailEmp" matInput>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Sitio Web</mat-label>
-                            <input formControlName="sitioWebEmp" matInput required>
+                            <input formControlName="sitioWebEmp" matInput>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
@@ -226,108 +298,108 @@
                         <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
-                </form>
-            </mat-step>
+                </mat-step>
 
-            <mat-step [stepControl]="quintoFormReg" label="Datos de contacto">
-
-                <form [formGroup]="quintoFormReg">
+                <mat-step formGroupName="datos-resp" [stepControl]="formRegistroEmp.get('datos-resp')"
+                    label="Datos de contacto">
                     <div class="Subtitulos-card">
-                        <p class="text-center">Algunos datos personales</p>
+                        <p class="text-center"><b>Datos de sus representantes</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
-                    <div>
-                        <p>¿Quien es el responsable de la empresa?</p>
+                    <div class="text-center">
+                        <p>Datos del representante legal</p>
                     </div>
-                    <div class="row">
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Nombre Responsable</mat-label>
-                            <input formControlName="nombreResp" matInput required>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Apellido Responsable</mat-label>
-                            <input formControlName="apellidoResp" matInput required>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Cargo</mat-label>
-                            <input formControlName="cargo" matInput required>
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <p>¿Donde se ubica el responsable de la empresa?</p>
-                    </div>
-                    <div class="row">
+                    <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>País</mat-label>
-                            <mat-select formControlName="paisResp" [(value)]="paisSeleccionadoResp"
-                                (selectionChange)="cargarDepartamentosResp($event.value, representante)">
-                                <mat-option *ngFor="let pais of paises" [value]="pais.id">
-                                    {{pais.name}}
-                                </mat-option>
-                            </mat-select>
+                            <mat-label>Nombres</mat-label>
+                            <input formControlName="nombrereplegal" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.nombrereplegal.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Departamento</mat-label>
-                            <mat-select formControlName="departamentoResp"
-                                (selectionChange)="cargarCiudadesResp($event.value, representante)">
-                                <mat-option *ngFor="let departamento of departamentosResp" [value]="departamento.id">
-                                    {{departamento.name}}
-                                </mat-option>
-                            </mat-select>
+                            <mat-label>Apellidos</mat-label>
+                            <input formControlName="apellidoreplegal" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.apellidoreplegal.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Ciudad</mat-label>
-                            <mat-select formControlName="ciudadResp">
-                                <mat-option *ngFor="let ciudad of ciudadesResp" [value]="ciudad.name">
-                                    {{ciudad.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Barrio/localidad</mat-label>
-                            <input formControlName="barrioResp" matInput required>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Direccion</mat-label>
-                            <input formControlName="direccionResp" matInput required>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Codigo Postal</mat-label>
-                            <input type="number" maxlength="5" formControlName="codigoPostalResp" matInput required>
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <p>¿Como podemos contactar al responsable de la empresa?</p>
-                    </div>
-                    <div class="row">
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Telefono</mat-label>
-                            <input type="number" formControlName="telefonoResp" matInput required>
+                            <input type="number" formControlName="telefonoreplegal" matInput>
+                        </mat-form-field>
+                        <mat-form-field floatLabel="auto" appearance="outline">
+                            <mat-label>Telefono móvil</mat-label>
+                            <input type="number" formControlName="telefonoMovilreplegal" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoMovilreplegal.errors?.required">
+                                campo requerido</mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="text-center">
+                        <p>Datos responsable de la cuenta</p>
+                    </div>
+                    <div class="row centrarContenidoRow">
+                        <mat-form-field floatLabel="auto" appearance="outline">
+                            <mat-label>Nombres</mat-label>
+                            <input formControlName="nombreResp" matInput required>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.nombreResp.errors?.required">
+                                campo requerido</mat-error>
+                        </mat-form-field>
+                        <mat-form-field floatLabel="auto" appearance="outline">
+                            <mat-label>Apellidos</mat-label>
+                            <input formControlName="apellidoResp" matInput required>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.apellidoResp.errors?.required">
+                                campo requerido</mat-error>
+                        </mat-form-field>
+                        <mat-form-field floatLabel="auto" appearance="outline">
+                            <mat-label>Cargo</mat-label>
+                            <input formControlName="cargoResp" matInput required>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargoResp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
+                            <mat-label>Telefono</mat-label>
+                            <input type="number" formControlName="telefonoResp" matInput>
+                        </mat-form-field>
+                        <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Telefono móvil</mat-label>
                             <input type="number" formControlName="telefonoMovilResp" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoMovilResp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Horario contacto</mat-label>
-                            <input formControlName="horarioContacto" matInput required>
+                            <input formControlName="horarioContactoResp" matInput>
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Fax</mat-label>
-                            <input formControlName="faxResp" matInput required>
+                        <mat-form-field floatLabel="auto" appearance="outline">
+                            <mat-label>Direccion de trabajo</mat-label>
+                            <input formControlName="direccionTrabajoResp" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.direccionTrabajoResp.errors?.required">
+                                campo requerido</mat-error>
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Email corporativo</mat-label>
+                        <mat-form-field floatLabel="auto" appearance="outline">
+                            <mat-label>Email personal corporativo</mat-label>
                             <input formControlName="emailCorpResp" matInput required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.required">
+                                campo requerido</mat-error>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.email">
+                                Digite
+                                un
+                                correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button [disabled]="!quintoFormReg.valid" mat-raised-button
-                            (click)="registrarEmpresa(quintoFormReg)" color="primary">Finalizar</button>
+                        <button type="button" mat-raised-button color="primary"
+                            matStepperPrevious>Atras</button>
+                        <button [disabled]="!formRegistroEmp.valid" mat-raised-button type="submit" color="primary">Finalizar</button>
                     </div>
-                </form>
-            </mat-step>
-        </mat-horizontal-stepper>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </form>
     </mat-card-content>
 </mat-card>

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.component';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './layout/material/material.module';
 import { RegistrarComponent } from './pages/empresa/registrar/registrar.component';
@@ -18,9 +18,7 @@ import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
-
-
-
+import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +29,10 @@ import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empres
     NavbarHomeOfertasComponent,
     PrincipalComponent,
     ListarSolicitudesEmpresaComponent,
-    DatosEmpresaComponent
+    DatosEmpresaComponent,
+    DialogFinalRegistroComponent
   ],
+  entryComponents: [DialogFinalRegistroComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
