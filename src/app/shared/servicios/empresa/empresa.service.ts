@@ -22,7 +22,7 @@ export class EmpresaService {
   }
   getDatos(): Observable<any>{
     //obtener los datos de la peticion datos empresa
-    return this.httpClient.get<datosEmpresaService>("http://127.0.0.1:8081/api/empresa/1", {headers: this.headers});
+    return this.httpClient.get<datosEmpresaService>("http://localhost:8081/api/empresa/1", {headers: this.headers});
   }
   modificarEmpresa(objeto: Object){
     //realizar post al modificar empresas
