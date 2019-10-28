@@ -6,11 +6,12 @@ import { MaterialModule } from 'src/app/layout/material/material.module';
 import { VerificarModule } from './egresados/verificar/verificar.module';
 import { VerificarRoutingModule } from './egresados/verificar/verificar-routing.module';
 import { FrmVerificarComponent } from './egresados/verificar/frm-verificar/frm-verificar.component';
+import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.component';
 
 
 
 @NgModule({
-  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent],
+  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent],
   imports: [
     CommonModule,
     MaterialModule
