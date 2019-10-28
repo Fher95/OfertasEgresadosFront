@@ -63,6 +63,7 @@ export class RegistrarComponent implements OnInit {
   formRegistroEmp: FormGroup;
   isLinear = true;
   contOculto = true;
+  
   constructor(
     private servGenerales: GeneralesService,
     private formBuilder: FormBuilder,
@@ -125,7 +126,12 @@ export class RegistrarComponent implements OnInit {
     this.cargarPaises();
     this.cargarAnios();
   }
-
+  /**
+ * Carga la lista paises, envia al servicio general encargado
+ * de realizar las peticiones
+ * <p>
+ * Si existe un error al cargarlo imprime en la consola el error
+ */
   cargarPaises() {
     this.servGenerales.obtenerListaPaises().subscribe(resultado => {
       this.paises = resultado.countries;
@@ -134,27 +140,42 @@ export class RegistrarComponent implements OnInit {
         console.log("Error al obtener los paises: ", JSON.stringify(error));
       });
   }
-
-  cargarDepartamentos(evento: string) {
-    console.log(evento);
-    this.servGenerales.obtenerListaDepartamentos(evento).subscribe(resultado => {
-      this.departamentos = resultado.states.filter(item => item.country_id == evento);
+  /**
+ * Carga la lista departamentos, envia al servicio general encargado
+ * de realizar las peticiones
+ * <p>
+ * Si existe un error al cargarlo imprime en la consola el error
+ * @param  idPais  Id del pais escogido en la lista de paises
+ */
+  cargarDepartamentos(idPais: string) {
+    console.log(idPais);
+    this.servGenerales.obtenerListaDepartamentos(idPais).subscribe(resultado => {
+      this.departamentos = resultado.states.filter(item => item.country_id == idPais);
     },
       error => {
         console.log("Error al obtener los deprtamentos: ", JSON.stringify(error));
       });
   }
-
-  cargarCiudades(evento: string) {
+  /**
+ * Carga la lista ciudades, envia al servicio general encargado
+ * de realizar las peticiones
+ * <p>
+ * Si existe un error al cargarlo imprime en la consola el error
+ * @param  idDepartamento  Id del pais escogido en la lista de departamentos
+ */
+  cargarCiudades(idDepartamento: string) {
     //Llama al servicio general de peticiones http
-    this.servGenerales.obtenerListaCiudades(evento).subscribe(resultado => {
-      this.ciudades = resultado.cities.filter(item => item.state_id == evento);
+    this.servGenerales.obtenerListaCiudades(idDepartamento).subscribe(resultado => {
+      this.ciudades = resultado.cities.filter(item => item.state_id == idDepartamento);
     },
       error => {
         console.log("Error al obtener las ciudades: ", JSON.stringify(error));
       });
   }
-
+  /**
+ * Crea la lista anios desde 1900 hasta el año actual mediante un ciclo
+ * <p>
+ */
   cargarAnios() {
     //Toma el año actual
     let anio = new Date().getFullYear();
@@ -163,7 +184,13 @@ export class RegistrarComponent implements OnInit {
       this.anios.push(i);
     }
   }
-  cargarSectoresInteres(){
+  /**
+ * Carga la lista sectoresInteresEmpresa mediante una peticion al back
+ * { "Nombre": "", "subSectores": [{ "idSector": "", "nombre": "" },...]
+ * <p>
+ * Si existe un error al cargarlo imprime en la consola el error
+ */
+  cargarSectoresInteres() {
     this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
       this.sectoresInteresEmpresa = resultado;
     },
@@ -175,11 +202,17 @@ export class RegistrarComponent implements OnInit {
   resolved(captchaResponse: string) {
     console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
-
+  /**
+ * Genera el codigo del captcha
+ */
   onGenerateCode(code) {
     this.code = code
   }
-
+/**
+ * Verifica si el captcha digitado coincide con el captcha creado
+ * <p>
+ * Si no es el mismo imprime un alert de captcha invalido
+ */
   verify() {
     const captchaDigitado = (<HTMLInputElement>document.getElementById("capt")).value;
     console.log(captchaDigitado);
@@ -190,22 +223,31 @@ export class RegistrarComponent implements OnInit {
       alert('Captcha invalido');
     }
   }
-
+/**
+ * Manda el formulario de registro a los servicios de la empresa
+ * encargados de las peticiones.
+ * <p>
+ * Si existe un error al cargarlo imprime en la consola el error
+ * @param  formulario  Id del pais escogido en la lista de departamentos
+ */
   registrarEmpresa(formulario) {
     console.log('formulario', formulario);
-    //Llama al servicio de peticiones http para registro
     this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
-      //Si la peticion esta bien
       console.log(data);
       this.openDialog();
     },
       error => {
-        //Si la peticion tiene algun error
         alert("Error en la peticion al servidor, por favor intentelo de nuevo");
         console.log(error);
       });
   }
-
+  /**
+ * elimina un subSector escogido a partir de la lista de sectores en el formulario de registro
+ * se elimina de la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
+ * <p>
+ * Se busca en la lista de escogidos
+ * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
+ */
   eliminarSubSectorEscogido(subSector: ISubSector) {
     //Se busca en la lista de escogidos
     let posSubSector = this.subSecEscogidos.indexOf(subSector);
@@ -218,7 +260,14 @@ export class RegistrarComponent implements OnInit {
     //Se iguala nuevamente el valor del formControl
     this.formRegistroEmp.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
   }
-
+  /**
+ * agrega un subSector escogido a partir de la lista de sectores en el formulario de registro
+ * se agrega a la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
+ * <p>
+ * Se busca en la lista de escogidos
+ * @param  sector  objeto sector que contiene { Nombre: string; subSectores: ISubSector[]; }
+ * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
+ */
   seleccionarSubSector(sector: ISector, subSector: ISubSector) {
     //Se busca la posicion del sector en la lista de sectores general
     const posSector = this.sectoresInteresEmpresa.indexOf(sector);
@@ -231,7 +280,13 @@ export class RegistrarComponent implements OnInit {
     //Se actualiza el valor del formControl
     this.formRegistroEmp.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
   }
-
+  /**
+ * Validador personalizado para saber si el usuario escoge o no sectores
+ * <p>
+ * Verifica a partir de la lista de sectores escogidos, si esta vacia devuelve true
+ * lo cual significa que esta invalido
+ * @param  control  permite obtener el valor en tiempo real de la lista sectores del ngForm }
+ */
   sectorValidator(control: FormControl) {
     let lista = control.value;
     //Si la lista esta vacia se invalida
@@ -241,7 +296,14 @@ export class RegistrarComponent implements OnInit {
     //En caso contrario se deja pasar
     return null;
   }
-
+  /**
+ * Validador personalizado para saber si el email escrito existe
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * de la empresa
+ * <p>
+ * Si el email existe devuelve el error 'EmailExiste', en caso contrario devuelve null
+ * @param  control  permite obtener el valor en tiempo real del input email del ngForm }
+ */
   validarExistenciaEmail(control: FormControl): any {
 
     clearTimeout(this.debouncer);
@@ -261,6 +323,14 @@ export class RegistrarComponent implements OnInit {
       }, 1000);
     });
   }
+  /**
+ * Validador personalizado para saber si el NIT escrito existe
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * de la empresa
+ * <p>
+ * Si el NIT existe devuelve el error 'NITExiste', en caso contrario devuelve null
+ * @param  control  permite obtener el valor en tiempo real del input NIT del ngForm }
+ */
   validarExistenciaNIT(control: FormControl): any {
 
     clearTimeout(this.debouncer);
@@ -280,7 +350,12 @@ export class RegistrarComponent implements OnInit {
       }, 1000);
     });
   }
-
+  /**
+ * Abre un dialog de angular material
+ * El contenido del dialog esta creado en el componente DialogFinalRegistroComponent
+ * <p>
+ * Si se cierra el dialog redirige a la pagina principal
+ */
   openDialog() {
     const dialogRef = this.matDialog.open(DialogFinalRegistroComponent);
     dialogRef.afterClosed().subscribe(result => {

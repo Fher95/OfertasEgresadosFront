@@ -16,7 +16,6 @@
         <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
             <mat-horizontal-stepper [linear]="isLinear" #stepper>
                 <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
-
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
                     label="Cuenta">
                     <div class="Subtitulos-card">
