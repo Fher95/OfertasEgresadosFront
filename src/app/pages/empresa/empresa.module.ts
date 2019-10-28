@@ -7,9 +7,10 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormsModule } from "@angular/forms";
 import { DatosEmpresaComponent } from './datosEmpresa/datos-empresa/datos-empresa.component';
+import { DialogFinalRegistroComponent } from './dialog-final-registro/dialog-final-registro.component';
 
 @NgModule({
-  declarations: [RegistrarComponent, DatosEmpresaComponent],
+  declarations: [RegistrarComponent, DatosEmpresaComponent, DialogFinalRegistroComponent],
   imports: [
     CommonModule,
     MaterialModule,

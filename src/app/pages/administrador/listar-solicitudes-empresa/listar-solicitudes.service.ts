@@ -35,7 +35,6 @@ export class ListarSolicitudesService {
         const nuevarUrl = this.urlSolicitud.concat('/').concat(parId.toString());
         console.log(nuevarUrl);
         return this.http.put(nuevarUrl, this.objActivacion, this.httpOptions).pipe(
-
             catchError(this.handleError<any>('activarEmpresa'))
         );
     }
