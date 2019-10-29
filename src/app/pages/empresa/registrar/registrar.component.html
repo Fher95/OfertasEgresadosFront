@@ -28,8 +28,7 @@
                             <input formControlName="email" matInput required>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.required">campo
                                 requerido</mat-error>
-                            <mat-error
-                                *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.hasError('EmailExiste')">
+                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.EmailExiste">
                                 Usted ya posee una cuenta</mat-error>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.email">Digite
                                 un correo valido. ej: ejemplo@gmail.com</mat-error>
@@ -74,13 +73,24 @@
                             <mat-divider [inset]="true"></mat-divider>
                         </div>
                         <div class="row centrarContenidoRow">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" #postalCode maxlength="5" placeholder="Postal Code"
+                                    value="94043">
+                                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                            </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hintLabel="entre 8-15 caracteres">
                                 <mat-label>NIT</mat-label>
-                                <input type="number" formControlName="NIT" matInput #input maxlength="15" required>
-                                <mat-hint align="end">{{input.value?.length || 0}}/15</mat-hint>
+                                <input formControlName="NIT" #input matInput minlength="8" maxlength="15" required>
+                                <mat-hint align="end">{{input.value.length || 0}}/15</mat-hint>
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.NIT.errors?.required">
                                     campo requerido</mat-error>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.NIT.errors?.minlength">
+                                    minimo 8 caracteres</mat-error>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.NIT.errors?.maxlength">
+                                    maximo 15 caracteres</mat-error>
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.NIT.hasError('NITExiste')">
                                     NIT ya registrado</mat-error>
@@ -220,8 +230,8 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>País</mat-label>
                             <mat-select formControlName="paisEmp" (selectionChange)="cargarDepartamentos($event.value)">
-                                <mat-option *ngFor="let pais of paises" [value]="pais.id">
-                                    {{pais.name}}
+                                <mat-option *ngFor="let pais of paises" [value]="pais.id_pais">
+                                    {{pais.nombre}}
                                 </mat-option>
                             </mat-select>
                             <mat-error
@@ -233,7 +243,7 @@
                             <mat-select formControlName="departamentoEmp"
                                 (selectionChange)="cargarCiudades($event.value)">
                                 <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id">
-                                    {{departamento.name}}
+                                    {{departamento.nombre}}
                                 </mat-option>
                             </mat-select>
                             <mat-error
@@ -244,7 +254,7 @@
                             <mat-label>Ciudad</mat-label>
                             <mat-select formControlName="ciudadEmp">
                                 <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">
-                                    {{ciudad.name}}
+                                    {{ciudad.nombre}}
                                 </mat-option>
                             </mat-select>
                             <mat-error
@@ -354,8 +364,8 @@
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
-                            <input formControlName="cargoResp" matInput required>
-                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargoResp.errors?.required">
+                            <input formControlName="cargo" matInput required>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
@@ -393,12 +403,17 @@
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary"
+                        <button [disabled]="!formRegistroEmp.valid" type="button" mat-raised-button color="primary"
                             matStepperPrevious>Atras</button>
-                        <button [disabled]="!formRegistroEmp.valid" mat-raised-button type="submit" color="primary">Finalizar</button>
+                        <button mat-raised-button type="submit" color="primary">Finalizar</button>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>
+            <div *ngIf="mensajesError.length > 0" class="alert alert-danger animated fadeIn">
+                <mat-error *ngFor="let mensaje of mensajesError">
+                    {{mensaje}}
+                </mat-error>
+            </div>
         </form>
     </mat-card-content>
 </mat-card>
