@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Solicitud, solicitudGenerica } from './Solicitud';
 import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
+import {MatSelectModule} from '@angular/material/select';
 import { ListarSolicitudesService } from './listar-solicitudes.service';
 import { isNull } from 'util';
 
@@ -16,6 +17,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   solicitudes: Solicitud[];
   displayedColumns: string[] = ['nombre', 'fecha', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
+  seleccionNumOfertas: number = 0 ;
+  seleccionValida = false;
 
   solicitudSeleccionada = solicitudGenerica;
   arregloVacio = false;
@@ -47,7 +50,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       });
   }
 
-  /*getSolicitudes2(): void {
+  getSolicitudes2(): void {
     this.solicitudes = this.servicioLista.getSolicitudes2()
     this.auxiliar = true;
     this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
@@ -56,7 +59,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       this.arregloVacio = true;
     }
     this.dataSource.paginator = this.paginator;
-  }*/
+  }
 
   getEstado(parEstado: string): string {
     /*if (parEstado === null) {
@@ -101,7 +104,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   activarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null){
-      this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa)
+      this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, 10)
         .subscribe(result => {
           console.log(result);
           this.getSolicitudes();
@@ -116,6 +119,14 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
           console.log(result);
           this.getSolicitudes();
         });
+    }
+  }
+
+  activacionValida(): void {
+    if (this.seleccionNumOfertas > 0){
+      this.seleccionValida = true;
+    } else {
+      this.seleccionValida = false;
     }
   }
 
