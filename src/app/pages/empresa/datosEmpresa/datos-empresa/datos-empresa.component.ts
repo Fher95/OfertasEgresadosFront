@@ -11,7 +11,7 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 })
 
 export class DatosEmpresaComponent implements OnInit {
-   data = 'aaa';
+   data ;
    formRegistroEmp: FormGroup;
 
 
@@ -20,7 +20,7 @@ export class DatosEmpresaComponent implements OnInit {
 
 
   modificarDatos() {
-    this.router.navigate(['/editarEmpresa', JSON.stringify(this.data)]);
+    this.router.navigate(['/editarEmpresa', JSON.stringify('1')]);
   }
 
 
@@ -29,6 +29,7 @@ export class DatosEmpresaComponent implements OnInit {
   ngOnInit() {
     this.empresaService.getDatos()
     .subscribe(data => {
+      this.data = data;
       console.log(data);
       // obtener la data y pasarla al form
     /*  this.formRegistroEmp = this.formBuilder.group({
@@ -135,7 +136,7 @@ export class DatosEmpresaComponent implements OnInit {
         emailCorpResp: [{value: this.data, disabled:true}]
       })
     });
-    
+
   }
 
 
