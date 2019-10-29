@@ -1,17 +1,14 @@
 export class OfertaLaboral {
-    id: number;
-    nit: string;
+    id_aut_oferta: number;
+    id_empresa: number;
     nombre: string;
-    razon_social: string;
-    anio_creacion: number;
-    numero_empleados: number;
-    ingresos: number;
-    sitio_web: string;
-    id_direccion: number;
-    estado: boolean;
-    fecha_registro: string;
-    fecha_activacion: string;
-    total_publicaciones: number;
-    limite_publicaciones: number;
-    num_publicaciones_actuales: number;
+    descripcion: string;
+    id_cargo: number;
+    numero_vacantes: number;
+    salario: number;
+    experiencia: string;
+    anios_experiencia: number;
+    fecha_publicacion: string;
+    fecha_cierre: string;
+    estado: string;    
 }

@@ -33,7 +33,7 @@ export class ListarOfertasComponent implements OnInit {
 
   setOfertaActual(parId: number): void {
     for (let index = 0; index < this.ofertas.length; index++) {
-      if (this.ofertas[index].id === parId) {
+      if (this.ofertas[index].id_aut_oferta === parId) {
         this.ofertaSeleccionada = this.ofertas[index];
       }
     }

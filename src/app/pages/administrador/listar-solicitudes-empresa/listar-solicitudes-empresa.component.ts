@@ -32,7 +32,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudes = null;
-    this.getSolicitudes();
+    this.getSolicitudes2();
   }
 
   getSolicitudes(): void {
@@ -108,8 +108,10 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
         .subscribe(result => {
           console.log(result);
           this.getSolicitudes();
+          this.reiniciarSeleccion();
         });
     }
+    
   }
   desactivarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null){
@@ -118,8 +120,9 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
         .subscribe(result => {
           console.log(result);
           this.getSolicitudes();
+          this.reiniciarSeleccion();
         });
-    }
+    }    
   }
 
   activacionValida(): void {
@@ -130,4 +133,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     }
   }
 
+  reiniciarSeleccion(): void {
+    this.seleccionNumOfertas = 0;
+    this.seleccionValida = false;
+  }
 }
