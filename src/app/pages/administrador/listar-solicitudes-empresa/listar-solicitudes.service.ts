@@ -3,10 +3,11 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Solicitud, Activacion } from './Solicitud';
-// import { lstSolicitudes } from './Solicitud';
+import { lstSolicitudes } from './Solicitud';
 
 @Injectable({ providedIn: 'root' })
 export class ListarSolicitudesService {
+    solicitudes = lstSolicitudes;
     private urlSolicitud = 'http://localhost:8081/api/empresa';  // URL to web api
     httpOptions = {
         headers: new HttpHeaders({
@@ -27,12 +28,13 @@ export class ListarSolicitudesService {
                 catchError(this.handleError<Solicitud[]>('getSolicitudes', []))
             );
     }
-    /*getSolicitudes2(): Solicitud[] {
-        return lstSolicitudes;
-    }*/
+    getSolicitudes2(): Solicitud[] {
+        console.log(this.solicitudes);
+        return this.solicitudes;
+    }
     /** PUT: update the hero on the server */
-    activarSolicitud(parId: number): Observable<any> {
-        let json =  JSON.stringify({ estado : 'Activo' });
+    activarSolicitud(parId: number, parNumPublicaciones: number): Observable<any> {
+        let json =  JSON.stringify({ estado : 'Activo', limite_publicaciones: parNumPublicaciones });
         let params = "json="+json;
         const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
         return this.http.put(nuevaUrl, params, this.httpOptions).pipe(

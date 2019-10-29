@@ -102,10 +102,20 @@
         <p></p>
         <strong>Estado: </strong> <a>{{getEstado(this.solicitudSeleccionada.estado)}}</a>
         <p></p>
+        <div class="form-group">
+          <strong for="numOfertas">Numero de publicaciones permitidas</strong>
+          <select class="form-control" id="numOfertas" [(ngModel)]="seleccionNumOfertas" (change)="activacionValida()">            
+            <option selected="true">1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary"
+        <button type="button" class="btn btn-primary"        
         (click)="activarEmpresa(solicitudSeleccionada)"
           data-dismiss="modal">Activar</button>
         <button type="button" class="btn btn-primary"

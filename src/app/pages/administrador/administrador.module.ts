@@ -14,7 +14,9 @@ import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.componen
   declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    BrowserModule,
+    FormsModule
   ],
   exports: [VerificarModule, ListarSolicitudesEmpresaComponent, PrincipalComponent]
 })
