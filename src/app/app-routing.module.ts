@@ -5,13 +5,15 @@ import { RegistrarComponent } from './pages/empresa/registrar/registrar.componen
 import { PrincipalComponent } from "./pages/administrador/principal/principal.component";
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
+import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
 
 const routes: Routes = [
   { path: '', component: HomeOfertasComponent },
   { path: 'registroEmpresa', component: RegistrarComponent },
-  { path: 'admin/listar', component: PrincipalComponent },
+  { path: 'admin/solicitudes', component: PrincipalComponent },
   { path: 'datosEmpresa', component: DatosEmpresaComponent },
-  { path: 'editarEmpresa/:data', component: EditarEmpresaComponent}
+  { path: 'editarEmpresa/:data', component: EditarEmpresaComponent},
+  { path: 'admin/ofertas', component: ListarOfertasComponent}
 ];
 
 @NgModule({

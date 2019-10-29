@@ -105,13 +105,15 @@
         <div class="form-group">
           <strong for="numOfertas">Numero de publicaciones permitidas: </strong> <p></p>
           <select class="form-control" id="numOfertas" [(ngModel)]="seleccionNumOfertas" (change)="activacionValida()">            
-            <option selected="true">0</option>
+            <option selected="true" value = 0>Seleccine un numero para activar</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
             <option>4</option>
             <option>5</option>
-          </select>
+            <option>10</option>
+            <option>12</option>
+          </select>          
         </div>        
       </div>
       <div class="modal-footer">

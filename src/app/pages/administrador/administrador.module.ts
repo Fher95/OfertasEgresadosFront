@@ -16,6 +16,6 @@ import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.componen
     CommonModule,
     MaterialModule
   ],
-  exports: [VerificarModule, ListarSolicitudesEmpresaComponent, PrincipalComponent]
+  exports: [VerificarModule, ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent]
 })
 export class AdministradorModule { }

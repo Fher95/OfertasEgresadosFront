@@ -111,18 +111,17 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
           this.reiniciarSeleccion();
         });
     }
-    
   }
+
   desactivarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null){
-      console.log(parSolicitud);
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
           console.log(result);
           this.getSolicitudes();
           this.reiniciarSeleccion();
         });
-    }    
+    }
   }
 
   activacionValida(): void {
