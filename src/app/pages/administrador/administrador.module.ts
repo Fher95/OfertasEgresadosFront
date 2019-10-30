@@ -7,6 +7,8 @@ import { VerificarModule } from './egresados/verificar/verificar.module';
 import { VerificarRoutingModule } from './egresados/verificar/verificar-routing.module';
 import { FrmVerificarComponent } from './egresados/verificar/frm-verificar/frm-verificar.component';
 import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.component';
+import { NavbarHomeOfertasComponent } from "../../layout/navbar-home-ofertas/navbar-home-ofertas.component";
+import { HeaderComponent } from "../../layout/header/header.component";
 
 
 
@@ -14,7 +16,9 @@ import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.componen
   declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    HeaderComponent,
+    NavbarHomeOfertasComponent
   ],
   exports: [VerificarModule, ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent]
 })

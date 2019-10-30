@@ -16,9 +16,14 @@ export class Solicitud {
     limite_publicaciones: number;
     num_publicaciones_actuales: number;
 }
-export class Activacion {
-    estado: boolean;
-}
+
+export const solicitudGenerica = {
+    nombre: 'Tercero', id_aut_empresa: 1233, fecha_registro: '2019-01-10', estado: 'Inactivo', razon_social: 'Cualquiera',
+    anio_creacion: 2012, numero_empleados: 1000, ingresos: 2000, sitio_web: 'CualquierCosa.com', id_direccion: 1,
+    fecha_activacion: '1092-12-03', total_publicaciones: 2, limite_publicaciones: 10, num_publicaciones_actuales: 2,
+    nit: '32534fd'
+};
+
 export const lstSolicitudes: Solicitud[] = [
     {
         nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'En Espera', razon_social: 'Cualquiera',
@@ -112,10 +117,3 @@ export const lstSolicitudes: Solicitud[] = [
     },
 
 ];
-
-export const solicitudGenerica = {
-    nombre: 'Tercero', id_aut_empresa: 1233, fecha_registro: '2019-01-10', estado: 'Inactivo', razon_social: 'Cualquiera',
-    anio_creacion: 2012, numero_empleados: 1000, ingresos: 2000, sitio_web: 'CualquierCosa.com', id_direccion: 1,
-    fecha_activacion: '1092-12-03', total_publicaciones: 2, limite_publicaciones: 10, num_publicaciones_actuales: 2,
-    nit: '32534fd'
-};
