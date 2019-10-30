@@ -20,9 +20,11 @@ import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empres
 import { MatGridListModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
+import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
 
 
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
+import { AdministradorModule } from './pages/administrador/administrador.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,7 @@ import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-regis
     ListarSolicitudesEmpresaComponent,
     DatosEmpresaComponent,
     EditarEmpresaComponent,
-
+    ListarOfertasComponent,
     DialogFinalRegistroComponent,
   ],
   entryComponents: [DialogFinalRegistroComponent],
@@ -54,7 +56,7 @@ import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-regis
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     MatGridListModule,
-    MatDialogModule ,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

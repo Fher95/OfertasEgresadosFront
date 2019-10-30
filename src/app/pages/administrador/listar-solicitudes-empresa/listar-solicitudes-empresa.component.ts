@@ -32,7 +32,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudes = null;
-    this.getSolicitudes();
+    this.getSolicitudes2();
   }
 
   getSolicitudes(): void {
@@ -51,7 +51,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }
 
   getSolicitudes2(): void {
-    this.solicitudes = this.servicioLista.getSolicitudes2()
+    this.solicitudes = this.servicioLista.getSolicitudes2();
     this.auxiliar = true;
     this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
     this.dataSource.paginator = this.paginator;
@@ -104,20 +104,22 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   activarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null){
-      this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, 10)
+      this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, this.seleccionNumOfertas)
         .subscribe(result => {
           console.log(result);
           this.getSolicitudes();
+          this.reiniciarSeleccion();
         });
     }
   }
+
   desactivarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null){
-      console.log(parSolicitud);
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
           console.log(result);
           this.getSolicitudes();
+          this.reiniciarSeleccion();
         });
     }
   }
@@ -130,4 +132,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     }
   }
 
+  reiniciarSeleccion(): void {
+    this.seleccionNumOfertas = 0;
+    this.seleccionValida = false;
+  }
 }
