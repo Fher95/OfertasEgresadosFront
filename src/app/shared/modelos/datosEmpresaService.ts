@@ -15,7 +15,7 @@ export interface datosEmpresaService{
         descripcionEmpresa?: string;
     };
     sectores?:{
-        sectores: string;
+        sectores: [];
     }
     locContactoEmpresa?:{
         paisEmp: string;     //bloqueado
@@ -51,5 +51,5 @@ export interface datosEmpresaService{
         faxResp?: string;
         emailCorpResp: string;
     }
-    
+
 }
