@@ -63,7 +63,7 @@ export class RegistrarComponent implements OnInit {
   formRegistroEmp: FormGroup;
   isLinear = true;
   contOculto = true;
-  
+  mensajesError: String[] = [];
   constructor(
     private servGenerales: GeneralesService,
     private formBuilder: FormBuilder,
@@ -73,20 +73,18 @@ export class RegistrarComponent implements OnInit {
   ) {
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
-        //email: ['', [Validators.required, Validators.email, this.validarExistenciaEmail.bind(this)]],
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required, Validators.email], this.validarExistenciaEmail.bind(this)],
         contrasenia: ['', Validators.required],
         captchaDigitado: ['']
       }),
       'datos-generales-empresa': this.formBuilder.group({
-        //NIT: ['', [Validators.required, Validators.minLength(8), this.validarExistenciaNIT.bind(this)]],
-        NIT: ['', [Validators.required, Validators.minLength(8)]],
-        razonSocial: ['', Validators.required],
-        nombreEmpresa: ['', Validators.required],
-        anioCreacion: ['', Validators.required],
-        numEmpleados: ['', Validators.required],
-        ingresosEmp: [''],
-        descripcionEmpresa: ['', Validators.required]
+        NIT: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)], this.validarExistenciaNIT.bind(this)],
+        razonSocial: [null, Validators.required],
+        nombreEmpresa: [null, Validators.required],
+        anioCreacion: [null, Validators.required],
+        numEmpleados: [null, Validators.required],
+        ingresosEmp: [null],
+        descripcionEmpresa: [null, Validators.required]
       }),
       'sectores': this.formBuilder.group({
         sectores: [[], [Validators.required, this.sectorValidator]],
@@ -95,29 +93,29 @@ export class RegistrarComponent implements OnInit {
         /*paisEmp: ['', [Validators.required]],
         departamentoEmp: ['', Validators.required],
         ciudadEmp: ['', Validators.required],*/
-        paisEmp: [''],
-        departamentoEmp: [''],
-        ciudadEmp: [''],
-        direccionEmp: ['', Validators.required],
-        barrioEmp: ['', Validators.required],
-        codigoPostalEmp: [''],
-        telefonoEmp: ['', Validators.required],
-        emailEmp: ['', [Validators.email]],
-        sitioWebEmp: ['']
+        paisEmp: [null, Validators.required],
+        departamentoEmp: [null, Validators.required],
+        ciudadEmp: [null, Validators.required],
+        direccionEmp: [null, Validators.required],
+        barrioEmp: [null, Validators.required],
+        codigoPostalEmp: [null],
+        telefonoEmp: [null, Validators.required],
+        emailEmp: [null, [Validators.email]],
+        sitioWebEmp: [null]
       }),
       'datos-resp': this.formBuilder.group({
-        nombrereplegal: ['', Validators.required],
-        apellidoreplegal: ['', Validators.required],
-        telefonoreplegal: [''],
-        telefonoMovilreplegal: ['', Validators.required],
-        nombreResp: ['', Validators.required],
-        apellidoResp: ['', Validators.required],
-        cargoResp: ['', Validators.required], //se recibe de la base de datos
-        telefonoResp: [''],
-        telefonoMovilResp: ['', Validators.required],
-        horarioContactoResp: [''],
-        direccionTrabajoResp: ['', Validators.required],
-        emailCorpResp: ['', [Validators.required, Validators.email]]
+        nombrereplegal: [null, Validators.required],
+        apellidoreplegal: [null, Validators.required],
+        telefonoreplegal: [null],
+        telefonoMovilreplegal: [null, Validators.required],
+        nombreResp: [null, Validators.required],
+        apellidoResp: [null, Validators.required],
+        cargo: [null, Validators.required], //se recibe de la base de datos
+        telefonoResp: [null],
+        telefonoMovilResp: [null, Validators.required],
+        horarioContactoResp: [null],
+        direccionTrabajoResp: [null, Validators.required],
+        emailCorpResp: [null, [Validators.required, Validators.email]]
       })
     });
   }
@@ -134,7 +132,7 @@ export class RegistrarComponent implements OnInit {
  */
   cargarPaises() {
     this.servGenerales.obtenerListaPaises().subscribe(resultado => {
-      this.paises = resultado.countries;
+      this.paises = resultado;
     },
       error => {
         console.log("Error al obtener los paises: ", JSON.stringify(error));
@@ -148,9 +146,8 @@ export class RegistrarComponent implements OnInit {
  * @param  idPais  Id del pais escogido en la lista de paises
  */
   cargarDepartamentos(idPais: string) {
-    console.log(idPais);
     this.servGenerales.obtenerListaDepartamentos(idPais).subscribe(resultado => {
-      this.departamentos = resultado.states.filter(item => item.country_id == idPais);
+      this.departamentos = resultado;
     },
       error => {
         console.log("Error al obtener los deprtamentos: ", JSON.stringify(error));
@@ -166,7 +163,7 @@ export class RegistrarComponent implements OnInit {
   cargarCiudades(idDepartamento: string) {
     //Llama al servicio general de peticiones http
     this.servGenerales.obtenerListaCiudades(idDepartamento).subscribe(resultado => {
-      this.ciudades = resultado.cities.filter(item => item.state_id == idDepartamento);
+      this.ciudades = resultado;
     },
       error => {
         console.log("Error al obtener las ciudades: ", JSON.stringify(error));
@@ -208,11 +205,11 @@ export class RegistrarComponent implements OnInit {
   onGenerateCode(code) {
     this.code = code
   }
-/**
- * Verifica si el captcha digitado coincide con el captcha creado
- * <p>
- * Si no es el mismo imprime un alert de captcha invalido
- */
+  /**
+   * Verifica si el captcha digitado coincide con el captcha creado
+   * <p>
+   * Si no es el mismo imprime un alert de captcha invalido
+   */
   verify() {
     const captchaDigitado = (<HTMLInputElement>document.getElementById("capt")).value;
     console.log(captchaDigitado);
@@ -223,22 +220,32 @@ export class RegistrarComponent implements OnInit {
       alert('Captcha invalido');
     }
   }
-/**
- * Manda el formulario de registro a los servicios de la empresa
- * encargados de las peticiones.
- * <p>
- * Si existe un error al cargarlo imprime en la consola el error
- * @param  formulario  Id del pais escogido en la lista de departamentos
- */
+  /**
+   * Manda el formulario de registro a los servicios de la empresa
+   * encargados de las peticiones.
+   * <p>
+   * Si existe un error al cargarlo imprime en la consola el error
+   * @param  formulario  Id del pais escogido en la lista de departamentos
+   */
   registrarEmpresa(formulario) {
     console.log('formulario', formulario);
     this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
       console.log(data);
       this.openDialog();
     },
-      error => {
+      errorRegistro => {
+        this.mensajesError = [];
         alert("Error en la peticion al servidor, por favor intentelo de nuevo");
-        console.log(error);
+        console.log(errorRegistro);
+        console.log(errorRegistro.error);
+        // Obteniendo todas las claves del JSON
+        for (var clave in errorRegistro.error) {
+          // Controlando que json realmente tenga esa propiedad
+          if (errorRegistro.error.hasOwnProperty(clave)) {
+            // Mostrando en pantalla la clave junto a su valor
+            this.mensajesError = errorRegistro.error[clave];
+          }
+        }
       });
   }
   /**
@@ -289,7 +296,7 @@ export class RegistrarComponent implements OnInit {
  */
   sectorValidator(control: FormControl) {
     let lista = control.value;
-    //Si la lista esta vacia se invalida
+    //Si la lista no esta vacia
     if (lista.length != 0) {
       return true;
     }
@@ -309,18 +316,22 @@ export class RegistrarComponent implements OnInit {
     clearTimeout(this.debouncer);
 
     return new Promise(resolve => {
-
-      this.debouncer = setTimeout(() => {
-
-        this.servGenerales.validarEmail(control.value).subscribe((res) => {
-          if (res !== control.value) {
-            resolve(null);
-          }
-        }, (err) => {
-          resolve({ 'EmailExiste': true });
-        });
-
-      }, 1000);
+      if (control.value != "") {
+        this.debouncer = setTimeout(() => {
+          this.servGenerales.validarEmail(control.value).subscribe((res) => {
+            console.log(res)
+            if (res == 'Correcto') {
+              resolve(null);
+            }
+            else {
+              resolve({ 'EmailExiste': true });
+            }
+          }, (err) => {
+            resolve({ 'EmailExiste': true });
+            console.log(err);
+          });
+        }, 10);
+      }
     });
   }
   /**
@@ -336,19 +347,31 @@ export class RegistrarComponent implements OnInit {
     clearTimeout(this.debouncer);
 
     return new Promise(resolve => {
+      if (control.value != "") {
+        this.debouncer = setTimeout(() => {
+          this.servGenerales.validarNIT(control.value).subscribe((res) => {
+            if (res !== control.value) {
+              resolve(null);
+            }
+            else {
+              resolve({ 'NITExiste': true });
+            }
+          }, (err) => {
+            resolve({ 'NITExiste': true });
+          });
 
-      this.debouncer = setTimeout(() => {
-
-        this.servGenerales.validarNIT(control.value).subscribe((res) => {
-          if (res !== control.value) {
-            resolve(null);
-          }
-        }, (err) => {
-          resolve({ 'NITExiste': true });
-        });
-
-      }, 1000);
+        }, 10);
+      }
     });
+  }
+
+  NitLengthValidator(control: FormControl) {
+    //Si la lista esta vacia se invalida
+    if (control.value.length < 4) {
+      return true;
+    }
+    //En caso contrario se deja pasar
+    return null;
   }
   /**
  * Abre un dialog de angular material

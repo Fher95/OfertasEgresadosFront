@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Solicitud, solicitudGenerica } from './Solicitud';
 import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
+import {MatSelectModule} from '@angular/material/select';
 import { ListarSolicitudesService } from './listar-solicitudes.service';
 import { isNull } from 'util';
 
@@ -16,6 +17,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   solicitudes: Solicitud[];
   displayedColumns: string[] = ['nombre', 'fecha', 'estado', 'acciones'];
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
+  seleccionNumOfertas: number = 0 ;
+  seleccionValida = false;
 
   solicitudSeleccionada = solicitudGenerica;
   arregloVacio = false;
@@ -47,8 +50,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       });
   }
 
-  /*getSolicitudes2(): void {
-    this.solicitudes = this.servicioLista.getSolicitudes2()
+  getSolicitudes2(): void {
+    this.solicitudes = this.servicioLista.getSolicitudes2();
     this.auxiliar = true;
     this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
     this.dataSource.paginator = this.paginator;
@@ -56,7 +59,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       this.arregloVacio = true;
     }
     this.dataSource.paginator = this.paginator;
-  }*/
+  }
 
   getEstado(parEstado: string): string {
     /*if (parEstado === null) {
@@ -101,22 +104,36 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   activarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null){
-      this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa)
+      this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, this.seleccionNumOfertas)
         .subscribe(result => {
           console.log(result);
           this.getSolicitudes();
-        });
-    }
-  }
-  desactivarEmpresa(parSolicitud: Solicitud): void {
-    if (parSolicitud != null){
-      console.log(parSolicitud);
-      this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
-        .subscribe(result => {
-          console.log(result);
-          this.getSolicitudes();
+          this.reiniciarSeleccion();
         });
     }
   }
 
+  desactivarEmpresa(parSolicitud: Solicitud): void {
+    if (parSolicitud != null){
+      this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
+        .subscribe(result => {
+          console.log(result);
+          this.getSolicitudes();
+          this.reiniciarSeleccion();
+        });
+    }
+  }
+
+  activacionValida(): void {
+    if (this.seleccionNumOfertas > 0){
+      this.seleccionValida = true;
+    } else {
+      this.seleccionValida = false;
+    }
+  }
+
+  reiniciarSeleccion(): void {
+    this.seleccionNumOfertas = 0;
+    this.seleccionValida = false;
+  }
 }

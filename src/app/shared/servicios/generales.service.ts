@@ -18,21 +18,21 @@ export class GeneralesService {
   constructor(private httpClient: HttpClient) { }
 
   obtenerListaSectoresYSubSectores(): Observable<ISector[]>{
-    return this.httpClient.get<ISector[]>("http://localhost:8081/Sectores-SubSectores", this.httpOptions);
+    return this.httpClient.get<ISector[]>("http://localhost:8081/api/sectores-subsectores", this.httpOptions);
   }
   obtenerListaPaises(): Observable<any> {
-    return this.httpClient.get("http://localhost:8081/api/paises", this.httpOptions);
+    return this.httpClient.get("http://127.0.0.1:8081/api/paises", this.httpOptions);
   }
   obtenerListaDepartamentos(id: string): Observable<any> {
-    return this.httpClient.get("http://localhost:8081/api/departamentos/" + id, this.httpOptions);
+    return this.httpClient.get("http://127.0.0.1:8081/api/departamentos/" + id, this.httpOptions);
   }
   obtenerListaCiudades(id: string): Observable<any> {
-    return this.httpClient.get("http://localhost:8081/api/ciudades/" + id, this.httpOptions);
+    return this.httpClient.get("http://127.0.0.1:8081/api/ciudades/" + id, this.httpOptions);
   }
   validarEmail(email: String): Observable<any> {
-    return this.httpClient.get("http://localhost:8081/validarUsuario/" + email, this.httpOptions);
+    return this.httpClient.get("http://127.0.0.1:8081/api/validarUsuario/" + email, this.httpOptions);
   }
-  validarNIT(NIT: string) {
-    return this.httpClient.get("http://localhost:8081/validarNIT/" + NIT, this.httpOptions);
+  validarNIT(NIT: string): Observable<any> {
+    return this.httpClient.get("http://127.0.0.1:8081/api/validarNIT/" + NIT, this.httpOptions);
   }
 }
