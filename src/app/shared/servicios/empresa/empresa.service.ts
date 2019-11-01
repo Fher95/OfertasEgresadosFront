@@ -28,4 +28,12 @@ export class EmpresaService {
     //realizar post al modificar empresas
     return this.httpClient.post("http://127.0.0.1:8081/api/empresa/1", objeto, {headers: this.headers});
   }
+
+  modificarFoto(file: File){
+    const fd = new FormData();
+    fd.append('image', file, file.name);
+    //this.httpClient.post('', fd,{headers: this.headers});
+    
+  }
+
 }

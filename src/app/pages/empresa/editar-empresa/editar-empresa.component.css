@@ -1,44 +1,67 @@
 mat-form-field{
-    margin-right: 20px;
-    margin-left: 0px;
+  margin-right: 20px;
+  margin-left: 0px;
 }
 
 .carta-registro{
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-right: 10%;
-    margin-left: 10%;
-    padding-left: 10%;
-    padding-right: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-right: 10%;
+  margin-left: 10%;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding: 0px;
 }
 
 .example-container {
-  height: 400px;
-  overflow: auto;
+height: 400px;
+overflow: auto;
 }
 
 .Subtitulos-card{
-    margin-bottom: 5%;
+  margin-bottom: 5%;
 }
 
 .botonesStepper{
-    text-align: end;
+  text-align: end;
 }
 
 .botonesStepper button,
 .botonesStepper a {
-  margin-right: 8px;
+margin-right: 8px;
 }
 
 .full-width {
-  width: 100%;
+width: 100%;
 }
+
+.no-padding{
+padding: 0px;  
+}
+
+.centrarContenidoRow{
+justify-content: center;
+}
+
 .cartaCuenta{
-  margin-right: 20%;
-  margin-left: 20%;
+margin-right: 20%;
+margin-left: 20%;
 }
-.mat-card:not([class*=mat-elevation-z]) {
-    box-shadow: 0 0px 20px rgba(0,0,0,0.19),
-    0 6px 6px rgba(0,0,0,0.23);
-  
-  }
+
+.headerCartaRegistro{
+background: #3F51B5;
+color: white;
+padding: 5px;
+justify-content: center;
+
+}
+
+@media only screen and (max-width: 768px) {
+/* For mobile phones: */
+.full-width {
+  max-width: 100%;
+}
+.example-container{
+  display: contents;
+}
+}
