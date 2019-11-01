@@ -11,7 +11,7 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 })
 
 export class DatosEmpresaComponent implements OnInit {
-   data ;
+   data = 'a';
    formRegistroEmp: FormGroup;
 
 
@@ -27,15 +27,16 @@ export class DatosEmpresaComponent implements OnInit {
 
 
   ngOnInit() {
+
+    /*
     this.empresaService.getDatos()
     .subscribe(data => {
       this.data = data;
       console.log(data);
       // obtener la data y pasarla al form
-    /*  this.formRegistroEmp = this.formBuilder.group({
+      this.formRegistroEmp = this.formBuilder.group({
         'datos-cuenta': this.formBuilder.group({
           email: [{value: data.datosCuenta.email, disabled:true} ],
-          usuario: [{value: data.datosCuenta.usuario, disabled:true}],
         }),
         'datos-generales-empresa': this.formBuilder.group({
           nit: [{value: data.datosGeneralesEmpresa.nit, disabled:true}],
@@ -70,25 +71,17 @@ export class DatosEmpresaComponent implements OnInit {
           nombreResp: [{value: data.datosRespCuentaEmpresa.nombreResp, disabled:true}],
           apellidoResp: [{value: data.datosRespCuentaEmpresa.apellidoResp, disabled:true}],
           cargo: [{value: data.datosRespCuentaEmpresa.cargo, disabled:true}], //se recibe de la base de datos
-          paisResp: [{value: data.datosRespCuentaEmpresa.paisResp, disabled:true}],
-          departamentoResp: [{value: data.datosRespCuentaEmpresa.departamentoResp, disabled:true}],
-          ciudadResp: [{value: data.datosRespCuentaEmpresa.ciudadResp, disabled:true}],
-          barrioResp: [{value: data.datosRespCuentaEmpresa.barrioResp, disabled:true}],
-          direccionResp: [{value: data.datosRespCuentaEmpresa.direccionResp, disabled:true}],
-          codigoPostalResp: [{value: data.datosRespCuentaEmpresa.codigoPostalResp, disabled:true}],
-          telefonoResp: [{value: data.datosRespCuentaEmpresa.telefonoResp, disabled:true}],
-          telefonoMovilResp: [{value: data.datosRespCuentaEmpresa.telefonoMovilResp, disabled:true}],
           horarioContacto: [{value: data.datosRespCuentaEmpresa.horarioContacto, disabled:true}],
-          faxResp: [{value: data.datosRespCuentaEmpresa.faxResp, disabled:true}],
+          direccionTrabajo: [{value: data.datosRespCuentaEmpresa.direccionTrabajoResp, disabled:true}],
           emailCorpResp: [{value: data.datosRespCuentaEmpresa.emailCorpResp, disabled:true}]
         })
-      });*/
+      });
     }),
-    error => console.log(error)
+    error => console.log(error);
+    */
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: this.data, disabled:true} ],
-        usuario: [{value: this.data, disabled:true}],
       }),
       'datos-generales-empresa': this.formBuilder.group({
         nit: [{value: this.data, disabled:true}],
@@ -114,31 +107,31 @@ export class DatosEmpresaComponent implements OnInit {
         sitioWebEmp: [{value: this.data, disabled:true}]
       }),
       'datos-resp-legal':this.formBuilder.group({
-        nombreRespLegal: [''],
-        apellidoRespLegal: [''],
-        telefonoFijoRespLegal: [''],
-        telefonoMovilRespLegal: [''],
+        nombreRespLegal: [{value: this.data, disabled:true}],
+        apellidoRespLegal: [{value: this.data, disabled:true}],
+        telefonoFijoRespLegal: [{value: this.data, disabled:true}],
+        telefonoMovilRespLegal: [{value: this.data, disabled:true}],
       }),
       'datos-resp-cuenta-empresa': this.formBuilder.group({
         nombreResp: [{value: this.data, disabled:true}],
         apellidoResp: [{value: this.data, disabled:true}],
         cargo: [{value: this.data, disabled:true}], //se recibe de la base de datos
-        paisResp: [{value: this.data, disabled:true}],
-        departamentoResp: [{value: this.data, disabled:true}],
-        ciudadResp: [{value: this.data, disabled:true}],
-        barrioResp: [{value: this.data, disabled:true}],
-        direccionResp: [{value: this.data, disabled:true}],
-        codigoPostalResp: [{value: this.data, disabled:true}],
         telefonoResp: [{value: this.data, disabled:true}],
         telefonoMovilResp: [{value: this.data, disabled:true}],
         horarioContacto: [{value: this.data, disabled:true}],
-        faxResp: [{value: this.data, disabled:true}],
+        direccionTrabajo: [{value: this.data, disabled:true}],
         emailCorpResp: [{value: this.data, disabled:true}]
       })
     });
 
   }
 
-
+  modificarFoto(event){
+    console.log(event);
+    let file = <File>event.target.files[0];
+    //this.empresaService.modificarFoto(file);
+    console.log(file);
+    //document.getElementById(imgUser).style.backgroundImage =
+  }
 
 }
