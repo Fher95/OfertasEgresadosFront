@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { OfertaLaboral } from "./OfertaLaboral";
+import { OfertaLaboral, lstOfertas } from "./OfertaLaboral";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,11 @@ export class ListarOfertasService {
         catchError(this.handleError<OfertaLaboral[]>('getSolicitudes', []))
       );
   }
+
+  getOfertas2(): OfertaLaboral[] {
+    return lstOfertas;
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
