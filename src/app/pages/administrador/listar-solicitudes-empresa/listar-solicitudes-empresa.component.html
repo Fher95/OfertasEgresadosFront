@@ -1,7 +1,7 @@
 <app-header></app-header>
 <app-navbar-home-ofertas></app-navbar-home-ofertas>
 
-<div class="container mt-3 mb-3" role="main">
+<div class="container mt-4 mb-3" role="main">    
   <h2 class="text-primary">Solicitudes de aprobación de empresas:</h2><p></p>
   <div *ngIf="!auxiliar" class="row">
     <h3 class="text-centered px-3"> Cargando Solicitudes... </h3>
@@ -43,43 +43,6 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 
-
-  <!--
-<h2>Solicitudes de aprobación:</h2>
-<div *ngIf="!auxiliar">
-    <h3 class="text-centered"> Cargando Solicitudes... </h3>
-</div>
-<div>
-  <h3 *ngIf="arregloVacio" class="text-centered"> No se encontraron solicitudes </h3>
-  <div *ngIf="!arregloVacio" class="table-responsive rounded shadow mt-3">
-
-    <table class="table table-striped table-sm text-center">
-      <thead class="thead-dark">
-        <tr>
-          <th class="col-1">#</th>
-          <th class="col-2">Nombre</th>
-          <th class="col-2">Fecha Solicitud</th>
-          <th class="col-2">Estado</th>
-          <th class="col-2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let objSolicitud of solicitudes; let i = index ">
-          <td>{{i+1}}</td>
-          <td>{{objSolicitud.nombre}}</td>
-          <td>{{objSolicitud.fecha_registro}}</td>
-          <td><a>{{getEstado(objSolicitud.estado)}}</a></td>
-          <td><a href="" data-toggle="modal" data-target="#exampleModalScrollable"
-              (click)="setSolicitudActual(objSolicitud.id)">
-              Ver Información</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-
-
 <!-- Modal -->
   <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
@@ -113,7 +76,12 @@
           <div class="form-group">
             <strong for="numOfertas">Numero de publicaciones permitidas: </strong>
             <p></p>
-            <select class="form-control" id="numOfertas" [(ngModel)]="seleccionNumOfertas"
+            <input [(ngModel)]="seleccionNumOfertas" type="number" class="form-control" 
+            placeholder="Debe ingresar un numero para activar" (change)="activacionValida()"
+            (keyup)="activacionValida()"
+            value="0" required>
+            <!-- ****Codigo opcional para seleccionar numero de publicaciones**** -->
+            <!--select class="form-control" id="numOfertas" [(ngModel)]="seleccionNumOfertas"
               (change)="activacionValida()">
               <option selected="true" value=0>Seleccine un numero para activar</option>
               <option>1</option>
@@ -121,9 +89,7 @@
               <option>3</option>
               <option>4</option>
               <option>5</option>
-              <option>10</option>
-              <option>12</option>
-            </select>
+            </select-->
           </div>
         </div>
         <div class="modal-footer">
