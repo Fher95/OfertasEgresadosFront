@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Solicitud, Activacion } from './Solicitud';
+import { Solicitud } from './Solicitud';
 import { lstSolicitudes } from './Solicitud';
 
 @Injectable({ providedIn: 'root' })
@@ -16,7 +16,7 @@ export class ListarSolicitudesService {
           // "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjAsImVtYWlsIjoianVhbkBhZG1pbi5jb20iLCJpZF9yb2wiOjAsImZpcnN0X25hbWUiOiJKdWFuIiwibGFzdF9uYW1lIjoiVmVsZXoiLCJpYXQiOjE1NzE1MzI2MjcsImV4cCI6MTU3MjEzNzQyN30.ggfsEewjLgzg9PNKf8a4onkpYVTbBS2FFeYbFDh2QXE"
         })
     };
-    objActivacion: Activacion;
+    
     constructor(
         private http: HttpClient
     ) { }
@@ -32,7 +32,7 @@ export class ListarSolicitudesService {
         console.log(this.solicitudes);
         return this.solicitudes;
     }
-    /** PUT: update the hero on the server */
+    /** PUT: update the solicitud on the server */
     activarSolicitud(parId: number, parNumPublicaciones: number): Observable<any> {
         let json =  JSON.stringify({ estado : 'Activo', limite_publicaciones: parNumPublicaciones });
         let params = "json="+json;
@@ -42,6 +42,7 @@ export class ListarSolicitudesService {
             catchError(this.handleError<any>('activarEmpresa'))
         );
     }
+
     desactivarSolicitud(parId: number): Observable<any> {
 
         let json =  JSON.stringify({ estado : 'Inactivo' });

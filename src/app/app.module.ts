@@ -22,6 +22,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
+import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
+import { AdministradorModule } from './pages/administrador/administrador.module';
+import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/his
     DatosEmpresaComponent,
     EditarEmpresaComponent,
     HistorialOfertasComponent,
+    ListarOfertasComponent,
     DialogFinalRegistroComponent,
+    VerificarExcelComponent
   ],
   entryComponents: [DialogFinalRegistroComponent],
   imports: [
@@ -53,7 +58,7 @@ import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/his
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     MatGridListModule,
-    MatDialogModule ,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],
