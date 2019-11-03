@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OfertaLaboral, ofertaGenerica } from './OfertaLaboral';
+import { OfertaLaboral, ofertaGenerica, AreaConocimiento } from './OfertaLaboral';
 import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { isNull } from 'util';
@@ -27,7 +27,7 @@ export class ListarOfertasComponent implements OnInit {
 
   ngOnInit() {
     this.ofertas = null;
-    this.getOfertas2();
+    this.getOfertas();
   }
 
   getOfertas(): void {
@@ -88,6 +88,23 @@ export class ListarOfertasComponent implements OnInit {
     if (this.ofertaSeleccionada == null) {
       return false;
     } else { return true; }
+  }
+
+  getAreasStr(parAreas: AreaConocimiento[]): string {
+    if (parAreas === null || parAreas.length === 0){
+      return 'No especificado';
+    }
+    else {
+      let strAreas = '';
+      for (let index = 0; index < parAreas.length; index++) {
+        const element = parAreas[index].nombre;
+        strAreas += element;
+        if (index < (parAreas.length - 1) ) {
+          strAreas += ', ';
+        }
+      }
+      return strAreas;
+    }
   }
 
 }

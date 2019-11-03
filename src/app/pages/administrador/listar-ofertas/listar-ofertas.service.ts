@@ -9,7 +9,7 @@ import { OfertaLaboral, lstOfertas } from "./OfertaLaboral";
 })
 export class ListarOfertasService {
 
-  private urlSolicitud = 'http://localhost:8081/api/empresa';  // URL to web api
+  private urlSolicitud = 'http://localhost:8081/api/ofertas/empresas';  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23,10 +23,10 @@ export class ListarOfertasService {
   ) { }
 
   getOfertas(): Observable<OfertaLaboral[]> {
-    const urlSol = 'http://localhost:8081/api/ofertas/empresa';
+    const urlSol = 'http://localhost:8081/api/ofertas/empresas';
     return this.http.get<OfertaLaboral[]>(urlSol, this.httpOptions)
       .pipe(
-        catchError(this.handleError<OfertaLaboral[]>('getSolicitudes', []))
+        catchError(this.handleError<OfertaLaboral[]>('getOfertas', []))
       );
   }
 
