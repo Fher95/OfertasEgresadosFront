@@ -10,23 +10,28 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
   styleUrls: ['./historial-ofertas.component.css']
 })
 export class HistorialOfertasComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   displayedColumns: string[] = ['fecha', 'cargo', 'vacantes'];
   ofertas: IHistorialOfertas[];
   dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private empService: EmpresaService,
   ) { }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    console.log("paso por aqui");
+    this.ofertas = null;
     this.cargarOfertas();
   }
   cargarOfertas() {
+    console.log("paso por aqui");
     this.empService.getHistorialOfertas(1).subscribe(resultado => {
       console.log(resultado);
       this.ofertas = resultado;
+      this.dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
+      this.dataSource.paginator = this.paginator;
     },
       error => {
         console.log("Error al obtener el listado de ofertas: ", JSON.stringify(error));
