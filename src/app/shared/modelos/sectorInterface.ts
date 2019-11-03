@@ -1,7 +1,4 @@
-export interface ISubSector{
-    idSector: number;
-    nombre: string;
-}
+import { ISubSector } from './subSectorInterface'
 
 export interface ISector{
     Nombre: string;

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OfertaLaboral } from './OfertaLaboral';
+import { OfertaLaboral, ofertaGenerica, AreaConocimiento } from './OfertaLaboral';
 import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { isNull } from 'util';
@@ -14,10 +14,10 @@ import { ListarOfertasService } from './listar-ofertas.service';
 export class ListarOfertasComponent implements OnInit {
 
   ofertas: OfertaLaboral[];
-  displayedColumns: string[] = ['nombre', 'fecha', 'estado', 'acciones'];
+  displayedColumns: string[] = ['Nombre Oferta', 'Area', 'Empresa', 'Fecha Publicacion', 'Estado', 'Acciones'];
   dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
   arregloVacio = false;
-  ofertaSeleccionada: OfertaLaboral;
+  ofertaSeleccionada = ofertaGenerica;
   auxiliar = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -44,8 +44,19 @@ export class ListarOfertasComponent implements OnInit {
         }
       });
   }
+  getOfertas2(): void {
+    this.ofertas = this.servicioOfertas.getOfertas2();
+    this.auxiliar = true;
+    this.dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
+    this.dataSource.paginator = this.paginator;
+    if (this.ofertas.length == 0 || isNull(this.ofertas)) {
+      this.arregloVacio = true;
+    }
+    this.dataSource.paginator = this.paginator;
+  }
 
   setOfertaActual(parId: number): void {
+    console.log("Id recibido: " + parId);
     for (let index = 0; index < this.ofertas.length; index++) {
       if (this.ofertas[index].id_aut_oferta === parId) {
         this.ofertaSeleccionada = this.ofertas[index];
@@ -55,7 +66,7 @@ export class ListarOfertasComponent implements OnInit {
   }
 
   aprobarEmpresa(parOferta: OfertaLaboral): void {
-    if (OfertaLaboral != null){
+    if (OfertaLaboral != null) {
       this.servicioOfertas.aprobarOferta(parOferta.id_aut_oferta)
         .subscribe(result => {
           console.log(result);
@@ -64,12 +75,35 @@ export class ListarOfertasComponent implements OnInit {
     }
   }
   desaprobarEmpresa(parOferta: OfertaLaboral): void {
-    if (OfertaLaboral != null){
+    if (OfertaLaboral != null) {
       this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta)
         .subscribe(result => {
           console.log(result);
           this.getOfertas();
         });
+    }
+  }
+
+  ofertaSelecNotNull(): boolean {
+    if (this.ofertaSeleccionada == null) {
+      return false;
+    } else { return true; }
+  }
+
+  getAreasStr(parAreas: AreaConocimiento[]): string {
+    if (parAreas === null || parAreas.length === 0){
+      return 'No especificado';
+    }
+    else {
+      let strAreas = '';
+      for (let index = 0; index < parAreas.length; index++) {
+        const element = parAreas[index].nombre;
+        strAreas += element;
+        if (index < (parAreas.length - 1) ) {
+          strAreas += ', ';
+        }
+      }
+      return strAreas;
     }
   }
 
