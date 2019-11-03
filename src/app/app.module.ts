@@ -25,6 +25,7 @@ import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/lis
 
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 import { AdministradorModule } from './pages/administrador/administrador.module';
+import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AdministradorModule } from './pages/administrador/administrador.module'
     EditarEmpresaComponent,
     ListarOfertasComponent,
     DialogFinalRegistroComponent,
+    VerificarExcelComponent
   ],
   entryComponents: [DialogFinalRegistroComponent],
   imports: [
