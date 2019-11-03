@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { OfertaLaboral } from "./OfertaLaboral";
+import { OfertaLaboral, lstOfertas } from "./OfertaLaboral";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListarOfertasService {
 
-  private urlSolicitud = 'http://localhost:8081/api/empresa';  // URL to web api
+  private urlSolicitud = 'http://localhost:8081/api/ofertas/empresas';  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -23,12 +23,17 @@ export class ListarOfertasService {
   ) { }
 
   getOfertas(): Observable<OfertaLaboral[]> {
-    const urlSol = 'http://localhost:8081/api/ofertas/empresa';
+    const urlSol = 'http://localhost:8081/api/ofertas/empresas';
     return this.http.get<OfertaLaboral[]>(urlSol, this.httpOptions)
       .pipe(
-        catchError(this.handleError<OfertaLaboral[]>('getSolicitudes', []))
+        catchError(this.handleError<OfertaLaboral[]>('getOfertas', []))
       );
   }
+
+  getOfertas2(): OfertaLaboral[] {
+    return lstOfertas;
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
