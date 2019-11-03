@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
-import { FormGroup, Validators, FormBuilder, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
-import { ISubSector, ISector } from '../../../shared/interfaces/subSector'
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { ISector } from '../../../shared/modelos/sectorInterface'
+import { ISubSector } from '../../../shared/modelos/subSectorInterface'
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 import { MatDialog } from '@angular/material';
 import { DialogFinalRegistroComponent } from '../dialog-final-registro/dialog-final-registro.component';
@@ -49,10 +50,11 @@ export class RegistrarComponent implements OnInit {
     { "Nombre": "Transporte", "subSector": ["Aéreo", "Agente", "Marítimo y Fluvial", "Operadores, Agentes y Terminales", "Valores"] },
     { "Nombre": "Vehiculos y Partes", "subSector": ["Academia Automovilística", "Carrocerías, Partes y Piezas", "Comercialización de Partes", "Concesionarios", "Emsambladoras de Vehículos", "Importadores de Vehículos", "Talleres"] }
   ];*/
-  sectoresInteresEmpresa: ISector[] = [
+  sectoresInteresEmpresa: ISector[] = []
+  /*[
     { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
     { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
-  ];
+  ];*/
   debouncer: any;
   subSecEscogidos: ISubSector[] = [];
   anios: any[] = [];
@@ -74,7 +76,7 @@ export class RegistrarComponent implements OnInit {
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: ['', [Validators.required, Validators.email], this.validarExistenciaEmail.bind(this)],
-        contrasenia: ['', Validators.required],
+        contrasenia: ['', [Validators.required, Validators.pattern("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$")]],
         captchaDigitado: ['']
       }),
       'datos-generales-empresa': this.formBuilder.group({
@@ -82,7 +84,7 @@ export class RegistrarComponent implements OnInit {
         razonSocial: [null, Validators.required],
         nombreEmpresa: [null, Validators.required],
         anioCreacion: [null, Validators.required],
-        numEmpleados: [null, Validators.required],
+        numEmpleados: [null, [Validators.required, Validators.min(0)]],
         ingresosEmp: [null],
         descripcionEmpresa: [null, Validators.required]
       }),
@@ -90,29 +92,27 @@ export class RegistrarComponent implements OnInit {
         sectores: [[], [Validators.required, this.sectorValidator]],
       }),
       'loc-contact-empresa': this.formBuilder.group({
-        /*paisEmp: ['', [Validators.required]],
-        departamentoEmp: ['', Validators.required],
-        ciudadEmp: ['', Validators.required],*/
         paisEmp: [null, Validators.required],
         departamentoEmp: [null, Validators.required],
         ciudadEmp: [null, Validators.required],
         direccionEmp: [null, Validators.required],
         barrioEmp: [null, Validators.required],
-        codigoPostalEmp: [null],
-        telefonoEmp: [null, Validators.required],
+        codigoPostalEmp: [null, Validators.min(0)],
+        telefonoEmp: [null, [Validators.required, Validators.min(0)]],
         emailEmp: [null, [Validators.email]],
         sitioWebEmp: [null]
+        //sitioWebEmp: [null, Validators.pattern("^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$")]
       }),
       'datos-resp': this.formBuilder.group({
         nombrereplegal: [null, Validators.required],
         apellidoreplegal: [null, Validators.required],
-        telefonoreplegal: [null],
-        telefonoMovilreplegal: [null, Validators.required],
+        telefonoreplegal: [null, Validators.min(0)],
+        telefonoMovilreplegal: [null, [Validators.required, Validators.min(0)]],
         nombreResp: [null, Validators.required],
         apellidoResp: [null, Validators.required],
         cargo: [null, Validators.required], //se recibe de la base de datos
-        telefonoResp: [null],
-        telefonoMovilResp: [null, Validators.required],
+        telefonoResp: [null, Validators.min(0)],
+        telefonoMovilResp: [null, [Validators.required, Validators.min(0)]],
         horarioContactoResp: [null],
         direccionTrabajoResp: [null, Validators.required],
         emailCorpResp: [null, [Validators.required, Validators.email]]
@@ -123,6 +123,7 @@ export class RegistrarComponent implements OnInit {
   ngOnInit() {
     this.cargarPaises();
     this.cargarAnios();
+    this.cargarSectoresInteres();
   }
   /**
  * Carga la lista paises, envia al servicio general encargado
@@ -146,6 +147,7 @@ export class RegistrarComponent implements OnInit {
  * @param  idPais  Id del pais escogido en la lista de paises
  */
   cargarDepartamentos(idPais: string) {
+    console.log(idPais);
     this.servGenerales.obtenerListaDepartamentos(idPais).subscribe(resultado => {
       this.departamentos = resultado;
     },
@@ -189,6 +191,7 @@ export class RegistrarComponent implements OnInit {
  */
   cargarSectoresInteres() {
     this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
+      console.log(resultado);
       this.sectoresInteresEmpresa = resultado;
     },
       error => {

@@ -20,9 +20,8 @@ import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empres
 import { MatGridListModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
-
-
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
+import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,7 @@ import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-regis
     ListarSolicitudesEmpresaComponent,
     DatosEmpresaComponent,
     EditarEmpresaComponent,
-
+    HistorialOfertasComponent,
     DialogFinalRegistroComponent,
   ],
   entryComponents: [DialogFinalRegistroComponent],

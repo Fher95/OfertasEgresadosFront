@@ -14,7 +14,7 @@
     <mat-divider></mat-divider>
     <mat-card-content>
         <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
-            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-horizontal-stepper #stepper>
                 <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
                     label="Cuenta">
@@ -37,11 +37,16 @@
                             <mat-label>Contraseña</mat-label>
                             <input formControlName="contrasenia" matInput [type]="contOculto ? 'password' : 'text'"
                                 required>
-
+                            <mat-icon matSuffix (click)="contOculto = !contOculto">
+                                {{contOculto ? 'visibility_off' : 'visibility'}}
+                            </mat-icon>
                             <mat-error
                                 *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.required">
                                 campo
                                 requerido</mat-error>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.pattern">
+                                La contraseña debe contener al menos 6 caracteres en minúscula, una mayúscula, y un
+                                número.</mat-error>
                         </mat-form-field>
                     </div>
                     <!--<div class="row justify-content-center">
@@ -73,11 +78,6 @@
                             <mat-divider [inset]="true"></mat-divider>
                         </div>
                         <div class="row centrarContenidoRow">
-                            <mat-form-field class="example-full-width">
-                                <input matInput type="number" #postalCode maxlength="5" placeholder="Postal Code"
-                                    value="94043">
-                                <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-                            </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hintLabel="entre 8-15 caracteres">
                                 <mat-label>NIT</mat-label>
                                 <input formControlName="NIT" #input matInput minlength="8" maxlength="15" required>
@@ -121,7 +121,7 @@
                                     campo requerido</mat-error>
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-                                <mat-select formControlName="numEmpleados">
+                                <!--<mat-select formControlName="numEmpleados">
                                     <mat-option value="1-10">1-10</mat-option>
                                     <mat-option value="11-50">11-50</mat-option>
                                     <mat-option value="51-150">51-150</mat-option>
@@ -130,11 +130,15 @@
                                     <mat-option value="501-1000">501-1000</mat-option>
                                     <mat-option value="1001-5000">1001-5000</mat-option>
                                     <mat-option value="Mas de 5000">Más de 5000</mat-option>
-                                </mat-select>
+                                </mat-select>-->
+                                <input matInput type="number" formControlName="numEmpleados">
                                 <mat-label>Numero de empleados</mat-label>
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
                                     campo requerido</mat-error>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.min">
+                                    minimo 0</mat-error>
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
                                 <mat-select formControlName="ingresosEmp">
@@ -230,7 +234,7 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>País</mat-label>
                             <mat-select formControlName="paisEmp" (selectionChange)="cargarDepartamentos($event.value)">
-                                <mat-option *ngFor="let pais of paises" [value]="pais.id_pais">
+                                <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
                                     {{pais.nombre}}
                                 </mat-option>
                             </mat-select>
@@ -242,7 +246,7 @@
                             <mat-label>Departamento</mat-label>
                             <mat-select formControlName="departamentoEmp"
                                 (selectionChange)="cargarCiudades($event.value)">
-                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id">
+                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id_aut_dep">
                                     {{departamento.nombre}}
                                 </mat-option>
                             </mat-select>
@@ -253,7 +257,7 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Ciudad</mat-label>
                             <mat-select formControlName="ciudadEmp">
-                                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">
+                                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id_aut_ciudad">
                                     {{ciudad.nombre}}
                                 </mat-option>
                             </mat-select>
@@ -279,7 +283,10 @@
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Codigo Postal</mat-label>
-                            <input matInput maxlength="15" type="number" formControlName="codigoPostalEmp">
+                            <input matInput maxlength="5" type="number" formControlName="codigoPostalEmp">
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.codigoPostalEmp.errors?.min">
+                                No hay codigo postal negativo</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="text-center">
@@ -300,6 +307,9 @@
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Sitio Web</mat-label>
                             <input formControlName="sitioWebEmp" matInput>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.sitioWebEmp.errors?.pattern">
+                                El formatio del sitio web es erroneo</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
@@ -403,9 +413,9 @@
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                        <button [disabled]="!formRegistroEmp.valid" type="button" mat-raised-button color="primary"
-                            matStepperPrevious>Atras</button>
-                        <button mat-raised-button type="submit" color="primary">Finalizar</button>
+                        <button [disabled]="!formRegistroEmp.valid" type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <button mat-raised-button type="submit"
+                            color="primary">Finalizar</button>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>
