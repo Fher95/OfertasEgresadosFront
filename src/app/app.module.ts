@@ -107,9 +107,7 @@ import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.com
     HttpClientModule,
     RecaptchaModule,
     CaptchaModule,
-    ReactiveFormsModule,
-    InfoDialogComponent,
-    
+    ReactiveFormsModule,    
     MatGridListModule,
     PaginationModule.forRoot()
   ],

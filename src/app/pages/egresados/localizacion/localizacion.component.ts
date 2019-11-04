@@ -57,18 +57,19 @@ export class LocalizacionComponent implements OnInit {
   constructor(private catalogoService:CatalogosService) { }
 
   	obtenerPais(){
-		return this.catalogoService.getPaises().subscribe(data => this.paises=data);
+		this.catalogoService.getPaises().subscribe(data => this.paises=data);
 	}
 	obtenerDepartamento(){
-		return this.catalogoService.getDepartamentosBy(this.paisFormControl.value).subscribe(data => this.departamentos=data);
+		this.catalogoService.getDepartamentosBy(this.paisFormControl.value).subscribe(data => this.departamentos=data);
 	}
 	obtenerCiudad(){
-		return this.catalogoService.getCiudadesBy(this.departamentoFormControl.value).subscribe(data => this.ciudades=data);
+		this.catalogoService.getCiudadesBy(this.departamentoFormControl.value).subscribe(data => this.ciudades=data);
 	}
 
 
 
   ngOnInit() {
+	  this.obtenerPais();
   }
 
 }
