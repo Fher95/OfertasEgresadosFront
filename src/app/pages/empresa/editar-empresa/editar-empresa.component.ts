@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ISector, ISubSector } from 'src/app/shared/interfaces/subSector';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ISector } from '../../../shared/modelos/sectorInterface'
+import { ISubSector } from '../../../shared/modelos/subSectorInterface'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { MatDialog } from '@angular/material';

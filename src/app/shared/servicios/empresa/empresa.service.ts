@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { datosEmpresaService } from '../../modelos/datosEmpresaService';
-import { catchError } from 'rxjs/operators';
-
-
+import { IHistorialOfertas } from  '../../modelos/historialOfertas';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpresaService {
   headers: HttpHeaders = new HttpHeaders({
-    "Content-Type": "application/json",
+    "Content-Type": "application/x-www-form-urlencoded",
     "X-Requested-With": "XMLHttpRequest"
   });
 
@@ -36,4 +34,7 @@ export class EmpresaService {
     
   }
 
+  getHistorialOfertas(idEmpresa: number): Observable<IHistorialOfertas[]>{
+    return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/empresa/" + idEmpresa, {headers: this.headers});
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ISubSector, ISector } from './../../shared/interfaces/subSector'
+import { ISector } from '../modelos/sectorInterface';
 
 @Injectable({
   providedIn: 'root'
