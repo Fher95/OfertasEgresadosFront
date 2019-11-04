@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { GeneralesService } from 'src/app/shared/servicios/generales.service';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ISector } from '../../../shared/modelos/sectorInterface'
 import { ISubSector } from '../../../shared/modelos/subSectorInterface'
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
-import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { MatDialog } from '@angular/material';
 import { DialogFinalRegistroComponent } from '../dialog-final-registro/dialog-final-registro.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar-empresa',
@@ -14,10 +14,47 @@ import { DialogFinalRegistroComponent } from '../dialog-final-registro/dialog-fi
   styleUrls: ['./editar-empresa.component.css']
 })
 export class EditarEmpresaComponent implements OnInit {
-  sectoresInteresEmpresa: ISector[] = [
-    { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
-    { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
-  ];
+  /*sectoresInteresEmpresa: Object = [
+    { "Nombre": "Estatal y Relacionados", "subSector": [{'id':1, 'nombre': "Medio ambiente"}, {'id':1, 'nombre': "Minas y Energia"}, "Organizacion no Gubernamental", "Planeacion", "Relaciones Exteriores", "Residencia, Gobernaciones", "Salud, Trabajo y Seguridad", "Servicios Publicos", "Economia Desarrollo Ecologico", "Educacion, Cultura y Turismo", "Estadistica", "Funcion Publica", "Gremios y Asociaciones", "Interior, Control y org", "Justicia del Derecho", "Agricultura y Desarrollo", "Ciencia y Tecnologia", "Comercio Exterior", "Comunicacion", "Defensa y Seguridad Nacional"] },
+    { "Nombre": "Alimentos", "subSector": ["Aceites y Grasas Comestibles", "Alimentos Para Animales", {'id':2, 'nombre': "Azúcar"}, "Batidos", "Café Exportadores", "Chocolate y confiteria", "Conservas, Pasabocas", "Lácteos", "Molinera de Arroz", "Molinería de Productos de Trigo", "Pastas, Panadería y Galletas"] },
+    { "Nombre": "Comercio al por Menor", "subSector": ["Almacenes de cadena", "Almacenes Varios", "Concesionarios", "Droguerias", "Estaciones de Servicio", "Ferreteria", "Hipermercados", "Supermercados", "Tiendas"] },
+    { "Nombre": "Comercio al por Mayor", "subSector": ["Comercio al por Mayor"] },
+    { "Nombre": "Construccion", "subSector": ["Cementos", "Ceramica y Otros Materiales", "Construccion", "Distribucion de materiales", "Infraestructura", "Infraestructura Vial", "Ingenieria Civil", "Preparacion de Terreno"] },
+    { "Nombre": "Financiero", "subSector": ["Banca", "Cajeros Electrónicos", "Compañias de Financiamiento", "Compañias de Leasing", "Corporaciones de Ahorro", "Corredores de Bolsa", "Fiduciaria", "Fondo de Pensiones", "Servicios Financieros", "Tarjeta de Crédito"] },
+    { "Nombre": "Servicios", "subSector": ["Alimentos - Bebidas", "Almacenes de Depósito", "Cajas de Compensacion", "Clubes", "Cooperativas", "Correo", "Hoteles", "Informáticos", "Otros Servicios", "Restaurantes", "Servicios de Aseo", "Servicios Públicos", "Turismo", "Vigilancia y Seguridad"] },
+    { "Nombre": "Agropecuario", "subSector": ["Agricultura y Varios", "Avícola", "Café Producción", "Distribucion de Productos", "Flores", "Ganadería", "Pesca"] },
+    { "Nombre": "Asegurador", "subSector": ["Ajustadores de Seguros", "Compañias de Seguros", "Corredores de Seguros", "Reaseguradores"] },
+    { "Nombre": "Bebidas y Tabaco", "subSector": ["Cerveza", "Distribucion / Consumo Masivo", "Gaseosas, Jugos y Agua", "Licores", "Tabaco"] },
+    { "Nombre": "Consultorias / Asesorias", "subSector": ["Consultoría Contable", "Consultoría de Recursos Humanos", "Firmas de Abogados", "Firmas de Consultoria Empresarial", "Temporales / Dotación"] },
+    { "Nombre": "Consumo masivo", "subSector": ["Consumo masivo"] },
+    { "Nombre": "Cuero y Calzado", "subSector": ["Calzado", "Curtido de Cuero", "Maletas, Bolsos y Similares"] },
+    { "Nombre": "Editorial e Impresión", "subSector": ["Impresion Editorial", "Libros y Folletos y Similares"] },
+    { "Nombre": "Educativo", "subSector": ["Campañas de Capacitacion", "Colegios", "Institutos Técnicos", "Universidades"] },
+    { "Nombre": "Energético", "subSector": ["Compañias Petroleras", "Distribucion de Carbon", "Distribución de Combustibles", "Energía Eléctrica", "Gas", "Servicios Petroleros"] },
+    { "Nombre": "Entretenimiento", "subSector": ["Cine y Videos", "Otros", "Parques de Diversiones", "Produccion de Grabación"] },
+    { "Nombre": "Investigación", "subSector": ["Varios"] },
+    { "Nombre": "Manufactura", "subSector": ["Distribucion de Enseres Domiciliarios", "Distribucion de Maquinaria", "Electrodomésticos", "Manufacturas Varias", "Maquinaria y Equipo", "Muebles y Accesorios", "Productos de Madera"] },
+    { "Nombre": "Medios", "subSector": ["Internet", "Periódicos", "Radio", "Revistas", "Televisión"] },
+    { "Nombre": "Minería, Hierro, Acero y otros Materiales", "subSector": ["Metales Básicos, Hierro, Acero", "Metales no Ferroso", "Otros", "Productos de Metal", "Siderurgia"] },
+    { "Nombre": "Naval", "subSector": ["Construccion Naval", "Diseño Naval", "Mantenimiento Naval", "Naval", "Reparacion Naval"] },
+    { "Nombre": "Otra Actividad", "subSector": ["Atelier de diseño", "Otra Actividad"] },
+    { "Nombre": "Plástico y Caucho", "subSector": ["Plasticos Primarios", "Productos de Caucho", "Productos de Plástico"] },
+    { "Nombre": "Productos de Vidrio", "subSector": ["Envases", "Otros Productos de Vidrios", "Vidrio - Construccion", "Vidrio - Vehículo"] },
+    { "Nombre": "Publicidad y Mercadeo", "subSector": ["Agencias de Publicidad", "Agencias Promocionales", "Brokers de Medios", "Correo Directo", "Otros", "Relaciones Públicas"] },
+    { "Nombre": "Pulpa, Papel y Cartón", "subSector": ["Papel Celulosa y Carton", "Productos de Papel y Cartón"] },
+    { "Nombre": "Quimicos", "subSector": ["Abonos, Plaguicidas y Químicos", "Distribucion / Consumo Masivo", "Distribucion de Productos", "Laboratorios Farmacéuticos", "Pinturas, Barnices y Similares", "Productos de Aseo y Comsméticos", "Quimicos Básicos", "Quimicos Industriales"] },
+    { "Nombre": "Salud", "subSector": ["A.R.P", "E.P.S", "I.P.S", "Mediciona Prepagada", "Seguridad Social", "Servicios Hospitalarios"] },
+    { "Nombre": "Tecnología", "subSector": ["Comercio de Computadores", "Desarrollo y Diseño de Paginas Web", "Productores y Distribuidores"] },
+    { "Nombre": "Telecomunicaciones", "subSector": ["Celulares", "Equipos de Comunicación", "Otros", "Servicios de Comunicación"] },
+    { "Nombre": "Textiles, Prendas de Vestir y Calzado", "subSector": ["Acabados Textiles", "Confecciones", "Distribución de Productos", "Hilanderas", "Textiles"] },
+    { "Nombre": "Transporte", "subSector": ["Aéreo", "Agente", "Marítimo y Fluvial", "Operadores, Agentes y Terminales", "Valores"] },
+    { "Nombre": "Vehiculos y Partes", "subSector": ["Academia Automovilística", "Carrocerías, Partes y Piezas", "Comercialización de Partes", "Concesionarios", "Emsambladoras de Vehículos", "Importadores de Vehículos", "Talleres"] }
+  ];*/
+  sectoresInteresEmpresa: ISector[] = [];
+  //[
+   // { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
+   // { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
+  //];
   debouncer: any;
   subSecEscogidos: ISubSector[] = [];
   anios: any[] = [];
@@ -25,112 +62,59 @@ export class EditarEmpresaComponent implements OnInit {
   departamentos: Object;
   ciudades: Object;
   code: string;
-  formModificarEmp: FormGroup;
+  formDatosEmpresa: FormGroup;
   isLinear = true;
   contOculto = true;
-  
+  mensajesError: String[] = [];
   constructor(
     private servGenerales: GeneralesService,
     private formBuilder: FormBuilder,
     private empService: EmpresaService,
     private matDialog: MatDialog,
     private router: Router,
+    private empresaService : EmpresaService
   ) {
-   /* this.empService.getDatos()
-    .subscribe(data => {
-      //this.data = data;
-      //console.log(data);
-      this.formModificarEmp = this.formBuilder.group({
-        'datos-cuenta': this.formBuilder.group({
-          email: ['', [Validators.required, Validators.email, this.validarExistenciaEmail.bind(this)]],
-          //email: ['', [Validators.required, Validators.email]],
-          contrasenia: ['', Validators.required],
-        }),
-        'datos-genersales-empresa': this.formBuilder.group({
-          //NIT: ['', [Validators.required, Validators.minLength(8), this.validarExistenciaNIT.bind(this)]],
-          NIT: ['', [Validators.required, Validators.minLength(8)]],
-          razonSocial: ['', Validators.required],
-          nombreEmpresa: ['', Validators.required],
-          anioCreacion: ['', Validators.required],
-          numEmpleados: ['', Validators.required],
-          ingresosEmp: [''],
-          descripcionEmpresa: ['', Validators.required]
-        }),
-        'sectores': this.formBuilder.group({
-          sectores: [[], [Validators.required, this.sectorValidator]],
-        }),
-        'loc-contact-empresa': this.formBuilder.group({
-          paisEmp: ['', [Validators.required]],
-          departamentoEmp: ['', Validators.required],
-          ciudadEmp: ['', Validators.required],
-          direccionEmp: ['', Validators.required],
-          barrioEmp: ['', Validators.required],
-          codigoPostalEmp: [''],
-          telefonoEmp: ['', Validators.required],
-          emailEmp: ['', [Validators.email]],
-          sitioWebEmp: ['']
-        }),
-        'datos-resp': this.formBuilder.group({
-          nombrereplegal: ['', Validators.required],
-          apellidoreplegal: ['', Validators.required],
-          telefonoreplegal: [''],
-          telefonoMovilreplegal: ['', Validators.required],
-          nombreResp: ['', Validators.required],
-          apellidoResp: ['', Validators.required],
-          cargoResp: ['', Validators.required], //se recibe de la base de datos
-          telefonoResp: [''],
-          telefonoMovilResp: ['', Validators.required],
-          horarioContactoResp: [''],
-          direccionTrabajoResp: ['', Validators.required],
-          emailCorpResp: ['', [Validators.required, Validators.email]]
-        })
-      });
-    
-    }),
-    error => console.log(error); */
-    this.formModificarEmp = this.formBuilder.group({
+    this.formDatosEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
-        email: ['', [Validators.required, Validators.email, this.validarExistenciaEmail.bind(this)]],
-        //email: ['', [Validators.required, Validators.email]],
-        contrasenia: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email], this.validarExistenciaEmail.bind(this)],
       }),
-      'datos-genersales-empresa': this.formBuilder.group({
-        //NIT: ['', [Validators.required, Validators.minLength(8), this.validarExistenciaNIT.bind(this)]],
-        NIT: ['', [Validators.required, Validators.minLength(8)]],
-        razonSocial: ['', Validators.required],
-        nombreEmpresa: ['', Validators.required],
-        anioCreacion: ['', Validators.required],
-        numEmpleados: ['', Validators.required],
-        ingresosEmp: [''],
-        descripcionEmpresa: ['', Validators.required]
+      'datos-generales-empresa': this.formBuilder.group({
+        NIT: [{value: '', disabled:true}, [Validators.required, Validators.minLength(8), Validators.maxLength(15)], this.validarExistenciaNIT.bind(this)],
+        razonSocial: [{value: '', disabled:true}, Validators.required],
+        nombreEmpresa: [null, Validators.required],
+        anioCreacion: [{value: '', disabled:true}, Validators.required],
+        numEmpleados: [null, [Validators.required, Validators.min(0)]],
+        ingresosEmp: [null],
+        descripcionEmpresa: [null, Validators.required]
       }),
       'sectores': this.formBuilder.group({
         sectores: [[], [Validators.required, this.sectorValidator]],
       }),
       'loc-contact-empresa': this.formBuilder.group({
-        paisEmp: ['', [Validators.required]],
-        departamentoEmp: ['', Validators.required],
-        ciudadEmp: ['', Validators.required],
-        direccionEmp: ['', Validators.required],
-        barrioEmp: ['', Validators.required],
-        codigoPostalEmp: [''],
-        telefonoEmp: ['', Validators.required],
-        emailEmp: ['', [Validators.email]],
-        sitioWebEmp: ['']
+        paisEmp: [{value: '', disabled:true}, Validators.required],
+        departamentoEmp: [{value: '', disabled:true}, Validators.required],
+        ciudadEmp: [{value: '', disabled:true}, Validators.required],
+        direccionEmp: [{value: '', disabled:true}, Validators.required],
+        barrioEmp: [{value: '', disabled:true}, Validators.required],
+        codigoPostalEmp: [null, Validators.min(0)],
+        telefonoEmp: [null, [Validators.required, Validators.min(0)]],
+        emailEmp: [null, [Validators.email]],
+        sitioWebEmp: [null]
+        //sitioWebEmp: [null, Validators.pattern("^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$")]
       }),
       'datos-resp': this.formBuilder.group({
-        nombrereplegal: ['', Validators.required],
-        apellidoreplegal: ['', Validators.required],
-        telefonoreplegal: [''],
-        telefonoMovilreplegal: ['', Validators.required],
-        nombreResp: ['', Validators.required],
-        apellidoResp: ['', Validators.required],
-        cargoResp: ['', Validators.required], //se recibe de la base de datos
-        telefonoResp: [''],
-        telefonoMovilResp: ['', Validators.required],
-        horarioContactoResp: [''],
-        direccionTrabajoResp: ['', Validators.required],
-        emailCorpResp: ['', [Validators.required, Validators.email]]
+        nombrereplegal: [null, Validators.required],
+        apellidoreplegal: [null, Validators.required],
+        telefonoreplegal: [null, Validators.min(0)],
+        telefonoMovilreplegal: [null, [Validators.required, Validators.min(0)]],
+        nombreResp: [null, Validators.required],
+        apellidoResp: [null, Validators.required],
+        cargo: [null, Validators.required], //se recibe de la base de datos
+        telefonoResp: [null, Validators.min(0)],
+        telefonoMovilResp: [null, [Validators.required, Validators.min(0)]],
+        horarioContactoResp: [null],
+        direccionTrabajoResp: [null, Validators.required],
+        emailCorpResp: [null, [Validators.required, Validators.email]]
       })
     });
   }
@@ -138,7 +122,74 @@ export class EditarEmpresaComponent implements OnInit {
   ngOnInit() {
     this.cargarPaises();
     this.cargarAnios();
+    this.cargarSectoresInteres();
+    this.empresaService.getDatos()
+    .subscribe(data => {
+      // obtener la data y pasarla al form
+      this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue(data.user.email);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('NIT').setValue(data.nit);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('razonSocial').setValue(data.razon_social);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('nombreEmpresa').setValue(data.nombre);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('anioCreacion').setValue(data.anio_creacion);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue(data.ingresos);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTAAA FORERO AGREGALOOOOOOOO');      
+      this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(data.sub_sectores);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('departamentoEmp').setValue(data.direccion.ciudad.departamento.nombre);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('ciudadEmp').setValue(data.direccion.ciudad.nombre);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('direccionEmp').setValue(data.direccion.direccion);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('barrioEmp').setValue(data.direccion.barrio);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('codigoPostalEmp').setValue(data.direccion.codigo_postal);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('telefonoEmp').setValue(data.telefono);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('emailEmp').setValue(data.correo);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('sitioWebEmp').setValue(data.sitio_web);
+      this.formDatosEmpresa.controls['datos-resp'].get('nombrereplegal').setValue(data.representante.nombre);
+      this.formDatosEmpresa.controls['datos-resp'].get('apellidoreplegal').setValue(data.representante.apellidos);
+      this.formDatosEmpresa.controls['datos-resp'].get('telefonoreplegal').setValue(data.representante.telefono);
+      this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilreplegal').setValue(data.representante.telefono_movil);
+      this.formDatosEmpresa.controls['datos-resp'].get('nombreResp').setValue(data.administrador.nombres);
+      this.formDatosEmpresa.controls['datos-resp'].get('apellidoResp').setValue(data.administrador.apellidos);
+      this.formDatosEmpresa.controls['datos-resp'].get('cargo').setValue(data.cargo.nombre);
+      this.formDatosEmpresa.controls['datos-resp'].get('horarioContactoResp').setValue(data.administrador.horario_contacto);
+      this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue(data.administrador.telefono);
+      this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
+      this.formDatosEmpresa.controls['datos-resp'].get('direccionTrabajoResp').setValue(data.administrador.direccion.direccion);
+      this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);     
+      let infoSectores:any[];
+      infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
+      // infoSectores =  [
+       // { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
+       // { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
+      //];
+      for (let i = 0; i < infoSectores.length; i++) {
+        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){        
+        if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
+        {
+          let lenSubsectores = infoSectores[i].subSectores.length;
+          for(let k=0; k<lenSubsectores;k++){
+            let subSector = <ISubSector> {idSector: infoSectores[i].subSectores[k].id_sectores,nombre: infoSectores[i].subSectores[k].nombre }
+            //Se busca la posicion del subSector en la lista de general
+            const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
+            //se elimina en sector de la lista general
+            this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
+            //Se el subsector a la lista de escogidos
+            this.subSecEscogidos.push(subSector);
+            //Se actualiza el valor del formControl
+            this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
+          }
+          break;
+        }
+      }
+    }
+    
+    
+    }),
+    error => console.log(error);
+    
   }
+
+
   /**
  * Carga la lista paises, envia al servicio general encargado
  * de realizar las peticiones
@@ -147,7 +198,7 @@ export class EditarEmpresaComponent implements OnInit {
  */
   cargarPaises() {
     this.servGenerales.obtenerListaPaises().subscribe(resultado => {
-      this.paises = resultado.countries;
+      this.paises = resultado;
     },
       error => {
         console.log("Error al obtener los paises: ", JSON.stringify(error));
@@ -163,7 +214,7 @@ export class EditarEmpresaComponent implements OnInit {
   cargarDepartamentos(idPais: string) {
     console.log(idPais);
     this.servGenerales.obtenerListaDepartamentos(idPais).subscribe(resultado => {
-      this.departamentos = resultado.states.filter(item => item.country_id == idPais);
+      this.departamentos = resultado;
     },
       error => {
         console.log("Error al obtener los deprtamentos: ", JSON.stringify(error));
@@ -179,7 +230,7 @@ export class EditarEmpresaComponent implements OnInit {
   cargarCiudades(idDepartamento: string) {
     //Llama al servicio general de peticiones http
     this.servGenerales.obtenerListaCiudades(idDepartamento).subscribe(resultado => {
-      this.ciudades = resultado.cities.filter(item => item.state_id == idDepartamento);
+      this.ciudades = resultado;
     },
       error => {
         console.log("Error al obtener las ciudades: ", JSON.stringify(error));
@@ -205,6 +256,7 @@ export class EditarEmpresaComponent implements OnInit {
  */
   cargarSectoresInteres() {
     this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
+      console.log(resultado);
       this.sectoresInteresEmpresa = resultado;
     },
       error => {
@@ -212,23 +264,56 @@ export class EditarEmpresaComponent implements OnInit {
       });
   }
 
-
-/**
- * Manda el formulario de modificar a los servicios de la empresa
- * encargados de las peticiones.
- * <p>
- * Si existe un error al cargarlo imprime en la consola el error
- * @param  formulario  Id del pais escogido en la lista de departamentos
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  }
+  /**
+ * Genera el codigo del captcha
  */
-  modificarEmpresa(formulario) {
+  onGenerateCode(code) {
+    this.code = code
+  }
+  /**
+   * Verifica si el captcha digitado coincide con el captcha creado
+   * <p>
+   * Si no es el mismo imprime un alert de captcha invalido
+   */
+  verify() {
+    const captchaDigitado = (<HTMLInputElement>document.getElementById("capt")).value;
+    console.log(captchaDigitado);
+    if (this.code === captchaDigitado) {
+      const elemento = document.getElementById("1");
+      elemento.style.display = 'inline';
+    } else {
+      alert('Captcha invalido');
+    }
+  }
+  /**
+   * Manda el formulario de registro a los servicios de la empresa
+   * encargados de las peticiones.
+   * <p>
+   * Si existe un error al cargarlo imprime en la consola el error
+   * @param  formulario  Id del pais escogido en la lista de departamentos
+   */
+  registrarEmpresa(formulario) {
     console.log('formulario', formulario);
     this.empService.modificarEmpresa(formulario.value).toPromise().then(data => {
       console.log(data);
       this.openDialog();
     },
-      error => {
+      errorRegistro => {
+        this.mensajesError = [];
         alert("Error en la peticion al servidor, por favor intentelo de nuevo");
-        console.log(error);
+        console.log(errorRegistro);
+        console.log(errorRegistro.error);
+        // Obteniendo todas las claves del JSON
+        for (var clave in errorRegistro.error) {
+          // Controlando que json realmente tenga esa propiedad
+          if (errorRegistro.error.hasOwnProperty(clave)) {
+            // Mostrando en pantalla la clave junto a su valor
+            this.mensajesError = errorRegistro.error[clave];
+          }
+        }
       });
   }
   /**
@@ -248,7 +333,7 @@ export class EditarEmpresaComponent implements OnInit {
     //Se devuelve a la lista general
     this.sectoresInteresEmpresa[subSector.idSector].subSectores.push(subSector);
     //Se iguala nuevamente el valor del formControl
-    this.formModificarEmp.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
+    this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
   }
   /**
  * agrega un subSector escogido a partir de la lista de sectores en el formulario de registro
@@ -268,7 +353,7 @@ export class EditarEmpresaComponent implements OnInit {
     //Se el subsector a la lista de escogidos
     this.subSecEscogidos.push(subSector);
     //Se actualiza el valor del formControl
-    this.formModificarEmp.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
+    this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
   }
   /**
  * Validador personalizado para saber si el usuario escoge o no sectores
@@ -279,7 +364,7 @@ export class EditarEmpresaComponent implements OnInit {
  */
   sectorValidator(control: FormControl) {
     let lista = control.value;
-    //Si la lista esta vacia se invalida
+    //Si la lista no esta vacia
     if (lista.length != 0) {
       return true;
     }
@@ -299,18 +384,22 @@ export class EditarEmpresaComponent implements OnInit {
     clearTimeout(this.debouncer);
 
     return new Promise(resolve => {
-
-      this.debouncer = setTimeout(() => {
-
-        this.servGenerales.validarEmail(control.value).subscribe((res) => {
-          if (res !== control.value) {
-            resolve(null);
-          }
-        }, (err) => {
-          resolve({ 'EmailExiste': true });
-        });
-
-      }, 1000);
+      if (control.value != "") {
+        this.debouncer = setTimeout(() => {
+          this.servGenerales.validarEmail(control.value).subscribe((res) => {
+            console.log(res)
+            if (res == 'Correcto') {
+              resolve(null);
+            }
+            else {
+              resolve({ 'EmailExiste': true });
+            }
+          }, (err) => {
+            resolve({ 'EmailExiste': true });
+            console.log(err);
+          });
+        }, 10);
+      }
     });
   }
   /**
@@ -326,19 +415,31 @@ export class EditarEmpresaComponent implements OnInit {
     clearTimeout(this.debouncer);
 
     return new Promise(resolve => {
+      if (control.value != "") {
+        this.debouncer = setTimeout(() => {
+          this.servGenerales.validarNIT(control.value).subscribe((res) => {
+            if (res !== control.value) {
+              resolve(null);
+            }
+            else {
+              resolve({ 'NITExiste': true });
+            }
+          }, (err) => {
+            resolve({ 'NITExiste': true });
+          });
 
-      this.debouncer = setTimeout(() => {
-
-        this.servGenerales.validarNIT(control.value).subscribe((res) => {
-          if (res !== control.value) {
-            resolve(null);
-          }
-        }, (err) => {
-          resolve({ 'NITExiste': true });
-        });
-
-      }, 1000);
+        }, 10);
+      }
     });
+  }
+
+  NitLengthValidator(control: FormControl) {
+    //Si la lista esta vacia se invalida
+    if (control.value.length < 4) {
+      return true;
+    }
+    //En caso contrario se deja pasar
+    return null;
   }
   /**
  * Abre un dialog de angular material
@@ -349,7 +450,7 @@ export class EditarEmpresaComponent implements OnInit {
   openDialog() {
     const dialogRef = this.matDialog.open(DialogFinalRegistroComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(['/datosEmpresa']);
+      this.router.navigate(['/']);
     });
   }
 }

@@ -69,6 +69,8 @@ export class DatosEmpresaComponent implements OnInit {
     this.router.navigate(['/editarEmpresa', JSON.stringify('1')]);
   }
   ngOnInit() {    
+    this.formRegistroEmp.controls['datos-cuenta'].get('email').setValue('a');
+
      this.empresaService.getDatos()
     .subscribe(data => {
       this.data = data;

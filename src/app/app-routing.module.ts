@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'registroEmpresa', component: RegistrarComponent },
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'datosEmpresa', component: DatosEmpresaComponent },
-  { path: 'editarEmpresa/:data', component: EditarEmpresaComponent},
+  { path: 'editarEmpresa', component: EditarEmpresaComponent},
   { path: 'empresa/historialOfertas', component: HistorialOfertasComponent},
   { path: 'admin/ofertas', component: ListarOfertasComponent},
   { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
