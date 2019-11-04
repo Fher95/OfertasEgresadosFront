@@ -18,7 +18,7 @@ export class DatosEmpresaComponent implements OnInit {
     { "nombre": "Estatal y Relacionados" },
   ];
 
-  constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, private router: Router) { 
+  constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, private router: Router) {
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: '', disabled:true} ],
@@ -68,13 +68,13 @@ export class DatosEmpresaComponent implements OnInit {
   modificarDatos() {
     this.router.navigate(['/editarEmpresa', JSON.stringify('1')]);
   }
-  ngOnInit() {    
+  ngOnInit() {
      this.empresaService.getDatos()
     .subscribe(data => {
       this.data = data;
       console.log(data);
       // obtener la data y pasarla al form
-      this.formRegistroEmp.controls['datos-cuenta'].get('email').setValue(data.user.email);
+      this.formRegistroEmp.controls['datos-cuenta'].get('email').setValue(data.administrador.user.email);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('nit').setValue(data.nit);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('razonSocial').setValue(data.razon_social);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('nombreEmpresa').setValue(data.nombre);
@@ -98,12 +98,12 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-resp-legal'].get('telefonoMovilRespLegal').setValue(data.representante.telefono_movil);
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('nombreResp').setValue(data.administrador.nombres);
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('apellidoResp').setValue(data.administrador.apellidos);
-      this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('cargo').setValue(data.cargo.nombre);
+      this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('cargo').setValue(data.administrador.cargo.nombre);
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('horarioContacto').setValue(data.administrador.horario_contacto);
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('telefonoResp').setValue(data.administrador.telefono);
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('direccionTrabajo').setValue(data.administrador.direccion.direccion);
-      this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);     
+      this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
     }),
     error => console.log(error);
     /*
