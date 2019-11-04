@@ -7,11 +7,11 @@ import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.componen
 import { NavbarHomeOfertasComponent } from '../../layout/navbar-home-ofertas/navbar-home-ofertas.component';
 import { HeaderComponent } from '../../layout/header/header.component';
 import { VerificarExcelComponent } from './verificar-excel/verificar-excel.component';
-
+import { ListarEgresadosAceptadosComponent } from './listar-egresados-aceptados/listar-egresados-aceptados.component';
 
 
 @NgModule({
-  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent],
+  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent],
   imports: [
     CommonModule,
     MaterialModule,

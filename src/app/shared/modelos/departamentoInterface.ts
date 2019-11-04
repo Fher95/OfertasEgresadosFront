@@ -1,5 +1,5 @@
 export interface DepartamentoInterface {
-    id?: number;
+    id_aut_dep?: number;
     nombre?: string;
     id_pais_fk?: number;
 }

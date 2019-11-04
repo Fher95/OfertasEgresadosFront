@@ -1,0 +1,13 @@
+<app-header></app-header>
+<app-navbar-home-ofertas></app-navbar-home-ofertas>
+
+<div class="container mt-3 mb-3" role="main">
+  <h2 class="text-primary">Egresados aceptados</h2>
+  <div *ngIf="!auxiliar" class="row">
+    <h3 class="text-centered px-3"> Cargando aceptados...</h3>
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only"> Loading...</span>
+    </div>
+  </div>
+  <h3 *ngIf="arregloVacio" class="text-centered">No se encontraron ofertas </h3>
+</div>

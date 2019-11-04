@@ -1,5 +1,5 @@
 export interface CiudadInterface {
-    id?: number;
+    id_aut_ciudad?: number;
     nombre?: string;
     id_departamento?: number;
 }

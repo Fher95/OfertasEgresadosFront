@@ -4,9 +4,15 @@ import { GeneralesService } from '../shared/servicios/generales.service';
 import { AdministradorModule } from './administrador/administrador.module';
 
 
+
+
+
+
 @NgModule({
   declarations: [],
   imports: [
+
+
     CommonModule
   ],
   exports: [AdministradorModule]
