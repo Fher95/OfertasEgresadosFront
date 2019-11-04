@@ -11,15 +11,26 @@ import { DialogFinalRegistroComponent } from './dialog-final-registro/dialog-fin
 import { HistorialOfertasComponent } from './historial-ofertas/historial-ofertas.component';
 import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.component';
 import { OfertasActivasComponent } from './ofertas-activas/ofertas-activas.component';
+import { CrearOfertaLaboralComponent } from './crear-oferta-laboral/crear-oferta-laboral.component';
+
 
 @NgModule({
-  declarations: [RegistrarComponent, DatosEmpresaComponent,EditarEmpresaComponent, DialogFinalRegistroComponent, HistorialOfertasComponent, OfertasActivasComponent],
+  declarations: [
+    RegistrarComponent, 
+    DatosEmpresaComponent,
+    EditarEmpresaComponent, 
+    DialogFinalRegistroComponent, 
+    HistorialOfertasComponent, 
+    CrearOfertaLaboralComponent, 
+    OfertasActivasComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
     NavbarHomeOfertasComponent,
     HeaderComponent,
     FormsModule,
+    CrearOfertaLaboralComponent
   ],
   providers: [GeneralesService],
   exports: [

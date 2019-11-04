@@ -20,11 +20,17 @@ export class EmpresaService {
   }
   getDatos(): Observable<any>{
     //obtener los datos de la peticion datos empresa
-    return this.httpClient.get<datosEmpresaService>("http://127.0.0.1:8081/api/empresa/1", {headers: this.headers});
+    return this.httpClient.get("http://127.0.0.1:8081/api/empresa/1", {headers: this.headers});
   }
   modificarEmpresa(objeto: Object){
     //realizar post al modificar empresas
     return this.httpClient.post("http://127.0.0.1:8081/api/empresa/1", objeto, {headers: this.headers});
+  }
+
+  modificarFoto(file: File){
+    const fd = new FormData();
+    fd.append('image', file, file.name);
+    //this.httpClient.post('', fd,{headers: this.headers});
   }
 
   getHistorialOfertas(idEmpresa: string): Observable<IHistorialOfertas[]>{

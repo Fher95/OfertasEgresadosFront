@@ -1,15 +1,10 @@
-.example-card{
-  margin-top: -19px;
-}
 mat-form-field {
   margin-left: 35px;
   margin-right: 35px;  
-  width: 140px;
+  width: 150px;
 }
-.card{
-
-  min-height: 460px;
-  
+mat-card{
+  width: 100%;
 }
 .textArea{
   margin-left: 20px;
@@ -17,53 +12,60 @@ mat-form-field {
   width: 96%;
 }
 
+
 .mat-card:not([class*=mat-elevation-z]) {
   box-shadow: 0 0px 20px rgba(0,0,0,0.19),
   0 6px 6px rgba(0,0,0,0.23);
 
 }
-.carta-registro{
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-right: 10%;
-    margin-left: 10%;
-    padding-left: 10%;
-    padding-right: 10%;
-}
-
-.example-container {
-  height: 400px;
-  overflow: auto;
-}
-
-.Subtitulos-card{
-    margin-bottom: 5%;
-}
-
-.botonesStepper{
-    text-align: end;
-}
-
-.botonesStepper button,
-.botonesStepper a {
-  margin-right: 8px;
-}
-
-.full-width {
-  width: 100%;
-}
-.cartaCuenta{
-  margin-right: 20%;
-  margin-left: 20%;
-}
 ::ng-deep.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{
-  color:rgb(100, 98, 98);
-
+  color:rgb(125, 125, 139);
+  font-size: 15px;
 }
-
 ::ng-deep.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
-  color:rgb(179, 178, 178);
+  color:rgb(85, 85, 201);
+  color:rgb(125, 125, 139);
+
 }
 .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after, .mat-input-element:disabled{
-  color:rgb(100, 98, 98);
+  color:rgb(7, 7, 7);
+}
+
+
+#file{
+  border:0px;
+  padding: 0px;
+  margin: 0px;
+  visibility: hidden;
+}
+#labelImagen{
+  padding: 0px;
+  margin: 0px;
+}
+label img{
+  margin-top: -1px;
+  margin-right: -2px;
+
+  padding: 0px;
+  height: 32px;
+  width: 32px;
+  z-index: 2;
+  position: static;
+}
+mat-card-footer{
+  margin-top: -16px;
+}
+#btnModificar{
+  margin-right:14px ;  
+}
+img{
+  padding-top: 0px;
+
+}
+#a{
+  margin-top:-16px;
+  padding: 0px;
+  height: 0px;
+  z-index: 1;
+  position: relative;
 }
