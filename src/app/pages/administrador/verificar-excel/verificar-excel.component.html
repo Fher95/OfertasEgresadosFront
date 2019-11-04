@@ -15,8 +15,8 @@
 
   <div class="options" *ngIf="processFinished">
     <button class="button-option aceptados" (click)="mostrarAceptados()">Ver Aceptados</button>
-    <button class="button-option pendientes" (click)="mostrarPendientes()">Ver Pendientes</button>
-    <button class="button-option rechazados" (click)="mostrarRechazados()">Ver Rechazados</button>
+    <!--<button class="button-option pendientes" (click)="mostrarPendientes()">Ver Pendientes</button>-->
+    <!--<button class="button-option rechazados" (click)="mostrarRechazados()">Ver Rechazados</button>-->
   </div>
 
   <div class="results" *ngIf="showAceptados || showPendientes || showRechazados">
@@ -42,14 +42,19 @@
           <td mat-cell *matCellDef="let element"> {{element.identificacion}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="titulo">
+          <th mat-header-cell *matHeaderCellDef>Título</th>
+          <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator #aceptadosPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
     <!-- Fin tabla de egresados aceptados. -->
 
-    <!-- Tabla de egresados pendientes. -->
+    <!-- Tabla de egresados pendientes. 
     <div class="tbl-pendientes" *ngIf="showPendientes">
       <h4 class="tbl-title">
         Egresados Pendientes
@@ -58,9 +63,9 @@
 
       </table>
     </div>
-    <!-- Fin tabla de egresados pendientes. -->
+     Fin tabla de egresados pendientes. -->
 
-    <!-- Tabla de egresados rechazados. -->
+    <!-- Tabla de egresados rechazados. 
     <div class="tbl-rechazados" *ngIf="showRechazados">
       <h4 class="tbl-title">
         Egresados Rechazados
@@ -69,7 +74,7 @@
 
       </table>
     </div>
-    <!-- Fin tabla de egresados rechazados. -->
+     Fin tabla de egresados rechazados. -->
 
   </div>
 
