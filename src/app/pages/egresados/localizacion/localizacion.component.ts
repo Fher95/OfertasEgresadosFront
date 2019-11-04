@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 
+
 import {ErrorStateMatcher} from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
@@ -8,6 +9,7 @@ import { Pais } from '../../../shared/modelos/paisInterface';
 import { DepartamentoInterface } from '../../../shared/modelos/departamentoInterface';
 import { CiudadInterface } from '../../../shared/modelos/ciudadesInterface';
 import { Observable } from 'rxjs';
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -21,6 +23,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './localizacion.component.html',
   styleUrls: ['./localizacion.component.css']
 })
+
 
 
 
@@ -69,3 +72,5 @@ export class LocalizacionComponent implements OnInit {
   }
 
 }
+
+

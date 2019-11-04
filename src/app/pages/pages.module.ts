@@ -5,10 +5,15 @@ import { AdministradorModule } from './administrador/administrador.module';
 
 
 
+
+
+
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
+
+
+    CommonModule
   ],
   exports: [AdministradorModule]
 })

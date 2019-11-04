@@ -1,0 +1,11 @@
+table {
+    width: 100%;
+    text-align: center;
+  }
+  main {
+    display: block;
+  }
+  th.mat-header-cell {
+    text-align: center;
+  }
+  

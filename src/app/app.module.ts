@@ -16,7 +16,6 @@ import { CaptchaModule } from 'ng-captcha';
 import { PrincipalComponent } from './pages/administrador/principal/principal.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
 import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
 import {LocalizacionComponent} from './pages/egresados/localizacion/localizacion.component';
@@ -41,6 +40,23 @@ import { MatMenuModule } from '@angular/material/menu';
 
 
 
+import { MatGridListModule } from '@angular/material';
+import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
+import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
+import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
+import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
+import { AdministradorModule } from './pages/administrador/administrador.module';
+import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
+import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
+import { NavbarEmpresaComponent } from './layout/navbar-empresa/navbar-empresa.component';
+import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
+import { InicioEgresadosComponent } from './pages/home/inicio-egresados/inicio-egresados.component';
+import { NavEgresadosComponent } from './pages/home/inicio-egresados/nav-egresados/nav-egresados.component';
+import { FooterEgresadosComponent } from './pages/home/inicio-egresados/footer-egresados/footer-egresados.component';
+import { ProgramaComponent } from './pages/egresados/programa/programa.component';
+import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
+import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,9 +68,24 @@ import { MatMenuModule } from '@angular/material/menu';
     HomeOfertasComponent,
     PrincipalComponent,
     PreRegistroComponent,
-    LocalizacionComponent,
     InfoDialogComponent,
+    EditarEmpresaComponent,
+    HistorialOfertasComponent,
+    ListarOfertasComponent,
+    DialogFinalRegistroComponent,
+    VerificarExcelComponent,
+    OfertasActivasComponent,
+    NavbarEmpresaComponent,
+    CrearOfertaLaboralComponent,
+    InicioEgresadosComponent,
+    NavEgresadosComponent,
+    FooterEgresadosComponent,
+    LocalizacionComponent,
+    ProgramaComponent,
+    CompletarRegistroComponent,
+    ActualizarComponent
   ],
+  entryComponents: [DialogFinalRegistroComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -77,12 +108,13 @@ import { MatMenuModule } from '@angular/material/menu';
     RecaptchaModule,
     CaptchaModule,
     ReactiveFormsModule,
+    InfoDialogComponent,
+    
+    MatGridListModule,
     PaginationModule.forRoot()
   ],
-  entryComponents: [
-    InfoDialogComponent,
-  ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
