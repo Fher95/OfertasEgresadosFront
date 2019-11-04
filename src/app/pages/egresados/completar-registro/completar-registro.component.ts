@@ -10,10 +10,12 @@ import { MatRadioChange, MatRadioButton } from '@angular/material';
 export class CompletarRegistroComponent implements OnInit {
   
   //Formulario infoPersonalComplementaria
+  parenteso : string;
   infoPersonalComplementaria = new FormGroup(
     {
       NombreEsposo : new FormControl('', [Validators.required]),
       CorreoEsposo : new FormControl('', [Validators.required, Validators.email]),
+      CelularEsposo : new FormControl('', [Validators.required]),
       NombreMadre : new FormControl('', [Validators.required]),
       CelularMadre : new FormControl('', [Validators.required]),
       NombrePadre : new FormControl('', [Validators.required]),
