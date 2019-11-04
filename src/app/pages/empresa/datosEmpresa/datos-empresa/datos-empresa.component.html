@@ -53,10 +53,27 @@
                                       </mat-form-field>
                                       <mat-form-field formGroupName="datos-generales-empresa"  floatLabel="auto" appearance="outline">                          
                                           <mat-label>Ingresos</mat-label><input  matInput formControlName="ingresosEmp" >                        
-                                      </mat-form-field>  
+                                      </mat-form-field>
+                                      <mat-accordion>
+                                            <mat-expansion-panel>
+                                                    <mat-expansion-panel-header>
+                                                            <mat-panel-title>
+                                                              Sectores
+                                                            </mat-panel-title>
+                                                          </mat-expansion-panel-header>
+                                                          <div *ngFor="let sector of formRegistroEmp.get('sectores').value.sectores">
+                                                                <mat-form-field floatLabel="auto" appearance="outline">                          
+                                                                    <input matInput value="{{sector.nombre}}" disabled>                        
+                                                                </mat-form-field>                                          
+                                                            </div>                                                          
+                                            </mat-expansion-panel>
+                                      </mat-accordion>
+                                      
+                                        <!--
                                       <mat-form-field formGroupName="sectores"  floatLabel="auto" appearance="outline">                          
                                         <mat-label>Sector</mat-label><input  matInput formControlName="sectores" >                        
                                     </mat-form-field>  
+                                    -->
                                 </div>
                                 <div class="row">
                                           <div class="col-12">
@@ -158,7 +175,7 @@
                                               <mat-label>Telefono movil</mat-label><input  matInput formControlName="telefonoMovilResp" >                   
                                       </mat-form-field> 
                                       <mat-form-field floatLabel="auto" appearance="outline">                          
-                                          <mat-label>Dreccion de contacto</mat-label><input  matInput formControlName="direccionTrabajo" >                   
+                                          <mat-label>Direccion de contacto</mat-label><input  matInput formControlName="direccionTrabajo">                   
                                   </mat-form-field>
                                       <mat-form-field floatLabel="auto" appearance="outline">                          
                                               <mat-label>Horario contacto</mat-label><input  matInput formControlName="horarioContacto" >                   
