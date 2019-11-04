@@ -2,170 +2,189 @@
 <app-navbar-home-ofertas></app-navbar-home-ofertas>
 <div class="container-fluid">
   <form [formGroup]="formRegistroEmp">
-      <div class="row my-4  justify-content-between">
+      <div class="row mt-4">
         <div class="col-3">
             <mat-card >
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-actions class="example-card">
-                  <button mat-raised-button color="primary" (click)="modificarDatos()">Modificar Datos</button>
-                </mat-card-actions>
+                    <div id="a" class="row justify-content-end">
+                            <div class="col-xs-1">
+                                    <label id="labelImagen" for="file" class="btn">
+                                            <img src="../assets/img/edit2.jpg"  class="round" alt="some img">
+                                        </label> 
+                            </div>
+                    </div>
+                <img mat-card-image id="imgUser" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                <mat-card-footer>
+                        <div class="row justify-content-end">
+                                <div class="col-xs-1">
+                                        <button id="btnModificar" mat-raised-button color="primary" (click)="modificarDatos()">Modificar Datos</button>
+                                </div>
+                             
+                        </div>                        
+                </mat-card-footer>
               </mat-card>
+              <input id="file" type="file" (change)="modificarFoto($event)">
         </div>
-        <div class="col-9">
-            <mat-card  >
-                <mat-card-header>
-                  <mat-card-title>Datos</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div class="row" >
-                     
-                          <mat-form-field formGroupName="datos-cuenta" floatLabel="auto" appearance="outline">                          
-                              <mat-label>Email</mat-label><input  matInput formControlName="email" >                   
-                          </mat-form-field>
-                          <mat-form-field  formGroupName="datos-cuenta" floatLabel="auto" appearance="outline">                          
-                              <mat-label>Usuario</mat-label><input  matInput formControlName="usuario" >                   
-                          </mat-form-field>
-                          <mat-form-field formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
-                              <mat-label>Nit</mat-label><input  matInput formControlName="nit" >                   
-                          </mat-form-field>
-                          <mat-form-field  formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
-                              <mat-label>Razon social</mat-label><input  matInput formControlName="razonSocial" >                        
-                          </mat-form-field>
-                          <mat-form-field formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
-                              <mat-label>Nombre empresa</mat-label><input  matInput formControlName="nombreEmpresa" >                        
-                          </mat-form-field>
-                          <mat-form-field formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
-                              <mat-label>Año creacion</mat-label><input  matInput formControlName="anioCreacion" >                        
-                          </mat-form-field>    
-                          <mat-form-field  formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
-                              <mat-label>Numero de empleados</mat-label><input  matInput formControlName="numEmpleados" >                        
-                          </mat-form-field>
-                          <mat-form-field formGroupName="datos-generales-empresa"  floatLabel="auto" appearance="outline">                          
-                              <mat-label>Ingresos</mat-label><input  matInput formControlName="ingresosEmp" >                        
-                          </mat-form-field>  
-                          <mat-form-field formGroupName="sectores"  floatLabel="auto" appearance="outline">                          
-                            <mat-label>Sector</mat-label><input  matInput formControlName="sectores" >                        
-                        </mat-form-field>  
-                    </div>
-                    <div class="row">
-                              <div class="col-12">
-                                  <mat-form-field formGroupName="datos-generales-empresa" class="textArea"  floatLabel="auto" appearance="outline">
-                                      <mat-label>Descripcion</mat-label>
-                                      <textarea  matInput placeholder="Textarea" formControlName="descripcionEmpresa" rows="2"></textarea>
+        <div class="col-8 offset-xs-1">
+            <div class="row">
+                    <mat-card  >
+                            <mat-card-header>
+                              <mat-card-title>Datos</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div class="row" >
+                                 
+                                      <mat-form-field formGroupName="datos-cuenta" floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Email</mat-label><input  matInput formControlName="email" >                   
+                                      </mat-form-field>
+                                      <mat-form-field formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Nit</mat-label><input  matInput formControlName="nit" >                   
+                                      </mat-form-field>
+                                      <mat-form-field  formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Razon social</mat-label><input  matInput formControlName="razonSocial" >                        
+                                      </mat-form-field>
+                                      <mat-form-field formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Nombre empresa</mat-label><input  matInput formControlName="nombreEmpresa" >                        
+                                      </mat-form-field>
+                                      <mat-form-field formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Año creacion</mat-label><input  matInput formControlName="anioCreacion" >                        
+                                      </mat-form-field>    
+                                      <mat-form-field  formGroupName="datos-generales-empresa" floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Numero de empleados</mat-label><input  matInput formControlName="numEmpleados" >                        
+                                      </mat-form-field>
+                                      <mat-form-field formGroupName="datos-generales-empresa"  floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Ingresos</mat-label><input  matInput formControlName="ingresosEmp" >                        
+                                      </mat-form-field>
+                                      <mat-accordion>
+                                            <mat-expansion-panel>
+                                                    <mat-expansion-panel-header>
+                                                            <mat-panel-title>
+                                                              Sectores
+                                                            </mat-panel-title>
+                                                          </mat-expansion-panel-header>
+                                                          <div *ngFor="let sector of formRegistroEmp.get('sectores').value.sectores">
+                                                                <mat-form-field floatLabel="auto" appearance="outline">                          
+                                                                    <input matInput value="{{sector.nombre}}" disabled>                        
+                                                                </mat-form-field>                                          
+                                                            </div>                                                          
+                                            </mat-expansion-panel>
+                                      </mat-accordion>
+                                      
+                                        <!--
+                                      <mat-form-field formGroupName="sectores"  floatLabel="auto" appearance="outline">                          
+                                        <mat-label>Sector</mat-label><input  matInput formControlName="sectores" >                        
+                                    </mat-form-field>  
+                                    -->
+                                </div>
+                                <div class="row">
+                                          <div class="col-12">
+                                              <mat-form-field formGroupName="datos-generales-empresa" class="textArea"  floatLabel="auto" appearance="outline">
+                                                  <mat-label>Descripcion</mat-label>
+                                                  <textarea  matInput placeholder="Textarea" formControlName="descripcionEmpresa" rows="2"></textarea>
+                                                </mat-form-field>
+                                          </div>
+                                </div>                       
+                            </mat-card-content>
+                        </mat-card>
+            </div>
+            <div class="row  my-4 ">
+                    <mat-card   >
+                            <mat-card-header>
+                              <mat-card-title>Localidad</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                              <div class="row " formGroupName="loc-contact-empresa" >
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Pais</mat-label><input  matInput formControlName="paisEmp" >                   
+                                  </mat-form-field>
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Departamento</mat-label><input  matInput formControlName="departamentoEmp" >                   
+                                  </mat-form-field>
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Ciudad</mat-label><input  matInput formControlName="ciudadEmp" >                   
+                                  </mat-form-field>
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Direccion</mat-label><input  matInput formControlName="direccionEmp" >                   
+                                  </mat-form-field>
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Barrio</mat-label><input  matInput formControlName="barrioEmp" >                   
+                                  </mat-form-field>
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Codigo postal</mat-label><input  matInput formControlName="codigoPostalEmp" >                   
+                                  </mat-form-field>
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Telefono</mat-label><input  matInput formControlName="telefonoEmp" >                   
+                                  </mat-form-field>
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Email empresa</mat-label><input  matInput formControlName="emailEmp" >                   
+                                  </mat-form-field>
+                                  <mat-form-field floatLabel="auto" appearance="outline">                          
+                                      <mat-label>Sitio web</mat-label><input  matInput formControlName="sitioWebEmp" >                   
+                                  </mat-form-field>
+                                  </div>
+                            </mat-card-content>
+                            
+                          </mat-card>
+                        
+            </div>
+            <div class="row  my-4 " >
+                <mat-card >
+                    <mat-card-header>
+                        <mat-card-title>Responsable legal</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                            <div class="row " formGroupName="datos-resp-legal" >
+                                    <mat-form-field floatLabel="auto" appearance="outline">                          
+                                        <mat-label>Nombre</mat-label><input  matInput formControlName="nombreRespLegal" >                   
                                     </mat-form-field>
-                              </div>
-                    </div>                       
-                </mat-card-content>
-            </mat-card>
+                                    <mat-form-field floatLabel="auto" appearance="outline">                          
+                                        <mat-label>Apellido</mat-label><input  matInput formControlName="apellidoRespLegal" >                   
+                                    </mat-form-field>
+                                    <mat-form-field floatLabel="auto" appearance="outline">                          
+                                        <mat-label>Telefono movil</mat-label><input  matInput formControlName="telefonoMovilRespLegal" >                   
+                                    </mat-form-field>
+                                    <mat-form-field floatLabel="auto" appearance="outline">                          
+                                        <mat-label>Telefono fijo</mat-label><input  matInput formControlName="telefonoFijoRespLegal" >                   
+                                    </mat-form-field>
+                                    </div>
+                      </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="row  my-4 ">
+                    <mat-card >
+                            <mat-card-header>
+                              <mat-card-title>Responsable de la cuenta de la empresa</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content>
+                                  <div class="row" formGroupName="datos-resp-cuenta-empresa" >
+                                      <mat-form-field floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Nombre</mat-label><input  matInput formControlName="nombreResp" >                   
+                                      </mat-form-field>
+                                      <mat-form-field floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Apellido</mat-label><input  matInput formControlName="apellidoResp" >                   
+                                      </mat-form-field>
+                                      <mat-form-field floatLabel="auto" appearance="outline">                          
+                                              <mat-label>Email corporativo</mat-label><input  matInput formControlName="emailCorpResp" >                   
+                                      </mat-form-field>    
+                                      <mat-form-field floatLabel="auto" appearance="outline">                          
+                                              <mat-label>Cargo</mat-label><input  matInput formControlName="cargo" >                   
+                                      </mat-form-field> 
+                                      <mat-form-field floatLabel="auto" appearance="outline">                          
+                                              <mat-label>Telefono</mat-label><input  matInput formControlName="telefonoResp" >                   
+                                      </mat-form-field> 
+                                      <mat-form-field floatLabel="auto" appearance="outline">                          
+                                              <mat-label>Telefono movil</mat-label><input  matInput formControlName="telefonoMovilResp" >                   
+                                      </mat-form-field> 
+                                      <mat-form-field floatLabel="auto" appearance="outline">                          
+                                          <mat-label>Direccion de contacto</mat-label><input  matInput formControlName="direccionTrabajo">                   
+                                  </mat-form-field>
+                                      <mat-form-field floatLabel="auto" appearance="outline">                          
+                                              <mat-label>Horario contacto</mat-label><input  matInput formControlName="horarioContacto" >                   
+                                      </mat-form-field>  
+                                  </div>
+                            </mat-card-content>
+                        </mat-card>
+            </div>
         </div>
-      </div>
-      <div class="row my-4 ">
-          <div class="col-6" >
-              <mat-card class="card"  >
-                  <mat-card-header>
-                    <mat-card-title>Localidad</mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <div class="row " formGroupName="loc-contact-empresa" >
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Pais</mat-label><input  matInput formControlName="paisEmp" >                   
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Departamento</mat-label><input  matInput formControlName="departamentoEmp" >                   
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Ciudad</mat-label><input  matInput formControlName="ciudadEmp" >                   
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Direccion</mat-label><input  matInput formControlName="direccionEmp" >                   
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Barrio</mat-label><input  matInput formControlName="barrioEmp" >                   
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Codigo postal</mat-label><input  matInput formControlName="codigoPostalEmp" >                   
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Telefono</mat-label><input  matInput formControlName="telefonoEmp" >                   
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Email empresa</mat-label><input  matInput formControlName="emailEmp" >                   
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">                          
-                            <mat-label>Sitio web</mat-label><input  matInput formControlName="sitioWebEmp" >                   
-                        </mat-form-field>
-                        </div>
-                  <h4>Responsable legal</h4>
-                  </mat-card-content>
-                  <div class="row " formGroupName="datos-resp-legal" >
-                    <mat-form-field floatLabel="auto" appearance="outline">                          
-                        <mat-label>Nombre</mat-label><input  matInput formControlName="nombreRespLegal" >                   
-                    </mat-form-field>
-                    <mat-form-field floatLabel="auto" appearance="outline">                          
-                        <mat-label>Apellido</mat-label><input  matInput formControlName="apellidoRespLegal" >                   
-                    </mat-form-field>
-                    <mat-form-field floatLabel="auto" appearance="outline">                          
-                        <mat-label>Telefono movil</mat-label><input  matInput formControlName="telefonoMovilRespLegal" >                   
-                    </mat-form-field>
-                    <mat-form-field floatLabel="auto" appearance="outline">                          
-                        <mat-label>Telefono fijo</mat-label><input  matInput formControlName="telefonoFijoRespLegal" >                   
-                    </mat-form-field>
-                    </div>
-                </mat-card>
-          </div>
-          <div class="col-6 " >
-              <mat-card class="card" >
-                  <mat-card-header>
-                    <mat-card-title>Responsable de la cuenta de |empresa</mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                        <div class="row" formGroupName="datos-resp-cuenta-empresa" >
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                <mat-label>Nombre</mat-label><input  matInput formControlName="nombreResp" >                   
-                            </mat-form-field>
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                <mat-label>Apellido</mat-label><input  matInput formControlName="apellidoResp" >                   
-                            </mat-form-field>
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Email corporativo</mat-label><input  matInput formControlName="emailCorpResp" >                   
-                            </mat-form-field>    
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Cargo</mat-label><input  matInput formControlName="cargo" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Pais</mat-label><input  matInput formControlName="paisResp" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Departamento</mat-label><input  matInput formControlName="departamentoResp" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Ciudad</mat-label><input  matInput formControlName="ciudadResp" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Barrio</mat-label><input  matInput formControlName="barrioResp" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Dirección</mat-label><input  matInput formControlName="ciudadResp" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Codigo postal</mat-label><input  matInput formControlName="codigoPostalResp" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Telefono</mat-label><input  matInput formControlName="telefonoResp" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Telefono movil</mat-label><input  matInput formControlName="telefonoMovilResp" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Horario contacto</mat-label><input  matInput formControlName="horarioContacto" >                   
-                            </mat-form-field> 
-                            <mat-form-field floatLabel="auto" appearance="outline">                          
-                                    <mat-label>Fax</mat-label><input  matInput formControlName="faxResp" >                   
-                            </mat-form-field> 
-                        </div>
-                  </mat-card-content>
-                </mat-card>
-          </div>
       </div>
   </form>
 </div>

@@ -1,18 +1,17 @@
 export interface datosEmpresaService{
     datosCuenta?: {
-        email?: string;
-        usuario?: string;
-        contrasenia?: string;
+        email: string;
+        contrasenia: string;
     };
     datosGeneralesEmpresa?:
     {
         nit: string; //bloqueado
         razonSocial: string;     //bloqueado
-        nombreEmpresa: string;   //bloqueado
+        nombreEmpresa: string;
         anioCreacion: string; //bloqueado
-        numEmpleados?: string;
+        numEmpleados: string;
         ingresosEmp?: string;
-        descripcionEmpresa?: string;
+        descripcionEmpresa: string;
     };
     sectores?:{
         sectores: [];
@@ -25,7 +24,7 @@ export interface datosEmpresaService{
         barrioEmp: string; //bloqueado
         codigoPostalEmp?: string;
         telefonoEmp?: string;
-        emailEmp: string;
+        emailEmp?: string;
         sitioWebEmp?: string;
     };
     datosRespLegal?:{
@@ -39,17 +38,10 @@ export interface datosEmpresaService{
         nombreResp: string;
         apellidoResp: string;
         cargo: string;
-        paisResp: string;
-        departamentoResp: string;
-        ciudadResp: string;
-        barrioResp: string;
-        direccionResp: string;
-        codigoPostalResp?: string;
         telefonoResp?: string;
         telefonoMovilResp: string;
         horarioContacto?: string;
-        faxResp?: string;
+        direccionTrabajoResp: string;
         emailCorpResp: string;
     }
-
 }
