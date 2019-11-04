@@ -75,6 +75,8 @@ export class DatosEmpresaComponent implements OnInit {
           apellidoResp: [{value: data.administrador.apellidos, disabled:true}],
           cargo: [{value: data.cargo.nombre, disabled:true}], //se recibe de la base de datos
           horarioContacto: [{value: data.administrador.horario_contacto, disabled:true}],
+          telefonoResp: [{value: data.administrador.telefono, disabled:true}],
+          telefonoMovilResp: [{value: data.administrador.telefono_movil, disabled:true}],
           direccionTrabajo: [{value: data.administrador.direccion.direccion, disabled:true}],
           emailCorpResp: [{value: data.administrador.correo_corporativo, disabled:true}]
         })
