@@ -1,16 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
-import { IHistorialOfertas } from '../../../shared/modelos/historialOfertas'
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { IHistorialOfertas } from 'src/app/shared/modelos/historialOfertas';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
-  selector: 'app-historial-ofertas',
-  templateUrl: './historial-ofertas.component.html',
-  styleUrls: ['./historial-ofertas.component.css']
+  selector: 'app-ofertas-activas',
+  templateUrl: './ofertas-activas.component.html',
+  styleUrls: ['./ofertas-activas.component.css']
 })
-export class HistorialOfertasComponent implements OnInit {
+export class OfertasActivasComponent implements OnInit {
 
   id: string;
   displayedColumns: string[] = ['fecha', 'cargo', 'vacantes', 'estado'];
@@ -29,7 +28,7 @@ export class HistorialOfertasComponent implements OnInit {
     this.cargarOfertas();
   }
   cargarOfertas() {
-    this.empService.getHistorialOfertas(this.id).subscribe(resultado => {
+    this.empService.getOfertasActivas(this.id).subscribe(resultado => {
       this.ofertas = resultado;
       this.dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
       this.dataSource.paginator = this.paginator;
@@ -42,5 +41,5 @@ export class HistorialOfertasComponent implements OnInit {
   verOferta(idOferta: number) {
     console.log(idOferta);
   }
- 
+
 }

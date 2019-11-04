@@ -10,9 +10,10 @@ import { DatosEmpresaComponent } from './datosEmpresa/datos-empresa/datos-empres
 import { DialogFinalRegistroComponent } from './dialog-final-registro/dialog-final-registro.component';
 import { HistorialOfertasComponent } from './historial-ofertas/historial-ofertas.component';
 import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.component';
+import { OfertasActivasComponent } from './ofertas-activas/ofertas-activas.component';
 
 @NgModule({
-  declarations: [RegistrarComponent, DatosEmpresaComponent,EditarEmpresaComponent, DialogFinalRegistroComponent, HistorialOfertasComponent],
+  declarations: [RegistrarComponent, DatosEmpresaComponent,EditarEmpresaComponent, DialogFinalRegistroComponent, HistorialOfertasComponent, OfertasActivasComponent],
   imports: [
     CommonModule,
     MaterialModule,

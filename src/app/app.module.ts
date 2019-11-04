@@ -25,6 +25,8 @@ import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/his
 import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
 import { AdministradorModule } from './pages/administrador/administrador.module';
 import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
+import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
+import { NavbarEmpresaComponent } from './layout/navbar-empresa/navbar-empresa.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { VerificarExcelComponent } from './pages/administrador/verificar-excel/v
     HistorialOfertasComponent,
     ListarOfertasComponent,
     DialogFinalRegistroComponent,
-    VerificarExcelComponent
+    VerificarExcelComponent,
+    OfertasActivasComponent,
+    NavbarEmpresaComponent,
   ],
   entryComponents: [DialogFinalRegistroComponent],
   imports: [

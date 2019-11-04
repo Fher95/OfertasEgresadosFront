@@ -26,7 +26,11 @@ export class EmpresaService {
     //realizar post al modificar empresas
     return this.httpClient.post("http://127.0.0.1:8081/api/empresa/1", objeto, {headers: this.headers});
   }
-  getHistorialOfertas(idEmpresa: number): Observable<IHistorialOfertas[]>{
+
+  getHistorialOfertas(idEmpresa: string): Observable<IHistorialOfertas[]>{
     return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/empresa/" + idEmpresa, {headers: this.headers});
+  }
+  getOfertasActivas(idEmpresa: string): Observable<IHistorialOfertas[]>{
+    return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/activas/empresa/" + idEmpresa, {headers: this.headers});
   }
 }
