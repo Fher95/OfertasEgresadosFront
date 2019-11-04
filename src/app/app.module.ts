@@ -28,6 +28,13 @@ import { VerificarExcelComponent } from './pages/administrador/verificar-excel/v
 import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
 import { NavbarEmpresaComponent } from './layout/navbar-empresa/navbar-empresa.component';
 import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
+import { InicioEgresadosComponent } from './pages/home/inicio-egresados/inicio-egresados.component';
+import { NavEgresadosComponent } from './pages/home/inicio-egresados/nav-egresados/nav-egresados.component';
+import { FooterEgresadosComponent } from './pages/home/inicio-egresados/footer-egresados/footer-egresados.component';
+import { LocalizacionComponent } from './pages/egresados/localizacion/localizacion.component';
+import { ProgramaComponent } from './pages/egresados/programa/programa.component';
+import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
+import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +54,13 @@ import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-labora
     OfertasActivasComponent,
     NavbarEmpresaComponent,
     CrearOfertaLaboralComponent,
+    InicioEgresadosComponent,
+    NavEgresadosComponent,
+    FooterEgresadosComponent,
+    LocalizacionComponent,
+    ProgramaComponent,
+    CompletarRegistroComponent,
+    ActualizarComponent
   ],
   entryComponents: [DialogFinalRegistroComponent],
   imports: [

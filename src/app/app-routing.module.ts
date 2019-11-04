@@ -11,6 +11,9 @@ import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-
 import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
 import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
 import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
+import { InicioEgresadosComponent } from './pages/home/inicio-egresados/inicio-egresados.component';
+import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
+import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
 
 const routes: Routes = [
   { path: '', component: HomeOfertasComponent },
@@ -23,6 +26,9 @@ const routes: Routes = [
   { path: 'admin/ofertas', component: ListarOfertasComponent},
   { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
   { path: 'crearOfertaLaboral', component: CrearOfertaLaboralComponent},
+  { path: 'egresados', component: InicioEgresadosComponent},
+  { path: 'egresados/completarRegistro', component: CompletarRegistroComponent},
+  { path: 'egresados/actualizacion', component: ActualizarComponent}
 ];
 
 @NgModule({

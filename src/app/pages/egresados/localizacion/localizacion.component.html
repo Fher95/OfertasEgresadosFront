@@ -1,0 +1,27 @@
+<div  id='content'>
+  <mat-form-field>
+    <mat-label>{{mensaje1}}</mat-label>
+    <mat-select [formControl]="paisFormControl" required>
+      <mat-option *ngFor="let pais of paises" [value]="pais">{{pais}}</mat-option>
+    </mat-select >
+    <mat-error *ngIf="paisFormControl.hasError('required')">Por favor selecionar un {{mensaje1}}</mat-error>
+  </mat-form-field>
+</div>
+<div id='content'>
+  <mat-form-field>
+    <mat-label>{{mensaje2}}</mat-label>
+    <mat-select [formControl]="departamentoFormControl" required>            
+      <mat-option *ngFor="let departamento of departamentos" [value]="departamento">{{departamento}}</mat-option>
+    </mat-select >
+    <mat-error *ngIf="departamentoFormControl.hasError('required')">Por favor selecionar un {{mensaje2}}</mat-error>
+  </mat-form-field>
+</div>
+<div id='content'>
+  <mat-form-field>
+    <mat-label>{{mensaje3}}</mat-label>
+    <mat-select [formControl]="ciudadFormControl" required>            
+      <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ciudad}}</mat-option>
+    </mat-select >
+    <mat-error *ngIf="ciudadFormControl.hasError('required')">Por favor selecionar un {{mensaje3}}</mat-error>
+  </mat-form-field>
+</div>

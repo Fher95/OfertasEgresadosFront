@@ -1,0 +1,19 @@
+<div class="Programa">
+  <mat-label>Egresado de: </mat-label>
+  <mat-radio-group>
+    <mat-radio-button value="Pregrado">Pregrado</mat-radio-button>
+    <mat-radio-button value="Posgrado">Posgrado</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field>
+    <mat-label>Facultad</mat-label>
+    <mat-select [formControl]="facultad" required>
+      <mat-option>1</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Programa</mat-label>
+    <mat-select [formControl]="programa" required>
+      <mat-option>1</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>   
