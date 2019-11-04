@@ -18,6 +18,25 @@ import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
+import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
+import {LocalizacionComponent} from './pages/egresados/localizacion/localizacion.component';
+import { InfoDialogComponent } from './pages/egresados/info-dialog/info-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule, MatOptionModule, MatSelectModule, MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
+
+
+
 
 
 
@@ -25,28 +44,43 @@ import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empres
 @NgModule({
   declarations: [
     AppComponent,
-    HomeOfertasComponent,
     RegistrarComponent,
     HeaderComponent,
     NavbarHomeOfertasComponent,
-    PrincipalComponent,
     ListarSolicitudesEmpresaComponent,
-    DatosEmpresaComponent
+    DatosEmpresaComponent,
+    HomeOfertasComponent,
+    PrincipalComponent,
+    PreRegistroComponent,
+    LocalizacionComponent,
+    InfoDialogComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatRadioModule ,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     MaterialModule,
+    MatCheckboxModule,
     HttpClientModule,
     RecaptchaModule,
     CaptchaModule,
-    FormsModule,
     ReactiveFormsModule,
-    PaginationModule.forRoot(),
+    PaginationModule.forRoot()
+  ],
+  entryComponents: [
+    InfoDialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

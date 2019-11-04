@@ -1,4 +1,4 @@
 export interface Pais {
-    id_pais?: number;
+    id_udt_pais?: number;
     nombre?: string;
 }

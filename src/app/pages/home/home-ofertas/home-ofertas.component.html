@@ -1,33 +1,4 @@
-<nav id="navBar" class="navbar navbar-light bg-light shadow border-bottom sticky-top">
-  <div class="row">
-    
 
-    <ul class="nav justify-content-end col-6">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-          aria-expanded="false">Registrarse</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Egresado</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Empresa</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown ">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-          aria-expanded="false">Iniciar Sesion</a>
-          <form class="dropdown-menu p-2" #formLogin="ngForm" (ngSubmit)="onLogin(loginForm)" >
-              <div class="form-group">
-                <input name='email' type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.email" required>
-              </div>
-              <div class="form-group">
-                <input name='password' type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="user.password" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Ingresar</button>
-            </form>
-      </li>
-    </ul>
-  </div>
-</nav>
 <app-header></app-header>
 <app-navbar-home-ofertas></app-navbar-home-ofertas>
 
