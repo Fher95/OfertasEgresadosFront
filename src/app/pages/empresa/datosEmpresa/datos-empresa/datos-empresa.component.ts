@@ -66,7 +66,7 @@ export class DatosEmpresaComponent implements OnInit {
   }
 
   modificarDatos() {
-    this.router.navigate(['/editarEmpresa', JSON.stringify('1')]);
+    this.router.navigate(['/editarEmpresa']);
   }
   ngOnInit() {
      this.empresaService.getDatos()
@@ -82,7 +82,7 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('ingresosEmp').setValue(data.ingresos);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTAAA FORERO AGREGALOOOOOOOO');
-      this.formRegistroEmp.controls['sectores'].get('sectores').setValue(data.sub_sectores);
+      this.formRegistroEmp.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('departamentoEmp').setValue(data.direccion.ciudad.departamento.nombre);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('ciudadEmp').setValue(data.direccion.ciudad.nombre);

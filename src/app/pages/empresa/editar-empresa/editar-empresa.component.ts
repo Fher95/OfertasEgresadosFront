@@ -50,11 +50,11 @@ export class EditarEmpresaComponent implements OnInit {
     { "Nombre": "Transporte", "subSector": ["Aéreo", "Agente", "Marítimo y Fluvial", "Operadores, Agentes y Terminales", "Valores"] },
     { "Nombre": "Vehiculos y Partes", "subSector": ["Academia Automovilística", "Carrocerías, Partes y Piezas", "Comercialización de Partes", "Concesionarios", "Emsambladoras de Vehículos", "Importadores de Vehículos", "Talleres"] }
   ];*/
-  sectoresInteresEmpresa: ISector[] = [];
-  //[
-   // { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
-   // { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
-  //];
+  sectoresInteresEmpresa: ISector[] = 
+  [
+   { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
+   { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
+  ];
   debouncer: any;
   subSecEscogidos: ISubSector[] = [];
   anios: any[] = [];
@@ -126,7 +126,7 @@ export class EditarEmpresaComponent implements OnInit {
     this.empresaService.getDatos()
     .subscribe(data => {
       // obtener la data y pasarla al form
-      this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue(data.user.email);
+      this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue(data.administrador.user.email);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('NIT').setValue(data.nit);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('razonSocial').setValue(data.razon_social);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('nombreEmpresa').setValue(data.nombre);
@@ -134,7 +134,7 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue(data.ingresos);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTAAA FORERO AGREGALOOOOOOOO');      
-      this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(data.sub_sectores);
+      this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('departamentoEmp').setValue(data.direccion.ciudad.departamento.nombre);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('ciudadEmp').setValue(data.direccion.ciudad.nombre);
@@ -450,7 +450,7 @@ export class EditarEmpresaComponent implements OnInit {
   openDialog() {
     const dialogRef = this.matDialog.open(DialogFinalRegistroComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/datosEmpresa']);
     });
   }
 }
