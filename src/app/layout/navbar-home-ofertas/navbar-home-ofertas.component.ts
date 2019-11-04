@@ -36,5 +36,5 @@ export class NavbarHomeOfertasComponent implements OnInit {
   }
   onRegistroEmpresa(){
     this.router.navigate(['registroEmpresa']);
-  }
+  }z
 }

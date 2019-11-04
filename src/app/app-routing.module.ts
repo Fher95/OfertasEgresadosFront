@@ -9,6 +9,7 @@ import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/his
 import { ListarOfertasComponent } from './pages/administrador/listar-ofertas/listar-ofertas.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
+import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
 import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'datosEmpresa', component: DatosEmpresaComponent },
   { path: 'editarEmpresa', component: EditarEmpresaComponent},
-  { path: 'empresa/historialOfertas', component: HistorialOfertasComponent},
+  { path: 'empresa/:id/historialOfertas', component: HistorialOfertasComponent },
+  { path: 'empresa/:id/ofertasActivas', component: OfertasActivasComponent },
   { path: 'admin/ofertas', component: ListarOfertasComponent},
   { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
   { path: 'crearOfertaLaboral', component: CrearOfertaLaboralComponent},

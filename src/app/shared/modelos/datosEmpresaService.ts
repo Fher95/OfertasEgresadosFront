@@ -7,7 +7,7 @@ export interface datosEmpresaService{
     {
         nit: string; //bloqueado
         razonSocial: string;     //bloqueado
-        nombreEmpresa: string;   
+        nombreEmpresa: string;
         anioCreacion: string; //bloqueado
         numEmpleados: string;
         ingresosEmp?: string;

@@ -31,10 +31,12 @@ export class EmpresaService {
     const fd = new FormData();
     fd.append('image', file, file.name);
     //this.httpClient.post('', fd,{headers: this.headers});
-    
   }
 
-  getHistorialOfertas(idEmpresa: number): Observable<IHistorialOfertas[]>{
+  getHistorialOfertas(idEmpresa: string): Observable<IHistorialOfertas[]>{
     return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/empresa/" + idEmpresa, {headers: this.headers});
+  }
+  getOfertasActivas(idEmpresa: string): Observable<IHistorialOfertas[]>{
+    return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/activas/empresa/" + idEmpresa, {headers: this.headers});
   }
 }

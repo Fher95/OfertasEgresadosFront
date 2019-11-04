@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { NavbarHomeOfertasComponent } from './navbar-home-ofertas/navbar-home-ofertas.component';
 import { MaterialModule } from './material/material.module';
+import { NavbarEmpresaComponent } from './navbar-empresa/navbar-empresa.component';
 
 @NgModule({
-  declarations: [HeaderComponent, NavbarHomeOfertasComponent],
+  declarations: [HeaderComponent, NavbarHomeOfertasComponent, NavbarEmpresaComponent],
   imports: [
     CommonModule
   ],
@@ -13,6 +14,8 @@ import { MaterialModule } from './material/material.module';
     MaterialModule,
     HeaderComponent,
     NavbarHomeOfertasComponent,
+    NavbarEmpresaComponent,
+    
   ]
 })
 export class LayoutModule { }

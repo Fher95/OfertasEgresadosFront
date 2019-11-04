@@ -25,6 +25,8 @@ import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/his
 import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
 import { AdministradorModule } from './pages/administrador/administrador.module';
 import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
+import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
+import { NavbarEmpresaComponent } from './layout/navbar-empresa/navbar-empresa.component';
 import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
 
 @NgModule({
@@ -42,6 +44,8 @@ import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-labora
     ListarOfertasComponent,
     DialogFinalRegistroComponent,
     VerificarExcelComponent,
+    OfertasActivasComponent,
+    NavbarEmpresaComponent,
     CrearOfertaLaboralComponent,
   ],
   entryComponents: [DialogFinalRegistroComponent],
