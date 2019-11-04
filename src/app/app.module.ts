@@ -24,11 +24,8 @@ import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-regis
 import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
 import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
 import { AdministradorModule } from './pages/administrador/administrador.module';
-<<<<<<< HEAD
 import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
-=======
 import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
->>>>>>> crearOferta
 
 @NgModule({
   declarations: [
@@ -44,11 +41,8 @@ import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-labora
     HistorialOfertasComponent,
     ListarOfertasComponent,
     DialogFinalRegistroComponent,
-<<<<<<< HEAD
-    VerificarExcelComponent
-=======
+    VerificarExcelComponent,
     CrearOfertaLaboralComponent,
->>>>>>> crearOferta
   ],
   entryComponents: [DialogFinalRegistroComponent],
   imports: [
