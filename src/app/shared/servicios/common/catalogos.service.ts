@@ -15,16 +15,16 @@ export class CatalogosService {
 
   constructor(private http: HttpClient) { }
 
-  getPaises(): Observable<Pais> {
-    return this.http.get<Pais>(`${baseUrl}paises`);
+  getPaises(): Observable<Pais[]> {
+    return this.http.get<Pais[]>(`${baseUrl}paises`);
   }
 
-  getDepartamentosBy(paisId: number): Observable<DepartamentoInterface> {
-    return this.http.get<DepartamentoInterface>(`${baseUrl}departamentos/${paisId}`);
+  getDepartamentosBy(paisId: number): Observable<DepartamentoInterface[]> {
+    return this.http.get<DepartamentoInterface[]>(`${baseUrl}departamentos/${paisId}`);
   }
 
-  getCiudadesBy(departamentoId: number): Observable<CiudadInterface> {
-    return this.http.get<CiudadInterface>(`${baseUrl}ciudades/${departamentoId}`);
+  getCiudadesBy(departamentoId: number): Observable<CiudadInterface[]> {
+    return this.http.get<CiudadInterface[]>(`${baseUrl}ciudades/${departamentoId}`);
   }
 
   getNivelesAcademicos(): Observable<NivelAcademicoInterface> {

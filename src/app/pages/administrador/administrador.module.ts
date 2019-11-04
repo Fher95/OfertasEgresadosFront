@@ -10,7 +10,6 @@ import { VerificarExcelComponent } from './verificar-excel/verificar-excel.compo
 import { ListarEgresadosAceptadosComponent } from './listar-egresados-aceptados/listar-egresados-aceptados.component';
 
 
-
 @NgModule({
   declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent],
   imports: [

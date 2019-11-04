@@ -1,0 +1,68 @@
+#base {
+    height: 100%;
+    width: 100%;
+    background-image: url("/assets/img/background.png") no-repeat;
+}
+
+#imgBandera {
+    position: fixed;
+    left: 0;
+    bottom: 0;    
+    background: url("/assets/img/logo.png") no-repeat;
+    width: 206px;
+    height: 95px;
+    z-index: 0;
+}
+
+#row {
+    padding: 0% 2% 2% 2%;
+    z-index: 1;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 5% 5% 5% 5%;
+    box-shadow: 5px 4px 12px rgb(73, 73, 73);
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+}
+
+#title {
+    text-align: center;
+    color: #0A266F;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 10%;
+    font-size: 200%;
+}
+
+#labelCheck {
+    color: rgb(83, 83, 83);
+}
+
+#msgError {
+    text-align: center;
+    color: red;
+}
+
+#btnRegister {
+    margin-top: 20px;
+    background-color: rgb(1, 81, 172);
+    box-shadow: 1px 5px 10px rgb(112, 113, 114);
+    color: #fff;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+#btnRegister:hover {
+    font-weight: bold;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
