@@ -7,7 +7,7 @@ export class CompletarRegistro{
         correo?:string;
         parentesco?:string;
         id_aut_programa?:number;
-        es_egresado?:boolean;
+        es_egresado?:number;
     }
     madre:{
         nombres?:string;
@@ -16,7 +16,7 @@ export class CompletarRegistro{
         correo?:string;
         parentesco?:string;
         id_aut_programa?:number;
-        es_egresado?:boolean;
+        es_egresado?:number;
     }
     padre:{
         nombres?:string;
@@ -25,17 +25,19 @@ export class CompletarRegistro{
         correo?:string;
         parentesco?:string;
         id_aut_programa?:number;
-        es_egresado?:boolean;
+        es_egresado?:number;
     }
-    ha_trabajado?:boolean;
+    ha_trabajado?:number;
     exp_pasada:{
+        trabajo_en_su_area?:number;
         cargo_nombre?:string;
         nombre_empresa?:string;
     }
-    trabajo_actualmente?:boolean;
+    trabajo_actualmente?:number;
     exp_actual:{
-        trabajo_en_su_area?:boolean;
+        trabajo_en_su_area?:number;
         id_ciudad?:number;
+        nombre_empresa?:string;
         dir_empresa?:string;
         tel_trabajo?:number;
         cargo_nombre?:string;
