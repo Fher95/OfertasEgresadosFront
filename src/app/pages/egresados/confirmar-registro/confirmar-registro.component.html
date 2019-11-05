@@ -1,0 +1,31 @@
+
+<app-header></app-header>
+
+<div id="base">
+  <div id="imgBandera"></div>
+  <app-navbar-home-ofertas></app-navbar-home-ofertas>
+  <div id="row" class="row no-gutters">
+    <div id="content" class="col-12 col-md-6 offset-md-3">
+      <form id="form" #registerForm="ngForm" (ngSubmit)="confirmar()">
+        <h1 id="title">Confirmación de registro</h1>
+        <mat-form-field>
+          <input matInput placeholder="Contraseña" #name="ngModel" name="password" [(ngModel)]="password"
+            [type]="hidePassword ? 'password' : 'text'" required>
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Confirmación de contraseña" #name="ngModel" name="auxPassword"
+            [(ngModel)]="auxPassword" [type]="hideAuxPassword ? 'password' : 'text'" required>
+          <button mat-icon-button matSuffix (click)="hideAuxPassword = !hideAuxPassword">
+            <mat-icon>{{hideAuxPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <p id="msgError" *ngIf="msgError != ''">{{msgError}}</p>
+        <input id="btnConfirmar" type="submit" value="Confirmar" />
+      </form>
+    </div>
+  </div>
+</div>
