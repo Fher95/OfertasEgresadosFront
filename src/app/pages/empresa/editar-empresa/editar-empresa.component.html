@@ -229,9 +229,6 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Telefono de la empresa</mat-label>
                             <input type="number" formControlName="telefonoEmp" matInput required>
-                            <mat-error
-                                *ngIf="formDatosEmpresa.get('loc-contact-empresa').controls.telefonoEmp.errors?.required">
-                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Email de la empresa</mat-label>
