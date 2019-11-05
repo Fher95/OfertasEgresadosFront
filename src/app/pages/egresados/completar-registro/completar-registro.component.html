@@ -5,9 +5,9 @@
       <form class="infoPersonalComplementaria" [formGroup]="infoPersonalComplementaria">  
         <div class="Hijos">
           <mat-label>¿Tiene hijos?:</mat-label>
-          <mat-radio-group required>
-            <mat-radio-button value="siHijos">Si</mat-radio-button>
-            <mat-radio-button value="noHijos">No</mat-radio-button>
+          <mat-radio-group formControlName="TieneHijos" required>
+            <mat-radio-button value=1>Si</mat-radio-button>
+            <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
           <mat-form-field >
             <mat-label >¿Cuantos?</mat-label>
@@ -22,8 +22,8 @@
         <div class="egresadoUnicauca">
           <mat-label>Es egresado de Unicauca: </mat-label>
           <mat-radio-group formControlName="EgresadoEsposo" required>
-            <mat-radio-button value="Si">Si</mat-radio-button>
-            <mat-radio-button value="No">No</mat-radio-button>
+            <mat-radio-button value=1>Si</mat-radio-button>
+            <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
         </div>
         <app-programa #programaEsposo></app-programa>
@@ -39,8 +39,8 @@
         <div class="NivelAcademico">
           <mat-label>Es egresado de Unicauca: </mat-label>
           <mat-radio-group formControlName="EgresadoMadre" required>
-            <mat-radio-button value="Si">Si</mat-radio-button>
-            <mat-radio-button value="No">No</mat-radio-button>
+            <mat-radio-button value=1>Si</mat-radio-button>
+            <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
         </div>
         <app-programa #programaMadre></app-programa>
@@ -53,8 +53,8 @@
         <div class="NivelAcademico">
           <mat-label>Es egresado de Unicauca: </mat-label>
           <mat-radio-group formControlName="EgresadoPadre" required>
-            <mat-radio-button value="Si">Si</mat-radio-button>
-            <mat-radio-button value="No">No</mat-radio-button>
+            <mat-radio-button value=1>Si</mat-radio-button>
+            <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
         </div>
         <app-programa #programaPadre></app-programa>
@@ -70,16 +70,16 @@
       <form class="infoLaboral" [formGroup]="infoLaboral">  
         <div class="labor">
           <mat-label>¿Ha laborado antes?: </mat-label>
-          <mat-radio-group>
-            <mat-radio-button value="Si">Si</mat-radio-button>
-            <mat-radio-button value="No">No</mat-radio-button>
+          <mat-radio-group formControlName="haTrabajado" required>
+            <mat-radio-button value=1>Si</mat-radio-button>
+            <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="desempeño">
           <mat-label>¿Se desempeñó en su área de formación?: </mat-label>
-          <mat-radio-group>
-            <mat-radio-button value="Si">Si</mat-radio-button>
-            <mat-radio-button value="No">No</mat-radio-button>
+          <mat-radio-group formControlName="Desempeño" required>
+            <mat-radio-button value=1>Si</mat-radio-button>
+            <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
         </div>  
         <mat-form-field>
@@ -90,21 +90,21 @@
         </mat-form-field>
         <div class="laborActual">
           <mat-label>¿Labora actualmente?: </mat-label>
-          <mat-radio-group>
-            <mat-radio-button value="Si">Si</mat-radio-button>
-            <mat-radio-button value="No">No</mat-radio-button>
+          <mat-radio-group formControlName="Labora_Actualmente">
+            <mat-radio-button value=1>Si</mat-radio-button>
+            <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="laborandoArea">
           <mat-label>¿Se encuentra laborando en el área que se graduó?:</mat-label>
-            <mat-radio-group>
-              <mat-radio-button value="Si">Si</mat-radio-button>
-              <mat-radio-button value="No">No</mat-radio-button>
+            <mat-radio-group formControlName="Labora_Area">
+              <mat-radio-button value=1>Si</mat-radio-button>
+              <mat-radio-button value=0>No</mat-radio-button>
             </mat-radio-group>
         </div>
         <div class="categoriaLabor">
           <mat-label>Categoria: </mat-label>
-          <mat-radio-group>
+          <mat-radio-group formControlName="NombreCategoria">
             <mat-radio-button value="Empleado">Empleado</mat-radio-button>
             <mat-radio-button value="Independiente">Independiente</mat-radio-button>
             <mat-radio-button value="Empresario">Empresario</mat-radio-button>
@@ -113,7 +113,7 @@
         <mat-form-field>
           <input matInput placeholder="Nombre de la Empresa" formControlName="NombreEmpresaActual" required>
         </mat-form-field>
-        <app-localizacion></app-localizacion>
+        <app-localizacion #localizacionEmpresa></app-localizacion>
         <mat-form-field>
           <input matInput placeholder="Dirección lugar de trabajo" formControlName="DirTrabajo" required>
         </mat-form-field>
@@ -125,19 +125,19 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Rango Salarial</mat-label>
-          <mat-select required>
+          <mat-select formControlName="RangoSalario" required>
             <mat-option [value] = "item" *ngFor="let item of rangoSalarial">{{item}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Tipo Contrato</mat-label>
-            <mat-select required>
+            <mat-select formControlName="TipoContrato" required>
               <mat-option [value] = "item" *ngFor="let item of tipoContrato">{{item}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Sector</mat-label>
-            <mat-select required>
+            <mat-select formControlName="Sector" required>
               <mat-option value = "Publico">Publico</mat-option>
               <mat-option value = "Privado">Privado</mat-option>
               <mat-option value = "Mixto">Mixto</mat-option>
@@ -152,15 +152,15 @@
       <form class="comentarios" [formGroup]="comentarios">  
         <div class="estudio">
           <mat-label>¿Volvería a estudiar en la Universidad del Cauca?: </mat-label>
-          <mat-radio-group required>
-            <mat-radio-button value="Si">Si</mat-radio-button>
-            <mat-radio-button value="No">No</mat-radio-button>
+          <mat-radio-group formControlName="EstudiarUnicauca" required>
+            <mat-radio-button value=1>Si</mat-radio-button>
+            <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="siEstudio">
           <mat-form-field>
             <mat-label>¿Que desearía estudiar?</mat-label>
-            <mat-select required>
+            <mat-select formControlName="Carrera" required>
               <mat-option [value] = "item" *ngFor="let item of carreras">{{item}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -168,7 +168,7 @@
         <div class="noEstudio">
           <mat-form-field>
             <mat-label>¿Cuál es la razón?</mat-label>
-            <mat-select required>
+            <mat-select formControlName="Razon" required>
               <mat-option [value] = "item" *ngFor="let item of razon">{{item}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -182,7 +182,7 @@
           <textarea matInput placeholder="Escribe el comentario aquí" formControlName="ComentarioFuturoEgresado"> </textarea>  
         </mat-form-field>
         <mat-form-field>
-          <mat-label>¿Cuál considera que es el docente del programa que influyó positivamente& en su formación como profesional?:</mat-label>
+          <mat-label>¿Cuál considera que es el docente del programa que influyó positivamente en su formación como profesional?:</mat-label>
           <input matInput placeholder="Docente" formControlName="DocenteInfluencia" required>
         </mat-form-field>
       </form>
