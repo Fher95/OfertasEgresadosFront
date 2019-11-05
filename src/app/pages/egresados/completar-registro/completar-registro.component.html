@@ -12,7 +12,7 @@
           <mat-form-field >
             <mat-label >¿Cuantos?</mat-label>
             <mat-select formControlName="CantHijos" required>
-              <mat-option [value] = "item" (click)="llenarDatos()" *ngFor="let item of cantHijos">{{item}}</mat-option>
+              <mat-option [value] = "item" *ngFor="let item of cantHijos">{{item}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>  
@@ -186,7 +186,7 @@
           <input matInput placeholder="Docente" formControlName="DocenteInfluencia" required>
         </mat-form-field>
       </form>
-      <button class="btnEnviar" mat-raised-button  >Enviar </button>
+      <button class="btnEnviar" mat-raised-button (click)="enviarDatos()" >Enviar </button>
     </div>
   </mat-tab>
 </mat-tab-group>
