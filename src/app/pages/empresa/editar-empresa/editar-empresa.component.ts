@@ -212,7 +212,6 @@ export class EditarEmpresaComponent implements OnInit {
      infoSectores =  [
        { "nombre": "Estatal y Relacionados", "subSectores": [{ "id_sectores": 0, "nombre": "Medio ambiente" }, { "id_sectores": 0, "nombre": "Minas y Energia" }] },
         { "nombre": "Alimentos", "subSectores": [{ "id_sectores": 1, "nombre": "Azúcar" }] }
-      ];
       for (let i = 0; i < infoSectores.length; i++) {
         for(let j=0; j< this.sectoresInteresEmpresa.length;j++){        
         if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
@@ -252,6 +251,79 @@ cargarSectoresInteres() {
       console.log("Error al obtener los Sectores: ", JSON.stringify(error));
     });
 }
+ /**
+ * IMPORTANTE: Funciona dependiente del id del sector, si se cambia el id del sector hacer metodo
+ * para buscar la posicion del sector que contiene el subsector
+ * elimina un subSector escogido a partir de la lista de sectores en el formulario de registro
+ * se elimina de la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
+ * <p>
+ * Se busca en la lista de escogidos
+ * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
+ */
+eliminarSubSectorEscogido(subSector: ISubSector) {
+  console.log(subSector);
+  //Se busca en la lista de escogidos
+  let posSubSector = this.subSecEscogidos.indexOf(subSector);
+  //Se elimina en la lista de escogidos
+  this.subSecEscogidos.splice(posSubSector, 1);
+  //Se devuelve a la lista general
+  this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.push(subSector);
+  //Se iguala nuevamente el valor del formControl
+  this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+  //Se ordena
+  this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.sort(function (a, b) {
+    return a.idSubSector - b.idSubSector
+  });
+}
+/**
+* agrega un subSector escogido a partir de la lista de sectores en el formulario de registro
+* se agrega a la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
+* <p>
+* Se busca en la lista de escogidos
+* @param  sector  objeto sector que contiene { Nombre: string; subSectores: ISubSector[]; }
+* @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
+*/
+seleccionarSubSector(sector: ISector, subSector: ISubSector) {
+  //Se busca la posicion del sector en la lista de sectores general
+  const posSector = this.sectoresInteresEmpresa.indexOf(sector);
+  //Se busca la posicion del subSector en la lista de general
+  const posSubSector = this.sectoresInteresEmpresa[posSector].subSectores.indexOf(subSector);
+  //Se elimina en sector de la lista general
+  this.sectoresInteresEmpresa[posSector].subSectores.splice(posSubSector, 1);
+  //Se agrega el subsector a la lista de escogidos
+  this.subSecEscogidos.push(subSector);
+  //Se actualiza el valor del formControl
+  this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+}
+/**
+* Vuelve la lista sectoresEscogidos [{idSubSector, nombre, idSector}, ... ]
+* a la forma [idSubSector, idSubSector, ...]
+*/
+formatSectoresEscogidos() {
+  let listaAuxiliar = [];
+  for (const subSector of this.subSecEscogidos) {
+    listaAuxiliar.push(subSector.idSubSector);
+  }
+  return listaAuxiliar;
+}
+
+/**
+* Validador personalizado para saber si el usuario escoge o no sectores
+* <p>
+* Verifica a partir de la lista de sectores escogidos, si esta vacia devuelve true
+* lo cual significa que esta invalido
+* @param  control  permite obtener el valor en tiempo real de la lista sectores del ngForm }
+*/
+sectorValidator(control: FormControl) {
+  let lista = control.value;
+  //Si la lista no esta vacia
+  if (lista.length != 0) {
+    return true;
+  }
+  //En caso contrario se deja pasar
+  return null;
+}
+/**
 
  
   
@@ -284,75 +356,6 @@ cargarSectoresInteres() {
     else{
       alert('datos incorrectos, por favor llenar los datos en los formatos validos');
     }
-  }
-  /**
- * elimina un subSector escogido a partir de la lista de sectores en el formulario de registro
- * se elimina de la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
- * <p>
- * Se busca en la lista de escogidos
- * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
- */
-  eliminarSubSectorEscogido(subSector: ISubSector) {
-    console.log(subSector);
-    //Se busca en la lista de escogidos
-    let posSubSector = this.subSecEscogidos.indexOf(subSector);
-    //Se elimina en la lista de escogidos
-    this.subSecEscogidos.splice(posSubSector, 1);
-    //Se devuelve a la lista general
-    this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.push(subSector);
-    //Se iguala nuevamente el valor del formControl
-    this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
-    //Se ordena
-    this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.sort(function (a, b) {
-      return a.idSubSector - b.idSubSector
-    });
-  }
-  /**
- * agrega un subSector escogido a partir de la lista de sectores en el formulario de registro
- * se agrega a la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
- * <p>
- * Se busca en la lista de escogidos
- * @param  sector  objeto sector que contiene { Nombre: string; subSectores: ISubSector[]; }
- * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
- */
-  seleccionarSubSector(sector: ISector, subSector: ISubSector) {
-  //Se busca la posicion del sector en la lista de sectores general
-  const posSector = this.sectoresInteresEmpresa.indexOf(sector);
-  //Se busca la posicion del subSector en la lista de general
-  const posSubSector = this.sectoresInteresEmpresa[posSector].subSectores.indexOf(subSector);
-  //Se elimina en sector de la lista general
-  this.sectoresInteresEmpresa[posSector].subSectores.splice(posSubSector, 1);
-  //Se agrega el subsector a la lista de escogidos
-  this.subSecEscogidos.push(subSector);
-  //Se actualiza el valor del formControl
-  this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
-}
- /**
- * Vuelve la lista sectoresEscogidos [{idSubSector, nombre, idSector}, ... ]
- * a la forma [idSubSector, idSubSector, ...]
- */
-  formatSectoresEscogidos() {
-    let listaAuxiliar = [];
-    for (const subSector of this.subSecEscogidos) {
-      listaAuxiliar.push(subSector.idSubSector);
-    }
-    return listaAuxiliar;
-  }
-  /**
- * Validador personalizado para saber si el usuario escoge o no sectores
- * <p>
- * Verifica a partir de la lista de sectores escogidos, si esta vacia devuelve true
- * lo cual significa que esta invalido
- * @param  control  permite obtener el valor en tiempo real de la lista sectores del ngForm }
- */
-  sectorValidator(control: FormControl) {
-    let lista = control.value;
-    //Si la lista no esta vacia
-    if (lista.length != 0) {
-      return true;
-    }
-    //En caso contrario se deja pasar
-    return null;
   }
   /**
  * Validador personalizado para saber si el email escrito existe

@@ -132,7 +132,7 @@
                     </div>
                 </mat-step>
 
-                <mat-step formGroupName="sectores" [stepControl]="formDatosEmpresa.get('sectores')" label="Sectores">
+                <mat-step formGroupName="sectores" [stepControl]="formRegistroEmp.get('sectores')" label="Sectores">
                     <div>
                         <p class="text-center"><b>Seleccione los datos de su interés</b></p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -150,8 +150,8 @@
                                     </mat-expansion-panel-header>
                                     <!--Contenido-->
                                     <mat-action-list dense *ngFor="let subSector of sector.subSectores">
-                                        <button type="button" mat-list-item value="{{subSector.nombre}}"
-                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.nombre }}
+                                        <button type="button" mat-list-item value="{{subSector.Nombre}}"
+                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.Nombre }}
                                             <mat-icon matListIcon>add</mat-icon>
                                         </button>
                                     </mat-action-list>
@@ -161,21 +161,21 @@
                             </mat-accordion>
                         </div>
                         <div class="col-6 example-container">
-                            <mat-error *ngIf="formDatosEmpresa.get('sectores').controls.sectores.errors?.required">
+                            <mat-error *ngIf="formRegistroEmp.get('sectores').controls.sectores.errors?.required">
                                 *Seleccione sus areas de interés</mat-error>
                             <mat-nav-list>
                                 <mat-list-item *ngFor="let subSector of subSecEscogidos">
                                     <button type="button" mat-icon-button
-                                        (click)="eliminarSubSectorEscogido(subSector)">{{ subSector.nombre }}<mat-icon
+                                        (click)="eliminarSubSectorEscogido(subSector)">{{ subSector.Nombre }}<mat-icon
                                             matListIcon>close</mat-icon></button>
                                 </mat-list-item>
                             </mat-nav-list>
                         </div>
                     </div>
                     <div class="botonesStepper">
-                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
-                            <button mat-raised-button type="submit"
-                            color="primary">Guardar y Finalizar</button>
+                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
+                            Continuar</button>
                     </div>
                 </mat-step>
 
