@@ -24,7 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule, MatOptionModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EditarEmpresaComponent, Dialog } from './pages/empresa/editar-empresa/editar-empresa.component';
+import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
@@ -70,7 +70,6 @@ import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro
     OfertasActivasComponent,
     NavbarEmpresaComponent,
     CrearOfertaLaboralComponent,
-    Dialog,
     InicioEgresadosComponent,
     NavEgresadosComponent,
     FooterEgresadosComponent,
@@ -80,7 +79,7 @@ import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro
     ActualizarComponent,
     ConfirmarRegistroComponent
   ],
-  entryComponents: [DialogFinalRegistroComponent, Dialog],
+  entryComponents: [DialogFinalRegistroComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

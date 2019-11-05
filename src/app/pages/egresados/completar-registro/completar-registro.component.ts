@@ -90,9 +90,9 @@ export class CompletarRegistroComponent implements OnInit {
   }
 
   limpiarFormulario(){
-    this.infoPersonalComplementaria = new FormGroup({});
+    /*this.infoPersonalComplementaria = new FormGroup({});
     this.infoLaboral = new FormGroup({});
-    this.comentarios = new FormGroup({});
+    this.comentarios = new FormGroup({});*/
   }
 
   llenarDatos(){
@@ -139,7 +139,7 @@ export class CompletarRegistroComponent implements OnInit {
     this.varCompletarRegistro.exp_actual.sector = this.infoLaboral.get('Sector').value;
   }
   verificarCampos(){
-    
+
   }
   enviarDatos(){
     this.llenarDatos();
