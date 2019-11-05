@@ -1,8 +1,8 @@
-export interface CompletarRegistroInterface{
+export class CompletarRegistro{
     num_hijos?: number;
     esposo:{
         nombres?:string;
-        id_nivel_educativo?:number;
+        id_nivel_educativo?:string;
         telefono_movil?:number;
         correo?:string;
         parentesco?:string;
@@ -18,7 +18,7 @@ export interface CompletarRegistroInterface{
         id_aut_programa?:number;
         es_egresado?:boolean;
     }
-    padres:{
+    padre:{
         nombres?:string;
         id_nivel_educativo?:number;
         telefono_movil?:number;
@@ -29,10 +29,18 @@ export interface CompletarRegistroInterface{
     }
     ha_trabajado?:boolean;
     exp_pasada:{
-        
-    }
-    exp_actual:{
-
+        cargo_nombre?:string;
+        nombre_empresa?:string;
     }
     trabajo_actualmente?:boolean;
+    exp_actual:{
+        trabajo_en_su_area?:boolean;
+        id_ciudad?:number;
+        dir_empresa?:string;
+        tel_trabajo?:number;
+        cargo_nombre?:string;
+        rango_salario?:string;
+        tipo_contrato?:string;
+        sector?:string;
+    }
 }

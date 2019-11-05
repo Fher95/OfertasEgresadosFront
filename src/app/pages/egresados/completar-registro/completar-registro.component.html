@@ -11,8 +11,8 @@
           </mat-radio-group>
           <mat-form-field >
             <mat-label >¿Cuantos?</mat-label>
-            <mat-select required>
-              <mat-option value = [item] *ngFor="let item of cantHijos">{{item}}</mat-option>
+            <mat-select formControlName="CantHijos" required>
+              <mat-option [value] = "item" (click)="llenarDatos()" *ngFor="let item of cantHijos">{{item}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>  
@@ -21,12 +21,12 @@
         </mat-form-field>
         <div class="egresadoUnicauca">
           <mat-label>Es egresado de Unicauca: </mat-label>
-          <mat-radio-group required>
+          <mat-radio-group formControlName="EgresadoEsposo" required>
             <mat-radio-button value="Si">Si</mat-radio-button>
             <mat-radio-button value="No">No</mat-radio-button>
           </mat-radio-group>
         </div>
-        <app-programa></app-programa>
+        <app-programa #programaEsposo></app-programa>
         <mat-form-field>
           <input matInput type="email" placeholder="Correo electronico" formControlName="CorreoEsposo">
         </mat-form-field>     
@@ -38,12 +38,12 @@
         </mat-form-field>
         <div class="NivelAcademico">
           <mat-label>Es egresado de Unicauca: </mat-label>
-          <mat-radio-group>
+          <mat-radio-group formControlName="EgresadoMadre" required>
             <mat-radio-button value="Si">Si</mat-radio-button>
             <mat-radio-button value="No">No</mat-radio-button>
           </mat-radio-group>
         </div>
-        <app-programa></app-programa>
+        <app-programa #programaMadre></app-programa>
         <mat-form-field>
           <input matInput placeholder="Teléfono/Celular" formControlName="CelularMadre" required>
         </mat-form-field>   
@@ -52,12 +52,12 @@
         </mat-form-field>
         <div class="NivelAcademico">
           <mat-label>Es egresado de Unicauca: </mat-label>
-          <mat-radio-group>
+          <mat-radio-group formControlName="EgresadoPadre" required>
             <mat-radio-button value="Si">Si</mat-radio-button>
             <mat-radio-button value="No">No</mat-radio-button>
           </mat-radio-group>
         </div>
-        <app-programa></app-programa>
+        <app-programa #programaPadre></app-programa>
         <mat-form-field>
           <input matInput placeholder="Teléfono/Celular" formControlName="CelularPadre" required>
         </mat-form-field>
@@ -95,6 +95,13 @@
             <mat-radio-button value="No">No</mat-radio-button>
           </mat-radio-group>
         </div>
+        <div class="laborandoArea">
+          <mat-label>¿Se encuentra laborando en el área que se graduó?:</mat-label>
+            <mat-radio-group>
+              <mat-radio-button value="Si">Si</mat-radio-button>
+              <mat-radio-button value="No">No</mat-radio-button>
+            </mat-radio-group>
+        </div>
         <div class="categoriaLabor">
           <mat-label>Categoria: </mat-label>
           <mat-radio-group>
@@ -119,13 +126,13 @@
         <mat-form-field>
           <mat-label>Rango Salarial</mat-label>
           <mat-select required>
-            <mat-option value = [item] *ngFor="let item of rangoSalarial">{{item}}</mat-option>
+            <mat-option [value] = "item" *ngFor="let item of rangoSalarial">{{item}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Tipo Contrato</mat-label>
             <mat-select required>
-              <mat-option value = "TipoContrato">Tipo Contrato</mat-option>
+              <mat-option [value] = "item" *ngFor="let item of tipoContrato">{{item}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
@@ -136,13 +143,6 @@
               <mat-option value = "Mixto">Mixto</mat-option>
             </mat-select>
         </mat-form-field>
-        <div class="laborandoArea">
-          <mat-label>¿Se encuentra laborando en el área que se graduó?:</mat-label>
-            <mat-radio-group>
-              <mat-radio-button value="Si">Si</mat-radio-button>
-              <mat-radio-button value="No">No</mat-radio-button>
-            </mat-radio-group>
-        </div>  
       </form>
     </div>
   </mat-tab>
@@ -161,7 +161,7 @@
           <mat-form-field>
             <mat-label>¿Que desearía estudiar?</mat-label>
             <mat-select required>
-              <mat-option value = [item] *ngFor="let item of carreras">{{item}}</mat-option>
+              <mat-option [value] = "item" *ngFor="let item of carreras">{{item}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -169,7 +169,7 @@
           <mat-form-field>
             <mat-label>¿Cuál es la razón?</mat-label>
             <mat-select required>
-              <mat-option value = [item] *ngFor="let item of razon">{{item}}</mat-option>
+              <mat-option [value] = "item" *ngFor="let item of razon">{{item}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -186,7 +186,7 @@
           <input matInput placeholder="Docente" formControlName="DocenteInfluencia" required>
         </mat-form-field>
       </form>
-      <button class="btnEnviar" mat-raised-button >Enviar </button>
+      <button class="btnEnviar" mat-raised-button  >Enviar </button>
     </div>
   </mat-tab>
 </mat-tab-group>
