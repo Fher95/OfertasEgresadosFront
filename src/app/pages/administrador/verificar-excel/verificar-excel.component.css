@@ -1,0 +1,37 @@
+.options {
+    padding: 10px;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+}
+
+.button-option {
+    padding: 20px;
+    margin: 0 10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.aceptados {
+    background-color: #51AF03;
+}
+
+.pendientes {
+    background-color: cornflowerblue;
+}
+
+.rechazados {
+    background-color: orangered;
+}
+
+.tbl-title {
+    color: #242624;
+}
+
+.results>div {
+    padding: 10px;
+}
+
+table {
+    width: 100%;
+}

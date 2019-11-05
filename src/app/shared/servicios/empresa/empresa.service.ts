@@ -25,7 +25,7 @@ export class EmpresaService {
   }
   modificarEmpresa(objeto: Object){
     //realizar post al modificar empresas
-    return this.httpClient.post("http://127.0.0.1:8081/api/empresa/1", objeto, {headers: this.headers});
+    return this.httpClient.put("http://127.0.0.1:8081/api/empresa/1", objeto, {headers: this.headers});
   }
 
   modificarFoto(file: File){

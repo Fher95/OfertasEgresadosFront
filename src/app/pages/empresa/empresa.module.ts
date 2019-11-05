@@ -12,6 +12,7 @@ import { HistorialOfertasComponent } from './historial-ofertas/historial-ofertas
 import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.component';
 import { OfertasActivasComponent } from './ofertas-activas/ofertas-activas.component';
 import { CrearOfertaLaboralComponent } from './crear-oferta-laboral/crear-oferta-laboral.component';
+import { DialogFinalModificarComponent } from './dialog-final-modificar/dialog-final-modificar.component';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { CrearOfertaLaboralComponent } from './crear-oferta-laboral/crear-oferta
     DialogFinalRegistroComponent, 
     HistorialOfertasComponent, 
     CrearOfertaLaboralComponent, 
-    OfertasActivasComponent
+    OfertasActivasComponent, DialogFinalModificarComponent
   ],
   imports: [
     CommonModule,

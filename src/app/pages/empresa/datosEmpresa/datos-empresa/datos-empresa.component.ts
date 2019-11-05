@@ -14,9 +14,10 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 export class DatosEmpresaComponent implements OnInit {
    data = 'a';
    formRegistroEmp: FormGroup;
-   subsector: any[] = [
-    { "nombre": "Estatal y Relacionados" },
-  ];
+  
+  sectores: any = [
+    { "nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
+    { "nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }]
 
   constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, private router: Router) {
     this.formRegistroEmp = this.formBuilder.group({
@@ -66,7 +67,7 @@ export class DatosEmpresaComponent implements OnInit {
   }
 
   modificarDatos() {
-    this.router.navigate(['/editarEmpresa', JSON.stringify('1')]);
+    this.router.navigate(['/editarEmpresa']);
   }
   ngOnInit() {
      this.empresaService.getDatos()
@@ -82,7 +83,7 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('ingresosEmp').setValue(data.ingresos);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTAAA FORERO AGREGALOOOOOOOO');
-      this.formRegistroEmp.controls['sectores'].get('sectores').setValue(data.sub_sectores);
+      this.formRegistroEmp.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('departamentoEmp').setValue(data.direccion.ciudad.departamento.nombre);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('ciudadEmp').setValue(data.direccion.ciudad.nombre);
@@ -106,6 +107,7 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
     }),
     error => console.log(error);
+    
     /*
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
@@ -121,7 +123,7 @@ export class DatosEmpresaComponent implements OnInit {
         descripcionEmpresa: [{value: this.data, disabled:true}],
       }),
       'sectores': this.formBuilder.group({
-        sectores: [{value: this.subsector, disabled:true}],
+        sectores: [{value: this.sectores, disabled:true}],
       }),
       'loc-contact-empresa': this.formBuilder.group({
         paisEmp: [{value: this.data, disabled:true}],

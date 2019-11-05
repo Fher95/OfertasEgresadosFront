@@ -1,7 +1,7 @@
 mat-form-field {
   margin-left: 35px;
   margin-right: 35px;  
-  width: 150px;
+  min-width: 150px;
 }
 mat-card{
   width: 100%;
@@ -68,4 +68,8 @@ img{
   height: 0px;
   z-index: 1;
   position: relative;
+}
+.alinearAcordion{
+  margin-left: 35px;
+  margin-bottom: 20px;
 }

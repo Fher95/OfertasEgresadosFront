@@ -4,15 +4,18 @@
 <mat-card class="carta-registro">
 
     <mat-card-header class="headerCartaRegistro">
+        <!--<mat-card-title>
+            Registre su empresa
+        </mat-card-title>-->
         <mat-toolbar color="primary">
-            <span>Modificar datos de la empresa</span>
+            <span>Datos de la empresa</span>
         </mat-toolbar>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-        <form id="registro" [formGroup]="formModificarEmp" (ngSubmit)="modificarEmpresa(formModificarEmp)">
-            <mat-horizontal-stepper  #stepper>
-                <mat-step formGroupName="datos-cuenta" [stepControl]="formModificarEmp.get('datos-cuenta')"
+        <form id="registro" [formGroup]="formDatosEmpresa" (ngSubmit)="registrarEmpresa(formDatosEmpresa)">
+            <mat-horizontal-stepper #stepper>
+                <mat-step formGroupName="datos-cuenta" [stepControl]="formDatosEmpresa.get('datos-cuenta')"
                     label="Cuenta">
                     <div class="Subtitulos-card">
                         <p class="text-center"><b>Cuenta</b></p>
@@ -22,76 +25,61 @@
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                             <mat-label>Email</mat-label>
                             <input formControlName="email" matInput required>
-                            <mat-error *ngIf="formModificarEmp.get('datos-cuenta').controls.email.errors?.required">campo
+                            <mat-error *ngIf="formDatosEmpresa.get('datos-cuenta').controls.email.errors?.required">campo
                                 requerido</mat-error>
-                            <mat-error
-                                *ngIf="formModificarEmp.get('datos-cuenta').controls.email.hasError('EmailExiste')">
+                            <mat-error *ngIf="formDatosEmpresa.get('datos-cuenta').controls.email.errors?.EmailExiste">
                                 Usted ya posee una cuenta</mat-error>
-                            <mat-error *ngIf="formModificarEmp.get('datos-cuenta').controls.email.errors?.email">Digite
+                            <mat-error *ngIf="formDatosEmpresa.get('datos-cuenta').controls.email.errors?.email">Digite
                                 un correo valido. ej: ejemplo@gmail.com</mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <mat-label>Contraseña</mat-label>
-                            <input formControlName="contrasenia" matInput [type]="contOculto ? 'password' : 'text'"
-                                required>
-                            <mat-error
-                                *ngIf="formModificarEmp.get('datos-cuenta').controls.contrasenia.errors?.required">
-                                campo
-                                requerido</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                        <button id="1" type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                            Continuar</button>
+                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+                            <button mat-raised-button type="submit"
+                            color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
                 <mat-step formGroupName="datos-generales-empresa"
-                    [stepControl]="formModificarEmp.get('datos-generales-empresa')" label="Datos de empresa">
+                    [stepControl]="formDatosEmpresa.get('datos-generales-empresa')" label="Datos de empresa">
                     <div class="container">
                         <div class="Subtitulos-card">
-                            <p class="text-center"><b>Fatos empresa</b></p>
+                            <p class="text-center"><b>Datos de su empresa</b></p>
                             <mat-divider [inset]="true"></mat-divider>
                         </div>
                         <div class="row centrarContenidoRow">
-                            <mat-form-field floatLabel="auto" appearance="outline" hintLabel="entre 8-15 caracteres">
+                            <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
                                 <mat-label>NIT</mat-label>
-                                <input type="number" formControlName="NIT" matInput #input maxlength="15" required>
-                                <mat-hint align="end">{{input.value?.length || 0}}/15</mat-hint>
+                                <input formControlName="NIT" readonly #input matInput minlength="8" maxlength="15" required>
                                 <mat-error
-                                    *ngIf="formModificarEmp.get('datos-generales-empresa').controls.NIT.errors?.required">
+                                    *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.NIT.errors?.required">
                                     campo requerido</mat-error>
                                 <mat-error
-                                    *ngIf="formModificarEmp.get('datos-generales-empresa').controls.NIT.hasError('NITExiste')">
-                                    NIT ya registrado</mat-error>
+                                    *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.NIT.errors?.minlength">
+                                    minimo 8 caracteres</mat-error>
+                                <mat-error
+                                    *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.NIT.errors?.maxlength">
+                                    maximo 15 caracteres</mat-error>
                             </mat-form-field>
-                            <mat-form-field floatLabel="auto" appearance="outline">
+                            <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
                                 <mat-label>Razon Social</mat-label>
-                                <input formControlName="razonSocial" matInput required>
-                                <mat-error
-                                    *ngIf="formModificarEmp.get('datos-generales-empresa').controls.razonSocial.errors?.required">
-                                    campo requerido</mat-error>
+                                <input formControlName="razonSocial" readonly matInput>
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline">
                                 <mat-label>Nombre Empresa</mat-label>
                                 <input formControlName="nombreEmpresa" matInput required>
                                 <mat-error
-                                    *ngIf="formModificarEmp.get('datos-generales-empresa').controls.nombreEmpresa.errors?.required">
+                                    *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.nombreEmpresa.errors?.required">
                                     campo requerido</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="row centrarContenidoRow">
-                            <mat-form-field floatLabel="auto" appearance="outline">
-                                <mat-select formControlName="anioCreacion" required>
-                                    <mat-option *ngFor="let anio of anios" value="{{anio}}">{{anio}}</mat-option>
-                                </mat-select>
-                                <mat-label>Año de creacion</mat-label>
-                                <mat-error
-                                    *ngIf="formModificarEmp.get('datos-generales-empresa').controls.anioCreacion.errors?.required">
-                                    campo requerido</mat-error>
-                            </mat-form-field>
+                                
+                            <mat-form-field readonly floatLabel="auto" appearance="outline" hintLabel="Modificable solo por administrador">                          
+                                        <mat-label>Año creacion</mat-label><input readonly matInput formControlName="anioCreacion">                        
+                            </mat-form-field> 
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-                                <mat-select formControlName="numEmpleados">
+                                <!--<mat-select formControlName="numEmpleados">
                                     <mat-option value="1-10">1-10</mat-option>
                                     <mat-option value="11-50">11-50</mat-option>
                                     <mat-option value="51-150">51-150</mat-option>
@@ -100,14 +88,19 @@
                                     <mat-option value="501-1000">501-1000</mat-option>
                                     <mat-option value="1001-5000">1001-5000</mat-option>
                                     <mat-option value="Mas de 5000">Más de 5000</mat-option>
-                                </mat-select>
+                                </mat-select>-->
+                                <input matInput type="number" formControlName="numEmpleados">
                                 <mat-label>Numero de empleados</mat-label>
                                 <mat-error
-                                    *ngIf="formModificarEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
+                                    *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
                                     campo requerido</mat-error>
+                                <mat-error
+                                    *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.numEmpleados.errors?.min">
+                                    minimo 0</mat-error>
                             </mat-form-field>
+                           
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-                                <mat-select formControlName="ingresosEmp">
+                                <mat-select id="select" formControlName="ingresosEmp">
                                     <mat-option value="0-3.000.000">0-3.000.000</mat-option>
                                     <mat-option value="3.000.000-10.000.000">3.000.000-10.000.000</mat-option>
                                     <mat-option value="10.000.000-25.000.000">10.000.000-25.000.000</mat-option>
@@ -123,7 +116,7 @@
                                 <mat-form-field floatLabel="auto" class="full-width" appearance="outline">
                                     <textarea matInput formControlName="descripcionEmpresa" required></textarea>
                                     <mat-error
-                                        *ngIf="formModificarEmp.get('datos-generales-empresa').controls.descripcionEmpresa.errors?.required">
+                                        *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.descripcionEmpresa.errors?.required">
                                         campo requerido</mat-error>
                                     <mat-label>Descripción de la empresa</mat-label>
                                 </mat-form-field>
@@ -131,15 +124,17 @@
                         </div>
                     </div>
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                            Continuar</button>
+                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+
+                            
+                            <button mat-raised-button type="submit"
+                            color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
-                <mat-step formGroupName="sectores" [stepControl]="formModificarEmp.get('sectores')" label="Sectores">
+                <mat-step formGroupName="sectores" [stepControl]="formDatosEmpresa.get('sectores')" label="Sectores">
                     <div>
-                        <p class="text-center"><b>Sectores</b></p>
+                        <p class="text-center"><b>Seleccione los datos de su interés</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
                     <div class="row">
@@ -166,7 +161,7 @@
                             </mat-accordion>
                         </div>
                         <div class="col-6 example-container">
-                            <mat-error *ngIf="formModificarEmp.get('sectores').controls.sectores.errors?.required">
+                            <mat-error *ngIf="formDatosEmpresa.get('sectores').controls.sectores.errors?.required">
                                 *Seleccione sus areas de interés</mat-error>
                             <mat-nav-list>
                                 <mat-list-item *ngFor="let subSector of subSecEscogidos">
@@ -178,87 +173,62 @@
                         </div>
                     </div>
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                            Continuar</button>
+                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+                            <button mat-raised-button type="submit"
+                            color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
-                <mat-step formGroupName="loc-contact-empresa" [stepControl]="formModificarEmp.get('loc-contact-empresa')"
+                <mat-step formGroupName="loc-contact-empresa" [stepControl]="formDatosEmpresa.get('loc-contact-empresa')"
                     label="Localizacion">
                     <div class="Subtitulos-card">
                         <p class="text-center"><b>Localizacion de su empresa</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
                     <div class="text-center">
-                        <p>¿Donde se ubica su empresa?</p>
+                        <p>Ubicacion de su empresa</p>
                     </div>
                     <div class="row centrarContenidoRow">
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>País</mat-label>
-                            <mat-select formControlName="paisEmp" (selectionChange)="cargarDepartamentos($event.value)">
-                                <mat-option *ngFor="let pais of paises" [value]="pais.id">
-                                    {{pais.name}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error
-                                *ngIf="formModificarEmp.get('loc-contact-empresa').controls.paisEmp.errors?.required">
-                                campo requerido</mat-error>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Departamento</mat-label>
-                            <mat-select formControlName="departamentoEmp"
-                                (selectionChange)="cargarCiudades($event.value)">
-                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id">
-                                    {{departamento.name}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error
-                                *ngIf="formModificarEmp.get('loc-contact-empresa').controls.departamentoEmp.errors?.required">
-                                campo requerido</mat-error>
-                        </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Ciudad</mat-label>
-                            <mat-select formControlName="ciudadEmp">
-                                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">
-                                    {{ciudad.name}}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error
-                                *ngIf="formModificarEmp.get('loc-contact-empresa').controls.ciudadEmp.errors?.required">
-                                campo requerido</mat-error>
-                        </mat-form-field>
+                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
+                                        <mat-label>País</mat-label><input readonly  matInput formControlName="paisEmp" >                        
+                        </mat-form-field> 
+                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
+                                        <mat-label>Departamento</mat-label><input  readonly matInput formControlName="departamentoEmp" >                        
+                        </mat-form-field> 
+                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
+                                        <mat-label>Ciudad</mat-label><input readonly  matInput formControlName="ciudadEmp" >                        
+                        </mat-form-field> 
                     </div>
                     <div class="row centrarContenidoRow">
-                        <mat-form-field floatLabel="auto" appearance="outline">
+                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
                             <mat-label>Direccion de la empresa</mat-label>
-                            <input formControlName="direccionEmp" matInput required>
+                            <input formControlName="direccionEmp" readonly matInput required>
                             <mat-error
-                                *ngIf="formModificarEmp.get('loc-contact-empresa').controls.direccionEmp.errors?.required">
+                                *ngIf="formDatosEmpresa.get('loc-contact-empresa').controls.direccionEmp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
+                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
                             <mat-label>Barrio/Localidad</mat-label>
-                            <input formControlName="barrioEmp" matInput required>
+                            <input formControlName="barrioEmp" readonly matInput required>
                             <mat-error
-                                *ngIf="formModificarEmp.get('loc-contact-empresa').controls.barrioEmp.errors?.required">
+                                *ngIf="formDatosEmpresa.get('loc-contact-empresa').controls.barrioEmp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Codigo Postal</mat-label>
-                            <input matInput maxlength="15" type="number" formControlName="codigoPostalEmp">
+                            <input matInput maxlength="5" type="number" formControlName="codigoPostalEmp">
+                            <mat-error
+                                *ngIf="formDatosEmpresa.get('loc-contact-empresa').controls.codigoPostalEmp.errors?.min">
+                                No hay codigo postal negativo</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="text-center">
-                        <p>¿Como podemos contactar a su empresa?</p>
+                        <p>Contacto de su empresa</p>
                     </div>
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Telefono de la empresa</mat-label>
                             <input type="number" formControlName="telefonoEmp" matInput required>
-                            <mat-error
-                                *ngIf="formModificarEmp.get('loc-contact-empresa').controls.telefonoEmp.errors?.required">
-                                campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Email de la empresa</mat-label>
@@ -267,16 +237,19 @@
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Sitio Web</mat-label>
                             <input formControlName="sitioWebEmp" matInput>
+                            <mat-error
+                                *ngIf="formDatosEmpresa.get('loc-contact-empresa').controls.sitioWebEmp.errors?.pattern">
+                                El formatio del sitio web es erroneo</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                            Continuar</button>
+                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>                        
+                            <button mat-raised-button type="submit"
+                            color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
-                <mat-step formGroupName="datos-resp" [stepControl]="formModificarEmp.get('datos-resp')"
+                <mat-step formGroupName="datos-resp" [stepControl]="formDatosEmpresa.get('datos-resp')"
                     label="Datos de contacto">
                     <div class="Subtitulos-card">
                         <p class="text-center"><b>Datos de sus representantes</b></p>
@@ -290,14 +263,14 @@
                             <mat-label>Nombres</mat-label>
                             <input formControlName="nombrereplegal" matInput required>
                             <mat-error
-                                *ngIf="formModificarEmp.get('datos-resp').controls.nombrereplegal.errors?.required">
+                                *ngIf="formDatosEmpresa.get('datos-resp').controls.nombrereplegal.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Apellidos</mat-label>
                             <input formControlName="apellidoreplegal" matInput required>
                             <mat-error
-                                *ngIf="formModificarEmp.get('datos-resp').controls.apellidoreplegal.errors?.required">
+                                *ngIf="formDatosEmpresa.get('datos-resp').controls.apellidoreplegal.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
@@ -308,7 +281,7 @@
                             <mat-label>Telefono móvil</mat-label>
                             <input type="number" formControlName="telefonoMovilreplegal" matInput required>
                             <mat-error
-                                *ngIf="formModificarEmp.get('datos-resp').controls.telefonoMovilreplegal.errors?.required">
+                                *ngIf="formDatosEmpresa.get('datos-resp').controls.telefonoMovilreplegal.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
 
@@ -320,19 +293,19 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Nombres</mat-label>
                             <input formControlName="nombreResp" matInput required>
-                            <mat-error *ngIf="formModificarEmp.get('datos-resp').controls.nombreResp.errors?.required">
+                            <mat-error *ngIf="formDatosEmpresa.get('datos-resp').controls.nombreResp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Apellidos</mat-label>
                             <input formControlName="apellidoResp" matInput required>
-                            <mat-error *ngIf="formModificarEmp.get('datos-resp').controls.apellidoResp.errors?.required">
+                            <mat-error *ngIf="formDatosEmpresa.get('datos-resp').controls.apellidoResp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
-                            <input formControlName="cargoResp" matInput required>
-                            <mat-error *ngIf="formModificarEmp.get('datos-resp').controls.cargoResp.errors?.required">
+                            <input formControlName="cargo" matInput required>
+                            <mat-error *ngIf="formDatosEmpresa.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
@@ -343,7 +316,7 @@
                             <mat-label>Telefono móvil</mat-label>
                             <input type="number" formControlName="telefonoMovilResp" matInput required>
                             <mat-error
-                                *ngIf="formModificarEmp.get('datos-resp').controls.telefonoMovilResp.errors?.required">
+                                *ngIf="formDatosEmpresa.get('datos-resp').controls.telefonoMovilResp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
@@ -354,28 +327,34 @@
                             <mat-label>Direccion de trabajo</mat-label>
                             <input formControlName="direccionTrabajoResp" matInput required>
                             <mat-error
-                                *ngIf="formModificarEmp.get('datos-resp').controls.direccionTrabajoResp.errors?.required">
+                                *ngIf="formDatosEmpresa.get('datos-resp').controls.direccionTrabajoResp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Email personal corporativo</mat-label>
                             <input formControlName="emailCorpResp" matInput required>
                             <mat-error
-                                *ngIf="formModificarEmp.get('datos-resp').controls.emailCorpResp.errors?.required">
+                                *ngIf="formDatosEmpresa.get('datos-resp').controls.emailCorpResp.errors?.required">
                                 campo requerido</mat-error>
-                            <mat-error *ngIf="formModificarEmp.get('datos-resp').controls.emailCorpResp.errors?.email">
+                            <mat-error *ngIf="formDatosEmpresa.get('datos-resp').controls.emailCorpResp.errors?.email">
                                 Digite
                                 un
                                 correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary"
-                            matStepperPrevious>Atras</button>
-                        <button [disabled]="!formModificarEmp.valid" mat-raised-button type="submit" color="primary">Finalizar</button>
+                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+
+                        <button mat-raised-button type="submit"
+                            color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>
+            <div *ngIf="mensajesError.length > 0" class="alert alert-danger animated fadeIn">
+                <mat-error *ngFor="let mensaje of mensajesError">
+                    {{mensaje}}
+                </mat-error>
+            </div>
         </form>
     </mat-card-content>
 </mat-card>
