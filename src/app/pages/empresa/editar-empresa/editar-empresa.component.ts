@@ -57,8 +57,8 @@ export class EditarEmpresaComponent implements OnInit {
   ];*/
   sectoresInteresEmpresa: ISector[] = 
   [
-   { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
-   { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
+   { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSubSector": 0 , "nombre": "Medio ambiente", "idSector": 0}, { "idSubSector": 1, "nombre": "Minas y Energia", "idSector": 0 }] },
+   { "Nombre": "Alimentos", "subSectores": [{ "idSubSector": 3, "nombre": "Azúcar", "idSector": 1 }] }
   ];
   debouncer: any;
   subSecEscogidos: ISubSector[] = [];
