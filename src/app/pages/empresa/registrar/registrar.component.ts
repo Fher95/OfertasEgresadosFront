@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ISector } from '../../../shared/modelos/sectorInterface'
@@ -72,6 +72,7 @@ export class RegistrarComponent implements OnInit {
     private empService: EmpresaService,
     private matDialog: MatDialog,
     private router: Router,
+    private elem: ElementRef,
   ) {
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
@@ -116,7 +117,11 @@ export class RegistrarComponent implements OnInit {
         horarioContactoResp: [null],
         direccionTrabajoResp: [null, Validators.required],
         emailCorpResp: [null, [Validators.required, Validators.email]]
-      })
+      }),
+      /*'archivos': this.formBuilder.group({
+        logo: [''],
+        camaraycomercio: [''],
+      })*/
     });
   }
 
@@ -125,6 +130,32 @@ export class RegistrarComponent implements OnInit {
     this.cargarAnios();
     this.cargarSectoresInteres();
   }
+
+  uploadImage(){
+    let files = this.elem.nativeElement.querySelector('#selectFile').files;
+    let formData = new FormData();
+    console.log(formData);
+    let file = files[0];
+    formData.append('selectFile', file, file.name);
+    console.log(formData);
+  }
+
+  elegirArchivo(event){
+    const formData = new FormData();
+    let file = <File>event.target.files[0];
+    console.log(file);
+    formData.append('file', file, file.name);
+    this.formRegistroEmp.controls['archivos'].get('camaraycomercio').setValue(formData);
+  }
+
+  elegirLogo(event){
+    const formData = new FormData();
+    let file = <File>event.target.files[0];
+    console.log(file);
+    formData.append('file', file, file.name);
+    this.formRegistroEmp.controls['archivos'].get('logo').setValue(formData);
+  }
+
   /**
  * Carga la lista paises, envia al servicio general encargado
  * de realizar las peticiones
@@ -261,10 +292,13 @@ export class RegistrarComponent implements OnInit {
   eliminarSubSectorEscogido(subSector: ISubSector) {
     //Se busca en la lista de escogidos
     let posSubSector = this.subSecEscogidos.indexOf(subSector);
+    console.log('posSectorEscogidos: ', posSubSector);
     //Se elimina en la lista de escogidos
     this.subSecEscogidos.splice(posSubSector, 1);
     //Se busca en la lista general
+    console.log(this.sectoresInteresEmpresa[subSector.idSector]);
     posSubSector = this.sectoresInteresEmpresa[subSector.idSector].subSectores.indexOf(subSector);
+    console.log('posSectorGeneral: ', posSubSector);
     //Se devuelve a la lista general
     this.sectoresInteresEmpresa[subSector.idSector].subSectores.push(subSector);
     //Se iguala nuevamente el valor del formControl
