@@ -16,9 +16,31 @@ import { PrincipalComponent } from './pages/administrador/principal/principal.co
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
-import { MatGridListModule } from '@angular/material';
+import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
+import {LocalizacionComponent} from './pages/egresados/localizacion/localizacion.component';
+import { InfoDialogComponent } from './pages/egresados/info-dialog/info-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule, MatOptionModule, MatSelectModule, MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditarEmpresaComponent, Dialog } from './pages/empresa/editar-empresa/editar-empresa.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
+
+
+
+
+
+
+
+import { MatGridListModule } from '@angular/material';
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
 import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
@@ -27,17 +49,25 @@ import { VerificarExcelComponent } from './pages/administrador/verificar-excel/v
 import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
 import { NavbarEmpresaComponent } from './layout/navbar-empresa/navbar-empresa.component';
 import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
+import { InicioEgresadosComponent } from './pages/home/inicio-egresados/inicio-egresados.component';
+import { NavEgresadosComponent } from './pages/home/inicio-egresados/nav-egresados/nav-egresados.component';
+import { FooterEgresadosComponent } from './pages/home/inicio-egresados/footer-egresados/footer-egresados.component';
+import { ProgramaComponent } from './pages/egresados/programa/programa.component';
+import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
+import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeOfertasComponent,
     RegistrarComponent,
     HeaderComponent,
     NavbarHomeOfertasComponent,
-    PrincipalComponent,
     ListarSolicitudesEmpresaComponent,
     DatosEmpresaComponent,
+    HomeOfertasComponent,
+    PrincipalComponent,
+    PreRegistroComponent,
+    InfoDialogComponent,
     EditarEmpresaComponent,
     HistorialOfertasComponent,
     ListarOfertasComponent,
@@ -47,24 +77,40 @@ import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-labora
     NavbarEmpresaComponent,
     CrearOfertaLaboralComponent,
     Dialog,
+    InicioEgresadosComponent,
+    NavEgresadosComponent,
+    FooterEgresadosComponent,
+    LocalizacionComponent,
+    ProgramaComponent,
+    CompletarRegistroComponent,
+    ActualizarComponent
   ],
   entryComponents: [DialogFinalRegistroComponent, Dialog],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatRadioModule ,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     MaterialModule,
+    MatCheckboxModule,
     HttpClientModule,
     RecaptchaModule,
     CaptchaModule,
-    FormsModule,
-    ReactiveFormsModule,
-    PaginationModule.forRoot(),
+    ReactiveFormsModule,    
     MatGridListModule,
     MatDialogModule,
+    PaginationModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
