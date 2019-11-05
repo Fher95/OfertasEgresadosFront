@@ -5,7 +5,7 @@ import { EgresadoSaveInterface } from 'src/app/shared/modelos/egresadoSaveInterf
 import { User } from '../../modelos/user';
 
 
-const URL = 'localhost:8081/api/egresados';
+const URL = 'http://localhost:8081/api/egresados';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class RegistroService {
   }
 
   public storeEgresado(egresado: User) {
+    console.log("Sending POST request");
     return this.http.post(URL, egresado);
   }
 }

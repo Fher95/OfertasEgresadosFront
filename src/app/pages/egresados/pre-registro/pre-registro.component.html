@@ -9,8 +9,8 @@
         <h1 id="title">Formulario de pre-registro</h1>
 
         <mat-form-field>
-          <input matInput placeholder="Nombres" #name="ngModel" name="nombre" [(ngModel)]="user.nombre" required>
-          <mat-error *ngIf="user.nombre != null">Por favor ingresar un nombre</mat-error>
+          <input matInput placeholder="Nombres" #name="ngModel" name="nombre" [(ngModel)]="user.nombres" required>
+          <mat-error *ngIf="user.nombres != null">Por favor ingresar un nombre</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Apellidos" #name="ngModel" name="apellidos" [(ngModel)]="user.apellidos" required>
@@ -86,7 +86,7 @@
 
         <mat-form-field>
           <mat-label>Facultad</mat-label>
-          <mat-select [formControl]="facultadFormControl" required (selectionChange)="obtenerFacultad()">            
+          <mat-select [formControl]="facultadFormControl" required (selectionChange)="obtenerPrograma()">            
             <mat-option *ngFor="let facultad of facultades" [value]="facultad.id_aut_facultad">
                   {{facultad.nombre}}
             </mat-option>
@@ -96,7 +96,7 @@
 
         <mat-form-field>
           <mat-label>Programa</mat-label>
-          <mat-select [formControl]="programaFormControl" required (selectionChange)="obtenerPrograma()">            
+          <mat-select [formControl]="programaFormControl" required>            
             <mat-option *ngFor="let programa of programas" [value]="programa.id_aut_programa">
                   {{programa.nombre}}
             </mat-option>
@@ -164,8 +164,8 @@
         <app-localizacion #lugarResidencia></app-localizacion>  
 
         <mat-form-field>
-          <input matInput placeholder="Dirección de residencia" #name="ngModel" name="dir_residencia" [(ngModel)]="user.dir_residencia" required>
-          <mat-error *ngIf="user.dir_residencia != null">Por favor ingresar una dirección</mat-error>
+          <input matInput placeholder="Dirección de residencia" #name="ngModel" name="direccion" [(ngModel)]="user.direccion" required>
+          <mat-error *ngIf="user.direccion != null">Por favor ingresar una dirección</mat-error>
         </mat-form-field>
 
         <mat-form-field class="email-full-width">

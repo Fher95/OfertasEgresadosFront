@@ -60,10 +60,15 @@ export class LocalizacionComponent implements OnInit {
 		this.catalogoService.getPaises().subscribe(data => this.paises=data);
 	}
 	obtenerDepartamento(){
+		console.log("Obtiene departamento");
 		this.catalogoService.getDepartamentosBy(this.paisFormControl.value).subscribe(data => this.departamentos=data);
 	}
 	obtenerCiudad(){
-		this.catalogoService.getCiudadesBy(this.departamentoFormControl.value).subscribe(data => this.ciudades=data);
+		this.catalogoService.getCiudadesBy(this.departamentoFormControl.value).subscribe(data => {
+			console.log("Retorno de ciudades");
+			this.ciudades=data;
+			console.log(data);
+		});
 	}
 
 	public obtenerIdLocalizacion(){

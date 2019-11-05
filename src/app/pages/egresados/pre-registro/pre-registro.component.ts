@@ -160,7 +160,7 @@ export class PreRegistroComponent implements OnInit {
   }
 
   obtenerPrograma(){
-    this.catalogoService.getPrograma(this.programaFormControl.value).subscribe(data => this.programas = data);
+    this.catalogoService.getPrograma(this.facultadFormControl.value).subscribe(data => this.programas = data);
   }
   
   ngOnInit() {
@@ -172,27 +172,29 @@ export class PreRegistroComponent implements OnInit {
   // Método para validar los datos ingresados por el usuario
   validData() {
     var valid: boolean = false;
-    if (this.user.nombre.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 && 
+    if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 && 
       this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' && this.lExpedicion.departamentoFormControl.value != ''&& this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null
        && this.facultadFormControl.value != null && this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.user.discapacidad.length > 0 && 
-      this.user.mension != false && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null && this.user.identificacion.length > 0 && this.user.dir_residencia.length > 0
+      this.user.mension != false && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null && this.user.identificacion.length > 0 && this.user.direccion.length > 0
       ) {
       valid = true;
       this.msgError = "";
     } else {
       this.msgError = "Error: Todos los campos son obligatorios";
     }
-    console.log('hola mundo '+this.user.mension);
+    console.log('hola mundo '+valid);
     return valid;
   } 
 
   // Método para registrar la solicitud
   register() {
     if (this.validData()) {
+      console.log("Datos validos");
       this.user.fecha_grado = Utilities.parseDateToString(this.fechaGFormControl.value, '-');
       this.user.fecha_nacimiento = Utilities.parseDateToString(this.fechaNFormControl.value,'-');
-      this.user.correo_electronico = this.emailFormControl.value;
-      this.user.correo_electronico_alternativo = this.emailFormControl2.value;
+      this.user.correo = this.emailFormControl.value;
+      this.user.correo_alternativo = this.emailFormControl2.value;
+      this.user.id_programa = this.programaFormControl.value;
       this.user.anio_graduacion = this.anioGFormControl.value;
       this.user.grupo_etnico = this.grupoEFormControl.value;
       this.user.estado_civil = this.estadoCFormControl.value;
