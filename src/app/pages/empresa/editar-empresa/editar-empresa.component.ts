@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 import { ISector } from '../../../shared/modelos/sectorInterface'
 import { ISubSector } from '../../../shared/modelos/subSectorInterface'
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface DialogData {
@@ -57,9 +57,10 @@ export class EditarEmpresaComponent implements OnInit {
   ];*/
   sectoresInteresEmpresa: ISector[] = 
   [
-   { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
-   { "Nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }
+   { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSubSector": 0 , "nombre": "Medio ambiente", "idSector": 0}, { "idSubSector": 1, "nombre": "Minas y Energia", "idSector": 0 }] },
+   { "Nombre": "Alimentos", "subSectores": [{ "idSubSector": 3, "nombre": "Azúcar", "idSector": 1 }] }
   ];
+  id: string;
   debouncer: any;
   subSecEscogidos: ISubSector[] = [];
   anios: any[] = [];
@@ -78,7 +79,8 @@ export class EditarEmpresaComponent implements OnInit {
     private matDialog: MatDialog,
     private router: Router,
     private empresaService : EmpresaService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.formDatosEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
@@ -129,7 +131,7 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.cargarSectoresInteres();
     this.empresaService.getDatos()
     .subscribe(data => {
@@ -288,28 +290,34 @@ cargarSectoresInteres() {
  
   
   registrarEmpresa(formulario) {
-   
-    this.empService.modificarEmpresa(formulario.value).toPromise().then(data => {
-      console.log(data);
-      alert('Datos modificados exitosamente');
-      this.router.navigate(['/datosEmpresa']);
-
-      //this.openDialog();
-    },
-      errorRegistro => {
-        this.mensajesError = [];
-        alert("Error en la peticion al servidor, por favor intentelo de nuevo");
-        console.log(errorRegistro);
-        console.log(errorRegistro.error);
-        // Obteniendo todas las claves del JSON
-        for (var clave in errorRegistro.error) {
-          // Controlando que json realmente tenga esa propiedad
-          if (errorRegistro.error.hasOwnProperty(clave)) {
-            // Mostrando en pantalla la clave junto a su valor
-            this.mensajesError = errorRegistro.error[clave];
+    
+    console.log(formulario);
+    if(formulario.status != 'INVALID'){
+      this.empService.modificarEmpresa(formulario.value).toPromise().then(data => {
+        console.log(data);
+        alert('Datos modificados exitosamente');
+        this.router.navigate(['/datosEmpresa']);
+  
+        //this.openDialog();
+      },
+        errorRegistro => {
+          this.mensajesError = [];
+          alert("Error en la peticion al servidor, por favor intentelo de nuevo");
+          console.log(errorRegistro);
+          console.log(errorRegistro.error);
+          // Obteniendo todas las claves del JSON
+          for (var clave in errorRegistro.error) {
+            // Controlando que json realmente tenga esa propiedad
+            if (errorRegistro.error.hasOwnProperty(clave)) {
+              // Mostrando en pantalla la clave junto a su valor
+              this.mensajesError = errorRegistro.error[clave];
+            }
           }
-        }
-      });
+        });
+    }
+    else{
+      alert('datos incorrectos, por favor llenar los datos en los formatos validos');
+    }
   }
   /**
  * elimina un subSector escogido a partir de la lista de sectores en el formulario de registro
@@ -448,7 +456,8 @@ cargarSectoresInteres() {
  * Si se cierra el dialog redirige a la pagina principal
  */
   cancelarModificar(){
-    this.router.navigate(['/datosEmpresa']);
+    const url = 'empresa/' + this.id + '/datosEmpresa';
+    this.router.navigate([url]);
   }
 
 

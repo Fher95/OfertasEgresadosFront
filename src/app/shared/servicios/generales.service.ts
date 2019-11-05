@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ISector } from '../modelos/sectorInterface';
+import { ICargo } from '../modelos/cargoInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,9 @@ export class GeneralesService {
   }
   obtenerListaCiudades(id: string): Observable<any> {
     return this.httpClient.get("http://127.0.0.1:8081/api/ciudades/" + id, this.httpOptions);
+  }
+  obtenerListaCargos(): Observable<ICargo[]>{
+    return this.httpClient.get<ICargo[]>("http://127.0.0.1:8081/api/cargos", this.httpOptions);
   }
   validarEmail(email: String): Observable<any> {
     return this.httpClient.get("http://127.0.0.1:8081/api/validarUsuario/" + email, this.httpOptions);

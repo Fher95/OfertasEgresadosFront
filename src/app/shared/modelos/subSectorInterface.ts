@@ -1,4 +1,5 @@
 export interface ISubSector{
-    idSector: number;
+    idSubSector: number;
     nombre: string;
+    idSector: number;
 }

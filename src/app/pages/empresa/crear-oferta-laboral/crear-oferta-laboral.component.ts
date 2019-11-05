@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 export interface idioma{
   id:String
   nombre:String;
@@ -24,10 +25,11 @@ export interface ubicacion{
 
 export class CrearOfertaLaboralComponent implements OnInit {
 
+  id: string;
   formOfertaLaboral: FormGroup;
   idioma:FormGroup;
 
-  constructor( private formBuilder: FormBuilder) { 
+  constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { 
 
     this.formOfertaLaboral = this.formBuilder.group({ 
       'informacion-principal': this.formBuilder.group({
@@ -92,6 +94,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
   }
   
   registrarOfertaLaboral(form)

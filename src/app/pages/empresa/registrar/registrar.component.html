@@ -14,7 +14,7 @@
     <mat-divider></mat-divider>
     <mat-card-content>
         <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
-            <mat-horizontal-stepper #stepper>
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
                 <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
                     label="Cuenta">
@@ -45,8 +45,7 @@
                                 campo
                                 requerido</mat-error>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.pattern">
-                                La contraseña debe contener al menos 6 caracteres en minúscula, una mayúscula, y un
-                                número.</mat-error>
+                                La contraseña debe contener al menos 6 caracteres en minúscula y una mayúscula.</mat-error>
                         </mat-form-field>
                     </div>
                     <!--<div class="row justify-content-center">
@@ -192,8 +191,8 @@
                                     </mat-expansion-panel-header>
                                     <!--Contenido-->
                                     <mat-action-list dense *ngFor="let subSector of sector.subSectores">
-                                        <button type="button" mat-list-item value="{{subSector.nombre}}"
-                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.nombre }}
+                                        <button type="button" mat-list-item value="{{subSector.Nombre}}"
+                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.Nombre }}
                                             <mat-icon matListIcon>add</mat-icon>
                                         </button>
                                     </mat-action-list>
@@ -208,7 +207,7 @@
                             <mat-nav-list>
                                 <mat-list-item *ngFor="let subSector of subSecEscogidos">
                                     <button type="button" mat-icon-button
-                                        (click)="eliminarSubSectorEscogido(subSector)">{{ subSector.nombre }}<mat-icon
+                                        (click)="eliminarSubSectorEscogido(subSector)">{{ subSector.Nombre }}<mat-icon
                                             matListIcon>close</mat-icon></button>
                                 </mat-list-item>
                             </mat-nav-list>
@@ -246,7 +245,8 @@
                             <mat-label>Departamento</mat-label>
                             <mat-select formControlName="departamentoEmp"
                                 (selectionChange)="cargarCiudades($event.value)">
-                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id_aut_dep">
+                                <mat-option *ngFor="let departamento of departamentos"
+                                    [value]="departamento.id_aut_dep">
                                     {{departamento.nombre}}
                                 </mat-option>
                             </mat-select>
@@ -283,7 +283,7 @@
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Codigo Postal</mat-label>
-                            <input matInput maxlength="5" type="number" formControlName="codigoPostalEmp">
+                            <input matInput maxlength="6" type="number" formControlName="codigoPostalEmp">
                             <mat-error
                                 *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.codigoPostalEmp.errors?.min">
                                 No hay codigo postal negativo</mat-error>
@@ -374,6 +374,16 @@
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
+                            <mat-select formControlName="cargo">
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.id_aut_cargos">
+                                    {{cargo.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
+                                campo requerido</mat-error>
+                        </mat-form-field>
+                        <mat-form-field floatLabel="auto" appearance="outline">
+                            <mat-label>Otro Cargo</mat-label>
                             <input formControlName="cargo" matInput required>
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
@@ -413,11 +423,39 @@
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                        <button [disabled]="!formRegistroEmp.valid" type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button mat-raised-button type="submit"
-                            color="primary">Finalizar</button>
+                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <button [disabled]="!formRegistroEmp.valid" type="submit" mat-raised-button color="primary">Guardar y
+                            Continuar</button>
                     </div>
                 </mat-step>
+
+                <!--<mat-step formGroupName="archivos" [stepControl]="formRegistroEmp.get('archivos')" label="Archivos">
+                    <div class="Subtitulos-card">
+                        <p class="text-center"><b>Archivos de verificacion</b></p>
+                        <mat-divider [inset]="true"></mat-divider>
+                    </div>
+                    <div class="row cartaCuenta">
+                        <button type="button" (click)="fileInput.click()">
+                            <mat-icon matListIcon>add</mat-icon>
+                            <span>Subir camara y comercio</span>
+                            <input #fileInput id="file" type="file" (change)="elegirArchivo($event)"
+                                style="display:none;">
+                        </button>
+                    </div>
+                    <div class="row cartaCuenta">
+                        <button type="button" mat-button (click)="logoInput.click()">
+                            <mat-icon matListIcon>add</mat-icon>
+                            <span>Subir logo de tu empresa</span>
+                            <input #logoInput id="logo" type="file" (change)="elegirLogo($event)" style="display:none;">
+                        </button>
+                    </div>
+                    <div class="botonesStepper">
+                        <button [disabled]="!formRegistroEmp.valid" type="button" mat-raised-button color="primary"
+                            matStepperPrevious>Atras</button>
+                        <button mat-raised-button type="submit" color="primary">Finalizar</button>
+                    </div>
+                </mat-step>-->
+
             </mat-horizontal-stepper>
             <div *ngIf="mensajesError.length > 0" class="alert alert-danger animated fadeIn">
                 <mat-error *ngFor="let mensaje of mensajesError">

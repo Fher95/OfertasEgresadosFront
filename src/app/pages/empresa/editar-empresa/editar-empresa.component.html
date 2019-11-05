@@ -1,5 +1,5 @@
 <app-header></app-header>
-<app-navbar-home-ofertas></app-navbar-home-ofertas>
+<app-navbar-empresa [id]="id"></app-navbar-empresa>
 
 <mat-card class="carta-registro">
 
@@ -228,7 +228,7 @@
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Telefono de la empresa</mat-label>
-                            <input type="number" formControlName="telefonoEmp" matInput required>
+                            <input type="number" formControlName="telefonoEmp" matInput>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Email de la empresa</mat-label>

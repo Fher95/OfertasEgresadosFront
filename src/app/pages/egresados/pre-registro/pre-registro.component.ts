@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 // Componentes y Modelos propios
 import { User } from '../../../shared/modelos/user';
+import { ProgramaInterface } from '../../../shared/modelos/programaInteface';
+import { FacultadInterface } from '../../../shared/modelos/facultadInterface';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
 import { Utilities } from '../../../shared/servicios/egresados/utilities';
 import { RegistroService } from '../../../shared/servicios/egresados/registro.service';
@@ -29,7 +31,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class PreRegistroComponent implements OnInit {
   
-  @ViewChild(LocalizacionComponent) hijo: LocalizacionComponent;
+  @ViewChild('lugarExpedicion') lExpedicion: LocalizacionComponent;
+  @ViewChild('lugarNacimiento') lNacimiento: LocalizacionComponent;
+  @ViewChild('lugarResidencia') lResidencia: LocalizacionComponent;
 
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -83,8 +87,10 @@ export class PreRegistroComponent implements OnInit {
   // Variables
   private sedes = [1, 2, 3, 4, 5];
 
-  private facultades = ['Facultad Ingenieria Electronica y Telecomunicaciones', 'Facultad de Ingenieria Civil', 'Facultad de Ciencias Naturales y Exactas', 'Facultad de Artes', 'Facultad de Derecho', 'Facultad de Ciencias Contables', 'Facultad de Ciencias Agropecuarias', 'Facultad de Ciencias Humanas'];
-  private programas = ['Musica', 'Medicina', 'Ingenieria de Sistemas', 'Ingenieria Electronica', 'Ingenieria Civil', 'Enfermeria', 'Fonoaudiologia', 'Contaduria Publica'];
+  //private facultades = ['Facultad Ingenieria Electronica y Telecomunicaciones', 'Facultad de Ingenieria Civil', 'Facultad de Ciencias Naturales y Exactas', 'Facultad de Artes', 'Facultad de Derecho', 'Facultad de Ciencias Contables', 'Facultad de Ciencias Agropecuarias', 'Facultad de Ciencias Humanas'];
+  //private programas = ['Musica', 'Medicina', 'Ingenieria de Sistemas', 'Ingenieria Electronica', 'Ingenieria Civil', 'Enfermeria', 'Fonoaudiologia', 'Contaduria Publica'];
+  private facultades: FacultadInterface[];
+  private programas: ProgramaInterface[];
   private discapacidades: string[] = ['Visual', 'Cognitiva', 'Auditiva', 'Fisica', 'Ninguna'];
   private generos: string[] = ['Masculino', 'Femenino', 'Otro'];
   private niveles_academicos: string[] = ['Pregardo', 'Posgrado'];
@@ -148,38 +154,54 @@ export class PreRegistroComponent implements OnInit {
     }
     return validar;
   }
-  
-  ngOnInit() {
+
+  obtenerFacultad(){
+    this.catalogoService.getFacultad().subscribe(data => this.facultades = data);
+  }
+
+  obtenerPrograma(){
+    this.catalogoService.getPrograma(this.facultadFormControl.value).subscribe(data => this.programas = data);
   }
   
+  ngOnInit() {
+    this.obtenerFacultad();
+  }
+
   
+
   // Método para validar los datos ingresados por el usuario
   validData() {
     var valid: boolean = false;
-    if (this.user.nombre.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 && 
-      this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.hijo.ciudadFormControl.value != '' && this.hijo.paisFormControl.value != '' && this.fechaNFormControl.value != null
-      && this.hijo.departamentoFormControl.value != '' && this.facultadFormControl.value != null && this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.user.discapacidad.length > 0 && 
-      this.user.mension != false && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null && this.user.identificacion.length > 0 && this.user.dir_residencia.length > 0
+    if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 && 
+      this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' && this.lExpedicion.departamentoFormControl.value != ''&& this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null
+       && this.facultadFormControl.value != null && this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.user.discapacidad.length > 0 && 
+      this.user.mension != false && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null && this.user.identificacion.length > 0 && this.user.direccion.length > 0
       ) {
       valid = true;
       this.msgError = "";
     } else {
       this.msgError = "Error: Todos los campos son obligatorios";
     }
-    console.log('hola mundo'+this.hijo.obtenerCiudad());
+    console.log('hola mundo '+valid);
     return valid;
   } 
 
   // Método para registrar la solicitud
   register() {
     if (this.validData()) {
+      console.log("Datos validos");
       this.user.fecha_grado = Utilities.parseDateToString(this.fechaGFormControl.value, '-');
       this.user.fecha_nacimiento = Utilities.parseDateToString(this.fechaNFormControl.value,'-');
-      this.user.correo_electronico = this.emailFormControl.value;
-      this.user.correo_electronico_alternativo = this.emailFormControl2.value;
+      this.user.correo = this.emailFormControl.value;
+      this.user.correo_alternativo = this.emailFormControl2.value;
+      this.user.id_programa = this.programaFormControl.value;
       this.user.anio_graduacion = this.anioGFormControl.value;
       this.user.grupo_etnico = this.grupoEFormControl.value;
       this.user.estado_civil = this.estadoCFormControl.value;
+      this.user.id_lugar_expedicion =this.lExpedicion.obtenerIdLocalizacion();
+      this.user.id_lugar_nacimiento =this.lNacimiento.obtenerIdLocalizacion();
+      this.user.id_lugar_residencia =this.lResidencia.obtenerIdLocalizacion();
+      this.user.id_nivel_educativo = this.programaFormControl.value;
       if(this.programaFormControl.value == 'Musica'){
         this.user.id_nivel_educativo = this.tituloFormControl.value;
       } else{
