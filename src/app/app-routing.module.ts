@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'egresados', component: InicioEgresadosComponent},
   { path: 'egresados/completarRegistro', component: CompletarRegistroComponent},
   { path: 'egresados/actualizacion', component: ActualizarComponent},
-  { path: 'egresados/confirmacion', component: ConfirmarRegistroComponent}
+  { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent}
 ];
 
 @NgModule({
