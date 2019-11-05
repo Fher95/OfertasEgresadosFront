@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 
 @Component({
@@ -12,14 +12,16 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 
 
 export class DatosEmpresaComponent implements OnInit {
-   data = 'a';
+  
+  id: string; 
+  data = 'a';
    formRegistroEmp: FormGroup;
   
   sectores: any = [
     { "nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
     { "nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }]
 
-  constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: '', disabled:true} ],
@@ -31,7 +33,7 @@ export class DatosEmpresaComponent implements OnInit {
         anioCreacion: [{value: '', disabled:true}],
         numEmpleados: [{value: '', disabled:true}],
         ingresosEmp: [{value: '', disabled:true}],
-        descripcionEmpresa: [{value: "falta", disabled:true}],
+        descripcionEmpresa: [{value: '', disabled:true}],
       }),
       'sectores': this.formBuilder.group({
         sectores: [{value: '', disabled:true}],
@@ -67,9 +69,11 @@ export class DatosEmpresaComponent implements OnInit {
   }
 
   modificarDatos() {
-    this.router.navigate(['/editarEmpresa']);
+    const url = 'empresa/' + this.id + '/editarEmpresa'
+    this.router.navigate([url]);
   }
   ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
      this.empresaService.getDatos()
     .subscribe(data => {
       this.data = data;

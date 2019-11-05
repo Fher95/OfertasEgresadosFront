@@ -22,7 +22,8 @@ export class NavbarHomeOfertasComponent implements OnInit {
 
   
   onLogin(){
-    console.log(this.user.email)
+    this.router.navigate(['empresa/1/datosEmpresa']);
+    /*console.log(this.user.email)
     console.log(this.user.password)
 
     return this.authService.loginUser(this.user.email, this.user.password)
@@ -32,9 +33,9 @@ export class NavbarHomeOfertasComponent implements OnInit {
       this.authService.setToken(data)
       this.router.navigate(['/datosEmpresa'])
     }),
-    error => console.log(error)
+    error => console.log(error)*/
   }
   onRegistroEmpresa(){
     this.router.navigate(['registroEmpresa']);
-  }z
+  }
 }
