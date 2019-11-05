@@ -33,13 +33,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
-
-
-
-
-
-
-
 import { MatGridListModule } from '@angular/material';
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';

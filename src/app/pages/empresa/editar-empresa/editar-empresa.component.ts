@@ -288,28 +288,34 @@ cargarSectoresInteres() {
  
   
   registrarEmpresa(formulario) {
-   
-    this.empService.modificarEmpresa(formulario.value).toPromise().then(data => {
-      console.log(data);
-      alert('Datos modificados exitosamente');
-      this.router.navigate(['/datosEmpresa']);
-
-      //this.openDialog();
-    },
-      errorRegistro => {
-        this.mensajesError = [];
-        alert("Error en la peticion al servidor, por favor intentelo de nuevo");
-        console.log(errorRegistro);
-        console.log(errorRegistro.error);
-        // Obteniendo todas las claves del JSON
-        for (var clave in errorRegistro.error) {
-          // Controlando que json realmente tenga esa propiedad
-          if (errorRegistro.error.hasOwnProperty(clave)) {
-            // Mostrando en pantalla la clave junto a su valor
-            this.mensajesError = errorRegistro.error[clave];
+    
+    console.log(formulario);
+    if(formulario.status != 'INVALID'){
+      this.empService.modificarEmpresa(formulario.value).toPromise().then(data => {
+        console.log(data);
+        alert('Datos modificados exitosamente');
+        this.router.navigate(['/datosEmpresa']);
+  
+        //this.openDialog();
+      },
+        errorRegistro => {
+          this.mensajesError = [];
+          alert("Error en la peticion al servidor, por favor intentelo de nuevo");
+          console.log(errorRegistro);
+          console.log(errorRegistro.error);
+          // Obteniendo todas las claves del JSON
+          for (var clave in errorRegistro.error) {
+            // Controlando que json realmente tenga esa propiedad
+            if (errorRegistro.error.hasOwnProperty(clave)) {
+              // Mostrando en pantalla la clave junto a su valor
+              this.mensajesError = errorRegistro.error[clave];
+            }
           }
-        }
-      });
+        });
+    }
+    else{
+      alert('datos incorrectos, por favor llenar los datos en los formatos validos');
+    }
   }
   /**
  * elimina un subSector escogido a partir de la lista de sectores en el formulario de registro
