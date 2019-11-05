@@ -1,4 +1,4 @@
 export interface NivelAcademicoInterface {
-    id?: number;
+    id_aut_estudio?: number;
     nombre?: string;
 }

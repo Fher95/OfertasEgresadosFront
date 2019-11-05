@@ -1,5 +1,6 @@
 export interface EgresadoVerificar {
-    nombres? : string;
-    apellidos? : string;
-    identificacion? : string;
+    nombres?: string;
+    apellidos?: string;
+    identificacion?: string;
+    titulo?: string;
 }

@@ -5,6 +5,8 @@ import { Pais } from '../../modelos/paisInterface';
 import { DepartamentoInterface } from '../../modelos/departamentoInterface';
 import { CiudadInterface } from '../../modelos/ciudadesInterface';
 import { NivelAcademicoInterface } from '../../modelos/nivelAcademicoInterface';
+import { FacultadInterface } from '../../modelos/facultadInterface';
+import { ProgramaInterface } from '../../modelos/programaInteface';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -31,4 +33,11 @@ export class CatalogosService {
     return this.http.get<NivelAcademicoInterface>(`${baseUrl}nivelAcademico`);
   }
 
+  getFacultad(): Observable<FacultadInterface[]>{
+    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades`);
+  }
+
+  getPrograma(facultadId: number): Observable<ProgramaInterface[]>{
+    return this.http.get<ProgramaInterface[]>(`${baseUrl}programas/${facultadId}`);
+  }
 }

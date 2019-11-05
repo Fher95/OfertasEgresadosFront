@@ -21,12 +21,8 @@ export class VerificarExcelComponent implements OnInit {
   showRechazados: boolean;
   processFinished: boolean;
   aceptadosDataSource : MatTableDataSource<EgresadoVerificar>;
-  pendientesDataSource: MatTableDataSource<EgresadoVerificar>;;
-  rechazadosDataSource: MatTableDataSource<EgresadoVerificar>;;
-  @ViewChild('aceptadosPaginator') aceptadosPaginator: MatPaginator;
-  @ViewChild('pendientesPaginator') pendientesPaginator: MatPaginator;
-  @ViewChild('rechazadosPaginator') rechazadosPaginator: MatPaginator;
-  displayedColumns: string[] = ['nombres', 'apellidos', 'identificacion'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: string[] = ['nombres', 'apellidos', 'identificacion', 'titulo'];
 
   constructor(private service: FileUploadService) { }
 
@@ -35,8 +31,6 @@ export class VerificarExcelComponent implements OnInit {
     this.showPendientes = false;
     this.showRechazados = false;
     this.processFinished = false;
-    this.aceptadosDataSource = new MatTableDataSource();
-    this.aceptadosDataSource.paginator = this.aceptadosPaginator;
   }
 
   mostrarAceptados() {
@@ -66,7 +60,7 @@ export class VerificarExcelComponent implements OnInit {
       let aceptados = data;
       this.processFinished = true;
       this.aceptadosDataSource = new MatTableDataSource(aceptados);
-      this.aceptadosDataSource.paginator = this.aceptadosPaginator;
+      this.aceptadosDataSource.paginator = this.paginator;
     });
   }
 

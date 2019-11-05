@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.component';
@@ -25,6 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule, MatOptionModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { EditarEmpresaComponent, Dialog } from './pages/empresa/editar-empresa/editar-empresa.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
@@ -33,15 +33,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
-
-
-
-
-
-
-
 import { MatGridListModule } from '@angular/material';
-import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
 import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
@@ -56,6 +48,7 @@ import { FooterEgresadosComponent } from './pages/home/inicio-egresados/footer-e
 import { ProgramaComponent } from './pages/egresados/programa/programa.component';
 import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
 import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
+import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro/confirmar-registro.component';
 
 @NgModule({
   declarations: [
@@ -77,15 +70,17 @@ import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.com
     OfertasActivasComponent,
     NavbarEmpresaComponent,
     CrearOfertaLaboralComponent,
+    Dialog,
     InicioEgresadosComponent,
     NavEgresadosComponent,
     FooterEgresadosComponent,
     LocalizacionComponent,
     ProgramaComponent,
     CompletarRegistroComponent,
-    ActualizarComponent
+    ActualizarComponent,
+    ConfirmarRegistroComponent
   ],
-  entryComponents: [DialogFinalRegistroComponent],
+  entryComponents: [DialogFinalRegistroComponent, Dialog],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -109,6 +104,7 @@ import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.com
     CaptchaModule,
     ReactiveFormsModule,    
     MatGridListModule,
+    MatDialogModule,
     PaginationModule.forRoot()
   ],
   providers: [],
