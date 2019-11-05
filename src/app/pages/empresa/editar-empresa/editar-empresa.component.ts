@@ -19,47 +19,9 @@ export interface DialogData {
 export class EditarEmpresaComponent implements OnInit {
   data = 'a';
   emailInicial:String ;
-  /*sectoresInteresEmpresa: Object = [
-    { "Nombre": "Estatal y Relacionados", "subSector": [{'id':1, 'nombre': "Medio ambiente"}, {'id':1, 'nombre': "Minas y Energia"}, "Organizacion no Gubernamental", "Planeacion", "Relaciones Exteriores", "Residencia, Gobernaciones", "Salud, Trabajo y Seguridad", "Servicios Publicos", "Economia Desarrollo Ecologico", "Educacion, Cultura y Turismo", "Estadistica", "Funcion Publica", "Gremios y Asociaciones", "Interior, Control y org", "Justicia del Derecho", "Agricultura y Desarrollo", "Ciencia y Tecnologia", "Comercio Exterior", "Comunicacion", "Defensa y Seguridad Nacional"] },
-    { "Nombre": "Alimentos", "subSector": ["Aceites y Grasas Comestibles", "Alimentos Para Animales", {'id':2, 'nombre': "Azúcar"}, "Batidos", "Café Exportadores", "Chocolate y confiteria", "Conservas, Pasabocas", "Lácteos", "Molinera de Arroz", "Molinería de Productos de Trigo", "Pastas, Panadería y Galletas"] },
-    { "Nombre": "Comercio al por Menor", "subSector": ["Almacenes de cadena", "Almacenes Varios", "Concesionarios", "Droguerias", "Estaciones de Servicio", "Ferreteria", "Hipermercados", "Supermercados", "Tiendas"] },
-    { "Nombre": "Comercio al por Mayor", "subSector": ["Comercio al por Mayor"] },
-    { "Nombre": "Construccion", "subSector": ["Cementos", "Ceramica y Otros Materiales", "Construccion", "Distribucion de materiales", "Infraestructura", "Infraestructura Vial", "Ingenieria Civil", "Preparacion de Terreno"] },
-    { "Nombre": "Financiero", "subSector": ["Banca", "Cajeros Electrónicos", "Compañias de Financiamiento", "Compañias de Leasing", "Corporaciones de Ahorro", "Corredores de Bolsa", "Fiduciaria", "Fondo de Pensiones", "Servicios Financieros", "Tarjeta de Crédito"] },
-    { "Nombre": "Servicios", "subSector": ["Alimentos - Bebidas", "Almacenes de Depósito", "Cajas de Compensacion", "Clubes", "Cooperativas", "Correo", "Hoteles", "Informáticos", "Otros Servicios", "Restaurantes", "Servicios de Aseo", "Servicios Públicos", "Turismo", "Vigilancia y Seguridad"] },
-    { "Nombre": "Agropecuario", "subSector": ["Agricultura y Varios", "Avícola", "Café Producción", "Distribucion de Productos", "Flores", "Ganadería", "Pesca"] },
-    { "Nombre": "Asegurador", "subSector": ["Ajustadores de Seguros", "Compañias de Seguros", "Corredores de Seguros", "Reaseguradores"] },
-    { "Nombre": "Bebidas y Tabaco", "subSector": ["Cerveza", "Distribucion / Consumo Masivo", "Gaseosas, Jugos y Agua", "Licores", "Tabaco"] },
-    { "Nombre": "Consultorias / Asesorias", "subSector": ["Consultoría Contable", "Consultoría de Recursos Humanos", "Firmas de Abogados", "Firmas de Consultoria Empresarial", "Temporales / Dotación"] },
-    { "Nombre": "Consumo masivo", "subSector": ["Consumo masivo"] },
-    { "Nombre": "Cuero y Calzado", "subSector": ["Calzado", "Curtido de Cuero", "Maletas, Bolsos y Similares"] },
-    { "Nombre": "Editorial e Impresión", "subSector": ["Impresion Editorial", "Libros y Folletos y Similares"] },
-    { "Nombre": "Educativo", "subSector": ["Campañas de Capacitacion", "Colegios", "Institutos Técnicos", "Universidades"] },
-    { "Nombre": "Energético", "subSector": ["Compañias Petroleras", "Distribucion de Carbon", "Distribución de Combustibles", "Energía Eléctrica", "Gas", "Servicios Petroleros"] },
-    { "Nombre": "Entretenimiento", "subSector": ["Cine y Videos", "Otros", "Parques de Diversiones", "Produccion de Grabación"] },
-    { "Nombre": "Investigación", "subSector": ["Varios"] },
-    { "Nombre": "Manufactura", "subSector": ["Distribucion de Enseres Domiciliarios", "Distribucion de Maquinaria", "Electrodomésticos", "Manufacturas Varias", "Maquinaria y Equipo", "Muebles y Accesorios", "Productos de Madera"] },
-    { "Nombre": "Medios", "subSector": ["Internet", "Periódicos", "Radio", "Revistas", "Televisión"] },
-    { "Nombre": "Minería, Hierro, Acero y otros Materiales", "subSector": ["Metales Básicos, Hierro, Acero", "Metales no Ferroso", "Otros", "Productos de Metal", "Siderurgia"] },
-    { "Nombre": "Naval", "subSector": ["Construccion Naval", "Diseño Naval", "Mantenimiento Naval", "Naval", "Reparacion Naval"] },
-    { "Nombre": "Otra Actividad", "subSector": ["Atelier de diseño", "Otra Actividad"] },
-    { "Nombre": "Plástico y Caucho", "subSector": ["Plasticos Primarios", "Productos de Caucho", "Productos de Plástico"] },
-    { "Nombre": "Productos de Vidrio", "subSector": ["Envases", "Otros Productos de Vidrios", "Vidrio - Construccion", "Vidrio - Vehículo"] },
-    { "Nombre": "Publicidad y Mercadeo", "subSector": ["Agencias de Publicidad", "Agencias Promocionales", "Brokers de Medios", "Correo Directo", "Otros", "Relaciones Públicas"] },
-    { "Nombre": "Pulpa, Papel y Cartón", "subSector": ["Papel Celulosa y Carton", "Productos de Papel y Cartón"] },
-    { "Nombre": "Quimicos", "subSector": ["Abonos, Plaguicidas y Químicos", "Distribucion / Consumo Masivo", "Distribucion de Productos", "Laboratorios Farmacéuticos", "Pinturas, Barnices y Similares", "Productos de Aseo y Comsméticos", "Quimicos Básicos", "Quimicos Industriales"] },
-    { "Nombre": "Salud", "subSector": ["A.R.P", "E.P.S", "I.P.S", "Mediciona Prepagada", "Seguridad Social", "Servicios Hospitalarios"] },
-    { "Nombre": "Tecnología", "subSector": ["Comercio de Computadores", "Desarrollo y Diseño de Paginas Web", "Productores y Distribuidores"] },
-    { "Nombre": "Telecomunicaciones", "subSector": ["Celulares", "Equipos de Comunicación", "Otros", "Servicios de Comunicación"] },
-    { "Nombre": "Textiles, Prendas de Vestir y Calzado", "subSector": ["Acabados Textiles", "Confecciones", "Distribución de Productos", "Hilanderas", "Textiles"] },
-    { "Nombre": "Transporte", "subSector": ["Aéreo", "Agente", "Marítimo y Fluvial", "Operadores, Agentes y Terminales", "Valores"] },
-    { "Nombre": "Vehiculos y Partes", "subSector": ["Academia Automovilística", "Carrocerías, Partes y Piezas", "Comercialización de Partes", "Concesionarios", "Emsambladoras de Vehículos", "Importadores de Vehículos", "Talleres"] }
-  ];*/
-  sectoresInteresEmpresa: ISector[] = 
-  [
-   { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSubSector": 0 , "nombre": "Medio ambiente", "idSector": 0}, { "idSubSector": 1, "nombre": "Minas y Energia", "idSector": 0 }] },
-   { "Nombre": "Alimentos", "subSectores": [{ "idSubSector": 3, "nombre": "Azúcar", "idSector": 1 }] }
-  ];
+  sectoresInteresEmpresa: ISector[] = [];
+  
+  sectoresUsuario: ISector[];
   id: string;
   debouncer: any;
   subSecEscogidos: ISubSector[] = [];
@@ -81,6 +43,7 @@ export class EditarEmpresaComponent implements OnInit {
     private empresaService : EmpresaService,
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
+
   ) {
     this.formDatosEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
@@ -148,7 +111,7 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idPais').setValue(data.direccion.ciudad.departamento.pais.id_aut_pais);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
-      this.formDatosEmpresa.controls['loc-contact-empresa'].get('idDepartamento').setValue(data.direccion.ciudad.departamento.id_departamento);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('idDepartamento').setValue(data.direccion.ciudad.departamento.id_aut_dep);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('departamentoEmp').setValue(data.direccion.ciudad.departamento.nombre);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idCiudad').setValue(data.direccion.ciudad.id_aut_ciudad);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('ciudadEmp').setValue(data.direccion.ciudad.nombre);
@@ -182,6 +145,7 @@ export class EditarEmpresaComponent implements OnInit {
         if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
         {
           let lenSubsectores = infoSectores[i].subSectores.length;
+          let subSectores = [];
           for(let k=0; k<lenSubsectores;k++){
             let subSector = <ISubSector> {idSector: infoSectores[i].subSectores[k].id_sectores,nombre: infoSectores[i].subSectores[k].nombre }
             //Se busca la posicion del subSector en la lista de general
@@ -191,8 +155,10 @@ export class EditarEmpresaComponent implements OnInit {
             //Se el subsector a la lista de escogidos
             this.subSecEscogidos.push(subSector);
             //Se actualiza el valor del formControl
+            subSectores.push(subSector);
             this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
           }
+          this.sectoresUsuario.push(<ISector>{Nombre: infoSectores[i].nombre , subSectores: subSectores });
           break;
         }
       }
@@ -327,16 +293,19 @@ cargarSectoresInteres() {
  * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
  */
   eliminarSubSectorEscogido(subSector: ISubSector) {
+    console.log(subSector);
     //Se busca en la lista de escogidos
     let posSubSector = this.subSecEscogidos.indexOf(subSector);
     //Se elimina en la lista de escogidos
     this.subSecEscogidos.splice(posSubSector, 1);
-    //Se busca en la lista general
-    posSubSector = this.sectoresInteresEmpresa[subSector.idSector].subSectores.indexOf(subSector);
     //Se devuelve a la lista general
-    this.sectoresInteresEmpresa[subSector.idSector].subSectores.push(subSector);
+    this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.push(subSector);
     //Se iguala nuevamente el valor del formControl
-    this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
+    this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+    //Se ordena
+    this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.sort(function (a, b) {
+      return a.idSubSector - b.idSubSector
+    });
   }
   /**
  * agrega un subSector escogido a partir de la lista de sectores en el formulario de registro
@@ -347,16 +316,27 @@ cargarSectoresInteres() {
  * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
  */
   seleccionarSubSector(sector: ISector, subSector: ISubSector) {
-    //Se busca la posicion del sector en la lista de sectores general
-    const posSector = this.sectoresInteresEmpresa.indexOf(sector);
-    //Se busca la posicion del subSector en la lista de general
-    const posSubSector = this.sectoresInteresEmpresa[posSector].subSectores.indexOf(subSector);
-    //se elimina en sector de la lista general
-    this.sectoresInteresEmpresa[posSector].subSectores.splice(posSubSector, 1);
-    //Se el subsector a la lista de escogidos
-    this.subSecEscogidos.push(subSector);
-    //Se actualiza el valor del formControl
-    this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
+  //Se busca la posicion del sector en la lista de sectores general
+  const posSector = this.sectoresInteresEmpresa.indexOf(sector);
+  //Se busca la posicion del subSector en la lista de general
+  const posSubSector = this.sectoresInteresEmpresa[posSector].subSectores.indexOf(subSector);
+  //Se elimina en sector de la lista general
+  this.sectoresInteresEmpresa[posSector].subSectores.splice(posSubSector, 1);
+  //Se agrega el subsector a la lista de escogidos
+  this.subSecEscogidos.push(subSector);
+  //Se actualiza el valor del formControl
+  this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+}
+ /**
+ * Vuelve la lista sectoresEscogidos [{idSubSector, nombre, idSector}, ... ]
+ * a la forma [idSubSector, idSubSector, ...]
+ */
+  formatSectoresEscogidos() {
+    let listaAuxiliar = [];
+    for (const subSector of this.subSecEscogidos) {
+      listaAuxiliar.push(subSector.idSubSector);
+    }
+    return listaAuxiliar;
   }
   /**
  * Validador personalizado para saber si el usuario escoge o no sectores
@@ -457,8 +437,8 @@ cargarSectoresInteres() {
  */
   cancelarModificar(){
     const url = 'empresa/' + this.id + '/datosEmpresa';
-    this.router.navigate([url]);
-  }
+    this.router.navigate([url]); 
+   }
 
 
   openDialog(): void {
