@@ -17,18 +17,22 @@ export class NavbarEmpresaComponent implements OnInit {
   }
 
   onIncio(){
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
   onMisOfertas(){
     let ruta = 'empresa/' + this.id + '/ofertasActivas';
     this.router.navigate([ruta]);
   }
   onPublicarOferta(){
-    let ruta = 'empresa/' + this.id + '/historialOfertas';
-    this.router.navigate(['']);
+    let ruta = 'empresa/' + this.id + '/crearOfertaLaboral';
+    this.router.navigate([ruta]);
   }
   onMiHistorialOfertas(){
     let ruta = 'empresa/' + this.id + '/historialOfertas';
+    this.router.navigate([ruta]);
+  }
+  onPerfil(){
+    let ruta = 'empresa/' + this.id + '/datosEmpresa';
     this.router.navigate([ruta]);
   }
 

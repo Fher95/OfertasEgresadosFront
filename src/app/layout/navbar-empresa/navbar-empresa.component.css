@@ -2,6 +2,13 @@ nav{
     display: block;
 }
 
+.nav-text {
+    line-height:20px;
+    font-size:45px;
+    vertical-align:middle;
+    margin-right: 15px;
+}
+
 a:not([href]){
     color: #007bff;
 }

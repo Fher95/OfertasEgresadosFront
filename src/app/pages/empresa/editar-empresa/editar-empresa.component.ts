@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 import { ISector } from '../../../shared/modelos/sectorInterface'
 import { ISubSector } from '../../../shared/modelos/subSectorInterface'
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface DialogData {
@@ -60,6 +60,7 @@ export class EditarEmpresaComponent implements OnInit {
    { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSubSector": 0 , "nombre": "Medio ambiente", "idSector": 0}, { "idSubSector": 1, "nombre": "Minas y Energia", "idSector": 0 }] },
    { "Nombre": "Alimentos", "subSectores": [{ "idSubSector": 3, "nombre": "Azúcar", "idSector": 1 }] }
   ];
+  id: string;
   debouncer: any;
   subSecEscogidos: ISubSector[] = [];
   anios: any[] = [];
@@ -78,7 +79,8 @@ export class EditarEmpresaComponent implements OnInit {
     private matDialog: MatDialog,
     private router: Router,
     private empresaService : EmpresaService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.formDatosEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
@@ -129,7 +131,7 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.cargarSectoresInteres();
     this.empresaService.getDatos()
     .subscribe(data => {
@@ -454,7 +456,8 @@ cargarSectoresInteres() {
  * Si se cierra el dialog redirige a la pagina principal
  */
   cancelarModificar(){
-    this.router.navigate(['/datosEmpresa']);
+    const url = 'empresa/' + this.id + '/datosEmpresa';
+    this.router.navigate([url]);
   }
 
 
