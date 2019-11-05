@@ -31,8 +31,7 @@
                               <mat-card-title>Datos</mat-card-title>
                             </mat-card-header>
                             <mat-card-content>
-                                <div class="row" >
-                                 
+                                <div class="row" >                                 
                                       <mat-form-field formGroupName="datos-cuenta" floatLabel="auto" appearance="outline">                          
                                           <mat-label>Email</mat-label><input  matInput formControlName="email" >                   
                                       </mat-form-field>
@@ -54,21 +53,34 @@
                                       <mat-form-field formGroupName="datos-generales-empresa"  floatLabel="auto" appearance="outline">                          
                                           <mat-label>Ingresos</mat-label><input  matInput formControlName="ingresosEmp" >                        
                                       </mat-form-field>
-                                      <mat-accordion>
-                                      <mat-expansion-panel>
+                                      <!--Acordeon que contiene la lista desplegable-->
+                                      <mat-accordion class="alinearAcordion">
+                                            <mat-expansion-panel >
                                                     <mat-expansion-panel-header>
                                                             <mat-panel-title>
-                                                              Sectores
+                                                                Sectores
                                                             </mat-panel-title>
-                                                          </mat-expansion-panel-header>
-                                                          <div *ngFor="let sector of formRegistroEmp.get('sectores').value.sectores">
-                                                                <mat-form-field floatLabel="auto" appearance="outline">                          
-                                                                    <input matInput value="{{sector.nombre}}" disabled>                        
-                                                                </mat-form-field>                                          
-                                                            </div>                                                          
+                                                        </mat-expansion-panel-header>
+                                                        <!--Contenido-->                
+                                                        <mat-accordion>
+                                                                <!--Lista desplegable-->
+                                                                <mat-expansion-panel *ngFor="let sector of formRegistroEmp.get('sectores').value.sectores">
+                                                                    <mat-expansion-panel-header>
+                                                                        <mat-panel-title>
+                                                                            {{ sector.nombre }}
+                                                                        </mat-panel-title>
+                                                                    </mat-expansion-panel-header>
+                                                                    <!--Contenido-->
+                                                                            <mat-form-field *ngFor="let subSector of sector.subSectores"  floatLabel="auto" appearance="outline">                          
+                                                                                    <input  matInput disabled value="{{subSector.nombre}}" >                        
+                                                                            </mat-form-field>                                       
+                                                                    <!--Fin contenido-->
+                                                                </mat-expansion-panel>
+                                                                <!--Fin Lista desplegable-->
+                                                        </mat-accordion>
                                             </mat-expansion-panel>
                                       </mat-accordion>
-                                      
+
                                         <!--
                                       <mat-form-field formGroupName="sectores"  floatLabel="auto" appearance="outline">                          
                                         <mat-label>Sector</mat-label><input  matInput formControlName="sectores" >                        

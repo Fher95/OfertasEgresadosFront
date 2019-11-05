@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.component';
@@ -19,7 +18,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
 import { MatGridListModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
+import { EditarEmpresaComponent, Dialog } from './pages/empresa/editar-empresa/editar-empresa.component';
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
 import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
@@ -47,8 +46,9 @@ import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-labora
     OfertasActivasComponent,
     NavbarEmpresaComponent,
     CrearOfertaLaboralComponent,
+    Dialog,
   ],
-  entryComponents: [DialogFinalRegistroComponent],
+  entryComponents: [DialogFinalRegistroComponent, Dialog],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -64,7 +64,7 @@ import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-labora
     ReactiveFormsModule,
     PaginationModule.forRoot(),
     MatGridListModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
