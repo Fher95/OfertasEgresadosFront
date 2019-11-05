@@ -6,6 +6,7 @@ import { PrincipalComponent } from './pages/administrador/principal/principal.co
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
 
 import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
+import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro/confirmar-registro.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
 import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
@@ -33,8 +34,8 @@ const routes: Routes = [
   { path: 'crearOfertaLaboral', component: CrearOfertaLaboralComponent},
   { path: 'egresados', component: InicioEgresadosComponent},
   { path: 'egresados/completarRegistro', component: CompletarRegistroComponent},
-  { path: 'egresados/actualizacion', component: ActualizarComponent}
-
+  { path: 'egresados/actualizacion', component: ActualizarComponent},
+  { path: 'egresados/confirmacion', component: ConfirmarRegistroComponent}
 ];
 
 @NgModule({

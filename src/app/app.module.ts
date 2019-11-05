@@ -48,6 +48,7 @@ import { FooterEgresadosComponent } from './pages/home/inicio-egresados/footer-e
 import { ProgramaComponent } from './pages/egresados/programa/programa.component';
 import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
 import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
+import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro/confirmar-registro.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.com
     LocalizacionComponent,
     ProgramaComponent,
     CompletarRegistroComponent,
-    ActualizarComponent
+    ActualizarComponent,
+    ConfirmarRegistroComponent
   ],
   entryComponents: [DialogFinalRegistroComponent, Dialog],
   imports: [

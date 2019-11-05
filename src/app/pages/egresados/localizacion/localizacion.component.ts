@@ -66,7 +66,7 @@ export class LocalizacionComponent implements OnInit {
 		this.catalogoService.getCiudadesBy(this.departamentoFormControl.value).subscribe(data => this.ciudades=data);
 	}
 
-	obtenerIdLocalizacion(){
+	public obtenerIdLocalizacion(){
 		return this.ciudadFormControl.value;
 	}
 
