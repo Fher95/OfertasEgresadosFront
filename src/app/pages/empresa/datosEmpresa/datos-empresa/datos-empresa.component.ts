@@ -14,9 +14,10 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 export class DatosEmpresaComponent implements OnInit {
    data = 'a';
    formRegistroEmp: FormGroup;
-   subsector: any[] = [
-    { "nombre": "Estatal y Relacionados" },
-  ];
+  
+  sectores: any = [
+    { "nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
+    { "nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }]
 
   constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, private router: Router) {
     this.formRegistroEmp = this.formBuilder.group({
@@ -106,6 +107,7 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
     }),
     error => console.log(error);
+    
     /*
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
@@ -121,7 +123,7 @@ export class DatosEmpresaComponent implements OnInit {
         descripcionEmpresa: [{value: this.data, disabled:true}],
       }),
       'sectores': this.formBuilder.group({
-        sectores: [{value: this.subsector, disabled:true}],
+        sectores: [{value: this.sectores, disabled:true}],
       }),
       'loc-contact-empresa': this.formBuilder.group({
         paisEmp: [{value: this.data, disabled:true}],

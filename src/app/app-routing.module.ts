@@ -21,10 +21,8 @@ import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.com
 const routes: Routes = [
   { path: 'home', component: HomeOfertasComponent },
   { path: 'registroEmpresa', component: RegistrarComponent },
-
   { path: 'admin/listar', component: PrincipalComponent }, 
   { path: 'pre-registro', component: PreRegistroComponent},
-
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'datosEmpresa', component: DatosEmpresaComponent },
   { path: 'editarEmpresa', component: EditarEmpresaComponent},
