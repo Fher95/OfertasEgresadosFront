@@ -1,0 +1,46 @@
+export class CompletarRegistro{
+    num_hijos?: number;
+    esposo:{
+        nombres?:string;
+        id_nivel_educativo?:string;
+        telefono_movil?:number;
+        correo?:string;
+        parentesco?:string;
+        id_aut_programa?:number;
+        es_egresado?:boolean;
+    }
+    madre:{
+        nombres?:string;
+        id_nivel_educativo?:number;
+        telefono_movil?:number;
+        correo?:string;
+        parentesco?:string;
+        id_aut_programa?:number;
+        es_egresado?:boolean;
+    }
+    padre:{
+        nombres?:string;
+        id_nivel_educativo?:number;
+        telefono_movil?:number;
+        correo?:string;
+        parentesco?:string;
+        id_aut_programa?:number;
+        es_egresado?:boolean;
+    }
+    ha_trabajado?:boolean;
+    exp_pasada:{
+        cargo_nombre?:string;
+        nombre_empresa?:string;
+    }
+    trabajo_actualmente?:boolean;
+    exp_actual:{
+        trabajo_en_su_area?:boolean;
+        id_ciudad?:number;
+        dir_empresa?:string;
+        tel_trabajo?:number;
+        cargo_nombre?:string;
+        rango_salario?:string;
+        tipo_contrato?:string;
+        sector?:string;
+    }
+}

@@ -4,13 +4,11 @@ import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.com
 import { RegistrarComponent } from './pages/empresa/registrar/registrar.component';
 import { PrincipalComponent } from './pages/administrador/principal/principal.component';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
-
 import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
 import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
 import { ListarOfertasComponent } from './pages/administrador/listar-ofertas/listar-ofertas.component';
-
 import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
 import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
 import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
@@ -21,10 +19,8 @@ import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.com
 const routes: Routes = [
   { path: 'home', component: HomeOfertasComponent },
   { path: 'registroEmpresa', component: RegistrarComponent },
-
   { path: 'admin/listar', component: PrincipalComponent }, 
   { path: 'pre-registro', component: PreRegistroComponent},
-
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'datosEmpresa', component: DatosEmpresaComponent },
   { path: 'editarEmpresa', component: EditarEmpresaComponent},

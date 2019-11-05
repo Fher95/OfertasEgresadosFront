@@ -8,8 +8,8 @@ import { Validators, FormControl } from '@angular/forms';
 })
 export class ProgramaComponent implements OnInit {
 
+  nivelAcademico = new FormControl('', [Validators.required]);
   facultad = new FormControl('', [Validators.required]);
-
   programa = new FormControl('', [Validators.required]);
 
   constructor() { }
