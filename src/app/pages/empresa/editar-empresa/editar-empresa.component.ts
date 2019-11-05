@@ -55,7 +55,7 @@ export class EditarEmpresaComponent implements OnInit {
     { "Nombre": "Transporte", "subSector": ["Aéreo", "Agente", "Marítimo y Fluvial", "Operadores, Agentes y Terminales", "Valores"] },
     { "Nombre": "Vehiculos y Partes", "subSector": ["Academia Automovilística", "Carrocerías, Partes y Piezas", "Comercialización de Partes", "Concesionarios", "Emsambladoras de Vehículos", "Importadores de Vehículos", "Talleres"] }
   ];*/
-  sectoresInteresEmpresa: ISector[] = 
+  sectoresInteresEmpresa: ISector[] =
   [
    { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSubSector": 0 , "nombre": "Medio ambiente", "idSector": 0}, { "idSubSector": 1, "nombre": "Minas y Energia", "idSector": 0 }] },
    { "Nombre": "Alimentos", "subSectores": [{ "idSubSector": 3, "nombre": "Azúcar", "idSector": 1 }] }
@@ -144,11 +144,11 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('anioCreacion').setValue(data.anio_creacion);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue('0-3.000.000');
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');      
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');
       this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idPais').setValue(data.direccion.ciudad.departamento.pais.id_aut_pais);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
-      this.formDatosEmpresa.controls['loc-contact-empresa'].get('idDepartamento').setValue(data.direccion.ciudad.departamento.id_departamento);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('idDepartamento').setValue(data.direccion.ciudad.departamento.id_aut_dep);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('departamentoEmp').setValue(data.direccion.ciudad.departamento.nombre);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idCiudad').setValue(data.direccion.ciudad.id_aut_ciudad);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('ciudadEmp').setValue(data.direccion.ciudad.nombre);
@@ -169,7 +169,7 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue(data.administrador.telefono);
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
       this.formDatosEmpresa.controls['datos-resp'].get('direccionTrabajoResp').setValue(data.administrador.direccion.direccion);
-      this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);     
+      this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
       if((<HTMLInputElement>document.getElementById('select'))!=null)
       {
         let ingresos = this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').value;
@@ -178,7 +178,7 @@ export class EditarEmpresaComponent implements OnInit {
       let infoSectores:any[];
       infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
       for (let i = 0; i < infoSectores.length; i++) {
-        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){        
+        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
         if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
         {
           let lenSubsectores = infoSectores[i].subSectores.length;
@@ -208,7 +208,7 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('anioCreacion').setValue('1998');
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue('1998');
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue('0-3.000.000');
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');      
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');
       this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.sectoresInteresEmpresa);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idPais').setValue(this.data);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(this.data);
@@ -239,7 +239,7 @@ export class EditarEmpresaComponent implements OnInit {
       {
         (<HTMLInputElement>document.getElementById('select')).value= ingresos
       }
-      /* 
+      /*
     let infoSectores:any[];
     infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
     console.log(infoSectores);
@@ -248,7 +248,7 @@ export class EditarEmpresaComponent implements OnInit {
         { "nombre": "Alimentos", "subSectores": [{ "id_sectores": 1, "nombre": "Azúcar" }] }
       ];
       for (let i = 0; i < infoSectores.length; i++) {
-        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){        
+        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
         if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
         {
           let lenSubsectores = infoSectores[i].subSectores.length;
@@ -270,7 +270,7 @@ export class EditarEmpresaComponent implements OnInit {
     */
   }
 
- 
+
   /**
  * Carga la lista sectoresInteresEmpresa mediante una peticion al back
  * { "Nombre": "", "subSectores": [{ "idSector": "", "nombre": "" },...]
@@ -287,17 +287,17 @@ cargarSectoresInteres() {
     });
 }
 
- 
-  
+
+
   registrarEmpresa(formulario) {
-    
+
     console.log(formulario);
     if(formulario.status != 'INVALID'){
       this.empService.modificarEmpresa(formulario.value).toPromise().then(data => {
         console.log(data);
         alert('Datos modificados exitosamente');
         this.router.navigate(['/datosEmpresa']);
-  
+
         //this.openDialog();
       },
         errorRegistro => {
@@ -376,7 +376,7 @@ cargarSectoresInteres() {
   }
   /**
  * Validador personalizado para saber si el email escrito existe
- * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
  * de la empresa
  * <p>
  * Si el email existe devuelve el error 'EmailExiste', en caso contrario devuelve null
@@ -384,8 +384,8 @@ cargarSectoresInteres() {
  */
   validarExistenciaEmail(control: FormControl): any {
     clearTimeout(this.debouncer);
-   
-    
+
+
     return new Promise(resolve => {
       if (control.value != "") {
         this.debouncer = setTimeout(() => {
@@ -408,11 +408,11 @@ cargarSectoresInteres() {
         }, 10);
       }
     });
-  
+
   }
   /**
  * Validador personalizado para saber si el NIT escrito existe
- * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
  * de la empresa
  * <p>
  * Si el NIT existe devuelve el error 'NITExiste', en caso contrario devuelve null
@@ -474,7 +474,7 @@ cargarSectoresInteres() {
   }
 
 
-  
+
 }
 
 @Component({
