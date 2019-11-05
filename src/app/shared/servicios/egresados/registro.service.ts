@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EgresadoSaveInterface } from 'src/app/shared/modelos/egresadoSaveInterface';
 import { User } from '../../modelos/user';
+import { CompletarRegistro } from '../../modelos/completarRegistro';
 
 
 const URL = 'http://localhost:8081/api/egresados';
@@ -20,4 +21,9 @@ export class RegistroService {
     console.log("Sending POST request");
     return this.http.post(URL, egresado);
   }
+
+  public completarRegistroEgresado(completar: CompletarRegistro) {
+    return this.http.post(URL, completar);
+  }
+
 }
