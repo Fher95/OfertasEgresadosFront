@@ -19,7 +19,7 @@ export interface DialogData {
 })
 export class EditarEmpresaComponent implements OnInit {
   data = 'a';
-
+  textoModal:String;
   sectores: ISector[] =[
     { Nombre: 'prueba', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr1', idSector: 1 }] },
     { Nombre: 'secta', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr2', idSector: 2 }, {idSubSector: 2 , nombre: 'subSecotr3', idSector: 2 }] }
@@ -109,7 +109,7 @@ export class EditarEmpresaComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.cargarSectoresInteres();
     this.cargarCargos();
-    this.empresaService.getDatos()
+    this.empresaService.getDatos(this.id)
     .subscribe(data => {
       // obtener la data y pasarla al form
       this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue(data.administrador.user.email);
@@ -366,15 +366,13 @@ sectorValidator(control: FormControl) {
 
  
   
-  registrarEmpresa(formulario) {
+  modificarEmpresa(formulario) {
     
-    console.log(formulario);
+    console.log(document.getElementById('buttonModal').click());
     if(formulario.status != 'INVALID'){
       this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
         console.log(data);
-        alert('Datos modificados exitosamente');
-        this.router.navigate(['/datosEmpresa']);
-  
+        this.textoModal = 'Se han modificado los datos con exito'  
         //this.openDialog();
       },
         errorRegistro => {
@@ -393,7 +391,9 @@ sectorValidator(control: FormControl) {
         });
     }
     else{
-      alert('datos incorrectos, por favor llenar los datos en los formatos validos');
+      this.textoModal = 'Hay campos invalidos en el formulario, Por favor modificarlos para continuar'
+      
+      //this.router.navigate(['/empresa/1/datosEmpresa']);
     }
   }
   /**
@@ -482,7 +482,11 @@ sectorValidator(control: FormControl) {
     this.router.navigate([url]); 
    }
 
-
+   aceptarModal(){
+     if(this.textoModal == 'Se han modificado los datos con exito'){
+        this.router.navigate(['/empresa'+this.id+'/datosEmpresa']);
+     }
+   }
   openDialog(): void {
     const dialogRef = this.dialog.open(Dialog, {
       width: '250px',
@@ -496,7 +500,7 @@ sectorValidator(control: FormControl) {
   }
 
 
-  
+    
 }
 
 @Component({

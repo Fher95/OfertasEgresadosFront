@@ -74,7 +74,7 @@ export class DatosEmpresaComponent implements OnInit {
   }
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-     this.empresaService.getDatos()
+     this.empresaService.getDatos(this.id)
     .subscribe(data => {
       this.data = data;
       console.log(data);
@@ -112,7 +112,7 @@ export class DatosEmpresaComponent implements OnInit {
     }),
     error => console.log(error);
     
-    
+   /* 
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: this.data, disabled:true} ],
@@ -158,7 +158,7 @@ export class DatosEmpresaComponent implements OnInit {
       })
     });
     console.log(this.formRegistroEmp.get('sectores').value.sectores);
-    
+    */
   }
 
   modificarFoto(event){
