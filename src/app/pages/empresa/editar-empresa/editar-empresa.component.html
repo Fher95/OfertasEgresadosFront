@@ -1,6 +1,5 @@
 <app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
-
 <mat-card class="carta-registro">
 
     <mat-card-header class="headerCartaRegistro">
@@ -13,7 +12,7 @@
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-        <form id="registro" [formGroup]="formDatosEmpresa" (ngSubmit)="registrarEmpresa(formDatosEmpresa)">
+        <form id="registro" [formGroup]="formDatosEmpresa" (ngSubmit)="modificarEmpresa(formDatosEmpresa)">
             <mat-horizontal-stepper #stepper>
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formDatosEmpresa.get('datos-cuenta')"
                     label="Cuenta">
@@ -33,7 +32,7 @@
                                 un correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="botonesStepper">
+                    <div class="botonesStepper">   
                             <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
                             <button mat-raised-button type="submit"
                             color="primary">Guardar y Finalizar</button>
@@ -50,7 +49,7 @@
                         <div class="row centrarContenidoRow">
                             <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
                                 <mat-label>NIT</mat-label>
-                                <input formControlName="NIT" readonly #input matInput minlength="8" maxlength="15" required>
+                                <input type="number" formControlName="NIT" readonly #input matInput minlength="8" maxlength="15" required>
                                 <mat-error
                                     *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.NIT.errors?.required">
                                     campo requerido</mat-error>
@@ -76,7 +75,7 @@
                         <div class="row centrarContenidoRow">
                                 
                             <mat-form-field readonly floatLabel="auto" appearance="outline" hintLabel="Modificable solo por administrador">                          
-                                        <mat-label>Año creacion</mat-label><input readonly matInput formControlName="anioCreacion">                        
+                                        <mat-label>Año creacion</mat-label><input type="number" readonly matInput formControlName="anioCreacion">                        
                             </mat-form-field> 
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
                                 <!--<mat-select formControlName="numEmpleados">
@@ -100,7 +99,7 @@
                             </mat-form-field>
                            
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-                                <mat-select id="select" formControlName="ingresosEmp">
+                                <mat-select id="selectIngresos" formControlName="ingresosEmp">
                                     <mat-option value="0-3.000.000">0-3.000.000</mat-option>
                                     <mat-option value="3.000.000-10.000.000">3.000.000-10.000.000</mat-option>
                                     <mat-option value="10.000.000-25.000.000">10.000.000-25.000.000</mat-option>
@@ -150,7 +149,7 @@
                                     </mat-expansion-panel-header>
                                     <!--Contenido-->
                                     <mat-action-list dense *ngFor="let subSector of sector.subSectores">
-                                        <button type="button" mat-list-item value="{{subSector.nombre}}"
+                                        <button type="button" mat-list-item value="{{subSector.Nombre}}"
                                             (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.nombre }}
                                             <mat-icon matListIcon>add</mat-icon>
                                         </button>
@@ -174,8 +173,9 @@
                     </div>
                     <div class="botonesStepper">
                             <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+
                             <button mat-raised-button type="submit"
-                            color="primary">Guardar y Finalizar</button>
+                                color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
@@ -304,7 +304,11 @@
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
-                            <input formControlName="cargo" matInput required>
+                            <mat-select id="selectCargo" formControlName="cargo">
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.id_aut_cargos">
+                                    {{cargo.nombre}}
+                                </mat-option>
+                            </mat-select>
                             <mat-error *ngIf="formDatosEmpresa.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
@@ -358,3 +362,30 @@
         </form>
     </mat-card-content>
 </mat-card>
+
+ <!-- Button trigger modal -->
+<button  id="buttonModal" type="button" hidden class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modificar Datos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{textoModal}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" (change)="aceptarModal()" (click)="aceptarModal()" mat-raised-button color="primary" data-dismiss="modal">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+          
+      </script>

@@ -19,13 +19,14 @@ export class EmpresaService {
     console.log(JSON.stringify(objeto));
     return this.httpClient.post("http://127.0.0.1:8081/api/empresas/store", objeto, { headers: this.headers });
   }
-  getDatos(): Observable<any>{
+  getDatos(id:String): Observable<any>{
     //obtener los datos de la peticion datos empresa
-    return this.httpClient.get("http://127.0.0.1:8081/api/empresa/1", {headers: this.headers});
+    return this.httpClient.get("http://127.0.0.1:8081/api/empresa/"+id, {headers: this.headers});
   }
-  modificarEmpresa(objeto: Object){
+  modificarEmpresa(id:String, objeto: Object){
     //realizar post al modificar empresas
-    return this.httpClient.put("http://127.0.0.1:8081/api/empresa/1", objeto, {headers: this.headers});
+    console.log("http://127.0.0.1:8081/api/empresa/"+id)
+    return this.httpClient.put("http://127.0.0.1:8081/api/empresa/"+id, objeto, {headers: this.headers});
   }
 
   modificarFoto(file: File){

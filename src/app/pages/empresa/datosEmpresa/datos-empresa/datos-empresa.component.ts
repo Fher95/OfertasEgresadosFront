@@ -14,7 +14,7 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 export class DatosEmpresaComponent implements OnInit {
   
   id: string; 
-  data = 'a';
+  data = 'danielfer@unicauca.edu.co';
    formRegistroEmp: FormGroup;
   
   sectores: any = [
@@ -74,7 +74,7 @@ export class DatosEmpresaComponent implements OnInit {
   }
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-     this.empresaService.getDatos()
+     this.empresaService.getDatos(this.id)
     .subscribe(data => {
       this.data = data;
       console.log(data);
@@ -112,7 +112,7 @@ export class DatosEmpresaComponent implements OnInit {
     }),
     error => console.log(error);
     
-    /*
+   /* 
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: this.data, disabled:true} ],
