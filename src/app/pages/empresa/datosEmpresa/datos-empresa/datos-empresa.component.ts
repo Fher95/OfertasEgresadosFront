@@ -14,7 +14,7 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 export class DatosEmpresaComponent implements OnInit {
   
   id: string; 
-  data = 'a';
+  data = 'danielfer@unicauca.edu.co';
    formRegistroEmp: FormGroup;
   
   sectores: any = [
@@ -112,7 +112,7 @@ export class DatosEmpresaComponent implements OnInit {
     }),
     error => console.log(error);
     
-    /*
+    
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: this.data, disabled:true} ],
@@ -158,7 +158,7 @@ export class DatosEmpresaComponent implements OnInit {
       })
     });
     console.log(this.formRegistroEmp.get('sectores').value.sectores);
-    */
+    
   }
 
   modificarFoto(event){
