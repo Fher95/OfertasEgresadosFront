@@ -145,13 +145,8 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue(data.administrador.telefono);
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
       this.formDatosEmpresa.controls['datos-resp'].get('direccionTrabajoResp').setValue(data.administrador.direccion.direccion);
-<<<<<<< HEAD
-      this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
-      if((<HTMLInputElement>document.getElementById('select'))!=null)
-=======
       this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
       if((<HTMLInputElement>document.getElementById('selectIngresos'))!=null)
->>>>>>> 4131818867bf75abc5662745ec98b3fff5a66d93
       {
         let ingresos = this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').value;
         (<HTMLInputElement>document.getElementById('selectIngresos')).value= ingresos
@@ -163,25 +158,6 @@ export class EditarEmpresaComponent implements OnInit {
       }
       let infoSectores:any[];
       infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
-<<<<<<< HEAD
-      for (let i = 0; i < infoSectores.length; i++) {
-        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
-        if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
-        {
-          let lenSubsectores = infoSectores[i].subSectores.length;
-          let subSectores = [];
-          for(let k=0; k<lenSubsectores;k++){
-            let subSector = <ISubSector> {idSector: infoSectores[i].subSectores[k].id_sectores,nombre: infoSectores[i].subSectores[k].nombre }
-            //Se busca la posicion del subSector en la lista de general
-            const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
-            //se elimina en sector de la lista general
-            this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
-            //Se el subsector a la lista de escogidos
-            this.subSecEscogidos.push(subSector);
-            //Se actualiza el valor del formControl
-            subSectores.push(subSector);
-            this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
-=======
         for (let i = 0; i < infoSectores.length; i++) {
           for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
           if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
@@ -200,7 +176,6 @@ export class EditarEmpresaComponent implements OnInit {
               this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
             }
             break;
->>>>>>> 4131818867bf75abc5662745ec98b3fff5a66d93
           }
         }
       }
@@ -215,13 +190,8 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('anioCreacion').setValue(1998);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue(199);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue('0-3.000.000');
-<<<<<<< HEAD
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');
-      this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.sectoresInteresEmpresa);
-=======
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');
       this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.sectores);
->>>>>>> 4131818867bf75abc5662745ec98b3fff5a66d93
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idPais').setValue(this.data);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(this.data);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idDepartamento').setValue(this.data);
@@ -256,23 +226,16 @@ export class EditarEmpresaComponent implements OnInit {
         let cargo = this.formDatosEmpresa.controls['datos-generales-empresa'].get('cargo').value;
         (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
-<<<<<<< HEAD
-      /*
-=======
 
->>>>>>> 4131818867bf75abc5662745ec98b3fff5a66d93
     let infoSectores:any[];
     infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
     console.log(infoSectores);
       for (let i = 0; i < infoSectores.length; i++) {
-<<<<<<< HEAD
         for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
         if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
-=======
         for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
           console.log('entra');
         if(infoSectores[i].Nombre ==  this.sectoresInteresEmpresa[j].Nombre)
->>>>>>> 4131818867bf75abc5662745ec98b3fff5a66d93
         {
           let lenSubsectores = infoSectores[i].subSectores.length;
           for(let k=0; k<lenSubsectores;k++){
@@ -314,14 +277,6 @@ cargarSectoresInteres() {
       console.log("Error al obtener los Sectores: ", JSON.stringify(error));
     });
 }
-
-<<<<<<< HEAD
-
-
-  registrarEmpresa(formulario) {
-
-    console.log(formulario);
-=======
  /**
  * Carga la lista cargos mediante una peticion al back
  * [{id_aut_cargos:1, nombre:"Docente", estado:"true"}, ...]
@@ -415,17 +370,10 @@ sectorValidator(control: FormControl) {
   modificarEmpresa(formulario) {
 
     console.log(document.getElementById('buttonModal').click());
->>>>>>> 4131818867bf75abc5662745ec98b3fff5a66d93
     if(formulario.status != 'INVALID'){
       this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
         console.log(data);
-<<<<<<< HEAD
-        alert('Datos modificados exitosamente');
-        this.router.navigate(['/datosEmpresa']);
-
-=======
         this.textoModal = 'Se han modificado los datos con exito'
->>>>>>> 4131818867bf75abc5662745ec98b3fff5a66d93
         //this.openDialog();
       },
         errorRegistro => {
@@ -551,13 +499,6 @@ sectorValidator(control: FormControl) {
       console.log('The dialog was closed');
     });
   }
-
-
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 4131818867bf75abc5662745ec98b3fff5a66d93
 }
 
 @Component({
