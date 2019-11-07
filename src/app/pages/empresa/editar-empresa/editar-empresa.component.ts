@@ -53,9 +53,9 @@ export class EditarEmpresaComponent implements OnInit {
 
   ) {
     this.cargos = [
-      { id_aut_cargos: 1, nombre: "Docente", estado: "true" },
-      { id_aut_cargos: 2, nombre: "Desarrollador", estado: "true" },
-      { id_aut_cargos: 3, nombre: "Administrativo", estado: "true" },
+      { idCargo: 1, Nombre: "Docente" },
+      { idCargo: 2, Nombre: "Desarrollador" },
+      { idCargo: 3, Nombre: "Administrativo" },
     ];
     this.formDatosEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({

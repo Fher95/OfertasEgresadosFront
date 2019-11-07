@@ -14,7 +14,7 @@
     <mat-divider></mat-divider>
     <mat-card-content>
         <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
-            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-horizontal-stepper #stepper>
                 <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
                     label="Cuenta">
@@ -30,7 +30,7 @@
                                 requerido</mat-error>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.EmailExiste">
                                 Usted ya posee una cuenta</mat-error>
-                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.email">Digite
+                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.pattern">Digite
                                 un correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
@@ -45,7 +45,7 @@
                                 campo
                                 requerido</mat-error>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.pattern">
-                                La contraseña debe contener al menos 6 caracteres en minúscula y una mayúscula.
+                                La contraseña debe contener al menos 6 caracteres.
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -376,8 +376,8 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
                             <mat-select formControlName="cargo">
-                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.id_aut_cargos">
-                                    {{cargo.nombre}}
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.idCargo">
+                                    {{cargo.Nombre}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
@@ -431,7 +431,7 @@
                     </div>
                 </mat-step>
 
-                <!--<mat-step formGroupName="archivos" [stepControl]="formRegistroEmp.get('archivos')" label="Archivos">
+                <mat-step formGroupName="archivos" [stepControl]="formRegistroEmp.get('archivos')" label="Archivos">
                     <div class="Subtitulos-card">
                         <p class="text-center"><b>Archivos de verificacion</b></p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -441,7 +441,7 @@
                             <mat-icon matListIcon>add</mat-icon>
                             <span>Subir camara y comercio</span>
                             <input #fileInput id="file" type="file" (change)="elegirArchivo($event)"
-                                style="display:none;">
+                                style="display:none;" accept=".pdf">
                         </button>
                     </div>
                     <div class="row cartaCuenta">
@@ -456,7 +456,7 @@
                             matStepperPrevious>Atras</button>
                         <button mat-raised-button type="submit" color="primary">Finalizar</button>
                     </div>
-                </mat-step>-->
+                </mat-step>
 
             </mat-horizontal-stepper>
             <div *ngIf="mensajesError.length > 0" class="alert alert-danger animated fadeIn">
