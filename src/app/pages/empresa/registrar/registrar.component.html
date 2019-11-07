@@ -383,12 +383,12 @@
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
+                        <!--<mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Otro Cargo</mat-label>
                             <input formControlName="cargo" matInput required>
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
-                        </mat-form-field>
+                        </mat-form-field>-->
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Telefono</mat-label>
                             <input type="number" formControlName="telefonoResp" matInput>
@@ -437,18 +437,19 @@
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
                     <div class="row cartaCuenta">
-                        <button type="button" (click)="fileInput.click()">
+                        <button type="button" mat-button (click)="fileInput.click()">
                             <mat-icon matListIcon>add</mat-icon>
                             <span>Subir camara y comercio</span>
-                            <input #fileInput id="file" type="file" (change)="elegirArchivo($event)"
-                                style="display:none;" accept=".pdf">
+                            <input #fileInput id="file" type="file" (change)="elegirArchivo()" style="display:none;"
+                                accept=".pdf" required>
                         </button>
                     </div>
                     <div class="row cartaCuenta">
                         <button type="button" mat-button (click)="logoInput.click()">
                             <mat-icon matListIcon>add</mat-icon>
                             <span>Subir logo de tu empresa</span>
-                            <input #logoInput id="logo" type="file" (change)="elegirLogo($event)" style="display:none;">
+                            <input #logoInput id="logo" type="file" (change)="elegirLogo()" style="display:none;"
+                                accept=".jpg">
                         </button>
                     </div>
                     <div class="botonesStepper">

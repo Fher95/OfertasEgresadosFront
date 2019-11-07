@@ -24,7 +24,7 @@ export class EmpresaService {
 
   registrarUsuario(objeto: Object) {
     console.log(JSON.stringify(objeto));
-    return this.httpClient.post("http://127.0.0.1:8081/api/empresas/store", objeto, { headers: this.headers });
+    return this.httpClient.post("http://127.0.0.1:8081/api/empresas/store", objeto, { headers: this.headerArchivos });
   }
   getDatos(id:String): Observable<any>{
     //obtener los datos de la peticion datos empresa

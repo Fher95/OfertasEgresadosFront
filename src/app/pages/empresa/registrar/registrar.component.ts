@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ISector } from '../../../shared/modelos/sectorInterface'
@@ -15,7 +15,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./registrar.component.css'],
 })
 export class RegistrarComponent implements OnInit {
-
+  
+  @ViewChild('fileInput') fileInput;
+  @ViewChild('logoInput') logoInput;
   sectoresInteresEmpresa: ISector[];
   cargos: ICargo[];
   debouncer: any;
@@ -116,47 +118,38 @@ export class RegistrarComponent implements OnInit {
     console.log('formulario', JSON.stringify(formulario.value));
     this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
       console.log("empresa registrada con éxito");
+      console.log(data);
       this.openDialog();
     },
       errorRegistro => {
         this.mensajesError = [];
         alert("Error en la peticion al servidor, por favor intentelo de nuevo");
-        console.log(errorRegistro);
         console.log(errorRegistro.error);
         // Obteniendo todas las claves del JSON
         for (var clave in errorRegistro.error) {
           // Controlando que json realmente tenga esa propiedad
           if (errorRegistro.error.hasOwnProperty(clave)) {
             // Mostrando en pantalla la clave junto a su valor
-            this.mensajesError = errorRegistro.error[clave];
+            this.mensajesError.push(errorRegistro.error[clave]);
           }
         }
       });
-  }
+  }  
 
-  uploadImage() {
-    let files = this.elem.nativeElement.querySelector('#selectFile').files;
+  elegirArchivo() {
     let formData = new FormData();
-    
-    let file = files[0];
-    console.log(file);
-    formData.append('selectFile', file, file.name);
-    console.log(formData);
-    console.log(formData.get('file'));
-  }
-
-  elegirArchivo(event) {
-    const formData = new FormData();
-    let file = <File>event.target.files[0];
-    formData.append('fileInput', file);
+    console.log("archivo original:", this.fileInput.nativeElement.files[0]);
+    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
     this.formRegistroEmp.controls['archivos'].get('camaraycomercio').setValue(formData);
+    console.log("archivo con formato a enviar: ", this.formRegistroEmp.controls['archivos'].get('camaraycomercio').value);
   }
 
-  elegirLogo(event) {
-    const formData = new FormData();
-    let file = <File>event.target.files[0];
-    formData.append('fileInput', file);
+  elegirLogo() {
+    let formData = new FormData();
+    console.log("archivo original:", this.logoInput.nativeElement.files[0]);
+    formData.append('fileInput', this.logoInput.nativeElement.files[0]);
     this.formRegistroEmp.controls['archivos'].get('logo').setValue(formData);
+    console.log("archivo con formato a enviar: ", this.formRegistroEmp.controls['archivos'].get('logo').value);
   }
 
   /**
@@ -391,7 +384,7 @@ export class RegistrarComponent implements OnInit {
         this.debouncer = setTimeout(() => {
           this.servGenerales.validarNIT(control.value).subscribe((res) => {
             console.log(res);
-            if (res !== control.value) {
+            if (res == 'Correcto') {
               resolve(null);
             }
             else {
@@ -406,14 +399,6 @@ export class RegistrarComponent implements OnInit {
     });
   }
 
-  NitLengthValidator(control: FormControl) {
-    //Si la lista esta vacia se invalida
-    if (control.value.length < 4) {
-      return true;
-    }
-    //En caso contrario se deja pasar
-    return null;
-  }
   /**
  * Abre un dialog de angular material
  * El contenido del dialog esta creado en el componente DialogFinalRegistroComponent
@@ -423,7 +408,7 @@ export class RegistrarComponent implements OnInit {
   openDialog() {
     const dialogRef = this.matDialog.open(DialogFinalRegistroComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     });
   }
 }
