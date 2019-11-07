@@ -9,7 +9,8 @@ import { IHistorialOfertas } from  '../../modelos/historialOfertas';
 })
 export class EmpresaService {
   headers: HttpHeaders = new HttpHeaders({
-    "Content-Type": "application/x-www-form-urlencoded",
+    // "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/json",
     "X-Requested-With": "XMLHttpRequest"
   });
 

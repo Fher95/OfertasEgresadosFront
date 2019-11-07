@@ -90,11 +90,11 @@ export class RegistrarComponent implements OnInit {
         direccionTrabajoResp: [null, Validators.required],
         emailCorpResp: [null, [Validators.required, Validators.email]]
       }),
-      /*'archivos': this.formBuilder.group({
+      'archivos': this.formBuilder.group({
         logo: [''],
         camaraycomercio: [''],
-      })*/
-    });
+      })
+        });
   }
 
   ngOnInit() {
@@ -248,7 +248,7 @@ export class RegistrarComponent implements OnInit {
    * @param  formulario  Id del pais escogido en la lista de departamentos
    */
   registrarEmpresa(formulario) {
-    console.log('formulario', formulario);
+    console.log('formulario', JSON.stringify(formulario.value));
     this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
       console.log(data);
       this.openDialog();
@@ -342,7 +342,7 @@ export class RegistrarComponent implements OnInit {
   }
   /**
  * Validador personalizado para saber si el email escrito existe
- * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
  * de la empresa
  * <p>
  * Si el email existe devuelve el error 'EmailExiste', en caso contrario devuelve null
@@ -373,7 +373,7 @@ export class RegistrarComponent implements OnInit {
   }
   /**
  * Validador personalizado para saber si el NIT escrito existe
- * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
  * de la empresa
  * <p>
  * Si el NIT existe devuelve el error 'NITExiste', en caso contrario devuelve null
