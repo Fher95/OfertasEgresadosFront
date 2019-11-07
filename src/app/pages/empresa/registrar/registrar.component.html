@@ -304,6 +304,11 @@
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Email de la empresa</mat-label>
                             <input formControlName="emailEmp" matInput>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.emailEmp.errors?.pattern">
+                                Digite
+                                un
+                                correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Sitio Web</mat-label>
@@ -376,7 +381,7 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
                             <mat-select formControlName="cargo">
-                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.idCargo">
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.Nombre">
                                     {{cargo.Nombre}}
                                 </mat-option>
                             </mat-select>
@@ -425,38 +430,36 @@
                     </div>
                     <div class="botonesStepper">
                         <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button [disabled]="!formRegistroEmp.valid" type="submit" mat-raised-button
-                            color="primary">Guardar y
+                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
                 </mat-step>
 
                 <mat-step formGroupName="archivos" [stepControl]="formRegistroEmp.get('archivos')" label="Archivos">
                     <div class="Subtitulos-card">
-                        <p class="text-center"><b>Archivos de verificacion</b></p>
+                        <p class="text-center"><b>Suba algunos de sus archivos</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
-                    <div class="row cartaCuenta">
-                        <button type="button" mat-button (click)="fileInput.click()">
-                            <mat-icon matListIcon>add</mat-icon>
-                            <span>Subir camara y comercio</span>
-                            <input #fileInput id="file" type="file" (change)="elegirArchivo()" style="display:none;"
-                                accept=".pdf" required>
-                        </button>
+                    <div class="mb-5">
+                        <div class="row centrado">
+                            <label for="file">Cámara y comercio de tu empresa (Unicamente archivo PDF)</label>
+                        </div>
+                        <div class="row centrado">
+                            <input #fileInput id="file" name="file" type="file" (change)="elegirArchivo()" accept=".pdf"
+                                required>
+                        </div>
                     </div>
-                    <div class="row cartaCuenta">
-                        <button type="button" mat-button (click)="logoInput.click()">
-                            <mat-icon matListIcon>add</mat-icon>
-                            <span>Subir logo de tu empresa</span>
-                            <input #logoInput id="logo" type="file" (change)="elegirLogo()" style="display:none;"
-                                accept=".jpg">
-                        </button>
+                    <div>
+                        <div class="row centrado">
+                            <label for="logo">Logo de tu empresa (Unicamente imagen JPG)</label>
+                        </div>
+                        <div class="row centrado">
+                            <input #logoInput id="logo" type="file" (change)="elegirLogo()" accept=".jpg">
+                        </div>
                     </div>
-                    <div class="botonesStepper">
-                        <button [disabled]="!formRegistroEmp.valid" type="button" mat-raised-button color="primary"
-                            matStepperPrevious>Atras</button>
-                        <button mat-raised-button type="submit" color="primary">Finalizar</button>
-                    </div>
+                    <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                    <button type="submit" mat-raised-button color="primary">Guardar y
+                        Continuar</button>
                 </mat-step>
 
             </mat-horizontal-stepper>

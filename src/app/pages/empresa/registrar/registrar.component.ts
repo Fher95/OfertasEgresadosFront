@@ -15,22 +15,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./registrar.component.css'],
 })
 export class RegistrarComponent implements OnInit {
-  
+
   @ViewChild('fileInput') fileInput;
   @ViewChild('logoInput') logoInput;
+
   sectoresInteresEmpresa: ISector[];
   cargos: ICargo[];
-  debouncer: any;
   subSecEscogidos: ISubSector[];
   anios: any[];
+  mensajesError: String[];
+
   paises: Object;
   departamentos: Object;
   ciudades: Object;
+
+  debouncer: any;
   code: string;
-  formRegistroEmp: FormGroup;
   isLinear = true;
   contOculto = true;
-  mensajesError: String[];
+
+  formRegistroEmp: FormGroup;
+
   constructor(
     private servGenerales: GeneralesService,
     private formBuilder: FormBuilder,
@@ -53,7 +58,7 @@ export class RegistrarComponent implements OnInit {
       'datos-cuenta': this.formBuilder.group({
         email: ['', [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmail.bind(this)],
         contrasenia: ['', [Validators.required, Validators.pattern("^([1-zA-Z0-1@.\s]{1,255}).{5,}$")]],
-        captchaDigitado: ['']
+        captchaDigitado: [''],
       }),
       'datos-generales-empresa': this.formBuilder.group({
         NIT: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)], this.validarExistenciaNIT.bind(this)],
@@ -62,7 +67,7 @@ export class RegistrarComponent implements OnInit {
         anioCreacion: [null, Validators.required],
         numEmpleados: [null, [Validators.required, Validators.min(0)]],
         ingresosEmp: [null],
-        descripcionEmpresa: [null, Validators.required]
+        descripcionEmpresa: [null, Validators.required],
       }),
       'sectores': this.formBuilder.group({
         sectores: [[], [Validators.required, this.sectorValidator]],
@@ -76,7 +81,7 @@ export class RegistrarComponent implements OnInit {
         codigoPostalEmp: [null, Validators.min(0)],
         telefonoEmp: [null, [Validators.required, Validators.min(0)]],
         emailEmp: [null, [Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
-        sitioWebEmp: [null]
+        sitioWebEmp: [null],
         //sitioWebEmp: [null, Validators.pattern("^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$")]
       }),
       'datos-resp': this.formBuilder.group({
@@ -91,7 +96,7 @@ export class RegistrarComponent implements OnInit {
         telefonoMovilResp: [null, [Validators.required, Validators.min(0)]],
         horarioContactoResp: [null],
         direccionTrabajoResp: [null, Validators.required],
-        emailCorpResp: [null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]]
+        emailCorpResp: [null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
       }),
       'archivos': this.formBuilder.group({
         logo: [''],
@@ -117,9 +122,9 @@ export class RegistrarComponent implements OnInit {
   registrarEmpresa(formulario) {
     console.log('formulario', JSON.stringify(formulario.value));
     this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
-      console.log("empresa registrada con éxito");
-      console.log(data);
-      this.openDialog();
+      console.log("registro datos de la empresa exitosos, faltan los archivos");
+      //Al enviar los archivos se muestra el dialog y se termina el registro
+      this.enviarArchivos();
     },
       errorRegistro => {
         this.mensajesError = [];
@@ -134,7 +139,22 @@ export class RegistrarComponent implements OnInit {
           }
         }
       });
-  }  
+  }
+
+  enviarArchivos(){
+    let formData = new FormData();
+    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
+    formData.append('fileInput', this.logoInput.nativeElement.files[0]);
+    this.empService.subirArchivos(formData).toPromise().then(data => {
+      console.log("data archivos: ", data);
+      this.openDialog();
+    },
+      error => {
+        this.mensajesError = [];
+        this.mensajesError.push("Error al subir los archivos");
+        console.log("error al subir los archivos", error);
+      });
+  }
 
   elegirArchivo() {
     let formData = new FormData();
@@ -235,7 +255,7 @@ export class RegistrarComponent implements OnInit {
       this.cargos = resultado;
     },
       error => {
-        console.log("Error al obtener los Sectores: ", JSON.stringify(error));
+        console.log("Error al obtener los cargos: ", error);
       });
   }
 
