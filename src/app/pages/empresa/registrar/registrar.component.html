@@ -45,7 +45,8 @@
                                 campo
                                 requerido</mat-error>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.pattern">
-                                La contraseña debe contener al menos 6 caracteres en minúscula y una mayúscula.</mat-error>
+                                La contraseña debe contener al menos 6 caracteres en minúscula y una mayúscula.
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <!--<div class="row justify-content-center">
@@ -424,12 +425,13 @@
                     </div>
                     <div class="botonesStepper">
                         <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button [disabled]="!formRegistroEmp.valid" type="submit" mat-raised-button color="primary">Guardar y
+                        <button [disabled]="!formRegistroEmp.valid" type="submit" mat-raised-button
+                            color="primary">Guardar y
                             Continuar</button>
                     </div>
                 </mat-step>
 
-                <mat-step formGroupName="archivos" [stepControl]="formRegistroEmp.get('archivos')" label="Archivos">
+                <!--<mat-step formGroupName="archivos" [stepControl]="formRegistroEmp.get('archivos')" label="Archivos">
                     <div class="Subtitulos-card">
                         <p class="text-center"><b>Archivos de verificacion</b></p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -454,7 +456,7 @@
                             matStepperPrevious>Atras</button>
                         <button mat-raised-button type="submit" color="primary">Finalizar</button>
                     </div>
-                </mat-step>
+                </mat-step>-->
 
             </mat-horizontal-stepper>
             <div *ngIf="mensajesError.length > 0" class="alert alert-danger animated fadeIn">

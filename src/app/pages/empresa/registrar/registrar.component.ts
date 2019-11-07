@@ -90,11 +90,11 @@ export class RegistrarComponent implements OnInit {
         direccionTrabajoResp: [null, Validators.required],
         emailCorpResp: [null, [Validators.required, Validators.email]]
       }),
-      'archivos': this.formBuilder.group({
+      /*'archivos': this.formBuilder.group({
         logo: [''],
         camaraycomercio: [''],
-      })
-        });
+      })*/
+    });
   }
 
   ngOnInit() {
