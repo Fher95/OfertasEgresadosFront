@@ -1,6 +1,5 @@
 <app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
-
 <mat-card class="carta-registro">
 
     <mat-card-header class="headerCartaRegistro">
@@ -13,7 +12,7 @@
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-        <form id="registro" [formGroup]="formDatosEmpresa" (ngSubmit)="registrarEmpresa(formDatosEmpresa)">
+        <form id="registro" [formGroup]="formDatosEmpresa" (ngSubmit)="modificarEmpresa(formDatosEmpresa)">
             <mat-horizontal-stepper #stepper>
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formDatosEmpresa.get('datos-cuenta')"
                     label="Cuenta">
@@ -33,7 +32,7 @@
                                 un correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="botonesStepper">
+                    <div class="botonesStepper">   
                             <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
                             <button mat-raised-button type="submit"
                             color="primary">Guardar y Finalizar</button>
@@ -173,9 +172,10 @@
                         </div>
                     </div>
                     <div class="botonesStepper">
-                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                            Continuar</button>
+                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+
+                            <button mat-raised-button type="submit"
+                                color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
@@ -362,3 +362,30 @@
         </form>
     </mat-card-content>
 </mat-card>
+
+ <!-- Button trigger modal -->
+<button  id="buttonModal" type="button" hidden class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modificar Datos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{textoModal}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" (change)="aceptarModal()" (click)="aceptarModal()" mat-raised-button color="primary" data-dismiss="modal">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+          
+      </script>
