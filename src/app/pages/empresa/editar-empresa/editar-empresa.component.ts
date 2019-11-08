@@ -112,6 +112,7 @@ export class EditarEmpresaComponent implements OnInit {
     this.empresaService.getDatos(this.id)
     .subscribe(data => {
       // obtener la data y pasarla al form
+      console.log(data)
       this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue(data.administrador.user.email);
       this.emailInicial = this.formDatosEmpresa.controls['datos-cuenta'].get('email').value;
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('NIT').setValue(data.nit);
@@ -153,7 +154,8 @@ export class EditarEmpresaComponent implements OnInit {
       }
       if((<HTMLInputElement>document.getElementById('selectCargo'))!=null)
       {
-        let cargo = this.formDatosEmpresa.controls['datos-generales-empresa'].get('cargo').value;
+        let cargo = this.formDatosEmpresa.controls['datos-resp'].get('cargo').value;
+        console.log(cargo);
         (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
       let infoSectores:any[];
@@ -286,6 +288,7 @@ cargarSectoresInteres() {
 cargarCargos() {
   this.servGenerales.obtenerListaCargos().subscribe(resultado => {
     this.cargos = resultado;
+    console.log(this.cargos);
   },
     error => {
       console.log("Error al obtener los Sectores: ", JSON.stringify(error));
