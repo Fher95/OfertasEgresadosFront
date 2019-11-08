@@ -1,7 +1,9 @@
-mat-form-field {
-  margin-left: 35px;
-  margin-right: 35px;  
-  min-width: 150px;
+::ng-deep.mat-form-field-infix{
+  height: 35px;
+  border: 0px
+}
+.form-group{
+  margin-bottom:0px;
 }
 mat-card{
   width: 100%;
@@ -11,20 +13,36 @@ mat-card{
 
   width: 96%;
 }
-
+.labelCompleto{
+  display: flex;
+  flex-direction: column;
+  margin-left:-50px;
+}
 
 .mat-card:not([class*=mat-elevation-z]) {
   box-shadow: 0 0px 20px rgba(0,0,0,0.19),
   0 6px 6px rgba(0,0,0,0.23);
 
 }
+/*
+::ng-deep.mat-form-field-disabled .mat-form-field-underline 
+{ 
+  background-image: linear-gradient( to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #4082c5 0 ) !important; 
+  background-size: 1px 100% !important;
+   background-repeat: repeat-x !important; 
+} */
+
+
+
 ::ng-deep.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{
-  color:rgb(125, 125, 139);
+  color:rgb(158, 158, 160);
   font-size: 15px;
 }
+
 ::ng-deep.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
   color:rgb(85, 85, 201);
-  color:rgb(125, 125, 139);
+  color:rgb(158, 158, 160);
+
 
 }
 .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after, .mat-input-element:disabled{

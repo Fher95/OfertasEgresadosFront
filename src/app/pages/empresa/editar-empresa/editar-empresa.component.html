@@ -32,7 +32,7 @@
                                 un correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="botonesStepper">   
+                    <div class="botonesStepper">
                             <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
                             <button mat-raised-button type="submit"
                             color="primary">Guardar y Finalizar</button>
@@ -73,10 +73,10 @@
                             </mat-form-field>
                         </div>
                         <div class="row centrarContenidoRow">
-                                
-                            <mat-form-field readonly floatLabel="auto" appearance="outline" hintLabel="Modificable solo por administrador">                          
-                                        <mat-label>Año creacion</mat-label><input type="number" readonly matInput formControlName="anioCreacion">                        
-                            </mat-form-field> 
+
+                            <mat-form-field readonly floatLabel="auto" appearance="outline" hintLabel="Modificable solo por administrador">
+                                        <mat-label>Año creacion</mat-label><input type="number" readonly matInput formControlName="anioCreacion">
+                            </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
                                 <!--<mat-select formControlName="numEmpleados">
                                     <mat-option value="1-10">1-10</mat-option>
@@ -88,7 +88,7 @@
                                     <mat-option value="1001-5000">1001-5000</mat-option>
                                     <mat-option value="Mas de 5000">Más de 5000</mat-option>
                                 </mat-select>-->
-                                <input matInput type="number" formControlName="numEmpleados">
+                                <input matInput formControlName="numEmpleados">
                                 <mat-label>Numero de empleados</mat-label>
                                 <mat-error
                                     *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
@@ -97,7 +97,7 @@
                                     *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.numEmpleados.errors?.min">
                                     minimo 0</mat-error>
                             </mat-form-field>
-                           
+
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
                                 <mat-select id="selectIngresos" formControlName="ingresosEmp">
                                     <mat-option value="0-3.000.000">0-3.000.000</mat-option>
@@ -125,7 +125,7 @@
                     <div class="botonesStepper">
                             <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
 
-                            
+
                             <button mat-raised-button type="submit"
                             color="primary">Guardar y Finalizar</button>
                     </div>
@@ -150,7 +150,7 @@
                                     <!--Contenido-->
                                     <mat-action-list dense *ngFor="let subSector of sector.subSectores">
                                         <button type="button" mat-list-item value="{{subSector.Nombre}}"
-                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.nombre }}
+                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.Nombre }}
                                             <mat-icon matListIcon>add</mat-icon>
                                         </button>
                                     </mat-action-list>
@@ -190,14 +190,14 @@
                     </div>
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
-                                        <mat-label>País</mat-label><input readonly  matInput formControlName="paisEmp" >                        
-                        </mat-form-field> 
+                                        <mat-label>País</mat-label><input readonly  matInput formControlName="paisEmp" >
+                        </mat-form-field>
                         <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
-                                        <mat-label>Departamento</mat-label><input  readonly matInput formControlName="departamentoEmp" >                        
-                        </mat-form-field> 
+                                        <mat-label>Departamento</mat-label><input  readonly matInput formControlName="departamentoEmp" >
+                        </mat-form-field>
                         <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
-                                        <mat-label>Ciudad</mat-label><input readonly  matInput formControlName="ciudadEmp" >                        
-                        </mat-form-field> 
+                                        <mat-label>Ciudad</mat-label><input readonly  matInput formControlName="ciudadEmp" >
+                        </mat-form-field>
                     </div>
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
@@ -243,7 +243,7 @@
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>                        
+                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
                             <button mat-raised-button type="submit"
                             color="primary">Guardar y Finalizar</button>
                     </div>
@@ -304,7 +304,7 @@
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
-                            <mat-select id="selectCargo" formControlName="cargo">
+                            <mat-select formControlName="cargo">
                                 <mat-option *ngFor="let cargo of cargos" [value]="cargo.Nombre">
                                     {{cargo.Nombre}}
                                 </mat-option>
@@ -366,7 +366,7 @@
  <!-- Button trigger modal -->
 <button  id="buttonModal" type="button" hidden class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
       </button>
-      
+
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog" role="document">
@@ -387,5 +387,5 @@
         </div>
       </div>
       <script>
-          
+
       </script>
