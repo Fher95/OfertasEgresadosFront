@@ -13,6 +13,10 @@ mat-form-field{
     padding: 0px;
 }
 
+.centrado{
+  justify-content: center;
+}
+
 .example-container {
   height: 400px;
   overflow: auto;
