@@ -14,7 +14,7 @@
     <mat-divider></mat-divider>
     <mat-card-content>
         <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
-            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-horizontal-stepper #stepper>
                 <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
                     label="Cuenta">
@@ -30,7 +30,7 @@
                                 requerido</mat-error>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.EmailExiste">
                                 Usted ya posee una cuenta</mat-error>
-                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.email">Digite
+                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.pattern">Digite
                                 un correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
@@ -45,7 +45,8 @@
                                 campo
                                 requerido</mat-error>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.pattern">
-                                La contraseña debe contener al menos 6 caracteres en minúscula y una mayúscula.</mat-error>
+                                La contraseña debe contener al menos 6 caracteres.
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <!--<div class="row justify-content-center">
@@ -120,32 +121,32 @@
                                     campo requerido</mat-error>
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-                                <!--<mat-select formControlName="numEmpleados">
-                                    <mat-option value="1-10">1-10</mat-option>
-                                    <mat-option value="11-50">11-50</mat-option>
-                                    <mat-option value="51-150">51-150</mat-option>
-                                    <mat-option value="151-300">151-300</mat-option>
-                                    <mat-option value="301-500">301-500</mat-option>
-                                    <mat-option value="501-1000">501-1000</mat-option>
-                                    <mat-option value="1001-5000">1001-5000</mat-option>
-                                    <mat-option value="Mas de 5000">Más de 5000</mat-option>
-                                </mat-select>-->
-                                <input matInput type="number" formControlName="numEmpleados">
+                                <mat-select formControlName="numEmpleados">
+                                    <mat-option value="1 - 10">1-10</mat-option>
+                                    <mat-option value="11 - 50">11-50</mat-option>
+                                    <mat-option value="51 - 150">51-150</mat-option>
+                                    <mat-option value="151  -300">151-300</mat-option>
+                                    <mat-option value="301 - 500">301-500</mat-option>
+                                    <mat-option value="501 - 1000">501-1000</mat-option>
+                                    <mat-option value="1001 - 5000">1001-5000</mat-option>
+                                    <mat-option value="Más de 5000">Más de 5000</mat-option>
+                                </mat-select>
+                                <!-- <input matInput type="number" formControlName="numEmpleados"> -->
                                 <mat-label>Numero de empleados</mat-label>
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
                                     campo requerido</mat-error>
-                                <mat-error
+                                <!-- <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.min">
-                                    minimo 0</mat-error>
+                                    minimo 0</mat-error> -->
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
                                 <mat-select formControlName="ingresosEmp">
-                                    <mat-option value="0-3.000.000">0-3.000.000</mat-option>
-                                    <mat-option value="3.000.000-10.000.000">3.000.000-10.000.000</mat-option>
-                                    <mat-option value="10.000.000-25.000.000">10.000.000-25.000.000</mat-option>
-                                    <mat-option value="25.000.000-50.000.000">25.000.000-50.000.000</mat-option>
-                                    <mat-option value="50.000.000-100.000.000">50.000.000-100.000.000</mat-option>
+                                    <mat-option value="0 - 3.000.000">0-3.000.000</mat-option>
+                                    <mat-option value="3.000.001 - 10.000.000">3.000.000-10.000.000</mat-option>
+                                    <mat-option value="10.000.001 - 25.000.000">10.000.000-25.000.000</mat-option>
+                                    <mat-option value="25.000.001 - 50.000.000">25.000.000-50.000.000</mat-option>
+                                    <mat-option value="50.000.001 - 100.000.000">50.000.000-100.000.000</mat-option>
                                     <mat-option value="Más de 100.000.000">Más de 100.000.000</mat-option>
                                 </mat-select>
                                 <mat-label>Ingresos de la empresa</mat-label>
@@ -303,6 +304,11 @@
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Email de la empresa</mat-label>
                             <input formControlName="emailEmp" matInput>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.emailEmp.errors?.pattern">
+                                Digite
+                                un
+                                correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Sitio Web</mat-label>
@@ -375,19 +381,19 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
                             <mat-select formControlName="cargo">
-                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.id_aut_cargos">
-                                    {{cargo.nombre}}
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.Nombre">
+                                    {{cargo.Nombre}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" appearance="outline">
+                        <!--<mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Otro Cargo</mat-label>
                             <input formControlName="cargo" matInput required>
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
-                        </mat-form-field>
+                        </mat-form-field>-->
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Telefono</mat-label>
                             <input type="number" formControlName="telefonoResp" matInput>
@@ -424,37 +430,37 @@
                     </div>
                     <div class="botonesStepper">
                         <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button [disabled]="!formRegistroEmp.valid" type="submit" mat-raised-button color="primary">Guardar y
+                        <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
                 </mat-step>
 
-                <!--<mat-step formGroupName="archivos" [stepControl]="formRegistroEmp.get('archivos')" label="Archivos">
+                <mat-step formGroupName="archivos" [stepControl]="formRegistroEmp.get('archivos')" label="Archivos">
                     <div class="Subtitulos-card">
-                        <p class="text-center"><b>Archivos de verificacion</b></p>
+                        <p class="text-center"><b>Suba algunos de sus archivos</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
-                    <div class="row cartaCuenta">
-                        <button type="button" (click)="fileInput.click()">
-                            <mat-icon matListIcon>add</mat-icon>
-                            <span>Subir camara y comercio</span>
-                            <input #fileInput id="file" type="file" (change)="elegirArchivo($event)"
-                                style="display:none;">
-                        </button>
+                    <div class="mb-5">
+                        <div class="row centrado">
+                            <label for="file">Cámara y comercio de tu empresa (Unicamente archivo PDF)</label>
+                        </div>
+                        <div class="row centrado">
+                            <input #fileInput id="file" name="file" type="file" (change)="elegirArchivo()" accept=".pdf"
+                                required>
+                        </div>
                     </div>
-                    <div class="row cartaCuenta">
-                        <button type="button" mat-button (click)="logoInput.click()">
-                            <mat-icon matListIcon>add</mat-icon>
-                            <span>Subir logo de tu empresa</span>
-                            <input #logoInput id="logo" type="file" (change)="elegirLogo($event)" style="display:none;">
-                        </button>
+                    <div>
+                        <div class="row centrado">
+                            <label for="logo">Logo de tu empresa (Unicamente imagen JPG)</label>
+                        </div>
+                        <div class="row centrado">
+                            <input #logoInput id="logo" type="file" (change)="elegirLogo()" accept=".jpg">
+                        </div>
                     </div>
-                    <div class="botonesStepper">
-                        <button [disabled]="!formRegistroEmp.valid" type="button" mat-raised-button color="primary"
-                            matStepperPrevious>Atras</button>
-                        <button mat-raised-button type="submit" color="primary">Finalizar</button>
-                    </div>
-                </mat-step>-->
+                    <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                    <button type="submit" mat-raised-button color="primary">Guardar y
+                        Continuar</button>
+                </mat-step>
 
             </mat-horizontal-stepper>
             <div *ngIf="mensajesError.length > 0" class="alert alert-danger animated fadeIn">

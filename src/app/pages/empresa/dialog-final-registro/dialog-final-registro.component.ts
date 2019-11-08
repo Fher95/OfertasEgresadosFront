@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogFinalRegistroComponent implements OnInit {
 
-  constructor(mensaje: String) { }
+  constructor() { }
 
   ngOnInit() {
   }

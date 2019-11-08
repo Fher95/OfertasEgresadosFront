@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ISector } from '../../../shared/modelos/sectorInterface'
@@ -16,19 +16,26 @@ import { Router } from '@angular/router';
 })
 export class RegistrarComponent implements OnInit {
 
+  @ViewChild('fileInput') fileInput;
+  @ViewChild('logoInput') logoInput;
+
   sectoresInteresEmpresa: ISector[];
   cargos: ICargo[];
-  debouncer: any;
   subSecEscogidos: ISubSector[];
   anios: any[];
+  mensajesError: String[];
+
   paises: Object;
   departamentos: Object;
   ciudades: Object;
+
+  debouncer: any;
   code: string;
-  formRegistroEmp: FormGroup;
   isLinear = true;
   contOculto = true;
-  mensajesError: String[];
+
+  formRegistroEmp: FormGroup;
+
   constructor(
     private servGenerales: GeneralesService,
     private formBuilder: FormBuilder,
@@ -37,20 +44,21 @@ export class RegistrarComponent implements OnInit {
     private router: Router,
     private elem: ElementRef,
   ) {
-    this.cargos = [
-      { id_aut_cargos: 1, nombre: "Docente", estado: "true" },
-      { id_aut_cargos: 2, nombre: "Desarrollador", estado: "true" },
-      { id_aut_cargos: 3, nombre: "Administrativo", estado: "true" },
-    ];
+    this.cargos = [];
+    /*
+      { id_aut_cargos: 1, nombre: "Docente"},
+      { id_aut_cargos: 2, nombre: "Desarrollador"},
+      { id_aut_cargos: 3, nombre: "Administrativo"},
+    ];*/
     this.sectoresInteresEmpresa = [];
     this.subSecEscogidos = [];
     this.anios = [];
     this.mensajesError = [];
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
-        email: ['', [Validators.required, Validators.email], this.validarExistenciaEmail.bind(this)],
-        contrasenia: ['', [Validators.required, Validators.pattern("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$")]],
-        captchaDigitado: ['']
+        email: ['', [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmail.bind(this)],
+        contrasenia: ['', [Validators.required, Validators.pattern("^([1-zA-Z0-1@.\s]{1,255}).{5,}$")]],
+        captchaDigitado: [''],
       }),
       'datos-generales-empresa': this.formBuilder.group({
         NIT: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)], this.validarExistenciaNIT.bind(this)],
@@ -59,7 +67,7 @@ export class RegistrarComponent implements OnInit {
         anioCreacion: [null, Validators.required],
         numEmpleados: [null, [Validators.required, Validators.min(0)]],
         ingresosEmp: [null],
-        descripcionEmpresa: [null, Validators.required]
+        descripcionEmpresa: [null, Validators.required],
       }),
       'sectores': this.formBuilder.group({
         sectores: [[], [Validators.required, this.sectorValidator]],
@@ -72,8 +80,8 @@ export class RegistrarComponent implements OnInit {
         barrioEmp: [null, Validators.required],
         codigoPostalEmp: [null, Validators.min(0)],
         telefonoEmp: [null, [Validators.required, Validators.min(0)]],
-        emailEmp: [null, [Validators.email]],
-        sitioWebEmp: [null]
+        emailEmp: [null, [Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
+        sitioWebEmp: [null],
         //sitioWebEmp: [null, Validators.pattern("^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$")]
       }),
       'datos-resp': this.formBuilder.group({
@@ -83,17 +91,17 @@ export class RegistrarComponent implements OnInit {
         telefonoMovilreplegal: [null, [Validators.required, Validators.min(0)]],
         nombreResp: [null, Validators.required],
         apellidoResp: [null, Validators.required],
-        cargo: [null, Validators.required], //se recibe de la base de datos
+        cargo: [null, Validators.required],
         telefonoResp: [null, Validators.min(0)],
         telefonoMovilResp: [null, [Validators.required, Validators.min(0)]],
         horarioContactoResp: [null],
         direccionTrabajoResp: [null, Validators.required],
-        emailCorpResp: [null, [Validators.required, Validators.email]]
+        emailCorpResp: [null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
       }),
-      /*'archivos': this.formBuilder.group({
+      'archivos': this.formBuilder.group({
         logo: [''],
         camaraycomercio: [''],
-      })*/
+      })
     });
   }
 
@@ -101,32 +109,67 @@ export class RegistrarComponent implements OnInit {
     this.cargarPaises();
     this.cargarAnios();
     this.cargarSectoresInteres();
-    //this.cargarCargos();
+    this.cargarCargos();
   }
 
-  uploadImage() {
-    let files = this.elem.nativeElement.querySelector('#selectFile').files;
+  /**
+   * Manda el formulario de registro a los servicios de la empresa
+   * encargados de las peticiones.
+   * <p>
+   * Si existe un error al cargarlo imprime en la consola el error
+   * @param  formulario  Id del pais escogido en la lista de departamentos
+   */
+  registrarEmpresa(formulario) {
+    console.log('formulario', JSON.stringify(formulario.value));
+    this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
+      console.log("registro datos de la empresa exitosos, faltan los archivos");
+      //Al enviar los archivos se muestra el dialog y se termina el registro
+      this.enviarArchivos();
+    },
+      errorRegistro => {
+        this.mensajesError = [];
+        alert("Error en la peticion al servidor, por favor intentelo de nuevo");
+        console.log(errorRegistro.error);
+        // Obteniendo todas las claves del JSON
+        for (var clave in errorRegistro.error) {
+          // Controlando que json realmente tenga esa propiedad
+          if (errorRegistro.error.hasOwnProperty(clave)) {
+            // Mostrando en pantalla la clave junto a su valor
+            this.mensajesError.push(errorRegistro.error[clave]);
+          }
+        }
+      });
+  }
+
+  enviarArchivos(){
     let formData = new FormData();
-    console.log(formData);
-    let file = files[0];
-    formData.append('selectFile', file, file.name);
-    console.log(formData);
+    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
+    formData.append('fileInput', this.logoInput.nativeElement.files[0]);
+    this.empService.subirArchivos(formData).toPromise().then(data => {
+      console.log("data archivos: ", data);
+      this.openDialog();
+    },
+      error => {
+        this.mensajesError = [];
+        this.mensajesError.push("Error al subir los archivos");
+        console.log("error al subir los archivos", error);
+      });
   }
 
-  elegirArchivo(event) {
-    const formData = new FormData();
-    let file = <File>event.target.files[0];
-    console.log(file);
-    formData.append('file', file, file.name);
+  elegirArchivo() {
+    let formData = new FormData();
+    console.log("archivo original:", this.fileInput.nativeElement.files[0]);
+    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
     this.formRegistroEmp.controls['archivos'].get('camaraycomercio').setValue(formData);
+    console.log("archivo con formato a enviar: ", this.formRegistroEmp.controls['archivos'].get('camaraycomercio').value);
   }
 
-  elegirLogo(event) {
-    const formData = new FormData();
-    let file = <File>event.target.files[0];
-    console.log(file);
-    formData.append('file', file, file.name);
+  elegirLogo() {
+    let formData = new FormData();
+    console.log("archivo original:", this.logoInput.nativeElement.files[0]);
+    formData.append('fileInput', this.logoInput.nativeElement.files[0]);
     this.formRegistroEmp.controls['archivos'].get('logo').setValue(formData);
+    console.log("archivo con formato a enviar: ", this.formRegistroEmp.controls['archivos'].get('logo').value);
   }
 
   /**
@@ -203,7 +246,7 @@ export class RegistrarComponent implements OnInit {
   }
   /**
  * Carga la lista cargos mediante una peticion al back
- * [{id_aut_cargos:1, nombre:"Docente", estado:"true"}, ...]
+ * [{id_aut_cargos:1, nombre:"Docente"}, ...]
  * <p>
  * Si existe un error al cargarlo imprime en la consola el error
  */
@@ -212,7 +255,7 @@ export class RegistrarComponent implements OnInit {
       this.cargos = resultado;
     },
       error => {
-        console.log("Error al obtener los Sectores: ", JSON.stringify(error));
+        console.log("Error al obtener los cargos: ", error);
       });
   }
 
@@ -240,34 +283,7 @@ export class RegistrarComponent implements OnInit {
       alert('Captcha invalido');
     }
   }
-  /**
-   * Manda el formulario de registro a los servicios de la empresa
-   * encargados de las peticiones.
-   * <p>
-   * Si existe un error al cargarlo imprime en la consola el error
-   * @param  formulario  Id del pais escogido en la lista de departamentos
-   */
-  registrarEmpresa(formulario) {
-    console.log('formulario', formulario);
-    this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
-      console.log(data);
-      this.openDialog();
-    },
-      errorRegistro => {
-        this.mensajesError = [];
-        alert("Error en la peticion al servidor, por favor intentelo de nuevo");
-        console.log(errorRegistro);
-        console.log(errorRegistro.error);
-        // Obteniendo todas las claves del JSON
-        for (var clave in errorRegistro.error) {
-          // Controlando que json realmente tenga esa propiedad
-          if (errorRegistro.error.hasOwnProperty(clave)) {
-            // Mostrando en pantalla la clave junto a su valor
-            this.mensajesError = errorRegistro.error[clave];
-          }
-        }
-      });
-  }
+
   /**
  * IMPORTANTE: Funciona dependiente del id del sector, si se cambia el id del sector hacer metodo
  * para buscar la posicion del sector que contiene el subsector
@@ -342,7 +358,7 @@ export class RegistrarComponent implements OnInit {
   }
   /**
  * Validador personalizado para saber si el email escrito existe
- * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
  * de la empresa
  * <p>
  * Si el email existe devuelve el error 'EmailExiste', en caso contrario devuelve null
@@ -373,7 +389,7 @@ export class RegistrarComponent implements OnInit {
   }
   /**
  * Validador personalizado para saber si el NIT escrito existe
- * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
  * de la empresa
  * <p>
  * Si el NIT existe devuelve el error 'NITExiste', en caso contrario devuelve null
@@ -388,7 +404,7 @@ export class RegistrarComponent implements OnInit {
         this.debouncer = setTimeout(() => {
           this.servGenerales.validarNIT(control.value).subscribe((res) => {
             console.log(res);
-            if (res !== control.value) {
+            if (res == 'Correcto') {
               resolve(null);
             }
             else {
@@ -403,14 +419,6 @@ export class RegistrarComponent implements OnInit {
     });
   }
 
-  NitLengthValidator(control: FormControl) {
-    //Si la lista esta vacia se invalida
-    if (control.value.length < 4) {
-      return true;
-    }
-    //En caso contrario se deja pasar
-    return null;
-  }
   /**
  * Abre un dialog de angular material
  * El contenido del dialog esta creado en el componente DialogFinalRegistroComponent
@@ -420,7 +428,7 @@ export class RegistrarComponent implements OnInit {
   openDialog() {
     const dialogRef = this.matDialog.open(DialogFinalRegistroComponent);
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     });
   }
 }

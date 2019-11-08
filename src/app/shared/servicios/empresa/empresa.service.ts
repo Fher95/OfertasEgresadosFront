@@ -9,15 +9,25 @@ import { IHistorialOfertas } from  '../../modelos/historialOfertas';
 })
 export class EmpresaService {
   headers: HttpHeaders = new HttpHeaders({
+    "Content-Type": "application/json",
+    "X-Requested-With": "XMLHttpRequest"
+  });
+  headerArchivos: HttpHeaders = new HttpHeaders({
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json"
+  });
+  headerListar: HttpHeaders = new HttpHeaders({
     "Content-Type": "application/x-www-form-urlencoded",
     "X-Requested-With": "XMLHttpRequest"
   });
-
   constructor(private httpClient: HttpClient) { }
 
   registrarUsuario(objeto: Object) {
-    console.log(JSON.stringify(objeto));
     return this.httpClient.post("http://127.0.0.1:8081/api/empresas/store", objeto, { headers: this.headers });
+  }
+  subirArchivos(archivos: FormData){
+    console.log(archivos);
+    return this.httpClient.post("http://127.0.0.1:8081/api/empresas/storeArchivos", archivos, { headers: this.headerArchivos });
   }
   getDatos(id:String): Observable<any>{
     //obtener los datos de la peticion datos empresa
@@ -36,9 +46,9 @@ export class EmpresaService {
   }
 
   getHistorialOfertas(idEmpresa: string): Observable<IHistorialOfertas[]>{
-    return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/empresa/" + idEmpresa, {headers: this.headers});
+    return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/empresa/" + idEmpresa, {headers: this.headerListar});
   }
   getOfertasActivas(idEmpresa: string): Observable<IHistorialOfertas[]>{
-    return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/activas/empresa/" + idEmpresa, {headers: this.headers});
+    return this.httpClient.get<IHistorialOfertas[]>("http://127.0.0.1:8081/api/ofertas/activas/empresa/" + idEmpresa, {headers: this.headerListar});
   }
 }
