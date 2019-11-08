@@ -305,8 +305,8 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
                             <mat-select id="selectCargo" formControlName="cargo">
-                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.id_aut_cargos">
-                                    {{cargo.nombre}}
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.Nombre">
+                                    {{cargo.Nombre}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="formDatosEmpresa.get('datos-resp').controls.cargo.errors?.required">
