@@ -14,7 +14,7 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 export class DatosEmpresaComponent implements OnInit {
   
   id: string; 
-  data = 'a';
+  data = 'danielfer@unicauca.edu.co';
    formRegistroEmp: FormGroup;
   
   sectores: any = [
@@ -27,13 +27,13 @@ export class DatosEmpresaComponent implements OnInit {
         email: [{value: '', disabled:true} ],
       }),
       'datos-generales-empresa': this.formBuilder.group({
-        nit: [{value: '', disabled:true}],
-        razonSocial: [{value: '', disabled:true} ],
-        nombreEmpresa: [{value: '', disabled:true}],
-        anioCreacion: [{value: '', disabled:true}],
-        numEmpleados: [{value: '', disabled:true}],
-        ingresosEmp: [{value: '', disabled:true}],
-        descripcionEmpresa: [{value: '', disabled:true}],
+        nit: [{value: '12345678', disabled:true}],
+        razonSocial: [{value: 'desarrollo', disabled:true} ],
+        nombreEmpresa: [{value: 'TecnologiaSA', disabled:true}],
+        anioCreacion: [{value: '2012', disabled:true}],
+        numEmpleados: [{value: '346', disabled:true}],
+        ingresosEmp: [{value: '3.000.000-10.000.000', disabled:true}],
+        descripcionEmpresa: [{value: 'Una empresa encargada en la creacion y modificiacin, y asesoria en el desarrollo del software dando la mayor seguridad a unuestros clientes', disabled:true}],
       }),
       'sectores': this.formBuilder.group({
         sectores: [{value: '', disabled:true}],
@@ -74,7 +74,7 @@ export class DatosEmpresaComponent implements OnInit {
   }
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-     this.empresaService.getDatos()
+     this.empresaService.getDatos(this.id)
     .subscribe(data => {
       this.data = data;
       console.log(data);
@@ -112,7 +112,7 @@ export class DatosEmpresaComponent implements OnInit {
     }),
     error => console.log(error);
     
-    /*
+   /* 
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: this.data, disabled:true} ],

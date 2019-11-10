@@ -6,6 +6,7 @@ import { ISubSector } from '../../../shared/modelos/subSectorInterface'
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ICargo } from 'src/app/shared/modelos/cargoInterface';
 
 export interface DialogData {
   animal: string;
@@ -18,48 +19,16 @@ export interface DialogData {
 })
 export class EditarEmpresaComponent implements OnInit {
   data = 'a';
+  textoModal:String;
+  sectores: ISector[] =[
+    { Nombre: 'prueba', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr1', idSector: 1 }] },
+    { Nombre: 'secta', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr2', idSector: 2 }, {idSubSector: 2 , nombre: 'subSecotr3', idSector: 2 }] }
+  ]
+
   emailInicial:String ;
-  /*sectoresInteresEmpresa: Object = [
-    { "Nombre": "Estatal y Relacionados", "subSector": [{'id':1, 'nombre': "Medio ambiente"}, {'id':1, 'nombre': "Minas y Energia"}, "Organizacion no Gubernamental", "Planeacion", "Relaciones Exteriores", "Residencia, Gobernaciones", "Salud, Trabajo y Seguridad", "Servicios Publicos", "Economia Desarrollo Ecologico", "Educacion, Cultura y Turismo", "Estadistica", "Funcion Publica", "Gremios y Asociaciones", "Interior, Control y org", "Justicia del Derecho", "Agricultura y Desarrollo", "Ciencia y Tecnologia", "Comercio Exterior", "Comunicacion", "Defensa y Seguridad Nacional"] },
-    { "Nombre": "Alimentos", "subSector": ["Aceites y Grasas Comestibles", "Alimentos Para Animales", {'id':2, 'nombre': "Azúcar"}, "Batidos", "Café Exportadores", "Chocolate y confiteria", "Conservas, Pasabocas", "Lácteos", "Molinera de Arroz", "Molinería de Productos de Trigo", "Pastas, Panadería y Galletas"] },
-    { "Nombre": "Comercio al por Menor", "subSector": ["Almacenes de cadena", "Almacenes Varios", "Concesionarios", "Droguerias", "Estaciones de Servicio", "Ferreteria", "Hipermercados", "Supermercados", "Tiendas"] },
-    { "Nombre": "Comercio al por Mayor", "subSector": ["Comercio al por Mayor"] },
-    { "Nombre": "Construccion", "subSector": ["Cementos", "Ceramica y Otros Materiales", "Construccion", "Distribucion de materiales", "Infraestructura", "Infraestructura Vial", "Ingenieria Civil", "Preparacion de Terreno"] },
-    { "Nombre": "Financiero", "subSector": ["Banca", "Cajeros Electrónicos", "Compañias de Financiamiento", "Compañias de Leasing", "Corporaciones de Ahorro", "Corredores de Bolsa", "Fiduciaria", "Fondo de Pensiones", "Servicios Financieros", "Tarjeta de Crédito"] },
-    { "Nombre": "Servicios", "subSector": ["Alimentos - Bebidas", "Almacenes de Depósito", "Cajas de Compensacion", "Clubes", "Cooperativas", "Correo", "Hoteles", "Informáticos", "Otros Servicios", "Restaurantes", "Servicios de Aseo", "Servicios Públicos", "Turismo", "Vigilancia y Seguridad"] },
-    { "Nombre": "Agropecuario", "subSector": ["Agricultura y Varios", "Avícola", "Café Producción", "Distribucion de Productos", "Flores", "Ganadería", "Pesca"] },
-    { "Nombre": "Asegurador", "subSector": ["Ajustadores de Seguros", "Compañias de Seguros", "Corredores de Seguros", "Reaseguradores"] },
-    { "Nombre": "Bebidas y Tabaco", "subSector": ["Cerveza", "Distribucion / Consumo Masivo", "Gaseosas, Jugos y Agua", "Licores", "Tabaco"] },
-    { "Nombre": "Consultorias / Asesorias", "subSector": ["Consultoría Contable", "Consultoría de Recursos Humanos", "Firmas de Abogados", "Firmas de Consultoria Empresarial", "Temporales / Dotación"] },
-    { "Nombre": "Consumo masivo", "subSector": ["Consumo masivo"] },
-    { "Nombre": "Cuero y Calzado", "subSector": ["Calzado", "Curtido de Cuero", "Maletas, Bolsos y Similares"] },
-    { "Nombre": "Editorial e Impresión", "subSector": ["Impresion Editorial", "Libros y Folletos y Similares"] },
-    { "Nombre": "Educativo", "subSector": ["Campañas de Capacitacion", "Colegios", "Institutos Técnicos", "Universidades"] },
-    { "Nombre": "Energético", "subSector": ["Compañias Petroleras", "Distribucion de Carbon", "Distribución de Combustibles", "Energía Eléctrica", "Gas", "Servicios Petroleros"] },
-    { "Nombre": "Entretenimiento", "subSector": ["Cine y Videos", "Otros", "Parques de Diversiones", "Produccion de Grabación"] },
-    { "Nombre": "Investigación", "subSector": ["Varios"] },
-    { "Nombre": "Manufactura", "subSector": ["Distribucion de Enseres Domiciliarios", "Distribucion de Maquinaria", "Electrodomésticos", "Manufacturas Varias", "Maquinaria y Equipo", "Muebles y Accesorios", "Productos de Madera"] },
-    { "Nombre": "Medios", "subSector": ["Internet", "Periódicos", "Radio", "Revistas", "Televisión"] },
-    { "Nombre": "Minería, Hierro, Acero y otros Materiales", "subSector": ["Metales Básicos, Hierro, Acero", "Metales no Ferroso", "Otros", "Productos de Metal", "Siderurgia"] },
-    { "Nombre": "Naval", "subSector": ["Construccion Naval", "Diseño Naval", "Mantenimiento Naval", "Naval", "Reparacion Naval"] },
-    { "Nombre": "Otra Actividad", "subSector": ["Atelier de diseño", "Otra Actividad"] },
-    { "Nombre": "Plástico y Caucho", "subSector": ["Plasticos Primarios", "Productos de Caucho", "Productos de Plástico"] },
-    { "Nombre": "Productos de Vidrio", "subSector": ["Envases", "Otros Productos de Vidrios", "Vidrio - Construccion", "Vidrio - Vehículo"] },
-    { "Nombre": "Publicidad y Mercadeo", "subSector": ["Agencias de Publicidad", "Agencias Promocionales", "Brokers de Medios", "Correo Directo", "Otros", "Relaciones Públicas"] },
-    { "Nombre": "Pulpa, Papel y Cartón", "subSector": ["Papel Celulosa y Carton", "Productos de Papel y Cartón"] },
-    { "Nombre": "Quimicos", "subSector": ["Abonos, Plaguicidas y Químicos", "Distribucion / Consumo Masivo", "Distribucion de Productos", "Laboratorios Farmacéuticos", "Pinturas, Barnices y Similares", "Productos de Aseo y Comsméticos", "Quimicos Básicos", "Quimicos Industriales"] },
-    { "Nombre": "Salud", "subSector": ["A.R.P", "E.P.S", "I.P.S", "Mediciona Prepagada", "Seguridad Social", "Servicios Hospitalarios"] },
-    { "Nombre": "Tecnología", "subSector": ["Comercio de Computadores", "Desarrollo y Diseño de Paginas Web", "Productores y Distribuidores"] },
-    { "Nombre": "Telecomunicaciones", "subSector": ["Celulares", "Equipos de Comunicación", "Otros", "Servicios de Comunicación"] },
-    { "Nombre": "Textiles, Prendas de Vestir y Calzado", "subSector": ["Acabados Textiles", "Confecciones", "Distribución de Productos", "Hilanderas", "Textiles"] },
-    { "Nombre": "Transporte", "subSector": ["Aéreo", "Agente", "Marítimo y Fluvial", "Operadores, Agentes y Terminales", "Valores"] },
-    { "Nombre": "Vehiculos y Partes", "subSector": ["Academia Automovilística", "Carrocerías, Partes y Piezas", "Comercialización de Partes", "Concesionarios", "Emsambladoras de Vehículos", "Importadores de Vehículos", "Talleres"] }
-  ];*/
-  sectoresInteresEmpresa: ISector[] = 
-  [
-   { "Nombre": "Estatal y Relacionados", "subSectores": [{ "idSubSector": 0 , "nombre": "Medio ambiente", "idSector": 0}, { "idSubSector": 1, "nombre": "Minas y Energia", "idSector": 0 }] },
-   { "Nombre": "Alimentos", "subSectores": [{ "idSubSector": 3, "nombre": "Azúcar", "idSector": 1 }] }
-  ];
+  sectoresInteresEmpresa = [];
+  cargos: ICargo[];
+  sectoresUsuario: ISector[];
   id: string;
   debouncer: any;
   subSecEscogidos: ISubSector[] = [];
@@ -81,7 +50,13 @@ export class EditarEmpresaComponent implements OnInit {
     private empresaService : EmpresaService,
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
+
   ) {
+    this.cargos = [
+      { idCargo: 1, Nombre: "Docente" },
+      { idCargo: 2, Nombre: "Desarrollador" },
+      { idCargo: 3, Nombre: "Administrativo" },
+    ];
     this.formDatosEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: ['', [Validators.required, Validators.email], this.validarExistenciaEmail.bind(this)],
@@ -133,9 +108,11 @@ export class EditarEmpresaComponent implements OnInit {
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.cargarSectoresInteres();
-    this.empresaService.getDatos()
+    this.cargarCargos();
+    this.empresaService.getDatos(this.id)
     .subscribe(data => {
       // obtener la data y pasarla al form
+      console.log(data)
       this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue(data.administrador.user.email);
       this.emailInicial = this.formDatosEmpresa.controls['datos-cuenta'].get('email').value;
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('NIT').setValue(data.nit);
@@ -144,11 +121,11 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('anioCreacion').setValue(data.anio_creacion);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue('0-3.000.000');
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');      
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');
       this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idPais').setValue(data.direccion.ciudad.departamento.pais.id_aut_pais);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
-      this.formDatosEmpresa.controls['loc-contact-empresa'].get('idDepartamento').setValue(data.direccion.ciudad.departamento.id_departamento);
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('idDepartamento').setValue(data.direccion.ciudad.departamento.id_aut_dep);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('departamentoEmp').setValue(data.direccion.ciudad.departamento.nombre);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idCiudad').setValue(data.direccion.ciudad.id_aut_ciudad);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('ciudadEmp').setValue(data.direccion.ciudad.nombre);
@@ -164,52 +141,59 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilreplegal').setValue(data.representante.telefono_movil);
       this.formDatosEmpresa.controls['datos-resp'].get('nombreResp').setValue(data.administrador.nombres);
       this.formDatosEmpresa.controls['datos-resp'].get('apellidoResp').setValue(data.administrador.apellidos);
-      this.formDatosEmpresa.controls['datos-resp'].get('cargo').setValue(data.administrador.cargo.nombre);
+      this.formDatosEmpresa.controls['datos-resp'].get('cargo').setValue(data.administrador.cargo.id_aut_cargos);
       this.formDatosEmpresa.controls['datos-resp'].get('horarioContactoResp').setValue(data.administrador.horario_contacto);
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue(data.administrador.telefono);
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
       this.formDatosEmpresa.controls['datos-resp'].get('direccionTrabajoResp').setValue(data.administrador.direccion.direccion);
-      this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);     
-      if((<HTMLInputElement>document.getElementById('select'))!=null)
+      this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
+      if((<HTMLInputElement>document.getElementById('selectIngresos'))!=null)
       {
         let ingresos = this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').value;
-        (<HTMLInputElement>document.getElementById('select')).value= ingresos
+        (<HTMLInputElement>document.getElementById('selectIngresos')).value= ingresos
+      }
+      if((<HTMLInputElement>document.getElementById('selectCargo'))!=null)
+      {
+        let cargo = this.formDatosEmpresa.controls['datos-resp'].get('cargo').value;
+        console.log(cargo);
+        (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
       let infoSectores:any[];
       infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
-      for (let i = 0; i < infoSectores.length; i++) {
-        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){        
-        if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
-        {
-          let lenSubsectores = infoSectores[i].subSectores.length;
-          for(let k=0; k<lenSubsectores;k++){
-            let subSector = <ISubSector> {idSector: infoSectores[i].subSectores[k].id_sectores,nombre: infoSectores[i].subSectores[k].nombre }
-            //Se busca la posicion del subSector en la lista de general
-            const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
-            //se elimina en sector de la lista general
-            this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
-            //Se el subsector a la lista de escogidos
-            this.subSecEscogidos.push(subSector);
-            //Se actualiza el valor del formControl
-            this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
+        for (let i = 0; i < infoSectores.length; i++) {
+          for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
+          if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
+          {
+            let lenSubsectores = infoSectores[i].subSectores.length;
+            for(let k=0; k<lenSubsectores;k++){
+              let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].id_aut_sector}
+              //Se busca la posicion del subSector en la lista de general
+              const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
+              //se elimina en sector de la lista general
+              console.log(subSector);
+              this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
+              //Se el subsector a la lista de escogidos
+              this.subSecEscogidos.push(subSector);
+              //Se actualiza el valor del formControl
+              this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+            }
+            break;
           }
-          break;
         }
       }
-    }
     }),
     error => console.log(error);
     /*
     this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue('a@gmail.com');
     this.emailInicial = this.formDatosEmpresa.controls['datos-cuenta'].get('email').value;
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('NIT').setValue('123456789');
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('NIT').setValue(123456789);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('razonSocial').setValue(this.data);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('nombreEmpresa').setValue(this.data);
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('anioCreacion').setValue('1998');
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue('1998');
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('anioCreacion').setValue(1998);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue(199);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue('0-3.000.000');
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');      
-      this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.sectoresInteresEmpresa);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');
+      this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.sectores);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idPais').setValue(this.data);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(this.data);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idDepartamento').setValue(this.data);
@@ -228,40 +212,45 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilreplegal').setValue('1998');
       this.formDatosEmpresa.controls['datos-resp'].get('nombreResp').setValue(this.data);
       this.formDatosEmpresa.controls['datos-resp'].get('apellidoResp').setValue(this.data);
-      this.formDatosEmpresa.controls['datos-resp'].get('cargo').setValue(this.data);
+      this.formDatosEmpresa.controls['datos-resp'].get('cargo').setValue(3);
       this.formDatosEmpresa.controls['datos-resp'].get('horarioContactoResp').setValue(this.data);
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue('1998');
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilResp').setValue('1998');
       this.formDatosEmpresa.controls['datos-resp'].get('direccionTrabajoResp').setValue(this.data);
       this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue('a@gmail.com');
-      let ingresos = this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').value;
-      if((<HTMLInputElement>document.getElementById('select'))!=null)
+      if((<HTMLInputElement>document.getElementById('selectIngresos'))!=null)
       {
-        (<HTMLInputElement>document.getElementById('select')).value= ingresos
+        let ingresos = this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').value;
+        (<HTMLInputElement>document.getElementById('selectIngresos')).value= ingresos
       }
-      /* 
+      if((<HTMLInputElement>document.getElementById('selectCargo'))!=null)
+      {
+        let cargo = this.formDatosEmpresa.controls['datos-generales-empresa'].get('cargo').value;
+        (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
+      }
+
     let infoSectores:any[];
     infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
     console.log(infoSectores);
-     infoSectores =  [
-       { "nombre": "Estatal y Relacionados", "subSectores": [{ "id_sectores": 0, "nombre": "Medio ambiente" }, { "id_sectores": 0, "nombre": "Minas y Energia" }] },
-        { "nombre": "Alimentos", "subSectores": [{ "id_sectores": 1, "nombre": "Azúcar" }] }
-      ];
       for (let i = 0; i < infoSectores.length; i++) {
-        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){        
+        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
         if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
+        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
+          console.log('entra');
+        if(infoSectores[i].Nombre ==  this.sectoresInteresEmpresa[j].Nombre)
         {
           let lenSubsectores = infoSectores[i].subSectores.length;
           for(let k=0; k<lenSubsectores;k++){
-            let subSector = <ISubSector> {idSector: infoSectores[i].subSectores[k].id_sectores,nombre: infoSectores[i].subSectores[k].nombre }
+            let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].idSubSector,nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].subSectores[k].idSector}
             //Se busca la posicion del subSector en la lista de general
             const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
             //se elimina en sector de la lista general
+            console.log(subSector);
             this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
             //Se el subsector a la lista de escogidos
             this.subSecEscogidos.push(subSector);
             //Se actualiza el valor del formControl
-            this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
+            this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
           }
           break;
         }
@@ -270,7 +259,7 @@ export class EditarEmpresaComponent implements OnInit {
     */
   }
 
- 
+
   /**
  * Carga la lista sectoresInteresEmpresa mediante una peticion al back
  * { "Nombre": "", "subSectores": [{ "idSector": "", "nombre": "" },...]
@@ -278,6 +267,10 @@ export class EditarEmpresaComponent implements OnInit {
  * Si existe un error al cargarlo imprime en la consola el error
  */
 cargarSectoresInteres() {
+ /* this.sectoresInteresEmpresa = [
+    { Nombre: 'prueba', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr1', idSector: 1 }] },
+    { Nombre: 'secta', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr2', idSector: 2 }, {idSubSector: 2 , nombre: 'subSecotr3', idSector: 2 }] }
+  ]*/
   this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
     console.log(resultado);
     this.sectoresInteresEmpresa = resultado;
@@ -286,18 +279,104 @@ cargarSectoresInteres() {
       console.log("Error al obtener los Sectores: ", JSON.stringify(error));
     });
 }
+ /**
+ * Carga la lista cargos mediante una peticion al back
+ * [{id_aut_cargos:1, nombre:"Docente", estado:"true"}, ...]
+ * <p>
+ * Si existe un error al cargarlo imprime en la consola el error
+ */
+cargarCargos() {
+  this.servGenerales.obtenerListaCargos().subscribe(resultado => {
+    this.cargos = resultado;
+    console.log(this.cargos);
+  },
+    error => {
+      console.log("Error al obtener los Sectores: ", JSON.stringify(error));
+    });
+}
+ /**
+ * IMPORTANTE: Funciona dependiente del id del sector, si se cambia el id del sector hacer metodo
+ * para buscar la posicion del sector que contiene el subsector
+ * elimina un subSector escogido a partir de la lista de sectores en el formulario de registro
+ * se elimina de la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
+ * <p>
+ * Se busca en la lista de escogidos
+ * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
+ */
+eliminarSubSectorEscogido(subSector: ISubSector) {
+  console.log(subSector);
+  //Se busca en la lista de escogidos
+  let posSubSector = this.subSecEscogidos.indexOf(subSector);
+  //Se elimina en la lista de escogidos
+  this.subSecEscogidos.splice(posSubSector, 1);
+  //Se devuelve a la lista general
+  this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.push(subSector);
+  //Se iguala nuevamente el valor del formControl
+  this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+  //Se ordena
+  this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.sort(function (a, b) {
+    return a.idSubSector - b.idSubSector
+  });
+}
+/**
+* agrega un subSector escogido a partir de la lista de sectores en el formulario de registro
+* se agrega a la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
+* <p>
+* Se busca en la lista de escogidos
+* @param  sector  objeto sector que contiene { Nombre: string; subSectores: ISubSector[]; }
+* @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
+*/
+seleccionarSubSector(sector: ISector, subSector: ISubSector) {
+  //Se busca la posicion del sector en la lista de sectores general
+  const posSector = this.sectoresInteresEmpresa.indexOf(sector);
+  //Se busca la posicion del subSector en la lista de general
+  const posSubSector = this.sectoresInteresEmpresa[posSector].subSectores.indexOf(subSector);
+  //Se elimina en sector de la lista general
+  this.sectoresInteresEmpresa[posSector].subSectores.splice(posSubSector, 1);
+  //Se agrega el subsector a la lista de escogidos
+  this.subSecEscogidos.push(subSector);
+  //Se actualiza el valor del formControl
+  this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+}
+/**
+* Vuelve la lista sectoresEscogidos [{idSubSector, nombre, idSector}, ... ]
+* a la forma [idSubSector, idSubSector, ...]
+*/
+formatSectoresEscogidos() {
+  let listaAuxiliar = [];
+  for (const subSector of this.subSecEscogidos) {
+    listaAuxiliar.push(subSector.idSubSector);
+  }
+  return listaAuxiliar;
+}
 
- 
-  
-  registrarEmpresa(formulario) {
-    
-    console.log(formulario);
+/**
+* Validador personalizado para saber si el usuario escoge o no sectores
+* <p>
+* Verifica a partir de la lista de sectores escogidos, si esta vacia devuelve true
+* lo cual significa que esta invalido
+* @param  control  permite obtener el valor en tiempo real de la lista sectores del ngForm }
+*/
+sectorValidator(control: FormControl) {
+  let lista = control.value;
+  //Si la lista no esta vacia
+  if (lista.length != 0) {
+    return true;
+  }
+  //En caso contrario se deja pasar
+  return null;
+}
+
+
+
+
+  modificarEmpresa(formulario) {
+
+    console.log(document.getElementById('buttonModal').click());
     if(formulario.status != 'INVALID'){
-      this.empService.modificarEmpresa(formulario.value).toPromise().then(data => {
+      this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
         console.log(data);
-        alert('Datos modificados exitosamente');
-        this.router.navigate(['/datosEmpresa']);
-  
+        this.textoModal = 'Se han modificado los datos con exito'
         //this.openDialog();
       },
         errorRegistro => {
@@ -316,67 +395,14 @@ cargarSectoresInteres() {
         });
     }
     else{
-      alert('datos incorrectos, por favor llenar los datos en los formatos validos');
+      this.textoModal = 'Hay campos invalidos en el formulario, Por favor modificarlos para continuar'
+
+      //this.router.navigate(['/empresa/1/datosEmpresa']);
     }
-  }
-  /**
- * elimina un subSector escogido a partir de la lista de sectores en el formulario de registro
- * se elimina de la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
- * <p>
- * Se busca en la lista de escogidos
- * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
- */
-  eliminarSubSectorEscogido(subSector: ISubSector) {
-    //Se busca en la lista de escogidos
-    let posSubSector = this.subSecEscogidos.indexOf(subSector);
-    //Se elimina en la lista de escogidos
-    this.subSecEscogidos.splice(posSubSector, 1);
-    //Se busca en la lista general
-    posSubSector = this.sectoresInteresEmpresa[subSector.idSector].subSectores.indexOf(subSector);
-    //Se devuelve a la lista general
-    this.sectoresInteresEmpresa[subSector.idSector].subSectores.push(subSector);
-    //Se iguala nuevamente el valor del formControl
-    this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
-  }
-  /**
- * agrega un subSector escogido a partir de la lista de sectores en el formulario de registro
- * se agrega a la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
- * <p>
- * Se busca en la lista de escogidos
- * @param  sector  objeto sector que contiene { Nombre: string; subSectores: ISubSector[]; }
- * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
- */
-  seleccionarSubSector(sector: ISector, subSector: ISubSector) {
-    //Se busca la posicion del sector en la lista de sectores general
-    const posSector = this.sectoresInteresEmpresa.indexOf(sector);
-    //Se busca la posicion del subSector en la lista de general
-    const posSubSector = this.sectoresInteresEmpresa[posSector].subSectores.indexOf(subSector);
-    //se elimina en sector de la lista general
-    this.sectoresInteresEmpresa[posSector].subSectores.splice(posSubSector, 1);
-    //Se el subsector a la lista de escogidos
-    this.subSecEscogidos.push(subSector);
-    //Se actualiza el valor del formControl
-    this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.subSecEscogidos);
-  }
-  /**
- * Validador personalizado para saber si el usuario escoge o no sectores
- * <p>
- * Verifica a partir de la lista de sectores escogidos, si esta vacia devuelve true
- * lo cual significa que esta invalido
- * @param  control  permite obtener el valor en tiempo real de la lista sectores del ngForm }
- */
-  sectorValidator(control: FormControl) {
-    let lista = control.value;
-    //Si la lista no esta vacia
-    if (lista.length != 0) {
-      return true;
-    }
-    //En caso contrario se deja pasar
-    return null;
   }
   /**
  * Validador personalizado para saber si el email escrito existe
- * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
  * de la empresa
  * <p>
  * Si el email existe devuelve el error 'EmailExiste', en caso contrario devuelve null
@@ -384,8 +410,8 @@ cargarSectoresInteres() {
  */
   validarExistenciaEmail(control: FormControl): any {
     clearTimeout(this.debouncer);
-   
-    
+
+
     return new Promise(resolve => {
       if (control.value != "") {
         this.debouncer = setTimeout(() => {
@@ -408,11 +434,11 @@ cargarSectoresInteres() {
         }, 10);
       }
     });
-  
+
   }
   /**
  * Validador personalizado para saber si el NIT escrito existe
- * Verifica a partir de una peticion al back que es realizada por el metodo de servicios 
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
  * de la empresa
  * <p>
  * Si el NIT existe devuelve el error 'NITExiste', en caso contrario devuelve null
@@ -458,9 +484,13 @@ cargarSectoresInteres() {
   cancelarModificar(){
     const url = 'empresa/' + this.id + '/datosEmpresa';
     this.router.navigate([url]);
-  }
+   }
 
-
+   aceptarModal(){
+     if(this.textoModal == 'Se han modificado los datos con exito'){
+        this.router.navigate(['/empresa'+this.id+'/datosEmpresa']);
+     }
+   }
   openDialog(): void {
     const dialogRef = this.dialog.open(Dialog, {
       width: '250px',
@@ -472,9 +502,6 @@ cargarSectoresInteres() {
       console.log('The dialog was closed');
     });
   }
-
-
-  
 }
 
 @Component({

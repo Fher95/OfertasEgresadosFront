@@ -9,23 +9,35 @@ import { IHistorialOfertas } from  '../../modelos/historialOfertas';
 })
 export class EmpresaService {
   headers: HttpHeaders = new HttpHeaders({
+    "Content-Type": "application/json",
+    "X-Requested-With": "XMLHttpRequest"
+  });
+  headerArchivos: HttpHeaders = new HttpHeaders({
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json"
+  });
+  headerListar: HttpHeaders = new HttpHeaders({
     "Content-Type": "application/x-www-form-urlencoded",
     "X-Requested-With": "XMLHttpRequest"
   });
-
   constructor(private httpClient: HttpClient) { }
 
   registrarUsuario(objeto: Object) {
-    console.log(JSON.stringify(objeto));
     return this.httpClient.post("http://127.0.0.1:8081/api/empresas/store", objeto, { headers: this.headers });
   }
-  getDatos(): Observable<any>{
-    //obtener los datos de la peticion datos empresa
-    return this.httpClient.get("http://127.0.0.1:8081/api/empresa/1", {headers: this.headers});
+  subirArchivos(archivos: FormData){
+    console.log(archivos);
+    return this.httpClient.post("http://127.0.0.1:8081/api/empresas/storeArchivos", archivos, { headers: this.headerArchivos });
   }
-  modificarEmpresa(objeto: Object){
+  getDatos(id:String): Observable<any>{
+    //obtener los datos de la peticion datos empresa
+    return this.httpClient.get("http://127.0.0.1:8081/api/empresa/"+id, {headers: this.headers});
+  }
+  modificarEmpresa(id:String, objeto: Object){
     //realizar post al modificar empresas
-    return this.httpClient.put("http://127.0.0.1:8081/api/empresa/1", objeto, {headers: this.headers});
+    console.log("http://127.0.0.1:8081/api/empresa/"+id)
+    console.log(objeto);
+    return this.httpClient.put("http://127.0.0.1:8081/api/empresa/"+id, objeto, {headers: this.headers});
   }
 
   modificarFoto(file: File){
