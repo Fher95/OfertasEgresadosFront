@@ -35,11 +35,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material';
 import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
-import { HistorialOfertasComponent } from './pages/empresa/historial-ofertas/historial-ofertas.component';
 import { ListarOfertasComponent } from "./pages/administrador/listar-ofertas/listar-ofertas.component";
 import { AdministradorModule } from './pages/administrador/administrador.module';
 import { VerificarExcelComponent } from './pages/administrador/verificar-excel/verificar-excel.component';
-import { OfertasActivasComponent } from './pages/empresa/ofertas-activas/ofertas-activas.component';
 import { NavbarEmpresaComponent } from './layout/navbar-empresa/navbar-empresa.component';
 import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-laboral/crear-oferta-laboral.component';
 import { InicioEgresadosComponent } from './pages/home/inicio-egresados/inicio-egresados.component';
@@ -49,6 +47,7 @@ import { ProgramaComponent } from './pages/egresados/programa/programa.component
 import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
 import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
 import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro/confirmar-registro.component';
+import { EmpresaModule } from './pages/empresa/empresa.module';
 
 @NgModule({
   declarations: [
@@ -63,11 +62,9 @@ import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro
     PreRegistroComponent,
     InfoDialogComponent,
     EditarEmpresaComponent,
-    HistorialOfertasComponent,
     ListarOfertasComponent,
     DialogFinalRegistroComponent,
     VerificarExcelComponent,
-    OfertasActivasComponent,
     NavbarEmpresaComponent,
     CrearOfertaLaboralComponent,
     InicioEgresadosComponent,
@@ -77,7 +74,7 @@ import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro
     ProgramaComponent,
     CompletarRegistroComponent,
     ActualizarComponent,
-    ConfirmarRegistroComponent
+    ConfirmarRegistroComponent,
   ],
   entryComponents: [DialogFinalRegistroComponent],
   imports: [
@@ -104,7 +101,7 @@ import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro
     ReactiveFormsModule,    
     MatGridListModule,
     MatDialogModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

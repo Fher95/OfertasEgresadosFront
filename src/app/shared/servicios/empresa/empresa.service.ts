@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { datosEmpresaService } from '../../modelos/datosEmpresaService';
 import { IHistorialOfertas } from  '../../modelos/historialOfertas';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpresaService {
+  
   headers: HttpHeaders = new HttpHeaders({
     "Content-Type": "application/json",
     "X-Requested-With": "XMLHttpRequest"
@@ -20,6 +20,7 @@ export class EmpresaService {
     "Content-Type": "application/x-www-form-urlencoded",
     "X-Requested-With": "XMLHttpRequest"
   });
+
   constructor(private httpClient: HttpClient) { }
 
   registrarUsuario(objeto: Object) {

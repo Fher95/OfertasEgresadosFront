@@ -15,7 +15,6 @@ import { NavbarEmpresaComponent } from './navbar-empresa/navbar-empresa.componen
     HeaderComponent,
     NavbarHomeOfertasComponent,
     NavbarEmpresaComponent,
-    
   ]
 })
 export class LayoutModule { }

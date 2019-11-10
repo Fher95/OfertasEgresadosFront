@@ -1,17 +1,29 @@
 <app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
-
-<div class="container mt-3 mb-3" role="main">
-  <div *ngIf="ofertas && !ofertas.length > 0" class="text-center">
+<!--Filtrar-->
+<div class="container mt-4 mb-3" role="main">
+  <div *ngIf="ofertas && !ofertas.length > 0" class="text-center row">
     <h4>No hay ninguna oferta laboral aun publicada por su empresa</h4>
   </div>
+
+  <div class="d-flex align-items-end flex-column">
+    <mat-form-field>
+      <mat-label>Filtrar por:</mat-label>
+      <mat-select>
+        <mat-option value="Todas" (click)="filtrar('','estado')">Todas</mat-option>
+        <mat-option value="Aceptadas" (click)="filtrar('aceptada','estado')">Aceptadas</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div *ngIf="ofertas && ofertas.length > 0" class="mat-elevation-z8">
+    <!--Tabla-->
     <table mat-table [dataSource]="dataSource">
 
       <!-- Columna Fecha -->
       <ng-container matColumnDef="fecha">
-        <th mat-header-cell *matHeaderCellDef> Fecha publicacion </th>
-        <td mat-cell *matCellDef="let element"> {{element.fecha_publicacion}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha publicacion </th>
+        <td mat-cell *matCellDef="let element"> {{ element.fecha_publicacion }} </td>
       </ng-container>
 
       <!-- Columna Cargo -->

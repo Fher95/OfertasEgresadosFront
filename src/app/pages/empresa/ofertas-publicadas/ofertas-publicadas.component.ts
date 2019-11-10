@@ -6,16 +6,17 @@ import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
-  selector: 'app-historial-ofertas',
-  templateUrl: './historial-ofertas.component.html',
-  styleUrls: ['./historial-ofertas.component.css']
+  selector: 'app-ofertas-publicadas',
+  templateUrl: './ofertas-publicadas.component.html',
+  styleUrls: ['./ofertas-publicadas.component.css']
 })
-export class HistorialOfertasComponent implements OnInit {
+export class OfertasPublicadasComponent implements OnInit {
 
   id: string;
   displayedColumns: string[] = ['fecha', 'cargo', 'vacantes', 'estado'];
   ofertas: IHistorialOfertas[];
   dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
+  filtro = 'Aceptada';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -28,6 +29,7 @@ export class HistorialOfertasComponent implements OnInit {
     this.ofertas = [];
     this.cargarOfertas();
   }
+
   cargarOfertas() {
     this.empService.getHistorialOfertas(this.id).subscribe(resultado => {
       this.ofertas = resultado;
@@ -42,5 +44,22 @@ export class HistorialOfertasComponent implements OnInit {
   verOferta(idOferta: number) {
     console.log(idOferta);
   }
- 
+
+  filtrarOfertas(texto, columna: string) {
+    if(texto == ''){
+      console.log('todas');
+      return this.ofertas;
+    }
+    console.log(texto);
+    //Filtro para los valores
+    return this.ofertas.filter(item => {
+      return item[columna].toLowerCase() == texto;
+    });
+  }
+
+  filtrar(texto, columna){
+    console.log(texto);
+    this.dataSource = new MatTableDataSource<IHistorialOfertas>(this.filtrarOfertas(texto, columna));
+    this.dataSource.paginator = this.paginator;
+  }
 }
