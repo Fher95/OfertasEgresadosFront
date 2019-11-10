@@ -153,8 +153,8 @@
                                     </mat-expansion-panel-header>
                                     <!--Contenido-->
                                     <mat-action-list dense *ngFor="let subSector of sector.subSectores">
-                                        <button type="button" mat-list-item value="{{subSector.nombre}}"
-                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.nombre }}
+                                        <button type="button" mat-list-item value="{{subSector.Nombre}}"
+                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSectorNombre }}
                                             <mat-icon matListIcon>add</mat-icon>
                                         </button>
                                     </mat-action-list>
