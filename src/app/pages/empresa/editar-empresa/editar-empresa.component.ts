@@ -166,7 +166,7 @@ export class EditarEmpresaComponent implements OnInit {
           {
             let lenSubsectores = infoSectores[i].subSectores.length;
             for(let k=0; k<lenSubsectores;k++){
-              let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].id_aut_sector}
+              let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].id_sectores}
               //Se busca la posicion del subSector en la lista de general
               const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
               //se elimina en sector de la lista general
