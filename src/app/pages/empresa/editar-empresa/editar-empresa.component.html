@@ -154,7 +154,7 @@
                                     <!--Contenido-->
                                     <mat-action-list dense *ngFor="let subSector of sector.subSectores">
                                         <button type="button" mat-list-item value="{{subSector.Nombre}}"
-                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.Nombre }}
+                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.nombre }}
                                             <mat-icon matListIcon>add</mat-icon>
                                         </button>
                                     </mat-action-list>
@@ -314,7 +314,7 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
                             <mat-select formControlName="cargo">
-                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.Nombre">
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.idCargo">
                                     {{cargo.Nombre}}
                                 </mat-option>
                             </mat-select>

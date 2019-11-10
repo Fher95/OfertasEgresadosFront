@@ -231,12 +231,8 @@ export class EditarEmpresaComponent implements OnInit {
 
     let infoSectores:any[];
     infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
-    console.log(infoSectores);
       for (let i = 0; i < infoSectores.length; i++) {
         for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
-        if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
-        for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
-          console.log('entra');
         if(infoSectores[i].Nombre ==  this.sectoresInteresEmpresa[j].Nombre)
         {
           let lenSubsectores = infoSectores[i].subSectores.length;
@@ -255,8 +251,9 @@ export class EditarEmpresaComponent implements OnInit {
           break;
         }
       }
-    }
-    */
+    }*/
+  
+    
   }
 
 
@@ -267,7 +264,7 @@ export class EditarEmpresaComponent implements OnInit {
  * Si existe un error al cargarlo imprime en la consola el error
  */
 cargarSectoresInteres() {
- /* this.sectoresInteresEmpresa = [
+  /*this.sectoresInteresEmpresa = [
     { Nombre: 'prueba', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr1', idSector: 1 }] },
     { Nombre: 'secta', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr2', idSector: 2 }, {idSubSector: 2 , nombre: 'subSecotr3', idSector: 2 }] }
   ]*/
@@ -350,6 +347,7 @@ formatSectoresEscogidos() {
   return listaAuxiliar;
 }
 
+
 /**
 * Validador personalizado para saber si el usuario escoge o no sectores
 * <p>
@@ -375,13 +373,11 @@ sectorValidator(control: FormControl) {
     console.log(document.getElementById('buttonModal').click());
     if(formulario.status != 'INVALID'){
       this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
-        console.log(data);
         this.textoModal = 'Se han modificado los datos con exito'
-        //this.openDialog();
       },
         errorRegistro => {
           this.mensajesError = [];
-          alert("Error en la peticion al servidor, por favor intentelo de nuevo");
+          this.textoModal = 'Error en el servidor'
           console.log(errorRegistro);
           console.log(errorRegistro.error);
           // Obteniendo todas las claves del JSON
