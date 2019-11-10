@@ -28,14 +28,14 @@
                                 requerido</mat-error>
                             <mat-error *ngIf="formDatosEmpresa.get('datos-cuenta').controls.email.errors?.EmailExiste">
                                 Usted ya posee una cuenta</mat-error>
-                            <mat-error *ngIf="formDatosEmpresa.get('datos-cuenta').controls.email.errors?.email">Digite
+                            <mat-error *ngIf="formDatosEmpresa.get('datos-cuenta').controls.email.errors?.pattern">Digite
                                 un correo valido. ej: ejemplo@gmail.com</mat-error>
                         </mat-form-field>
+                        
                     </div>
                     <div class="botonesStepper">
-                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
-                            <button mat-raised-button type="submit"
-                            color="primary">Guardar y Finalizar</button>
+                        <button (click)="cancelarModificar()" mat-raised-button color="primary">Cancelar</button>
+                        <button mat-raised-button type="submit" color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
@@ -47,9 +47,11 @@
                             <mat-divider [inset]="true"></mat-divider>
                         </div>
                         <div class="row centrarContenidoRow">
-                            <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
+                            <mat-form-field floatLabel="auto" readonly appearance="outline"
+                                hintLabel="Modificable solo por administrador">
                                 <mat-label>NIT</mat-label>
-                                <input type="number" formControlName="NIT" readonly #input matInput minlength="8" maxlength="15" required>
+                                <input type="number" formControlName="NIT" readonly #input matInput minlength="8"
+                                    maxlength="15" required>
                                 <mat-error
                                     *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.NIT.errors?.required">
                                     campo requerido</mat-error>
@@ -60,7 +62,8 @@
                                     *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.NIT.errors?.maxlength">
                                     maximo 15 caracteres</mat-error>
                             </mat-form-field>
-                            <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
+                            <mat-form-field floatLabel="auto" readonly appearance="outline"
+                                hintLabel="Modificable solo por administrador">
                                 <mat-label>Razon Social</mat-label>
                                 <input formControlName="razonSocial" readonly matInput>
                             </mat-form-field>
@@ -74,8 +77,10 @@
                         </div>
                         <div class="row centrarContenidoRow">
 
-                            <mat-form-field readonly floatLabel="auto" appearance="outline" hintLabel="Modificable solo por administrador">
-                                        <mat-label>Año creacion</mat-label><input type="number" readonly matInput formControlName="anioCreacion">
+                            <mat-form-field readonly floatLabel="auto" appearance="outline"
+                                hintLabel="Modificable solo por administrador">
+                                <mat-label>Año creacion</mat-label><input type="number" readonly matInput
+                                    formControlName="anioCreacion">
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
                                 <!--<mat-select formControlName="numEmpleados">
@@ -123,11 +128,10 @@
                         </div>
                     </div>
                     <div class="botonesStepper">
-                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+                        <button (click)="cancelarModificar()" mat-raised-button color="primary">Cancelar</button>
 
 
-                            <button mat-raised-button type="submit"
-                            color="primary">Guardar y Finalizar</button>
+                        <button mat-raised-button type="submit" color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
@@ -172,15 +176,14 @@
                         </div>
                     </div>
                     <div class="botonesStepper">
-                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+                        <button (click)="cancelarModificar()" mat-raised-button color="primary">Cancelar</button>
 
-                            <button mat-raised-button type="submit"
-                                color="primary">Guardar y Finalizar</button>
+                        <button mat-raised-button type="submit" color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
-                <mat-step formGroupName="loc-contact-empresa" [stepControl]="formDatosEmpresa.get('loc-contact-empresa')"
-                    label="Localizacion">
+                <mat-step formGroupName="loc-contact-empresa"
+                    [stepControl]="formDatosEmpresa.get('loc-contact-empresa')" label="Localizacion">
                     <div class="Subtitulos-card">
                         <p class="text-center"><b>Localizacion de su empresa</b></p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -189,25 +192,31 @@
                         <p>Ubicacion de su empresa</p>
                     </div>
                     <div class="row centrarContenidoRow">
-                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
-                                        <mat-label>País</mat-label><input readonly  matInput formControlName="paisEmp" >
+                        <mat-form-field floatLabel="auto" readonly appearance="outline"
+                            hintLabel="Modificable solo por administrador">
+                            <mat-label>País</mat-label><input readonly matInput formControlName="paisEmp">
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
-                                        <mat-label>Departamento</mat-label><input  readonly matInput formControlName="departamentoEmp" >
+                        <mat-form-field floatLabel="auto" readonly appearance="outline"
+                            hintLabel="Modificable solo por administrador">
+                            <mat-label>Departamento</mat-label><input readonly matInput
+                                formControlName="departamentoEmp">
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
-                                        <mat-label>Ciudad</mat-label><input readonly  matInput formControlName="ciudadEmp" >
+                        <mat-form-field floatLabel="auto" readonly appearance="outline"
+                            hintLabel="Modificable solo por administrador">
+                            <mat-label>Ciudad</mat-label><input readonly matInput formControlName="ciudadEmp">
                         </mat-form-field>
                     </div>
                     <div class="row centrarContenidoRow">
-                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
+                        <mat-form-field floatLabel="auto" readonly appearance="outline"
+                            hintLabel="Modificable solo por administrador">
                             <mat-label>Direccion de la empresa</mat-label>
                             <input formControlName="direccionEmp" readonly matInput required>
                             <mat-error
                                 *ngIf="formDatosEmpresa.get('loc-contact-empresa').controls.direccionEmp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
-                        <mat-form-field floatLabel="auto" readonly appearance="outline" hintLabel="Modificable solo por administrador">
+                        <mat-form-field floatLabel="auto" readonly appearance="outline"
+                            hintLabel="Modificable solo por administrador">
                             <mat-label>Barrio/Localidad</mat-label>
                             <input formControlName="barrioEmp" readonly matInput required>
                             <mat-error
@@ -243,9 +252,8 @@
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
-                            <button mat-raised-button type="submit"
-                            color="primary">Guardar y Finalizar</button>
+                        <button (click)="cancelarModificar()" mat-raised-button color="primary">Cancelar</button>
+                        <button mat-raised-button type="submit" color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
 
@@ -299,7 +307,8 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Apellidos</mat-label>
                             <input formControlName="apellidoResp" matInput required>
-                            <mat-error *ngIf="formDatosEmpresa.get('datos-resp').controls.apellidoResp.errors?.required">
+                            <mat-error
+                                *ngIf="formDatosEmpresa.get('datos-resp').controls.apellidoResp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
@@ -347,10 +356,9 @@
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
-                            <button (click)="cancelarModificar()"  mat-raised-button color="primary">Cancelar</button>
+                        <button (click)="cancelarModificar()" mat-raised-button color="primary">Cancelar</button>
 
-                        <button mat-raised-button type="submit"
-                            color="primary">Guardar y Finalizar</button>
+                        <button mat-raised-button type="submit" color="primary">Guardar y Finalizar</button>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>
@@ -363,29 +371,32 @@
     </mat-card-content>
 </mat-card>
 
- <!-- Button trigger modal -->
-<button  id="buttonModal" type="button" hidden class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
-      </button>
+<!-- Button trigger modal -->
+<button id="buttonModal" type="button" hidden class="btn btn-primary" data-backdrop="static" data-toggle="modal"
+    data-target="#exampleModal">
+</button>
 
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modificar Datos</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                <h5 class="modal-title" id="exampleModalLabel">Modificar Datos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-              {{textoModal}}
+                {{textoModal}}
             </div>
             <div class="modal-footer">
-              <button type="button" (change)="aceptarModal()" (click)="aceptarModal()" mat-raised-button color="primary" data-dismiss="modal">Aceptar</button>
+                <button type="button" (change)="aceptarModal()" (click)="aceptarModal()" mat-raised-button
+                    color="primary" data-dismiss="modal">Aceptar</button>
             </div>
-          </div>
         </div>
-      </div>
-      <script>
+    </div>
+</div>
+<script>
 
-      </script>
+</script>

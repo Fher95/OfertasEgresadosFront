@@ -8,7 +8,8 @@
         <a class="nav-link" href="#">Ofertas Laborales</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/egresados']" >Egresados</a>
+        <a class="nav-link" (click)="onEgresados()">Egresados</a>
+        <!--<a class="nav-link" [routerLink]="['/egresados']" >Egresados</a>-->
       </li>
     </ul>
 
@@ -22,18 +23,20 @@
           <a (click)="onRegistroEmpresa()" class="dropdown-item">Empresa</a>
         </div>
       </li>
-       <li class="nav-item dropdown ">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+      <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
           aria-expanded="false">Iniciar Sesion</a>
-          <form class="dropdown-menu p-2" #formLogin="ngForm" (ngSubmit)="onLogin(loginForm)" >
-              <div class="form-group">
-                <input name='email' type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="user.email" required>
-              </div>
-              <div class="form-group">
-                <input name='password' type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="user.password" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Ingresar</button>
-            </form>
+        <form class="dropdown-menu p-2" #formLogin="ngForm" (ngSubmit)="onLogin(loginForm)">
+          <div class="form-group">
+            <input name='email' type="email" class="form-control" id="email" placeholder="Email"
+              [(ngModel)]="user.email" required>
+          </div>
+          <div class="form-group">
+            <input name='password' type="password" class="form-control" id="password" placeholder="Password"
+              [(ngModel)]="user.password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Ingresar</button>
+        </form>
       </li>
     </ul>
   </div>
