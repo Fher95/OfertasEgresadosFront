@@ -112,7 +112,6 @@ export class EditarEmpresaComponent implements OnInit {
     this.empresaService.getDatos(this.id)
     .subscribe(data => {
       // obtener la data y pasarla al form
-      console.log(data)
       this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue(data.administrador.user.email);
       this.emailInicial = this.formDatosEmpresa.controls['datos-cuenta'].get('email').value;
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('NIT').setValue(data.nit);
@@ -155,11 +154,12 @@ export class EditarEmpresaComponent implements OnInit {
       if((<HTMLInputElement>document.getElementById('selectCargo'))!=null)
       {
         let cargo = this.formDatosEmpresa.controls['datos-resp'].get('cargo').value;
-        console.log(cargo);
         (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
       let infoSectores:any[];
       infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
+      console.log('miraaaaaaaaaaaaaa el de abajooo');
+      console.log(infoSectores);
         for (let i = 0; i < infoSectores.length; i++) {
           for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
           if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
@@ -172,7 +172,6 @@ export class EditarEmpresaComponent implements OnInit {
               //Se busca la posicion del subSector en la lista de general
               const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
               //se elimina en sector de la lista general
-              console.log(subSector);
               this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
               //Se el subsector a la lista de escogidos
               this.subSecEscogidos.push(subSector);
@@ -287,7 +286,6 @@ cargarSectoresInteres() {
 cargarCargos() {
   this.servGenerales.obtenerListaCargos().subscribe(resultado => {
     this.cargos = resultado;
-    console.log(this.cargos);
   },
     error => {
       console.log("Error al obtener los Sectores: ", JSON.stringify(error));
@@ -303,7 +301,6 @@ cargarCargos() {
  * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
  */
 eliminarSubSectorEscogido(subSector: ISubSector) {
-  console.log(subSector);
   //Se busca en la lista de escogidos
   let posSubSector = this.subSecEscogidos.indexOf(subSector);
   //Se elimina en la lista de escogidos
@@ -372,7 +369,7 @@ sectorValidator(control: FormControl) {
 
   modificarEmpresa(formulario) {
 
-    console.log(document.getElementById('buttonModal').click());
+    document.getElementById('buttonModal').click();
     if(formulario.status != 'INVALID'){
       this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
         this.textoModal = 'Se han modificado los datos con exito'
