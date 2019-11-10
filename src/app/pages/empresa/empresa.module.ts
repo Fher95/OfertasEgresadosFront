@@ -11,6 +11,7 @@ import { CrearOfertaLaboralComponent } from './crear-oferta-laboral/crear-oferta
 import { DialogFinalModificarComponent } from './dialog-final-modificar/dialog-final-modificar.component';
 import { OfertasPublicadasComponent } from './ofertas-publicadas/ofertas-publicadas.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
+import { DialogInfoOfertaComponent } from './dialog-info-oferta/dialog-info-oferta.component';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { LayoutModule } from 'src/app/layout/layout.module';
     DialogFinalRegistroComponent, 
     CrearOfertaLaboralComponent, 
     DialogFinalModificarComponent, 
-    OfertasPublicadasComponent
+    OfertasPublicadasComponent, DialogInfoOfertaComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +31,7 @@ import { LayoutModule } from 'src/app/layout/layout.module';
     FormsModule,
     ReactiveFormsModule,
   ],
+  entryComponents: [DialogFinalRegistroComponent, DialogInfoOfertaComponent],
   providers: [GeneralesService],
   exports: [
     RegistrarComponent, 
@@ -38,7 +40,8 @@ import { LayoutModule } from 'src/app/layout/layout.module';
     DialogFinalRegistroComponent, 
     CrearOfertaLaboralComponent, 
     DialogFinalModificarComponent, 
-    OfertasPublicadasComponent
+    OfertasPublicadasComponent,
+    DialogInfoOfertaComponent
   ]
 })
 export class EmpresaModule { }

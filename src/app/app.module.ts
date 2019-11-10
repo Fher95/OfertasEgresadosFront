@@ -35,9 +35,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ProgramaComponent,
     CompletarRegistroComponent,
     ActualizarComponent,
-    ConfirmarRegistroComponent,    
+    ConfirmarRegistroComponent,
   ],
-  entryComponents: [DialogFinalRegistroComponent],
   imports: [
     EmpresaModule,
     AdministradorModule,

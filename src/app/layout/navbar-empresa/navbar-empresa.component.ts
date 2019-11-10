@@ -23,7 +23,7 @@ export class NavbarEmpresaComponent implements OnInit {
     let ruta = 'empresa/' + this.id + '/crearOfertaLaboral';
     this.router.navigate([ruta]);
   }
-  onMiHistorialOfertas(){
+  onMisOfertas(){
     let ruta = 'empresa/' + this.id + '/misOfertas';
     this.router.navigate([ruta]);
   }

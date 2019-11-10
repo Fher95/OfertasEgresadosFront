@@ -1,23 +1,41 @@
 <app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
-<!--Filtrar-->
-<div class="container mt-4 mb-3" role="main">
-  <div *ngIf="ofertas && !ofertas.length > 0" class="text-center row">
-    <h4>No hay ninguna oferta laboral aun publicada por su empresa</h4>
-  </div>
 
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="justify-content-center">
+    <h2>Mis ofertas laborales</h2>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div *ngIf="!listaCargada" class="centrar">
+  <div>
+    <h3 class="text-centered px-3"> Cargando tus ofertas... </h3>
+    <div class="spinner-border text-primary pl-3" role="status">
+      <span class="sr-only"> Loading...</span>
+    </div>
+  </div>
+</div>
+<!--Sin oferta-->
+<div *ngIf="ofertas && !ofertas.length > 0 && listaCargada" class="container mt-4 mb-3 text-center row">
+  <h4>No hay ninguna oferta laboral aun publicada por su empresa</h4>
+</div>
+
+<!--Con ofertas-->
+<div class="container mt-4 mb-3" *ngIf="ofertas && ofertas.length > 0" role="main">
+
+  <!--Filtro-->
   <div class="d-flex align-items-end flex-column">
     <mat-form-field>
       <mat-label>Filtrar por:</mat-label>
       <mat-select>
-        <mat-option value="Todas" (click)="filtrar('','estado')">Todas</mat-option>
-        <mat-option value="Aceptadas" (click)="filtrar('aceptada','estado')">Aceptadas</mat-option>
+        <mat-option value="Todas" (click)="filtrar('','estado_proceso')">Todas</mat-option>
+        <mat-option value="Aceptadas" (click)="filtrar('activa','estado_proceso')">Aceptadas</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
-  <div *ngIf="ofertas && ofertas.length > 0" class="mat-elevation-z8">
-    <!--Tabla-->
+  <!--Tabla-->
+  <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
       <!-- Columna Fecha -->
@@ -41,7 +59,7 @@
       <!-- Columna estado -->
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.estado_proceso}} </td>
       </ng-container>
 
       <!-- Columna Accion -->
@@ -53,7 +71,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="mostrarInfo(row)"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

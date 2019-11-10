@@ -42,7 +42,6 @@ export class RegistrarComponent implements OnInit {
     private empService: EmpresaService,
     private matDialog: MatDialog,
     private router: Router,
-    private elem: ElementRef,
   ) {
     this.cargos = [];
     /*
