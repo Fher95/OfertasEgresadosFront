@@ -158,10 +158,10 @@ export class EditarEmpresaComponent implements OnInit {
       }
       let infoSectores:any[];
       infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
-      console.log('miraaaaaaaaaaaaaa el de abajooo');
-      console.log(infoSectores);
         for (let i = 0; i < infoSectores.length; i++) {
           for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
+            console.log(this.sectoresInteresEmpresa[j].Nombre);
+
           if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
           {
             alert('entro if')
