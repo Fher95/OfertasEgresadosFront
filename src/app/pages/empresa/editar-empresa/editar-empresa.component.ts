@@ -171,6 +171,7 @@ export class EditarEmpresaComponent implements OnInit {
                 //Se busca la posicion del subSector en la lista de general
                 const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.Nombre === subSector.Nombre);
                 //se elimina en sector de la lista general
+                console.log(posSubSector)
                 this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
                 //Se el subsector a la lista de escogidos
                 this.subSecEscogidos.push(subSector);
@@ -308,6 +309,7 @@ eliminarSubSectorEscogido(subSector: ISubSector) {
   //Se elimina en la lista de escogidos
   this.subSecEscogidos.splice(posSubSector, 1);
   //Se devuelve a la lista general
+  console.log(this.sectoresInteresEmpresa[subSector.idSector - 1])
   this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.push(subSector);
   //Se iguala nuevamente el valor del formControl
   this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
