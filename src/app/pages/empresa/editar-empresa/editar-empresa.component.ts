@@ -194,7 +194,6 @@ export class EditarEmpresaComponent implements OnInit {
         let cargo = this.formDatosEmpresa.controls['datos-resp'].get('cargo').value;
         (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
-
     }),
     error => console.log(error);
     /*
