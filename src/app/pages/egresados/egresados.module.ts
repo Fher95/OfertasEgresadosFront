@@ -5,11 +5,13 @@ import { CompletarRegistroComponent } from './completar-registro/completar-regis
 import { LocalizacionComponent } from './localizacion/localizacion.component';
 import { ProgramaComponent } from './programa/programa.component';
 import { ConfirmarRegistroComponent } from './confirmar-registro/confirmar-registro.component';
+import { LayoutModule } from 'src/app/layout/layout.module';
 
 @NgModule({
   declarations: [ActualizarComponent, CompletarRegistroComponent, LocalizacionComponent, ProgramaComponent, ConfirmarRegistroComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    LayoutModule,
   ]
 })
 export class EgresadosModule { }

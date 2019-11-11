@@ -38,4 +38,7 @@ export class NavbarHomeOfertasComponent implements OnInit {
   onRegistroEmpresa(){
     this.router.navigate(['registroEmpresa']);
   }
+  onEgresados(){
+    this.router.navigate(['/egresados']);
+  }
 }

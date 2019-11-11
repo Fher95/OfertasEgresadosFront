@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HistorialOfertasComponent } from './historial-ofertas.component';
+import { DialogInfoOfertaComponent } from './dialog-info-oferta.component';
 
-describe('HistorialOfertasComponent', () => {
-  let component: HistorialOfertasComponent;
-  let fixture: ComponentFixture<HistorialOfertasComponent>;
+describe('DialogInfoOfertaComponent', () => {
+  let component: DialogInfoOfertaComponent;
+  let fixture: ComponentFixture<DialogInfoOfertaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HistorialOfertasComponent ]
+      declarations: [ DialogInfoOfertaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HistorialOfertasComponent);
+    fixture = TestBed.createComponent(DialogInfoOfertaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

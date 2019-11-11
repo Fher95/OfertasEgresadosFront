@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+  text-align: center;
+}
+
+main {
+  display: block;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}
+  
+.centrar {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

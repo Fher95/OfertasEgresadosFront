@@ -1,5 +1,5 @@
-<app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
+<app-header></app-header>
 
 <mat-card class="carta-registro" >
     <mat-card-header class="headerCartaRegistro">
@@ -21,9 +21,9 @@
                     </div>
                     <div class="cartaCuenta">
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <mat-label>Nombre Cargo</mat-label>
-                            <input formControlName="nombreCargo" matInput required>
-                            <mat-error *ngIf="formOfertaLaboral.get('informacion-principal').controls.nombreCargo.errors?.required">campo
+                            <mat-label>Nombre de la oferta</mat-label>
+                            <input formControlName="nombreOferta" matInput required>
+                            <mat-error *ngIf="formOfertaLaboral.get('informacion-principal').controls.nombreOferta.errors?.required">campo
                                 requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
@@ -33,21 +33,37 @@
                                 requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <mat-select formControlName="tipoCargo" required placeholder="Tipo de cargo">
+                            <mat-select formControlName="Cargo" required placeholder="Cargo">
                                 <mat-option>-- None --</mat-option>
-                                
+                                <mat-option *ngFor="let cargo of cargos" [value]="cargo.id_aut_cargos">
+                                    {{cargo.nombre}}
+                                </mat-option>   
                                 <mat-error
-                                    *ngIf="formOfertaLaboral.get('informacion-principal').controls.tipoCargo.errors?.required">
+                                    *ngIf="formOfertaLaboral.get('informacion-principal').controls.cargo.errors?.required">
                                     campo requerido</mat-error>
                               </mat-select>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                              <mat-select formControlName="sector" required placeholder="Sector">
-                                  <mat-option>-- None --</mat-option>
-                                </mat-select>
+                            <mat-select formControlName="area" required placeholder="Area">
+                                <mat-option>-- None --</mat-option>
+                                <mat-option *ngFor="let area of areas" [value]="area.id_aut_cargos">
+                                    {{area.nombre}}
+                                </mat-option>   
+                                <mat-error
+                                    *ngIf="formOfertaLaboral.get('informacion-principal').controls.area.errors?.required">
+                                    campo requerido</mat-error>
+                              </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                            <mat-select formControlName="sector" required placeholder="Sector">
+                                <mat-option>-- None --</mat-option>
+                                <mat-option *ngFor="let sector of sectores" [value]="sector.id_aut_cargos">
+                                    {{sector.nombre}}
+                                </mat-option>   
                                 <mat-error
                                     *ngIf="formOfertaLaboral.get('informacion-principal').controls.sector.errors?.required">
                                     campo requerido</mat-error>
+                              </mat-select>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                                 <mat-label>Nombre de la empresa a figurar</mat-label>
@@ -114,18 +130,47 @@
                                   campo requerido</mat-error>
                       </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                                <mat-label>Salario</mat-label>
-                                <input type="number" formControlName="salario" matInput required>
-                                <mat-error *ngIf="formOfertaLaboral.get('contrato').controls.salario.errors?.required">campo
-                                    requerido</mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <textarea formControlName="comentarios" matInput placeholder="Comentarios"></textarea>
+                            <textarea formControlName="comentarios" matInput placeholder="Comentarios salario"></textarea>
                     </mat-form-field>
                     </div>                  
                     <div class="botonesStepper">
                         <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
+                    </div>
+                </mat-step>
+                <mat-step [formGroupName]="requisitos" [stepControl]="formOfertaLaboral.get('requisitos')" label="requisitos">
+                    <div class="Subtitulos-card" >
+                        <p class="text-center"><b>Requisitos</b></p>
+                        <mat-divider [inset]="true"></mat-divider>
+                    </div>
+                    <div class="cartaCuenta">
+
+                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                            <mat-select formControlName="estudiosMinimos" required placeholder="Estudios minimos">
+                                <mat-option>-- None --</mat-option>
+                                <mat-error
+                                    *ngIf="formOfertaLaboral.get('requisitos').controls.estudiosMinimos.errors?.required">
+                                    campo requerido</mat-error>
+                              </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                            <mat-label>Años</mat-label>
+                            <input type="number" formControlName="anios" matInput required >
+                            <mat-error
+                                    *ngIf="formOfertaLaboral.get('requisitos').controls.anios.errors?.required">
+                                    campo requerido</mat-error>
+                        </mat-form-field>
+                        <mat-select formControlName="experienciaLaboral" required placeholder="Experiencia laboral">
+                            <mat-option>-- None --</mat-option>
+                            <mat-option value="Sin experiencia">Sin experiencia</mat-option>
+                            <mat-option value="Igual a">Igual a</mat-option>
+                            <mat-option value="Mayor o igual que">Mayor o igual que</mat-option>
+                            <mat-option value="Menor o igual que">Menor o igual que</mat-option>                          
+                            <mat-error
+                                *ngIf="formOfertaLaboral.get('requisitos').controls.experienciaLaboral.errors?.required">
+                                campo requerido</mat-error>
+                          </mat-select>
+                        
                     </div>
                 </mat-step>
         

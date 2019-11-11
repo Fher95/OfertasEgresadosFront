@@ -33,41 +33,40 @@ export class CrearOfertaLaboralComponent implements OnInit {
 
     this.formOfertaLaboral = this.formBuilder.group({ 
       'informacion-principal': this.formBuilder.group({
-        nombreCargo: [null, Validators.required],
-        numVacantes: [null, Validators.required],
-        idCargo:[null, Validators.required],
-        tipoCargo: [null, Validators.required],
-        idSector:[null, Validators.required],
-        sector: [null, Validators.required],
-        idAreaConocimiento:[null, Validators.required],
-        areaConocimiento: [null, Validators.required],
-        nombreEmpresa: [null],
+        nombreOferta: [null, Validators.required],
         descripcion: [null, Validators.required],
+        idCargo:[null, Validators.required],
+        otroCargo:[null],
+        numVacantes: [null, Validators.required],
+        idSector:[null, Validators.required],
+        nombreTempEmpresa: [null],
+        idAreaConocimiento:[null, Validators.required],
+        vigenciaDias:[null,Validators.required],
+        ubicacion:[[]]
       }),
       'contrato':this.formBuilder.group({
         tipoContrato:[null, Validators.required],
+        formaPago:[null,Validators.required],
         duracion:[null],
         horario:[null],
         jornada:[null, Validators.required],
-        formaPago:[null, Validators.required],
-        salario:[null, Validators.required],
-        comentarios:[null]
+        comentariosSalario:[null]
       }),
       'requisitos':this.formBuilder.group({
-        tipoPerfil:[null,Validators.required],
-        estudiosMinimos:[null,Validators.required],
-        anos:[null,Validators.required],
+        idrequisitosMinimos:[null,Validators.required],
+        anios:[null,Validators.required],
         experienciaLaboral:[null,Validators.required],
+        requisitosMinimos:[null,Validators.required],    
+        licenciaConduccion:[null],
+        idDiscapacidad:[null],
         idiomas:[[]],  
         softwareOferta:[[]],
-        requisitosMinimos:[null,Validators.required],
-        personasDiscapacidad:[null],
-        movilizacion:[null],
-        licenciaConduccion:[null],
-        preguntasCandidato:[null]
-      }),
+        preguntasCandidato:[[]]
+  //      tipoPerfil:[null,Validators.required],
+    //    estudiosMinimos:[null,Validators.required],
+        
+      })/*,
       'clasificacion':this.formBuilder.group({
-        ubicacion:[[],Validators.required]
       }),
       'persona-contacto':this.formBuilder.group({
         email:[null],
@@ -76,7 +75,6 @@ export class CrearOfertaLaboralComponent implements OnInit {
         ext:[null]
       }),
       'vigencia':this.formBuilder.group({
-        dias:[null,Validators.required]
       }),
       'observacion-oferta':this.formBuilder.group({
         observacion:[null]
@@ -89,7 +87,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
         contacto:[null],
         telefono:[null],
         ext:[null]
-      })
+      })*/
     });
   }
 
