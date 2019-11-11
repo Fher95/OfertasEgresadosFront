@@ -8,6 +8,8 @@ import { RegistroService } from './egresados/registro.service';
 import { Utilities } from './egresados/utilities';
 import { FileUploadService } from './egresados/file-upload.service';
 import { EmpresaService } from './empresa/empresa.service';
+import { Config } from './config/config';
+import { AlertService } from './common/alert.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { EmpresaService } from './empresa/empresa.service';
     RegistroService,
     Utilities,
     EmpresaService,
-  ]
+    AlertService
+  ],
+  providers: [Config]
 })
 export class ServiciosModule { }

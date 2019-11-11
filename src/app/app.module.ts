@@ -22,6 +22,8 @@ import { LayoutModule } from './layout/layout.module';
 import { AdministradorModule } from './pages/administrador/administrador.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Config } from './shared/servicios/config/config';
+import { AlertService } from './shared/servicios/common/alert.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     CaptchaModule, 
     PaginationModule.forRoot(),
   ],
-  providers: [],
+  providers: [Config, AlertService],
   bootstrap: [AppComponent],
 
 })
