@@ -20,6 +20,7 @@ export class OfertaLaboral {
     id_discapacidad: number;
     empresa: Empresa;
     areas_conocimiento: AreaConocimiento[];
+    salario?: Salario;
 
 }
 
@@ -47,6 +48,20 @@ export class Empresa {
 export class AreaConocimiento {
     id_aut_areaconocimiento: number;
     nombre: string;
+}
+
+export class Salario {
+    id_aut_salario: number;
+    minimo: number;
+    maximo: number;
+    forma_pago: string;
+}
+
+export const salarioPrueba = {
+    id_aut_salario: 1,
+    minimo: 700000,
+    maximo: 1500000,
+    forma_pago: 'En efectivo'
 }
 
 export const empresaGenerica = {
@@ -96,18 +111,20 @@ export const ofertaGenerica: OfertaLaboral = {
 
 export const lstOfertas: OfertaLaboral[] = [
     {id_aut_oferta: 111, id_empresa: 1234, nombre_oferta: 'Requeridos ingenieros', descripcion: 'No muy bien pago',
-    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera', anios_experiencia: 2,
+    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera1', anios_experiencia: 2,
     fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
     id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
     id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Ingenieria' }, { id_aut_areaconocimiento: 8, nombre: 'Software' }, { id_aut_areaconocimiento: 9, nombre: 'Fisica' }]},
-    {id_aut_oferta: 111, id_empresa: 1234, nombre_oferta: 'Requeridos Medicos', descripcion: 'Mas o menos pago',
-    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera', anios_experiencia: 2,
+    {id_aut_oferta: 113, id_empresa: 1234, nombre_oferta: 'Requeridos Medicos', descripcion: 'Mas o menos pago',
+    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera2', anios_experiencia: 2,
     fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
     id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
-    id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Medicina' }]},
-    {id_aut_oferta: 111, id_empresa: 1234, nombre_oferta: 'Requeridos Biologos', descripcion: 'Bien pago',
-    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera', anios_experiencia: 2,
+    // tslint:disable-next-line: max-line-length
+    id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Medicina' }], salario: salarioPrueba},
+    
+    {id_aut_oferta: 114, id_empresa: 1234, nombre_oferta: 'Requeridos Biologos', descripcion: 'Bien pago',
+    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera3', anios_experiencia: 2,
     fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
     id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
-    id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Cualquiera' }]}
+    id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Cualquiera' }], salario: salarioPrueba}
 ]

@@ -6,6 +6,7 @@ import { isNull } from 'util';
 import { ListarOfertasService } from './listar-ofertas.service';
 
 
+
 @Component({
   selector: 'app-listar-ofertas',
   templateUrl: './listar-ofertas.component.html',
@@ -19,6 +20,8 @@ export class ListarOfertasComponent implements OnInit {
   arregloVacio = false;
   ofertaSeleccionada = ofertaGenerica;
   auxiliar = false;
+  estadoActivacion: string;
+  motivoInactivacion: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -27,7 +30,7 @@ export class ListarOfertasComponent implements OnInit {
 
   ngOnInit() {
     this.ofertas = null;
-    this.getOfertas();
+    this.getOfertas2();
   }
 
   getOfertas(): void {
@@ -91,19 +94,26 @@ export class ListarOfertasComponent implements OnInit {
   }
 
   getAreasStr(parAreas: AreaConocimiento[]): string {
-    if (parAreas === null || parAreas.length === 0){
+    if (parAreas === null || parAreas.length === 0) {
       return 'No especificado';
-    }
-    else {
+    } else {
       let strAreas = '';
       for (let index = 0; index < parAreas.length; index++) {
         const element = parAreas[index].nombre;
         strAreas += element;
-        if (index < (parAreas.length - 1) ) {
+        if (index < (parAreas.length - 1)) {
           strAreas += ', ';
         }
       }
       return strAreas;
+    }
+  }
+
+  guardarCambio() {
+    if (this.estadoActivacion === 'Activar') {
+      this.servicioOfertas.aprobarOferta(this.ofertaSeleccionada.id_aut_oferta).subscribe();
+    } else if (this.estadoActivacion === 'Inactivar') {
+      this.servicioOfertas.desaprobarOferta(this.ofertaSeleccionada.id_aut_oferta, this.motivoInactivacion).subscribe();
     }
   }
 
