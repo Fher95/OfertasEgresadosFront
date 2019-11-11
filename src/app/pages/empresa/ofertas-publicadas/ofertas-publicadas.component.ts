@@ -5,6 +5,7 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DialogInfoOfertaComponent } from '../dialog-info-oferta/dialog-info-oferta.component';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-ofertas-publicadas',
@@ -14,11 +15,12 @@ import { DialogInfoOfertaComponent } from '../dialog-info-oferta/dialog-info-ofe
 export class OfertasPublicadasComponent implements OnInit {
 
   id: string;
-  displayedColumns: string[] = ['fecha', 'cargo', 'vacantes', 'estado'];
+  displayedColumns: string[] = ['estado', 'fecha', 'cargo', 'vacantes', 'estadoEmpresa', 'acciones'];
   ofertas: IHistorialOfertas[];
   dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
   filtro = 'Aceptada';
   listaCargada: boolean = false;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private empService: EmpresaService,
@@ -34,12 +36,18 @@ export class OfertasPublicadasComponent implements OnInit {
 
   cargarOfertas() {
     this.empService.getHistorialOfertas(this.id).subscribe(resultado => {
+      console.log(resultado);
       this.ofertas = resultado;
       this.listaCargada = true;
       this.dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
       this.dataSource.paginator = this.paginator;
+
+      if (this.ofertas.length == 0 || isNull(this.ofertas)) {
+        this.listaCargada = true;
+      }
     },
       error => {
+        this.listaCargada = true;
         console.log("Error al obtener el listado de ofertas: ", JSON.stringify(error));
       });
   }

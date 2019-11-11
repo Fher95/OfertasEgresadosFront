@@ -20,10 +20,11 @@ export interface DialogData {
 export class EditarEmpresaComponent implements OnInit {
   data = 'a';
   textoModal:String;
-  sectores: ISector[] =[
-    { Nombre: 'prueba', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr1', idSector: 1 }] },
-    { Nombre: 'secta', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr2', idSector: 2 }, {idSubSector: 2 , nombre: 'subSecotr3', idSector: 2 }] }
-  ]
+  sectores: ISector[] =[]
+  /*
+    { Nombre: 'prueba', subSectores: [ {idSubSector: 1 , Nombre: 'subSecotr1', idSector: 1 }] },
+    { Nombre: 'secta', subSectores: [ {idSubSector: 1 , Nombre: 'subSecotr2', idSector: 2 }, {idSubSector: 2 , Nombre: 'subSecotr3', idSector: 2 }] }
+  ]*/
 
   emailInicial:String ;
   sectoresInteresEmpresa = [];

@@ -16,13 +16,12 @@
   </div>
 </div>
 <!--Sin oferta-->
-<div *ngIf="ofertas && !ofertas.length > 0 && listaCargada" class="container mt-4 mb-3 text-center row">
+<div *ngIf="ofertas && !ofertas.length > 0 && listaCargada" class="centrar">
   <h4>No hay ninguna oferta laboral aun publicada por su empresa</h4>
 </div>
 
 <!--Con ofertas-->
 <div class="container mt-4 mb-3" *ngIf="ofertas && ofertas.length > 0" role="main">
-
   <!--Filtro-->
   <div class="d-flex align-items-end flex-column">
     <mat-form-field>
@@ -33,14 +32,45 @@
       </mat-select>
     </mat-form-field>
   </div>
-
   <!--Tabla-->
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
+      <!--Columna estado admin-->
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="element.estado == 'Aceptada'" class="justify-content-center">
+            <button mat-icon-button color="primary">
+              <mat-icon>fiber_manual_record</mat-icon>
+            </button>
+            <div>
+              <span>Aceptada</span>
+            </div>
+          </div>
+          <div *ngIf="element.estado == 'Pendiente'" class="justify-content-center">
+            <button mat-icon-button>
+              <mat-icon>fiber_manual_record</mat-icon>
+            </button>
+            <div>
+              <span>Pendiente</span>
+            </div>
+          </div>
+          <div *ngIf="element.estado == 'Rechazada'" class="justify-content-center">
+            <button mat-icon-button color="warn">
+              <mat-icon>fiber_manual_record</mat-icon>
+            </button>
+            <div>
+              <span>Rechazada</span>
+            </div>
+          </div>
+
+
+        </td>
+      </ng-container>
 
       <!-- Columna Fecha -->
       <ng-container matColumnDef="fecha">
-        <th mat-header-cell *matHeaderCellDef class="text-center"> Fecha publicacion </th>
+        <th mat-header-cell *matHeaderCellDef> Fecha publicacion </th>
         <td mat-cell *matCellDef="let element"> {{ element.fecha_publicacion }} </td>
       </ng-container>
 
@@ -57,21 +87,39 @@
       </ng-container>
 
       <!-- Columna estado -->
-      <ng-container matColumnDef="estado">
+      <ng-container matColumnDef="estadoEmpresa">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
         <td mat-cell *matCellDef="let element"> {{element.estado_proceso}} </td>
       </ng-container>
 
       <!-- Columna Accion -->
-      <ng-container matColumnDef="Acciones">
+      <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
-        <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalScrollable"
-            (click)="verOferta(element.id)">
-            Ver Informacion</a></td>
+        <td mat-cell class="text-center" *matCellDef="let element">
+          <div class="row m-auto justify-content-center">
+            <a href="" data-toggle="modal">
+              <mat-icon class="acciones" matListIcon>description</mat-icon>
+              Ver/Modificar oferta
+            </a>
+          </div>
+          <div class="row m-auto justify-content-center">
+            <a href="" data-toggle="modal" (click)="mostrarInfo(element)">
+              <mat-icon class="acciones" matListIcon>cached</mat-icon>
+              Actualizar estado
+            </a>
+          </div>
+          <div class="row m-auto justify-content-center">
+            <a href="" data-toggle="modal">
+              <mat-icon class="acciones" matListIcon>assignment_ind</mat-icon>
+              Ver postulados
+            </a>
+          </div>
+        </td>
+
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="mostrarInfo(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
