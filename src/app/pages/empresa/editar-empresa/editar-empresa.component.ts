@@ -158,6 +158,7 @@ export class EditarEmpresaComponent implements OnInit {
       }
       let infoSectores:any[];
       infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
+      console.log(this.sectoresInteresEmpresa);
         for (let i = 0; i < infoSectores.length; i++) {
           for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
             console.log(infoSectores[i].nombre);
@@ -272,7 +273,6 @@ cargarSectoresInteres() {
     { Nombre: 'secta', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr2', idSector: 2 }, {idSubSector: 2 , nombre: 'subSecotr3', idSector: 2 }] }
   ]*/
   this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
-    console.log(resultado);
     this.sectoresInteresEmpresa = resultado;
   },
     error => {
