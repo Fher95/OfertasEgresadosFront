@@ -42,7 +42,7 @@ export class ListarOfertasComponent implements OnInit {
         this.dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
         this.dataSource.paginator = this.paginator;
 
-        if (this.ofertas.length == 0 || isNull(this.ofertas)) {
+        if (this.ofertas.length === 0 || isNull(this.ofertas)) {
           this.arregloVacio = true;
         }
       });
