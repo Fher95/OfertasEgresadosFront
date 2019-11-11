@@ -108,44 +108,6 @@ export class EditarEmpresaComponent implements OnInit {
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     // this.cargarSectoresInteres();
-
-    this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
-      this.sectoresInteresEmpresa = resultado;
-      let infoSectores:any[];
-      infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
-      console.log("vamoss perrito");
-      console.log(this.sectoresInteresEmpresa);
-        for (let i = 0; i < infoSectores.length; i++) {
-          for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
-            console.log(infoSectores[i].nombre);
-
-            console.log(this.sectoresInteresEmpresa[j].Nombre);
-
-          if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
-          {
-            alert('entro if')
-            let lenSubsectores = infoSectores[i].subSectores.length;
-            for(let k=0; k<lenSubsectores;k++){
-              alert('entra 2')
-              let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].id_sectores}
-              //Se busca la posicion del subSector en la lista de general
-              const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
-              //se elimina en sector de la lista general
-              this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
-              //Se el subsector a la lista de escogidos
-              this.subSecEscogidos.push(subSector);
-              //Se actualiza el valor del formControl
-              this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
-            }
-            break;
-          }
-        }
-      }
-    },
-    error => {
-      console.log("Error al obtener los Sectores: ", JSON.stringify(error));
-    });
-
     this.cargarCargos();
     this.empresaService.getDatos(this.id)
     .subscribe(data => {
@@ -194,6 +156,35 @@ export class EditarEmpresaComponent implements OnInit {
         let cargo = this.formDatosEmpresa.controls['datos-resp'].get('cargo').value;
         (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
+      this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
+        this.sectoresInteresEmpresa = resultado;
+        let infoSectores:any[];
+        infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
+        console.log(this.sectoresInteresEmpresa);
+          for (let i = 0; i < infoSectores.length; i++) {
+            for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
+            if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
+            {
+              let lenSubsectores = infoSectores[i].subSectores.length;
+              for(let k=0; k<lenSubsectores;k++){
+                let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].id_sectores}
+                //Se busca la posicion del subSector en la lista de general
+                const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre === subSector.nombre);
+                //se elimina en sector de la lista general
+                this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
+                //Se el subsector a la lista de escogidos
+                this.subSecEscogidos.push(subSector);
+                //Se actualiza el valor del formControl
+                this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+              }
+              break;
+            }
+          }
+        }
+      },
+      error => {
+        console.log("Error al obtener los Sectores: ", JSON.stringify(error));
+      });
     }),
     error => console.log(error);
     /*
