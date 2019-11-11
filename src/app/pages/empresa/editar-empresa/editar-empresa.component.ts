@@ -156,36 +156,7 @@ export class EditarEmpresaComponent implements OnInit {
         let cargo = this.formDatosEmpresa.controls['datos-resp'].get('cargo').value;
         (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
-      this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
-        this.sectoresInteresEmpresa = resultado;
-        let infoSectores:any[];
-        infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
-        console.log(this.sectoresInteresEmpresa);
-          for (let i = 0; i < infoSectores.length; i++) {
-            for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
-            if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
-            {
-              let lenSubsectores = infoSectores[i].subSectores.length;
-              for(let k=0; k<lenSubsectores;k++){
-                let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,Nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].id_sectores}
-                //Se busca la posicion del subSector en la lista de general
-                const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.Nombre == subSector.Nombre);
-                //se elimina en sector de la lista general
-                console.log(posSubSector)
-                this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
-                //Se el subsector a la lista de escogidos
-                this.subSecEscogidos.push(subSector);
-                //Se actualiza el valor del formControl
-                this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
-              }
-              break;
-            }
-          }
-        }
-      },
-      error => {
-        console.log("Error al obtener los Sectores: ", JSON.stringify(error));
-      });
+      this.cargarSectoresInteres();
     }),
     error => console.log(error);
     /*
@@ -269,12 +240,32 @@ export class EditarEmpresaComponent implements OnInit {
  * Si existe un error al cargarlo imprime en la consola el error
  */
 cargarSectoresInteres() {
-  /*this.sectoresInteresEmpresa = [
-    { Nombre: 'prueba', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr1', idSector: 1 }] },
-    { Nombre: 'secta', subSectores: [ {idSubSector: 1 , nombre: 'subSecotr2', idSector: 2 }, {idSubSector: 2 , nombre: 'subSecotr3', idSector: 2 }] }
-  ]*/
   this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
     this.sectoresInteresEmpresa = resultado;
+    let infoSectores:any[];
+        infoSectores = this.formDatosEmpresa.controls['sectores'].get('sectores').value;
+        console.log(this.sectoresInteresEmpresa);
+          for (let i = 0; i < infoSectores.length; i++) {
+            for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
+            if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
+            {
+              let lenSubsectores = infoSectores[i].subSectores.length;
+              for(let k=0; k<lenSubsectores;k++){
+                let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].id_sectores}
+                //Se busca la posicion del subSector en la lista de general
+                const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre == subSector.nombre);
+                //se elimina en sector de la lista general
+                console.log(posSubSector)
+                this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
+                //Se el subsector a la lista de escogidos
+                this.subSecEscogidos.push(subSector);
+                //Se actualiza el valor del formControl
+                this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+              }
+              break;
+            }
+          }
+        }
   },
     error => {
       console.log("Error al obtener los Sectores: ", JSON.stringify(error));
