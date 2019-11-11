@@ -52,11 +52,8 @@ export class EditarEmpresaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
 
   ) {
-    this.cargos = [
-      { idCargo: 1, Nombre: "Docente" },
-      { idCargo: 2, Nombre: "Desarrollador" },
-      { idCargo: 3, Nombre: "Administrativo" },
-    ];
+    this.cargos = [ ];
+    this.sectoresInteresEmpresa = [];
     this.formDatosEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: ['', [Validators.required, Validators.email], this.validarExistenciaEmail.bind(this)],
@@ -109,6 +106,8 @@ export class EditarEmpresaComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     // this.cargarSectoresInteres();
     this.cargarCargos();
+    //this.cargarSectoresInteres();
+
     this.empresaService.getDatos(this.id)
     .subscribe(data => {
       // obtener la data y pasarla al form
@@ -251,13 +250,14 @@ cargarSectoresInteres() {
             {
               let lenSubsectores = infoSectores[i].subSectores.length;
               for(let k=0; k<lenSubsectores;k++){
-                let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].id_sectores}
+                let subSector = <ISubSector> {idSubSector: infoSectores[i].subSectores[k].id_aut_sub_sector,Nombre: infoSectores[i].subSectores[k].nombre, idSector : infoSectores[i].subSectores[k].id_sectores}
                 //Se busca la posicion del subSector en la lista de general
-                const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.nombre == subSector.nombre);
+                const posSubSector = this.sectoresInteresEmpresa[j].subSectores.findIndex( ISubSector => ISubSector.Nombre == subSector.Nombre);
                 //se elimina en sector de la lista general
-                console.log(posSubSector)
+
                 this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
                 //Se el subsector a la lista de escogidos
+                console.log(subSector)
                 this.subSecEscogidos.push(subSector);
                 //Se actualiza el valor del formControl
                 this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
@@ -294,21 +294,21 @@ cargarCargos() {
  * Se busca en la lista de escogidos
  * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
  */
-eliminarSubSectorEscogido(subSector: ISubSector) {
-  //Se busca en la lista de escogidos
-  let posSubSector = this.subSecEscogidos.indexOf(subSector);
-  //Se elimina en la lista de escogidos
-  this.subSecEscogidos.splice(posSubSector, 1);
-  //Se devuelve a la lista general
-  console.log(this.sectoresInteresEmpresa[subSector.idSector - 1])
-  this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.push(subSector);
-  //Se iguala nuevamente el valor del formControl
-  this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
-  //Se ordena
-  this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.sort(function (a, b) {
-    return a.idSubSector - b.idSubSector
-  });
-}
+ eliminarSubSectorEscogido(subSector: ISubSector) {
+   console.log(subSector);
+   //Se busca en la lista de escogidos
+   let posSubSector = this.subSecEscogidos.indexOf(subSector);
+   //Se elimina en la lista de escogidos
+   this.subSecEscogidos.splice(posSubSector, 1);
+   //Se devuelve a la lista general
+   this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.push(subSector);
+   //Se iguala nuevamente el valor del formControl
+   this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+   //Se ordena
+   this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.sort(function (a, b) {
+     return a.idSubSector - b.idSubSector
+   });
+ }
 /**
 * agrega un subSector escogido a partir de la lista de sectores en el formulario de registro
 * se agrega a la lista subSecEscogidos y se actualiza en la lista sectores del ngForm
