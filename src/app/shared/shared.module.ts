@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { GeneralesService } from './servicios/generales.service';
 import { EmpresaService } from './servicios/empresa/empresa.service';
+import { Config } from './servicios/config/config';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { EmpresaService } from './servicios/empresa/empresa.service';
   exports: [
     GeneralesService,
     EmpresaService,
-  ]
+  ],
+  providers: [Config]
 })
 export class SharedModule { }

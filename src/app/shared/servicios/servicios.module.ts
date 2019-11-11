@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralesService } from './generales.service';
 import { EmpresaService } from './empresa/empresa.service';
+import { Config } from './config/config';
+import { AlertService } from './common/alert.service';
 
 @NgModule({
   declarations: [],
@@ -10,7 +12,9 @@ import { EmpresaService } from './empresa/empresa.service';
   ],
   exports: [
     GeneralesService,
-    EmpresaService
-  ]
+    EmpresaService,
+    AlertService
+  ],
+  providers: [Config]
 })
 export class ServiciosModule { }

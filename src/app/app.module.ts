@@ -49,6 +49,8 @@ import { ProgramaComponent } from './pages/egresados/programa/programa.component
 import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
 import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
 import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro/confirmar-registro.component';
+import { Config } from './shared/servicios/config/config';
+import { AlertService } from './shared/servicios/common/alert.service';
 
 @NgModule({
   declarations: [
@@ -106,7 +108,7 @@ import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro
     MatDialogModule,
     PaginationModule.forRoot()
   ],
-  providers: [],
+  providers: [Config, AlertService],
   bootstrap: [AppComponent],
 
 })

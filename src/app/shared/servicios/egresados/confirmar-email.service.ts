@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Config } from '../config/config';
+import { Observable } from 'rxjs';
 
-
-const url = "http://localhost:8081/users/validar/"
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfirmarEmailService {
+  
+  constructor(
+    private http: HttpClient,
+    private config: Config
+  ) { }
 
-  constructor(private http: HttpClient) { }
+  validar(codigo: string, password: string, passwordConfirmation: string): Observable<boolean>{
+    let body = { password: password, password_confirmation: passwordConfirmation };
+    return this.http.post<boolean>(this.config.baseUrl + "users/validar/" + codigo, body);
+  }
 
-  validar(codigo: string, password: string, passwordConfirmation: string) {
-    return this.http.post(`${url}${codigo}`, {
-      'password': password,
-      'password_confirmation' : passwordConfirmation
-    });
+  cuentaYaActiva(codigo: string): Observable<boolean> {
+    return this.http.get<boolean>(this.config.baseUrl + "users/validar/" + codigo);
   }
 }
