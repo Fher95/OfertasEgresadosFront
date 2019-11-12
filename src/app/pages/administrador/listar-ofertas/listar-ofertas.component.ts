@@ -30,7 +30,7 @@ export class ListarOfertasComponent implements OnInit {
 
   ngOnInit() {
     this.ofertas = null;
-    this.getOfertas();
+    this.getOfertas2();
   }
 
   getOfertas(): void {
@@ -79,7 +79,7 @@ export class ListarOfertasComponent implements OnInit {
   }
   desaprobarEmpresa(parOferta: OfertaLaboral): void {
     if (OfertaLaboral != null) {
-      this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta)
+      this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta,this.motivoInactivacion )
         .subscribe(result => {
           console.log(result);
           this.getOfertas();
