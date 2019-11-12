@@ -119,11 +119,17 @@ export class RegistrarComponent implements OnInit {
    * @param  formulario  Id del pais escogido en la lista de departamentos
    */
   registrarEmpresa(formulario) {
+    let formData = new FormData();
+    //getrawvaluec
+    formData.append('datos', Object.assign({}, formulario.value));
+    console.log(Object.assign({}, formulario.value));
+    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
+    formData.append('logoInput', this.logoInput.nativeElement.files[0]);
     console.log('formulario', JSON.stringify(formulario.value));
-    this.empService.registrarUsuario(formulario.value).toPromise().then(data => {
-      console.log("registro datos de la empresa exitosos, faltan los archivos");
+    this.empService.registrarUsuario(formData).toPromise().then(data => {
+      console.log("registro datos de la empresa exitosos", data);
       //Al enviar los archivos se muestra el dialog y se termina el registro
-      this.enviarArchivos();
+      //this.enviarArchivos(data);
     },
       errorRegistro => {
         this.mensajesError = [];
@@ -140,11 +146,11 @@ export class RegistrarComponent implements OnInit {
       });
   }
 
-  enviarArchivos(){
+  enviarArchivos(idEmpresa){
     let formData = new FormData();
     formData.append('fileInput', this.fileInput.nativeElement.files[0]);
-    formData.append('fileInput', this.logoInput.nativeElement.files[0]);
-    this.empService.subirArchivos(formData).toPromise().then(data => {
+    formData.append('logoInput', this.logoInput.nativeElement.files[0]);
+    this.empService.subirArchivos(formData, idEmpresa).toPromise().then(data => {
       console.log("data archivos: ", data);
       this.openDialog();
     },

@@ -13,8 +13,8 @@ export class EmpresaService {
     "X-Requested-With": "XMLHttpRequest"
   });
   headerArchivos: HttpHeaders = new HttpHeaders({
-    "Content-Type": "multipart/form-data",
-    "Accept": "application/json"
+    "Accept": "multipart/form-data",
+    "X-Requested-With": "XMLHttpRequest"
   });
   headerListar: HttpHeaders = new HttpHeaders({
     "Content-Type": "application/x-www-form-urlencoded",
@@ -23,12 +23,12 @@ export class EmpresaService {
 
   constructor(private httpClient: HttpClient) { }
 
-  registrarUsuario(objeto: Object) {
-    return this.httpClient.post("http://127.0.0.1:8081/api/empresas/store", objeto, { headers: this.headers });
+  registrarUsuario(objeto: FormData) {
+    return this.httpClient.post("http://127.0.0.1:8081/api/empresas/store", objeto, { headers: this.headerArchivos });
   }
-  subirArchivos(archivos: FormData){
+  subirArchivos(archivos: FormData, idEmpresa){
     console.log(archivos);
-    return this.httpClient.post("http://127.0.0.1:8081/api/empresas/storeArchivos", archivos, { headers: this.headerArchivos });
+    return this.httpClient.post("http://127.0.0.1:8081/api/empresas/storeArchivos/" + idEmpresa, archivos, { headers: this.headerArchivos });
   }
   getDatos(id:String): Observable<any>{
     //obtener los datos de la peticion datos empresa
