@@ -119,8 +119,8 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('nombreEmpresa').setValue(data.nombre);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('anioCreacion').setValue(data.anio_creacion);
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue('0-3.000.000');
-      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTA');
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').setValue(data.ingresos);
+      this.formDatosEmpresa.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue(data.descripcion);
       this.formDatosEmpresa.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('idPais').setValue(data.direccion.ciudad.departamento.pais.id_aut_pais);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);

@@ -12,7 +12,7 @@
   </div>
   <h3 *ngIf="arregloVacio" class="text-centered"> No se encontraron ofertas </h3>
   <div *ngIf="!arregloVacio" class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" class = "rounded-lg">
+    <table mat-table [dataSource]="dataSource" class="rounded-lg">
 
       <ng-container matColumnDef="Nombre Oferta">
         <th mat-header-cell *matHeaderCellDef> Nombre Oferta </th>
@@ -80,26 +80,34 @@
         <strong>Años de experiencia: </strong> <a>{{this.ofertaSeleccionada.anios_experiencia}}</a>
         <p></p>
         <strong>Numero de vacantes: </strong> <a>{{this.ofertaSeleccionada.numero_vacantes}}</a>
-
+        <p></p>
+        <strong>Salario minimo: </strong>
+        <a>{{this.ofertaSeleccionada.salario ? this.ofertaSeleccionada.salario.minimo : 'No se especifica'}}</a>
+        <p></p>
+        <strong>Salario maximo: </strong>
+        <a>{{this.ofertaSeleccionada.salario ? this.ofertaSeleccionada.salario.maximo : 'No se especifica'}}</a>
+        <p></p>
+        <strong>Forma de pago: </strong>
+        <a>{{this.ofertaSeleccionada.salario ? this.ofertaSeleccionada.salario.forma_pago : 'No se especifica'}}</a>
         <p></p>
         <div class="form-group">
-          <strong for="numOfertas">Cambiar estado: </strong>
-          <p></p>        
-          <select class="form-control" id="numOfertas">
-          <option selected="true">Pendiente por aprobar</option>
-          <option>Convocatoria</option>
-          <option>Selección</option>
-          <option>Finalizado</option>
-        </select>
+          <strong for="numOfertas">Estado: </strong>          
+          <select [(ngModel)]="this.estadoActivacion" class="form-control" id="numOfertas">
+            <option selected="true">Pendiente por aprobar</option>
+            <option value="Activar">Activar</option>
+            <option value="Inactivar">Inactivar</option>            
+          </select>
+        </div>
+        <p></p>
+        <div *ngIf="this.estadoActivacion === 'Inactivar'" class="form-group">
+          <strong for="exampleFormControlTextarea1">Motivos inhabilitacion:</strong>
+          <textarea [(ngModel)]="this.motivoInactivacion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
       </div>
+
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" 
-          data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" 
-           data-dismiss="modal">Aprobar</button>
-        <button type="button" class="btn btn-primary" 
-          data-dismiss="modal">Rechazar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>        
       </div>
     </div>
   </div>
