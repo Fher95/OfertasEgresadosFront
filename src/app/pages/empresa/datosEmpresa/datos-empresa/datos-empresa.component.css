@@ -1,6 +1,9 @@
+
 ::ng-deep.mat-form-field-infix{
   height: 35px;
-  border: 0px
+  border: 0px;
+  margin-bottom:-10px;
+
 }
 .form-group{
   margin-bottom:0px;
@@ -16,7 +19,7 @@ mat-card{
 .labelCompleto{
   display: flex;
   flex-direction: column;
-  margin-left:-50px;
+  margin-top: 5px;
 }
 
 .mat-card:not([class*=mat-elevation-z]) {
@@ -25,11 +28,11 @@ mat-card{
 
 }
 /*
-::ng-deep.mat-form-field-disabled .mat-form-field-underline 
-{ 
-  background-image: linear-gradient( to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #4082c5 0 ) !important; 
+::ng-deep.mat-form-field-disabled .mat-form-field-underline
+{
+  background-image: linear-gradient( to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #4082c5 0 ) !important;
   background-size: 1px 100% !important;
-   background-repeat: repeat-x !important; 
+   background-repeat: repeat-x !important;
 } */
 
 
@@ -74,7 +77,7 @@ mat-card-footer{
   margin-top: -16px;
 }
 #btnModificar{
-  margin-right:14px ;  
+  margin-right:14px ;
 }
 img{
   padding-top: 0px;
