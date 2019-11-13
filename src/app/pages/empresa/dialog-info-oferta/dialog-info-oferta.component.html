@@ -1,34 +1,3 @@
-<!--Contenido Dialog-->
-<div mat-dialog-content>
-  <p>
-    {{datosOferta.descripcion}}
-  </p>
-
-  <!--Estado diferente a procesando-->
-  <mat-form-field *ngIf="datosOferta.estado !== 'Expirada'">
-    <mat-label>Estado:</mat-label>
-    <mat-select>
-      <mat-option (click)="cambiarEstado(value)" value="Activa">Activa</mat-option>
-      <mat-option (click)="cambiarEstado(value)" value="En selección">Contratado/a</mat-option>
-      <mat-option (click)="cambiarEstado(value)" value="Finalizada con contratación">Vencida</mat-option>
-      <mat-option (click)="cambiarEstado(value)" value="Finalizada sin contratación">Inactiva</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!--Estado procesando-->
-  <mat-form-field *ngIf="datosOferta.estado === 'Expirada'">
-    <mat-label>Estado:</mat-label>
-    <mat-select disabled="true">
-      <mat-option value="Expirada" selected>Expirada</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <!--Eliminar oferta-->
-  <button button mat-raised-button color="warn" (click)="eliminarOferta()">Eliminar</button>
-</div>
-
-<!--Opciones Dialog-->
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button [mat-dialog-close]="datosOferta" cdkFocusInitial>Guardar</button>
-</div>
+<p>
+  Dialog works!
+</p>
