@@ -9,7 +9,7 @@ mat-select{
     margin-right: 100px;
 }
 
-label,mat-form-field, mat-radio-button{
+mat-label,mat-form-field, mat-radio-button{
     margin-right: 20px;
 }
 
@@ -27,4 +27,10 @@ label,mat-form-field, mat-radio-button{
     width:20%; 
     left: 80px;
     margin:center;
+}
+
+.btnExp
+{
+    width: 50%;
+    left: 80px;  
 }

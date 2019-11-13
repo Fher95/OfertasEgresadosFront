@@ -22,6 +22,7 @@ import { LayoutModule } from './layout/layout.module';
 import { AdministradorModule } from './pages/administrador/administrador.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ExplaboralComponent } from './pages/egresados/explaboral/explaboral.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     CompletarRegistroComponent,
     ActualizarComponent,
     ConfirmarRegistroComponent,
+    ExplaboralComponent,
   ],
   imports: [
     EmpresaModule,
@@ -53,6 +55,5 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   ],
   providers: [],
   bootstrap: [AppComponent],
-
 })
 export class AppModule { }

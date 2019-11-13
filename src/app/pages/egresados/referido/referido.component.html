@@ -1,0 +1,21 @@
+<mat-form-field>
+  <input matInput placeholder="Nombre" [formControl]="Nombre" required>
+  <mat-error>Nombre es requerido</mat-error>
+</mat-form-field>
+<div class="egresadoUnicauca">
+  <mat-label>Es egresado de Unicauca: </mat-label>
+  <mat-radio-group [formControl]="Egresado" required>
+    <mat-radio-button value=1>Si</mat-radio-button>
+    <mat-radio-button value=0>No</mat-radio-button>
+  </mat-radio-group>
+</div>
+<app-programa #programa></app-programa>
+<mat-form-field>
+  <input matInput type="email" placeholder="Correo electronico" [formControl]="Correo">
+</mat-form-field>     
+<mat-form-field>
+  <input matInput placeholder="Teléfono/Celular" [formControl]="Celular" required>
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Parentesco" [formControl]="Parentesco" required>
+</mat-form-field>
