@@ -15,7 +15,9 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
   padding-top: 1.5%;
   padding-bottom: 1.5%;
 }
-
+.mat-form-field {
+  width: 100%;
+}
 .centrar {
   height: 60%;
   width: 100%;
