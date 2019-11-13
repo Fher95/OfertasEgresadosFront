@@ -12,11 +12,11 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 
 
 export class DatosEmpresaComponent implements OnInit {
-  
-  id: string; 
+
+  id: string;
   data = 'danielfer@unicauca.edu.co';
    formRegistroEmp: FormGroup;
-  
+
   sectores: any = [
     { "nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
     { "nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }]
@@ -86,7 +86,7 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-generales-empresa'].get('anioCreacion').setValue(data.anio_creacion);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('ingresosEmp').setValue(data.ingresos);
-      this.formRegistroEmp.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue('FALTAAA FORERO AGREGALOOOOOOOO');
+      this.formRegistroEmp.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue(data.descripcion);
       this.formRegistroEmp.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('departamentoEmp').setValue(data.direccion.ciudad.departamento.nombre);
@@ -111,8 +111,8 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
     }),
     error => console.log(error);
-    
-   /* 
+
+   /*
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: this.data, disabled:true} ],

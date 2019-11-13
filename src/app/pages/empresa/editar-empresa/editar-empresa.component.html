@@ -154,7 +154,7 @@
                                     <!--Contenido-->
                                     <mat-action-list dense *ngFor="let subSector of sector.subSectores">
                                         <button type="button" mat-list-item value="{{subSector.Nombre}}"
-                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.nombre }}
+                                            (click)="seleccionarSubSector(sector, subSector)"> {{ subSector.Nombre }}
                                             <mat-icon matListIcon>add</mat-icon>
                                         </button>
                                     </mat-action-list>
@@ -164,12 +164,12 @@
                             </mat-accordion>
                         </div>
                         <div class="col-6 example-container">
-                            <mat-error *ngIf="formDatosEmpresa.get('sectores').controls.sectores.errors?.required">
+                            <mat-error *ngIf="formDatosEmpresa.get('sectores').controls.subsectores.errors?.required">
                                 *Seleccione sus areas de interés</mat-error>
                             <mat-nav-list>
                                 <mat-list-item *ngFor="let subSector of subSecEscogidos">
                                     <button type="button" mat-icon-button
-                                        (click)="eliminarSubSectorEscogido(subSector)">{{ subSector.nombre }}<mat-icon
+                                        (click)="eliminarSubSectorEscogido(subSector)">{{ subSector.Nombre }}<mat-icon
                                             matListIcon>close</mat-icon></button>
                                 </mat-list-item>
                             </mat-nav-list>

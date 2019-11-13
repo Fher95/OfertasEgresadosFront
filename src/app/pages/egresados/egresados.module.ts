@@ -9,12 +9,18 @@ import { LayoutModule } from 'src/app/layout/layout.module';
 import { ComentariosComponent } from './comentarios/comentarios.component';
 import { ExplaboralComponent } from './explaboral/explaboral.component';
 import { ReferidoComponent } from './referido/referido.component';
+import { ConfirmarEmailService } from 'src/app/shared/servicios/egresados/confirmar-email.service';
+import { RouterModule } from '@angular/router';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @NgModule({
   declarations: [ActualizarComponent, CompletarRegistroComponent, LocalizacionComponent, ProgramaComponent, ConfirmarRegistroComponent, ComentariosComponent, ExplaboralComponent, ReferidoComponent],
   imports: [
     CommonModule,
-    LayoutModule,
+    LayoutModule
+  ],
+  providers: [
+    ConfirmarEmailService, RouterModule
   ]
 })
 export class EgresadosModule { }

@@ -52,8 +52,8 @@ export class ListarOfertasService {
       catchError(this.handleError<any>('activarEmpresa'))
     );
   }
-  desaprobarOferta(parId: number): Observable<any> {
-    let json = JSON.stringify({ estado: 'Desaprobada' });
+  desaprobarOferta(parId: number, parMotivo: string): Observable<any> {
+    let json = JSON.stringify({ estado: 'Desaprobada', motivo: parMotivo });
     let params = "json=" + json;
     const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
     return this.http.put(nuevaUrl, params, this.httpOptions).pipe(

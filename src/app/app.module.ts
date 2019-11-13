@@ -23,6 +23,9 @@ import { AdministradorModule } from './pages/administrador/administrador.module'
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ExplaboralComponent } from './pages/egresados/explaboral/explaboral.component';
+import { Config } from './shared/servicios/config/config';
+import { AlertService } from './shared/servicios/common/alert.service';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +56,7 @@ import { ExplaboralComponent } from './pages/egresados/explaboral/explaboral.com
     CaptchaModule, 
     PaginationModule.forRoot(),
   ],
-  providers: [],
+  providers: [Config, AlertService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

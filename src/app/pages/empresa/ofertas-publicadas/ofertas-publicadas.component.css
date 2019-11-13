@@ -10,7 +10,14 @@ main {
 th.mat-header-cell {
   text-align: center;
 }
-  
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+}
+.mat-form-field {
+  width: 100%;
+}
 .centrar {
   height: 60%;
   width: 100%;
@@ -19,3 +26,10 @@ th.mat-header-cell {
   justify-content: center;
   text-align: center;
 }
+
+.acciones {
+  line-height:20px;
+  vertical-align:middle;
+  margin-right: 5px;
+}
+

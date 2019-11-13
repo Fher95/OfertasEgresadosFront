@@ -4,16 +4,16 @@
       <form id="form" #registerForm="ngForm" (ngSubmit)="confirmar()">
         <h1 id="title">Confirmación de registro</h1>
         <mat-form-field>
-          <input matInput placeholder="Contraseña" #name="ngModel" name="password" [(ngModel)]="password"
+          <input matInput placeholder="Contraseña" #pass="ngModel" name="password" [(ngModel)]="password"
             [type]="hidePassword ? 'password' : 'text'" required>
-          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Confirmación de contraseña" #name="ngModel" name="auxPassword"
+          <input matInput placeholder="Confirmación de contraseña" #conpass="ngModel" name="auxPassword"
             [(ngModel)]="auxPassword" [type]="hideAuxPassword ? 'password' : 'text'" required>
-          <button mat-icon-button matSuffix (click)="hideAuxPassword = !hideAuxPassword">
+          <button mat-icon-button type="button" matSuffix (click)="hideAuxPassword = !hideAuxPassword">
             <mat-icon>{{hideAuxPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
