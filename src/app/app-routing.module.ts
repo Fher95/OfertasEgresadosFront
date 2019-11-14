@@ -15,8 +15,12 @@ import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-labora
 //import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
 //import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
 import { OfertasPublicadasComponent } from './pages/empresa/ofertas-publicadas/ofertas-publicadas.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { LogoutComponent } from './pages/auth/logout/logout.component';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'home', component: HomeOfertasComponent },
   { path: 'registroEmpresa', component: RegistrarComponent },
   { path: 'admin/listar', component: PrincipalComponent }, 

@@ -14,11 +14,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InicioEgresadosComponent } from '../home/inicio-egresados/inicio-egresados.component';
 import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/nav-egresados.component';
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
+import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'completarRegistro', component: CompletarRegistroComponent },
+  { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
   { path: 'actualizacion', component: ActualizarComponent },
   { path: '**', component: InicioEgresadosComponent }
 ];
@@ -46,7 +47,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [
-    ConfirmarEmailService, RouterModule, AlertService
+    ConfirmarEmailService, RouterModule, AlertService, AuthGuard
   ]
 })
 export class EgresadosModule { }

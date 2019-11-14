@@ -1,0 +1,13 @@
+.mat-card {
+    padding: 0;
+    margin-top: 50px;
+}
+
+.login-form-content {
+    padding:10px;
+}
+
+.mat-form-field {
+    padding: 10px;
+    width: 100%;
+}

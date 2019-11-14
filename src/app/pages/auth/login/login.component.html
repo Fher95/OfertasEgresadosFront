@@ -1,0 +1,47 @@
+<div class="container mt-10">
+    <mat-card class="login-form mt-10">
+        <mat-toolbar color="primary">Inicio de sesión</mat-toolbar>
+        <mat-divider></mat-divider>
+        <mat-card-content class="login-form-content">
+            <form #form novalidate (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <mat-form-field>
+                        <input type="text"
+                               [formControl]="email"
+                               matInput
+                               placeholder="Email"
+                               required/>
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="email.invalid && email.hasError('required')">
+                            El email es requerido
+                        </mat-error>
+                        <mat-error *ngIf="email.invalid && email.hasError('email')">
+                            Debe ingresar un email válido
+                        </mat-error>
+                    </mat-form-field>                    
+                </div>
+                <div class="form-group">
+                    <mat-form-field>
+                        <input type="password"
+                               [formControl]="password"
+                               matInput
+                               placeholder="Password"
+                               required/>
+                        <mat-icon matSuffix>vpn_key</mat-icon>
+                        <mat-error *ngIf="password.invalid && password.hasError('required')">
+                            Debe ingresar un password
+                        </mat-error>
+                        <mat-error *ngIf="password.invalid && password.hasError('minlength')">
+                            El password debe contener más de 8 carácteres
+                        </mat-error>
+                    </mat-form-field>                    
+                </div>
+                <div class="opciones float-right">
+                    <button mat-raised-button color="primary" type="button" class="mr-2" (click)="resetForm()">Cancelar</button>
+                    <button [disabled]="!(email.valid && password.valid)" mat-raised-button color="primary" type="submit">Iniciar Sesión</button>
+                </div>
+                <div class="clearfix"></div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
