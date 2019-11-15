@@ -15,6 +15,7 @@ import { InicioEgresadosComponent } from './pages/home/inicio-egresados/inicio-e
 import { CompletarRegistroComponent } from './pages/egresados/completar-registro/completar-registro.component';
 import { ActualizarComponent } from './pages/egresados/actualizar/actualizar.component';
 import { OfertasPublicadasComponent } from './pages/empresa/ofertas-publicadas/ofertas-publicadas.component';
+import { VerPostuladosComponent } from './pages/empresa/ver-postulados/ver-postulados.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeOfertasComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent},
   { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent},
   { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent},
+  { path: 'empresa/:id/misPostulados', component: VerPostuladosComponent},
   { path: 'admin/ofertas', component: ListarOfertasComponent},
   { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
   { path: 'egresados', component: InicioEgresadosComponent},

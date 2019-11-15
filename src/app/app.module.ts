@@ -9,7 +9,6 @@ import { CaptchaModule } from 'ng-captcha';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
 import {LocalizacionComponent} from './pages/egresados/localizacion/localizacion.component';
-import { DialogFinalRegistroComponent } from './pages/empresa/dialog-final-registro/dialog-final-registro.component';
 import { InicioEgresadosComponent } from './pages/home/inicio-egresados/inicio-egresados.component';
 import { NavEgresadosComponent } from './pages/home/inicio-egresados/nav-egresados/nav-egresados.component';
 import { FooterEgresadosComponent } from './pages/home/inicio-egresados/footer-egresados/footer-egresados.component';

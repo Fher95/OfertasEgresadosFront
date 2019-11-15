@@ -1,0 +1,28 @@
+<div>
+  <h2 class="text-center"><b>Lista de postulados</b></h2>
+  <mat-divider [inset]="true"></mat-divider>
+</div>
+<div class="row">
+  <div class="col-6 example-container">
+    <!--Contenido-->
+    <mat-action-list dense *ngFor="let postulado of listaPostulados">
+      <button type="button" mat-list-item value="{{postulado.nombres}}"
+        (click)="seleccionarPostulado(postulado)"> {{ postulado.nombres }}
+        <mat-icon matListIcon>add</mat-icon>
+      </button>
+    </mat-action-list>
+  </div>
+  <div class="col-6 example-container">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let postulado of listaPostuladosEscogidos">
+        <button type="button" mat-icon-button (click)="desseleccionarPostulado(postulado)">{{ postulado.nombres }}
+          <mat-icon matListIcon>close</mat-icon></button>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+</div>
+<div class="botonesStepper">
+  <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+  <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
+    Continuar</button>
+</div>

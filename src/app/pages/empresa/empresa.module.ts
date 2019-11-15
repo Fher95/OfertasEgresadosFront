@@ -13,6 +13,7 @@ import { OfertasPublicadasComponent } from './ofertas-publicadas/ofertas-publica
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { DialogInfoOfertaComponent } from './dialog-info-oferta/dialog-info-oferta.component';
 import { DialogEstadoOfertaComponent } from './dialog-estado-oferta/dialog-estado-oferta.component';
+import { VerPostuladosComponent } from './ver-postulados/ver-postulados.component';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { DialogEstadoOfertaComponent } from './dialog-estado-oferta/dialog-estad
     DialogFinalModificarComponent, 
     OfertasPublicadasComponent, 
     DialogInfoOfertaComponent, 
-    DialogEstadoOfertaComponent
+    DialogEstadoOfertaComponent, VerPostuladosComponent
   ],
   imports: [
     CommonModule,
