@@ -23,17 +23,27 @@
 <!--Con ofertas-->
 <div class="container mt-4 mb-3" *ngIf="ofertas && ofertas.length > 0" role="main">
   <!--Filtro-->
-  <div class="d-flex align-items-end flex-column">
-    <mat-form-field>
-      <mat-label>Filtrar por:</mat-label>
-      <mat-select>
-        <mat-option value="Todas" (click)="filtrar('','estado_proceso')">Todas</mat-option>
-        <mat-option value="Aceptadas" (click)="filtrar('activa','estado_proceso')">Aceptadas</mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="row">
+    <div class="col-2">
+      <mat-form-field>
+        <mat-label>Filtrar por:</mat-label>
+        <mat-select [(value)]="filtroEstado" (selectionChange)="filtrar('estado')">
+          <mat-option value="Todas">Todas</mat-option>
+          <mat-option value="Aceptada">Aceptadas</mat-option>
+          <mat-option value="Pendiente">Pendientes</mat-option>
+          <mat-option value="Rechazada">Rechazadas</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-10">
+      <mat-form-field>
+        <input matInput (keyup)="buscar($event.target.value)" placeholder="Buscar">
+      </mat-form-field>
+    </div>
   </div>
   <!--Tabla-->
   <div class="mat-elevation-z8">
+
     <table mat-table [dataSource]="dataSource">
       <!--Columna estado admin-->
       <ng-container matColumnDef="estado">

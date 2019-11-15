@@ -4,8 +4,8 @@ import { IHistorialOfertas } from '../../../shared/modelos/historialOfertas'
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { DialogInfoOfertaComponent } from '../dialog-info-oferta/dialog-info-oferta.component';
 import { isNull } from 'util';
+import { DialogEstadoOfertaComponent } from '../dialog-estado-oferta/dialog-estado-oferta.component';
 
 @Component({
   selector: 'app-ofertas-publicadas',
@@ -14,6 +14,7 @@ import { isNull } from 'util';
 })
 export class OfertasPublicadasComponent implements OnInit {
 
+  filtroEstado: string;
   id: string;
   displayedColumns: string[] = ['estado', 'fecha', 'cargo', 'vacantes', 'estadoEmpresa', 'acciones'];
   ofertas: IHistorialOfertas[];
@@ -29,6 +30,7 @@ export class OfertasPublicadasComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.filtroEstado = 'Todas';
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.ofertas = [];
     this.cargarOfertas();
@@ -58,10 +60,10 @@ export class OfertasPublicadasComponent implements OnInit {
 
   /**
  * Abre un dialog de angular material
- * El contenido del dialog esta creado en el componente DialogInfoOfertaComponent
+ * El contenido del dialog esta creado en el componente DialogEstadoOfertaComponent
  */
   openDialog(row: any) {
-    const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
+    const dialogRef = this.matDialog.open(DialogEstadoOfertaComponent, {
       data: row
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -74,21 +76,26 @@ export class OfertasPublicadasComponent implements OnInit {
     console.log(idOferta);
   }
 
-  filtrarOfertas(texto, columna: string) {
-    if (texto == '') {
+  filtrarOfertas(columna: string) {
+    if (this.filtroEstado == '' || this.filtroEstado == 'Todas') {
       console.log('todas');
       return this.ofertas;
     }
-    console.log(texto);
+    console.log(this.filtroEstado);
     //Filtro para los valores
     return this.ofertas.filter(item => {
-      return item[columna].toLowerCase() == texto;
+      return item[columna].toLowerCase() == this.filtroEstado.toLowerCase();
     });
   }
 
-  filtrar(texto, columna) {
-    console.log(texto);
-    this.dataSource = new MatTableDataSource<IHistorialOfertas>(this.filtrarOfertas(texto, columna));
+  filtrar(columna) {
+    this.dataSource = new MatTableDataSource<IHistorialOfertas>(this.filtrarOfertas(columna));
     this.dataSource.paginator = this.paginator;
   }
+
+  buscar(filterValue: string) {
+    console.log(filterValue);
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
 }
