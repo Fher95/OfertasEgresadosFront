@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { authInterface } from 'src/app/shared/modelos/authInterface';
-import { AuthServicesService } from 'src/app/shared/servicios/authServices/auth-services.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 
 @Component({
   selector: 'app-navbar-home-ofertas',
@@ -15,7 +15,7 @@ export class NavbarHomeOfertasComponent implements OnInit {
     email: "",
     password: ""
   }
-  constructor(private authService : AuthServicesService, private router: Router) { }
+  constructor(private auth : AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -40,5 +40,14 @@ export class NavbarHomeOfertasComponent implements OnInit {
   }
   onEgresados(){
     this.router.navigate(['/egresados']);
+  }
+
+  get isLogin(){
+    return this.auth.isLogin;
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigateByUrl("/home");
   }
 }
