@@ -49,7 +49,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
         }
       });
   }
-
+  
+// Este método solo se usa para realizar pruebas sin valerse del back-end
   getSolicitudes2(): void {
     this.solicitudes = this.servicioLista.getSolicitudes2();
     this.auxiliar = true;
