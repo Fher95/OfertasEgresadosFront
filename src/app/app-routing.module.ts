@@ -1,3 +1,4 @@
+import { AuthGuard } from './shared/guard/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.component';
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: 'home', component: HomeOfertasComponent },
   { path: 'registroEmpresa', component: RegistrarComponent },
   { path: 'admin/listar', component: PrincipalComponent }, 
-  { path: 'egresados', loadChildren: './pages/egresados/egresados.module#EgresadosModule', canActivate: [UserGuard]},
+  { path: 'egresados', loadChildren: './pages/egresados/egresados.module#EgresadosModule'},
   //{ path: 'pre-registro', component: PreRegistroComponent},
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'empresa/:id/datosEmpresa', component: DatosEmpresaComponent },
@@ -46,6 +47,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [UserGuard]
 })
 export class AppRoutingModule { }

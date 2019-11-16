@@ -4,16 +4,15 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AccessTokenInterceptor implements HttpInterceptor {
-    
+
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if(sessionStorage.getItem('user_email') && sessionStorage.getItem('jwtauth')){
+        if (localStorage.getItem('token')) {
             req = req.clone({
                 setHeaders: {
-                    Authorization: sessionStorage.getItem('jwtauth')
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
         }
         return next.handle(req);
     }
-
 }

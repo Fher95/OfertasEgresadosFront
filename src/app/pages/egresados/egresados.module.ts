@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
   { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
   { path: 'actualizacion', component: ActualizarComponent },
-  { path: '**', component: InicioEgresadosComponent }
+  //{ path: '**', component: InicioEgresadosComponent }
 ];
 
 
