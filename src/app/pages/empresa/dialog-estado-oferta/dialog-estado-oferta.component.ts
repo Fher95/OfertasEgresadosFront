@@ -25,24 +25,26 @@ export class DialogEstadoOfertaComponent implements OnInit {
   }
 
   cambiarEstado() {
-    this.empService.modificarEstadoOferta(this.datosOferta.id_empresa, this.datosOferta.id_aut_oferta, this.datosOferta).subscribe(resultado => {
+    this.empService.modificarEstadoOferta(this.datosOferta.id_aut_oferta, this.estado).subscribe(resultado => {
       console.log("estado:", this.estado);
       console.log("resultado: ", resultado);
-      this.datosOferta.estado = this.estado;
-      this.snackBar.open("Cambio de estado correcto", "Aceptar", {
-        duration: 5000
-      });
+      if (resultado !== null) {
+        this.datosOferta.estado = this.estado;
+        this.snackBar.open("Cambio de estado correcto", "Aceptar", {
+          duration: 5000
+        });
+      }
       this.dialogRef.close();
     },
-    error => {
-      this.snackBar.open("Error al cambiar el estado, recargue la pagina e intentelo de nuevo", "Aceptar", {
-        duration: 5000,
+      error => {
+        this.snackBar.open("Error al cambiar el estado, recargue la pagina e intentelo de nuevo", "Aceptar", {
+          duration: 5000,
+        });
+        this.dialogRef.close();
+        console.log("Error al cambiar el estado: ", error);
       });
-      this.dialogRef.close();
-      console.log("Error al cambiar el estado: ", error);
-    });
   }
-  
+
   onNoClick(): void {
     this.dialogRef.close();
   }

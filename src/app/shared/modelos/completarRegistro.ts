@@ -1,48 +1,21 @@
+import { Referido } from './referido';
+import { Experiencia } from './experiencia';
+
 export class CompletarRegistro{
     num_hijos?: number;
-    esposo:{
-        nombres?:string;
-        id_nivel_educativo?:string;
-        telefono_movil?:number;
-        correo?:string;
-        parentesco?:string;
-        id_aut_programa?:number;
-        es_egresado?:number;
-    }
-    madre:{
-        nombres?:string;
-        id_nivel_educativo?:number;
-        telefono_movil?:number;
-        correo?:string;
-        parentesco?:string;
-        id_aut_programa?:number;
-        es_egresado?:number;
-    }
-    padre:{
-        nombres?:string;
-        id_nivel_educativo?:number;
-        telefono_movil?:number;
-        correo?:string;
-        parentesco?:string;
-        id_aut_programa?:number;
-        es_egresado?:number;
-    }
-    ha_trabajado?:number;
-    exp_pasada:{
-        trabajo_en_su_area?:number;
-        cargo_nombre?:string;
-        nombre_empresa?:string;
-    }
-    trabajo_actualmente?:number;
-    exp_actual:{
-        trabajo_en_su_area?:number;
-        id_ciudad?:number;
-        nombre_empresa?:string;
-        dir_empresa?:string;
-        tel_trabajo?:number;
-        cargo_nombre?:string;
-        rango_salario?:string;
-        tipo_contrato?:string;
-        sector?:string;
+    referidos:Referido[]
+    ha_trabajado: number;
+    exp_pasadas: Experiencia[];
+    trabajo_actualmente:number;
+    exp_actuales: Experiencia[];
+
+    constructor()
+    {
+        this.num_hijos = 0;
+        this.referidos = new Array<Referido>();
+        this.ha_trabajado = 0;
+        this.exp_pasadas = new Array<Experiencia>();
+        this.trabajo_actualmente = 0;
+        this.exp_actuales = new Array<Experiencia>();
     }
 }

@@ -6,6 +6,9 @@ import { LocalizacionComponent } from './localizacion/localizacion.component';
 import { ProgramaComponent } from './programa/programa.component';
 import { ConfirmarRegistroComponent } from './confirmar-registro/confirmar-registro.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
+import { ComentariosComponent } from './comentarios/comentarios.component';
+import { ExplaboralComponent } from './explaboral/explaboral.component';
+import { ReferidoComponent } from './referido/referido.component';
 import { ConfirmarEmailService } from 'src/app/shared/servicios/egresados/confirmar-email.service';
 import { RouterModule, Routes } from '@angular/router';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
@@ -27,17 +30,19 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+    InicioEgresadosComponent,
     ActualizarComponent,
     CompletarRegistroComponent,
     LocalizacionComponent,
     ProgramaComponent,
-    InicioEgresadosComponent,
     ConfirmarRegistroComponent,
     PreRegistroComponent,
-    CompletarRegistroComponent,
     LocalizacionComponent,
     NavEgresadosComponent,
-    FooterEgresadosComponent
+    FooterEgresadosComponent,
+    ComentariosComponent, 
+    ExplaboralComponent, 
+    ReferidoComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +53,10 @@ const routes: Routes = [
   ],
   providers: [
     ConfirmarEmailService, RouterModule, AlertService, AuthGuard
-  ]
+  ],
+  entryComponents: [
+    ExplaboralComponent,
+    ReferidoComponent,
+  ],
 })
 export class EgresadosModule { }

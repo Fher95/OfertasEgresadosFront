@@ -1,0 +1,22 @@
+mat-form-field{
+    margin-right: 20px;
+    margin-left: 0px;
+}
+mat-label, mat-radio-button{
+    margin-right: 20px;
+}
+h1{
+    column-span:all
+}
+
+.expLaboral{
+    width: 100%;
+    padding: 3%;
+    column-count: 3;
+}
+.expLaboral > *{
+    width: 100%;
+}
+.titulo{
+    text-align: center;
+}

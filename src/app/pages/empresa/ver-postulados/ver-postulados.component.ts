@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IEgresado } from 'src/app/shared/modelos/egresadoInterface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ver-postulados',
@@ -7,13 +8,16 @@ import { IEgresado } from 'src/app/shared/modelos/egresadoInterface';
   styleUrls: ['./ver-postulados.component.css']
 })
 export class VerPostuladosComponent implements OnInit {
-
+  id: string;
   listaPostulados: IEgresado[];
   listaPostuladosEscogidos: IEgresado[];
 
-  constructor() { }
+  constructor(
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.listaPostulados = [];
     this.listaPostuladosEscogidos = [];
   }

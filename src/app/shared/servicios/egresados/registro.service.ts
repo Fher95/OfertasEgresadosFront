@@ -7,6 +7,7 @@ import { CompletarRegistro } from '../../modelos/completarRegistro';
 
 
 const URL = 'http://localhost:8081/api/egresados';
+const URLCompletar = 'http://localhost:8080/api/egresados/completarRegistro'
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class RegistroService {
   }
 
   public completarRegistroEgresado(completar: CompletarRegistro) {
-    return this.http.post(URL, completar);
+    return this.http.post(URLCompletar, completar);
   }
 
 }
