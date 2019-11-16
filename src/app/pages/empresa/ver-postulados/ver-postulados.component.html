@@ -6,20 +6,57 @@
 </div>
 <div class="row">
   <div class="col-6 example-container">
+
+    <h3>Postulados</h3>    
+    <h3 *ngIf="this.listaPostulados.length === 0" class="text-centered"> No se encontraron postulados </h3>
     <!--Contenido-->
     <mat-action-list dense *ngFor="let postulado of listaPostulados">
-      <button type="button" mat-list-item value="{{postulado.nombres}}"
-        (click)="seleccionarPostulado(postulado)"> {{ postulado.nombres }}
+      <button type="button" mat-list-item value="{{postulado.nombres}}" (click)="seleccionarPostulado(postulado)">
+        {{ postulado.nombres }}
+        <a href="" data-toggle="modal" data-target="#exampleModalScrollable" (click)="setPostuladoActual(postulado)">
+          Ver Informacion</a>
         <mat-icon matListIcon>add</mat-icon>
       </button>
     </mat-action-list>
+
   </div>
   <div class="col-6 example-container">
+    <h3>Seleccionados</h3>
+    <h3 *ngIf="this.listaPostuladosEscogidos.length === 0" class="text-centered"> No se encontraron postulados seleccionados </h3>
     <mat-nav-list>
       <mat-list-item *ngFor="let postulado of listaPostuladosEscogidos">
         <button type="button" mat-icon-button (click)="desseleccionarPostulado(postulado)">{{ postulado.nombres }}
           <mat-icon matListIcon>close</mat-icon></button>
       </mat-list-item>
     </mat-nav-list>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Informacion Del Postulado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <strong>Identificación de postulado: </strong> <a>{{this.postuladoSeleccionado.identificacion}}</a>
+        <p></p>
+        <strong>Nombre: </strong> <a>{{this.postuladoSeleccionado.nombres}}</a>
+        <p></p>
+        <strong>Apellidos: </strong> <a>{{this.postuladoSeleccionado.apellidos}}</a>
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="reiniciarSeleccion()"
+          data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
   </div>
 </div>
