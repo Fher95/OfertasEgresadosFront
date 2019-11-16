@@ -25,6 +25,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ExplaboralComponent } from './pages/egresados/explaboral/explaboral.component';
 import { Config } from './shared/servicios/config/config';
 import { AlertService } from './shared/servicios/common/alert.service';
+import { ReferidoComponent } from './pages/egresados/referido/referido.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { AlertService } from './shared/servicios/common/alert.service';
     ActualizarComponent,
     ConfirmarRegistroComponent,
     ExplaboralComponent,
+    ReferidoComponent,
   ],
   imports: [
     EmpresaModule,
@@ -55,6 +57,10 @@ import { AlertService } from './shared/servicios/common/alert.service';
     RecaptchaModule,
     CaptchaModule, 
     PaginationModule.forRoot(),
+  ],
+  entryComponents: [
+    ExplaboralComponent,
+    ReferidoComponent,
   ],
   providers: [Config, AlertService],
   bootstrap: [AppComponent],

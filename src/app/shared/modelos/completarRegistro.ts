@@ -3,23 +3,19 @@ import { Experiencia } from './experiencia';
 
 export class CompletarRegistro{
     num_hijos?: number;
-    esposo: Referido;
-    madre: Referido;
-    padre: Referido;
+    referidos:Referido[]
     ha_trabajado: number;
-    exp_pasada: Experiencia;
+    exp_pasadas: Experiencia[];
     trabajo_actualmente:number;
-    exp_actual: Experiencia;
+    exp_actuales: Experiencia[];
 
     constructor()
     {
         this.num_hijos = 0;
-        this.esposo = new Referido();
-        this.madre = new Referido();
-        this.padre = new Referido();
+        this.referidos = new Array<Referido>();
         this.ha_trabajado = 0;
-        this.exp_pasada = new Experiencia();
+        this.exp_pasadas = new Array<Experiencia>();
         this.trabajo_actualmente = 0;
-        this.exp_actual = new Experiencia();
+        this.exp_actuales = new Array<Experiencia>();
     }
 }

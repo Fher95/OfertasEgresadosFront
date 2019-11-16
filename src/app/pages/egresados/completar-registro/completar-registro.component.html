@@ -1,7 +1,8 @@
 <app-nav-egresados> </app-nav-egresados> 
 <form class="completarRegistro" (ngSubmit)="enviarDatos()">
-  <mat-tab-group>
-    <mat-tab label = "Información Personal Complementaria">
+  <mat-horizontal-stepper class="stepper">
+    <mat-step>
+      <ng-template matStepLabel>Información Personal Complementaria</ng-template>
       <div class="wrap">
         <div class="Hijos">
           <mat-label>¿Tiene hijos?:</mat-label>
@@ -9,41 +10,51 @@
             <mat-radio-button value=1 >Si</mat-radio-button>
             <mat-radio-button value=0 >No</mat-radio-button>
           </mat-radio-group>
-          <mat-form-field >
+          <mat-form-field appearance="outline">
             <mat-label >¿Cuantos?</mat-label>
             <mat-select [formControl]="CantHijos">
               <mat-option [value] = "item" *ngFor="let item of cantHijos">{{item}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-label>Referencias personales:</mat-label>
-          <button class="btnCont" mat-raised-button (click)="contacto()"> <mat-icon>add</mat-icon> Agregar contacto</button>
-        </div>  
-      </div> 
-    </mat-tab>
-
-    <mat-tab label = "Información laboral">
+        </div>
+        <mat-label>Referencias personales:</mat-label>
+        <button class="btnCont" mat-raised-button (click)="contacto()"> <mat-icon>add</mat-icon> Agregar contacto</button>
+        <div>
+          <button mat-button mat-raised-button matStepperNext>Siguiente</button>
+        </div>
+      </div>  
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Información laboral</ng-template>
       <div class="wrap">
-        <div class="labor">
+        <div class="labAntes">
           <mat-label>¿Ha laborado antes?: </mat-label>
           <mat-radio-group [formControl]="haTrabajado" required>
             <mat-radio-button value=1>Si</mat-radio-button>
             <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
+          <div class="exp">
+            <mat-label>Experiencia Laboral:</mat-label>
+            <button class="btnExp" mat-raised-button (click)="experiencia()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
+          </div>
         </div>
-        <mat-label>Experiencia Laboral:</mat-label>
-        <button class="btnExp" mat-raised-button (click)="experiencia()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
-        <div class="laborActual">
+        <div class="labActual">
           <mat-label>¿Labora actualmente?: </mat-label>
           <mat-radio-group [formControl]="Labora_Actualmente">
             <mat-radio-button value=1>Si</mat-radio-button>
             <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
+          <div class="exp">
+            <mat-label>Experiencia Laboral:</mat-label>
+            <button class="btnExp" mat-raised-button (click)="experiencia()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
+          </div>
         </div>
-        <mat-label>Experiencia Laboral:</mat-label>
-        <button class="btnExp" mat-raised-button (click)="experiencia()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
-        <button class="btnEnviar" mat-raised-button type="submit" >Enviar </button>
+        <div class="btn">
+          <button class="btnAtras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
+          <button class="btnCompletar" mat-raised-button type="submit">Completar Información</button>
+        </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </mat-step>
+  </mat-horizontal-stepper>
 </form>
 <app-footer-egresados></app-footer-egresados>

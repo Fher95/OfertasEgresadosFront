@@ -3,14 +3,14 @@
     <img src="../assets/img/egresados-logo.png" >
   </div>
 
-  <nav class="nav justify-content-end">
+  <nav class="nav justify-content-end navbar-light bg-light shadow border-bottom sticky-top">
     <div class = "row">
       <ul class = "nav col-12 " routerLinkActive = "active"> 
-        <li class = "nav-item"> <a class = "nav-link" routerLink = "completarRegistro">COMPLETAR REGISTRO</a></li>
-        <li class = "nav-item"> <a class = "nav-link" routerLink = "actualizacion">ACTUALIZACIÓN DE DATOS</a></li>
-        <li class = "nav-item"> <a class = "nav-link" routerLink = "carnetizacion">CARNETIZACIÓN</a></li>
-        <li class = "nav-item"> <a class = "nav-link" routerLink = "eventos">EVENTOS</a></li>
-        <li class = "nav-item"> <a class = "nav-link" routerLink = "home">OFERTAS LABORALES</a></li>
+        <li class = "nav-item"> <a class = "nav-link" (click) = "completarReg()">Completar Registro</a></li>
+        <li class = "nav-item"> <a class = "nav-link" (click) = "actualizacion()">Actualización de Datos</a></li>
+        <li class = "nav-item"> <a class = "nav-link" routerLink = "carnetizacion">Carnetización</a></li>
+        <li class = "nav-item"> <a class = "nav-link" routerLink = "eventos">Eventos</a></li>
+        <li class = "nav-item"> <a class = "nav-link" (click) = "ofertasLab()">Ofertas Laborales</a></li>
       </ul>
     </div>
   </nav>

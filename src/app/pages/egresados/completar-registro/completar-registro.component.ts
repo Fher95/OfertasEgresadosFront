@@ -4,7 +4,7 @@ import { CompletarRegistro } from 'src/app/shared/modelos/completarRegistro';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { ExplaboralComponent } from '../explaboral/explaboral.component';
 import { ReferidoComponent } from '../referido/referido.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-completar-registro',
@@ -14,12 +14,10 @@ import { MatDialog } from '@angular/material';
 export class CompletarRegistroComponent implements OnInit {
 
   varCompletarRegistro : CompletarRegistro;
-  dialog : MatDialog;
-
   TieneHijos = new FormControl('', [Validators.required]);
   CantHijos = new FormControl('', [Validators.required]);
   //Referencias personales, lista
-  @ViewChild('referido') referido : ReferidoComponent;
+  @ViewChild('referido') referido = ReferidoComponent;
   haTrabajado = new FormControl('', [Validators.required]);
   //Experiencia
   @ViewChild('expAnterior') expAnterior : ExplaboralComponent;
@@ -29,16 +27,10 @@ export class CompletarRegistroComponent implements OnInit {
 
   //Listas opciones
   cantHijos: string[] = [ "1", "2", "3", "4", "5", "Más de 5 hijos"];
-  tipoContrato: string[] = ["Contrato a termino fijo","Contrato a termino indefinido","Contrato de Obra o labor",
-                            "Contrato civil por prestación de servicios","Contrato de aprendizaje",
-                            "Contrato ocasional de trabajo","Contrato temporal, ocasional o accidental"];
-  rangoSalarial: string[] = ["Menos de $1.000.000","$1.000.001 - $2.000.000",
-                            "$2.000.001 - $3.000.000","$3.000.001 - $6.000.000",
-                            "$6.000.001 - $10.000.000","Más de $10.000.000"];
   carreras: string[] = ["Tecnología","Pregrado","Especialización","Maestría","Doctorado"];
   razon: string[] = ["Planta docente","Infraestructura","Planes de estudio","Otra razón"];
 
-  constructor(private servicioCompletar: RegistroService) {
+  constructor(private dialog:MatDialog, private servicioCompletar: RegistroService) {
     this.limpiarFormulario();
    }
 

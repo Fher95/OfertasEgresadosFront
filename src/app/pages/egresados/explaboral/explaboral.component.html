@@ -1,48 +1,61 @@
-<div class="laborandoArea">
-  <mat-label>¿Labora en el área que se graduó?:</mat-label>
+<form class="expLaboral" (ngSubmit)="experienciaLaboralDatos()">
+  <h1 mat-dialog-title class="titulo">EXPERIENCIA LABORAL</h1>
+  <div class="laborandoArea">
+    <mat-label>¿Labora en el área que se graduó?:</mat-label>
     <mat-radio-group [formControl]="Labora_Area">
       <mat-radio-button value=1>Si</mat-radio-button>
       <mat-radio-button value=0>No</mat-radio-button>
     </mat-radio-group>
-</div>
-<div class="categoriaLabor">
-  <mat-label>Categoria: </mat-label>
-  <mat-radio-group [formControl]="NombreCategoria">
-    <mat-radio-button value="empleado">Empleado</mat-radio-button>
-    <mat-radio-button value="independiente">Independiente</mat-radio-button>
-    <mat-radio-button value="empresario">Empresario</mat-radio-button>
-  </mat-radio-group>
-</div>
-<mat-form-field>
-  <input matInput placeholder="Nombre de la Empresa" [formControl]="NombreEmpresa" required>
-</mat-form-field>
-<app-localizacion #localizacionEmpresa></app-localizacion>
-<mat-form-field>
-  <input matInput placeholder="Dirección lugar de trabajo" [formControl]="DirTrabajo" required>
-</mat-form-field>
-<mat-form-field>
-  <input matInput placeholder="Teléfono lugar de trabajo" [formControl]="TelTrabajo" required>
-</mat-form-field>
-<mat-form-field>
-  <input matInput placeholder="Cargo que desempeña" [formControl]="Cargo" required>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Rango Salarial</mat-label>
-  <mat-select [formControl]="RangoSalario" required>
-    <mat-option [value] = "item" *ngFor="let item of rangoSalarial">{{item}}</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Tipo Contrato</mat-label>
-    <mat-select [formControl]="TipoContrato" required>
-      <mat-option [value] = "item" *ngFor="let item of tipoContrato">{{item}}</mat-option>
-    </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Sector</mat-label>
-    <mat-select [formControl]="Sector" required>
-      <mat-option value = "publico">Publico</mat-option>
-      <mat-option value = "privado">Privado</mat-option>
-      <mat-option value = "mixto">Mixto</mat-option>
-    </mat-select>
-</mat-form-field>
+  </div>
+  <div class="categoriaLabor">
+    <mat-label>Categoria: </mat-label>
+    <mat-radio-group [formControl]="NombreCategoria">
+      <mat-radio-button value="empleado">Empleado</mat-radio-button>
+      <mat-radio-button value="independiente">Independiente</mat-radio-button>
+      <mat-radio-button value="empresario">Empresario</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="datosLaboral">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre de la Empresa</mat-label>
+      <input matInput [formControl]="NombreEmpresa" required>
+    </mat-form-field>
+    <app-localizacion #localizacionEmpresa></app-localizacion>
+    <mat-form-field appearance="outline">
+      <mat-label>Dirección de lugar de trabajo</mat-label> 
+      <input matInput [formControl]="DirTrabajo" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono lugar de trabajo</mat-label>
+      <input matInput [formControl]="TelTrabajo" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Cargo que desempeña</mat-label>
+      <input matInput [formControl]="Cargo" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Rango Salarial</mat-label>
+      <mat-select [formControl]="RangoSalario" required>
+        <mat-option [value] = "item" *ngFor="let item of rangoSalarial">{{item}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo Contrato</mat-label>
+      <mat-select [formControl]="TipoContrato" required>
+        <mat-option [value] = "item" *ngFor="let item of tipoContrato">{{item}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Sector</mat-label>
+      <mat-select [formControl]="Sector" required>
+        <mat-option value = "publico">Publico</mat-option>
+        <mat-option value = "privado">Privado</mat-option>
+        <mat-option value = "mixto">Mixto</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial>Agregar</button>
+  </mat-dialog-actions>
+</form>
