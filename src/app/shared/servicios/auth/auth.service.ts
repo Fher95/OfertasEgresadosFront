@@ -4,11 +4,16 @@ import { Observable } from 'rxjs';
 import { Config } from '../config/config';
 import { map } from 'rxjs/operators';
 import { AuthModel } from '../../modelos/auth.model';
+import jwt_decode from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  userEmail: string;
+  userRol: string;
 
   constructor(
     private http: HttpClient,
@@ -16,26 +21,28 @@ export class AuthService {
   ) { }
 
   login(email: string, password: string): Observable<AuthModel> {
-    return this.http.post<AuthModel>(this.config.baseUrl + 'login', { email: email, password: password })
+    return this.http.post<AuthModel>(this.config.baseUrl + 'login', { email, password })
       .pipe(map<AuthModel, any>(response => {
         if (response.access_token) {
-          let jwtauthstring: string = 'Bearer ' + response.access_token;
-          localStorage.setItem('user_rol', response.user_rol);
-          localStorage.setItem('jwtauth', jwtauthstring);
-          localStorage.setItem('user_email', response.user_email);
+          const payload = jwt_decode(response.access_token);
+          localStorage.setItem('token', response.access_token);
+          this.userEmail = payload.email;
+          this.userRol = payload.rol;
         }
       }));
   }
 
   get isLogin() {
-    return localStorage.getItem('user_rol') != undefined;
+    if (localStorage.getItem('token')) {
+      return true;
+    }
+    return false;
   }
 
   logout() {
     if (this.isLogin) {
-      localStorage.removeItem('user_rol');
-      localStorage.removeItem('user_email');
-      localStorage.removeItem('jwtauth');
+      localStorage.removeItem('token');
+      this.userEmail = this.userRol = null;
     }
   }
 }

@@ -7,6 +7,9 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Ofertas Laborales</a>
       </li>
+      <li class="nav-item" *ngIf="isAdmin">
+        <a class="nav-link" href="#">Admin área</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" (click)="onEgresados()">Egresados</a>
         <!--<a class="nav-link" [routerLink]="['/egresados']" >Egresados</a>-->
