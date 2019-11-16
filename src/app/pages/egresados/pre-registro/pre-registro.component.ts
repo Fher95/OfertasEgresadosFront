@@ -7,15 +7,17 @@ import { MatDialog } from '@angular/material/dialog';
 
 // Componentes y Modelos propios
 import { User } from '../../../shared/modelos/user';
+import { DiscapacidadInterface } from '../../../shared/modelos/discapacidadInterface';
+import { SedeInterface } from '../../../shared/modelos/sedeInterface';
 import { ProgramaInterface } from '../../../shared/modelos/programaInteface';
 import { FacultadInterface } from '../../../shared/modelos/facultadInterface';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
 import { Utilities } from '../../../shared/servicios/egresados/utilities';
 import { RegistroService } from '../../../shared/servicios/egresados/registro.service';
-import {LocalizacionComponent} from '../localizacion/localizacion.component';
+import { LocalizacionComponent } from '../localizacion/localizacion.component';
 import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
-
 import {ErrorStateMatcher} from '@angular/material/core';
+import { NivelesEstudioInterface } from 'src/app/shared/modelos/nivelesEstudioInterface';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -85,15 +87,18 @@ export class PreRegistroComponent implements OnInit {
 
 
   // Variables
-  private sedes = [1, 2, 3, 4, 5];
+  //private sedes = [1, 2, 3, 4, 5];
 
   //private facultades = ['Facultad Ingenieria Electronica y Telecomunicaciones', 'Facultad de Ingenieria Civil', 'Facultad de Ciencias Naturales y Exactas', 'Facultad de Artes', 'Facultad de Derecho', 'Facultad de Ciencias Contables', 'Facultad de Ciencias Agropecuarias', 'Facultad de Ciencias Humanas'];
   //private programas = ['Musica', 'Medicina', 'Ingenieria de Sistemas', 'Ingenieria Electronica', 'Ingenieria Civil', 'Enfermeria', 'Fonoaudiologia', 'Contaduria Publica'];
+  private sedes: SedeInterface[];
   private facultades: FacultadInterface[];
   private programas: ProgramaInterface[];
-  private discapacidades: string[] = ['Visual', 'Cognitiva', 'Auditiva', 'Fisica', 'Ninguna'];
+  private discapacidades: DiscapacidadInterface[] = [];
+  //private discapacidades: string[] = ['Visual', 'Cognitiva', 'Auditiva', 'Fisica', 'Ninguna'];
   private generos: string[] = ['Masculino', 'Femenino', 'Otro'];
-  private niveles_academicos: string[] = ['Pregardo', 'Posgrado'];
+  //private niveles_academicos: string[] = ['Pregardo', 'Posgrado'];
+  private niveles_academicos: NivelesEstudioInterface[];
   private titulos = [1,2,3,4];
   private estadosC: string[] = ['Casado','Soltero','Divorciado','Unión Libre','Viudo','Seprado','Comprometido'];
   private gruposE: string[] = ['Afrodecendiente','Indigena','Mestizo','Blanco','Otro'];
@@ -101,6 +106,7 @@ export class PreRegistroComponent implements OnInit {
   private anioIni:number = 1849;
   private anios: number[]=[];
   private fecha:number = new Date().getFullYear();
+  private discapacidad: string[] = [];
 
 
   // Variable para capturar y acotar la fecha seleccionada
@@ -127,7 +133,7 @@ export class PreRegistroComponent implements OnInit {
 
   // Método para limpiar datos de control de formulario
   private cleanFormData() {
-    this.user = new User("", "", "", 0, "", "", "", "", "", 0, 0,"",false, "", "", 0,"", "","","");
+    this.user = new User("", "", "", 0, "", "", "", "", [], 0, 0,"",false, "", "", 0,"", "","","");
     this.msgError = "";
     this.emailFormControl = new FormControl();
     this.emailFormControl2 = new FormControl();
@@ -155,16 +161,37 @@ export class PreRegistroComponent implements OnInit {
     return validar;
   }
 
+  obtenerNivelEstudio(){
+    this.catalogoService.getNivelEducativo().subscribe(data => this.niveles_academicos = data);
+  }
+
+  obtenerSedes(){
+    this.catalogoService.getSede().subscribe(data => this.sedes = data);
+  }
+
   obtenerFacultad(){
-    this.catalogoService.getFacultad().subscribe(data => this.facultades = data);
+    this.catalogoService.getFacultad(this.sedeFormControl.value).subscribe(data => this.facultades = data);
   }
 
   obtenerPrograma(){
-    this.catalogoService.getPrograma(this.facultadFormControl.value).subscribe(data => this.programas = data);
+    this.catalogoService.getPrograma(this.sedeFormControl.value,this.facultadFormControl.value,this.nivelAFormControl.value).subscribe(data => this.programas = data);
   }
+
+  obtenerDiscapacidades(){
+    this.catalogoService.getDiscapacidad().subscribe(data => this.discapacidades = data);
+   }
+ 
+   discapacidadesUsuario(discapacidad:string){
+     if(!this.discapacidad.includes(discapacidad)){
+       this.discapacidad.push(discapacidad);
+     }else{
+       this.discapacidad.splice(this.discapacidad.indexOf(discapacidad),1)
+     }
+     
+   }
   
   ngOnInit() {
-    this.obtenerFacultad();
+    this.obtenerSedes();
   }
 
   
@@ -183,6 +210,7 @@ export class PreRegistroComponent implements OnInit {
       this.msgError = "Error: Todos los campos son obligatorios";
     }
     console.log('hola mundo '+valid);
+    console.log(this.discapacidad);
     return valid;
   } 
 
@@ -202,6 +230,7 @@ export class PreRegistroComponent implements OnInit {
       this.user.id_lugar_nacimiento =this.lNacimiento.obtenerIdLocalizacion();
       this.user.id_lugar_residencia =this.lResidencia.obtenerIdLocalizacion();
       this.user.id_nivel_educativo = this.programaFormControl.value;
+      this.user.discapacidad = this.discapacidad;
       if(this.programaFormControl.value == 'Musica'){
         this.user.id_nivel_educativo = this.tituloFormControl.value;
       } else{

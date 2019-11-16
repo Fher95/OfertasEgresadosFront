@@ -4,9 +4,11 @@ import { Observable } from 'rxjs';
 import { Pais } from '../../modelos/paisInterface';
 import { DepartamentoInterface } from '../../modelos/departamentoInterface';
 import { CiudadInterface } from '../../modelos/ciudadesInterface';
-import { NivelAcademicoInterface } from '../../modelos/nivelAcademicoInterface';
 import { FacultadInterface } from '../../modelos/facultadInterface';
 import { ProgramaInterface } from '../../modelos/programaInteface';
+import { DiscapacidadInterface } from '../../modelos/discapacidadInterface';
+import { NivelesEstudioInterface } from '../../modelos/nivelesEstudioInterface';
+import { SedeInterface } from '../../modelos/sedeInterface';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -29,15 +31,26 @@ export class CatalogosService {
     return this.http.get<CiudadInterface[]>(`${baseUrl}ciudades/${departamentoId}`);
   }
 
-  getNivelesAcademicos(): Observable<NivelAcademicoInterface> {
-    return this.http.get<NivelAcademicoInterface>(`${baseUrl}nivelAcademico`);
+  getNivelEducativo(): Observable<NivelesEstudioInterface[]>{
+    return this.http.get<ProgramaInterface[]>(`${baseUrl}nivelesEstudio`);
   }
 
-  getFacultad(): Observable<FacultadInterface[]>{
-    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades`);
+  getSede(): Observable<SedeInterface[]>{
+    return this.http.get<ProgramaInterface[]>(`${baseUrl}sedes`);
   }
 
-  getPrograma(facultadId: number): Observable<ProgramaInterface[]>{
-    return this.http.get<ProgramaInterface[]>(`${baseUrl}programas/${facultadId}`);
+  getFacultad(idSede: number): Observable<FacultadInterface[]>{
+    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades/${idSede}`);
   }
+
+  getPrograma(idFacultad: number,idSede: number, idNivelEstudio: number): Observable<ProgramaInterface[]>{
+    return this.http.get<ProgramaInterface[]>(`${baseUrl}programas/${idSede}/${idFacultad}/${idNivelEstudio}`);
+  }
+
+
+
+  getDiscapacidad(): Observable<DiscapacidadInterface[]>{
+    return this.http.get<ProgramaInterface[]>(`${baseUrl}discapacidades`);
+  }
+
 }

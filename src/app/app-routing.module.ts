@@ -4,7 +4,7 @@ import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.com
 import { RegistrarComponent } from './pages/empresa/registrar/registrar.component';
 import { PrincipalComponent } from './pages/administrador/principal/principal.component';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
-//import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
+import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
 //import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro/confirmar-registro.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'registroEmpresa', component: RegistrarComponent },
   { path: 'admin/listar', component: PrincipalComponent }, 
   { path: 'egresados', loadChildren: './pages/egresados/egresados.module#EgresadosModule' },
-  //{ path: 'pre-registro', component: PreRegistroComponent},
+ // { path: 'egresados/pre-registro', component: PreRegistroComponent},
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'empresa/:id/datosEmpresa', component: DatosEmpresaComponent },
   { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent},

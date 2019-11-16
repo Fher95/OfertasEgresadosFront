@@ -24,10 +24,10 @@ export class ProgramaComponent implements OnInit {
   }
 
   obtenerFacultad(){
-    this.catalogoService.getFacultad().subscribe(data => this.facultades=data);
+    //this.catalogoService.getFacultad().subscribe(data => this.facultades=data);
   }
   obtenerPrograma(){
-    this.catalogoService.getPrograma(this.facultad.value).subscribe(data => this.programas=data);
+    //this.catalogoService.getPrograma(this.facultad.value).subscribe(data => this.programas=data);
   }
 
 }
