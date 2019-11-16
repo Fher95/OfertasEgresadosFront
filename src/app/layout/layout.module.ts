@@ -5,6 +5,7 @@ import { NavbarHomeOfertasComponent } from './navbar-home-ofertas/navbar-home-of
 import { MaterialModule } from './material/material.module';
 import { NavbarEmpresaComponent } from './navbar-empresa/navbar-empresa.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     MaterialModule,

@@ -16,7 +16,7 @@ import { Config } from './shared/servicios/config/config';
 import { AlertService } from './shared/servicios/common/alert.service';
 import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interceptor';
 import { AuthModule } from './pages/auth/auth.module';
-
+import { UserGuard } from './shared/guard/user.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +40,7 @@ import { AuthModule } from './pages/auth/auth.module';
   providers: [
     Config,
     AlertService,
+    UserGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],

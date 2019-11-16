@@ -6,9 +6,10 @@ import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { MaterialModule } from 'src/app/layout/material/material.module';
 import { CommonModule } from '@angular/common';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
+import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/nav-egresados.component';
 
 @NgModule({
-    declarations:[LoginComponent, LogoutComponent],
+    declarations:[LoginComponent, LogoutComponent, NavEgresadosComponent],
     imports: [
         FormsModule,
         ReactiveFormsModule,

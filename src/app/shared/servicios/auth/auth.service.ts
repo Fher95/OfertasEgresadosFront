@@ -19,7 +19,7 @@ export class AuthService {
     return this.http.post<AuthModel>(this.config.baseUrl + 'login', { email: email, password: password })
       .pipe(map<AuthModel, any>(response => {
         if (response.access_token) {
-          let jwtauthstring: string = 'Barear ' + response.access_token;
+          let jwtauthstring: string = 'Bearer ' + response.access_token;
           localStorage.setItem('user_rol', response.user_rol);
           localStorage.setItem('jwtauth', jwtauthstring);
           localStorage.setItem('user_email', response.user_email);

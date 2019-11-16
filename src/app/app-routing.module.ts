@@ -17,6 +17,7 @@ import { CrearOfertaLaboralComponent } from './pages/empresa/crear-oferta-labora
 import { OfertasPublicadasComponent } from './pages/empresa/ofertas-publicadas/ofertas-publicadas.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { LogoutComponent } from './pages/auth/logout/logout.component';
+import { UserGuard } from './shared/guard/user.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'home', component: HomeOfertasComponent },
   { path: 'registroEmpresa', component: RegistrarComponent },
   { path: 'admin/listar', component: PrincipalComponent }, 
-  { path: 'egresados', loadChildren: './pages/egresados/egresados.module#EgresadosModule' },
+  { path: 'egresados', loadChildren: './pages/egresados/egresados.module#EgresadosModule', canActivate: [UserGuard]},
   //{ path: 'pre-registro', component: PreRegistroComponent},
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'empresa/:id/datosEmpresa', component: DatosEmpresaComponent },
