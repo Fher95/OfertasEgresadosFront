@@ -10,6 +10,8 @@ import { FileUploadService } from './egresados/file-upload.service';
 import { EmpresaService } from './empresa/empresa.service';
 import { Config } from './config/config';
 import { AlertService } from './common/alert.service';
+import { AuthService } from './auth/auth.service';
+import { UserGuard } from '../guard/user.guard';
 
 @NgModule({
   declarations: [
@@ -34,8 +36,9 @@ import { AlertService } from './common/alert.service';
     RegistroService,
     Utilities,
     EmpresaService,
-    AlertService
+    AlertService,
+    UserGuard
   ],
-  providers: [Config]
+  providers: [Config, AuthService]
 })
 export class ServiciosModule { }

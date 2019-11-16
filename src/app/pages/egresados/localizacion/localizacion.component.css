@@ -1,3 +1,8 @@
+mat-form-field{
+    margin-right: 20px;
+    margin-left: 0px;
+}
+
 #content {
     display: flex;
     flex-direction: column;

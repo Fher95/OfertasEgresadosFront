@@ -2,3 +2,12 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section
 {
     display: block;
 }
+
+nav{
+    display: block;
+    z-index: 1000;
+}
+
+a:not([href]){
+    color: #007bff;
+}
