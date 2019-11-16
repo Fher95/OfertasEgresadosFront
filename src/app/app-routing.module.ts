@@ -4,7 +4,7 @@ import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.com
 import { RegistrarComponent } from './pages/empresa/registrar/registrar.component';
 import { PrincipalComponent } from './pages/administrador/principal/principal.component';
 import { DatosEmpresaComponent } from './pages/empresa/datosEmpresa/datos-empresa/datos-empresa.component';
-//import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
+import { PreRegistroComponent } from './pages/egresados/pre-registro/pre-registro.component';
 //import { ConfirmarRegistroComponent } from './pages/egresados/confirmar-registro/confirmar-registro.component';
 import { ListarSolicitudesEmpresaComponent } from './pages/administrador/listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { EditarEmpresaComponent } from './pages/empresa/editar-empresa/editar-empresa.component';
