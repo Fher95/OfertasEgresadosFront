@@ -1,0 +1,32 @@
+<form class="contacto" (ngSubmit)="referidoDatos()">
+  <h1 mat-dialog-title class="titulo">CONTACTO</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre </mat-label>
+    <input matInput [formControl]="Nombre" required>
+    <mat-error>Nombre es requerido</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Parentesco</mat-label>
+    <input matInput [formControl]="Parentesco" required>
+  </mat-form-field>
+  <div class="egresadoUnicauca">
+    <mat-label>¿Es egresado de Unicauca?: </mat-label>
+    <mat-radio-group [formControl]="Egresado" required>
+      <mat-radio-button value=1>Si</mat-radio-button>
+      <mat-radio-button value=0>No</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <app-programa #programa></app-programa>
+  <mat-form-field appearance="outline">
+    <mat-label>Correo electronico </mat-label>
+    <input matInput type="email" [formControl]="Correo">
+  </mat-form-field>     
+  <mat-form-field appearance="outline">
+    <mat-label>Teléfono/Celular</mat-label>
+    <input matInput [formControl]="Celular" required>
+  </mat-form-field>
+  <mat-dialog-actions align="end">
+    <button id="agregar" type="submit" mat-raised-button>Agregar</button>
+    <button mat-raised-button mat-dialog-close>Cancelar</button>
+  </mat-dialog-actions>
+</form>

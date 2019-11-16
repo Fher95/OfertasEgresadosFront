@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-egresados',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavEgresadosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
-
+  completarReg(){
+    this.router.navigate(['egresados/completarRegistro']);
+  }
+  actualizacion(){
+    this.router.navigate(['egresados/actualizacion']);
+  }
+  ofertasLab(){
+    this.router.navigate(['home']);
+  }
 }

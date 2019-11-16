@@ -8,8 +8,12 @@ mat-select{
     flex-direction: column;
     margin-right: 100px;
 }
+mat-form-field{
+    margin-right: 20px;
+    margin-left: 0px;
+}
 
-label,mat-form-field, mat-radio-button{
+mat-label, mat-radio-button{
     margin-right: 20px;
 }
 
@@ -21,10 +25,15 @@ label,mat-form-field, mat-radio-button{
     box-shadow: 0px 0px 3px grey;
 }
 
-.btnEnviar
+/* Botones */
+.btnCompletar
 {
-    position: center; 
-    width:20%; 
-    left: 80px;
-    margin:center;
+    left: 90px;
+    text-align: end;
+}
+
+.btnExp
+{
+    text-align: end;
+    left: 80px;  
 }
