@@ -116,6 +116,7 @@ export class ListarOfertasComponent implements OnInit {
     } else if (this.estadoActivacion === 'Rechazada') {
       this.servicioOfertas.desaprobarOferta(this.ofertaSeleccionada.id_aut_oferta, this.motivoInactivacion).subscribe();
     }
+    this.getOfertas();
   }
 
 }
