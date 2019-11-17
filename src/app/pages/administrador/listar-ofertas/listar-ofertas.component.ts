@@ -63,6 +63,7 @@ export class ListarOfertasComponent implements OnInit {
     for (let index = 0; index < this.ofertas.length; index++) {
       if (this.ofertas[index].id_aut_oferta === parId) {
         this.ofertaSeleccionada = this.ofertas[index];
+        this.estadoActivacion = this.ofertaSeleccionada.estado;
       }
     }
     console.log(this.ofertaSeleccionada);
@@ -79,7 +80,7 @@ export class ListarOfertasComponent implements OnInit {
   }
   desaprobarEmpresa(parOferta: OfertaLaboral): void {
     if (OfertaLaboral != null) {
-      this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta,this.motivoInactivacion )
+      this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta, this.motivoInactivacion )
         .subscribe(result => {
           console.log(result);
           this.getOfertas();
