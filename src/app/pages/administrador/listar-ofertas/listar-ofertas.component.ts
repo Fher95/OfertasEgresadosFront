@@ -112,11 +112,17 @@ export class ListarOfertasComponent implements OnInit {
 
   guardarCambio() {
     if (this.estadoActivacion === 'Aceptada') {
-      this.servicioOfertas.aprobarOferta(this.ofertaSeleccionada.id_aut_oferta).subscribe();
+      this.servicioOfertas.aprobarOferta(this.ofertaSeleccionada.id_aut_oferta)
+      .subscribe(result => {
+        this.getOfertas();
+      });
     } else if (this.estadoActivacion === 'Rechazada') {
-      this.servicioOfertas.desaprobarOferta(this.ofertaSeleccionada.id_aut_oferta, this.motivoInactivacion).subscribe();
+      this.servicioOfertas.desaprobarOferta(this.ofertaSeleccionada.id_aut_oferta, this.motivoInactivacion)
+      .subscribe(result => {
+        this.getOfertas();
+      });
     }
-    this.getOfertas();
+
   }
 
 }
