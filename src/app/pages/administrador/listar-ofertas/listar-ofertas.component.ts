@@ -111,9 +111,9 @@ export class ListarOfertasComponent implements OnInit {
   }
 
   guardarCambio() {
-    if (this.estadoActivacion === 'Activar') {
+    if (this.estadoActivacion === 'Aceptada') {
       this.servicioOfertas.aprobarOferta(this.ofertaSeleccionada.id_aut_oferta).subscribe();
-    } else if (this.estadoActivacion === 'Inactivar') {
+    } else if (this.estadoActivacion === 'Rechazada') {
       this.servicioOfertas.desaprobarOferta(this.ofertaSeleccionada.id_aut_oferta, this.motivoInactivacion).subscribe();
     }
   }
