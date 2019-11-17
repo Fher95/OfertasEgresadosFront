@@ -72,10 +72,11 @@ export class EmpresaService {
   }
 
   guardarRegistroVisualizacionPostulado(parId: number, strFecha: string) {
-    let json =  JSON.stringify({ idPostulado : parId, fecha: strFecha });
-    let params = "json="+json;
+    // let json =  JSON.stringify({ idPostulado : parId, fecha: strFecha });
+    // let params = "json="+json;
+    const objVisualizacion = { idPostulado : parId, fecha: strFecha };
     const varUrl = 'http://127.0.0.1:8081/api/ofertas/postulados/visto';
-    return this.httpClient.put(varUrl, params, {headers: this.headers});
+    return this.httpClient.put(varUrl, objVisualizacion, {headers: this.headers});
   }
 
 }
