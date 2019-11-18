@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { DialogInfoOfertaComponent } from '../dialog-info-oferta/dialog-info-oferta.component';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
+import { IEgresado } from 'src/app/shared/modelos/egresadoInterface';
 
 @Component({
   selector: 'app-dialog-estado-oferta',
@@ -11,7 +12,8 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 export class DialogEstadoOfertaComponent implements OnInit {
 
   private estado: String;
-
+  private idEgresadoEscogido: String;
+  private listaPostuladosEscogidos: IEgresado[];
   constructor(
     public dialogRef: MatDialogRef<DialogInfoOfertaComponent>,
     @Inject(MAT_DIALOG_DATA) public datosOferta: any,
@@ -24,8 +26,19 @@ export class DialogEstadoOfertaComponent implements OnInit {
     this.estado = this.datosOferta.estado_proceso;
   }
 
+  cargarPostuladosSeleccionados() {
+    this.empService.getPostuladosSeleccionadosOferta(this.datosOferta.id_empresa).subscribe(resultado => {
+      console.log(resultado);
+      this.listaPostuladosEscogidos = resultado;
+    },
+      error => {
+        console.log('Error al obtener el listado de postulados seleccionados: ', JSON.stringify(error));
+      });
+  }
+
   cambiarEstado() {
-    this.empService.modificarEstadoOferta(this.datosOferta.id_aut_oferta, this.estado).subscribe(resultado => {
+    let objOferta = {'estado_proceso':this.estado, 'idEgresadoEscogido':this.idEgresadoEscogido}
+    this.empService.modificarEstadoOferta(this.datosOferta.id_aut_oferta, objOferta).subscribe(resultado => {
       console.log("estado:", this.estado);
       console.log("resultado: ", resultado);
       if (resultado !== null) {
@@ -37,9 +50,9 @@ export class DialogEstadoOfertaComponent implements OnInit {
       this.dialogRef.close();
     },
       error => {
-        this.snackBar.open("Error al cambiar el estado, recargue la pagina e intentelo de nuevo", "Aceptar", {
+        /*this.snackBar.open("Error al cambiar el estado, recargue la pagina e intentelo de nuevo", "Aceptar", {
           duration: 5000,
-        });
+        });*/
         this.dialogRef.close();
         console.log("Error al cambiar el estado: ", error);
       });

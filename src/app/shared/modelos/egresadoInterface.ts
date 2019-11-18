@@ -1,5 +1,5 @@
 export interface IEgresado {
-    //id_aut_egresado: string; 
+    id_aut_egresado: string; 
 	identificacion: number;     
 	nombres: string;            
 	apellidos: string;          
