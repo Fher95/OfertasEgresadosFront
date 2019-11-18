@@ -4,7 +4,8 @@
 <div mat-dialog-content>
 
   <!--Estado diferente a procesando-->
-  <div *ngIf="datosOferta.estado === 'Aceptada'">
+  <div
+    *ngIf="datosOferta.estado === 'Aceptada' && (datosOferta.estado_proceso === 'Activa' || datosOferta.estado_proceso === 'En selección')">
     <!--Opciones Dialog-->
     <mat-form-field>
       <mat-label>Estado:</mat-label>
@@ -16,6 +17,15 @@
       </mat-select>
     </mat-form-field>
 
+    <div *ngIf="estado === 'Finalizada con contratación'">
+      <mat-label>Egresado contratado</mat-label>
+      <mat-select [(value)]="idEgresadoEscogido">
+        <mat-option *ngFor="let postulado of listaPostuladosEscogidos" [value]="postulado.id_aut_egresado">
+          {{postulado.nombre}}
+        </mat-option>
+      </mat-select>
+    </div>
+
     <div mat-dialog-actions>
       <button mat-button (click)="onNoClick()">Cancelar</button>
       <button mat-button (click)="cambiarEstado()">Guardar</button>
@@ -24,8 +34,9 @@
   </div>
 
   <!--Estado procesando-->
-  <div *ngIf="datosOferta.estado !== 'Aceptada'">
-    <p>Su oferta esta en <b>proceso de activacion</b> o ha <b>expirado</b></p>
+  <div
+    *ngIf="datosOferta.estado !== 'Aceptada' || datosOferta.estado_proceso === 'Finalizada con contratación' || datosOferta.estado_proceso === 'Finalizada sin contratación'">
+    <p>Su oferta esta en <b>proceso de activaciosn</b> o ha <b>expirado</b></p>
     <div class="d-flex align-items-end flex-column">
       <button mat-button (click)="onNoClick()">Aceptar</button>
     </div>

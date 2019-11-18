@@ -46,9 +46,9 @@ export class EmpresaService {
     fd.append('image', file, file.name);
     // this.httpClient.post('', fd,{headers: this.headers});
   }
-  modificarEstadoOferta(idOferta, estadoOferta){
-    console.log('estado a mandar: ', estadoOferta);
-    return this.httpClient.put('http://127.0.0.1:8081/api/ofertas/estado/' + idOferta, estadoOferta, {headers: this.headers});
+  modificarEstadoOferta(idOferta, objEstadoOferta){
+    console.log("objeto a mandar: ", objEstadoOferta);
+      return this.httpClient.put("http://127.0.0.1:8081/api/ofertas/estado-proceso/" + idOferta, objEstadoOferta, {headers: this.headers});
   }
 
   getHistorialOfertas(idEmpresa: string): Observable<IHistorialOfertas[]>{
