@@ -9,19 +9,19 @@ import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
   styleUrls: ['./navbar-home-ofertas.component.css']
 })
 export class NavbarHomeOfertasComponent implements OnInit {
- 
+
 
   private user: authInterface = {
     email: "",
     password: ""
   }
-  constructor(private auth : AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  
-  onLogin(){
+
+  onLogin() {
     this.router.navigate(['empresa/1/datosEmpresa']);
     /*console.log(this.user.email)
     console.log(this.user.password)
@@ -35,19 +35,23 @@ export class NavbarHomeOfertasComponent implements OnInit {
     }),
     error => console.log(error)*/
   }
-  onRegistroEmpresa(){
+  onRegistroEmpresa() {
     this.router.navigate(['registroEmpresa']);
   }
-  onEgresados(){
+  onEgresados() {
     this.router.navigate(['/egresados']);
   }
 
-  get isLogin(){
+  get isLogin() {
     return this.auth.isLogin;
+  }
+
+  get isAdmin() {
+    return this.auth.userRol ? this.auth.userRol.toUpperCase() === 'ADMIN' : false;
   }
 
   logout() {
     this.auth.logout();
-    this.router.navigateByUrl("/home");
+    this.router.navigateByUrl('/home');
   }
 }

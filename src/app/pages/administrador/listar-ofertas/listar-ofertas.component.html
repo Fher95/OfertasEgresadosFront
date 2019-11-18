@@ -62,7 +62,7 @@
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">Informacion De La Empresa</h5>
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Informacion De La Oferta</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -81,21 +81,20 @@
         <p></p>
         <strong>Numero de vacantes: </strong> <a>{{this.ofertaSeleccionada.numero_vacantes}}</a>
         <p></p>
-        <strong>Salario minimo: </strong>
-        <a>{{this.ofertaSeleccionada.salario ? this.ofertaSeleccionada.salario.minimo : 'No se especifica'}}</a>
-        <p></p>
-        <strong>Salario maximo: </strong>
-        <a>{{this.ofertaSeleccionada.salario ? this.ofertaSeleccionada.salario.maximo : 'No se especifica'}}</a>
-        <p></p>
+        <strong>Salario: </strong>
+        <a>{{this.ofertaSeleccionada.salario ? 'Entre $ '+this.ofertaSeleccionada.salario.minimo : 'No se especifica'}}
+          {{this.ofertaSeleccionada.salario ? ' y $ '+this.ofertaSeleccionada.salario.maximo : 'No se especifica'}}
+        </a>
+        <p></p>        
         <strong>Forma de pago: </strong>
         <a>{{this.ofertaSeleccionada.salario ? this.ofertaSeleccionada.salario.forma_pago : 'No se especifica'}}</a>
         <p></p>
         <div class="form-group">
           <strong for="numOfertas">Estado: </strong>          
           <select [(ngModel)]="this.estadoActivacion" class="form-control" id="numOfertas">
-            <option selected="true">Pendiente por aprobar</option>
-            <option value="Activar">Activar</option>
-            <option value="Inactivar">Inactivar</option>            
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aceptada">Aceptada</option>
+            <option value="Rechazada">Rechazada</option>            
           </select>
         </div>
         <p></p>
@@ -107,7 +106,8 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>        
+        <button type="button" class="btn btn-primary" data-dismiss="modal"
+        (click)="this.guardarCambio()">Guardar</button>        
       </div>
     </div>
   </div>

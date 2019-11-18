@@ -42,19 +42,21 @@ export class ListarOfertasService {
     };
   }
   aprobarOferta(parId: number): Observable<any> {
-    let json = JSON.stringify({ estado: 'Aceptada' });
-    let params = 'json=' + json;
+    // let json = JSON.stringify({ estado: 'Aceptada' });
+    // let params = 'json=' + json;
+    const objEstado = {estado: 'Rechazada'};
     const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
-    return this.http.put(nuevaUrl, params, this.httpOptions).pipe(
+    return this.http.put(nuevaUrl, objEstado, this.httpOptions).pipe(
 
       catchError(this.handleError<any>('activarEmpresa'))
     );
   }
   desaprobarOferta(parId: number, parMotivo: string): Observable<any> {
-    let json = JSON.stringify({ estado: 'Rechazada', motivo: parMotivo });
-    let params = 'json=' + json;
+    // let json = JSON.stringify({ estado: 'Rechazada', motivo: parMotivo });
+    // let params = 'json=' + json;
+    const objEstado = {estado: 'Rechazada', motivo: parMotivo };
     const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
-    return this.http.put(nuevaUrl, params, this.httpOptions).pipe(
+    return this.http.put(nuevaUrl, objEstado, this.httpOptions).pipe(
 
       catchError(this.handleError<any>('activarEmpresa'))
     );
