@@ -47,7 +47,7 @@ export class EmpresaService {
   }
   modificarEstadoOferta(idOferta, estadoOferta){
     console.log("estado a mandar: ", estadoOferta);
-    return this.httpClient.put("http://127.0.0.1:8081/api/ofertas/estado/" + idOferta, estadoOferta, {headers: this.headers});
+    return this.httpClient.put("http://127.0.0.1:8081/api/ofertas/estado-proceso/" + idOferta, estadoOferta, {headers: this.headers});
   }
 
   getHistorialOfertas(idEmpresa: string): Observable<IHistorialOfertas[]>{
