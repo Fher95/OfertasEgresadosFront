@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { DialogInfoOfertaComponent } from '../dialog-info-oferta/dialog-info-oferta.component';
+import { MatDialog } from '@angular/material';
 export interface idioma{
   id:String
   nombre:String;
@@ -29,7 +31,8 @@ export class CrearOfertaLaboralComponent implements OnInit {
   formOfertaLaboral: FormGroup;
   idioma:FormGroup;
 
-  constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { 
+  constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
+    ) { 
 
     this.formOfertaLaboral = this.formBuilder.group({ 
       'informacion-principal': this.formBuilder.group({
@@ -99,5 +102,15 @@ export class CrearOfertaLaboralComponent implements OnInit {
   {
 
   }
-
+  /**
+ * Abre un dialog de angular material
+ * El contenido del dialog esta creado en el componente DialogFinalRegistroComponent
+ * <p>
+ * Si se cierra el dialog redirige a la pagina principal
+ */
+  openDialog() {
+    const dialogRef = this.matDialog.open(DialogInfoOfertaComponent);
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 }
