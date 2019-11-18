@@ -130,7 +130,7 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilreplegal').setValue(data.representante.telefono_movil);
       this.formDatosEmpresa.controls['datos-resp'].get('nombreResp').setValue(data.administrador.nombres);
       this.formDatosEmpresa.controls['datos-resp'].get('apellidoResp').setValue(data.administrador.apellidos);
-      this.formDatosEmpresa.controls['datos-resp'].get('cargo').setValue(data.administrador.cargo.id_aut_cargos);
+      this.formDatosEmpresa.controls['datos-resp'].get('cargo').setValue(data.administrador.cargo.nombre);
       this.formDatosEmpresa.controls['datos-resp'].get('horarioContactoResp').setValue(data.administrador.horario_contacto);
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue(data.administrador.telefono);
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
@@ -398,7 +398,7 @@ sectorValidator(control: FormControl) {
 
    aceptarModal(){
      if(this.textoModal == 'Se han modificado los datos con exito'){
-        this.router.navigate(['/empresa'+this.id+'/datosEmpresa']);
+        this.router.navigate(['empresa/'+this.id+'/datosEmpresa']);
      }
    }
   openDialog(): void {
