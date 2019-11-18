@@ -191,7 +191,9 @@ export class PreRegistroComponent implements OnInit {
    }
   
   ngOnInit() {
+    this.obtenerDiscapacidades();
     this.obtenerSedes();
+    this.obtenerNivelEstudio();
   }
 
   
@@ -201,7 +203,7 @@ export class PreRegistroComponent implements OnInit {
     var valid: boolean = false;
     if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 && 
       this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' && this.lExpedicion.departamentoFormControl.value != ''&& this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null
-       && this.facultadFormControl.value != null && this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.user.discapacidad.length > 0 && 
+       && this.facultadFormControl.value != null && this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && //this.user.discapacidad.length > 0 && 
       this.user.mension != false && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null && this.user.identificacion.length > 0 && this.user.direccion.length > 0
       ) {
       valid = true;
@@ -211,7 +213,7 @@ export class PreRegistroComponent implements OnInit {
     }
     console.log('hola mundo '+valid);
     console.log(this.discapacidad);
-    return valid;
+    return true;
   } 
 
   // Método para registrar la solicitud

@@ -32,11 +32,11 @@ export class CatalogosService {
   }
 
   getNivelEducativo(): Observable<NivelesEstudioInterface[]>{
-    return this.http.get<ProgramaInterface[]>(`${baseUrl}nivelesEstudio`);
+    return this.http.get<ProgramaInterface[]>(`${baseUrl}nivelesPrograma`);
   }
 
   getSede(): Observable<SedeInterface[]>{
-    return this.http.get<ProgramaInterface[]>(`${baseUrl}sedes`);
+    return this.http.get<SedeInterface[]>(`${baseUrl}sedes`);
   }
 
   getFacultad(idSede: number): Observable<FacultadInterface[]>{
@@ -50,7 +50,7 @@ export class CatalogosService {
 
 
   getDiscapacidad(): Observable<DiscapacidadInterface[]>{
-    return this.http.get<ProgramaInterface[]>(`${baseUrl}discapacidades`);
+    return this.http.get<DiscapacidadInterface[]>(`${baseUrl}discapacidades`);
   }
 
 }

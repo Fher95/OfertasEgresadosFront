@@ -55,9 +55,9 @@
 
         <h5>Discapacidad:*</h5>
         <mat-error *ngIf="discapacidad.length == 0">Por favor seleccione una opción</mat-error>
-        <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.id_aut_discapacidad"
-          (change)="discapacidadesUsuario(discapacidad)" [labelPosition]="after" required>
-          {{discapacidad.nombre}}
+        <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad"
+          (change)="discapacidadesUsuario(discapacidad.idDiscapacidad)" [labelPosition]="after" required>
+          {{discapacidad.Nombre}}
         </mat-checkbox> 
 
           <mat-form-field>
@@ -84,14 +84,14 @@
             <h5>Nivel Academico*</h5>
             <mat-error *ngIf="nivelAFormControl.hasError('required')">Por favor selecionar una opción</mat-error>
             <mat-radio-button *ngFor="let nivel_academico of niveles_academicos"
-              [value]="nivel_academico.id_aut_estudio">
+              [value]="nivel_academico.id_aut_nivprogra">
               {{nivel_academico.nombre}}
             </mat-radio-button>
           </mat-radio-group>
 
           <mat-form-field>
             <mat-label>Sede</mat-label>
-            <mat-select [formControl]="sedeFormControl" required>
+            <mat-select [formControl]="sedeFormControl" required (selectionChange)="obtenerFacultad()">
               <mat-option *ngFor="let sede of sedes" [value]="sede.id_aut_sede">
                 {{sede.nombre}}
               </mat-option>
