@@ -3,82 +3,91 @@
   <div id="imgBandera"></div>
   <app-navbar-home-ofertas></app-navbar-home-ofertas>
   <div id="row" class="row">
-    <div id="content" class="col-12 col-md-6 offset-md-3">
+    <div id="content" class="col-12 col-md-8 offset-md-2">
       <h1 id="title">Formulario de pre-registro</h1>
       <main>
         <form id="form" #registerForm="ngForm" (ngSubmit)="register()">
+          <div class="row">
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput placeholder="Nombres" #name="ngModel" name="nombre" [(ngModel)]="user.nombres" required>
+              <mat-error *ngIf="user.nombres != null">Por favor ingresar un nombre</mat-error>
+            </mat-form-field>
 
-          <mat-form-field>
-            <input matInput placeholder="Nombres" #name="ngModel" name="nombre" [(ngModel)]="user.nombres" required>
-            <mat-error *ngIf="user.nombres != null">Por favor ingresar un nombre</mat-error>
-          </mat-form-field>
+            <mat-form-field class="form-group col-md-6">
+              <input matInput placeholder="Apellidos" #name="ngModel" name="apellidos" [(ngModel)]="user.apellidos"
+                required>
+              <mat-error *ngIf="user.apellidos != null">Por favor ingresar apellido</mat-error>
+            </mat-form-field>
 
-          <mat-form-field>
-            <input matInput placeholder="Apellidos" #name="ngModel" name="apellidos" [(ngModel)]="user.apellidos"
-              required>
-            <mat-error *ngIf="user.apellidos != null">Por favor ingresar apellido</mat-error>
-          </mat-form-field>
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput [min]="minDateN" [max]="maxDateN" [matDatepicker]="dp4" [formControl]="fechaNFormControl"
+                placeholder="Fecha de Nacimiento" required>
+              <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+              <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+              <mat-error *ngIf="fechaNFormControl.hasError('required')">Por favor selecionar una fecha</mat-error>
+            </mat-form-field>
 
-          <mat-form-field>
-            <input matInput [min]="minDateN" [max]="maxDateN" [matDatepicker]="dp4" [formControl]="fechaNFormControl"
-              placeholder="Fecha de Nacimiento" required>
-            <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
-            <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-            <mat-error *ngIf="fechaNFormControl.hasError('required')">Por favor selecionar una fecha</mat-error>
-          </mat-form-field>
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput type="text" pattern="[1-9][0-9]{6,9}" placeholder="Identificación" #name="ngModel"
+                name="identificacion" [(ngModel)]="user.identificacion" required>
+              <mat-error *ngIf="user.identificacion != null">Por favor ingresar un número de identificación</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6 ">
+              <h5>Lugar de nacimiento</h5>
+              <app-localizacion #lugarNacimiento></app-localizacion>
+            </div>
+            <div class="form-group col-md-6 ">
+              <h5>Lugar Expedición:</h5>
+              <app-localizacion #lugarExpedicion></app-localizacion>
+            </div>
 
-          <mat-form-field>
-            <input matInput type="text" pattern="[1-9][0-9]{6,9}" placeholder="Identificación" #name="ngModel"
-              name="identificacion" [(ngModel)]="user.identificacion" required>
-            <mat-error *ngIf="user.identificacion != null">Por favor ingresar un número de identificación</mat-error>
-          </mat-form-field>
 
-
-          <div>
-            <h5>Lugar Expedición:</h5>
-            <app-localizacion #lugarExpedicion></app-localizacion>
           </div>
 
-          <div>
-            <h5>Lugar de nacimiento</h5>
-            <app-localizacion #lugarNacimiento></app-localizacion>
+          <div class="row">
+            <mat-radio-group #name="ngModel" name="genero" [(ngModel)]="user.genero" class="form-group col-md-6 ">
+              <h5>Genero:*</h5>
+              <mat-error *ngIf="user.genero.length == 0">Por favor seleccione una opción</mat-error>
+              <mat-radio-button *ngFor="let genero of generos" [value]="genero">
+                {{genero}}
+              </mat-radio-button>
+            </mat-radio-group>
+
+            <div class="form-group col-md-6 ">
+              <h5>Discapacidad:*</h5>
+              <mat-error *ngIf="discapacidad.length == 0">Por favor seleccione una opción</mat-error>
+              <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.id_aut_discapacidad"
+                (change)="discapacidadesUsuario(discapacidad)" [labelPosition]="after" required>
+                {{discapacidad.nombre}}
+              </mat-checkbox>
+            </div>
           </div>
 
-          <mat-radio-group #name="ngModel" name="genero" [(ngModel)]="user.genero">
-            <h5>Genero:*</h5>
-            <mat-error *ngIf="user.genero.length == 0">Por favor seleccione una opción</mat-error>
-            <mat-radio-button *ngFor="let genero of generos" [value]="genero">
-              {{genero}}
-            </mat-radio-button>
-          </mat-radio-group>
-          
+          <div class="row">
+            <mat-form-field class="form-group col-md-6 ">
+              <mat-label>Estado Civil</mat-label>
+              <mat-select [formControl]="estadoCFormControl" required>
+                <mat-option *ngFor="let estadoC of estadosC" [value]="estadoC">
+                  {{estadoC}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="estadoCFormControl.hasError('required')">Por favor selecionar un estado civil
+              </mat-error>
+            </mat-form-field>
 
-        <h5>Discapacidad:*</h5>
-        <mat-error *ngIf="discapacidad.length == 0">Por favor seleccione una opción</mat-error>
-        <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.id_aut_discapacidad"
-          (change)="discapacidadesUsuario(discapacidad)" [labelPosition]="after" required>
-          {{discapacidad.nombre}}
-        </mat-checkbox> 
+            <mat-form-field class="form-group col-md-6 ">
+              <mat-label>Grupo étnico</mat-label>
+              <mat-select [formControl]="grupoEFormControl" required>
+                <mat-option *ngFor="let grupoE of gruposE" [value]="grupoE">
+                  {{grupoE}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="grupoEFormControl.hasError('required')">Por favor selecionar una opción</mat-error>
+            </mat-form-field>
+          </div>
 
-          <mat-form-field>
-            <mat-label>Estado Civil</mat-label>
-            <mat-select [formControl]="estadoCFormControl" required>
-              <mat-option *ngFor="let estadoC of estadosC" [value]="estadoC">
-                {{estadoC}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="estadoCFormControl.hasError('required')">Por favor selecionar un estado civil</mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Grupo étnico</mat-label>
-            <mat-select [formControl]="grupoEFormControl" required>
-              <mat-option *ngFor="let grupoE of gruposE" [value]="grupoE">
-                {{grupoE}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="grupoEFormControl.hasError('required')">Por favor selecionar una opción</mat-error>
-          </mat-form-field>
 
           <mat-radio-group name="nivel_academico" [formControl]="nivelAFormControl" required>
             <h5>Nivel Academico*</h5>
@@ -129,76 +138,81 @@
             <mat-error *ngIf="tituloFormControl.hasError('required')">Por favor selecionar un titulo</mat-error>
           </mat-form-field>
 
-          <mat-form-field>
-            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dp3" [formControl]="fechaGFormControl"
-              placeholder="Fecha de Graduación">
-            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-            <mat-error *ngIf="fechaGFormControl.hasError('required')">Por favor selecionar una fecha de grado
-            </mat-error>
-          </mat-form-field>
+          <div class="row">
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dp3" [formControl]="fechaGFormControl"
+                placeholder="Fecha de Graduación">
+              <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+              <mat-error *ngIf="fechaGFormControl.hasError('required')">Por favor selecionar una fecha de grado
+              </mat-error>
+            </mat-form-field>
 
-          <mat-form-field>
-            <mat-label>Año de graduación</mat-label>
-            <mat-select [formControl]="anioGFormControl" required>
-              <mat-option *ngFor="let anio of anios" [value]="anio">
-                {{anio}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="anioGFormControl.hasError('required')">Por favor selecionar un año de grado</mat-error>
-          </mat-form-field>
+            <mat-form-field class="form-group col-md-6 ">
+              <mat-label>Año de graduación</mat-label>
+              <mat-select [formControl]="anioGFormControl" required>
+                <mat-option *ngFor="let anio of anios" [value]="anio">
+                  {{anio}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="anioGFormControl.hasError('required')">Por favor selecionar un año de grado</mat-error>
+            </mat-form-field>
 
 
-          <mat-radio-group #name="ngModel" name="mension" [(ngModel)]="user.mension">
-            <h5>Mención*</h5>
-            <mat-error *ngIf="user.mension == false">Por favor seleccionar una opción</mat-error>
-            <mat-radio-button value='true'>Si</mat-radio-button>
-            <mat-radio-button value='false'>No</mat-radio-button>
-          </mat-radio-group>
+            <mat-radio-group #name="ngModel" name="mension" [(ngModel)]="user.mension" class="form-group col-md-6 ">
+              <h5>Mención*</h5>
+              <mat-error *ngIf="user.mension == false">Por favor seleccionar una opción</mat-error>
+              <mat-radio-button value='true'>Si</mat-radio-button>
+              <mat-radio-button value='false'>No</mat-radio-button>
+            </mat-radio-group>
 
-          <mat-form-field>
-            <input matInput type="text" pattern="[3][0-9]{9}" placeholder="Celular" #name="ngModel" name="celular"
-              [(ngModel)]="user.celular" required>
-            <mat-error *ngIf="user.celular != null">Por favor ingresar un número celular</mat-error>
-          </mat-form-field>
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput type="text" pattern="[3][0-9]{9}" placeholder="Celular" #name="ngModel" name="celular"
+                [(ngModel)]="user.celular" required>
+              <mat-error *ngIf="user.celular != null">Por favor ingresar un número celular</mat-error>
+            </mat-form-field>
 
-          <mat-form-field>
-            <input matInput type="text" pattern="[0-9]{7,10}" placeholder="Teléfono fijo" #name="ngModel"
-              name="telefono_fijo" [(ngModel)]="user.telefono_fijo" required>
-            <mat-error *ngIf="user.telefono_fijo != null">Por favor ingresar un número de teléfono fijo</mat-error>
-          </mat-form-field>
-          <div>
-            <h5>Lugar de Residencia</h5>
-            <app-localizacion #lugarResidencia></app-localizacion>
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput type="text" pattern="[0-9]{7,10}" placeholder="Teléfono fijo" #name="ngModel"
+                name="telefono_fijo" [(ngModel)]="user.telefono_fijo" required>
+              <mat-error *ngIf="user.telefono_fijo != null">Por favor ingresar un número de teléfono fijo</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput type="email" placeholder="Correo Electronico " [formControl]="emailFormControl"
+                [errorStateMatcher]="matcher" required Type="email">
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required') ">
+                Por favor ingresar una dirección de correo correcta
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Correo electronico<strong> requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput placeholder="Correo Electronico Alternativo" [formControl]="emailFormControl2"
+                [errorStateMatcher]="matcher" required>
+              <mat-error *ngIf="emailFormControl2.hasError('email') ">
+                Por favor ingresar una dirección de correo correcta
+              </mat-error>
+              <mat-error *ngIf="emailFormControl2.hasError('required')">
+                Correo electronico<strong> requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-group col-md-6 ">
+              <input matInput placeholder="Dirección de residencia" #name="ngModel" name="direccion"
+                [(ngModel)]="user.direccion" required>
+              <mat-error *ngIf="user.direccion != null">Por favor ingresar una dirección</mat-error>
+            </mat-form-field>
           </div>
-          <mat-form-field>
-            <input matInput placeholder="Dirección de residencia" #name="ngModel" name="direccion"
-              [(ngModel)]="user.direccion" required>
-            <mat-error *ngIf="user.direccion != null">Por favor ingresar una dirección</mat-error>
-          </mat-form-field>
 
-          <mat-form-field>
-            <input matInput type="email" placeholder="Correo Electronico " [formControl]="emailFormControl"
-              [errorStateMatcher]="matcher" required Type="email">
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required') ">
-              Por favor ingresar una dirección de correo correcta
-            </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')">
-              Correo electronico<strong> requerido</strong>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Correo Electronico Alternativo" [formControl]="emailFormControl2"
-              [errorStateMatcher]="matcher" required>
-            <mat-error *ngIf="emailFormControl2.hasError('email') ">
-              Por favor ingresar una dirección de correo correcta
-            </mat-error>
-            <mat-error *ngIf="emailFormControl2.hasError('required')">
-              Correo electronico<strong> requerido</strong>
-            </mat-error>
-          </mat-form-field>
-
+          <div class="row">
+            <div class="form-group col-md-6 ">
+              <h5>Lugar de Residencia</h5>
+              <app-localizacion #lugarResidencia></app-localizacion>
+            </div>
+          </div>
           <p id="msgError" *ngIf="msgError != ''">{{msgError}}</p>
           <input id="btnRegister" type="submit" value="Enviar" />
         </form>

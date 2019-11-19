@@ -15,6 +15,7 @@ import { InicioEgresadosComponent } from '../home/inicio-egresados/inicio-egresa
 import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/nav-egresados.component';
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
 
+
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
