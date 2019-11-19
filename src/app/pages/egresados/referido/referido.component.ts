@@ -42,7 +42,7 @@ export class ReferidoComponent implements OnInit {
     console.log('entro validar');
     var bandera:boolean = false;
     if(this.Nombre.value!=null && this.Egresado.value!=null && this.Correo.value!=null && this.Celular.value!=null 
-      && this.Parentesco.value!=null && this.programa.programa.value!=null){
+      && this.Parentesco.value!=null && this.programa.Programa.value!=null){
       bandera = true;
     }
     else{
@@ -56,8 +56,8 @@ export class ReferidoComponent implements OnInit {
       this.varReferido.nombres = this.Nombre.value;
       this.varReferido.parentesco = this.Parentesco.value;
       this.varReferido.es_egresado = this.Egresado.value
-      this.varReferido.id_nivel_educativo = this.programa.nivelAcademico.value;
-      this.varReferido.id_aut_programa = this.programa.programa.value;
+      this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
+      this.varReferido.id_aut_programa = this.programa.Programa.value;
       this.varReferido.correo = this.Correo.value;
       this.varReferido.telefono_movil = this.Celular.value;
     }
