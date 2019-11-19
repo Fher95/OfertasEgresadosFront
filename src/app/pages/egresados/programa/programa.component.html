@@ -1,18 +1,25 @@
-<div class="Programa">
-  <mat-label>Egresado de: </mat-label>
-  <mat-radio-group [formControl]="nivelAcademico" required>
-    <mat-radio-button value=0>Pregrado</mat-radio-button>
-    <mat-radio-button value=1>Posgrado</mat-radio-button>
-  </mat-radio-group>
+<div class="Programa">  
+  <mat-form-field appearance="outline">
+    <mat-label>Egresado de: </mat-label>
+    <mat-select [formControl]="nivelAcademico" required>
+      <mat-option [value]="nivel_academico.id_aut_estudio" *ngFor="let nivel_academico of niveles_academicos">{{nivel_academico.nombre}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sede</mat-label>
+    <mat-select [formControl]="sede" required>
+      <mat-option *ngFor="let sede of sedes" [value]="sede.id_aut_sede">{{sede.nombre}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Facultad</mat-label>
-    <mat-select [formControl]="facultad" required (selectionChange)="obtenerFacultad()">
-      <mat-option *ngFor="let facu of facultades" [value]="facu.id_aut_facultad">{{facu.nombre}}</mat-option>
+    <mat-select [formControl]="facultad" required (selectionChange)="obtenerPrograma()">
+      <mat-option *ngFor="let facultad of facultades" [value]="facultad.id_aut_facultad">{{facultad.nombre}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Programa</mat-label>
-    <mat-select [formControl]="programa" required (selectionChange)="obtenerPrograma()">
+    <mat-select [formControl]="programa" required>
       <mat-option *ngFor="let progra of programas" [value]="progra.id_aut_programa">{{progra.nombre}}</mat-option>
     </mat-select>
   </mat-form-field>

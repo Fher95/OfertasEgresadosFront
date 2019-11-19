@@ -7,7 +7,9 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Parentesco</mat-label>
-    <input matInput [formControl]="Parentesco" required>
+    <mat-select [formControl]="Parentesco" required>     
+      <mat-option [value] = "item" *ngFor="let item of listaParentesco">{{item}}</mat-option>
+    </mat-select>
   </mat-form-field>
   <div class="egresadoUnicauca">
     <mat-label>¿Es egresado de Unicauca?: </mat-label>
@@ -16,17 +18,17 @@
       <mat-radio-button value=0>No</mat-radio-button>
     </mat-radio-group>
   </div>
-  <app-programa #programa></app-programa>
+  <app-programa *ngIf="Egresado.value==1" #programa></app-programa>
   <mat-form-field appearance="outline">
     <mat-label>Correo electronico </mat-label>
-    <input matInput type="email" [formControl]="Correo">
+    <input matInput type="email" [formControl]="Correo" required>
   </mat-form-field>     
   <mat-form-field appearance="outline">
     <mat-label>Teléfono/Celular</mat-label>
     <input matInput [formControl]="Celular" required>
   </mat-form-field>
   <mat-dialog-actions align="end">
-    <button id="agregar" type="submit" mat-raised-button>Agregar</button>
+    <button id="agregar" type="submit" mat-raised-button [mat-dialog-close]="varReferido">Agregar</button>
     <button mat-raised-button mat-dialog-close>Cancelar</button>
   </mat-dialog-actions>
 </form>

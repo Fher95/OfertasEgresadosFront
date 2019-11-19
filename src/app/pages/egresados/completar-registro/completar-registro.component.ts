@@ -5,6 +5,8 @@ import { RegistroService } from 'src/app/shared/servicios/egresados/registro.ser
 import { ExplaboralComponent } from '../explaboral/explaboral.component';
 import { ReferidoComponent } from '../referido/referido.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Referido } from 'src/app/shared/modelos/referido';
+import { Experiencia } from 'src/app/shared/modelos/experiencia';
 
 @Component({
   selector: 'app-completar-registro',
@@ -17,13 +19,15 @@ export class CompletarRegistroComponent implements OnInit {
   TieneHijos = new FormControl('', [Validators.required]);
   CantHijos = new FormControl('', [Validators.required]);
   //Referencias personales, lista
-  @ViewChild('referido') referido = ReferidoComponent;
+  referidos = new Array<Referido>();
+  //Trabajos anteriores
   haTrabajado = new FormControl('', [Validators.required]);
-  //Experiencia
-  @ViewChild('expAnterior') expAnterior : ExplaboralComponent;
+  //Experiencias anteriores
+  expAnteriores = new Array<Experiencia>();
+  //Trabajo actual
   Labora_Actualmente = new FormControl('', [Validators.required]);
   //Experiencia
-  @ViewChild('expActual') expActual : ExplaboralComponent;
+  expActuales = new Array<Experiencia>();
 
   //Listas opciones
   cantHijos: string[] = [ "1", "2", "3", "4", "5", "Más de 5 hijos"];
@@ -44,25 +48,55 @@ export class CompletarRegistroComponent implements OnInit {
 
   llenarDatos()
   {
-    this.varCompletarRegistro.num_hijos = this.CantHijos.value;
+    if(this.TieneHijos.value==1)
+    {
+      this.varCompletarRegistro.num_hijos = this.CantHijos.value;
+    }
+    this.varCompletarRegistro.referidos = this.referidos;
+    this.varCompletarRegistro.ha_trabajado = this.haTrabajado.value;
+    if(this.haTrabajado.value==1)
+    {
+      this.varCompletarRegistro.exp_pasadas = this.expAnteriores;
+    }
+    this.varCompletarRegistro.trabajo_actualmente = this.Labora_Actualmente.value;
+    if(this.Labora_Actualmente.value==1)
+    {
+      this.varCompletarRegistro.exp_actuales = this.expActuales;
+    }
   }
   verificarCampos()
   {
-
+    var bandera:boolean = false;
+    if(this.TieneHijos.value!=null && this.referidos!=null && this.haTrabajado.value!=null && this.Labora_Actualmente.value!=null)
+     {
+      bandera = true;
+    }
+    else{
+      console.log("Llenar todos los datos");
+    }
+    return bandera;
   }
   enviarDatos()
   {
-    this.llenarDatos();
-    //llamar al servicio y mandar la interface
-    this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro);
+    if(this.verificarCampos)
+    {
+      this.llenarDatos();
+      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro);
+    }
   }
-
-  experiencia()
+  experienciaAnterior()
   {
-    this.dialog.open(ExplaboralComponent);
+    const dialogRef = this.dialog.open(ExplaboralComponent);
+    dialogRef.afterClosed().subscribe(result =>{this.expAnteriores.push(result)})
+  }
+  experienciaActual()
+  {
+    const dialogRef = this.dialog.open(ExplaboralComponent);
+    dialogRef.afterClosed().subscribe(result =>{this.expActuales.push(result)})
   }
   contacto()
   {
-    this.dialog.open(ReferidoComponent);
+    const dialogRef = this.dialog.open(ReferidoComponent);
+    dialogRef.afterClosed().subscribe(result => {this.referidos.push(result);});
   }
 }
