@@ -129,6 +129,7 @@ export class RegistrarComponent implements OnInit {
     console.log('formulario', JSON.stringify(formulario.value));
     this.empService.registrarUsuario(formData).toPromise().then(data => {
       console.log("registro datos de la empresa exitosos", data);
+      this.openDialog();
       //Al enviar los archivos se muestra el dialog y se termina el registro
       //this.enviarArchivos(data);
     },
