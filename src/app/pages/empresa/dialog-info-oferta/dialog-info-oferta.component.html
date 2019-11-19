@@ -1,3 +1,48 @@
-<p>
-  Dialog works!
-</p>
+<h1 mat-dialog-title>PREVIZUALACIÓN</h1>
+<div mat-dialog-content>    
+      <div class="row">
+            <div class="col-12">
+                  <label><Strong>Nombre del cargo/Perfil requerido: </Strong>Exito</label>
+            </div>
+      </div>
+      <div class="row">
+                  <div class="col-6">
+                        <label><Strong>N° de Vacantes: </Strong>Exito</label>
+                  </div>
+                  <div class="col-6">
+                              <label><Strong>Tipo de cargo: </Strong>Exito</label>
+                  </div>                 
+      </div>
+      <div class="row">
+                  <div class="col-6">
+                              <label><Strong>Area: </Strong>Exito</label>
+                        </div>
+                        <div class="col-6">
+                                    <label><Strong>Sector de la oferta: </Strong>Exito</label>
+                        </div>
+      </div>
+      <div class="row">
+                  <div class="col-12">
+                        <label><Strong>Nombre de la empresa a figurar: </Strong>Exito</label>
+                  </div>
+      </div>
+      <div class="row">
+                  <div class="col-5">
+                        <label><Strong>Descripción de la oferta de trabajo</Strong></label>
+                  </div>
+                  <div class="col-7">
+                              <mat-form-field  appearance="outline"  class="labelCompleto">
+                                          <textarea  matInput disabled value="descripcionEmpresa" rows="3"></textarea>
+                                  </mat-form-field>
+                  </div>
+
+      </div>
+      
+      
+  
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>No Thanks</button>
+  <button mat-button [mat-dialog-close]="true"
+cdkFocusInitial>Ok</button>
+</div>

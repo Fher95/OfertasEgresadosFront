@@ -1,5 +1,5 @@
 
-::ng-deep.mat-form-field-infix{
+.tamForm ::ng-deep.mat-form-field-infix{
   height: 35px;
   border: 0px;
 }
@@ -17,7 +17,6 @@ mat-card{
 .labelCompleto{
   display: flex;
   flex-direction: column;
-  margin-top: 5px;
 }
 
 .mat-card:not([class*=mat-elevation-z]) {
