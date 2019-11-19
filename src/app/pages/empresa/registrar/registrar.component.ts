@@ -49,8 +49,8 @@ export class RegistrarComponent implements OnInit {
     this.subSecEscogidos = [];
     this.anios = [];
     this.mensajesError = [];
-    
-    // Formulario 
+
+    // Formulario
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: ['', [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmail.bind(this)],
@@ -118,10 +118,14 @@ export class RegistrarComponent implements OnInit {
   registrarEmpresa(formulario) {
     let formData = new FormData();
     //getrawvaluec
-    formData.append('datos', Object.assign({}, formulario.value));
+    formData.append('datos', JSON.stringify(this.formRegistroEmp.getRawValue()));
     console.log(Object.assign({}, formulario.value));
-    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
-    formData.append('logoInput', this.logoInput.nativeElement.files[0]);
+    if(this.fileInput.nativeElement.files[0]){
+      formData.append('fileInput', this.fileInput.nativeElement.files[0]);
+    }
+    if(this.logoInput.nativeElement.files[0]){
+      formData.append('logoInput', this.logoInput.nativeElement.files[0]);
+    }
     console.log('formulario', JSON.stringify(formulario.value));
     this.empService.registrarUsuario(formData).toPromise().then(data => {
       console.log("registro datos de la empresa exitosos", data);
@@ -317,7 +321,7 @@ export class RegistrarComponent implements OnInit {
     //Se devuelve a la lista general
     this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.push(subSector);
     //Se iguala nuevamente el valor del formControl
-    this.formRegistroEmp.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+    this.formRegistroEmp.controls['sectores'].get('subsectores').setValue(this.formatSectoresEscogidos());
     //Se ordena
     this.sectoresInteresEmpresa[subSector.idSector - 1].subSectores.sort(function (a, b) {
       return a.idSubSector - b.idSubSector
@@ -341,7 +345,7 @@ export class RegistrarComponent implements OnInit {
     //Se agrega el subsector a la lista de escogidos
     this.subSecEscogidos.push(subSector);
     //Se actualiza el valor del formControl
-    this.formRegistroEmp.controls['sectores'].get('sectores').setValue(this.formatSectoresEscogidos());
+    this.formRegistroEmp.controls['sectores'].get('subsectores').setValue(this.formatSectoresEscogidos());
   }
   /**
  * Vuelve la lista sectoresEscogidos [{idSubSector, nombre, idSector}, ... ]
