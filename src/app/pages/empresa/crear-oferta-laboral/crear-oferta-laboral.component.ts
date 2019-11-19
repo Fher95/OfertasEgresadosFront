@@ -109,7 +109,9 @@ export class CrearOfertaLaboralComponent implements OnInit {
  * Si se cierra el dialog redirige a la pagina principal
  */
   openDialog() {
-    const dialogRef = this.matDialog.open(DialogInfoOfertaComponent);
+    const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
+      width: '40%',
+    });
     dialogRef.afterClosed().subscribe(result => {
     });
   }

@@ -286,6 +286,7 @@ sectorValidator(control: FormControl) {
 
     document.getElementById('buttonModal').click();
     if(formulario.status != 'INVALID'){
+      this.formDatosEmpresa.controls['loc-contact-empresa'].get('sitioWebEmp').setValue("http://"+this.formDatosEmpresa.controls['loc-contact-empresa'].get('sitioWebEmp'));
       this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
         this.textoModal = 'Se han modificado los datos con exito'
       },
