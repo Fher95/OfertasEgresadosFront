@@ -10,7 +10,7 @@
             <mat-radio-button value=1 >Si</mat-radio-button>
             <mat-radio-button value=0 >No</mat-radio-button>
           </mat-radio-group>
-          <mat-form-field appearance="outline">
+          <mat-form-field *ngIf="TieneHijos.value==1" appearance="outline">
             <mat-label >¿Cuantos?</mat-label>
             <mat-select [formControl]="CantHijos">
               <mat-option [value] = "item" *ngFor="let item of cantHijos">{{item}}</mat-option>
@@ -33,9 +33,9 @@
             <mat-radio-button value=1>Si</mat-radio-button>
             <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
-          <div class="exp">
+          <div *ngIf="haTrabajado.value==1" class="expAnterior">
             <mat-label>Experiencia Laboral:</mat-label>
-            <button class="btnExp" mat-raised-button (click)="experiencia()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
+            <button class="btnExp" mat-raised-button (click)="experienciaAnterior()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
           </div>
         </div>
         <div class="labActual">
@@ -44,9 +44,9 @@
             <mat-radio-button value=1>Si</mat-radio-button>
             <mat-radio-button value=0>No</mat-radio-button>
           </mat-radio-group>
-          <div class="exp">
+          <div *ngIf="Labora_Actualmente.value==1" class="exp">
             <mat-label>Experiencia Laboral:</mat-label>
-            <button class="btnExp" mat-raised-button (click)="experiencia()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
+            <button class="btnExp" mat-raised-button (click)="experienciaActual()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
           </div>
         </div>
         <div class="btn">

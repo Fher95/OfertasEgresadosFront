@@ -8,6 +8,8 @@ export class Experiencia{
     rango_salario:string;
     tipo_contrato:string;
     sector:string;
+    fecha_inicio:Date;
+    fecha_fin:Date;
 
     constructor()
     {
@@ -20,5 +22,7 @@ export class Experiencia{
         this.rango_salario="";
         this.tipo_contrato="";
         this.sector="";
+        this.fecha_inicio;
+        this.fecha_fin;
     }
 }

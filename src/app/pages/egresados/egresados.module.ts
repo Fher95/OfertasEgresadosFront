@@ -23,8 +23,9 @@ import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
-  { path: 'actualizacion', component: ActualizarComponent },
+  { path: 'egresados/completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
+  { path: 'egresados/actualizacion', component: ActualizarComponent },
+  { path: 'egresados', component: InicioEgresadosComponent}
   //{ path: '**', component: InicioEgresadosComponent }
 ];
 
