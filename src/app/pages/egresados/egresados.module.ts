@@ -19,6 +19,7 @@ import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/na
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 
+
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
