@@ -28,6 +28,7 @@ export class ProgramaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.obtenerNivelEstudio();
     this.obtenerSedes();
   }
 
