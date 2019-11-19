@@ -23,7 +23,7 @@ export class VerPostuladosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.listaPostulados = [];
     this.listaPostuladosEscogidos = [];
-    this.cargarPostulados();
+    this.cargarPostulados2();
   }
   cargarPostulados() {
     this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {
@@ -33,6 +33,16 @@ export class VerPostuladosComponent implements OnInit {
       error => {
         console.log('Error al obtener el listado de postulados: ', JSON.stringify(error));
       });
+  }
+  cargarPostulados2(){
+    const lstPostulados: IEgresado[] = [
+    {identificacion: 3243, id_aut_egresado: '106167234',nombres:'Andres Felipe',apellidos:'Muñoz Andrade'},
+    {identificacion: 3244, id_aut_egresado: '106145234',nombres:'Luz Maritza',apellidos:'Tabares Paz'},
+    {identificacion: 3245, id_aut_egresado: '106178256',nombres:'John',apellidos:'Doe'},
+    {identificacion: 3246, id_aut_egresado: '106175345',nombres:'Marco Alberto',apellidos:'Hernandez Noriega'},
+    {identificacion: 3247, id_aut_egresado: '104346567',nombres:'Natalia Andrea',apellidos:'Yasnó Ceron'}
+  ];
+  this.listaPostulados = lstPostulados;
   }
   cargarPostuladosSeleccionados() {
     this.empresaService.getPostuladosSeleccionadosOferta(this.id).subscribe(resultado => {
