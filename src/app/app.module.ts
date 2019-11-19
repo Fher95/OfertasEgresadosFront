@@ -22,7 +22,7 @@ import { EgresadosModule } from './pages/egresados/egresados.module';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeOfertasComponent,
+    HomeOfertasComponent
   ],
   imports: [
     EmpresaModule,
