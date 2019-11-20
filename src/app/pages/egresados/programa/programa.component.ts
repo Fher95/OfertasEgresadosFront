@@ -23,6 +23,7 @@ export class ProgramaComponent implements OnInit {
   nivelAcade: NivelesEstudioInterface[];
   
   pruebas:string[] = ['prueba1','prueba2','prueba3'];
+
   constructor(private catalogoService:CatalogosService) { 
 
   }

@@ -3,7 +3,6 @@
   <mat-form-field appearance="outline">
     <mat-label>Nombre </mat-label>
     <input matInput [formControl]="Nombre" required>
-    <mat-error>Campo requerido</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Parentesco</mat-label>
@@ -28,7 +27,7 @@
     <input matInput [formControl]="Celular" required>
   </mat-form-field>
   <mat-dialog-actions align="end">
-    <button id="agregar" type="submit" mat-raised-button [mat-dialog-close]="varReferido">Agregar</button>
+    <button id="agregar" type="submit" mat-raised-button [mat-dialog-close]="varReferido">Agregar Contacto</button>
     <button mat-raised-button mat-dialog-close>Cancelar</button>
   </mat-dialog-actions>
 </form>

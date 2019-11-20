@@ -46,7 +46,7 @@ export class ReferidoComponent implements OnInit {
       bandera = true;
     }
     else{
-      console.log("Llenar todos los datos");
+      
     }
     return bandera;
   }
