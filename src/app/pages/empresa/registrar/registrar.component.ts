@@ -8,6 +8,7 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogFinalRegistroComponent } from '../dialog-final-registro/dialog-final-registro.component';
 import { Router } from '@angular/router';
+import { CiudadInterface } from 'src/app/shared/modelos/ciudadesInterface';
 
 @Component({
   selector: 'app-registrar',
@@ -27,7 +28,7 @@ export class RegistrarComponent implements OnInit {
 
   paises: Object;
   departamentos: Object;
-  ciudades: Object;
+  ciudades: CiudadInterface[];
 
   debouncer: any;
   code: string;
@@ -60,7 +61,7 @@ export class RegistrarComponent implements OnInit {
       'datos-generales-empresa': this.formBuilder.group({
         NIT: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)], this.validarExistenciaNIT.bind(this)],
         razonSocial: [null, Validators.required],
-        nombreEmpresa: [null, Validators.required],
+        nombreEmpresa: [null, Validators.required, this.validarExistenciaNombre.bind(this)],
         anioCreacion: [null, Validators.required],
         numEmpleados: [null, [Validators.required, Validators.min(0)]],
         ingresosEmp: [null],
@@ -95,8 +96,8 @@ export class RegistrarComponent implements OnInit {
         emailCorpResp: [null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
       }),
       'archivos': this.formBuilder.group({
+        camaraycomercio: [null, Validators.required],
         logo: [''],
-        camaraycomercio: [''],
       })
     });
   }
@@ -119,16 +120,13 @@ export class RegistrarComponent implements OnInit {
     let formData = new FormData();
     //getrawvaluec
     formData.append('datos', JSON.stringify(this.formRegistroEmp.getRawValue()));
-    console.log(Object.assign({}, formulario.value));
-    if(this.fileInput.nativeElement.files[0]){
+    if (this.fileInput.nativeElement.files[0]) {
       formData.append('fileInput', this.fileInput.nativeElement.files[0]);
     }
-    if(this.logoInput.nativeElement.files[0]){
+    if (this.logoInput.nativeElement.files[0]) {
       formData.append('logoInput', this.logoInput.nativeElement.files[0]);
     }
-    console.log('formulario', JSON.stringify(formulario.value));
     this.empService.registrarUsuario(formData).toPromise().then(data => {
-      console.log("registro datos de la empresa exitosos", data);
       this.openDialog();
       //Al enviar los archivos se muestra el dialog y se termina el registro
       //this.enviarArchivos(data);
@@ -136,55 +134,15 @@ export class RegistrarComponent implements OnInit {
       errorRegistro => {
         this.mensajesError = [];
         // Obteniendo todas las claves del JSON
-        for (var clave in errorRegistro.error) {
+        /*for (var clave in errorRegistro.error) {
           // Controlando que json realmente tenga esa propiedad
           if (errorRegistro.error.hasOwnProperty(clave)) {
             // Mostrando en pantalla la clave junto a su valor
             this.mensajesError.push(errorRegistro.error[clave]);
           }
-        }
+        }*/
+        this.mensajesError.push("Existen campos incorrectos, por favor revise");
       });
-  }
-
-  /**
-  * Carga los archivos PDF y JPG que escoge el usuario de su equipo y lo guarda en
-  * un formData el cual es necesario para enviar un archivo por peticion.
-  * Realiza una peticion por aparte para enviar los archivos de una empresa
-  * llamando a un método del servicio empresa.
-  * @param idEmpresa el id de la empresa al cual se le añadiran los archivos
-  */
-  enviarArchivos(idEmpresa) {
-    let formData = new FormData();
-    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
-    formData.append('logoInput', this.logoInput.nativeElement.files[0]);
-    this.empService.subirArchivos(formData, idEmpresa).toPromise().then(data => {
-      this.openDialog();
-    },
-      error => {
-        this.mensajesError = [];
-        this.mostrarError();
-        this.mensajesError.push("Error al subir los archivos");
-      });
-  }
-
-  /**
-  * Carga los archivos PDF que escoge el usuario de su equipo y lo guarda en
-  * un formData el cual es necesario para enviar un archivo por peticion
-  */
-  elegirArchivo() {
-    let formData = new FormData();
-    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
-    this.formRegistroEmp.controls['archivos'].get('camaraycomercio').setValue(formData);
-  }
-
-  /**
-  * Carga los archivos JPG que escoge el usuario de su equipo y lo guarda en
-  * un formData el cual es necesario para enviar un archivo por peticion
-  */
-  elegirLogo() {
-    let formData = new FormData();
-    formData.append('logoInput', this.logoInput.nativeElement.files[0]);
-    this.formRegistroEmp.controls['archivos'].get('logo').setValue(formData);
   }
 
   /**
@@ -195,6 +153,7 @@ export class RegistrarComponent implements OnInit {
  */
   cargarPaises() {
     this.servGenerales.obtenerListaPaises().subscribe(resultado => {
+      resultado.sort();
       this.paises = resultado;
     },
       error => {
@@ -210,7 +169,6 @@ export class RegistrarComponent implements OnInit {
  * @param  idPais  Id del pais escogido en la lista de paises
  */
   cargarDepartamentos(idPais: string) {
-    console.log(idPais);
     this.servGenerales.obtenerListaDepartamentos(idPais).subscribe(resultado => {
       this.departamentos = resultado;
     },
@@ -230,6 +188,9 @@ export class RegistrarComponent implements OnInit {
     //Llama al servicio general de peticiones http
     this.servGenerales.obtenerListaCiudades(idDepartamento).subscribe(resultado => {
       this.ciudades = resultado;
+      this.ciudades.sort(function (a,b) {
+        return a.nombre.localeCompare(b.nombre);
+      })
     },
       error => {
         this.mostrarError();
@@ -256,6 +217,7 @@ export class RegistrarComponent implements OnInit {
  */
   cargarSectoresInteres() {
     this.servGenerales.obtenerListaSectoresYSubSectores().subscribe(resultado => {
+      resultado.sort();
       this.sectoresInteresEmpresa = resultado;
     },
       error => {
@@ -314,7 +276,6 @@ export class RegistrarComponent implements OnInit {
  * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
  */
   eliminarSubSectorEscogido(subSector: ISubSector) {
-    console.log(subSector);
     //Se busca en la lista de escogidos
     let posSubSector = this.subSecEscogidos.indexOf(subSector);
     //Se elimina en la lista de escogidos
@@ -391,9 +352,8 @@ export class RegistrarComponent implements OnInit {
     return new Promise(resolve => {
       if (control.value != "") {
         this.debouncer = setTimeout(() => {
-          this.servGenerales.validarEmail(control.value).subscribe((res) => {
-            console.log(res)
-            if (res == 'Correcto') {
+          this.empService.validarEmail(control.value).subscribe((res) => {
+            if (res.data == 'Correcto') {
               resolve(null);
             }
             else {
@@ -421,9 +381,8 @@ export class RegistrarComponent implements OnInit {
     return new Promise(resolve => {
       if (control.value != "") {
         this.debouncer = setTimeout(() => {
-          this.servGenerales.validarNIT(control.value).subscribe((res) => {
-            console.log(res);
-            if (res == 'Correcto') {
+          this.empService.validarNIT(control.value).subscribe((res) => {
+            if (res.data == 'Correcto') {
               resolve(null);
             }
             else {
@@ -431,6 +390,69 @@ export class RegistrarComponent implements OnInit {
             }
           }, (err) => {
             resolve({ 'NITExiste': true });
+          });
+
+        }, 10);
+      }
+    });
+  }
+
+  /**
+ * Validador personalizado para saber si el Nombre de la empresa escrito existe
+ * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
+ * de la empresa
+ * <p>
+ * Si el nombre existe devuelve el error 'NombreExiste', en caso contrario devuelve null
+ * @param  control  permite obtener el valor en tiempo real del input NombreEmpresa del ngForm }
+ */
+  validarExistenciaNombre(control: FormControl): any {
+
+    clearTimeout(this.debouncer);
+
+    return new Promise(resolve => {
+      if (control.value != "") {
+        this.debouncer = setTimeout(() => {
+          this.empService.validarNombre(control.value).subscribe((res) => {
+            if (res.data == 'Correcto') {
+              resolve(null);
+            }
+            else {
+              resolve({ 'NombreExiste': true });
+            }
+          }, (err) => {
+            resolve({ 'NombreExiste': true });
+          });
+
+        }, 10);
+      }
+    });
+  }
+
+  /**
+   * Validador personalizado para saber si el Email personal Corporativo del representante
+   * de la empresa existe.
+   * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
+   * de la empresa
+   * <p>
+   * Si el nombre existe devuelve el error 'EmailExiste', en caso contrario devuelve null
+   * @param  control  permite obtener el valor en tiempo real del input emailCorpResp del ngForm }
+   */
+  validarExistenciaEmailCorporativo(control: FormControl): any {
+
+    clearTimeout(this.debouncer);
+
+    return new Promise(resolve => {
+      if (control.value != "") {
+        this.debouncer = setTimeout(() => {
+          this.empService.validarEmailCorp(control.value).subscribe((res) => {
+            if (res.data == 'Correcto') {
+              resolve(null);
+            }
+            else {
+              resolve({ 'EmailExiste': true });
+            }
+          }, (err) => {
+            resolve({ 'EmailExiste': true });
           });
 
         }, 10);
