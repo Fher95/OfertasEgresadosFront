@@ -8,8 +8,14 @@ import { VerificarExcelComponent } from './verificar-excel/verificar-excel.compo
 import { ListarEgresadosAceptadosComponent } from './listar-egresados-aceptados/listar-egresados-aceptados.component';
 import { LayoutModule } from 'src/app/layout/layout.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { PagesModule } from '../pages.module';
+import { Routes, RouterModule } from '@angular/router';
 
+const routes: Routes = [
+  { path: 'admin/listar', component: PrincipalComponent }, 
+  { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
+  { path: 'admin/ofertas', component: ListarOfertasComponent},
+  { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
+];
 
 @NgModule({
   declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent, SpinnerComponent],
@@ -17,7 +23,8 @@ import { PagesModule } from '../pages.module';
     CommonModule,
     LayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
   exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent]
 })

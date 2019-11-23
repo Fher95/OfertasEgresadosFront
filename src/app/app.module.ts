@@ -18,11 +18,12 @@ import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interce
 import { AuthModule } from './pages/auth/auth.module';
 import { UserGuard } from './shared/guard/user.guard';
 import { EgresadosModule } from './pages/egresados/egresados.module';
+import { RegistrarComponent } from './pages/empresa/registrar/registrar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeOfertasComponent
+    HomeOfertasComponent,
   ],
   imports: [
     EgresadosModule,
