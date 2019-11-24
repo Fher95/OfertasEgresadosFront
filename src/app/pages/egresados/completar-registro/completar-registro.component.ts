@@ -97,8 +97,6 @@ export class CompletarRegistroComponent implements OnInit {
   contacto()
   {
     const dialogRef = this.dialog.open(ReferidoComponent);
-    dialogRef.afterClosed().subscribe(result => {this.referidos.push(result);},
-      
-    );
+    dialogRef.afterClosed().subscribe(result => {this.referidos.push(result);});
   }
 }
