@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Referido } from 'src/app/shared/modelos/referido';
 import { IfStmt } from '@angular/compiler';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
-export interface mensaje {
+export interface DialogData {
   varTitulo: string;
   varMensaje: string;
 }
@@ -29,10 +29,13 @@ export class ReferidoComponent implements OnInit {
   listaParentesco : string[] = ['Pareja/Cónyuge','Padre','Madre','Abuelo/a','Hijo/a','Otro'];
   
   varReferido : Referido;
+  varTitulo: string;
+  varMensaje: string;
 
-  constructor(private dialog:MatDialog) {
+  constructor(private dialog:MatDialog) 
+  {
     this.limpiarDatos();
-   }
+  }
 
   ngOnInit() {
   }
@@ -47,19 +50,18 @@ export class ReferidoComponent implements OnInit {
   }
   validarDatos(){
     console.log('entro validar');
+    
     var bandera:boolean = false;
-    console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"+this.Celular.value+"Parentesco"+this.Parentesco.value
-    +"Nivel Acade"+this.programa.NivelAcademico.value+"Sede"+this.programa.Sede.value+"Fac"+this.programa.Facultad.value+"Programa"+this.programa.Programa.value);
+    
+    console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"+this.Celular.value+"Parentesco"+this.Parentesco.value);
 
     if(this.Nombre.value!=null && this.Egresado.value!=null && this.Correo.value!=null && this.Celular.value!=null 
-      && this.Parentesco.value!=null && this.programa.Programa.value!=null){
+      && this.Parentesco.value!=null){
       bandera = true;
     }
     else{
-      mensaje: {
-        varTitulo : "Información incorrecta";
-        varMensaje: "Faltan datos por ingresar ";
-      }
+      this.varTitulo="Información Faltante";
+      this.varMensaje="Faltan datos por ingresar ";
     }
     return bandera;
   }
@@ -75,7 +77,8 @@ export class ReferidoComponent implements OnInit {
       this.varReferido.telefono_movil = this.Celular.value;
     }
     else{
-      this.dialog.open(InfoDialogComponent);
+      console.log('titulo'+this.varTitulo+'msj'+this.varMensaje);
+      this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.varTitulo, varMensaje: this.varMensaje}});
     }
   }
   

@@ -18,6 +18,7 @@ import { InicioEgresadosComponent } from '../home/inicio-egresados/inicio-egresa
 import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/nav-egresados.component';
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,8 @@ const routes: Routes = [
     FooterEgresadosComponent,
     ComentariosComponent, 
     ExplaboralComponent, 
-    ReferidoComponent
+    ReferidoComponent,
+    InfoDialogComponent
   ],
   imports: [
     CommonModule,
@@ -59,6 +61,7 @@ const routes: Routes = [
   entryComponents: [
     ExplaboralComponent,
     ReferidoComponent,
+    InfoDialogComponent,
   ],
 })
 export class EgresadosModule { }

@@ -29,12 +29,16 @@ export class ProgramaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.obtenerNivelEstudio();
+    this.obtenerNivelAcademico();
     this.obtenerSedes();
   }
 
   obtenerNivelEstudio(){
     this.catalogoService.getNivelEducativo().subscribe(data => this.nivelAcade = data);
+  }
+
+  obtenerNivelAcademico(){
+    this.catalogoService.getNivelAcademico().subscribe(data => this.nivelAcade = data);
   }
 
   obtenerSedes(){
