@@ -4,12 +4,19 @@ import { ProgramaComponent } from '../programa/programa.component';
 import { Referido } from 'src/app/shared/modelos/referido';
 import { IfStmt } from '@angular/compiler';
 import { MatDialog } from '@angular/material';
+import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+
+export interface mensaje {
+  varTitulo: string;
+  varMensaje: string;
+}
 
 @Component({
   selector: 'app-referido',
   templateUrl: './referido.component.html',
   styleUrls: ['./referido.component.css']
 })
+
 export class ReferidoComponent implements OnInit {
   @ViewChild('programa') programa : ProgramaComponent;
 
@@ -20,7 +27,7 @@ export class ReferidoComponent implements OnInit {
   Parentesco = new FormControl('', [Validators.required]);
   
   listaParentesco : string[] = ['Pareja/Cónyuge','Padre','Madre','Abuelo/a','Hijo/a','Otro'];
-
+  
   varReferido : Referido;
 
   constructor(private dialog:MatDialog) {
@@ -41,12 +48,18 @@ export class ReferidoComponent implements OnInit {
   validarDatos(){
     console.log('entro validar');
     var bandera:boolean = false;
+    console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"+this.Celular.value+"Parentesco"+this.Parentesco.value
+    +"Nivel Acade"+this.programa.NivelAcademico.value+"Sede"+this.programa.Sede.value+"Fac"+this.programa.Facultad.value+"Programa"+this.programa.Programa.value);
+
     if(this.Nombre.value!=null && this.Egresado.value!=null && this.Correo.value!=null && this.Celular.value!=null 
       && this.Parentesco.value!=null && this.programa.Programa.value!=null){
       bandera = true;
     }
     else{
-      
+      mensaje: {
+        varTitulo : "Información incorrecta";
+        varMensaje: "Faltan datos por ingresar ";
+      }
     }
     return bandera;
   }
@@ -62,7 +75,8 @@ export class ReferidoComponent implements OnInit {
       this.varReferido.telefono_movil = this.Celular.value;
     }
     else{
-      console.log('No se logro compeltar');
+      this.dialog.open(InfoDialogComponent);
     }
   }
+  
 }
