@@ -1,48 +1,302 @@
-<h1 mat-dialog-title>PREVIZUALACIÓN</h1>
-<div mat-dialog-content>    
+<h1  class="mat-dialog-title">Previsualización</h1>
+<div mat-dialog-content>
+            <div class="row">
+                        <div class="col-12">
+                              <h5>informacion principal</h5>
+                        </div>
+                  </div>
       <div class="row">
             <div class="col-12">
-                  <label><Strong>Nombre del cargo/Perfil requerido: </Strong>Exito</label>
+                  <label><Strong>Nombre del cargo/Perfil requerido: </Strong>{{datosOferta.informacionPrincipal.nombreOferta}}</label>
             </div>
       </div>
       <div class="row">
-                  <div class="col-6">
-                        <label><Strong>N° de Vacantes: </Strong>Exito</label>
+                  <div class="col-sm-12 col-md-6">
+                        <label><Strong>N° de Vacantes: </Strong>{{datosOferta.informacionPrincipal.numVacantes}}</label>
                   </div>
-                  <div class="col-6">
-                              <label><Strong>Tipo de cargo: </Strong>Exito</label>
-                  </div>                 
+                  <div class="col-sm-12 col-md-6">
+                              <label><Strong>Tipo de cargo: </Strong>
+                              <div *ngIf="datosOferta.informacionPrincipal.otroCargo === null; else otroCargo">{{datosOferta.informacionPrincipal.cargoNombre}}</div>
+                              <ng-template #otroCargo>{{datosOferta.informacionPrincipal.otroCargo}}</ng-template>
+                               </label>
+                  </div>
       </div>
       <div class="row">
-                  <div class="col-6">
-                              <label><Strong>Area: </Strong>Exito</label>
+                  <div class="col-sm-12 col-md-6">
+                              <label><Strong>Areas: </Strong>{{datosOferta.informacionPrincipal.AreasConocimiento}}</label>
                         </div>
-                        <div class="col-6">
-                                    <label><Strong>Sector de la oferta: </Strong>Exito</label>
+                        <div class="col-sm-12 col-md-6">
+                                    <label><Strong>Sector de la oferta: </Strong>{{datosOferta.informacionPrincipal.sectorNombre}}</label>
                         </div>
       </div>
       <div class="row">
                   <div class="col-12">
-                        <label><Strong>Nombre de la empresa a figurar: </Strong>Exito</label>
+                        <label><Strong>Nombre de la empresa a figurar: </Strong>
+                        <label *ngIf="datosOferta.informacionPrincipal.nombreTempEmpresa === null; else nombreEmpresa">No incluido</label>
+                              <ng-template #nombreEmpresa>{{datosOferta.informacionPrincipal.nombreTempEmpresa}}</ng-template>
+                        </label>
                   </div>
       </div>
       <div class="row">
-                  <div class="col-5">
+                  <div class="col-sm-12 col-md-6">
                         <label><Strong>Descripción de la oferta de trabajo</Strong></label>
                   </div>
-                  <div class="col-7">
-                              <mat-form-field  appearance="outline"  class="labelCompleto">
-                                          <textarea  matInput disabled value="descripcionEmpresa" rows="3"></textarea>
+                  <div class="col-sm-12 col-md-6">
+                              <mat-form-field class="labelCompleto" appearance="outline" >
+                                          <textarea  matInput disabled value="{{datosOferta.informacionPrincipal.descripcion}}" rows="3"></textarea>
                                   </mat-form-field>
                   </div>
-
       </div>
-      
-      
-  
+      <div class="row">
+                  <div class="col-12">
+                        <h5>información de contrato</h5>
+                  </div>
+            </div>
+      <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                              <label><Strong>Tipo de contrato: </Strong>{{datosOferta.contrato.tipoContrato}}</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                                    <label><Strong>Duración de contrato: </Strong>
+                                          <label *ngIf="datosOferta.contrato.duracion === null; else contrato">No incluido</label>
+                                          <ng-template #contrato>{{datosOferta.contrato.duracion}}</ng-template>                                          
+                                    </label>
+                        </div>
+      </div>
+      <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                              <label><Strong>Jornada laboral: </Strong>{{datosOferta.contrato.jornada}}</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                                    <label><Strong>Horario: </Strong>
+                                          <label *ngIf="datosOferta.contrato.horario === null; else horario">No incluido</label>
+                                          <ng-template #horario>{{datosOferta.contrato.horario}}</ng-template>  
+                                    </label>
+                        </div>
+      </div>
+      <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                              <label><Strong>Forma pago salarios: </Strong>{{datosOferta.contrato.formaPago}}</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                                    <label><Strong>Rangos salariales: </Strong>
+                                          <label *ngIf="datosOferta.contrato.rangoSalarial === null; else rangoSalarial">No incluido</label>
+                                          <ng-template #rangoSalarial>{{datosOferta.contrato.rangoSalarial}}</ng-template>  
+                                    </label>
+                        </div>
+      </div>
+      <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                        <label><Strong>Comentarios salarios</Strong></label>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                              <mat-form-field  class="labelCompleto" appearance="outline" >
+                                          <div *ngIf="datosOferta.contrato.comentariosSalario === null; else comentariosSalario">
+                                                      <textarea  matInput disabled value="No incluido" rows="3"></textarea>
+                                          </div>
+                                          <ng-template #comentariosSalario><textarea  matInput disabled value="{{datosOferta.contrato.comentariosSalario}}" rows="3"></textarea>
+                                          </ng-template>  
+                              </mat-form-field>
+                  </div>
+      </div>
+      <div class="row">
+                  <div class="col-12">
+                        <h5>Requisitos</h5>
+                  </div>
+            </div>
+      <div class="row">
+                  <div class="col-12">
+                              <label><Strong>Perfil buscado: </Strong>{{datosOferta.requisitos.perfil}}</label>
+                        </div>
+      </div>
+      <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                              <label><Strong>Experiencia laboral: </Strong>{{datosOferta.requisitos.experienciaLaboral}} {{datosOferta.requisitos.anios}} años</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                                    <label><Strong>Estudios minímos: </Strong>{{datosOferta.requisitos.estudiosMinimos}}</label>
+                        </div>
+      </div>
+      <div class="row" *ngIf="datosOferta.requisitos.idiomas.length == 0; else idiomas">
+                  <div class="col-12">
+                              <label><Strong>No se requieren idiomas </Strong></label>
+                  </div>
+      </div>
+      <ng-template #idiomas>
+            <mat-card>
+                  <mat-card-header>
+                              <mat-card-title>Idiomas</mat-card-title>
+                        </mat-card-header>
+                  <mat-card-content>
+                        <mat-accordion>
+                                    <!--Lista desplegable-->
+                                    <mat-expansion-panel *ngFor="let idioma of datosOferta.requisitos.idiomas">
+                                    <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                                {{ idioma.nombre }}
+                                          </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!--Contenido-->
+                                    <div class="row">                                                  
+                                                <div class="col-sm-12 col-md-4">
+                                                            <label><Strong>Lectura: </Strong>{{idioma.nivel_lectura}}</label>
+                                                      </div>
+                                                      <div class="col-sm-12 col-md-4">
+                                                                  <label><Strong>Escritura: </Strong>{{idioma.nivel_escritura}}</label>
+                                                      </div>
+                                                      <div class="col-sm-12 col-md-4">
+                                                            <label><Strong>Conversación: </Strong>{{idioma.nivel_conversacion}}</label>
+                                                </div>
+                                          </div>
+                                    <!--Fin contenido-->
+                                    </mat-expansion-panel>
+                                    <!--Fin Lista desplegable-->
+                        </mat-accordion>
+                  </mat-card-content>
+            </mat-card>
+      </ng-template>
+      <div class="row mt-2" *ngIf="datosOferta.requisitos.softwareOferta.length == 0; else softwares">
+                  <div class="col-12">
+                              <label><Strong>No se requieren softwares </Strong></label>
+                  </div>
+      </div>
+      <ng-template #softwares>
+            <mat-card>
+                        <mat-card-header>
+                                    <mat-card-title>Softwares</mat-card-title>
+                              </mat-card-header>
+                        <mat-card-content>
+                              <mat-accordion>
+                                          <!--Lista desplegable-->
+                                          <mat-expansion-panel *ngFor="let software of datosOferta.requisitos.softwareOferta">
+                                          <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                      {{ software.nombre }}
+                                                </mat-panel-title>
+                                          </mat-expansion-panel-header>
+                                          <!--Contenido-->
+                                          <div class="row">                                                  
+                                                      <div class="col-4">
+                                                                  <label><Strong>Nivel: </Strong>{{software.nivel}}</label>
+                                                            </div>
+                                          </div>
+                                          <!--Fin contenido-->
+                                          </mat-expansion-panel>
+                                          <!--Fin Lista desplegable-->
+                              </mat-accordion>
+                        </mat-card-content>
+            </mat-card>
+      </ng-template>
+      <div class="row mt-4">
+                  <div class="col-sm-12 col-md-5">
+                        <label><Strong>Requisitos minimos</Strong></label>
+                  </div>
+                  <div class="col-sm-12 col-md-7">
+                              <mat-form-field class="labelCompleto"  appearance="outline" >
+                                          <textarea  matInput disabled value="{{datosOferta.requisitos.requisitosMinimos}}" rows="3"></textarea>
+                                  </mat-form-field>
+                  </div>
+      </div>
+      <div class="row">
+                  <div class="col-12">
+                              <label><Strong>Dispone de movilización propia: </Strong>{{datosOferta.requisitos.movilizacionPropia}}</label>
+                        </div>
+      </div>
+      <div class="row">
+                  <div class="col-12">
+                              <label><Strong>Licencia de conducción: </Strong>{{datosOferta.requisitos.licenciaConduccion}}</label>
+                        </div>
+      </div>
+    
+      <div class="row" *ngIf="datosOferta.requisitos.preguntasCandidato.length == 0; else preguntasCandidato">
+                  <div class="col-12">
+                              <label><Strong>No se requieren preguntas al candidato </Strong></label>
+                  </div>
+      </div>
+      <ng-template #preguntasCandidato>
+            <mat-card>
+                        <mat-card-header>
+                                    <mat-card-title>Preguntas</mat-card-title>
+                              </mat-card-header>
+                  <mat-card-content>
+                              <mat-list>
+                                    <div class="row" *ngFor="let pregunta of datosOferta.requisitos.preguntasCandidato">
+                                          <div class="col-12 tamFontList">
+                                                      <label>{{pregunta}}</label>
+                                                      <mat-divider></mat-divider>
+                                          </div>
+                                          
+                                    </div>
+                                    </mat-list>
+                  </mat-card-content>
+            </mat-card>
+      </ng-template>
+       <div class="row mt-4">
+                  <div class="col-sm-12 col-md-6">
+                              <label><Strong>Personas con discapacidad: </Strong>
+                                    <label *ngIf="datosOferta.requisitos.discapacidad === null;else discapacidad">No</label>
+                                    <ng-template #discapacidad>
+                                          Sí
+                                    </ng-template>
+                        </label>
+                  </div>
+                  <div class="col-sm-12 col-md-6" *ngIf="datosOferta.requisitos.discapacidad !== null">
+                              <label><Strong>Discapacidad: </Strong>{{datosOferta.requisitos.discapacidad}}</label>
+                  </div>
+      </div>
+      <mat-card>
+            <mat-card-header>
+                  <mat-card-title>Ubicaciones</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                        <mat-list>
+                              <div *ngFor="let ubicacion of datosOferta.informacionPrincipal.ubicaciones">
+                                          <div class="row tamFontList">
+                                                      <div class="col-sm-12 col-md-4">
+                                                            <label><Strong>País: </Strong> {{ubicacion.pais}}</label>
+                                                      </div>
+                                                      <div class="col-sm-12 col-md-4">
+                                                            <label><Strong>Departamento: </Strong> {{ubicacion.departamento}}</label>
+                                                      </div>
+                                                      <div class="col-sm-12 col-md-4">
+                                                            <label><Strong>Ciudad: </Strong> {{ubicacion.ciudad}}</label>
+                                                      </div>
+                                          </div>
+                                    <mat-divider></mat-divider>
+                              </div>
+                        </mat-list>
+            </mat-card-content>
+      </mat-card>
+      <div class="row mt-4">
+                  <div class="col-12">
+                        <h5>informacion HVs</h5>
+                  </div>
+            </div>
+      <div class="row mt-2">
+                  <div class="col-12">
+                              <label><Strong>E-mail recepción Hvs: </Strong>{{datosOferta.contactoHV.correo}}</label>
+                        </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-12 col-md-6">
+                        <label><Strong>Nombres: </Strong>{{datosOferta.contactoHV.nombres}}</label>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                              <label><Strong>Apellidos: </Strong>{{datosOferta.contactoHV.apellidos}}</label>
+                  </div>
+            </div>
+      <div class="row">
+                  <div class="col-12">
+                              <label><Strong>Teléfono: </Strong>{{datosOferta.contactoHV.telefonoMovil}}</label>
+                        </div>
+      </div>
+      <div class="row">
+                  <div class="col-12">
+                              <label><Strong>Días de vigencia de la oferta: </Strong>{{datosOferta.informacionPrincipal.vigenciaDias}}</label>
+                        </div>
+      </div>
 </div>
 <div mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>No Thanks</button>
-  <button mat-button [mat-dialog-close]="true"
-cdkFocusInitial>Ok</button>
+  <button color="primary" mat-button mat-dialog-close>Volver a modificar</button>
+  <button type="button" mat-raised-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>Crear oferta</button>
 </div>
