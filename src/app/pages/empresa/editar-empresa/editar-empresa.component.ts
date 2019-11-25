@@ -329,7 +329,7 @@ sectorValidator(control: FormControl) {
             resolve(null);
           }
           else{
-          this.servGenerales.validarEmail(control.value).subscribe((res) => {
+          this.empService.validarEmail(control.value).subscribe((res) => {
             console.log(res)
             if (res == 'Correcto') {
               resolve(null);
@@ -361,7 +361,7 @@ sectorValidator(control: FormControl) {
     return new Promise(resolve => {
       if (control.value != "") {
         this.debouncer = setTimeout(() => {
-          this.servGenerales.validarNIT(control.value).subscribe((res) => {
+          this.empService.validarNIT(control.value).subscribe((res) => {
             if (res !== control.value) {
               resolve(null);
             }

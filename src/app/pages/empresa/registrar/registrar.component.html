@@ -14,7 +14,7 @@
     <mat-divider></mat-divider>
     <mat-card-content>
         <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
-            <mat-horizontal-stepper #stepper>
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
                 <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
                     label="Cuenta">
@@ -108,6 +108,9 @@
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.nombreEmpresa.errors?.required">
                                     campo requerido</mat-error>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.nombreEmpresa.hasError('NombreExiste')">
+                                    La empresa ya está registrada</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="row centrarContenidoRow">
@@ -166,9 +169,6 @@
                     </div>
                     <div class="botonesStepper">
                         <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <!--<button (click)="mostrar()" type="button" mat-raised-button color="primary"
-                            matStepperNext>Guardar y
-                            Continuar</button>-->
                         <button type="button" mat-raised-button color="primary" matStepperNext>Guardar y
                             Continuar</button>
                     </div>
@@ -445,8 +445,11 @@
                             <label for="file">Cámara y comercio de tu empresa (Unicamente archivo PDF)</label>
                         </div>
                         <div class="row centrado">
-                            <input #fileInput id="file" name="file" type="file" (change)="elegirArchivo()" accept=".pdf"
-                                required>
+                            <input #fileInput id="file" name="file" type="file" accept=".pdf"
+                                formControlName="camaraycomercio" required>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('archivos').controls.camaraycomercio.errors?.required">
+                                campo requerido</mat-error>
                         </div>
                     </div>
                     <div>
@@ -454,12 +457,15 @@
                             <label for="logo">Logo de tu empresa (Unicamente imagen JPG)</label>
                         </div>
                         <div class="row centrado">
-                            <input #logoInput id="logo" type="file" (change)="elegirLogo()" accept=".jpg">
+                            <input #logoInput id="logo" type="file" accept=".jpg">
                         </div>
                     </div>
-                    <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                    <button type="submit" mat-raised-button color="primary">Guardar y
-                        Continuar</button>
+                    <div class="botonesStepper">
+                        <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
+                        <button type="submit" [disabled]="formRegistroEmp.invalid" mat-raised-button
+                            color="primary">Guardar y
+                            Continuar</button>
+                    </div>
                 </mat-step>
 
             </mat-horizontal-stepper>

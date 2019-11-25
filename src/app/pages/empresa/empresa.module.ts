@@ -14,11 +14,19 @@ import { LayoutModule } from 'src/app/layout/layout.module';
 import { DialogInfoOfertaComponent } from './dialog-info-oferta/dialog-info-oferta.component';
 import { DialogEstadoOfertaComponent } from './dialog-estado-oferta/dialog-estado-oferta.component';
 import { VerPostuladosComponent } from './ver-postulados/ver-postulados.component';
+import { Routes, RouterModule } from '@angular/router';
 
+const routes: Routes = [
+  { path: 'empresa/:id/datosEmpresa', component:DatosEmpresaComponent},
+  { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent},
+  { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent},
+  { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent},
+  { path: 'empresa/:id/misPostulados', component: VerPostuladosComponent},
+];
 
 @NgModule({
   declarations: [
-    RegistrarComponent, 
+    RegistrarComponent,
     DatosEmpresaComponent,
     EditarEmpresaComponent, 
     DialogFinalRegistroComponent, 
@@ -34,6 +42,7 @@ import { VerPostuladosComponent } from './ver-postulados/ver-postulados.componen
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
   entryComponents: [DialogFinalRegistroComponent, DialogInfoOfertaComponent, DialogEstadoOfertaComponent],
   providers: [GeneralesService],

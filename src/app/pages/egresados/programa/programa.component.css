@@ -1,6 +1,4 @@
-.Programa
-{
-    display: flex;
-    flex-direction: column;
-    padding: 0% 0% 0% 0%;
+mat-form-field,mat-label, mat-radio-button,mat-select{
+    margin-right: 20px;
+    margin-left: 0px;
 }

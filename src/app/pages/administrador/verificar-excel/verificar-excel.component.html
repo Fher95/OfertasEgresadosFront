@@ -13,6 +13,8 @@
     </div>
   </div>
 
+  <app-spinner *ngIf="showSpinner"></app-spinner>
+
   <div class="options" *ngIf="processFinished">
     <button class="button-option aceptados" (click)="mostrarAceptados()">Ver Aceptados</button>
     <!--<button class="button-option pendientes" (click)="mostrarPendientes()">Ver Pendientes</button>-->

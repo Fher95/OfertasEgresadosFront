@@ -17,12 +17,13 @@ export class VerificarExcelComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput;
   showAceptados: boolean;
-  showPendientes: boolean;  
+  showPendientes: boolean;
   showRechazados: boolean;
   processFinished: boolean;
-  aceptadosDataSource : MatTableDataSource<EgresadoVerificar>;
+  aceptadosDataSource: MatTableDataSource<EgresadoVerificar>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['nombres', 'apellidos', 'identificacion', 'titulo'];
+  showSpinner: boolean;
 
   constructor(private service: FileUploadService) { }
 
@@ -31,6 +32,7 @@ export class VerificarExcelComponent implements OnInit {
     this.showPendientes = false;
     this.showRechazados = false;
     this.processFinished = false;
+    this.showSpinner = false;
   }
 
   mostrarAceptados() {
@@ -53,14 +55,16 @@ export class VerificarExcelComponent implements OnInit {
 
 
   uploadFile() {
-    let formData = new FormData();
+    this.showSpinner = true;
+    let formData = new FormData();    
     console.log(this.fileInput.nativeElement.files[0]);
     formData.append('fileInput', this.fileInput.nativeElement.files[0]);
-    this.service.uploadFile(formData).subscribe( (data) => {
+    this.service.uploadFile(formData).subscribe((data) => {
       let aceptados = data;
       this.processFinished = true;
       this.aceptadosDataSource = new MatTableDataSource(aceptados);
       this.aceptadosDataSource.paginator = this.paginator;
+      this.showSpinner = false;
     });
   }
 

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ISector } from '../modelos/sectorInterface';
 import { ICargo } from '../modelos/cargoInterface';
+import { CiudadInterface } from '../modelos/ciudadesInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,16 +28,11 @@ export class GeneralesService {
   obtenerListaDepartamentos(id: string): Observable<any> {
     return this.httpClient.get("http://127.0.0.1:8081/api/departamentos/" + id, this.httpOptions);
   }
-  obtenerListaCiudades(id: string): Observable<any> {
-    return this.httpClient.get("http://127.0.0.1:8081/api/ciudades/" + id, this.httpOptions);
+  obtenerListaCiudades(id: string): Observable<CiudadInterface[]> {
+    return this.httpClient.get<CiudadInterface[]>("http://127.0.0.1:8081/api/ciudades/" + id, this.httpOptions);
   }
   obtenerListaCargos(): Observable<ICargo[]>{
     return this.httpClient.get<ICargo[]>("http://127.0.0.1:8081/api/cargos", this.httpOptions);
   }
-  validarEmail(email: String): Observable<any> {
-    return this.httpClient.get("http://127.0.0.1:8081/api/validarUsuario/" + email, this.httpOptions);
-  }
-  validarNIT(NIT: string): Observable<any> {
-    return this.httpClient.get("http://127.0.0.1:8081/api/validarNIT/" + NIT, this.httpOptions);
-  }
+  
 }
