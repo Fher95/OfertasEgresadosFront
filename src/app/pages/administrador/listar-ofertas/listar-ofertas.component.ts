@@ -30,7 +30,7 @@ export class ListarOfertasComponent implements OnInit {
 
   ngOnInit() {
     this.ofertas = null;
-    this.getOfertas2();
+    this.getOfertas();
   }
 
   getOfertas(): void {
@@ -138,6 +138,11 @@ export class ListarOfertasComponent implements OnInit {
       });
     }
 
+  }
+
+  puntuarNumero(parNumero: number): string{
+    const strNumero = parNumero.toLocaleString();
+    return strNumero;
   }
 
 }
