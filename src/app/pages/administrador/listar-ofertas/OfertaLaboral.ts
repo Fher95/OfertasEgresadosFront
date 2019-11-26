@@ -29,7 +29,7 @@ export class OfertaLaboral {
 export class Ubicacion {
     id_aut_ciudad?: number;
     nombre?: string;
-    nombre_departamento?: string;
+    departamento?: string;
 }
 export class Empresa {
 
