@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OfertaLaboral, ofertaGenerica, AreaConocimiento } from './OfertaLaboral';
+import { OfertaLaboral, ofertaGenerica, AreaConocimiento, Ubicacion } from './OfertaLaboral';
 import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { isNull } from 'util';
@@ -15,7 +15,7 @@ import { ListarOfertasService } from './listar-ofertas.service';
 export class ListarOfertasComponent implements OnInit {
 
   ofertas: OfertaLaboral[];
-  displayedColumns: string[] = ['Nombre Oferta', 'Area', 'Empresa', 'Fecha Publicacion', 'Estado', 'Acciones'];
+  displayedColumns: string[] = ['Estado', 'Nombre Oferta', 'Area', 'Empresa', 'Fecha Publicacion', 'Acciones'];
   dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
   arregloVacio = false;
   ofertaSeleccionada = ofertaGenerica;
@@ -30,7 +30,7 @@ export class ListarOfertasComponent implements OnInit {
 
   ngOnInit() {
     this.ofertas = null;
-    this.getOfertas();
+    this.getOfertas2();
   }
 
   getOfertas(): void {
@@ -104,6 +104,21 @@ export class ListarOfertasComponent implements OnInit {
         strAreas += element;
         if (index < (parAreas.length - 1)) {
           strAreas += ', ';
+        }
+      }
+      return strAreas;
+    }
+  }
+  getStrUbicaciones(parUbicaciones: Ubicacion[]){
+    if (parUbicaciones === null || parUbicaciones.length === 0) {
+      return 'No especificado';
+    } else {
+      let strAreas = '';
+      for (let index = 0; index < parUbicaciones.length; index++) {
+        const element = parUbicaciones[index].nombre + ' (' + parUbicaciones[index].nombre_departamento + ')';
+        strAreas += element;
+        if (index < (parUbicaciones.length - 1)) {
+          strAreas += ' - ';
         }
       }
       return strAreas;
