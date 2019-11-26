@@ -426,6 +426,9 @@
                                 Digite
                                 un
                                 correo valido. ej: ejemplo@gmail.com</mat-error>
+                                <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.EmailExiste">
+                                Email corporativo ya registrado</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">

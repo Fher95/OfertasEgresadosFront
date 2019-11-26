@@ -41,7 +41,7 @@ export class EmpresaService {
     return this.httpClient.get("http://127.0.0.1:8081/api/validarNombreEmpresa/" + nombre, this.httpOptions);
   }
   validarEmailCorp(email: string): Observable<any>{
-    return this.httpClient.get("http://127.0.0.1:8081/api/validarEmailCorp/" + email, this.httpOptions);
+    return this.httpClient.get("http://127.0.0.1:8081/api/validarEmailAdmin/" + email, this.httpOptions);
   }
 
   registrarUsuario(objeto: FormData) {
