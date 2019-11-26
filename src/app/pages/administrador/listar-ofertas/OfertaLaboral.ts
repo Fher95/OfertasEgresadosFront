@@ -1,3 +1,5 @@
+import { ubicacion } from '../../empresa/crear-oferta-laboral/crear-oferta-laboral.component';
+
 export class OfertaLaboral {
     id_aut_oferta: number;
     id_empresa: number;
@@ -21,9 +23,14 @@ export class OfertaLaboral {
     empresa: Empresa;
     areas_conocimiento: AreaConocimiento[];
     salario?: Salario;
+    ubicaciones?: Ubicacion[];
 
 }
-
+export class Ubicacion {
+    id_aut_ciudad?: number;
+    nombre?: string;
+    nombre_departamento?: string;
+}
 export class Empresa {
 
     id_aut_empresa: number;
@@ -66,23 +73,23 @@ export const salarioPrueba = {
 
 export const empresaGenerica = {
     id_aut_empresa: 12,
-    nit:  'Empresa Generica',
-    nombre:  'Empresa Generica',
-    razon_social:  'Empresa Generica',
-    anio_creacion:  12,
-    numero_empleados:  12,
-    ingresos:  12,
-    sitio_web:  'Empresa Generica',
-    id_direccion:  12,
-    estado:  'Empresa Generica',
-    fecha_registro:  'Empresa Generica',
-    fecha_activacion:  'Empresa Generica',
-    total_publicaciones:  12,
-    limite_publicaciones:  12,
-    num_publicaciones_actuales:  12,
-    correo:  'Empresa Generica',
-    url_logo:  'Empresa Generica',
-    url_doc_camaracomercio:  'Empresa Generica',
+    nit: 'Empresa Generica',
+    nombre: 'Empresa Generica',
+    razon_social: 'Empresa Generica',
+    anio_creacion: 12,
+    numero_empleados: 12,
+    ingresos: 12,
+    sitio_web: 'Empresa Generica',
+    id_direccion: 12,
+    estado: 'Empresa Generica',
+    fecha_registro: 'Empresa Generica',
+    fecha_activacion: 'Empresa Generica',
+    total_publicaciones: 12,
+    limite_publicaciones: 12,
+    num_publicaciones_actuales: 12,
+    correo: 'Empresa Generica',
+    url_logo: 'Empresa Generica',
+    url_doc_camaracomercio: 'Empresa Generica',
 };
 
 export const ofertaGenerica: OfertaLaboral = {
@@ -110,21 +117,31 @@ export const ofertaGenerica: OfertaLaboral = {
 };
 
 export const lstOfertas: OfertaLaboral[] = [
-    {id_aut_oferta: 111, id_empresa: 1234, nombre_oferta: 'Requeridos ingenieros', descripcion: 'No muy bien pago',
-    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera1', anios_experiencia: 2,
-    fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
-    id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
-    id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Ingenieria' }, { id_aut_areaconocimiento: 8, nombre: 'Software' }, { id_aut_areaconocimiento: 9, nombre: 'Fisica' }]},
-    {id_aut_oferta: 113, id_empresa: 1234, nombre_oferta: 'Requeridos Medicos', descripcion: 'Mas o menos pago',
-    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera2', anios_experiencia: 2,
-    fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
-    id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
-    // tslint:disable-next-line: max-line-length
-    id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Medicina' }], salario: salarioPrueba},
-    
-    {id_aut_oferta: 114, id_empresa: 1234, nombre_oferta: 'Requeridos Biologos', descripcion: 'Bien pago',
-    id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera3', anios_experiencia: 2,
-    fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
-    id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
-    id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Cualquiera' }], salario: salarioPrueba}
+    {
+        id_aut_oferta: 111, id_empresa: 1234, nombre_oferta: 'Requeridos ingenieros', descripcion: 'No muy bien pago',
+        id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera1', anios_experiencia: 2,
+        fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
+        id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
+        id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Ingenieria' }, { id_aut_areaconocimiento: 8, nombre: 'Software' },
+        { id_aut_areaconocimiento: 9, nombre: 'Fisica' }], ubicaciones: [{ id_aut_ciudad: 23, nombre: 'Popayan', nombre_departamento: 'Cauca' }]
+    },
+
+    {
+        id_aut_oferta: 113, id_empresa: 1234, nombre_oferta: 'Requeridos Medicos', descripcion: 'Mas o menos pago',
+        id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera2', anios_experiencia: 2,
+        fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
+        id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
+        // tslint:disable-next-line: max-line-length
+        id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Medicina' }], salario: salarioPrueba
+        , ubicaciones: [{ id_aut_ciudad: 23, nombre: 'Cali', nombre_departamento: 'Valle del Cauca' }, { id_aut_ciudad: 23, nombre: 'Palmira', nombre_departamento: 'Valle del Cauca' }]
+    },
+
+    {
+        id_aut_oferta: 114, id_empresa: 1234, nombre_oferta: 'Requeridos Biologos', descripcion: 'Bien pago',
+        id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera3', anios_experiencia: 2,
+        fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
+        id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
+        id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Cualquiera' }], 
+        salario: salarioPrueba, 
+    }
 ]
