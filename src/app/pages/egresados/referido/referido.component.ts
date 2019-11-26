@@ -3,8 +3,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Referido } from 'src/app/shared/modelos/referido';
 import { IfStmt } from '@angular/compiler';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   varTitulo: string;
@@ -29,10 +30,10 @@ export class ReferidoComponent implements OnInit {
   listaParentesco : string[] = ['Pareja/Cónyuge','Padre','Madre','Abuelo/a','Hijo/a','Otro'];
   
   varReferido : Referido;
-  varTitulo: string;
-  varMensaje: string;
+  tituloInfo: string;
+  mensajeInfo: string;
 
-  constructor(private dialog:MatDialog) 
+  constructor(private dialog:MatDialog, private router:Router) 
   {
     this.limpiarDatos();
   }
@@ -60,8 +61,8 @@ export class ReferidoComponent implements OnInit {
       bandera = true;
     }
     else{
-      this.varTitulo="Información Faltante";
-      this.varMensaje="Faltan datos por ingresar ";
+      this.tituloInfo="Información Faltante";
+      this.mensajeInfo="Faltan datos por ingresar ";
     }
     return bandera;
   }
@@ -77,8 +78,8 @@ export class ReferidoComponent implements OnInit {
       this.varReferido.telefono_movil = this.Celular.value;
     }
     else{
-      console.log('titulo'+this.varTitulo+'msj'+this.varMensaje);
-      this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.varTitulo, varMensaje: this.varMensaje}});
+      const dialogRef = this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
+      dialogRef.afterClosed().subscribe();
     }
   }
   

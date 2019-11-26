@@ -2,7 +2,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Egresado de</mat-label>
     <mat-select [formControl]="NivelAcademico" required>     
-      <mat-option [value] = "nivel.id_aut_estudio" *ngFor="let nivel of nivelAcade">{{nivel.nombre}}</mat-option>
+      <mat-option [value] = "nivel.id_aut_nivprogra" *ngFor="let nivel of nivelAcade">{{nivel.nombre}}</mat-option>
       <!--mat-option [value]="prueba" *ngFor="let prueba of pruebas">{{prueba}}</mat-option-->
     </mat-select>
   </mat-form-field>
