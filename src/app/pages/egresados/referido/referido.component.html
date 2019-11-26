@@ -27,7 +27,7 @@
     <input matInput [formControl]="Celular" required>
   </mat-form-field>
   <mat-dialog-actions align="end">
-    <button id="agregar" type="submit" mat-raised-button [mat-dialog-close]="varReferido">Agregar Contacto</button>
+    <button id="agregar" type="submit" (click)="referidoDatos()" mat-raised-button [mat-dialog-close]="varReferido">Agregar Contacto</button>
     <button mat-raised-button mat-dialog-close>Cancelar</button>
   </mat-dialog-actions>
 </form>

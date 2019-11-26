@@ -29,12 +29,16 @@ export class ProgramaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.obtenerNivelEstudio();
+    this.obtenerNivelAcademico();
     this.obtenerSedes();
   }
 
   obtenerNivelEstudio(){
     this.catalogoService.getNivelEducativo().subscribe(data => this.nivelAcade = data);
+  }
+
+  obtenerNivelAcademico(){
+    this.catalogoService.getNivelAcademico().subscribe(data => this.nivelAcade = data);
   }
 
   obtenerSedes(){
@@ -46,6 +50,6 @@ export class ProgramaComponent implements OnInit {
   }
 
   obtenerPrograma(){
-    this.catalogoService.getPrograma(this.Sede.value,this.Facultad.value,this.NivelAcademico.value).subscribe(data => this.programas = data);
+    this.catalogoService.getPrograma(this.Facultad.value,this.Sede.value,this.NivelAcademico.value).subscribe(data => this.programas = data);
   }
 }

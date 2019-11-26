@@ -1,33 +1,60 @@
 <app-header></app-header>
 <app-navbar-home-ofertas></app-navbar-home-ofertas>
 
-<div class="container mt-4 mb-3" role="main">    
-  <h2 class="text-primary">Solicitudes de aprobación de empresas:</h2><p></p>
+<div class="container mt-4 mb-3" role="main">
+  <h2 class="text-primary">Solicitudes de aprobación de empresas:</h2>
+  <p></p>
   <div *ngIf="!auxiliar" class="row">
-    <h3 class="text-centered px-3"> Cargando Solicitudes... </h3>
+    <h3 class="text-centered px-3"> Cargando solicitudes... </h3>
     <div class="spinner-border text-primary pl-3" role="status">
-      <span class="sr-only">  Loading...</span>
+      <span class="sr-only"> Loading...</span>
     </div>
   </div>
   <h3 *ngIf="arregloVacio" class="text-centered"> No se encontraron solicitudes </h3>
-  
+
   <div *ngIf="!arregloVacio" class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let element">
+          <div *ngIf="element.estado == 'Activo'" class="justify-content-center">
+            <button mat-icon-button color="primary">
+              <mat-icon>fiber_manual_record</mat-icon>
+            </button>
+            <div>
+              <span>Activo</span>
+            </div>
+          </div>
+          <div *ngIf="element.estado == 'En espera'" class="justify-content-center">
+            <button mat-icon-button>
+              <mat-icon>fiber_manual_record</mat-icon>
+            </button>
+            <div>
+              <span>Pendiente</span>
+            </div>
+          </div>
+          <div *ngIf="element.estado == 'Inactivo'" class="justify-content-center">
+            <button mat-icon-button color="warn">
+              <mat-icon>fiber_manual_record</mat-icon>
+            </button>
+            <div>
+              <span>Inactivo</span>
+            </div>
+          </div>
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
         <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
       </ng-container>
 
-
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef> Fecha </th>
         <td mat-cell *matCellDef="let element"> {{element.fecha_registro}} </td>
       </ng-container>
-      <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element"> {{getEstado(element.estado)}} </td>
-      </ng-container>
+
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element"><a href="" data-toggle="modal" data-target="#exampleModalScrollable"
@@ -43,13 +70,13 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 
-<!-- Modal -->
+  <!-- Modal -->
   <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalScrollableTitle">Informacion De La Empresa</h5>
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Información de la empresa</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -76,10 +103,9 @@
           <div class="form-group">
             <strong for="numOfertas">Numero de publicaciones permitidas: </strong>
             <p></p>
-            <input [(ngModel)]="seleccionNumOfertas" type="number" class="form-control" 
-            placeholder="Debe ingresar un numero para activar" (change)="activacionValida()"
-            (keyup)="activacionValida()"
-            required>
+            <input [(ngModel)]="seleccionNumOfertas" type="number" class="form-control"
+              placeholder="Debe ingresar un numero para activar" (change)="activacionValida()"
+              (keyup)="activacionValida()" required>
             <!-- ****Codigo opcional para seleccionar numero de publicaciones**** -->
             <!--select class="form-control" id="numOfertas" [(ngModel)]="seleccionNumOfertas"
               (change)="activacionValida()">

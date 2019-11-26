@@ -30,6 +30,68 @@ export class CrearOfertaLaboralComponent implements OnInit {
   id: string;
   formOfertaLaboral: FormGroup;
   idioma:FormGroup;
+  labelPosition = 'before';
+  idiomaChecked = false;
+  softwareChecked = false;
+  preguntasChecked = false;
+
+  datos = {
+    "informacionPrincipal": {
+        "nombreCargo": "Oferta ejemplo 1",
+        "descripcion": "Descripcion oferta 1",
+        "cargoNombre": "Otro",
+        "otroCargo": "Cargo d eejemplo",
+        "numVacantes": 3,
+        "sectorNombre": "Administrartivo",
+        "nombreTempEmpresa": null,
+        "AreasConocimiento": [
+            "Informatica",
+            "tecnologia"
+        ],
+        "vigenciaDias": 30,
+        "ubicaciones": [
+            {"pais": "Colombia","departamento": "Cauca","ciudad": "popayan"},
+            {"pais": "Colombia","departamento": "valle Cauca","ciudad": "cali"}
+        ]
+    },
+    "contrato": {
+        "tipoContrato": "Término indefinido",
+        "formaPago": "Dolares",
+        "rangoSalarial":null,
+        "duracion": null,
+        "horario": null,
+        "jornada": "Medio tiempo",
+        "comentariosSalario": null
+    },
+    "requisitos": {
+        "perfil": "Profesional",
+        "estudiosMinimos": "sistemas",
+        "anios": 2,
+        "experienciaLaboral": "Mayor o igual que",
+        "requisitosMinimos": "Ser muy atento",
+        "movilizacionPropia": "si",
+        "licenciaConduccion": "moto",
+        "discapacidad": "ciego",
+        "idiomas": [
+         {nombre: "ingles", nivel_lectura: "baji" ,nivel_escritura:"bajo",nivel_conversacion:"bajo" }
+        ],
+        "softwareOferta": [
+          {nombre: "asdasd", nivel: "baji" }
+
+        ],
+        "preguntasCandidato": [
+          "¿tiene problemas con compartir tiempo con animales y demas posibilidades de viaje?",
+                    "¿tiene problemas con compartir tiempo con animales y demas posibilidades de viaje?"
+           
+        ]
+    },
+    "contactoHV":{
+    	"correo":"correocontacto@mail.com",
+    	"nombres":"Nom Contacto",
+    	"apellidos":"Apellidos",
+    	"telefonoMovil":1234567890
+    }
+}
 
   constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
     ) { 
@@ -53,24 +115,22 @@ export class CrearOfertaLaboralComponent implements OnInit {
         duracion:[null],
         horario:[null],
         jornada:[null, Validators.required],
+        rangoSalarial:[null],
         comentariosSalario:[null]
       }),
       'requisitos':this.formBuilder.group({
-        idrequisitosMinimos:[null,Validators.required],
+        perfil:[null,Validators.required],
+        idEstudiosMinimos:[null,Validators.required],
         anios:[null,Validators.required],
         experienciaLaboral:[null,Validators.required],
-        requisitosMinimos:[null,Validators.required],    
+        requisitosMinimos:[null,Validators.required], 
+        movilizacionPropia:[null,Validators.required], 
         licenciaConduccion:[null],
         idDiscapacidad:[null],
         idiomas:[[]],  
         softwareOferta:[[]],
-        preguntasCandidato:[[]]
-  //      tipoPerfil:[null,Validators.required],
-    //    estudiosMinimos:[null,Validators.required],
-        
+        preguntasCandidato:[[]]        
       })/*,
-      'clasificacion':this.formBuilder.group({
-      }),
       'persona-contacto':this.formBuilder.group({
         email:[null],
         contacto:[null],
@@ -92,6 +152,8 @@ export class CrearOfertaLaboralComponent implements OnInit {
         ext:[null]
       })*/
     });
+
+    
   }
 
   ngOnInit() {
@@ -100,7 +162,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
   
   registrarOfertaLaboral(form)
   {
-
+    
   }
   /**
  * Abre un dialog de angular material
@@ -110,9 +172,14 @@ export class CrearOfertaLaboralComponent implements OnInit {
  */
   openDialog() {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
-      width: '40%',
+      width: '60%',
+
+      data: { datos: this.datos }
     });
     dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+          alert('modifica');
+        }
     });
   }
 }

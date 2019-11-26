@@ -15,7 +15,7 @@ import { isNull } from 'util';
 export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   solicitudes: Solicitud[];
-  displayedColumns: string[] = ['nombre', 'fecha', 'estado', 'acciones'];
+  displayedColumns: string[] = ['estado', 'nombre', 'fecha', 'acciones'];
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
   seleccionNumOfertas: number = 0 ;
   seleccionValida = false;
