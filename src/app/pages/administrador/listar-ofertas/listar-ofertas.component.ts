@@ -140,4 +140,9 @@ export class ListarOfertasComponent implements OnInit {
 
   }
 
+  puntuarNumero(parNumero: number): string{
+    const strNumero = parNumero.toLocaleString();
+    return strNumero;
+  }
+
 }
