@@ -115,7 +115,7 @@ export class ListarOfertasComponent implements OnInit {
     } else {
       let strAreas = '';
       for (let index = 0; index < parUbicaciones.length; index++) {
-        const element = parUbicaciones[index].nombre + ' (' + parUbicaciones[index].nombre_departamento + ')';
+        const element = parUbicaciones[index].nombre + ' (' + parUbicaciones[index].departamento + ')';
         strAreas += element;
         if (index < (parUbicaciones.length - 1)) {
           strAreas += ' - ';
