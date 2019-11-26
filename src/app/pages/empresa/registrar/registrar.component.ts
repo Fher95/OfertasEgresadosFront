@@ -353,7 +353,6 @@ export class RegistrarComponent implements OnInit {
       if (control.value != "") {
         this.debouncer = setTimeout(() => {
           this.empService.validarEmail(control.value).subscribe((res) => {
-            console.log(res);
             if (res.data == 'Correcto') {
               resolve(null);
             }
@@ -383,7 +382,6 @@ export class RegistrarComponent implements OnInit {
       if (control.value != "") {
         this.debouncer = setTimeout(() => {
           this.empService.validarNIT(control.value).subscribe((res) => {
-            console.log(res);
             if (res.data == 'Correcto') {
               resolve(null);
             }
