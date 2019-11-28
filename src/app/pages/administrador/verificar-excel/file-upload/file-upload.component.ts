@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-file-upload',
@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FileUploadComponent implements OnInit {
 
+  @ViewChild('labelImport')
+  labelImport: ElementRef;
+  @Output() importFile = new EventEmitter();
+  fileToUpload: File = null;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onFileChange(fileList: FileList) {
+    this.labelImport.nativeElement.innerText = Array.from(fileList)
+      .map(f => f.name).join(', ');
+    this.fileToUpload = fileList.item(0);
+  }
+
+  import() {
+    console.log('import: ' + this.fileToUpload.name);
+    this.importFile.emit(this.fileToUpload);
   }
 
 }

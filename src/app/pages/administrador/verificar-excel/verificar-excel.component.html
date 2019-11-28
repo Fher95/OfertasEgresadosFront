@@ -38,7 +38,7 @@
 <app-navbar-home-ofertas></app-navbar-home-ofertas>
 <div class="container-fluid mt-3">
   <div class="row">
-    <app-file-upload></app-file-upload>
+    <app-file-upload (importFile)="verificarArchivo($event)"></app-file-upload>
     <!-- File upload component -->
     <!-- End file upload component -->
   </div>

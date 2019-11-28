@@ -59,6 +59,19 @@ export class VerificarExcelComponent implements OnInit {
     this.showInconsistentes = true;
   }
 
+  verificarArchivo(file: File) {
+    this.showSpinner = true;
+    const formData = new FormData();
+    formData.append('fileInput', file);
+    this.service.uploadFile(formData).subscribe((data) => {
+      this.processFinished = true;
+      this.showSpinner = false;
+    }, err => {
+      // TODO: Show sweetalert message.
+      console.log('Error');
+    });
+  }
+
   uploadFile() {
     this.showSpinner = true;
     const formData = new FormData();
