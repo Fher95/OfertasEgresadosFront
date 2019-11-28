@@ -29,12 +29,10 @@ export class CompletarRegistroComponent implements OnInit {
   //Trabajos anteriores
   haTrabajado = new FormControl('', [Validators.required]);
   //Experiencias anteriores
-  expAnteriores = new Array<Experiencia>();
+  experiencias = new Array<Experiencia>();
   //Trabajo actual
   Labora_Actualmente = new FormControl('', [Validators.required]);
-  //Experiencia
-  expActuales = new Array<Experiencia>();
-
+  
   //Listas opciones
   cantHijos: string[] = [ "1", "2", "3", "4", "5", "Más de 5 hijos"];
   carreras: string[] = ["Tecnología","Pregrado","Especialización","Maestría","Doctorado"];
@@ -57,9 +55,8 @@ export class CompletarRegistroComponent implements OnInit {
     this.CantHijos = new FormControl('', [Validators.required]);
     this.referidos = new Array<Referido>();
     this.haTrabajado = new FormControl('', [Validators.required]);
-    this.expAnteriores = new Array<Experiencia>();
+    this.experiencias = new Array<Experiencia>();
     this.Labora_Actualmente = new FormControl('', [Validators.required]);
-    this.expActuales = new Array<Experiencia>();
   }
 
   llenarDatos()
@@ -74,7 +71,6 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.haTrabajado.value==0)
     {
       this.varCompletarRegistro.ha_trabajado = true;
-      this.varCompletarRegistro.exp_pasadas = this.expAnteriores;
     }
     else if(this.haTrabajado.value==1){
       this.varCompletarRegistro.ha_trabajado = false;
@@ -83,11 +79,11 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.Labora_Actualmente.value==0)
     {
       this.varCompletarRegistro.trabajo_actualmente = true;
-      this.varCompletarRegistro.exp_actuales = this.expActuales;
     }
     else if(this.Labora_Actualmente.value==1){
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
+    this.varCompletarRegistro.experiencias = this.experiencias;
     console.log("Metodo llenar: hijos: "+this.varCompletarRegistro.num_hijos+"hatrabajado: "+
       this.varCompletarRegistro.ha_trabajado+"trabajoactual: "+this.varCompletarRegistro.trabajo_actualmente);
 
@@ -133,15 +129,10 @@ export class CompletarRegistroComponent implements OnInit {
     console.log("titulo: "+this.tituloInfo+"mensaje: "+this.mensajeInfo);
     this.mensaje();
   }
-  experienciaAnterior()
+  experiencia()
   {
     const dialogRef = this.dialog.open(ExplaboralComponent);
-    dialogRef.afterClosed().subscribe(result =>{this.expAnteriores.push(result)})
-  }
-  experienciaActual()
-  {
-    const dialogRef = this.dialog.open(ExplaboralComponent);
-    dialogRef.afterClosed().subscribe(result =>{this.expActuales.push(result)})
+    dialogRef.afterClosed().subscribe(result =>{this.experiencias.push(result)})
   }
   contacto()
   {
