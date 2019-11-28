@@ -54,7 +54,8 @@ export class ReferidoComponent implements OnInit {
     
     var bandera:boolean = false;
     
-    console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"+this.Celular.value+"Parentesco"+this.Parentesco.value);
+    console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"
+    +this.Celular.value+"Parentesco"+this.Parentesco.value);
 
     if(this.Nombre.value!=null && this.Egresado.value!=null && this.Correo.value!=null && this.Celular.value!=null 
       && this.Parentesco.value!=null){
@@ -62,7 +63,7 @@ export class ReferidoComponent implements OnInit {
     }
     else{
       this.tituloInfo="Información Faltante";
-      this.mensajeInfo="Faltan datos por ingresar ";
+      this.mensajeInfo="Faltan datos por ingresar.";
     }
     return bandera;
   }
@@ -71,16 +72,29 @@ export class ReferidoComponent implements OnInit {
     if(this.validarDatos()){
       this.varReferido.nombres = this.Nombre.value;
       this.varReferido.parentesco = this.Parentesco.value;
-      this.varReferido.es_egresado = this.Egresado.value
-      this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
-      this.varReferido.id_aut_programa = this.programa.Programa.value;
+      this.varReferido.es_egresado = this.Egresado.value;
+      if(this.varReferido.es_egresado==1){
+        this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
+        this.varReferido.id_aut_programa = this.programa.Programa.value;
+      }
       this.varReferido.correo = this.Correo.value;
       this.varReferido.telefono_movil = this.Celular.value;
+
+      console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"+this.Celular.value+"Parentesco"+this.Parentesco.value);
+      console.log('Nombre'+this.varReferido.nombres+"Parentesco"+this.varReferido.parentesco
+      +"Egresado"+this.varReferido.es_egresado+"NivelEduca"+this.varReferido.id_nivel_educativo+
+      "Progra"+this.varReferido.id_aut_programa+"Correo"+this.varReferido.correo+"Celular"+this.varReferido.telefono_movil);
+
+      this.tituloInfo="Solicitud exitosa";
+      this.mensajeInfo="Contacto agregado de manera exitosa.";
+
+      this.mensaje();
     }
     else{
-      const dialogRef = this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
-      dialogRef.afterClosed().subscribe();
+      this.mensaje();
     }
   }
-  
+  mensaje(){
+    this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
+  }
 }
