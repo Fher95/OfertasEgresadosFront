@@ -29,7 +29,7 @@ export class OfertaLaboral {
 export class Ubicacion {
     id_aut_ciudad?: number;
     nombre?: string;
-    nombre_departamento?: string;
+    departamento?: string;
 }
 export class Empresa {
 
@@ -123,7 +123,7 @@ export const lstOfertas: OfertaLaboral[] = [
         fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
         id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
         id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Ingenieria' }, { id_aut_areaconocimiento: 8, nombre: 'Software' },
-        { id_aut_areaconocimiento: 9, nombre: 'Fisica' }], ubicaciones: [{ id_aut_ciudad: 23, nombre: 'Popayan', nombre_departamento: 'Cauca' }]
+        { id_aut_areaconocimiento: 9, nombre: 'Fisica' }], ubicaciones: [{ id_aut_ciudad: 23, nombre: 'Popayan', departamento: 'Cauca' }]
     },
 
     {
@@ -133,7 +133,7 @@ export const lstOfertas: OfertaLaboral[] = [
         id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
         // tslint:disable-next-line: max-line-length
         id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Medicina' }], salario: salarioPrueba
-        , ubicaciones: [{ id_aut_ciudad: 23, nombre: 'Cali', nombre_departamento: 'Valle del Cauca' }, { id_aut_ciudad: 23, nombre: 'Palmira', nombre_departamento: 'Valle del Cauca' }]
+        , ubicaciones: [{ id_aut_ciudad: 23, nombre: 'Cali', departamento: 'Valle del Cauca' }, { id_aut_ciudad: 23, nombre: 'Palmira', departamento: 'Valle del Cauca' }]
     },
 
     {
@@ -141,7 +141,7 @@ export const lstOfertas: OfertaLaboral[] = [
         id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera3', anios_experiencia: 2,
         fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
         id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
-        id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Cualquiera' }], 
-        salario: salarioPrueba, 
+        id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Cualquiera' }],
+        salario: salarioPrueba,
     }
 ]

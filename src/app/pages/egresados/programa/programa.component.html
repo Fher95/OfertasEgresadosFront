@@ -2,7 +2,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Egresado de</mat-label>
     <mat-select [formControl]="NivelAcademico" required>     
-      <mat-option [value] = "nivel.id_aut_estudio" *ngFor="let nivel of nivelAcade">{{nivel.nombre}}</mat-option>
+      <mat-option [value] = "nivel.id_aut_nivprogra" *ngFor="let nivel of nivelAcade">{{nivel.nombre}}</mat-option>
       <!--mat-option [value]="prueba" *ngFor="let prueba of pruebas">{{prueba}}</mat-option-->
     </mat-select>
   </mat-form-field>
@@ -25,44 +25,4 @@
       <mat-option [value]="progra.id_aut_programa" *ngFor="let progra of programas">{{progra.nombre}}</mat-option>
     </mat-select>
   </mat-form-field>
-
-  <!--mat-radio-group name="nivel_academico" [formControl]="NivelAcademico" required>
-    <h5>Nivel Academico*</h5-->
-    <!--mat-error *ngIf="nivelAFormControl.hasError('required')">Por favor selecionar una opción</mat-error-->
-    <!--mat-radio-button *ngFor="let nivel_academico of nivelAcade"
-      [value]="nivel_academico.id_aut_nivprogra">
-      {{nivel_academico.nombre}}
-    </mat-radio-button>
-  </mat-radio-group>
-
-  <mat-form-field>
-    <mat-label>Sede</mat-label>
-    <mat-select [formControl]="Sede" required (selectionChange)="obtenerFacultad()">
-      <mat-option *ngFor="let sede of sedes" [value]="sede.id_aut_sede">
-        {{sede.nombre}}
-      </mat-option>
-    </mat-select-->
-    <!--mat-error *ngIf="sedeFormControl.hasError('required')">Por favor selecionar una facultad</mat-error-->
-  <!--/mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Facultad</mat-label>
-    <mat-select [formControl]="Facultad" required (selectionChange)="obtenerPrograma()">
-      <mat-option *ngFor="let facultad of facultades" [value]="facultad.id_aut_facultad">
-        {{facultad.nombre}}
-      </mat-option>
-    </mat-select-->
-    <!--mat-error *ngIf="facultadFormControl.hasError('required')">Por favor selecionar una facultad</mat-error-->
-  <!--/mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Programa</mat-label>
-    <mat-select [formControl]="Programa" required>
-      <mat-option *ngFor="let programa of programas" [value]="programa.id_aut_programa">
-        {{programa.nombre}}
-      </mat-option>
-    </mat-select-->
-    <!--mat-error *ngIf="programaFormControl.hasError('required')">Por favor selecionar un programa</mat-error-->
-  <!--/mat-form-field-->
-
 </div>   

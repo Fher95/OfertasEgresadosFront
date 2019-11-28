@@ -1,5 +1,5 @@
 export class Experiencia{
-    trabajo_en_su_area:number;
+    trabajo_en_su_area:boolean;
     id_ciudad:number;
     nombre_empresa:string;
     dir_empresa:string;
@@ -13,7 +13,7 @@ export class Experiencia{
 
     constructor()
     {
-        this.trabajo_en_su_area=0;
+        this.trabajo_en_su_area=false;
         this.id_ciudad=0;
         this.nombre_empresa="";
         this.dir_empresa="";

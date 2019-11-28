@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 
 // Componentes de Angular Material
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   templateUrl: './info-dialog.component.html',
@@ -9,14 +9,11 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class InfoDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public info: Information) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: MatDialog) {
   }
-
 
 }
 
 // interfaz requerida para enviar información
 export interface Information {
-  title: String,
-  message: String
 }
