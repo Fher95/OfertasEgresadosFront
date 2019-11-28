@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, Inject } from '@ang
 import { FormControl, Validators } from '@angular/forms';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Referido } from 'src/app/shared/modelos/referido';
-import { IfStmt } from '@angular/compiler';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 import { Router } from '@angular/router';
@@ -43,11 +42,11 @@ export class ReferidoComponent implements OnInit {
 
   limpiarDatos(){
     this.varReferido = new Referido();
-    this.Nombre = new FormControl();
-    this.Parentesco = new FormControl();
-    this.Egresado = new FormControl();
-    this.Correo = new FormControl();
-    this.Celular = new FormControl();
+    this.Nombre = new FormControl('', [Validators.required]);
+    this.Parentesco = new FormControl('', [Validators.required]);
+    this.Egresado = new FormControl('', [Validators.required]);
+    this.Correo = new FormControl('',[Validators.required,Validators.email]);
+    this.Celular = new FormControl('', [Validators.required,Validators.minLength(13)]);
   }
   validarDatos(){
     console.log('entro validar');
@@ -57,8 +56,8 @@ export class ReferidoComponent implements OnInit {
     console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"
     +this.Celular.value+"Parentesco"+this.Parentesco.value);
 
-    if(this.Nombre.value!=null && this.Egresado.value!=null && this.Correo.value!=null && this.Celular.value!=null 
-      && this.Parentesco.value!=null){
+    if(this.Nombre.value!='' && this.Egresado.value!='' && this.Correo.value!='' && this.Celular.value!='' 
+      && this.Parentesco.value!=''){
       bandera = true;
     }
     else{
@@ -73,33 +72,19 @@ export class ReferidoComponent implements OnInit {
       this.varReferido.nombres = this.Nombre.value;
       this.varReferido.parentesco = this.Parentesco.value;
       this.varReferido.es_egresado = this.Egresado.value;
-      if(this.varReferido.es_egresado){
+      if(this.varReferido.es_egresado==true){
         //this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
         this.varReferido.id_aut_programa = this.programa.Programa.value;
       }
       this.varReferido.correo = this.Correo.value;
       this.varReferido.telefono_movil = this.Celular.value;
 
-      console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"+this.Celular.value+"Parentesco"+this.Parentesco.value);
-      console.log('Nombre'+this.varReferido.nombres+"Parentesco"+this.varReferido.parentesco
-      +"Egresado"+this.varReferido.es_egresado+
-      "Progra"+this.varReferido.id_aut_programa+"Correo"+this.varReferido.correo+"Celular"+this.varReferido.telefono_movil);
-
       this.tituloInfo="Solicitud exitosa";
       this.mensajeInfo="Contacto agregado de manera exitosa.";
-
-      this.mensaje();
     }
-    else{
-      this.mensaje();
-    }
+    this.mensaje();
   }
   mensaje(){
     this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
-  }
-  mensajeCancelado(){
-    //Mantener pagina actual
-    const refDialog = this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
-    refDialog.afterClosed().subscribe(result => {this.router.navigateByUrl("")});
   }
 }

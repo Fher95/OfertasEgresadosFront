@@ -1,5 +1,5 @@
 <app-nav-egresados> </app-nav-egresados> 
-<form class="completarRegistro" (ngSubmit)="enviarDatos()">
+<form class="completarRegistro">
   <mat-horizontal-stepper class="stepper">
     <mat-step>
       <ng-template matStepLabel>Información Personal Complementaria</ng-template>
@@ -10,7 +10,7 @@
             <mat-radio-button value="true" >Si</mat-radio-button>
             <mat-radio-button value="false" >No</mat-radio-button>
           </mat-radio-group>
-          <mat-form-field *ngIf="TieneHijos.value" appearance="outline">
+          <mat-form-field *ngIf="TieneHijos.value=='true'" appearance="outline">
             <mat-label >¿Cuantos?</mat-label>
             <mat-select [formControl]="CantHijos">
               <mat-option [value] = "item" *ngFor="let item of cantHijos">{{item}}</mat-option>
@@ -19,12 +19,6 @@
         </div>
         <mat-label>Referencias personales:</mat-label>
         <button class="btnCont" mat-raised-button (click)="contacto()"> <mat-icon>add</mat-icon> Agregar contacto</button>
-        <!--table *ngIf="referidos!=null" mat-table [ dataSource ] = "dataSource"  class = "mat-elevación-z8" >
-          <ng-container  matColumnDef = "nombre" > 
-          <th  mat-header-cell * matHeaderCellDef > Nombre </th > 
-          <td  mat-cell * matCellDef = "let referidos" > {{ referidos.nombres}} </td > 
-          </ng-container >
-        </table-->
         <div>
           <button mat-button mat-raised-button matStepperNext>Siguiente</button>
         </div>
@@ -39,7 +33,7 @@
             <mat-radio-button value="true">Si</mat-radio-button>
             <mat-radio-button value="false">No</mat-radio-button>
           </mat-radio-group>
-          <div *ngIf="haTrabajado.value" class="expAnterior">
+          <div *ngIf="haTrabajado.value=='true'" class="expAnterior">
             <mat-label>Experiencia Laboral:</mat-label>
             <button class="btnExp" mat-raised-button (click)="experienciaAnterior()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
           </div>
@@ -50,14 +44,14 @@
             <mat-radio-button value="true">Si</mat-radio-button>
             <mat-radio-button value="false">No</mat-radio-button>
           </mat-radio-group>
-          <div *ngIf="Labora_Actualmente.value" class="exp">
+          <div *ngIf="Labora_Actualmente.value=='true'" class="exp">
             <mat-label>Experiencia Laboral:</mat-label>
             <button class="btnExp" mat-raised-button (click)="experienciaActual()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
           </div>
         </div>
         <div class="btn">
           <button class="btnAtras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-          <button class="btnCompletar" mat-raised-button type="submit">Completar Información</button>
+          <button class="btnCompletar" mat-raised-button (click)="enviarDatos()">Completar Información</button>
         </div>
       </div>
     </mat-step>
