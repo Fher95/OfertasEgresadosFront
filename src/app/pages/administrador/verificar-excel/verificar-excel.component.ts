@@ -1,12 +1,9 @@
+import { ListaEgresadosComponent } from './lista-egresados/lista-egresados.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileUploadService } from 'src/app/shared/servicios/egresados/file-upload.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { EgresadoVerificar } from 'src/app/shared/modelos/egresadosVerificarInterface';
 import { RespuestaVerificarExcel } from 'src/app/shared/modelos/respuestaVerificarEgresados';
-
-const DATA: EgresadoVerificar[] = [
-  { nombres: "Sebastián David", apellidos: "Carabali", identificacion: "1061748961" }
-];
 
 @Component({
   selector: 'app-verificar-excel',
@@ -15,57 +12,61 @@ const DATA: EgresadoVerificar[] = [
 })
 export class VerificarExcelComponent implements OnInit {
 
+  /**
+   * InputFile para subir el archivo de secretaria.
+   */
   @ViewChild('fileInput') fileInput;
-  showAceptados: boolean;
-  showPendientes: boolean;
-  showRechazados: boolean;
+
+  /**
+   * Tablas de resultados
+   */
+  @ViewChild('tblAceptados') tblAceptados: ListaEgresadosComponent;
+
+  /**
+   * Estados para mostrar componentes
+   */
   processFinished: boolean;
-  aceptadosDataSource: MatTableDataSource<EgresadoVerificar>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['nombres', 'apellidos', 'identificacion', 'titulo'];
   showSpinner: boolean;
+  showActivos: boolean;
+  showPendientes: boolean;
+  showInconsistentes: boolean;
 
   constructor(private service: FileUploadService) { }
 
   ngOnInit() {
-    this.showAceptados = false;
+    this.showActivos = false;
     this.showPendientes = false;
-    this.showRechazados = false;
+    this.showInconsistentes = false;
     this.processFinished = false;
     this.showSpinner = false;
   }
 
-  mostrarAceptados() {
-    this.showAceptados = true;
+  mostrarActivos() {
+    this.showActivos = true;
     this.showPendientes = false;
-    this.showRechazados = false;
+    this.showInconsistentes = false;
   }
 
   mostrarPendientes() {
-    this.showAceptados = false;
+    this.showActivos = false;
     this.showPendientes = true;
-    this.showRechazados = false;
+    this.showInconsistentes = false;
   }
 
-  mostrarRechazados() {
-    this.showAceptados = false;
+  mostrarInconsistentes() {
+    this.showActivos = false;
     this.showPendientes = false;
-    this.showRechazados = true;
+    this.showInconsistentes = true;
   }
-
 
   uploadFile() {
     this.showSpinner = true;
-    let formData = new FormData();    
+    const formData = new FormData();
     console.log(this.fileInput.nativeElement.files[0]);
     formData.append('fileInput', this.fileInput.nativeElement.files[0]);
     this.service.uploadFile(formData).subscribe((data) => {
-      let aceptados = data;
       this.processFinished = true;
-      this.aceptadosDataSource = new MatTableDataSource(aceptados);
-      this.aceptadosDataSource.paginator = this.paginator;
       this.showSpinner = false;
     });
   }
-
 }
