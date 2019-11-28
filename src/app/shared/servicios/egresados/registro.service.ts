@@ -7,7 +7,7 @@ import { CompletarRegistro } from '../../modelos/completarRegistro';
 
 
 const URL = 'http://localhost:8081/api/egresados';
-const URLCompletar = 'http://localhost:8081/api/completeEgresados/2'
+const URLCompletar = 'http://localhost:8081/api/completeEgresados/1'
 
 @Injectable({
   providedIn: 'root'

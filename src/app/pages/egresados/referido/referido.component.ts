@@ -97,4 +97,8 @@ export class ReferidoComponent implements OnInit {
   mensaje(){
     this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
   }
+  mensajeCancelado(){
+    const refDialog = this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
+    refDialog.afterClosed().subscribe()
+  }
 }

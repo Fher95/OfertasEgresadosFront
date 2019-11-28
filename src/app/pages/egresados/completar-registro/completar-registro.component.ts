@@ -53,6 +53,14 @@ export class CompletarRegistroComponent implements OnInit {
       this.varCompletarRegistro.num_hijos = this.CantHijos.value;
     }
     this.varCompletarRegistro.referidos = this.referidos;
+
+    this.varCompletarRegistro.referidos.forEach(element => {
+      console.log('Nombre'+element.nombres+"Parentesco"+element.parentesco
+      +"Egresado"+element.es_egresado+"NivelEduca"+element.id_nivel_educativo+
+      "Progra"+element.id_aut_programa+"Correo"+element.correo+"Celular"+element.telefono_movil);
+
+    });
+
     this.varCompletarRegistro.ha_trabajado = this.haTrabajado.value;
     if(this.haTrabajado.value==1)
     {
