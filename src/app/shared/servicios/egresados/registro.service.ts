@@ -24,7 +24,7 @@ export class RegistroService {
   }
 
   public completarRegistroEgresado(completar: CompletarRegistro) {
-    return this.http.post(URLCompletar, completar);
+    return this.http.put(URLCompletar, completar);
   }
 
 }

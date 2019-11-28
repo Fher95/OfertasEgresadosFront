@@ -53,7 +53,7 @@ export class CompletarRegistroComponent implements OnInit {
   limpiarFormulario()
   {
     this.varCompletarRegistro = new CompletarRegistro();
-    this.TieneHijos = new FormControl('', [Validators.required]);
+    this.TieneHijos = new FormControl('',[Validators.required]);
     this.CantHijos = new FormControl('', [Validators.required]);
     this.referidos = new Array<Referido>();
     this.haTrabajado = new FormControl('', [Validators.required]);
@@ -64,39 +64,43 @@ export class CompletarRegistroComponent implements OnInit {
 
   llenarDatos()
   {
-    if(this.TieneHijos.value==true)
+    if(this.TieneHijos.value==0)
     {
       this.varCompletarRegistro.num_hijos = this.CantHijos.value;
+      console.log("cantidad hijos llenar: "+this.CantHijos.value);
     }
     this.varCompletarRegistro.referidos = this.referidos;
 
-    this.varCompletarRegistro.referidos.forEach(element => {
-      console.log('Nombre'+element.nombres+"Parentesco"+element.parentesco
-      +"Egresado"+element.es_egresado+"NivelEduca"+element.id_nivel_educativo+
-      "Progra"+element.id_aut_programa+"Correo"+element.correo+"Celular"+element.telefono_movil);
-
-    });
-
-    this.varCompletarRegistro.ha_trabajado = this.haTrabajado.value;
-    if(this.haTrabajado.value==true)
+    if(this.haTrabajado.value==0)
     {
+      this.varCompletarRegistro.ha_trabajado = true;
       this.varCompletarRegistro.exp_pasadas = this.expAnteriores;
     }
-    this.varCompletarRegistro.trabajo_actualmente = this.Labora_Actualmente.value;
-    if(this.Labora_Actualmente.value==true)
+    else if(this.haTrabajado.value==1){
+      this.varCompletarRegistro.ha_trabajado = false;
+    }
+    
+    if(this.Labora_Actualmente.value==0)
     {
+      this.varCompletarRegistro.trabajo_actualmente = true;
       this.varCompletarRegistro.exp_actuales = this.expActuales;
     }
+    else if(this.Labora_Actualmente.value==1){
+      this.varCompletarRegistro.trabajo_actualmente = false;
+    }
+    console.log("Metodo llenar: hijos: "+this.varCompletarRegistro.num_hijos+"hatrabajado: "+
+      this.varCompletarRegistro.ha_trabajado+"trabajoactual: "+this.varCompletarRegistro.trabajo_actualmente);
+
   }
   verificarCampos()
   {
-    console.log("Entroooox2");
+    console.log("Verificar:");
     var bandera:boolean = false;
 
-    console.log("TienHijos"+this.TieneHijos.value+"HaTraba"+this.haTrabajado.value+"laboraA"+this.Labora_Actualmente.value);
+    console.log("TienHijos: "+this.TieneHijos.value+"HaTraba: "+this.haTrabajado.value+"laboraA: "+this.Labora_Actualmente.value);
 
-    if(this.TieneHijos.value!='' && this.referidos!=null && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='')
-     {
+    if(this.TieneHijos.value!='' && this.referidos.length!=0 && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='')
+    {
       bandera = true;
     }
     else{
@@ -107,21 +111,27 @@ export class CompletarRegistroComponent implements OnInit {
   }
   enviarDatos()
   {
-    console.log("Entroooo");
+    console.log("Enviar Datos");
     if(this.verificarCampos())
     {
       this.llenarDatos();
+      console.log("Lleno Datos: ");
+      console.log("hijos: "+this.varCompletarRegistro.num_hijos+"hatrabajado "+
+      this.varCompletarRegistro.ha_trabajado+"trabajoactual "+this.varCompletarRegistro.trabajo_actualmente);
+
+      this.varCompletarRegistro.referidos.forEach(element => {
+        console.log('Nombre '+element.nombres+"Parentesco "+element.parentesco
+        +"Egresado "+element.es_egresado+"NivelEduca "+element.id_nivel_educativo+
+        "Progra "+element.id_aut_programa+"Correo "+element.correo+"Celular "+element.telefono_movil);
+  
+      });
       this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro);
 
-      /*this.tituloInfo="Solicitud exitosa";
+      this.tituloInfo="Solicitud exitosa";
       this.mensajeInfo="Datos agregados de manera exitosa.";
-
-      this.mensaje();*/
     }
-    else{
-      console.log("titulo"+this.tituloInfo+"mensaje"+this.mensajeInfo);
-      this.mensaje();
-    }
+    console.log("titulo: "+this.tituloInfo+"mensaje: "+this.mensajeInfo);
+    this.mensaje();
   }
   experienciaAnterior()
   {

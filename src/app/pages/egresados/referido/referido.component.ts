@@ -49,12 +49,12 @@ export class ReferidoComponent implements OnInit {
     this.Celular = new FormControl('', [Validators.required,Validators.minLength(13)]);
   }
   validarDatos(){
-    console.log('entro validar');
+    console.log('Validacion referidos');
     
     var bandera:boolean = false;
     
-    console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"
-    +this.Celular.value+"Parentesco"+this.Parentesco.value);
+    console.log('Nombre '+this.Nombre.value+"Egresado "+this.Egresado.value+"Correo "+this.Correo.value+"Celular "
+    +this.Celular.value+"Parentesco "+this.Parentesco.value);
 
     if(this.Nombre.value!='' && this.Egresado.value!='' && this.Correo.value!='' && this.Celular.value!='' 
       && this.Parentesco.value!=''){
@@ -71,10 +71,13 @@ export class ReferidoComponent implements OnInit {
     if(this.validarDatos()){
       this.varReferido.nombres = this.Nombre.value;
       this.varReferido.parentesco = this.Parentesco.value;
-      this.varReferido.es_egresado = this.Egresado.value;
-      if(this.varReferido.es_egresado==true){
+      if(this.Egresado.value==0){
+        this.varReferido.es_egresado = true;
         //this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
         this.varReferido.id_aut_programa = this.programa.Programa.value;
+      }
+      else if(this.Egresado.value==1){
+        this.varReferido.es_egresado = false;
       }
       this.varReferido.correo = this.Correo.value;
       this.varReferido.telefono_movil = this.Celular.value;
