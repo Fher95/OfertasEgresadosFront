@@ -73,8 +73,8 @@ export class ReferidoComponent implements OnInit {
       this.varReferido.nombres = this.Nombre.value;
       this.varReferido.parentesco = this.Parentesco.value;
       this.varReferido.es_egresado = this.Egresado.value;
-      if(this.varReferido.es_egresado==1){
-        this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
+      if(this.varReferido.es_egresado){
+        //this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
         this.varReferido.id_aut_programa = this.programa.Programa.value;
       }
       this.varReferido.correo = this.Correo.value;
@@ -82,7 +82,7 @@ export class ReferidoComponent implements OnInit {
 
       console.log('Nombre'+this.Nombre.value+"Egresado"+this.Egresado.value+"Correo"+this.Correo.value+"Celular"+this.Celular.value+"Parentesco"+this.Parentesco.value);
       console.log('Nombre'+this.varReferido.nombres+"Parentesco"+this.varReferido.parentesco
-      +"Egresado"+this.varReferido.es_egresado+"NivelEduca"+this.varReferido.id_nivel_educativo+
+      +"Egresado"+this.varReferido.es_egresado+
       "Progra"+this.varReferido.id_aut_programa+"Correo"+this.varReferido.correo+"Celular"+this.varReferido.telefono_movil);
 
       this.tituloInfo="Solicitud exitosa";
@@ -98,7 +98,8 @@ export class ReferidoComponent implements OnInit {
     this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
   }
   mensajeCancelado(){
+    //Mantener pagina actual
     const refDialog = this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
-    refDialog.afterClosed().subscribe()
+    refDialog.afterClosed().subscribe(result => {this.router.navigateByUrl("")});
   }
 }

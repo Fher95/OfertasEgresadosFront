@@ -13,11 +13,11 @@
   <div class="egresadoUnicauca">
     <mat-label>¿Es egresado de Unicauca?: </mat-label>
     <mat-radio-group [formControl]="Egresado" required>
-      <mat-radio-button value=1>Si</mat-radio-button>
-      <mat-radio-button value=0>No</mat-radio-button>
+      <mat-radio-button value="true">Si</mat-radio-button>
+      <mat-radio-button value="false">No</mat-radio-button>
     </mat-radio-group>
   </div>
-  <app-programa *ngIf="Egresado.value==1" #programa></app-programa>
+  <app-programa *ngIf="Egresado.value" #programa></app-programa>
   <mat-form-field appearance="outline">
     <mat-label>Correo electronico </mat-label>
     <input matInput type="email" [formControl]="Correo" required>

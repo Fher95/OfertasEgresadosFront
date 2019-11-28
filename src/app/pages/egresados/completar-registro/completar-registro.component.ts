@@ -62,12 +62,12 @@ export class CompletarRegistroComponent implements OnInit {
     });
 
     this.varCompletarRegistro.ha_trabajado = this.haTrabajado.value;
-    if(this.haTrabajado.value==1)
+    if(this.haTrabajado.value)
     {
       this.varCompletarRegistro.exp_pasadas = this.expAnteriores;
     }
     this.varCompletarRegistro.trabajo_actualmente = this.Labora_Actualmente.value;
-    if(this.Labora_Actualmente.value==1)
+    if(this.Labora_Actualmente.value)
     {
       this.varCompletarRegistro.exp_actuales = this.expActuales;
     }

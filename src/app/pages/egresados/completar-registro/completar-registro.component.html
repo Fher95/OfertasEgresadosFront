@@ -7,10 +7,10 @@
         <div class="Hijos">
           <mat-label>¿Tiene hijos?:</mat-label>
           <mat-radio-group [formControl]="TieneHijos" required>
-            <mat-radio-button value=1 >Si</mat-radio-button>
-            <mat-radio-button value=0 >No</mat-radio-button>
+            <mat-radio-button value="true" >Si</mat-radio-button>
+            <mat-radio-button value="false" >No</mat-radio-button>
           </mat-radio-group>
-          <mat-form-field *ngIf="TieneHijos.value==1" appearance="outline">
+          <mat-form-field *ngIf="TieneHijos.value" appearance="outline">
             <mat-label >¿Cuantos?</mat-label>
             <mat-select [formControl]="CantHijos">
               <mat-option [value] = "item" *ngFor="let item of cantHijos">{{item}}</mat-option>
@@ -19,6 +19,12 @@
         </div>
         <mat-label>Referencias personales:</mat-label>
         <button class="btnCont" mat-raised-button (click)="contacto()"> <mat-icon>add</mat-icon> Agregar contacto</button>
+        <!--table *ngIf="referidos!=null" mat-table [ dataSource ] = "dataSource"  class = "mat-elevación-z8" >
+          <ng-container  matColumnDef = "nombre" > 
+          <th  mat-header-cell * matHeaderCellDef > Nombre </th > 
+          <td  mat-cell * matCellDef = "let referidos" > {{ referidos.nombres}} </td > 
+          </ng-container >
+        </table-->
         <div>
           <button mat-button mat-raised-button matStepperNext>Siguiente</button>
         </div>
@@ -30,10 +36,10 @@
         <div class="labAntes">
           <mat-label>¿Ha laborado antes?: </mat-label>
           <mat-radio-group [formControl]="haTrabajado" required>
-            <mat-radio-button value=1>Si</mat-radio-button>
-            <mat-radio-button value=0>No</mat-radio-button>
+            <mat-radio-button value="true">Si</mat-radio-button>
+            <mat-radio-button value="false">No</mat-radio-button>
           </mat-radio-group>
-          <div *ngIf="haTrabajado.value==1" class="expAnterior">
+          <div *ngIf="haTrabajado.value" class="expAnterior">
             <mat-label>Experiencia Laboral:</mat-label>
             <button class="btnExp" mat-raised-button (click)="experienciaAnterior()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
           </div>
@@ -41,10 +47,10 @@
         <div class="labActual">
           <mat-label>¿Labora actualmente?: </mat-label>
           <mat-radio-group [formControl]="Labora_Actualmente">
-            <mat-radio-button value=1>Si</mat-radio-button>
-            <mat-radio-button value=0>No</mat-radio-button>
+            <mat-radio-button value="true">Si</mat-radio-button>
+            <mat-radio-button value="false">No</mat-radio-button>
           </mat-radio-group>
-          <div *ngIf="Labora_Actualmente.value==1" class="exp">
+          <div *ngIf="Labora_Actualmente.value" class="exp">
             <mat-label>Experiencia Laboral:</mat-label>
             <button class="btnExp" mat-raised-button (click)="experienciaActual()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
           </div>
