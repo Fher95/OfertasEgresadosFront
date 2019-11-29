@@ -1,7 +1,7 @@
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
 <app-header></app-header>
 <button  type="button" mat-raised-button (click)="openDialog()" color="primary">Dialog</button>
-<!--
+
 <mat-card class="carta-registro" >
     <mat-card-header class="headerCartaRegistro">
         <mat-toolbar color="primary">
@@ -12,7 +12,7 @@
     <mat-card-content>
         <form  [formGroup]="formOfertaLaboral" (ngSubmit)="registrarOfertaLaboral(formOfertaLaboral)">
             <mat-horizontal-stepper [linear]="isLinear" #stepper>
-                <mat-step formGroupName="informacion-principal" [stepControl]="formOfertaLaboral.get('informacion-principal')" label="informacion-principal">
+                <mat-step formGroupName="informacionPrincipal" [stepControl]="formOfertaLaboral.get('informacionPrincipal')" label="informacionPrincipal">
                     <div class="Subtitulos-card" >
                         <p class="text-center"><b>informacion Principal</b></p>
                         <mat-divider [inset]="true"></mat-divider>
@@ -20,61 +20,63 @@
                     <div class="cartaCuenta">
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                             <mat-label>Nombre del cargo/Perfil requerido</mat-label>
-                            <input formControlName="nombreCargo" matInput required>
-                            <mat-error *ngIf="formOfertaLaboral.get('informacion-principal').controls.nombreCargo.errors?.required">campo
+                            <input formControlName="nombreOferta" matInput required>
+                            <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.nombreOferta.errors?.required">campo
                                 requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                             <mat-label>Numero de vacantes</mat-label>
                             <input type="number" formControlName="numVacantes" matInput required>
-                            <mat-error *ngIf="formOfertaLaboral.get('informacion-principal').controls.numVacantes.errors?.required">campo
+                            <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.numVacantes.errors?.required">campo
                                 requerido</mat-error>
                         </mat-form-field>
                         <div class="row">
                                 <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                                        <mat-select formControlName="Cargo" required placeholder="Tipo de cargo">
-                                            <mat-option>-- None --</mat-option>
-                                            <mat-option *ngFor="let cargo of cargos" [value]="cargo.id_aut_cargos">
-                                                {{cargo.nombre}}
+                                        <mat-select formControlName="cargo" [(ngModel)]="cargo" required placeholder="Tipo de cargo" >
+                                            <mat-option *ngFor="let cargo of cargos" [value]="cargo.Nombre">
+                                                {{cargo.Nombre}}
                                             </mat-option>   
                                             <mat-option value="otro">Otro</mat-option>
                                             <mat-error
-                                                *ngIf="formOfertaLaboral.get('informacion-principal').controls.cargo.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.cargo.errors?.required">
                                                 campo requerido</mat-error>
-                                          </mat-select>
+                                        </mat-select>
+                                </mat-form-field>
+        
+                                    <mat-form-field *ngIf="cargo == 'otro'" class="full-width" floatLabel="auto" appearance="outline">
+                                        <mat-label>Cual?</mat-label>
+                                        <input formControlName="cargo" value="" required matInput>
                                     </mat-form-field>
                         </div>
                         
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <mat-select formControlName="area" required placeholder="Area">
-                                <mat-option>-- None --</mat-option>
-                                <mat-option *ngFor="let area of areas" [value]="area.id_aut_cargos">
+                            <mat-select   formControlName="idAreaConocimiento" required placeholder="Area" multiple>
+                                <mat-option (onSelectionChange)="areasSeleccionadas($event)" *ngFor="let area of areas" [value]="area.id_aut_areaconocimiento">
                                     {{area.nombre}}
                                 </mat-option>   
                                 <mat-error
-                                    *ngIf="formOfertaLaboral.get('informacion-principal').controls.area.errors?.required">
+                                    *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.idAreaConocimiento.errors?.required">
                                     campo requerido</mat-error>
                               </mat-select>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <mat-select formControlName="sector" required placeholder="Sector">
-                                <mat-option>-- None --</mat-option>
-                                <mat-option *ngFor="let sector of sectores" [value]="sector.id_aut_cargos">
-                                    {{sector.nombre}}
+                            <mat-select formControlName="idSector" required placeholder="Sector">
+                                <mat-option (onSelectionChange)="sectorSeleccionado($event)" *ngFor="let sector of sectores" [value]="sector.idSector">
+                                    {{sector.Nombre}}
                                 </mat-option>   
                                 <mat-error
-                                    *ngIf="formOfertaLaboral.get('informacion-principal').controls.sector.errors?.required">
+                                    *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.idSector.errors?.required">
                                     campo requerido</mat-error>
                               </mat-select>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                                 <mat-label>Nombre de la empresa a figurar</mat-label>
-                                <input formControlName="nombreEmpresa" matInput >
+                                <input formControlName="nombreTempEmpresa" matInput >
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                                 <mat-label>Descripción</mat-label>
                                 <textarea  matInput formControlName="descripcion" rows="3"></textarea>
-                                <mat-error *ngIf="formOfertaLaboral.get('informacion-principal').controls.descripcion.errors?.required">campo
+                                <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.descripcion.errors?.required">campo
                                     requerido</mat-error>
                         </mat-form-field>
                     </div>                  
@@ -91,7 +93,6 @@
                     <div class="cartaCuenta">
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                             <mat-select formControlName="tipoContrato" required placeholder="Tipo de contrato">
-                                <mat-option>-- None --</mat-option>
                                 <mat-option value="Término indefinido">Término indefinido</mat-option>
                                 <mat-option value="Contrato de aprendizaje">Contrato de aprendizaje</mat-option>
                                 <mat-option value="Prestación de servicios">Prestación de servicios</mat-option>
@@ -108,7 +109,6 @@
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                                 <mat-select formControlName="jornada" required placeholder="Jornada laboral">
-                                    <mat-option>-- None --</mat-option>
                                     <mat-option value="Medio tiempo">Medio tiempo</mat-option>
                                     <mat-option value="Tiempo completo">Tiempo completo</mat-option>
                                     <mat-option value="Tiempo parcial">Tiempo parcial</mat-option>
@@ -122,8 +122,7 @@
                             <input formControlName="horario" matInput>
                         </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <mat-select formControlName="formaPago" required placeholder="Forma de pago">
-                                <mat-option>-- None --</mat-option>
+                            <mat-select formControlName="formaPago" [(ngModel)]="formaPago" required placeholder="Forma de pago">
                                 <mat-option value="Moneda local">Moneda local</mat-option>
                                 <mat-option value="US Dolar">US Dolar</mat-option>
                               </mat-select>
@@ -132,9 +131,37 @@
                                   campo requerido</mat-error>
                          </mat-form-field>
                          <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                                <mat-select formControlName="rangoSalarial" required placeholder="Forma de pago">
-                                    <mat-option>-- None --</mat-option>
-                                  </mat-select>
+                                <mat-select formControlName="rangoSalarial" required placeholder="Rango salarial">
+                                    <div *ngIf="formaPago == 'Moneda local';else UsDolar">
+                                        <mat-option value="0-1000000">0-1000000</mat-option>
+                                        <mat-option value="1000001-2000000">1000001-2000000</mat-option>
+                                        <mat-option value="2000001-3000000">2000001-3000000</mat-option>
+                                        <mat-option value="3000001-6000000">3000001-6000000</mat-option>
+                                        <mat-option value="6000001-10000000">6000001-10000000</mat-option>
+                                        <mat-option value="10000001-20000000">10000001-20000000</mat-option>
+                                    </div>
+                                    <ng-template #UsDolar >
+                                        <div *ngIf="formaPago == 'US Dolar';else sinSeleccion">
+                                        <mat-option value="270-442">270-442</mat-option>
+                                        <mat-option value="443-500">443-500</mat-option>
+                                        <mat-option value="501-750">501-750</mat-option>
+                                        <mat-option value="751-1000">751-1000</mat-option>
+                                        <mat-option value="1001-1500">1001-1500</mat-option>
+                                        <mat-option value="1501-2000">1501-2000</mat-option>
+                                        <mat-option value="2001-3000">2001-3000</mat-option>
+                                        <mat-option value="3001-4000">3001-4000</mat-option>
+                                        <mat-option value="4001-5000">4001-5000</mat-option>
+                                        <mat-option value="5001-6000">5001-6000</mat-option>
+                                        <mat-option value="6001-7500">6001-7500</mat-option>
+                                        <mat-option value="7501-10000">7501-10000</mat-option>
+                                    </div>
+                                    </ng-template>
+                                    <ng-template #sinSeleccion>
+                                            <mat-option>No ha seleccioando una forma de pago</mat-option>
+                                            </ng-template>
+                                    
+
+                                </mat-select>
                                   
                              </mat-form-field>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
@@ -168,18 +195,17 @@
                                 </mat-radio-group>
                         </section>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <mat-select formControlName="idEstudiosMinimos" required placeholder="Estudios minimos">
-                                <mat-option>-- None --</mat-option>
-                                <mat-option *ngFor="let carrera of carreras" [value]="carrera.id">
-                                        {{carrera.nombre}}
+                            <mat-select formControlName="idPrograma" required placeholder="Estudios minimos">
+                                <mat-option (onSelectionChange)="programaSeleccionado($event)" *ngFor="let programa of programas" [value]="programa.idPrograma">
+                                        {{programa.Nombre}}
                                     </mat-option>  
                                 <mat-error
-                                    *ngIf="formOfertaLaboral.get('requisitos').controls.idEstudiosMinimos.errors?.required">
+                                    *ngIf="formOfertaLaboral.get('requisitos').controls.idPrograma.errors?.required">
                                     campo requerido</mat-error>
                               </mat-select>
                         </mat-form-field>
+                    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                         <mat-select formControlName="experienciaLaboral" required placeholder="Experiencia laboral">
-                                <mat-option>-- None --</mat-option>
                                 <mat-option value="Sin experiencia">Sin experiencia</mat-option>
                                 <mat-option value="Igual a">Igual a</mat-option>
                                 <mat-option value="Mayor o igual que">Mayor o igual que</mat-option>
@@ -188,6 +214,8 @@
                                     *ngIf="formOfertaLaboral.get('requisitos').controls.experienciaLaboral.errors?.required">
                                     campo requerido</mat-error>
                         </mat-select>
+                    </mat-form-field>
+
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                             <mat-label>Años</mat-label>
                             <input type="number" formControlName="anios" matInput required >
@@ -195,13 +223,101 @@
                                     *ngIf="formOfertaLaboral.get('requisitos').controls.anios.errors?.required">
                                     campo requerido</mat-error>
                         </mat-form-field>
-                        <mat-checkbox [(ngModel)]="idiomaChecked" [labelPosition]="labelPosition">Requiere idiomas?</mat-checkbox>
-                        <div *ngIf="idiomaChecked">
-                                idioma
+                        <div [formGroup]="datosFormChecked">
+                            <mat-checkbox formControlName="idiomaChecked" [(ngModel)]="idiomaChecked" [labelPosition]="labelPosition">Requiere idiomas?</mat-checkbox>
                         </div>
-                        <mat-checkbox [(ngModel)]="softwareChecked" [labelPosition]="labelPosition">Software requerido?</mat-checkbox>
+                        <div *ngIf="idiomaChecked">
+                            <mat-card>
+                                <mat-card-header>
+                                            <mat-card-title>Idiomas</mat-card-title>
+                                      </mat-card-header>
+                                <mat-card-content [formGroup]="formIdioma">
+                                            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                    <mat-select  formControlName="id" required placeholder="Idioma">
+                                                        <mat-option (onSelectionChange)="idiomaSeleccionado($event)" *ngFor="let idioma of idiomas" [value]=idioma.idIdioma>
+                                                            {{idioma.Nombre}}
+                                                        </mat-option>   
+                                                      </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                    <mat-select  formControlName="nivel_lectura" required placeholder="Lectura">
+                                                        <mat-option value="Nativo">Nativo</mat-option>   
+                                                        <mat-option value="Avanzado">Avanzado</mat-option>   
+                                                        <mat-option value="Medio">Medio</mat-option>   
+                                                        <mat-option value="Bajo">Bajo</mat-option>   
+                                                      </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                    <mat-select formControlName="nivel_escritura" required placeholder="Escritura">
+                                                        <mat-option value="Nativo">Nativo</mat-option>   
+                                                        <mat-option value="Avanzado">Avanzado</mat-option>   
+                                                        <mat-option value="Medio">Medio</mat-option>   
+                                                        <mat-option value="Bajo">Bajo</mat-option>                                                       
+                                                    </mat-select>
+                                            </mat-form-field>     
+                                            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                    <mat-select formControlName="nivel_conversacion" required placeholder="Conversacion">
+                                                        <mat-option value="Nativo">Nativo</mat-option>   
+                                                        <mat-option value="Avanzado">Avanzado</mat-option>   
+                                                        <mat-option value="Medio">Medio</mat-option>   
+                                                        <mat-option value="Bajo">Bajo</mat-option>                                                       
+                                                    </mat-select>
+                                            </mat-form-field>
+                                            <button mat-raised-button type="button" (click)="agregarIdioma(formIdioma)" [disabled]="formIdioma.invalid" color="primary">Agregar</button>                            
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card>
+                                    <mat-card-header>
+                                                <mat-card-title>Idiomas requeridos</mat-card-title>
+                                          </mat-card-header>
+                                          <mat-nav-list>
+                                                <mat-list-item *ngFor="let idioma of idiomasEscogidos">
+                                                    <button type="button" mat-icon-button
+                                                        (click)="eliminarIdioma(idioma)">{{ idioma.nombre }}<mat-icon
+                                                            matListIcon>close</mat-icon></button>
+                                                </mat-list-item>
+                                            </mat-nav-list>
+                                </mat-card>
+                        </div>
+                        <div [formGroup]="datosFormChecked">
+                            <mat-checkbox formControlName="softwareChecked" [(ngModel)]="softwareChecked" [labelPosition]="labelPosition">Requiere softwares?</mat-checkbox>
+                        </div>
                         <div *ngIf="softwareChecked">
-                                sof
+                            <mat-card>
+                                <mat-card-header>
+                                            <mat-card-title>Softwares</mat-card-title>
+                                      </mat-card-header>
+                                <mat-card-content [formGroup]="formSoftware">
+                                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                <mat-label>Nombre del software</mat-label>
+                                                <input formControlName="nombre" matInput required >
+                                            </mat-form-field>
+                                            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                    <mat-select  formControlName="nivel" required placeholder="Nivel">
+                                                        <mat-option value="Ninguno">Ninguno</mat-option>   
+                                                        <mat-option value="Nivel bajo">Nivel bajo</mat-option>   
+                                                        <mat-option value="Nivel usuario">Nivel usuario</mat-option>   
+                                                        <mat-option value="Nivel usuario avanzado">Nivel usuario avanzado</mat-option> 
+                                                        <mat-option value="Nivel técnico">Nivel técnico</mat-option>   
+                                                        <mat-option value="Nivel profesional">Nivel profesional</mat-option>   
+                                                        <mat-option value="Nivel experto">Nivel experto</mat-option>   
+                                                    </mat-select>
+                                            </mat-form-field>       
+                                            <button mat-raised-button type="button" (click)="agregarSoftware(formSoftware)" [disabled]="formSoftware.invalid" color="primary">Agregar</button>                            
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card>
+                                <mat-card-header>
+                                            <mat-card-title>Softwares requeridos</mat-card-title>
+                                      </mat-card-header>
+                                      <mat-nav-list>
+                                            <mat-list-item *ngFor="let software of softwaresEscogidos">
+                                                <button type="button" mat-icon-button
+                                                    (click)="eliminarSoftware(software)">{{ software.nombre }}<mat-icon
+                                                        matListIcon>close</mat-icon></button>
+                                            </mat-list-item>
+                                        </mat-nav-list>
+                            </mat-card>
                         </div>
                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                                 <mat-label>Requisitos minimos</mat-label>
@@ -209,43 +325,170 @@
                                 <mat-error *ngIf="formOfertaLaboral.get('requisitos').controls.requisitosMinimos.errors?.required">campo
                                     requerido</mat-error>
                         </mat-form-field>
-                        <mat-select formControlName="movilizacionPropia" required placeholder="Dispone de movilizacion propia">
-                                <mat-option>-- None --</mat-option>
-                                <mat-option value="Si">Si</mat-option>
-                                <mat-option value="No">No</mat-option>                          
-                                <mat-error
-                                    *ngIf="formOfertaLaboral.get('requisitos').controls.movilizacionPropia.errors?.required">
-                                    campo requerido</mat-error>
-                        </mat-select>
-                        <mat-select formControlName="licenciaConduccion" required placeholder="Licencia de conduccion">
-                                <mat-option>-- None --</mat-option>
-                                <mat-error
-                                    *ngIf="formOfertaLaboral.get('requisitos').controls.licenciaConduccion.errors?.required">
-                                    campo requerido</mat-error>
-                        </mat-select>
-                        <mat-checkbox [(ngModel)]="preguntasChecked" [labelPosition]="labelPosition">Desea hacer una pregunta al aspirante?</mat-checkbox>
-                        <div *ngIf="preguntasChecked">
-                                pregunta
+                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                            <mat-select formControlName="movilizacionPropia" required placeholder="Dispone de movilizacion propia">
+                                    <mat-option value="Si">Si</mat-option>
+                                    <mat-option value="No">No</mat-option>                          
+                                    <mat-error
+                                        *ngIf="formOfertaLaboral.get('requisitos').controls.movilizacionPropia.errors?.required">
+                                        campo requerido</mat-error>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                            <mat-select formControlName="licenciaConduccion" required placeholder="Licencia de conduccion">
+                                    <mat-option value="A1">A1</mat-option>
+                                    <mat-option value="A2">A2</mat-option>
+                                    <mat-option value="B1">B1</mat-option>
+                                    <mat-option value="B2">B2</mat-option>
+                                    <mat-option value="B3">B3</mat-option>
+                                    <mat-option value="C1">C1</mat-option>
+                                    <mat-option value="C2">C2</mat-option>
+                                    <mat-option value="C3">C3</mat-option>
+                                    <mat-error
+                                        *ngIf="formOfertaLaboral.get('requisitos').controls.licenciaConduccion.errors?.required">
+                                        campo requerido</mat-error>
+                            </mat-select>
+                        </mat-form-field>
+                        <div [formGroup]="datosFormChecked">
+                            <mat-checkbox formControlName="preguntasChecked" [(ngModel)]="preguntasChecked" [labelPosition]="labelPosition">Requiere idiomas?</mat-checkbox>
                         </div>
-                        <mat-select formControlName="idDiscapacidad" required placeholder="Personas con discapacidad">
-                                <mat-option>-- None --</mat-option>
-                                <mat-option *ngFor="let discapacidad of discapacidades" [value]="discapacidad.id">
-                                        {{discapacidad.nombre}}
-                                </mat-option>   
-                                <mat-option value="otro">-- Otro --</mat-option>
-                        
-                        </mat-select>
+                        <div *ngIf="preguntasChecked">
+                            <mat-card>
+                                <mat-card-header>
+                                            <mat-card-title>Preguntas</mat-card-title>
+                                      </mat-card-header>
+                                <mat-card-content [formGroup]="formPregunta">
+                                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                <mat-label>Ingrese la pregunta del software</mat-label>
+                                                <textarea  required matInput formControlName="pregunta" rows="1"></textarea>
+                                            </mat-form-field>     
+                                            <button mat-raised-button type="button" (click)="agregarPregunta(formPregunta)" [disabled]="formPregunta.invalid" color="primary">Agregar</button>                            
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card>
+                                <mat-card-header>
+                                            <mat-card-title>Preguntas requeridas</mat-card-title>
+                                      </mat-card-header>
+                                      <mat-nav-list>
+                                            <mat-list-item *ngFor="let pregunta of preguntasEscogidas">
+                                                <button type="button" mat-icon-button
+                                                    (click)="eliminarPregunta(pregunta)">{{ pregunta.pregunta }}<mat-icon
+                                                        matListIcon>close</mat-icon></button>
+                                            </mat-list-item>
+                                        </mat-nav-list>
+                            </mat-card>
+                        </div>
+                        <div [formGroup]="datosFormChecked">
+                                <mat-checkbox formControlName="discapacidadChecked" [(ngModel)]="discapacidadChecked" [labelPosition]="labelPosition">Requiere idiomas?</mat-checkbox>
+                            </div>
+                            <div *ngIf="discapacidadChecked">
+                                    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                            <mat-select formControlName="idDiscapacidad" required placeholder="Personas con discapacidad">
+                                                    <mat-option (onSelectionChange)="discapacidadSeleccionada($event)" *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad">
+                                                            {{discapacidad.Nombre}}
+                                                    </mat-option>   
+                                            </mat-select>
+                                        </mat-form-field>
+                        </div>
+                             
                     </div>
                     <div class="botonesStepper">
-                        <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                            Continuar</button>
+                        <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y Continuar</button>
                     </div>
                 </mat-step>
-                <mat-step formGroupName="informacion-principal" [stepControl]="formOfertaLaboral.get('contrato')" label="contrato">
+                <mat-step formGroupName="informacionPrincipal" [stepControl]="formOfertaLaboral.get('informacionPrincipal')" label="Ubicaciones">
+                        
+                    <div class="Subtitulos-card" >
+                                <p class="text-center"><b>Ubicaciones</b></p>
+                                <mat-divider [inset]="true"></mat-divider>
+                            </div>
+                        <div class="cartaCuenta">
+                                <mat-card>
+                                    <mat-card-header>
+                                                <mat-card-title>Ubicaciones</mat-card-title>
+                                          </mat-card-header>
+                                    <mat-card-content [formGroup]="formUbicacion">
+                                                <mat-form-field class="full-width" floatLabel="auto"  appearance="outline">
+                                                        <mat-label>Pais</mat-label>
+                                                        <input formControlName="pais" readonly matInput  required >
+                                                </mat-form-field>
+                                                <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                        <mat-select formControlName="departamento" [(ngModel)]="departamento" required placeholder="Departamento">
+                                                               <mat-option *ngFor="let departamento of ubicaciones" [value]="departamento.nombre">{{departamento.nombre}}</mat-option>
+                                                        </mat-select>
+                                                </mat-form-field>
+                                                <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                        <mat-select formControlName="idCiudad" required placeholder="ciudad">
+                                                                <mat-option (onSelectionChange)="ciudadSeleccionada($event)" *ngFor="let ciudad of (ubicaciones | filtrarCiudades:departamento:programa)" [value]="ciudad.id_ciudad">{{ciudad.nombre}}</mat-option>
+                                                        </mat-select>
+                                                </mat-form-field>     
+                                              
+                                                <button mat-raised-button type="button" (click)="agregarUbicacion(formUbicacion)" [disabled]="formUbicacion.invalid" color="primary">Agregar</button>                            
+                                    </mat-card-content>
+                                </mat-card>
+                                <mat-card>
+                                        <mat-card-header>
+                                                    <mat-card-title>Ubicaciones requeridas</mat-card-title>
+                                              </mat-card-header>
+                                              <mat-nav-list>
+                                                    <mat-list-item *ngFor="let ubicacion of ubicacionesEscogidas">
+                                                        <button type="button" mat-icon-button
+                                                            (click)="eliminarUbicacion(ubicacion)">{{ ubicacion.departamento }}<mat-icon
+                                                                matListIcon>close</mat-icon></button>
+                                                    </mat-list-item>
+                                                </mat-nav-list>
+                                    </mat-card>
+                        </div>
+                        <div class="botonesStepper">
+                                <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y
+                                    Continuar</button>
+                            </div>
                 </mat-step>
+                <mat-step formGroupName="contactoHV" [stepControl]="formOfertaLaboral.get('contactoHV')" label="Contacto HV">
+                        <div class="Subtitulos-card" >
+                                <p class="text-center"><b>contacto HV</b></p>
+                                <mat-divider [inset]="true"></mat-divider>
+                            </div>
+                        <div class="cartaCuenta">
+                                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                <mat-label>E-mail recepción Hv's</mat-label>
+                                                <input formControlName="correo" matInput  required >
+                                        </mat-form-field>
+                                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                <mat-label>Nombres</mat-label>
+                                                <input formControlName="nombres" matInput  required >
+                                        </mat-form-field>
+                                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                <mat-label>Apellidos</mat-label>
+                                                <input formControlName="apellidos" matInput  required >
+                                        </mat-form-field>
+                                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                                <mat-label>Telefono celular</mat-label>
+                                                <input formControlName="telefonoMovil" matInput  required >
+                                        </mat-form-field>
+                        </div>
+                        <div class="botonesStepper">
 
+                                        <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y
+                                            Continuar</button>
+                        </div>
+                </mat-step>
+                <mat-step formGroupName="informacionPrincipal" [stepControl]="formOfertaLaboral.get('informacionPrincipal')" label="Vigencia">
+                        <div class="Subtitulos-card" >
+                                <p class="text-center"><b>Vigencia</b></p>
+                                <mat-divider [inset]="true"></mat-divider>
+                        </div>
+                        <div class="cartaCuenta">
+                                <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                                        <mat-label>Dias vigencia de la oferta</mat-label>
+                                        <input type="number" formControlName="vigenciaDias" matInput  required >
+                                </mat-form-field>
+                        </div>
+                                <div class="botonesStepper">
+                                <button  type="submit" mat-raised-button color="primary" matStepperNext>modificar</button>
+                            </div>
+                </mat-step>
             </mat-horizontal-stepper>
         </form>
     </mat-card-content>
 </mat-card>
--->

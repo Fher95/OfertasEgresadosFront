@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogInfoOfertaComponent } from '../dialog-info-oferta/dialog-info-oferta.component';
 import { MatDialog } from '@angular/material';
+import { GeneralesService } from 'src/app/shared/servicios/generales.service';
+import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
+
 export interface idioma{
   id:String
   nombre:String;
@@ -22,20 +25,144 @@ export interface ubicacion{
 @Component({
   selector: 'app-crear-oferta-laboral',
   templateUrl: './crear-oferta-laboral.component.html',
-  styleUrls: ['./crear-oferta-laboral.component.css']
+  styleUrls: ['./crear-oferta-laboral.component.css'],
 })
 
 export class CrearOfertaLaboralComponent implements OnInit {
 
   id: string;
   formOfertaLaboral: FormGroup;
-  idioma:FormGroup;
+  formIdioma:FormGroup;
+  formSoftware:FormGroup;
+  formPregunta:FormGroup;
+  formUbicacion:FormGroup;
+  idiomasEscogidos = []
+  softwaresEscogidos = []
+  preguntasEscogidas = []
+  ubicacionesEscogidas = []
   labelPosition = 'before';
-  idiomaChecked = false;
-  softwareChecked = false;
-  preguntasChecked = false;
-
-  datos = {
+  cargos = [
+    {
+      "idCargo":1,
+      "Nombre":"prueba"
+    }
+  ]
+  sectores = [
+    {
+        "idSector": 1,
+        "Nombre": "Agropecuario"
+    },
+    {
+        "idSector": 2,
+        "Nombre": "Alimentos"
+    },
+    {
+        "idSector": 3,
+        "Nombre": "Asegurador"
+    }]
+    areas = [
+      {
+          "id_aut_areaconocimiento": 1,
+          "nombre": "Administrativo"
+      },
+      {
+          "id_aut_areaconocimiento": 2,
+          "nombre": "Agronomía"
+      },
+      {
+          "id_aut_areaconocimiento": 3,
+          "nombre": "Alimentos y bebidas"
+      }]
+  programas = [
+    {
+      "idPrograma": 1,
+      "Nombre": "Ingeniería de Sistemas"
+  },
+  {
+      "idPrograma": 2,
+      "Nombre": "Física"
+  }
+  ]
+  discapacidades = [
+      {
+          "idDiscapacidad": 1,
+          "Nombre": "Auditiva"
+      },
+      {
+          "idDiscapacidad": 2,
+          "Nombre": "Física"
+      },
+      {
+          "idDiscapacidad": 3,
+          "Nombre": "Fonética"
+      },
+      {
+          "idDiscapacidad": 4,
+          "Nombre": "Mental"
+      },
+      {
+          "idDiscapacidad": 5,
+          "Nombre": "Multiples"
+      },
+      {
+          "idDiscapacidad": 6,
+          "Nombre": "Visual"
+      },
+      {
+          "idDiscapacidad": 7,
+          "Nombre": "Epilepsias/Crisis Convulsivas"
+      },
+      {
+          "idDiscapacidad": 8,
+          "Nombre": "Intelectual"
+      }
+  ]
+  idiomas = [
+    {
+        "idIdioma": 1,
+        "Nombre": "Afrikaans"
+    },
+    {
+        "idIdioma": 2,
+        "Nombre": "Albanés"
+    },
+    {
+        "idIdioma": 3,
+        "Nombre": "Alemán"
+    }]
+  ubicaciones = [
+    {
+      "nombre": "Amas",
+      "id_departamento": 1,
+      "ciudades": [
+          {
+              "nombre": "El Encanto",
+              "id_ciudad": 1
+          }
+      ]},
+    {
+      "nombre": "Amazonas",
+      "id_departamento": 1,
+      "ciudades": [
+          {
+              "nombre": "El Encanto",
+              "id_ciudad": 1
+          },
+          {
+              "nombre": "La Chorrera",
+              "id_ciudad": 2
+          },
+          {
+              "nombre": "La Pedrera",
+              "id_ciudad": 3
+          },
+          {
+              "nombre": "La Victoria",
+              "id_ciudad": 4
+          }
+      ]}
+  ]
+    datos = {
     "informacionPrincipal": {
         "nombreCargo": "Oferta ejemplo 1",
         "descripcion": "Descripcion oferta 1",
@@ -92,77 +219,227 @@ export class CrearOfertaLaboralComponent implements OnInit {
     	"telefonoMovil":1234567890
     }
 }
-
+datosFormChecked: FormGroup;
   constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
+    private servGenerales: GeneralesService,
+    private empService: EmpresaService,    private router: Router,
     ) { 
-
-    this.formOfertaLaboral = this.formBuilder.group({ 
-      'informacion-principal': this.formBuilder.group({
-        nombreOferta: [null, Validators.required],
-        descripcion: [null, Validators.required],
-        idCargo:[null, Validators.required],
-        otroCargo:[null],
-        numVacantes: [null, Validators.required],
-        idSector:[null, Validators.required],
-        nombreTempEmpresa: [null],
-        idAreaConocimiento:[null, Validators.required],
-        vigenciaDias:[null,Validators.required],
-        ubicacion:[[]]
-      }),
-      'contrato':this.formBuilder.group({
-        tipoContrato:[null, Validators.required],
-        formaPago:[null,Validators.required],
-        duracion:[null],
-        horario:[null],
-        jornada:[null, Validators.required],
-        rangoSalarial:[null],
-        comentariosSalario:[null]
-      }),
-      'requisitos':this.formBuilder.group({
-        perfil:[null,Validators.required],
-        idEstudiosMinimos:[null,Validators.required],
-        anios:[null,Validators.required],
-        experienciaLaboral:[null,Validators.required],
-        requisitosMinimos:[null,Validators.required], 
-        movilizacionPropia:[null,Validators.required], 
-        licenciaConduccion:[null],
-        idDiscapacidad:[null],
-        idiomas:[[]],  
-        softwareOferta:[[]],
-        preguntasCandidato:[[]]        
-      })/*,
-      'persona-contacto':this.formBuilder.group({
-        email:[null],
-        contacto:[null],
-        telefono:[null],
-        ext:[null]
-      }),
-      'vigencia':this.formBuilder.group({
-      }),
-      'observacion-oferta':this.formBuilder.group({
-        observacion:[null]
-      }),
-      'observacion-administrador':this.formBuilder.group({
-        observacion:[null]
-      }),
-      'persona-contacto-interno':this.formBuilder.group({
-        email:[null],
-        contacto:[null],
-        telefono:[null],
-        ext:[null]
-      })*/
-    });
-
-    
+      this.datosFormChecked = this.formBuilder.group({ 
+        idiomaChecked: [false],
+        softwareChecked: [false],
+        preguntasChecked: [false],
+        discapacidadChecked: [false]
+      });
+      this.formIdioma = this.formBuilder.group({
+        id:[null,Validators.required],
+        nombre:[null],
+        nivel_lectura:[null,Validators.required],
+        nivel_escritura:[null,Validators.required],
+        nivel_conversacion:[null,Validators.required]
+      });
+      this.formSoftware = this.formBuilder.group({
+        nombre:[null,Validators.required],
+        nivel:[null,Validators.required]
+      });
+      this.formPregunta = this.formBuilder.group({
+        pregunta:[null,Validators.required],
+      });
+      this.formUbicacion = this.formBuilder.group({
+        pais:['Colombia',Validators.required],
+        departamento:[null,Validators.required],
+        idCiudad:[null,Validators.required],
+        ciudad:[null],  
+      });
+      this.formOfertaLaboral = this.formBuilder.group({ 
+        'informacionPrincipal': this.formBuilder.group({
+          nombreOferta: [null, Validators.required],
+          descripcion: [null, Validators.required],
+          cargo:[null, Validators.required],
+          numVacantes: [null, Validators.required],
+          sector:[null],
+          idSector:[null, Validators.required],
+          nombreTempEmpresa: [null],
+          areas:[null],
+          idAreaConocimiento:[null, Validators.required],
+          vigenciaDias:[null,Validators.required],
+          ubicaciones:[[]],
+          idUbicaciones:[[]]
+        }),
+        'contrato':this.formBuilder.group({
+          tipoContrato:[null, Validators.required],
+          formaPago:[null,Validators.required],
+          duracion:[null],
+          horario:[null],
+          jornada:[null, Validators.required],
+          rangoSalarial:[null],
+          comentariosSalario:[null]
+        }),
+        'requisitos':this.formBuilder.group({
+          perfil:[null,Validators.required],
+          programa:[null],
+          idPrograma:[null,Validators.required],
+          anios:[null,Validators.required],
+          experienciaLaboral:[null,Validators.required],
+          requisitosMinimos:[null,Validators.required], 
+          movilizacionPropia:[null,Validators.required], 
+          licenciaConduccion:[null],
+          discapacidad:[null],
+          idDiscapacidad:[null],
+          idiomas:[[]],  
+          softwareOferta:[[]],
+          preguntasCandidato:[[]]        
+        }),
+        'contactoHV': this.formBuilder.group({
+          correo:[null,Validators.required],
+          nombres:[null,Validators.required],
+          apellidos:[null,Validators.required],
+          telefonoMovil:[null,Validators.required], 
+        })
+      });    
   }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.cargarCargos();
+    this.cargarAreas();
+    this.cargarSectores();
+    this.cargarProgramas();
+    this.cargarIdiomas();
+    this.cargarDiscapacidades();
+    this.cargarUbicaciones();
+    this.cargarContactoHv();
   }
-  
+  cargarCargos(){
+    this.servGenerales.obtenerListaCargos().subscribe(resultado => {
+      this.cargos = resultado;
+    },
+      error => {
+        console.log("Error al obtener los cargos: ", JSON.stringify(error));
+      });
+  }
+  cargarAreas(){
+
+  }
+  cargarSectores(){
+
+  }
+  cargarProgramas(){
+
+  }
+  cargarIdiomas(){
+
+  }
+  cargarDiscapacidades()
+  {
+
+  }
+  cargarUbicaciones()
+  {
+
+  }
+  cargarContactoHv()
+  {
+
+  }
+
+  agregarIdioma(form)
+  {
+    this.idiomasEscogidos.push(form.value)
+  }
+  eliminarIdioma(idioma)
+  {
+    let indexIdioma =this.idiomasEscogidos.indexOf(idioma)
+    this.idiomasEscogidos.splice(indexIdioma,1)
+  }
+  agregarSoftware(form)
+  {
+    this.softwaresEscogidos.push(form.value)
+  }
+  eliminarSoftware(software)
+  {
+    let indexSoftware=this.softwaresEscogidos.indexOf(software)
+    this.softwaresEscogidos.splice(indexSoftware,1)
+  }
+  agregarPregunta(form){
+    this.preguntasEscogidas.push(form.value)
+  }
+  eliminarPregunta(pregunta)
+  {
+    let indexPregunta=this.preguntasEscogidas.indexOf(pregunta)
+    this.preguntasEscogidas.splice(indexPregunta,1)
+  }
+  agregarUbicacion(form)
+  {
+    this.ubicacionesEscogidas.push(form.value)
+  }
+  eliminarUbicacion(ubicacion)
+  {
+    let indexUbicacion =this.ubicacionesEscogidas.indexOf(ubicacion)
+    this.ubicacionesEscogidas.splice(indexUbicacion,1)
+  }
+  areasSeleccionadas(event)
+  {
+    if(event.isUserInput) {
+      let areas = this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value
+      if(areas == null){
+        this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').setValue([event.source.viewValue])
+      }
+      else{
+        let pos = this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.indexOf(event.source.viewValue)
+        if(pos==-1){
+          this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.push(event.source.viewValue)
+        }
+        else{          
+            this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.splice(pos,1)
+      }
+    }
+    }
+  }
+  sectorSeleccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(event.source.viewValue);
+    }
+  }
+  programaSeleccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formOfertaLaboral.controls['requisitos'].get('programa').setValue(event.source.viewValue);
+    }
+  }
+  idiomaSeleccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formIdioma.get('nombre').setValue(event.source.viewValue);
+    }
+    console.log(event)
+    console.log(this.formIdioma.get('nombre'))
+
+  }
+  discapacidadSeleccionada(event)
+  {
+    if(event.isUserInput) {
+      this.formOfertaLaboral.controls['requisitos'].get('discapacidad').setValue(event.source.viewValue);
+
+    }
+  }
+  ciudadSeleccionada(event){
+    if(event.isUserInput) {
+      this.formUbicacion.get('ciudad').setValue(event.source.viewValue);
+    }
+  }
   registrarOfertaLaboral(form)
   {
-    
+    this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(this.idiomasEscogidos);
+    this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').setValue(this.softwaresEscogidos);
+    this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').setValue(this.preguntasEscogidas);
+    this.formOfertaLaboral.controls['requisitos'].get('ubicaciones').setValue(this.ubicacionesEscogidas);
+    let idsCiudades = []
+    for (let i=0; i<this.ubicacionesEscogidas.length;i++){
+      idsCiudades.push(this.ubicacionesEscogidas[i].idCiudad)
+    }
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(idsCiudades)
+    console.log(form.value)
   }
   /**
  * Abre un dialog de angular material
@@ -173,7 +450,6 @@ export class CrearOfertaLaboralComponent implements OnInit {
   openDialog() {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
       width: '60%',
-
       data: { datos: this.datos }
     });
     dialogRef.afterClosed().subscribe(result => {
