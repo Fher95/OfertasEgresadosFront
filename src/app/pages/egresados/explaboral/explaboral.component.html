@@ -1,10 +1,10 @@
-<form class="expLaboral" (ngSubmit)="experienciaLaboralDatos()">
+<form class="expLaboral">
   <h1 mat-dialog-title class="titulo">EXPERIENCIA LABORAL</h1>
   <div class="laborandoArea">
     <mat-label>¿Labora en el área que se graduó?:</mat-label>
     <mat-radio-group [formControl]="Labora_Area">
-      <mat-radio-button value=1>Si</mat-radio-button>
-      <mat-radio-button value=0>No</mat-radio-button>
+      <mat-radio-button value="true">Si</mat-radio-button>
+      <mat-radio-button value="false">No</mat-radio-button>
     </mat-radio-group>
   </div>
   <div class="categoriaLabor">
@@ -47,7 +47,7 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput [min]="minDateN" [max]="maxDateN" [matDatepicker]="fechaF" [formControl]="fechaFin" 
-        placeholder="Fecha Fin de Labor" required>
+        placeholder="Fecha Fin de Labor">
       <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
       <mat-datepicker #dp4 disabled="false"></mat-datepicker>
     </mat-form-field>
@@ -68,6 +68,6 @@
   </div>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>
-    <button type="submit" mat-button [mat-dialog-close]="varExperiencia">Agregar</button>
+    <button (click)="experienciaLaboralDatos()" mat-button [mat-dialog-close]="varExperiencia">Agregar</button>
   </mat-dialog-actions>
 </form>

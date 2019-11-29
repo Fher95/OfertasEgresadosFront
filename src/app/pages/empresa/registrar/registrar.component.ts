@@ -93,7 +93,7 @@ export class RegistrarComponent implements OnInit {
         telefonoMovilResp: [null, [Validators.required, Validators.min(0)]],
         horarioContactoResp: [null],
         direccionTrabajoResp: [null, Validators.required],
-        emailCorpResp: [null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
+        emailCorpResp: [null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmailCorporativo.bind(this)],
       }),
       'archivos': this.formBuilder.group({
         camaraycomercio: [null, Validators.required],
