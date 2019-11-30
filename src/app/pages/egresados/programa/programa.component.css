@@ -1,4 +1,19 @@
-mat-form-field,mat-label, mat-radio-button,mat-select{
+mat-form-field{
     margin-right: 20px;
     margin-left: 0px;
+}
+mat-label, mat-radio-button{
+    margin-right: 20px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+.programa{
+    width: 100%;
+    padding: 3%;
+    /*column-count: 2;*/
+}
+.programa > *{
+    width: 100%;
 }

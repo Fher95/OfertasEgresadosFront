@@ -29,6 +29,7 @@ export class ReferidoComponent implements OnInit {
   listaParentesco : string[] = ['Pareja/Cónyuge','Padre','Madre','Abuelo/a','Hijo/a','Otro'];
   
   varReferido : Referido;
+  referidos = new Array<Referido>();
   tituloInfo: string;
   mensajeInfo: string;
 
@@ -42,6 +43,7 @@ export class ReferidoComponent implements OnInit {
 
   limpiarDatos(){
     this.varReferido = new Referido();
+    this.referidos = new Array<Referido>();
     this.Nombre = new FormControl('', [Validators.required]);
     this.Parentesco = new FormControl('', [Validators.required]);
     this.Egresado = new FormControl('', [Validators.required]);
@@ -81,6 +83,8 @@ export class ReferidoComponent implements OnInit {
       }
       this.varReferido.correo = this.Correo.value;
       this.varReferido.telefono_movil = this.Celular.value;
+
+      this.referidos.push(this.varReferido);
 
       this.tituloInfo="Solicitud exitosa";
       this.mensajeInfo="Contacto agregado de manera exitosa.";

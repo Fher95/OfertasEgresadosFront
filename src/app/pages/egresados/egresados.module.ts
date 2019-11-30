@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActualizarComponent } from './actualizar/actualizar.component';
 import { CompletarRegistroComponent } from './completar-registro/completar-registro.component';
 import { LocalizacionComponent } from './localizacion/localizacion.component';
 import { ProgramaComponent } from './programa/programa.component';
@@ -22,10 +21,9 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 
 const routes: Routes = [
-  { path: 'pre-registro', component: PreRegistroComponent },
+  { path: 'egresados/pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
   { path: 'egresados/completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
-  { path: 'egresados/actualizacion', component: ActualizarComponent },
   { path: 'egresados', component: InicioEgresadosComponent}
   //{ path: '**', component: InicioEgresadosComponent }
 ];
@@ -34,7 +32,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     InicioEgresadosComponent,
-    ActualizarComponent,
     CompletarRegistroComponent,
     LocalizacionComponent,
     ProgramaComponent,
@@ -60,7 +57,6 @@ const routes: Routes = [
   ],
   entryComponents: [
     ExplaboralComponent,
-    ReferidoComponent,
     InfoDialogComponent,
   ],
 })
