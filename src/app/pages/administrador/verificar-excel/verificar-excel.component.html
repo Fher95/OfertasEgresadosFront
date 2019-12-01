@@ -1,84 +1,40 @@
 <app-header></app-header>
 <app-navbar-home-ofertas></app-navbar-home-ofertas>
-<div class="container mt-3 mb-3" role="main">
-  <div class="title">
-    <h3>Verificar Egresados</h3>
-  </div>
+<div class="container-fluid mt-3">
   <div class="row">
-    <div class="col-md-6">
-      <input type="file" name="excel" #fileInput accept=".xsl, .xlsx, .csv">
-    </div>
-    <div class="col-md-6">
-      <button class="btn btn-primary" (click)="uploadFile()">Subir archivo</button>
-    </div>
+    <!-- File upload component -->
+    <app-file-upload (importFile)="verificarArchivo($event)"></app-file-upload>
+    <!-- End file upload component -->
   </div>
-
   <app-spinner *ngIf="showSpinner"></app-spinner>
-
-  <div class="options" *ngIf="processFinished">
-    <button class="button-option aceptados" (click)="mostrarAceptados()">Ver Aceptados</button>
-    <!--<button class="button-option pendientes" (click)="mostrarPendientes()">Ver Pendientes</button>-->
-    <!--<button class="button-option rechazados" (click)="mostrarRechazados()">Ver Rechazados</button>-->
+  <div class="row results mt-3" *ngIf="processFinished">
+    <div class="col-12 col-md-3 aside">
+      <ul class="list-group">
+        <li (click)="mostrarActivos()" class="list-group-item" [ngClass]="{activo: showActivos}">Activos</li>
+        <li (click)="mostrarPendientes()" class="list-group-item" [ngClass]="{activo: showPendientes}">Pendientes</li>
+        <li (click)="mostrarInconsistentes()" class="list-group-item" [ngClass]="{activo: showInconsistentes}">
+          Inconsistentes</li>
+      </ul>
+    </div>
+    <div class="col-12 col-md-9 main-content">
+      <div class="aceptados mat-elevation-z8" *ngIf="showActivos">
+        <mat-toolbar color="primary">
+          ACTIVOS LOGUEADOS
+        </mat-toolbar>
+        <app-lista-egresados [dataSource]="activos" #tblAceptados></app-lista-egresados>
+      </div>
+      <div class="pendientes mat-elevation-z8" *ngIf="showPendientes">
+        <mat-toolbar color="primary">
+          ACTIVOS NO LOGUEADOS
+        </mat-toolbar>
+        <app-lista-egresados [dataSource]="pendientes" #tblPendientes></app-lista-egresados>
+      </div>
+      <div class="inconsistentes mat-elevation-z8" *ngIf="showInconsistentes">
+        <mat-toolbar color="primary">
+          INCONSISTENTES
+        </mat-toolbar>
+        <app-lista-egresados [dataSource]="inconsistentes" #tblInconsistentes></app-lista-egresados>
+      </div>
+    </div>
   </div>
-
-  <div class="results" *ngIf="showAceptados || showPendientes || showRechazados">
-    <!-- Tabla de egresados aceptados. -->
-    <div class="tbl-aceptados mat-elevation-z8" *ngIf="showAceptados">
-      <h4 class="tbl-title">
-        Egresados Aceptados
-      </h4>
-      <table mat-table [dataSource]="aceptadosDataSource">
-
-        <ng-container matColumnDef="nombres">
-          <th mat-header-cell *matHeaderCellDef>Nombres</th>
-          <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="apellidos">
-          <th mat-header-cell *matHeaderCellDef>Apellidos</th>
-          <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="identificacion">
-          <th mat-header-cell *matHeaderCellDef>Identificacion</th>
-          <td mat-cell *matCellDef="let element"> {{element.identificacion}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="titulo">
-          <th mat-header-cell *matHeaderCellDef>Título</th>
-          <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-    </div>
-    <!-- Fin tabla de egresados aceptados. -->
-
-    <!-- Tabla de egresados pendientes. 
-    <div class="tbl-pendientes" *ngIf="showPendientes">
-      <h4 class="tbl-title">
-        Egresados Pendientes
-      </h4>
-      <table mat-table [dataSource]="pendientesDataSource">
-
-      </table>
-    </div>
-     Fin tabla de egresados pendientes. -->
-
-    <!-- Tabla de egresados rechazados. 
-    <div class="tbl-rechazados" *ngIf="showRechazados">
-      <h4 class="tbl-title">
-        Egresados Rechazados
-      </h4>
-      <table mat-table [dataSource]="rechazadosDataSource">
-
-      </table>
-    </div>
-     Fin tabla de egresados rechazados. -->
-
-  </div>
-
 </div>
-<!--<admin-footer></admin-footer>-->
