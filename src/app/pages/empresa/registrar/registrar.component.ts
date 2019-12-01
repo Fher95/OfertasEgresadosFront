@@ -9,6 +9,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogFinalRegistroComponent } from '../dialog-final-registro/dialog-final-registro.component';
 import { Router } from '@angular/router';
 import { CiudadInterface } from 'src/app/shared/modelos/ciudadesInterface';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-registrar',
@@ -43,7 +44,7 @@ export class RegistrarComponent implements OnInit {
     private empService: EmpresaService,
     private matDialog: MatDialog,
     private router: Router,
-    private snackBar: MatSnackBar,
+    private alert: AlertService,
   ) {
     this.cargos = [];
     this.sectoresInteresEmpresa = [];
@@ -157,7 +158,7 @@ export class RegistrarComponent implements OnInit {
       this.paises = resultado;
     },
       error => {
-        this.mostrarError();
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los paises: ", JSON.stringify(error));
       });
   }
@@ -173,7 +174,7 @@ export class RegistrarComponent implements OnInit {
       this.departamentos = resultado;
     },
       error => {
-        this.mostrarError();
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los deprtamentos: ", JSON.stringify(error));
       });
   }
@@ -193,7 +194,7 @@ export class RegistrarComponent implements OnInit {
       })
     },
       error => {
-        this.mostrarError();
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener las ciudades: ", JSON.stringify(error));
       });
   }
@@ -221,7 +222,7 @@ export class RegistrarComponent implements OnInit {
       this.sectoresInteresEmpresa = resultado;
     },
       error => {
-        this.mostrarError();
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los Sectores: ", JSON.stringify(error));
       });
   }
@@ -236,7 +237,7 @@ export class RegistrarComponent implements OnInit {
       this.cargos = resultado;
     },
       error => {
-        this.mostrarError();
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los cargos: ", error);
       });
   }
@@ -262,7 +263,7 @@ export class RegistrarComponent implements OnInit {
       const elemento = document.getElementById("1");
       elemento.style.display = 'inline';
     } else {
-      this.mostrarMensaje('Captcha invalido');
+      console.log('Captcha invalido');
     }
   }
 
@@ -473,30 +474,4 @@ export class RegistrarComponent implements OnInit {
     });
   }
 
-  /**
- * Abre un snackbar de angular material
- * Su contenido es un mensaje de error generico para el usuario
- * si en caso tal no se carguen los datos necesarios para crear
- * el formulario de registro para una empresa
- * <p>
- * Duracion: 5 segundos
- */
-  mostrarError() {
-    this.snackBar.open("Error, recargue la pagina e intentelo de nuevo", "Aceptar", {
-      duration: 5000,
-    });
-  }
-
-  /**
- * Abre un snackbar de angular material
- * Su contenido es un mensaje pasado por parametro
- * <p>
- * Duracion: 5 segundos
- * @param mensaje contiene el mensaje a mostrar en el snackbar
- */
-  mostrarMensaje(mensaje: string) {
-    this.snackBar.open(mensaje, "Aceptar", {
-      duration: 5000,
-    });
-  }
 }
