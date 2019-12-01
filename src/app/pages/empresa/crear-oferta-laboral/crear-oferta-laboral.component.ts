@@ -31,6 +31,7 @@ export interface ubicacion{
 export class CrearOfertaLaboralComponent implements OnInit {
 
   id: string;
+  //isLinear = true;
   formOfertaLaboral: FormGroup;
   formIdioma:FormGroup;
   formSoftware:FormGroup;
@@ -164,14 +165,13 @@ export class CrearOfertaLaboralComponent implements OnInit {
   ]
     datos = {
     "informacionPrincipal": {
-        "nombreCargo": "Oferta ejemplo 1",
+        "nombreOferta": "Oferta ejemplo 1",
         "descripcion": "Descripcion oferta 1",
-        "cargoNombre": "Otro",
-        "otroCargo": "Cargo d eejemplo",
+        "cargo": "Otro",
         "numVacantes": 3,
-        "sectorNombre": "Administrartivo",
+        "sector": "Administrartivo",
         "nombreTempEmpresa": null,
-        "AreasConocimiento": [
+        "areas": [
             "Informatica",
             "tecnologia"
         ],
@@ -192,7 +192,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
     },
     "requisitos": {
         "perfil": "Profesional",
-        "estudiosMinimos": "sistemas",
+        "programa": "sistemas",
         "anios": 2,
         "experienciaLaboral": "Mayor o igual que",
         "requisitosMinimos": "Ser muy atento",
@@ -255,15 +255,15 @@ datosFormChecked: FormGroup;
           nombreOferta: [null, Validators.required],
           descripcion: [null, Validators.required],
           cargo:[null, Validators.required],
-          numVacantes: [null, Validators.required],
+          numVacantes: [null, [Validators.required,Validators.min(1)]],
           sector:[null],
           idSector:[null, Validators.required],
           nombreTempEmpresa: [null],
           areas:[null],
           idAreaConocimiento:[null, Validators.required],
-          vigenciaDias:[null,Validators.required],
-          ubicaciones:[[]],
-          idUbicaciones:[[]]
+          vigenciaDias:[null,[Validators.required,Validators.min(0)]],
+          ubicaciones:[],
+          idUbicaciones:[[],Validators.required]
         }),
         'contrato':this.formBuilder.group({
           tipoContrato:[null, Validators.required],
@@ -276,9 +276,11 @@ datosFormChecked: FormGroup;
         }),
         'requisitos':this.formBuilder.group({
           perfil:[null,Validators.required],
+          idEstudioMinimo:[null,Validators.required],
+          estudiosMinimos:[null],
           programa:[null],
           idPrograma:[null,Validators.required],
-          anios:[null,Validators.required],
+          anios:[null,[Validators.required,Validators.min(0)]],
           experienciaLaboral:[null,Validators.required],
           requisitosMinimos:[null,Validators.required], 
           movilizacionPropia:[null,Validators.required], 
@@ -290,7 +292,7 @@ datosFormChecked: FormGroup;
           preguntasCandidato:[[]]        
         }),
         'contactoHV': this.formBuilder.group({
-          correo:[null,Validators.required],
+          correo:[null,[Validators.required,Validators.email]],
           nombres:[null,Validators.required],
           apellidos:[null,Validators.required],
           telefonoMovil:[null,Validators.required], 
@@ -300,14 +302,7 @@ datosFormChecked: FormGroup;
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.cargarCargos();
-    this.cargarAreas();
-    this.cargarSectores();
-    this.cargarProgramas();
-    this.cargarIdiomas();
-    this.cargarDiscapacidades();
-    this.cargarUbicaciones();
-    this.cargarContactoHv();
+   
   }
   cargarCargos(){
     this.servGenerales.obtenerListaCargos().subscribe(resultado => {
@@ -318,30 +313,65 @@ datosFormChecked: FormGroup;
       });
   }
   cargarAreas(){
-
+    this.empService.obtenerAreasConocimiento().subscribe(resultado => {
+    this.areas = resultado;
+    },
+      error => {
+        console.log("Error al obtener los cargos: ", JSON.stringify(error));
+      });
   }
   cargarSectores(){
-
+    this.servGenerales.obtenerListaSectores().subscribe(resultado => {
+      this.sectores = resultado;
+    },
+      error => {
+        console.log("Error al obtener los sectores: ", JSON.stringify(error));
+      });
   }
   cargarProgramas(){
-
+    this.empService.obtenerProgramas().subscribe(resultado => {
+      this.programas = resultado;
+    },
+      error => {
+        console.log("Error al obtener los programas: ", JSON.stringify(error));
+      });
   }
   cargarIdiomas(){
-
+    this.empService.obtenerIdiomas().subscribe(resultado => {
+      this.idiomas = resultado;
+    },
+      error => {
+        console.log("Error al obtener los idiomas: ", JSON.stringify(error));
+      });
   }
   cargarDiscapacidades()
   {
-
+    this.empService.obtenerDiscapacidades().subscribe(resultado => {
+      this.discapacidades = resultado;
+    },
+      error => {
+        console.log("Error al obtener las discapacidades: ", JSON.stringify(error));
+      });
   }
   cargarUbicaciones()
   {
-
+    let idPaisColombia = '';
+    this.servGenerales.obtenerListaDepartamentosCiudades(idPaisColombia).subscribe(resultado => {
+      this.ubicaciones = resultado;
+    },
+      error => {
+        console.log("Error al obtener las ubicaciones: ", JSON.stringify(error));
+      });
   }
   cargarContactoHv()
   {
-
+    this.servGenerales.getDatosContactoHv().subscribe(resultado => {
+     //IMPLEMENTAR
+    },
+      error => {
+        console.log("Error al obtener los datos de contacto: ", JSON.stringify(error));
+      });
   }
-
   agregarIdioma(form)
   {
     this.idiomasEscogidos.push(form.value)
@@ -361,7 +391,7 @@ datosFormChecked: FormGroup;
     this.softwaresEscogidos.splice(indexSoftware,1)
   }
   agregarPregunta(form){
-    this.preguntasEscogidas.push(form.value)
+    this.preguntasEscogidas.push(form.value.pregunta)
   }
   eliminarPregunta(pregunta)
   {
@@ -401,6 +431,12 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(event.source.viewValue);
     }
   }
+  estudioMinimoeleccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formOfertaLaboral.controls['requisitos'].get('estudiosMinimos').setValue(event.source.viewValue);
+    }
+  }
   programaSeleccionado(event)
   {
     if(event.isUserInput) {
@@ -412,15 +448,12 @@ datosFormChecked: FormGroup;
     if(event.isUserInput) {
       this.formIdioma.get('nombre').setValue(event.source.viewValue);
     }
-    console.log(event)
-    console.log(this.formIdioma.get('nombre'))
 
   }
   discapacidadSeleccionada(event)
   {
     if(event.isUserInput) {
       this.formOfertaLaboral.controls['requisitos'].get('discapacidad').setValue(event.source.viewValue);
-
     }
   }
   ciudadSeleccionada(event){
@@ -433,27 +466,31 @@ datosFormChecked: FormGroup;
     this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(this.idiomasEscogidos);
     this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').setValue(this.softwaresEscogidos);
     this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').setValue(this.preguntasEscogidas);
-    this.formOfertaLaboral.controls['requisitos'].get('ubicaciones').setValue(this.ubicacionesEscogidas);
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').setValue(this.ubicacionesEscogidas);
     let idsCiudades = []
     for (let i=0; i<this.ubicacionesEscogidas.length;i++){
       idsCiudades.push(this.ubicacionesEscogidas[i].idCiudad)
     }
     this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(idsCiudades)
-    console.log(form.value)
+    console.log(form)
+    this.openDialog(form.value)
+    console.log()
   }
+
   /**
  * Abre un dialog de angular material
  * El contenido del dialog esta creado en el componente DialogFinalRegistroComponent
  * <p>
  * Si se cierra el dialog redirige a la pagina principal
  */
-  openDialog() {
+  openDialog(datos) {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
       width: '60%',
-      data: { datos: this.datos }
+      data: { datos: datos }
     });
     dialogRef.afterClosed().subscribe(result => {
         if(result) {
+          console.log(result)
           alert('modifica');
         }
     });

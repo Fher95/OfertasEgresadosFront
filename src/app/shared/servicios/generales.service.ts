@@ -34,5 +34,14 @@ export class GeneralesService {
   obtenerListaCargos(): Observable<ICargo[]>{
     return this.httpClient.get<ICargo[]>("http://127.0.0.1:8081/api/cargos", this.httpOptions);
   }
-  
+  obtenerListaSectores(): Observable<any[]>{
+    return this.httpClient.get<any[]>("http://localhost:8081/api/sectores", this.httpOptions);
+  }
+  obtenerListaDepartamentosCiudades(id: string): Observable<any[]>
+  {
+    return this.httpClient.get<any[]>("http://localhost:8081/api/ciudadesPais/"+ id, this.httpOptions);
+  }
+  getDatosContactoHv(): Observable<any>{
+    return null
+  }
 }

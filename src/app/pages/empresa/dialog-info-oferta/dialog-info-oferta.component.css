@@ -11,21 +11,8 @@ h5{
   font-size:15px
 }
 
-::ng-deep.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{
-    color:rgb(36, 35, 35);
-    font-size: 15px;
-  }
-  .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after, .mat-input-element:disabled{
-    color:rgb(7, 7, 7);
-  }
-  mat-form-field{
-    margin-top: -5px;
 
-  }
-  ::ng-deep.mat-form-field-infix{
-    height: 35px;
-    border: 0px;
-  }
+  
   .labelCompleto{
     display: flex;
     flex-direction: column;
