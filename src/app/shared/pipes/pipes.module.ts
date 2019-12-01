@@ -4,6 +4,7 @@ import { FiltrarArregloPipe } from './filtrarArreglo.pipe';
 @NgModule({
   declarations: [FiltrarArregloPipe],
   imports: [
+    
   ],
   exports:[
     FiltrarArregloPipe,

@@ -15,18 +15,15 @@
                         <label><Strong>N° de Vacantes: </Strong>{{datosOferta.informacionPrincipal.numVacantes}}</label>
                   </div>
                   <div class="col-sm-12 col-md-6">
-                              <label><Strong>Tipo de cargo: </Strong>
-                              <div *ngIf="datosOferta.informacionPrincipal.otroCargo === null; else otroCargo">{{datosOferta.informacionPrincipal.cargoNombre}}</div>
-                              <ng-template #otroCargo>{{datosOferta.informacionPrincipal.otroCargo}}</ng-template>
-                               </label>
+                              <label><Strong>Tipo de cargo: </Strong>{{datosOferta.informacionPrincipal.cargo}}</label>
                   </div>
       </div>
       <div class="row">
                   <div class="col-sm-12 col-md-6">
-                              <label><Strong>Areas: </Strong>{{datosOferta.informacionPrincipal.AreasConocimiento}}</label>
+                              <label><Strong>Areas: </Strong>{{datosOferta.informacionPrincipal.areas}}</label>
                         </div>
                         <div class="col-sm-12 col-md-6">
-                                    <label><Strong>Sector de la oferta: </Strong>{{datosOferta.informacionPrincipal.sectorNombre}}</label>
+                                    <label><Strong>Sector de la oferta: </Strong>{{datosOferta.informacionPrincipal.sector}}</label>
                         </div>
       </div>
       <div class="row">
@@ -110,12 +107,18 @@
                         </div>
       </div>
       <div class="row">
+            <div class="col-sm-12 col-md-6">
+                        <label><Strong>Estudios minimos: </Strong>{{datosOferta.requisitos.estudiosMinimos}}</label>
+                  </div>
+            <div class="col-sm-12 col-md-6">
+                  <label><Strong>Carrera: </Strong>{{datosOferta.requisitos.programa}}</label>
+            </div>
+      </div>
+      <div class="row">
                   <div class="col-sm-12 col-md-6">
                               <label><Strong>Experiencia laboral: </Strong>{{datosOferta.requisitos.experienciaLaboral}} {{datosOferta.requisitos.anios}} años</label>
                         </div>
-                        <div class="col-sm-12 col-md-6">
-                                    <label><Strong>Estudios minímos: </Strong>{{datosOferta.requisitos.estudiosMinimos}}</label>
-                        </div>
+                       
       </div>
       <div class="row" *ngIf="datosOferta.requisitos.idiomas.length == 0; else idiomas">
                   <div class="col-12">

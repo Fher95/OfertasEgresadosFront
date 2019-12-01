@@ -15,13 +15,16 @@ import { DialogInfoOfertaComponent } from './dialog-info-oferta/dialog-info-ofer
 import { DialogEstadoOfertaComponent } from './dialog-estado-oferta/dialog-estado-oferta.component';
 import { VerPostuladosComponent } from './ver-postulados/ver-postulados.component';
 import { Routes, RouterModule } from '@angular/router';
+import { FiltrarCiudadesPipe } from '../../shared/pipes/filtrar-ciudades.pipe';
+import { PipesModule } from '../../shared/pipes/pipes.module';
 
 const routes: Routes = [
   { path: 'empresa/:id/datosEmpresa', component:DatosEmpresaComponent},
   { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent},
   { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent},
   { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent},
-  { path: 'empresa/:id/misPostulados', component: VerPostuladosComponent},
+  { path: 'oferta/:id/misPostulados', component: VerPostuladosComponent}
+  
 ];
 
 @NgModule({
@@ -34,7 +37,8 @@ const routes: Routes = [
     DialogFinalModificarComponent, 
     OfertasPublicadasComponent, 
     DialogInfoOfertaComponent, 
-    DialogEstadoOfertaComponent, VerPostuladosComponent
+    DialogEstadoOfertaComponent, VerPostuladosComponent,
+    FiltrarCiudadesPipe
   ],
   imports: [
     CommonModule,
@@ -42,7 +46,8 @@ const routes: Routes = [
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    
   ],
   entryComponents: [DialogFinalRegistroComponent, DialogInfoOfertaComponent, DialogEstadoOfertaComponent],
   providers: [GeneralesService],
@@ -54,6 +59,7 @@ const routes: Routes = [
     CrearOfertaLaboralComponent, 
     DialogFinalModificarComponent, 
     OfertasPublicadasComponent,
+    
   ]
 })
 export class EmpresaModule { }
