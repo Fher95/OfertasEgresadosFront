@@ -27,189 +27,21 @@ export class CrearOfertaLaboralComponent implements OnInit {
   preguntasEscogidas = []
   ubicacionesEscogidas = []
   labelPosition = 'before';
-  cargos = [
-    {
-      "idCargo":1,
-      "Nombre":"prueba"
-    }
-  ]
-  sectores = [
-    {
-        "idSector": 1,
-        "Nombre": "Agropecuario"
-    },
-    {
-        "idSector": 2,
-        "Nombre": "Alimentos"
-    },
-    {
-        "idSector": 3,
-        "Nombre": "Asegurador"
-    }]
-  areas = [
-      {
-          "id_aut_areaconocimiento": 1,
-          "nombre": "Administrativo"
-      },
-      {
-          "id_aut_areaconocimiento": 2,
-          "nombre": "Agronomía"
-      },
-      {
-          "id_aut_areaconocimiento": 3,
-          "nombre": "Alimentos y bebidas"
-    }]
-  programas = [
-    {
-      "idPrograma": 1,
-      "Nombre": "Ingeniería de Sistemas"
-  },
-  {
-      "idPrograma": 2,
-      "Nombre": "Física"
-  }
-  ]
-  discapacidades = [
-      {
-          "idDiscapacidad": 1,
-          "Nombre": "Auditiva"
-      },
-      {
-          "idDiscapacidad": 2,
-          "Nombre": "Física"
-      },
-      {
-          "idDiscapacidad": 3,
-          "Nombre": "Fonética"
-      },
-      {
-          "idDiscapacidad": 4,
-          "Nombre": "Mental"
-      },
-      {
-          "idDiscapacidad": 5,
-          "Nombre": "Multiples"
-      },
-      {
-          "idDiscapacidad": 6,
-          "Nombre": "Visual"
-      },
-      {
-          "idDiscapacidad": 7,
-          "Nombre": "Epilepsias/Crisis Convulsivas"
-      },
-      {
-          "idDiscapacidad": 8,
-          "Nombre": "Intelectual"
-      }
-  ]
-  idiomas = [
-    {
-        "idIdioma": 1,
-        "Nombre": "Afrikaans"
-    },
-    {
-        "idIdioma": 2,
-        "Nombre": "Albanés"
-    },
-    {
-        "idIdioma": 3,
-        "Nombre": "Alemán"
-    }]
-  ubicaciones = [
-    {
-      "nombre": "Amas",
-      "id_departamento": 1,
-      "ciudades": [
-          {
-              "nombre": "El Encanto",
-              "id_ciudad": 1
-          }
-      ]},
-    {
-      "nombre": "Amazonas",
-      "id_departamento": 1,
-      "ciudades": [
-          {
-              "nombre": "El Encanto",
-              "id_ciudad": 1
-          },
-          {
-              "nombre": "La Chorrera",
-              "id_ciudad": 2
-          },
-          {
-              "nombre": "La Pedrera",
-              "id_ciudad": 3
-          },
-          {
-              "nombre": "La Victoria",
-              "id_ciudad": 4
-          }
-      ]}
-  ]
-    datos = {
-    "informacionPrincipal": {
-        "nombreOferta": "Oferta ejemplo 1",
-        "descripcion": "Descripcion oferta 1",
-        "cargo": "Otro",
-        "numVacantes": 3,
-        "sector": "Administrartivo",
-        "nombreTempEmpresa": null,
-        "areas": [
-            "Informatica",
-            "tecnologia"
-        ],
-        "vigenciaDias": 30,
-        "ubicaciones": [
-            {"pais": "Colombia","departamento": "Cauca","ciudad": "popayan"},
-            {"pais": "Colombia","departamento": "valle Cauca","ciudad": "cali"}
-        ]
-    },
-    "contrato": {
-        "tipoContrato": "Término indefinido",
-        "formaPago": "Dolares",
-        "rangoSalarial":null,
-        "duracion": null,
-        "horario": null,
-        "jornada": "Medio tiempo",
-        "comentariosSalario": null
-    },
-    "requisitos": {
-        "perfil": "Profesional",
-        "programa": "sistemas",
-        "anios": 2,
-        "experienciaLaboral": "Mayor o igual que",
-        "requisitosMinimos": "Ser muy atento",
-        "movilizacionPropia": "si",
-        "licenciaConduccion": "moto",
-        "discapacidad": "ciego",
-        "idiomas": [
-         {nombre: "ingles", nivel_lectura: "baji" ,nivel_escritura:"bajo",nivel_conversacion:"bajo" }
-        ],
-        "softwareOferta": [
-          {nombre: "asdasd", nivel: "baji" }
-
-        ],
-        "preguntasCandidato": [
-          "¿tiene problemas con compartir tiempo con animales y demas posibilidades de viaje?",
-                    "¿tiene problemas con compartir tiempo con animales y demas posibilidades de viaje?"
-           
-        ]
-    },
-    "contactoHV":{
-    	"correo":"correocontacto@mail.com",
-    	"nombres":"Nom Contacto",
-    	"apellidos":"Apellidos",
-    	"telefonoMovil":1234567890
-    }
-}
+  cargos = []
+  sectores = []
+  areas = []
+  programas = []
+  discapacidades = [ ]
+  idiomas = []
+  ubicaciones = []
+  rangosSalariales = []
+ 
 datosFormChecked: FormGroup;
   constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
     private servGenerales: GeneralesService,
     private empService: EmpresaService,    private router: Router,
-    ) { 
-      this.datosFormChecked = this.formBuilder.group({ 
+    ) {
+      this.datosFormChecked = this.formBuilder.group({
         idiomaChecked: [false],
         softwareChecked: [false],
         preguntasChecked: [false],
@@ -233,9 +65,9 @@ datosFormChecked: FormGroup;
         pais:['Colombia',Validators.required],
         departamento:[null,Validators.required],
         idCiudad:[null,Validators.required],
-        ciudad:[null],  
+        ciudad:[null],
       });
-      this.formOfertaLaboral = this.formBuilder.group({ 
+      this.formOfertaLaboral = this.formBuilder.group({
         'informacionPrincipal': this.formBuilder.group({
           nombreOferta: [null, Validators.required],
           descripcion: [null, Validators.required],
@@ -256,34 +88,34 @@ datosFormChecked: FormGroup;
           duracion:[null],
           horario:[null],
           jornada:[null, Validators.required],
-          idRangoSalarial:[Validators.required],
-          rangoSalarial:[],
+          idRangoSalarial:[null,Validators.required],
+          rangoSalarial:[null,],
           comentariosSalario:[null]
         }),
         'requisitos':this.formBuilder.group({
           perfil:[null,Validators.required],
-          idEstudioMinimo:[null,Validators.required],
+          idrequisitosMinimos:[null,Validators.required],
           estudiosMinimos:[null],
           programa:[null],
           idPrograma:[null,Validators.required],
           anios:[null,[Validators.required,Validators.min(0)]],
           experienciaLaboral:[null,Validators.required],
-          requisitosMinimos:[null,Validators.required], 
-          movilizacionPropia:[null,Validators.required], 
+          requisitosMinimos:[null,Validators.required],
+          movilizacionPropia:[null,Validators.required],
           licenciaConduccion:[null],
           discapacidad:[null],
           idDiscapacidad:[null],
-          idiomas:[[]],  
+          idiomas:[[]],
           softwareOferta:[[]],
-          preguntasCandidato:[[]]        
+          preguntasCandidato:[[]]
         }),
         'contactoHV': this.formBuilder.group({
           correo:[null,[Validators.required,Validators.email]],
           nombres:[null,Validators.required],
           apellidos:[null,Validators.required],
-          telefonoMovil:[null,Validators.required], 
+          telefonoMovil:[null,Validators.required],
         })
-      });    
+      });
   }
 
   ngOnInit() {
@@ -296,10 +128,11 @@ datosFormChecked: FormGroup;
     this.cargarDiscapacidades();
     this.cargarUbicaciones();
     this.cargarContactoHv();
-  } 
+  }
   cargarCargos(){
     this.servGenerales.obtenerListaCargos().subscribe(resultado => {
       this.cargos = resultado;
+      console.log(this.cargos)
     },
       error => {
         console.log("Error al obtener los cargos: ", JSON.stringify(error));
@@ -348,7 +181,7 @@ datosFormChecked: FormGroup;
   }
   cargarUbicaciones()
   {
-    let idPaisColombia = '';
+    let idPaisColombia = "42";
     this.servGenerales.obtenerListaDepartamentosCiudades(idPaisColombia).subscribe(resultado => {
       this.ubicaciones = resultado;
     },
@@ -412,7 +245,7 @@ datosFormChecked: FormGroup;
         if(pos==-1){
           this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.push(event.source.viewValue)
         }
-        else{          
+        else{
             this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.splice(pos,1)
       }
     }
@@ -454,6 +287,20 @@ datosFormChecked: FormGroup;
       this.formUbicacion.get('ciudad').setValue(event.source.viewValue);
     }
   }
+  rangoSalarialSeccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(event.source.viewValue);
+    }
+  }
+  getRangosSalariales(moneda){
+    this.empService.getRangoSalariales(moneda).subscribe(resultado => {
+      this.rangosSalariales = resultado;
+    },
+      error => {
+        console.log("Error al obtener las discapacidades: ", JSON.stringify(error));
+      });
+  }
   registrarOfertaLaboral(form)
   {
     this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(this.idiomasEscogidos);
@@ -487,8 +334,13 @@ datosFormChecked: FormGroup;
     });
     dialogRef.afterClosed().subscribe(result => {
         if(result) {
-          console.log(result)
-          this.empService.crearOfertaLaboral(this.id,datos);
+          this.empService.crearOfertaLaboral(this.id,datos).subscribe(resultado => {
+            console.log(resultado)
+            alert("vamo bocaaaa")
+          },
+            error => {
+              console.log("Error al obtener las discapacidades: ", JSON.stringify(error));
+            });
         }
     });
   }
