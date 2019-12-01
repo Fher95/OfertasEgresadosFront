@@ -31,7 +31,7 @@ export interface ubicacion{
 export class CrearOfertaLaboralComponent implements OnInit {
 
   id: string;
-  //isLinear = true;
+  isLinear = true;
   formOfertaLaboral: FormGroup;
   formIdioma:FormGroup;
   formSoftware:FormGroup;
@@ -302,8 +302,15 @@ datosFormChecked: FormGroup;
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-   
-  }
+    this.cargarCargos();
+    this.cargarAreas();
+    this.cargarSectores();
+    this.cargarProgramas();
+    this.cargarIdiomas();
+    this.cargarDiscapacidades();
+    this.cargarUbicaciones();
+    this.cargarContactoHv();
+  } 
   cargarCargos(){
     this.servGenerales.obtenerListaCargos().subscribe(resultado => {
       this.cargos = resultado;
@@ -472,9 +479,13 @@ datosFormChecked: FormGroup;
       idsCiudades.push(this.ubicacionesEscogidas[i].idCiudad)
     }
     this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(idsCiudades)
-    console.log(form)
-    this.openDialog(form.value)
-    console.log()
+    if(form.status !== "INVALID"){
+      this.openDialog(form.value)
+    }
+    else
+    {
+      alert('Datos incorrectos')
+    }
   }
 
   /**
@@ -491,7 +502,7 @@ datosFormChecked: FormGroup;
     dialogRef.afterClosed().subscribe(result => {
         if(result) {
           console.log(result)
-          alert('modifica');
+          this.empService.crearOfertaLaboral(this.id,datos);
         }
     });
   }
