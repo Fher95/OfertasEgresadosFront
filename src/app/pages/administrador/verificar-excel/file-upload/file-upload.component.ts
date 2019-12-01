@@ -24,7 +24,6 @@ export class FileUploadComponent implements OnInit {
   }
 
   import() {
-    console.log('import: ' + this.fileToUpload.name);
     this.importFile.emit(this.fileToUpload);
   }
 

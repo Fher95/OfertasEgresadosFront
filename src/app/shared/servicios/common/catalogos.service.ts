@@ -47,7 +47,7 @@ export class CatalogosService {
     return this.http.get<FacultadInterface[]>(`${baseUrl}facultades/${idSede}`);
   }
 
-  getPrograma(idFacultad: number,idSede: number, idNivelEstudio: number): Observable<ProgramaInterface[]>{
+  getPrograma(idSede: number,idFacultad: number, idNivelEstudio: number): Observable<ProgramaInterface[]>{
     return this.http.get<ProgramaInterface[]>(`${baseUrl}programas/${idSede}/${idFacultad}/${idNivelEstudio}`);
   }
 

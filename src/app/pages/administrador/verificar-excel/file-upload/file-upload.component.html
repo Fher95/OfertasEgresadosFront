@@ -4,7 +4,7 @@
             <div class="input-group mb-3">
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" name="importFile" id="importFile"
-                        (change)="onFileChange($event.target.files)">
+                        (change)="onFileChange($event.target.files)" accept=".xsl, .xlsx, .csv">
                     <label class="custom-file-label" #labelImport for="importFile"><i class="fa fa-search"></i> Abrir
                         archivo</label>
                 </div>

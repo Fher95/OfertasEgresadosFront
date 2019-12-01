@@ -54,7 +54,9 @@ export class LocalizacionComponent implements OnInit {
 	 private s: string;
 
 
-  constructor(private catalogoService:CatalogosService) { }
+  constructor(private catalogoService:CatalogosService) {
+	  
+  }
 
   	obtenerPais(){
 		this.catalogoService.getPaises().subscribe(data => this.paises=data);

@@ -1,3 +1,4 @@
+import { AlertService } from './../../../shared/servicios/common/alert.service';
 import { ListaEgresadosComponent } from './lista-egresados/lista-egresados.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileUploadService } from 'src/app/shared/servicios/egresados/file-upload.service';
@@ -13,14 +14,16 @@ import { RespuestaVerificarExcel } from 'src/app/shared/modelos/respuestaVerific
 export class VerificarExcelComponent implements OnInit {
 
   /**
-   * InputFile para subir el archivo de secretaria.
-   */
-  @ViewChild('fileInput') fileInput;
-
-  /**
    * Tablas de resultados
    */
-  @ViewChild('tblAceptados') tblAceptados: ListaEgresadosComponent;
+  @ViewChild('tblAceptados')
+  private tblAceptados: ListaEgresadosComponent;
+
+  @ViewChild('tblPendientes')
+  private tblPendientes: ListaEgresadosComponent;
+
+  @ViewChild('tblInconsistentes')
+  private tblInconsistentes: ListaEgresadosComponent;
 
   /**
    * Estados para mostrar componentes
@@ -31,7 +34,17 @@ export class VerificarExcelComponent implements OnInit {
   showPendientes: boolean;
   showInconsistentes: boolean;
 
-  constructor(private service: FileUploadService) { }
+  /**
+   * Datos de pendientes, activos e inconsistentes
+   */
+  activos: MatTableDataSource<any>;
+  pendientes: MatTableDataSource<any>;
+  inconsistentes: MatTableDataSource<any>;
+
+  constructor(
+    private service: FileUploadService,
+    private alert: AlertService
+  ) { }
 
   ngOnInit() {
     this.showActivos = false;
@@ -63,23 +76,20 @@ export class VerificarExcelComponent implements OnInit {
     this.showSpinner = true;
     const formData = new FormData();
     formData.append('fileInput', file);
-    this.service.uploadFile(formData).subscribe((data) => {
+    this.service.uploadFile(formData).subscribe((response) => {
+      this.procesarRespuesta(response);
       this.processFinished = true;
       this.showSpinner = false;
     }, err => {
-      // TODO: Show sweetalert message.
-      console.log('Error');
+      this.showSpinner = false;
+      console.log(err);
+      this.alert.showErrorMessage('Error', err);
     });
   }
 
-  uploadFile() {
-    this.showSpinner = true;
-    const formData = new FormData();
-    console.log(this.fileInput.nativeElement.files[0]);
-    formData.append('fileInput', this.fileInput.nativeElement.files[0]);
-    this.service.uploadFile(formData).subscribe((data) => {
-      this.processFinished = true;
-      this.showSpinner = false;
-    });
+  private procesarRespuesta(response) {
+    this.pendientes = new MatTableDataSource<any>(response.data.pendientes);
+    this.activos = new MatTableDataSource<any>(response.data.aceptados);
+    this.inconsistentes = new MatTableDataSource<any>(response.data.inconsistentes);
   }
 }

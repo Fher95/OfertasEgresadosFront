@@ -1,26 +1,24 @@
-import { MatPaginator } from '@angular/material';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { Component, ViewChild, Input, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-lista-egresados',
   templateUrl: './lista-egresados.component.html',
   styleUrls: ['./lista-egresados.component.css']
 })
-export class ListaEgresadosComponent implements OnInit {
+export class ListaEgresadosComponent implements AfterViewInit {
 
-  dataSource: any[] = [
-    {
-      nombres: 'Sebastian', apellidos: 'Carabali', identificacion: 1061748961,
-      fecha_grado: '06/06/2020', programa: 'Ingeniería de Sistemas', mencion: 'No',
-      genero: 'Hombre'
-    }
-  ];
-  columnas: string[] = ['nombres', 'apellidos', 'identificacion', 'fecha_grado', 'programa', 'mencion', 'genero'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Input()
+  dataSource: MatTableDataSource<any>;
+
+  columnas: string[] = ['nombres', 'apellidos', 'cedula', 'programa'];
+
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
 
   constructor() { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
-
 }

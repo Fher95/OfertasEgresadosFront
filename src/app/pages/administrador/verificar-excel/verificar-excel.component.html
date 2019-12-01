@@ -1,48 +1,13 @@
-<!-- <app-header></app-header>
-<app-navbar-home-ofertas></app-navbar-home-ofertas>
-<div class="container mt-3 mb-3" role="main">
-  <div class="title">
-    <h3>Verificar Egresados</h3>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <input type="file" name="excel" #fileInput accept=".xsl, .xlsx, .csv">
-    </div>
-    <div class="col-md-6">
-      <button class="btn btn-primary" (click)="uploadFile()">Subir archivo</button>
-    </div>
-  </div>
-
-  <app-spinner *ngIf="showSpinner"></app-spinner>
-
-  <div class="tabs-container" *ngIf="!processFinished">
-    <div id="content">
-      <div id="main-content">
-        <mat-tab-group>
-          <mat-tab label="Tab One">
-            <app-lista-egresados #tblAceptados></app-lista-egresados>
-          </mat-tab>
-          <mat-tab label="Tab Two">
-            Tab Two Content
-          </mat-tab>
-        </mat-tab-group>
-      </div>
-    </div>
-  </div>
-  
-
-</div>
-<!--<admin-footer></admin-footer>--> -->
-
 <app-header></app-header>
 <app-navbar-home-ofertas></app-navbar-home-ofertas>
 <div class="container-fluid mt-3">
   <div class="row">
-    <app-file-upload (importFile)="verificarArchivo($event)"></app-file-upload>
     <!-- File upload component -->
+    <app-file-upload (importFile)="verificarArchivo($event)"></app-file-upload>
     <!-- End file upload component -->
   </div>
-  <div class="row results mt-3">
+  <app-spinner *ngIf="showSpinner"></app-spinner>
+  <div class="row results mt-3" *ngIf="processFinished">
     <div class="col-12 col-md-3 aside">
       <ul class="list-group">
         <li (click)="mostrarActivos()" class="list-group-item" [ngClass]="{activo: showActivos}">Activos</li>
@@ -54,15 +19,21 @@
     <div class="col-12 col-md-9 main-content">
       <div class="aceptados mat-elevation-z8" *ngIf="showActivos">
         <mat-toolbar color="primary">
-          Nuevos activos
+          ACTIVOS LOGUEADOS
         </mat-toolbar>
-        <app-lista-egresados #tblAceptados></app-lista-egresados>
+        <app-lista-egresados [dataSource]="activos" #tblAceptados></app-lista-egresados>
       </div>
-      <div class="pendientes" *ngIf="showPendientes">
-        Pendientes
+      <div class="pendientes mat-elevation-z8" *ngIf="showPendientes">
+        <mat-toolbar color="primary">
+          ACTIVOS NO LOGUEADOS
+        </mat-toolbar>
+        <app-lista-egresados [dataSource]="pendientes" #tblPendientes></app-lista-egresados>
       </div>
-      <div class="inconsistentes" *ngIf="showInconsistentes">
-        Inconsistentes
+      <div class="inconsistentes mat-elevation-z8" *ngIf="showInconsistentes">
+        <mat-toolbar color="primary">
+          INCONSISTENTES
+        </mat-toolbar>
+        <app-lista-egresados [dataSource]="inconsistentes" #tblInconsistentes></app-lista-egresados>
       </div>
     </div>
   </div>
