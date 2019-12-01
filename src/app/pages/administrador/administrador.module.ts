@@ -11,12 +11,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista-egresados.component';
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
+import {
+  MatSidenavModule} from '@angular/material';
 
 const routes: Routes = [
-  { path: 'admin/listar', component: PrincipalComponent }, 
+  { path: 'admin/principal', component: PrincipalComponent }, 
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'admin/ofertas', component: ListarOfertasComponent},
-  { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
+  { path: 'admin/egresados/verificar', component: VerificarExcelComponent},  
 ];
 
 @NgModule({
@@ -26,8 +28,9 @@ const routes: Routes = [
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes), MatSidenavModule
   ],
-  exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent]
+  exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent,
+     MatSidenavModule]
 })
 export class AdministradorModule { }
