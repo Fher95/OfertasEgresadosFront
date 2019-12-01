@@ -9,7 +9,7 @@
     <mat-divider></mat-divider>
     <mat-card-content>
         <form  [formGroup]="formOfertaLaboral" (ngSubmit)="registrarOfertaLaboral(formOfertaLaboral)">
-            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-horizontal-stepper  #stepper>
                 <mat-step formGroupName="informacionPrincipal" [stepControl]="formOfertaLaboral.get('informacionPrincipal')" label="informacionPrincipal">
                     <div class="Subtitulos-card" >
                         <p class="text-center"><b>informacion Principal</b></p>
@@ -414,7 +414,7 @@
                             <div class="col-10 no-padding">
                                     <mat-form-field class="full-width"  floatLabel="auto" appearance="outline">
                                             <mat-label>Requisitos minimos</mat-label>
-                                            <textarea  matInput formControlName="requisitosMinimos" rows="3"></textarea>
+                                            <textarea  matInput formControlName="requisitosMinimos" required rows="3"></textarea>
                                             <mat-error *ngIf="formOfertaLaboral.get('requisitos').controls.requisitosMinimos.errors?.required">campo
                                                 requerido</mat-error>
                                     </mat-form-field>
@@ -644,7 +644,7 @@
                                     </mat-form-field>
                         </div>
                                 <div class="botonesStepper">
-                                <button  type="submit" mat-raised-button color="primary"  matStepperNext>modificar</button>
+                                <button  type="submit" mat-raised-button color="primary" matStepperNext>modificar</button>
                             </div>
                 </mat-step>
             </mat-horizontal-stepper>
