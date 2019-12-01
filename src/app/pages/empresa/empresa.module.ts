@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent},
   { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent},
   { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent},
-  { path: 'empresa/:id/misPostulados', component: VerPostuladosComponent},
+  { path: 'oferta/:id/misPostulados', component: VerPostuladosComponent}
+  
 ];
 
 @NgModule({
