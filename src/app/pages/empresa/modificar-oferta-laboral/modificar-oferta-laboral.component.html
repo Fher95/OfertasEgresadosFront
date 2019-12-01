@@ -147,10 +147,9 @@
                                  </mat-form-field>
                                  <mat-form-field  floatLabel="auto" appearance="outline" > 
                                      <mat-label>Rango salarial</mat-label>
-                                        <mat-select formControlName="idRangoSalarial" required placeholder="Rango salarial">
+                                        <mat-select formControlName="rangoSalarial" required placeholder="Rango salarial">
                                             <div *ngIf="formaPago == 'Moneda local';else UsDolar">
-
-                                                <mat-option * value="0-1000000">0-1000000</mat-option>
+                                                <mat-option value="0-1000000">0-1000000</mat-option>
                                                 <mat-option value="1000001-2000000">1000001-2000000</mat-option>
                                                 <mat-option value="2000001-3000000">2000001-3000000</mat-option>
                                                 <mat-option value="3000001-6000000">3000001-6000000</mat-option>
@@ -176,7 +175,8 @@
                                             <ng-template #sinSeleccion>
                                                     <mat-option>No ha seleccioando una forma de pago</mat-option>
                                                     </ng-template>                    
-                                        </mat-select>                                       
+                                        </mat-select>
+                                          
                                      </mat-form-field>        
                     </div>
                     <div class="row centrarContenidoRow">

@@ -17,6 +17,7 @@ import { VerPostuladosComponent } from './ver-postulados/ver-postulados.componen
 import { Routes, RouterModule } from '@angular/router';
 import { FiltrarCiudadesPipe } from '../../shared/pipes/filtrar-ciudades.pipe';
 import { PipesModule } from '../../shared/pipes/pipes.module';
+import { ModificarOfertaLaboralComponent } from './modificar-oferta-laboral/modificar-oferta-laboral.component';
 
 const routes: Routes = [
   { path: 'empresa/:id/datosEmpresa', component:DatosEmpresaComponent},
@@ -38,7 +39,8 @@ const routes: Routes = [
     OfertasPublicadasComponent, 
     DialogInfoOfertaComponent, 
     DialogEstadoOfertaComponent, VerPostuladosComponent,
-    FiltrarCiudadesPipe
+    FiltrarCiudadesPipe,
+    ModificarOfertaLaboralComponent
   ],
   imports: [
     CommonModule,

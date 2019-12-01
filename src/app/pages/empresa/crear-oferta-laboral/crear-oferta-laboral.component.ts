@@ -6,21 +6,6 @@ import { MatDialog } from '@angular/material';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 
-export interface idioma{
-  id:String
-  nombre:String;
-  lectura:String;
-  escritura:String;
-  conversacion:String;
-}
-export interface software{
-  nombre:String;
-  nivel:String;
-}
-export interface ubicacion{
-  id:string;
-  nombre:string;
-}
 
 @Component({
   selector: 'app-crear-oferta-laboral',
@@ -61,7 +46,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
         "idSector": 3,
         "Nombre": "Asegurador"
     }]
-    areas = [
+  areas = [
       {
           "id_aut_areaconocimiento": 1,
           "nombre": "Administrativo"
@@ -73,7 +58,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
       {
           "id_aut_areaconocimiento": 3,
           "nombre": "Alimentos y bebidas"
-      }]
+    }]
   programas = [
     {
       "idPrograma": 1,
@@ -271,7 +256,8 @@ datosFormChecked: FormGroup;
           duracion:[null],
           horario:[null],
           jornada:[null, Validators.required],
-          rangoSalarial:[null],
+          idRangoSalarial:[Validators.required],
+          rangoSalarial:[],
           comentariosSalario:[null]
         }),
         'requisitos':this.formBuilder.group({
