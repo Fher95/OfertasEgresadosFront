@@ -74,7 +74,6 @@ export class EmpresaService {
     console.log("objeto a mandar: ", objEstadoOferta);
       return this.httpClient.put("http://127.0.0.1:8081/api/ofertas/estado-proceso/" + idOferta, objEstadoOferta, {headers: this.headers});
   }
-
   getDatos(id: String): Observable<any>{
     // obtener los datos de la peticion datos empresa
     return this.httpClient.get('http://127.0.0.1:8081/api/empresa/' + id, {headers: this.headers});
@@ -91,9 +90,19 @@ export class EmpresaService {
   getPostuladosSeleccionadosOferta(idOferta: string): Observable<IEgresado[]> {
     return this.httpClient.get<IEgresado[]>('http://127.0.0.1:8081/api/ofertas/postuladosSelect/' + idOferta, {headers: this.headers});
   }
-
   eliminarOferta(idEmpresa: string, idOferta: string){
     return this.httpClient.delete('http://127.0.0.1:8081/api/empresa/' + idEmpresa + '/' + idOferta, {headers: this.headers});
   }
-
+  obtenerAreasConocimiento(): Observable<any[]>{
+    return this.httpClient.get<any[]>("http://127.0.0.1:8081/api/areasConocimiento", this.httpOptions);
+  }
+  obtenerProgramas(): Observable<any[]>{
+    return this.httpClient.get<any[]>("http://127.0.0.1:8081/api/programas", this.httpOptions);
+  }
+  obtenerIdiomas(): Observable<any[]>{
+    return this.httpClient.get<any[]>("http://localhost:8081/api/idiomas", this.httpOptions);
+  }
+  obtenerDiscapacidades(): Observable<any[]>{
+    return this.httpClient.get<any[]>("http://localhost:8081/api/discapacidades", this.httpOptions);
+  }
 }
