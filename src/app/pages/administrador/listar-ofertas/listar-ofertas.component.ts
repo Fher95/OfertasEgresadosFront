@@ -140,8 +140,10 @@ export class ListarOfertasComponent implements OnInit {
 
   }
 
-  puntuarNumero(parNumero: number): string{
-    const strNumero = parNumero.toLocaleString();
+  getSalario(parSalario: string): string{
+    const salarioSinSigno = parSalario.replace('$', '');
+    const numSalario = +salarioSinSigno;
+    const strNumero = '$' + numSalario.toLocaleString();
     return strNumero;
   }
 
