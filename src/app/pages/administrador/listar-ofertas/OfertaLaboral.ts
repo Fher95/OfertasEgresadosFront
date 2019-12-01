@@ -59,15 +59,15 @@ export class AreaConocimiento {
 
 export class Salario {
     id_aut_salario: number;
-    minimo: number;
-    maximo: number;
+    minimo: string;
+    maximo: string;
     forma_pago: string;
 }
 
 export const salarioPrueba = {
     id_aut_salario: 1,
-    minimo: 700000,
-    maximo: 1500000,
+    minimo: '$700000',
+    maximo: '$1500000',
     forma_pago: 'En efectivo'
 }
 

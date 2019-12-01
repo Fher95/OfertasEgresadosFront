@@ -20,12 +20,9 @@ export interface DialogData {
   styleUrls: ['./completar-registro.component.css']
 })
 export class CompletarRegistroComponent implements OnInit {
+  @ViewChild('referido') referido : ReferidoComponent;
 
   varCompletarRegistro : CompletarRegistro;
-  TieneHijos = new FormControl('', [Validators.required]);
-  CantHijos = new FormControl('', [Validators.required]);
-  //Referencias personales, lista
-  referidos = new Array<Referido>();
   //Trabajos anteriores
   haTrabajado = new FormControl('', [Validators.required]);
   //Experiencias anteriores
@@ -33,11 +30,6 @@ export class CompletarRegistroComponent implements OnInit {
   //Trabajo actual
   Labora_Actualmente = new FormControl('', [Validators.required]);
   
-  //Listas opciones
-  cantHijos: string[] = [ "1", "2", "3", "4", "5", "Más de 5 hijos"];
-  carreras: string[] = ["Tecnología","Pregrado","Especialización","Maestría","Doctorado"];
-  razon: string[] = ["Planta docente","Infraestructura","Planes de estudio","Otra razón"];
-
   tituloInfo: string;
   mensajeInfo: string;
 
@@ -51,9 +43,6 @@ export class CompletarRegistroComponent implements OnInit {
   limpiarFormulario()
   {
     this.varCompletarRegistro = new CompletarRegistro();
-    this.TieneHijos = new FormControl('',[Validators.required]);
-    this.CantHijos = new FormControl('', [Validators.required]);
-    this.referidos = new Array<Referido>();
     this.haTrabajado = new FormControl('', [Validators.required]);
     this.experiencias = new Array<Experiencia>();
     this.Labora_Actualmente = new FormControl('', [Validators.required]);
@@ -61,12 +50,7 @@ export class CompletarRegistroComponent implements OnInit {
 
   llenarDatos()
   {
-    if(this.TieneHijos.value==0)
-    {
-      this.varCompletarRegistro.num_hijos = this.CantHijos.value;
-      console.log("cantidad hijos llenar: "+this.CantHijos.value);
-    }
-    this.varCompletarRegistro.referidos = this.referidos;
+    this.varCompletarRegistro.referidos = this.referido.referidos;
 
     if(this.haTrabajado.value==0)
     {
@@ -84,7 +68,7 @@ export class CompletarRegistroComponent implements OnInit {
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
     this.varCompletarRegistro.experiencias = this.experiencias;
-    console.log("Metodo llenar: hijos: "+this.varCompletarRegistro.num_hijos+"hatrabajado: "+
+    console.log("Metodo llenar: hatrabajado: "+
       this.varCompletarRegistro.ha_trabajado+"trabajoactual: "+this.varCompletarRegistro.trabajo_actualmente);
 
   }
@@ -93,9 +77,9 @@ export class CompletarRegistroComponent implements OnInit {
     console.log("Verificar:");
     var bandera:boolean = false;
 
-    console.log("TienHijos: "+this.TieneHijos.value+"HaTraba: "+this.haTrabajado.value+"laboraA: "+this.Labora_Actualmente.value);
+    console.log("HaTraba: "+this.haTrabajado.value+"laboraA: "+this.Labora_Actualmente.value);
 
-    if(this.TieneHijos.value!='' && this.referidos.length!=0 && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='')
+    if(this.referido.referidos.length!=0 && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='')
     {
       bandera = true;
     }
@@ -112,7 +96,7 @@ export class CompletarRegistroComponent implements OnInit {
     {
       this.llenarDatos();
       console.log("Lleno Datos: ");
-      console.log("hijos: "+this.varCompletarRegistro.num_hijos+"hatrabajado "+
+      console.log("hatrabajado "+
       this.varCompletarRegistro.ha_trabajado+"trabajoactual "+this.varCompletarRegistro.trabajo_actualmente);
 
       this.varCompletarRegistro.referidos.forEach(element => {
@@ -133,11 +117,6 @@ export class CompletarRegistroComponent implements OnInit {
   {
     const dialogRef = this.dialog.open(ExplaboralComponent);
     dialogRef.afterClosed().subscribe(result =>{this.experiencias.push(result)})
-  }
-  contacto()
-  {
-    const dialogRef = this.dialog.open(ReferidoComponent);
-    dialogRef.afterClosed().subscribe(result => {this.referidos.push(result);});
   }
   mensaje(){
     this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});

@@ -1,28 +1,28 @@
-<div class="Programa">  
-  <mat-form-field appearance="outline">
+<form class="Programa">  
+  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
     <mat-label>Egresado de</mat-label>
     <mat-select [formControl]="NivelAcademico" required>     
       <mat-option [value] = "nivel.id_aut_nivprogra" *ngFor="let nivel of nivelAcade">{{nivel.nombre}}</mat-option>
       <!--mat-option [value]="prueba" *ngFor="let prueba of pruebas">{{prueba}}</mat-option-->
     </mat-select>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
     <mat-label>Sede</mat-label>
     <mat-select [formControl]="Sede" (selectionChange)="obtenerFacultad()" required >
       <mat-option [value]="sede.id_aut_sede" *ngFor="let sede of sedes">{{sede.nombre}}</mat-option>
       <!--mat-option [value]="prueba" *ngFor="let prueba of pruebas">{{prueba}}</mat-option-->
     </mat-select>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
     <mat-label>Facultad</mat-label>
     <mat-select [formControl]="Facultad" (selectionChange)="obtenerPrograma()" required>
       <mat-option [value]="facultad.id_aut_facultad" *ngFor="let facultad of facultades" >{{facultad.nombre}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
     <mat-label>Programa</mat-label>
     <mat-select [formControl]="Programa" required>
       <mat-option [value]="progra.id_aut_programa" *ngFor="let progra of programas">{{progra.nombre}}</mat-option>
     </mat-select>
   </mat-form-field>
-</div>   
+</form>   

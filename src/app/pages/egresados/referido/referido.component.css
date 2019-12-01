@@ -2,20 +2,17 @@ mat-form-field{
     margin-right: 20px;
     margin-left: 0px;
 }
-mat-label, mat-radio-button{
+mat-label,mat-radio-button{
     margin-right: 20px;
-}
-h1{
-    column-span:all
-}
-.titulo{
-    text-align: center;
 }
 .contacto{
     width: 100%;
     padding: 3%;
-    column-count: 3;
+    column-count: 2;
 }
 .contacto > *{
     width: 100%;
+}
+button{
+    text-align:end;
 }

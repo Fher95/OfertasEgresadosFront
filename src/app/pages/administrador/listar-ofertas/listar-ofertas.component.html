@@ -112,8 +112,8 @@
           <p></p>
         </div>
         <strong>Salario: </strong>
-        <a>{{this.ofertaSeleccionada.salario ? 'Entre $ '+this.puntuarNumero(this.ofertaSeleccionada.salario.minimo) : 'No se especifica'}}
-          {{this.ofertaSeleccionada.salario ? ' y $ '+this.puntuarNumero(this.ofertaSeleccionada.salario.maximo) : 'No se especifica'}}
+        <a>{{this.ofertaSeleccionada.salario ? 'Entre '+this.getSalario(this.ofertaSeleccionada.salario.minimo) : 'No se especifica'}}
+          {{this.ofertaSeleccionada.salario ? ' y '+this.getSalario(this.ofertaSeleccionada.salario.maximo) : 'No se especifica'}}
         </a>
         <p></p>        
         <strong>Forma de pago: </strong>

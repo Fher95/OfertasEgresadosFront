@@ -1,56 +1,48 @@
 <app-nav-egresados> </app-nav-egresados> 
 <form class="completarRegistro">
-  <mat-horizontal-stepper class="stepper">
-    <mat-step>
-      <ng-template matStepLabel>Información Personal Complementaria</ng-template>
-      <div class="wrap">
-        <div class="Hijos">
-          <mat-label>¿Tiene hijos?:</mat-label>
-          <mat-radio-group [formControl]="TieneHijos" required>
-            <mat-radio-button value=0>Si</mat-radio-button>
-            <mat-radio-button value=1>No</mat-radio-button>
-          </mat-radio-group>
-          <mat-form-field *ngIf="TieneHijos.value=='0'" appearance="outline">
-            <mat-label >¿Cuantos?</mat-label>
-            <mat-select [formControl]="CantHijos">
-              <mat-option [value] = "item" *ngFor="let item of cantHijos">{{item}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+  <mat-card>
+    <mat-toolbar color="primary">
+      <span class="titulo">Completar Información</span>
+    </mat-toolbar>
+    <mat-horizontal-stepper [linear]="isLinear" class="stepper">
+      <mat-step>
+        <ng-template matStepLabel>Referencias Personales</ng-template>
+        <fieldset>
+          <legend>Agregar referencia personal</legend>
+          <app-referido #referido></app-referido>
+        </fieldset>  
+          <div>
+            <button mat-button mat-raised-button matStepperNext >Siguiente</button>
+          </div>  
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Información laboral</ng-template>
+        <div class="wrap">
+          <div class="labAntes">
+            <mat-label>¿Ha laborado antes?: </mat-label>
+            <mat-radio-group [formControl]="haTrabajado" required>
+              <mat-radio-button value=0>Si</mat-radio-button>
+              <mat-radio-button value=1>No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="labActual">
+            <mat-label>¿Labora actualmente?: </mat-label>
+            <mat-radio-group [formControl]="Labora_Actualmente">
+              <mat-radio-button value=0>Si</mat-radio-button>
+              <mat-radio-button value=1>No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div *ngIf="Labora_Actualmente.value=='0' || haTrabajado.value=='0'" class="exp">
+            <mat-label>Experiencia Laboral:</mat-label>
+            <button class="btnExp" mat-raised-button (click)="experiencia()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
+          </div>
+          <div class="btn">
+            <button class="btnAtras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
+            <button class="btnCompletar" mat-raised-button (click)="enviarDatos()">Completar Información</button>
+          </div>
         </div>
-        <mat-label>Referencias personales:</mat-label>
-        <button class="btnCont" mat-raised-button (click)="contacto()"> <mat-icon>add</mat-icon> Agregar contacto</button>
-        <div>
-          <button mat-button mat-raised-button matStepperNext >Siguiente</button>
-        </div>
-      </div>  
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Información laboral</ng-template>
-      <div class="wrap">
-        <div class="labAntes">
-          <mat-label>¿Ha laborado antes?: </mat-label>
-          <mat-radio-group [formControl]="haTrabajado" required>
-            <mat-radio-button value=0>Si</mat-radio-button>
-            <mat-radio-button value=1>No</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div class="labActual">
-          <mat-label>¿Labora actualmente?: </mat-label>
-          <mat-radio-group [formControl]="Labora_Actualmente">
-            <mat-radio-button value=0>Si</mat-radio-button>
-            <mat-radio-button value=1>No</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div *ngIf="Labora_Actualmente.value=='0' || haTrabajado.value=='0'" class="exp">
-          <mat-label>Experiencia Laboral:</mat-label>
-          <button class="btnExp" mat-raised-button (click)="experiencia()"> <mat-icon>add</mat-icon> Agregar experiencia </button>
-        </div>
-        <div class="btn">
-          <button class="btnAtras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-          <button class="btnCompletar" mat-raised-button (click)="enviarDatos()">Completar Información</button>
-        </div>
-      </div>
-    </mat-step>
-  </mat-horizontal-stepper>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
 </form>
-<app-footer-egresados></app-footer-egresados>
+<!--app-footer-egresados></app-footer-egresados-->
