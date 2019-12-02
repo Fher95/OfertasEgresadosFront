@@ -1,35 +1,34 @@
-<div id='content' class="row card-layout">
-  <div class="card-column-1">
-    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-      <mat-label>{{mensaje1}}</mat-label>
-      <mat-select [formControl]="paisFormControl" required (selectionChange)="obtenerDepartamento()">
-        <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
-          {{pais.nombre}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="paisFormControl.hasError('required')">Por favor seleccionar un {{mensaje1}}</mat-error>
-    </mat-form-field>
-  </div>
-  <div class="card-column-2">
-    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-      <mat-label>{{mensaje2}}</mat-label>
-      <mat-select [formControl]="departamentoFormControl" required (selectionChange)="obtenerCiudad()">
-        <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id_aut_dep">
-          {{departamento.nombre}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="departamentoFormControl.hasError('required')">Por favor seleccionar un {{mensaje2}}</mat-error>
-    </mat-form-field>
-  </div>
-  <div class="card-column-3">
-    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-      <mat-label>{{mensaje3}}</mat-label>
-      <mat-select [formControl]="ciudadFormControl" required>
-        <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id_aut_ciudad">
-          {{ciudad.nombre}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="ciudadFormControl.hasError('required')">Por favor seleccionar un {{mensaje3}}</mat-error>
-    </mat-form-field>
-  </div>
+<div id='content'>
+  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+    <mat-label>{{mensaje1}}</mat-label>
+    <mat-select [formControl]="paisFormControl" required (selectionChange)="obtenerDepartamento()">
+      <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
+        {{pais.nombre}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="paisFormControl.hasError('required')">Por favor seleccionar un {{mensaje1}}</mat-error>
+  </mat-form-field>
+</div>
+<div id='content'>
+  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+    <mat-label>{{mensaje2}}</mat-label>
+    <mat-select [formControl]="departamentoFormControl" required (selectionChange)="obtenerCiudad()">
+      <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id_aut_dep">
+        {{departamento.nombre}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="departamentoFormControl.hasError('required')">Por favor seleccionar un {{mensaje2}}
+    </mat-error>
+  </mat-form-field>
+</div>
+<div id='content'>
+  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+    <mat-label>{{mensaje3}}</mat-label>
+    <mat-select [formControl]="ciudadFormControl" required>
+      <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id_aut_ciudad">
+        {{ciudad.nombre}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="ciudadFormControl.hasError('required')">Por favor seleccionar un {{mensaje3}}</mat-error>
+  </mat-form-field>
 </div>

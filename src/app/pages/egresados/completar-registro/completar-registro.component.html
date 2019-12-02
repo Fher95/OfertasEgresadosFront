@@ -8,16 +8,29 @@
       <mat-step>
         <ng-template matStepLabel>Referencias Personales</ng-template>
         <app-referido #referido></app-referido>
-
-        <!--table mat-table class="mat-elevation-z8">
-          <ng-container [matColumnDef]="column" *ngFor="let column of columnas">
-            <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="datosColumnas"></tr>
-          <tr mat-row *matRowDef="let row; columns: datosColumnas;"></tr>
-        </table-->
+        <!--div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="No">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let row"> {{row.position}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Nombre">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let row"> {{row.nombres}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Parentesco">
+              <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+              <td mat-cell *matCellDef="let row"> {{row.parentesco}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Celular">
+              <th mat-header-cell *matHeaderCellDef> Celular </th>
+              <td mat-cell *matCellDef="let row"> {{row.telefono_movil}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div-->
         <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
       </mat-step>
       <mat-step>
@@ -28,25 +41,32 @@
           <mat-radio-button value=1>No</mat-radio-button>
         </mat-radio-group>
         <app-explaboral *ngIf="haTrabajado.value=='0'" #expLaboralAnterior></app-explaboral>
-        <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-        <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+        <div class="botones">
+          <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
+          <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+        </div>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Labor Actual</ng-template>
+        <ng-template matStepLabel>Trabajo Actual</ng-template>
         <mat-label>¿Labora actualmente?: </mat-label>
         <mat-radio-group [formControl]="Labora_Actualmente">
           <mat-radio-button value=0>Si</mat-radio-button>
           <mat-radio-button value=1>No</mat-radio-button>
         </mat-radio-group>
         <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expLaboralActual></app-explaboral>
-        <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-        <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+        <div class="botones">
+          <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
+          <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+        </div>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Comentarios</ng-template>
-        <!--app-comentarios #comentarios></app-comentarios-->
-        <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-        <button class="btnCompletar" color="primary" mat-raised-button (click)="enviarDatos()">Completar Información</button>
+        <ng-template matStepLabel>Comentarios y Sugerencias</ng-template>
+        <app-comentarios #comentarios></app-comentarios>
+        <div class="botones">
+          <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
+          <button class="btnCompletar" color="primary" mat-raised-button (click)="enviarDatos()">Completar
+            Información</button>
+        </div>
       </mat-step>
     </mat-horizontal-stepper>
   </mat-card>

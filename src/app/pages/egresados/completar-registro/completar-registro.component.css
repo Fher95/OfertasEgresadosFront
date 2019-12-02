@@ -21,25 +21,11 @@ mat-form-field{
     margin-right: 20px;
     margin-left: 0px;
 }
-
 mat-label, mat-radio-button{
     margin-right: 20px;
 }
-/* Botones */
-.btnCompletar{
-    left: 90px;
+button{
     text-align: end;
-}
-.btnExp{
-    text-align: end;
-    left: 80px;  
-}
-.siguiente{
-    text-align: end;
-    top: 20px;
-    left:50px;
-}
-.atras{
-    text-align: end;
-    top: 20px;
+    margin-left: 20px;
+    top:20px;
 }

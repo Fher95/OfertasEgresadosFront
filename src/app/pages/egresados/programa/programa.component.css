@@ -5,10 +5,6 @@ mat-form-field{
 mat-label, mat-radio-button{
     margin-right: 20px;
 }
-/*form{
-    display: flex;
-    flex-direction: column;
-}*/
 .programa{
     width: 60%;
     padding: 3%;

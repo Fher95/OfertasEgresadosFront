@@ -6,6 +6,7 @@ import { ExplaboralComponent } from '../explaboral/explaboral.component';
 import { ReferidoComponent } from '../referido/referido.component';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { MatTableDataSource } from '@angular/material';
 
 export interface DialogData {
   varTitulo: string;
@@ -28,8 +29,9 @@ export class CompletarRegistroComponent implements OnInit {
   //Trabajo actual
   Labora_Actualmente = new FormControl('', [Validators.required]);
 
-  columnas : string[] = ['una','dos','tres'];
-  datosColumnas : string[] = ['1','2','3'];
+  //Tabla
+  displayedColumns = ['No','Nombre','Parentesco','Celular'];
+  dataSource: any;
 
   //Mensajes de error o exito
   tituloInfo: string;
@@ -52,6 +54,7 @@ export class CompletarRegistroComponent implements OnInit {
   llenarDatos()
   {
     this.varCompletarRegistro.referidos = this.referido.referidos;
+    this.llenarTabla();
 
     if(this.haTrabajado.value==0)
     {
@@ -115,6 +118,9 @@ export class CompletarRegistroComponent implements OnInit {
     }
     console.log("titulo: "+this.tituloInfo+"mensaje: "+this.mensajeInfo);
     this.mensaje();
+  }
+  llenarTabla(){
+    this.dataSource.data = this.varCompletarRegistro.referidos;  
   }
   mensaje(){
     this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
