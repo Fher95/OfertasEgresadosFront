@@ -1,6 +1,20 @@
 .example-container {
     width: auto;
-    height: 400px;
+    height: 30rem;
     margin: 10px;
     border: 0px solid #555;
   }
+  .seleccionado {
+    background-color: rgba(153, 153, 153, 0.589);
+    color: rgb(49, 226, 43);
+}
+table {
+  width: 100%;
+  text-align: center;
+}
+main {
+  display: block;
+}
+th.mat-header-cell {
+  text-align: center;
+}

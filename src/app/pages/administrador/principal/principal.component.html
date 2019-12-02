@@ -1,24 +1,28 @@
 <app-header></app-header>
-<app-navbar-home-ofertas></app-navbar-home-ofertas>
-<!--app-listar-ofertas></app-listar-ofertas
+<!--app-navbar-home-ofertas></app-navbar-home-ofertas>
+<app-listar-ofertas></app-listar-ofertas
 <app-listar-solicitudes-empresa></app-listar-solicitudes-empresa-->
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container class="example-container m-0">
     <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
         (closed)="events.push('close!')">
         <mat-nav-list>
-            <a mat-list-item> Solicitudes Pendientes </a>
-            <a mat-list-item> Ofertas Laborales </a>
-            <a mat-list-item> Tercera Opcion </a>
+            <a mat-list-item [class.seleccionado]="op1" (click)="setSeleccion(1)"> Solicitudes Pendientes </a>
+            <a mat-list-item [class.seleccionado]="op2" (click)="setSeleccion(2)"> Ofertas Laborales </a>
+            <a mat-list-item  [class.seleccionado]="op3" (click)="setSeleccion(3)"> Tercera Opcion </a>
         </mat-nav-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <p>
+        <!--p>
             <mat-checkbox [(ngModel)]="opened">Sidebar abierta</mat-checkbox>
         </p>
         <p><button mat-button (click)="sidenav.toggle()">Abrir/Cerrar barra lateral</button></p>
-        <p>Aqui debe ir el contenido</p>
-        
-        
+        <p>Aqui debe ir el contenido</p-->
+
+            <div>
+            <app-listar-solicitudes-empresa></app-listar-solicitudes-empresa>     
+        </div>    
     </mat-sidenav-content>
+       
 </mat-sidenav-container>
+
