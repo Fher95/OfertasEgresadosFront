@@ -7,6 +7,7 @@ import { ReferidoComponent } from '../referido/referido.component';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 import { MatTableDataSource } from '@angular/material';
+import { ComentariosComponent } from '../comentarios/comentarios.component';
 
 export interface DialogData {
   varTitulo: string;
@@ -22,6 +23,7 @@ export class CompletarRegistroComponent implements OnInit {
   @ViewChild('referido') referido : ReferidoComponent;
   @ViewChild('expAnterior') expAnterior : ExplaboralComponent;
   @ViewChild('expActual') expActual : ExplaboralComponent;
+  @ViewChild('comentarios') comentarios : ComentariosComponent;
 
   varCompletarRegistro : CompletarRegistro;
   //Trabajos anteriores
@@ -54,7 +56,6 @@ export class CompletarRegistroComponent implements OnInit {
   llenarDatos()
   {
     this.varCompletarRegistro.referidos = this.referido.referidos;
-    this.llenarTabla();
 
     if(this.haTrabajado.value==0)
     {
@@ -74,6 +75,8 @@ export class CompletarRegistroComponent implements OnInit {
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
     
+    
+
     console.log("Metodo llenar: hatrabajado: "+
       this.varCompletarRegistro.ha_trabajado+"trabajoactual: "+this.varCompletarRegistro.trabajo_actualmente);
 
@@ -85,7 +88,7 @@ export class CompletarRegistroComponent implements OnInit {
 
     console.log("HaTraba: "+this.haTrabajado.value+"laboraA: "+this.Labora_Actualmente.value);
 
-    if(this.referido.referidos.length!=0 && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='')
+    if(this.referido.referidos.length!=0 && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='' && this.comentarios.validarCampos())
     {
       bandera = true;
     }

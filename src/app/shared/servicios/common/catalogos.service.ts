@@ -35,10 +35,6 @@ export class CatalogosService {
     return this.http.get<ProgramaInterface[]>(`${baseUrl}nivelesPrograma`);
   }
 
-  getNivelAcademico(): Observable<NivelesEstudioInterface[]>{
-    return this.http.get<NivelesEstudioInterface[]>(`${baseUrl}nivelesEstudio`);
-  }
-
   getSede(): Observable<SedeInterface[]>{
     return this.http.get<SedeInterface[]>(`${baseUrl}sedes`);
   }

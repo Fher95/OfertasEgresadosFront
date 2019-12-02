@@ -4,8 +4,8 @@ import { Experiencia } from './experiencia';
 export class CompletarRegistro{
     referidos:Referido[]
     ha_trabajado: boolean;
-    expAnterior: Experiencia[];
-    expActual: Experiencia[];
+    expAnterior?: Experiencia[];
+    expActual?: Experiencia[];
     trabajo_actualmente:boolean;
 
     constructor()

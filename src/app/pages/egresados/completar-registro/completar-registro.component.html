@@ -31,7 +31,7 @@
           </table>
           <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div-->
-        <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+        <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Experiencia Laboral</ng-template>
@@ -43,7 +43,7 @@
         <app-explaboral *ngIf="haTrabajado.value=='0'" #expLaboralAnterior></app-explaboral>
         <div class="botones">
           <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-          <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+          <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
         </div>
       </mat-step>
       <mat-step>
@@ -56,7 +56,7 @@
         <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expLaboralActual></app-explaboral>
         <div class="botones">
           <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-          <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+          <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
         </div>
       </mat-step>
       <mat-step>

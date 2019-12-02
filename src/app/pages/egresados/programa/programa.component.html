@@ -4,7 +4,7 @@
       <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
         <mat-label>Nivel de Estudio</mat-label>
         <mat-select [formControl]="NivelAcademico" required>
-          <mat-option [value]="nivel.id_aut_nivprogra" *ngFor="let nivel of nivelAcade">{{nivel.nombre}}</mat-option>
+          <mat-option [value]="nivel.id_aut_estudio" *ngFor="let nivel of nivelAcade">{{nivel.nombre}}</mat-option>
         </mat-select>
         <mat-error *ngIf="NivelAcademico.hasError('required')">Por favor seleeccionar el Nivel de Estudio </mat-error>
       </mat-form-field>
