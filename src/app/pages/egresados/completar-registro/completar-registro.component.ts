@@ -74,9 +74,7 @@ export class CompletarRegistroComponent implements OnInit {
     else if(this.Labora_Actualmente.value==1){
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
-    
-    
-
+  
     console.log("Metodo llenar: hatrabajado: "+
       this.varCompletarRegistro.ha_trabajado+"trabajoactual: "+this.varCompletarRegistro.trabajo_actualmente);
 

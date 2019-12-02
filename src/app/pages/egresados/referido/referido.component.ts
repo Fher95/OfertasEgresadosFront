@@ -36,10 +36,11 @@ export class ReferidoComponent implements OnInit {
 
   varReferido: Referido;
   referidos = new Array<Referido>();
-  tituloInfo: string;
-  mensajeInfo: string;
+  tituloInfo: string ="";
+  mensajeInfo: string ="";
 
   constructor(private dialog: MatDialog, private router: Router) {
+    this.referidos = new Array<Referido>();
     this.limpiarDatos();
   }
 
@@ -48,7 +49,6 @@ export class ReferidoComponent implements OnInit {
 
   limpiarDatos() {
     this.varReferido = new Referido();
-    this.referidos = new Array<Referido>();
     this.Nombre = new FormControl('', [Validators.required]);
     this.Parentesco = new FormControl('', [Validators.required]);
     this.Egresado = new FormControl('', [Validators.required]);
@@ -59,9 +59,6 @@ export class ReferidoComponent implements OnInit {
     console.log('Validacion referidos');
 
     var bandera: boolean = false;
-
-    console.log('Nombre ' + this.Nombre.value + "Egresado " + this.Egresado.value + "Correo " + this.Correo.value + "Celular "
-      + this.Celular.value + "Parentesco " + this.Parentesco.value);
 
     if (this.Nombre.value != '' && this.Egresado.value != '' && this.Correo.value != '' && this.Celular.value != ''
       && this.Parentesco.value != '') {
@@ -74,7 +71,7 @@ export class ReferidoComponent implements OnInit {
     return bandera;
   }
   referidoDatos() {
-    console.log('entro referido');
+    console.log('Referido datos');
     if (this.validarDatos()) {
       this.varReferido.nombres = this.Nombre.value;
       this.varReferido.parentesco = this.Parentesco.value;
@@ -93,6 +90,7 @@ export class ReferidoComponent implements OnInit {
 
       this.tituloInfo = "Solicitud exitosa";
       this.mensajeInfo = "Contacto agregado de manera exitosa.";
+      this.limpiarDatos();
     }
     this.mensaje();
   }
