@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { CompletarRegistro } from 'src/app/shared/modelos/completarRegistro';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { ExplaboralComponent } from '../explaboral/explaboral.component';
 import { ReferidoComponent } from '../referido/referido.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Referido } from 'src/app/shared/modelos/referido';
-import { Experiencia } from 'src/app/shared/modelos/experiencia';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 export interface DialogData {
@@ -21,15 +19,19 @@ export interface DialogData {
 })
 export class CompletarRegistroComponent implements OnInit {
   @ViewChild('referido') referido : ReferidoComponent;
+  @ViewChild('expAnterior') expAnterior : ExplaboralComponent;
+  @ViewChild('expActual') expActual : ExplaboralComponent;
 
   varCompletarRegistro : CompletarRegistro;
   //Trabajos anteriores
   haTrabajado = new FormControl('', [Validators.required]);
-  //Experiencias anteriores
-  experiencias = new Array<Experiencia>();
   //Trabajo actual
   Labora_Actualmente = new FormControl('', [Validators.required]);
-  
+
+  columnas : string[] = ['una','dos','tres'];
+  datosColumnas : string[] = ['1','2','3'];
+
+  //Mensajes de error o exito
   tituloInfo: string;
   mensajeInfo: string;
 
@@ -44,7 +46,6 @@ export class CompletarRegistroComponent implements OnInit {
   {
     this.varCompletarRegistro = new CompletarRegistro();
     this.haTrabajado = new FormControl('', [Validators.required]);
-    this.experiencias = new Array<Experiencia>();
     this.Labora_Actualmente = new FormControl('', [Validators.required]);
   }
 
@@ -55,6 +56,7 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.haTrabajado.value==0)
     {
       this.varCompletarRegistro.ha_trabajado = true;
+      this.varCompletarRegistro.expAnterior = this.expAnterior.experiencias;
     }
     else if(this.haTrabajado.value==1){
       this.varCompletarRegistro.ha_trabajado = false;
@@ -63,11 +65,12 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.Labora_Actualmente.value==0)
     {
       this.varCompletarRegistro.trabajo_actualmente = true;
+      this.varCompletarRegistro.expActual = this.expActual.experiencias;
     }
     else if(this.Labora_Actualmente.value==1){
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
-    this.varCompletarRegistro.experiencias = this.experiencias;
+    
     console.log("Metodo llenar: hatrabajado: "+
       this.varCompletarRegistro.ha_trabajado+"trabajoactual: "+this.varCompletarRegistro.trabajo_actualmente);
 
@@ -112,11 +115,6 @@ export class CompletarRegistroComponent implements OnInit {
     }
     console.log("titulo: "+this.tituloInfo+"mensaje: "+this.mensajeInfo);
     this.mensaje();
-  }
-  experiencia()
-  {
-    const dialogRef = this.dialog.open(ExplaboralComponent);
-    dialogRef.afterClosed().subscribe(result =>{this.experiencias.push(result)})
   }
   mensaje(){
     this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});

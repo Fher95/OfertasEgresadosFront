@@ -1,18 +1,14 @@
 mat-form-field{
-    margin-right: 20px;
+    margin-right: 15px;
     margin-left: 0px;
 }
 mat-label,mat-radio-button{
     margin-right: 20px;
 }
 .contacto{
-    width: 100%;
+    width: 60%;
     padding: 3%;
-    column-count: 2;
-}
-.contacto > *{
-    width: 100%;
 }
 button{
-    text-align:end;
+    text-align:center;
 }
