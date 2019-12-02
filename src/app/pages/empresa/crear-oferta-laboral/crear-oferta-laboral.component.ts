@@ -35,7 +35,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
   idiomas = []
   ubicaciones = []
   rangosSalariales = []
- 
+
 datosFormChecked: FormGroup;
   constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
     private servGenerales: GeneralesService,
@@ -295,6 +295,7 @@ datosFormChecked: FormGroup;
   }
   getRangosSalariales(moneda){
     this.empService.getRangoSalariales(moneda).subscribe(resultado => {
+      console.log(resultado)
       this.rangosSalariales = resultado;
     },
       error => {

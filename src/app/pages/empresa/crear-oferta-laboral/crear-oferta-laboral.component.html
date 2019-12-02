@@ -148,8 +148,8 @@
                                  <mat-form-field  floatLabel="auto" appearance="outline" >
                                      <mat-label>Rango salarial</mat-label>
                                         <mat-select formControlName="idRangoSalarial" required placeholder="Rango salarial">
-                                            <div *ngIf="formaPago == 'Moneda local || formaPago == 'US Dolar';else sinSeleccion">
-                                                <mat-option (onSelectionChange)="rangoSalarialSeccionado($event)" ngFor*="let rango of rangosSalariales" value="rango.id_aut_salario">{{rango}}</mat-option> 
+                                            <div *ngIf="formaPago == 'Moneda local' || formaPago == 'US Dolar';else sinSeleccion">
+                                                <mat-option (onSelectionChange)="rangoSalarialSeccionado($event)" *ngFor="let rango of rangosSalariales" [value]="rango.id_aut_salario">{{rango.rango}}</mat-option>
                                             </div>
                                             <ng-template #sinSeleccion>
                                                     <mat-option>No ha seleccioando una forma de pago</mat-option>
@@ -453,7 +453,8 @@
                                 <mat-form-field  floatLabel="auto" appearance="outline" >
                                     <mat-label>Licencia de conduccion</mat-label>
 
-                                    <mat-select formControlName="licenciaConduccion" required placeholder="Licencia de conduccion">
+                                    <mat-select formControlName="licenciaConduccion"  placeholder="Licencia de conduccion">
+                                            <mat-option value="Ninguna">Ninguna</mat-option>
                                             <mat-option value="A1">A1</mat-option>
                                             <mat-option value="A2">A2</mat-option>
                                             <mat-option value="B1">B1</mat-option>

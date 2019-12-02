@@ -1,14 +1,20 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Referido } from 'src/app/shared/modelos/referido';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, ErrorStateMatcher } from '@angular/material';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 import { Router } from '@angular/router';
 
 export interface DialogData {
   varTitulo: string;
   varMensaje: string;
+}
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
 }
 
 @Component({

@@ -1,73 +1,105 @@
-<form class="expLaboral">
-  <h1 mat-dialog-title class="titulo">EXPERIENCIA LABORAL</h1>
-  <div class="laborandoArea">
-    <mat-label>¿Labora en el área que se graduó?:</mat-label>
-    <mat-radio-group [formControl]="Labora_Area">
-      <mat-radio-button value="true">Si</mat-radio-button>
-      <mat-radio-button value="false">No</mat-radio-button>
-    </mat-radio-group>
-  </div>
-  <div class="categoriaLabor">
-    <mat-label>Categoria: </mat-label>
-    <mat-radio-group [formControl]="NombreCategoria">
-      <mat-radio-button value="empleado">Empleado</mat-radio-button>
-      <mat-radio-button value="independiente">Independiente</mat-radio-button>
-      <mat-radio-button value="empresario">Empresario</mat-radio-button>
-    </mat-radio-group>
-  </div>
-  <div class="datosLaboral">
-    <mat-form-field appearance="outline">
-      <mat-label>Nombre de la Empresa</mat-label>
-      <input matInput [formControl]="NombreEmpresa" required>
-    </mat-form-field>
+<mat-card class="expLaboral">
+  <mat-card-title>Agregar experiencia laboral</mat-card-title>
+  <form class="expLaboral">
+    <div class="row card-layout">
+      <div class="card-column-1">
+        <mat-label>¿Labora en el área que se graduó?:</mat-label>
+        <mat-radio-group [formControl]="Labora_Area" required>
+          <mat-radio-button value="true">Si</mat-radio-button>
+          <mat-radio-button value="false">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="card-column-2">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>¿Como?</mat-label>
+          <mat-select [formControl]="NombreCategoria" required>
+            <mat-option [value]="item" *ngFor="let item of categoria">{{item}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="NombreCategoria.hasError('required')">Por favor seleccionar la Categoria</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-3">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Nombre de la Empresa</mat-label>
+          <input matInput [formControl]="NombreEmpresa" required>
+          <mat-error *ngIf="NombreEmpresa.hasError('required')">Por favor ingresar el Nombre de la Empresa</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
     <app-localizacion #localizacionEmpresa></app-localizacion>
-    <mat-form-field appearance="outline">
-      <mat-label>Dirección de lugar de trabajo</mat-label> 
-      <input matInput [formControl]="DirTrabajo" required>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Teléfono lugar de trabajo</mat-label>
-      <input matInput [formControl]="TelTrabajo" required>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Cargo que desempeña</mat-label>
-      <input matInput [formControl]="Cargo" required>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Rango Salarial</mat-label>
-      <mat-select [formControl]="RangoSalario" required>
-        <mat-option [value] = "item" *ngFor="let item of rangoSalarial">{{item}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [min]="minDateN" [max]="maxDateN" [matDatepicker]="fechaI" [formControl]="fechaInicio" 
-        placeholder="Fecha Inicio de Labor" required>
-      <mat-datepicker-toggle matSuffix [for]="fechaI"></mat-datepicker-toggle>
-      <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [min]="minDateN" [max]="maxDateN" [matDatepicker]="fechaF" [formControl]="fechaFin" 
-        placeholder="Fecha Fin de Labor">
-      <mat-datepicker-toggle matSuffix [for]="fechaF"></mat-datepicker-toggle>
-      <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Tipo Contrato</mat-label>
-      <mat-select [formControl]="TipoContrato" required>
-        <mat-option [value] = "item" *ngFor="let item of tipoContrato">{{item}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Sector</mat-label>
-      <mat-select [formControl]="Sector" required>
-        <mat-option value = "publico">Publico</mat-option>
-        <mat-option value = "privado">Privado</mat-option>
-        <mat-option value = "mixto">Mixto</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancelar</button>
-    <button (click)="experienciaLaboralDatos()" mat-button [mat-dialog-close]="varExperiencia">Agregar</button>
-  </mat-dialog-actions>
-</form>
+    <div class="row card-layout">
+      <div class="card-column-1">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Dirección de lugar de trabajo</mat-label>
+          <input matInput [formControl]="DirTrabajo" required>
+          <mat-error *ngIf="DirTrabajo.hasError('required')">Por favor ingresar la Dirección del lugar de trabajo
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-2">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Teléfono lugar de trabajo</mat-label>
+          <input matInput [formControl]="TelTrabajo" required>
+          <mat-error *ngIf="TelTrabajo.hasError('required')">Por favor ingresar el Teléfono de lugar de trabajo
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-3">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Cargo que desempeña</mat-label>
+          <input matInput [formControl]="Cargo" required>
+          <mat-error *ngIf="Cargo.hasError('required')">Por favor ingresar el Cargo</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row card-layout">
+      <div class="card-column-1">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Rango Salarial</mat-label>
+          <mat-select [formControl]="RangoSalario" required>
+            <mat-option [value]="item" *ngFor="let item of rangoSalarial">{{item}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="RangoSalario.hasError('required')">Por favor seleccionar Rango Salarial</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-2">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Tipo Contrato</mat-label>
+          <mat-select [formControl]="TipoContrato" required>
+            <mat-option [value]="item" *ngFor="let item of tipoContrato">{{item}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="TipoContrato.hasError('required')">Por favor seleccionar Tipo de Contrato</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-3">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Sector</mat-label>
+          <mat-select [formControl]="Sector" required>
+            <mat-option value="publico">Publico</mat-option>
+            <mat-option value="privado">Privado</mat-option>
+            <mat-option value="mixto">Mixto</mat-option>
+          </mat-select>
+          <mat-error *ngIf="Sector.hasError('required')">Por favor seleccionar el Sector</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row card-layout">
+      <div class="card-column-1">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <input matInput [matDatepicker]="picker1" placeholder="Fecha Inicio" [formControl]="fechaInicio" required>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error *ngIf="fechaInicio.hasError('required')">Por favor seleccionar Fecha Inicio</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-2">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <input matInput [matDatepicker]="picker2" placeholder="Fecha Fin" [formControl]="fechaFin">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <button color="primary" (click)="experienciaLaboralDatos()" mat-raised-button>Agregar</button>
+  </form>
+</mat-card>

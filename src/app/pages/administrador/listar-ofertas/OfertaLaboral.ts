@@ -1,4 +1,4 @@
-import { ubicacion } from '../../empresa/crear-oferta-laboral/crear-oferta-laboral.component';
+//import { ubicacion } from '../../empresa/crear-oferta-laboral/crear-oferta-laboral.component';
 
 export class OfertaLaboral {
     id_aut_oferta: number;
