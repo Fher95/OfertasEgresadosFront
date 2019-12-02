@@ -21,10 +21,10 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 
 const routes: Routes = [
-  { path: 'egresados/pre-registro', component: PreRegistroComponent },
+  { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'egresados/completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
-  { path: 'egresados', component: InicioEgresadosComponent}
+  { path: 'completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
+  { path: '', component: InicioEgresadosComponent}
   //{ path: '**', component: InicioEgresadosComponent }
 ];
 
