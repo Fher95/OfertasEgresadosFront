@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormControl } from '@angular/forms';
+import { Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { FacultadInterface } from 'src/app/shared/modelos/facultadInterface';
 import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 import { ProgramaInterface } from 'src/app/shared/modelos/programaInteface';
 import { NivelesEstudioInterface } from 'src/app/shared/modelos/nivelesEstudioInterface';
 import { SedeInterface } from 'src/app/shared/modelos/sedeInterface';
+import { ErrorStateMatcher } from '@angular/material';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-programa',

@@ -56,7 +56,6 @@ const routes: Routes = [
     ConfirmarEmailService, RouterModule, AlertService, AuthGuard
   ],
   entryComponents: [
-    ExplaboralComponent,
     InfoDialogComponent,
   ],
 })
