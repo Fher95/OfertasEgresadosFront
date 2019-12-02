@@ -21,42 +21,12 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private fecha:String = this.dia+"/"+this.mes+"/"+this.anio
  
   constructor(private dialog: MatDialog,private catalogoService: CatalogosService,private router: Router) {
-    this.solicitudes = [
-      {
-        nombre: 'Edinsson Alberto',
-        apellido: 'López López',
-        correo: 'edinsson@gmail.com',
-        identificacion: 2,
-        fechaSolicitud: this.fecha,
-      },
-      {
-        nombre: 'Andres',
-        apellido: 'Gomes',
-        correo: 'andres@gmail.com',
-        identificacion: 8,
-        fechaSolicitud: this.fecha,
-      },
-      {
-        nombre: 'Maria',
-        apellido: 'Florez',
-        correo: 'maria@gmail.com',
-        identificacion: 5,
-        fechaSolicitud: this.fecha,
-      },
-      {
-        nombre: 'Juan',
-        apellido: 'Gimenez',
-        correo: 'gimenez@hotmail.com',
-        identificacion: 4,
-        fechaSolicitud: this.fecha,
-      },
-    ];
-
+    
   }
 
   ngOnInit() {
-    this.obtenerSolicitudes();
-    //this.obtenerSolicitudesCarnet()
+    //this.obtenerSolicitudes();
+    this.obtenerSolicitudesCarnet()
 
   }
 
@@ -71,14 +41,14 @@ export class SolicitudCarnetizacionComponent implements OnInit {
 
   }
 
-  private obtenerSolicitudes() {
+/*   private obtenerSolicitudes() {
     return this.solicitudes;
     
-  }
-
-/*   private obtenerSolicitudesCarnet(){
-    this.catalogoService.getSolicitudesCarnet().subscribe(data => this.solicitudes = data);
   } */
+
+  private obtenerSolicitudesCarnet(){
+    this.catalogoService.getSolicitudesCarnet().subscribe(data => this.solicitudes = data);
+  } 
 
   private aceptarSolicitud(egresado, index) {
     this.abrirDialogo();

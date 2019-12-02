@@ -18,7 +18,6 @@ import { AlertService } from './shared/servicios/common/alert.service';
 import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interceptor';
 import { AuthModule } from './pages/auth/auth.module';
 import { UserGuard } from './shared/guard/user.guard';
-import { EgresadosModule } from './pages/egresados/egresados.module';
 
 @NgModule({
   declarations: [

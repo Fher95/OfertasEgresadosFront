@@ -24,7 +24,7 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 
 const routes: Routes = [
-  { path: 'egresados/pre-registro', component: PreRegistroComponent },
+  { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
 
   { path: 'completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
