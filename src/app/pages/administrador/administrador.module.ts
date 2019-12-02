@@ -13,6 +13,8 @@ import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
 import {
   MatSidenavModule} from '@angular/material';
+import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const routes: Routes = [
   { path: 'admin/principal', component: PrincipalComponent }, 
@@ -22,15 +24,17 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent, SpinnerComponent, ListaEgresadosComponent, FileUploadComponent],
+  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent, SpinnerComponent, ListaEgresadosComponent, FileUploadComponent, InfoSolicitudEmpresaComponent],
   imports: [
     CommonModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
     RouterModule.forChild(routes), MatSidenavModule
   ],
+  entryComponents: [InfoSolicitudEmpresaComponent],
   exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent,
-     MatSidenavModule]
+     MatSidenavModule, MatDialogModule]
 })
 export class AdministradorModule { }
