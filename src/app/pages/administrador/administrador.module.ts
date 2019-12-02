@@ -12,16 +12,27 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista-egresados.component';
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
+import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component'
 
 const routes: Routes = [
   { path: 'admin/listar', component: PrincipalComponent }, 
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'admin/ofertas', component: ListarOfertasComponent},
   { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
+  { path: 'admin/egresados/ajustes', component: AjustesAdministradorComponent},
 ];
 
 @NgModule({
-  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent, SpinnerComponent, ListaEgresadosComponent, FileUploadComponent],
+  declarations: [ListarSolicitudesEmpresaComponent, 
+    PrincipalComponent,
+     ListarOfertasComponent, 
+     VerificarExcelComponent, 
+     ListarEgresadosAceptadosComponent, 
+     SpinnerComponent, 
+     ListaEgresadosComponent, 
+     FileUploadComponent,
+     AjustesAdministradorComponent
+    ],
   imports: [
     CommonModule,
     LayoutModule,
