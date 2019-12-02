@@ -1,0 +1,7 @@
+.comentario{
+    display: flex;
+    flex-direction: column;
+}
+mat-radio-button{
+    margin-right: 20px;
+}

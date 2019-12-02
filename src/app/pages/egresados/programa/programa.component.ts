@@ -58,6 +58,6 @@ export class ProgramaComponent implements OnInit {
   }
 
   obtenerPrograma(){
-    this.catalogoService.getPrograma(this.Facultad.value,this.Sede.value,this.NivelAcademico.value).subscribe(data => this.programas = data);
+    this.catalogoService.getPrograma(this.Sede.value,this.Facultad.value,this.NivelAcademico.value).subscribe(data => this.programas = data);
   }
 }
