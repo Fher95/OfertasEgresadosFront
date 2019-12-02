@@ -45,10 +45,6 @@ export class ProgramaComponent implements OnInit {
     this.catalogoService.getNivelEducativo().subscribe(data => this.nivelAcade = data);
   }
 
-  obtenerNivelAcademico(){
-    this.catalogoService.getNivelAcademico().subscribe(data => this.nivelAcade = data);
-  }
-
   obtenerSedes(){
     this.catalogoService.getSede().subscribe(data => this.sedes = data);
   }
