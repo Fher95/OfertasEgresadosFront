@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrarComponent } from './registrar/registrar.component';
 import { MaterialModule } from 'src/app/layout/material/material.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DatosEmpresaComponent } from './datosEmpresa/datos-empresa/datos-empresa.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     MaterialModule,
+    MatProgressSpinnerModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,

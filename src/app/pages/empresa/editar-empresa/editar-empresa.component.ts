@@ -1,12 +1,13 @@
-import { Component, OnInit ,Inject} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ISector } from '../../../shared/modelos/sectorInterface'
 import { ISubSector } from '../../../shared/modelos/subSectorInterface'
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import { ICargo } from 'src/app/shared/modelos/cargoInterface';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 export interface DialogData {
   animal: string;
@@ -18,6 +19,7 @@ export interface DialogData {
   styleUrls: ['./editar-empresa.component.css']
 })
 export class EditarEmpresaComponent implements OnInit {
+  showSpinner = true;
   textoModal:String;
   sectores: ISector[] =[]
   emailInicial:String ;
@@ -40,11 +42,11 @@ export class EditarEmpresaComponent implements OnInit {
     private servGenerales: GeneralesService,
     private formBuilder: FormBuilder,
     private empService: EmpresaService,
-    private matDialog: MatDialog,
     private router: Router,
     private empresaService : EmpresaService,
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
+    private alert: AlertService
 
   ) {
     this.cargos = [ ];
@@ -147,8 +149,14 @@ export class EditarEmpresaComponent implements OnInit {
         (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
       this.cargarSectoresInteres();
+      this.showSpinner = false;
     }),
-    error => console.log(error);
+    error =>{
+    console.log(error);
+    this.showSpinner = false;
+    this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde")
+
+  }
   }
 
 
@@ -163,7 +171,6 @@ cargarSectoresInteres() {
     this.sectoresInteresEmpresa = resultado;
     let infoSectores:any[];
         infoSectores = this.formDatosEmpresa.controls['sectores'].get('subsectores').value;
-        console.log(this.sectoresInteresEmpresa);
           for (let i = 0; i < infoSectores.length; i++) {
             for(let j=0; j< this.sectoresInteresEmpresa.length;j++){
             if(infoSectores[i].nombre ==  this.sectoresInteresEmpresa[j].Nombre)
@@ -177,7 +184,6 @@ cargarSectoresInteres() {
 
                 this.sectoresInteresEmpresa[j].subSectores.splice(posSubSector, 1);
                 //Se el subsector a la lista de escogidos
-                console.log(subSector)
                 this.subSecEscogidos.push(subSector);
                 //Se actualiza el valor del formControl
                 this.formDatosEmpresa.controls['sectores'].get('subsectores').setValue(this.formatSectoresEscogidos());
@@ -188,6 +194,8 @@ cargarSectoresInteres() {
         }
   },
     error => {
+      this.showSpinner = false;
+      this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
       console.log("Error al obtener los Sectores: ", JSON.stringify(error));
     });
 }
@@ -202,7 +210,10 @@ cargarCargos() {
     this.cargos = resultado;
   },
     error => {
-      console.log("Error al obtener los Sectores: ", JSON.stringify(error));
+      this.showSpinner = false;
+      this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
+    
+      console.log("Error al obtener los cargos: ", JSON.stringify(error));
     });
 }
  /**
@@ -215,7 +226,6 @@ cargarCargos() {
  * @param  subSector  objeto subSector que contiene { idSector: number; nombre: string; }
  */
  eliminarSubSectorEscogido(subSector: ISubSector) {
-   console.log(subSector);
    //Se busca en la lista de escogidos
    let posSubSector = this.subSecEscogidos.indexOf(subSector);
    //Se elimina en la lista de escogidos
@@ -283,31 +293,20 @@ sectorValidator(control: FormControl) {
 
 
   modificarEmpresa(formulario) {
-
-    document.getElementById('buttonModal').click();
     if(formulario.status != 'INVALID'){
       this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
-        this.textoModal = 'Se han modificado los datos con exito'
+        this.alert.showSuccesMessage('Exito','Se ha modificado la empresa exitosamente')
+        .then((value) => {
+          this.router.navigate(['empresa/'+this.id+'/datosEmpresa']);
+        });
       },
         errorRegistro => {
-          this.mensajesError = [];
-          this.textoModal = 'Error en el servidor'
+          this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
           console.log(errorRegistro);
-          console.log(errorRegistro.error);
-          // Obteniendo todas las claves del JSON
-          for (var clave in errorRegistro.error) {
-            // Controlando que json realmente tenga esa propiedad
-            if (errorRegistro.error.hasOwnProperty(clave)) {
-              // Mostrando en pantalla la clave junto a su valor
-              this.mensajesError = errorRegistro.error[clave];
-            }
-          }
         });
     }
     else{
-      this.textoModal = 'Hay campos invalidos en el formulario, Por favor modificarlos para continuar'
-
-      //this.router.navigate(['/empresa/1/datosEmpresa']);
+      this.alert.showErrorMessage('Datos incorrectos','Por favor verique que todos los datos esten ingresados correctamente')
     }
   }
   /**
@@ -330,7 +329,6 @@ sectorValidator(control: FormControl) {
           }
           else{
           this.empService.validarEmail(control.value).subscribe((res) => {
-            console.log(res)
             if (res == 'Correcto') {
               resolve(null);
             }
@@ -339,7 +337,6 @@ sectorValidator(control: FormControl) {
             }
           }, (err) => {
             resolve({ 'EmailExiste': true });
-            console.log(err);
           });}
         }, 10);
       }
@@ -396,36 +393,7 @@ sectorValidator(control: FormControl) {
     this.router.navigate([url]);
    }
 
-   aceptarModal(){
-     if(this.textoModal == 'Se han modificado los datos con exito'){
-        this.router.navigate(['empresa/'+this.id+'/datosEmpresa']);
-     }
-   }
-  openDialog(): void {
-    const dialogRef = this.dialog.open(Dialog, {
-      width: '250px',
-      height: '500px',
-      data: {name: 'a', animal: 'a'}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
+ 
+ 
 }
 
-@Component({
-  selector: 'dialog',
-  templateUrl: 'dialog.html',
-})
-export class Dialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<Dialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-}

@@ -5,6 +5,7 @@ import { DialogInfoOfertaComponent } from '../dialog-info-oferta/dialog-info-ofe
 import { MatDialog } from '@angular/material';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
 
 datosFormChecked: FormGroup;
   constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
-    private servGenerales: GeneralesService,
+    private servGenerales: GeneralesService,    private alert: AlertService,
     private empService: EmpresaService,    private router: Router,
     ) {
       this.datosFormChecked = this.formBuilder.group({
@@ -135,6 +136,7 @@ datosFormChecked: FormGroup;
       console.log(this.cargos)
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los cargos: ", JSON.stringify(error));
       });
   }
@@ -143,6 +145,7 @@ datosFormChecked: FormGroup;
     this.areas = resultado;
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los cargos: ", JSON.stringify(error));
       });
   }
@@ -151,6 +154,7 @@ datosFormChecked: FormGroup;
       this.sectores = resultado;
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los sectores: ", JSON.stringify(error));
       });
   }
@@ -159,6 +163,7 @@ datosFormChecked: FormGroup;
       this.programas = resultado;
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los programas: ", JSON.stringify(error));
       });
   }
@@ -167,6 +172,7 @@ datosFormChecked: FormGroup;
       this.idiomas = resultado;
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los idiomas: ", JSON.stringify(error));
       });
   }
@@ -176,6 +182,7 @@ datosFormChecked: FormGroup;
       this.discapacidades = resultado;
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener las discapacidades: ", JSON.stringify(error));
       });
   }
@@ -186,6 +193,7 @@ datosFormChecked: FormGroup;
       this.ubicaciones = resultado;
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener las ubicaciones: ", JSON.stringify(error));
       });
   }
@@ -195,6 +203,7 @@ datosFormChecked: FormGroup;
      //IMPLEMENTAR
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los datos de contacto: ", JSON.stringify(error));
       });
   }
@@ -299,6 +308,7 @@ datosFormChecked: FormGroup;
       this.rangosSalariales = resultado;
     },
       error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Intentelo de nuevo");
         console.log("Error al obtener las discapacidades: ", JSON.stringify(error));
       });
   }
@@ -319,7 +329,7 @@ datosFormChecked: FormGroup;
     }
     else
     {
-      alert('Datos incorrectos')
+      this.alert.showErrorMessage('Datos incorrectos','Por favor verique que todos los datos esten ingresados correctamente')
     }
   }
 
@@ -337,11 +347,14 @@ datosFormChecked: FormGroup;
     dialogRef.afterClosed().subscribe(result => {
         if(result) {
           this.empService.crearOfertaLaboral(this.id,datos).subscribe(resultado => {
-            console.log(resultado)
-            alert("vamo bocaaaa")
+            this.alert.showSuccesMessage('Exito','Se ha creado la oferta exitosamente')
+            .then((value) => {
+              this.router.navigate(['empresa/'+this.id+'/misOfertas']);
+            });
           },
             error => {
-              console.log("Error al obtener las discapacidades: ", JSON.stringify(error));
+              this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde")
+              console.log("Error al crear la oferta: ", JSON.stringify(error));
             });
         }
     });

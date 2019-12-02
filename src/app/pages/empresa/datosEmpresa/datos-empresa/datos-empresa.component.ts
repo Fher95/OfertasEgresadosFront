@@ -3,6 +3,7 @@ import { FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-datos-empresa',
@@ -14,14 +15,14 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 export class DatosEmpresaComponent implements OnInit {
 
   id: string;
-  data = 'danielfer@unicauca.edu.co';
-   formRegistroEmp: FormGroup;
+  showSpinner = true;
+  data:any;
+  formRegistroEmp: FormGroup;
 
-  sectores: any = [
-    { "nombre": "Estatal y Relacionados", "subSectores": [{ "idSector": 0, "nombre": "Medio ambiente" }, { "idSector": 0, "nombre": "Minas y Energia" }] },
-    { "nombre": "Alimentos", "subSectores": [{ "idSector": 1, "nombre": "Azúcar" }] }]
-
-  constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, private router: Router, private activatedRoute: ActivatedRoute) {
+ 
+  constructor(private formBuilder: FormBuilder, private empresaService : EmpresaService, 
+    private router: Router, private activatedRoute: ActivatedRoute,private alert: AlertService
+    ) {
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: [{value: '', disabled:true} ],
@@ -77,7 +78,6 @@ export class DatosEmpresaComponent implements OnInit {
      this.empresaService.getDatos(this.id)
     .subscribe(data => {
       this.data = data;
-      console.log(data);
       // obtener la data y pasarla al form
       this.formRegistroEmp.controls['datos-cuenta'].get('email').setValue(data.administrador.user.email);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('nit').setValue(data.nit);
@@ -86,7 +86,6 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-generales-empresa'].get('anioCreacion').setValue(data.anio_creacion);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('numEmpleados').setValue(data.numero_empleados);
       this.formRegistroEmp.controls['datos-generales-empresa'].get('ingresosEmp').setValue(data.ingresos);
-      console.log(data)
       this.formRegistroEmp.controls['datos-generales-empresa'].get('descripcionEmpresa').setValue(data.descripcion);
       this.formRegistroEmp.controls['sectores'].get('sectores').setValue(data.sectores);
       this.formRegistroEmp.controls['loc-contact-empresa'].get('paisEmp').setValue(data.direccion.ciudad.departamento.pais.nombre);
@@ -110,56 +109,11 @@ export class DatosEmpresaComponent implements OnInit {
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('direccionTrabajo').setValue(data.administrador.direccion.direccion);
       this.formRegistroEmp.controls['datos-resp-cuenta-empresa'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
+      this.showSpinner = false;
     }),
     error => console.log(error);
-
-   /*
-    this.formRegistroEmp = this.formBuilder.group({
-      'datos-cuenta': this.formBuilder.group({
-        email: [{value: this.data, disabled:true} ],
-      }),
-      'datos-generales-empresa': this.formBuilder.group({
-        nit: [{value: this.data, disabled:true}],
-        razonSocial: [{value: this.data, disabled:true} ],
-        nombreEmpresa: [{value: this.data, disabled:true}],
-        anioCreacion: [{value: this.data, disabled:true}],
-        numEmpleados: [{value: this.data, disabled:true}],
-        ingresosEmp: [{value: this.data, disabled:true}],
-        descripcionEmpresa: [{value: this.data, disabled:true}],
-      }),
-      'sectores': this.formBuilder.group({
-        sectores: [{value: this.sectores, disabled:true}],
-      }),
-      'loc-contact-empresa': this.formBuilder.group({
-        paisEmp: [{value: this.data, disabled:true}],
-        departamentoEmp: [{value: this.data, disabled:true}],
-        ciudadEmp: [{value: this.data, disabled:true}],
-        direccionEmp: [{value: this.data, disabled:true}],
-        barrioEmp: [{value: this.data, disabled:true}],
-        codigoPostalEmp: [{value: this.data, disabled:true}],
-        telefonoEmp: [{value: this.data, disabled:true}],
-        emailEmp: [{value: this.data, disabled:true}],
-        sitioWebEmp: [{value: this.data, disabled:true}]
-      }),
-      'datos-resp-legal':this.formBuilder.group({
-        nombreRespLegal: [{value: this.data, disabled:true}],
-        apellidoRespLegal: [{value: this.data, disabled:true}],
-        telefonoFijoRespLegal: [{value: this.data, disabled:true}],
-        telefonoMovilRespLegal: [{value: this.data, disabled:true}],
-      }),
-      'datos-resp-cuenta-empresa': this.formBuilder.group({
-        nombreResp: [{value: this.data, disabled:true}],
-        apellidoResp: [{value: this.data, disabled:true}],
-        cargo: [{value: this.data, disabled:true}], //se recibe de la base de datos
-        telefonoResp: [{value: this.data, disabled:true}],
-        telefonoMovilResp: [{value: this.data, disabled:true}],
-        horarioContacto: [{value: this.data, disabled:true}],
-        direccionTrabajo: [{value: this.data, disabled:true}],
-        emailCorpResp: [{value: this.data, disabled:true}]
-      })
-    });
-    console.log(this.formRegistroEmp.get('sectores').value.sectores);
-    */
+    this.showSpinner = false;
+    this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
   }
 
   modificarFoto(event){

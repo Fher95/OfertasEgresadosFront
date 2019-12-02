@@ -1,5 +1,13 @@
 <app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
+<div class="overlay" *ngIf="showSpinner">
+    <div class="center">
+        <mat-progress-spinner diameter=50 
+                              mode="indeterminate" 
+                             >
+        </mat-progress-spinner> 
+    </div>
+</div>
 <div class="container-fluid">
   <form [formGroup]="formRegistroEmp">
       <div class="row mt-4">
