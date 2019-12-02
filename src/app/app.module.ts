@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -50,3 +51,4 @@ import { EgresadosModule } from './pages/egresados/egresados.module';
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+

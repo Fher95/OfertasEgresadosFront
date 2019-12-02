@@ -9,8 +9,8 @@
     left: 0;
     bottom: 0;    
     background: url("/assets/img/bandera.png") no-repeat;
-    width: 206px;
-    height: 95px;
+    width: 150px;
+    height: 100px;
     z-index: 0;
 }
 
@@ -25,25 +25,14 @@
     flex-direction: column;
     background-color: #fff;
     padding: 5% 5% 5% 5%;
-    box-shadow: 5px 4px 12px rgb(73, 73, 73);
+    box-shadow: 0px 0px 3px grey;
 }
+
+
 
 #form {
     display: flex;
     flex-direction: column;
-}
-
-#title {
-    text-align: center;
-    color: #0A266F;
-    font-weight: bold;
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: 10%;
-    font-size: 200%;
-}
-
-#labelCheck {
-    color: rgb(83, 83, 83);
 }
 
 #msgError {
@@ -67,3 +56,16 @@
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
 }
+.titulo{
+    margin: 0 auto;
+    text-align: center;
+    
+}
+
+.botonesStepper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
