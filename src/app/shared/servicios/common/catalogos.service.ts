@@ -53,8 +53,6 @@ export class CatalogosService {
     return this.http.get<ProgramaInterface[]>(`${baseUrl}programas/${idSede}/${idFacultad}/${idNivelEstudio}`);
   }
 
-
-
   getDiscapacidad(): Observable<DiscapacidadInterface[]>{
     return this.http.get<DiscapacidadInterface[]>(`${baseUrl}discapacidades`);
   }
