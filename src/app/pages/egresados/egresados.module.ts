@@ -46,7 +46,6 @@ const routes: Routes = [
     LocalizacionComponent,
     NavEgresadosComponent,
     FooterEgresadosComponent,
-
     ComentariosComponent,
     ExplaboralComponent,
     ReferidoComponent

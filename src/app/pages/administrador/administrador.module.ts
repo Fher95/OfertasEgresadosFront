@@ -13,6 +13,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista-egresados.component';
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
 import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component'
+import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solicitud-carnetizacion.component';
 
 const routes: Routes = [
   { path: 'admin/listar', component: PrincipalComponent }, 
@@ -31,7 +32,8 @@ const routes: Routes = [
      SpinnerComponent, 
      ListaEgresadosComponent, 
      FileUploadComponent,
-     AjustesAdministradorComponent
+     AjustesAdministradorComponent,
+     SolicitudCarnetizacionComponent
     ],
   imports: [
     CommonModule,
