@@ -313,6 +313,7 @@ datosFormChecked: FormGroup;
     }
     this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(idsCiudades)
     if(form.status !== "INVALID"){
+      console.log(form.value)
       this.openDialog(form.value)
     }
     else
