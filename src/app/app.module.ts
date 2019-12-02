@@ -18,11 +18,15 @@ import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interce
 import { AuthModule } from './pages/auth/auth.module';
 import { UserGuard } from './shared/guard/user.guard';
 import { EgresadosModule } from './pages/egresados/egresados.module';
+import { AjustesAdministradorComponent } from './pages/administrador/ajustes-administrador/ajustes-administrador.component';
+import { SolicitudCarnetizacionComponent } from './pages/administrador/solicitud-carnetizacion/solicitud-carnetizacion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeOfertasComponent
+    HomeOfertasComponent,
+    AjustesAdministradorComponent,
+    SolicitudCarnetizacionComponent
   ],
   imports: [
     EgresadosModule,

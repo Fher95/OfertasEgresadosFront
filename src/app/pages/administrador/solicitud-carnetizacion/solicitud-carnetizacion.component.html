@@ -1,0 +1,44 @@
+<div id="base">
+  <h2>Solicitudes</h2>
+  <hr>
+  <p class="info-count">{{obtenerInformacionMensaje()}}</p>
+  <div class="panel" *ngFor="let solicitud of solicitudes; let index = index">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="item-name">{{obtenerNombreCorto(solicitud.nombre, solicitud.apellido)}}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row no-gutters">
+          <div class="col-12 col-md-6">
+            <div class="info">
+              <div class="data">
+                <p class="item-name">Nombre Completo:</p>
+                <p class="item-data"> {{solicitud.nombre}} {{solicitud.apellido}}</p>
+              </div>
+              <div class="data">
+                <p class="item-name">Correo:</p>
+                <p class="item-data"> {{solicitud.correo}}</p>
+              </div>
+              <div class="data">
+                <p class="item-name">Identificación:</p>
+                <p class="item-data"> {{solicitud.identificacion}}</p>
+              </div>
+              <div class="data">
+                  <p class="item-name">Fecha Solicitud:</p>
+                  <p class="item-data"> {{solicitud.fechaSolicitud}}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-end no-gutters">
+          <div class="col-6 col-md-2">
+            <button class="btnRefuse" (click)="cancelarSolicitud(solicitud, index)">Rechazar</button>
+          </div>
+          <div class=" col-6 col-md-2">
+            <button class="btnAccept" (click)="aceptarSolicitud(solicitud, index)">Aceptar</button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

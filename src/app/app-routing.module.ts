@@ -20,6 +20,9 @@ import { VerPostuladosComponent } from './pages/empresa/ver-postulados/ver-postu
 import { LoginComponent } from './pages/auth/login/login.component';
 import { LogoutComponent } from './pages/auth/logout/logout.component';
 import { UserGuard } from './shared/guard/user.guard';
+import { AjustesAdministradorComponent } from './pages/administrador/ajustes-administrador/ajustes-administrador.component';
+import { SolicitudCarnetizacionComponent } from './pages/administrador/solicitud-carnetizacion/solicitud-carnetizacion.component';
+
 
 
 const routes: Routes = [
@@ -38,6 +41,7 @@ const routes: Routes = [
   { path: 'empresa/:id/misPostulados', component: VerPostuladosComponent},
   { path: 'admin/ofertas', component: ListarOfertasComponent},
   { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
+  { path: 'admin/egresados/ajustes', component: AjustesAdministradorComponent},
   //{ path: 'egresados', component: InicioEgresadosComponent},
   //{ path: 'egresados/completarRegistro', component: CompletarRegistroComponent},
   //{ path: 'egresados/actualizacion', component: ActualizarComponent},

@@ -9,6 +9,7 @@ import { ProgramaInterface } from '../../modelos/programaInteface';
 import { DiscapacidadInterface } from '../../modelos/discapacidadInterface';
 import { NivelesEstudioInterface } from '../../modelos/nivelesEstudioInterface';
 import { SedeInterface } from '../../modelos/sedeInterface';
+import { SolicitudInterface } from '../../modelos/solicitudeInterface';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -51,6 +52,14 @@ export class CatalogosService {
 
   getDiscapacidad(): Observable<DiscapacidadInterface[]>{
     return this.http.get<DiscapacidadInterface[]>(`${baseUrl}discapacidades`);
+  }
+
+  getSolicitudesCarnet(): Observable<SolicitudInterface[]>{
+    return this.http.get<SolicitudInterface[]>(`${baseUrl}getAll`);
+  }
+
+  getCarnetizacion(idEgreado: number): Observable<SolicitudInterface[]>{
+    return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
 
 }
