@@ -1,4 +1,5 @@
-
+import { ApoyoService } from './../../shared/servicios/egresados/apoyo.service';
+import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,29 +13,37 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista-egresados.component';
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
+import { GestionApoyosComponent } from './gestion-apoyos/gestion-apoyos.component';
+import { ListaApoyoComponent } from './gestion-apoyos/lista-apoyo/lista-apoyo.component';
+import { DialogoEditarComponent } from './gestion-apoyos/dialogo-editar/dialogo-editar.component';
 import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component'
 import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solicitud-carnetizacion.component';
 
 const routes: Routes = [
-  { path: 'admin/listar', component: PrincipalComponent }, 
+  { path: 'admin/listar', component: PrincipalComponent },
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
-  { path: 'admin/ofertas', component: ListarOfertasComponent},
-  { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
-  { path: 'admin/egresados/ajustes', component: AjustesAdministradorComponent},
+  { path: 'admin/ofertas', component: ListarOfertasComponent },
+  { path: 'egresados/verificar', component: VerificarExcelComponent },
+  { path: 'admin/egresados/ajustes', component: AjustesAdministradorComponent },
+  { path: 'apoyos', component: GestionApoyosComponent }
 ];
 
 @NgModule({
-  declarations: [ListarSolicitudesEmpresaComponent, 
+  declarations: [
+    ListarSolicitudesEmpresaComponent,
     PrincipalComponent,
-     ListarOfertasComponent, 
-     VerificarExcelComponent, 
-     ListarEgresadosAceptadosComponent, 
-     SpinnerComponent, 
-     ListaEgresadosComponent, 
-     FileUploadComponent,
-     AjustesAdministradorComponent,
-     SolicitudCarnetizacionComponent
-    ],
+    ListarOfertasComponent,
+    VerificarExcelComponent,
+    ListarEgresadosAceptadosComponent,
+    SpinnerComponent,
+    ListaEgresadosComponent,
+    FileUploadComponent,
+    GestionApoyosComponent,
+    ListaApoyoComponent,
+    DialogoEditarComponent,
+    AjustesAdministradorComponent,
+    SolicitudCarnetizacionComponent
+  ],
   imports: [
     CommonModule,
     LayoutModule,
@@ -42,7 +51,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent]
+  entryComponents: [DialogoEditarComponent],
+  exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent],
+  providers: [CatalogosService, ApoyoService]
 })
 export class AdministradorModule { }
-

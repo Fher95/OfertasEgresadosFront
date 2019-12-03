@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,11 +17,12 @@ import { AlertService } from './shared/servicios/common/alert.service';
 import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interceptor';
 import { AuthModule } from './pages/auth/auth.module';
 import { UserGuard } from './shared/guard/user.guard';
+import { EgresadosModule } from './pages/egresados/egresados.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeOfertasComponent,
+    HomeOfertasComponent
   ],
   imports: [
     EmpresaModule,
@@ -50,4 +50,3 @@ import { UserGuard } from './shared/guard/user.guard';
   bootstrap: [AppComponent],
 })
 export class AppModule { }
-
