@@ -63,7 +63,6 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   }
 
   private cancelarSolicitud(egresado, index) {
-
     this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
         this.solicitudesCanceladas.push(egresado);

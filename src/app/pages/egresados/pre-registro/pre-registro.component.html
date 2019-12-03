@@ -131,12 +131,12 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Info. Academica</ng-template>
-            <mat-radio-group name="nivel_academico" [formControl]="nivelAFormControl" required>
+            <mat-radio-group name="nivel_estudio" [formControl]="nivelAFormControl" required>
               <h5>Nivel Academico*</h5>
               <mat-error *ngIf="nivelAFormControl.hasError('required')">Por favor selecionar una opción</mat-error>
-              <mat-radio-button *ngFor="let nivel_academico of niveles_academicos"
-                [value]="nivel_academico.id_aut_nivprogra">
-                {{nivel_academico.nombre}}
+              <mat-radio-button *ngFor="let nivel_estudio of niveles_academicos"
+                [value]="nivel_estudio.id_aut_estudio">
+                {{nivel_estudio.nombre}}
               </mat-radio-button>
             </mat-radio-group>
             <div class="row">
