@@ -4,8 +4,12 @@ import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { isNull } from 'util';
 import { ListarOfertasService } from './listar-ofertas.service';
+import { InfoOfertaLaboralComponent } from '../info-oferta-laboral/info-oferta-laboral.component';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-
+export interface DialogData {
+  oferta: OfertaLaboral;
+}
 
 @Component({
   selector: 'app-listar-ofertas',
@@ -25,7 +29,8 @@ export class ListarOfertasComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
-    private servicioOfertas: ListarOfertasService
+    private servicioOfertas: ListarOfertasService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -67,6 +72,7 @@ export class ListarOfertasComponent implements OnInit {
       }
     }
     console.log(this.ofertaSeleccionada);
+    this.openDialog();
   }
 
   aprobarEmpresa(parOferta: OfertaLaboral): void {
@@ -80,7 +86,7 @@ export class ListarOfertasComponent implements OnInit {
   }
   desaprobarEmpresa(parOferta: OfertaLaboral): void {
     if (OfertaLaboral != null) {
-      this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta, this.motivoInactivacion )
+      this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta, this.motivoInactivacion)
         .subscribe(result => {
           console.log(result);
           this.getOfertas();
@@ -109,7 +115,7 @@ export class ListarOfertasComponent implements OnInit {
       return strAreas;
     }
   }
-  getStrUbicaciones(parUbicaciones: Ubicacion[]){
+  getStrUbicaciones(parUbicaciones: Ubicacion[]) {
     if (parUbicaciones === null || parUbicaciones.length === 0) {
       return 'No especificado';
     } else {
@@ -128,23 +134,41 @@ export class ListarOfertasComponent implements OnInit {
   guardarCambio() {
     if (this.estadoActivacion === 'Aceptada') {
       this.servicioOfertas.aprobarOferta(this.ofertaSeleccionada.id_aut_oferta)
-      .subscribe(result => {
-        this.getOfertas();
-      });
+        .subscribe(result => {
+          this.getOfertas();
+        });
     } else if (this.estadoActivacion === 'Rechazada') {
       this.servicioOfertas.desaprobarOferta(this.ofertaSeleccionada.id_aut_oferta, this.motivoInactivacion)
-      .subscribe(result => {
-        this.getOfertas();
-      });
+        .subscribe(result => {
+          this.getOfertas();
+        });
     }
 
   }
 
-  getSalario(parSalario: string): string{
+  getSalario(parSalario: string): string {
     const salarioSinSigno = parSalario.replace('$', '');
     const numSalario = +salarioSinSigno;
     const strNumero = '$' + numSalario.toLocaleString();
     return strNumero;
+  }
+
+  openDialog() {
+    const dial = this.dialog.open(InfoOfertaLaboralComponent, {
+      data: {
+        oferta: this.ofertaSeleccionada
+      },
+      width: '40vw'
+    });
+    this.dialogAbierto(dial);
+  }
+  dialogAbierto(dial: MatDialogRef<InfoOfertaLaboralComponent, any>) {
+    dial.afterClosed().subscribe((result) => {
+      if (this.servicioOfertas.cambioRegistrado()) {
+        this.getOfertas();
+        this.servicioOfertas.cambioActualizado();
+      }
+    });
   }
 
 }
