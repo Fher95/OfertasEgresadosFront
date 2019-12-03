@@ -4,17 +4,14 @@ mat-card{
     margin: auto;
     box-shadow: 0px 0px 3px grey;
 }
-
 .titulo{
     margin: 0 auto;
     text-align: center;
 }
-
 form{
     display: flex;
     flex-direction: column;
 }
-
 mat-select{
     display:inline-block;
     flex-direction: column;
@@ -24,20 +21,11 @@ mat-form-field{
     margin-right: 20px;
     margin-left: 0px;
 }
-
 mat-label, mat-radio-button{
     margin-right: 20px;
 }
-
-/* Botones */
-.btnCompletar
-{
-    left: 90px;
+button{
     text-align: end;
-}
-
-.btnExp
-{
-    text-align: end;
-    left: 80px;  
+    margin-left: 20px;
+    top:20px;
 }

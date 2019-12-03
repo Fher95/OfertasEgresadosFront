@@ -1,29 +1,49 @@
-<form class="contacto" >
-  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-    <mat-label>Nombre</mat-label>
-    <input matInput [formControl]="Nombre" required>
-  </mat-form-field>
-  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-    <mat-label>Parentesco</mat-label>
-    <mat-select [formControl]="Parentesco" required>     
-      <mat-option [value] = "item" *ngFor="let item of listaParentesco">{{item}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-    <mat-label>Correo electronico </mat-label>
-    <input matInput type="email" [formControl]="Correo" required>
-  </mat-form-field>     
-  <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-    <mat-label>Teléfono/Celular</mat-label>
-    <input matInput [formControl]="Celular" required>
-  </mat-form-field>
-  <div class="egresadoUnicauca">
+<mat-card class="refPersonal">
+  <mat-card-title>Agregar referencia personal</mat-card-title>
+  <form class="contacto">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput [formControl]="Nombre" required>
+          <mat-error *ngIf="Nombre.hasError('required')">Por favor ingresar el Nombre </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Parentesco</mat-label>
+          <mat-select [formControl]="Parentesco" required>
+            <mat-option [value]="item" *ngFor="let item of listaParentesco">{{item}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="Parentesco.hasError('required')">Por favor seleccionar el Parentesco </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Correo electronico </mat-label>
+          <input matInput type="email" [formControl]="Correo" required>
+          <mat-error *ngIf="Correo.hasError('required')">Por favor ingresar el Correo Electronico</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Teléfono/Celular</mat-label>
+          <input matInput [formControl]="Celular" required>
+          <mat-error *ngIf="Celular.hasError('required')">Por favor ingresar el Celular </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
     <mat-label>¿Es egresado de la Universidad del Cauca?: </mat-label>
     <mat-radio-group [formControl]="Egresado" required>
       <mat-radio-button value=0>Si</mat-radio-button>
       <mat-radio-button value=1>No</mat-radio-button>
     </mat-radio-group>
-  </div>
-  <app-programa *ngIf="Egresado.value=='0'" #programa></app-programa>
-  <button id="agregar" (click)="referidoDatos()" mat-raised-button>Agregar</button>
-</form>
+    <app-programa *ngIf="Egresado.value=='0'" #programa></app-programa>
+    <div class="row">
+      <button id="cancelar" (click)="limpiarDatos()" mat-raised-button>Cancelar</button>
+      <button color="primary" id="agregar" (click)="referidoDatos()" mat-raised-button>Agregar</button>
+    </div>
+  </form>
+</mat-card>

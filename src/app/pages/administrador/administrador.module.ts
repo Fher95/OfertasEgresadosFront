@@ -1,3 +1,4 @@
+
 import { SpinnerComponent } from './spinner/spinner.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,30 +12,43 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista-egresados.component';
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
+import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component'
+import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solicitud-carnetizacion.component';
 import {
   MatSidenavModule} from '@angular/material';
 import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
-import {MatDialogModule} from '@angular/material/dialog';
 
 const routes: Routes = [
   { path: 'admin/principal', component: PrincipalComponent }, 
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'admin/ofertas', component: ListarOfertasComponent},
-  { path: 'admin/egresados/verificar', component: VerificarExcelComponent},  
+  { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
+  { path: 'admin/egresados/ajustes', component: AjustesAdministradorComponent},
 ];
 
 @NgModule({
-  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent, SpinnerComponent, ListaEgresadosComponent, FileUploadComponent, InfoSolicitudEmpresaComponent],
+  declarations: [ListarSolicitudesEmpresaComponent, 
+    PrincipalComponent,
+     ListarOfertasComponent, 
+     VerificarExcelComponent, 
+     ListarEgresadosAceptadosComponent, 
+     SpinnerComponent, 
+     ListaEgresadosComponent, 
+     FileUploadComponent,
+     AjustesAdministradorComponent,
+     SolicitudCarnetizacionComponent,
+     InfoSolicitudEmpresaComponent
+    ],
   imports: [
     CommonModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule,
-    RouterModule.forChild(routes), MatSidenavModule
+    RouterModule.forChild(routes),
+    MatSidenavModule
   ],
-  entryComponents: [InfoSolicitudEmpresaComponent],
-  exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent,
-     MatSidenavModule, MatDialogModule]
+  entryComponents: [],
+  exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent]
 })
 export class AdministradorModule { }
+

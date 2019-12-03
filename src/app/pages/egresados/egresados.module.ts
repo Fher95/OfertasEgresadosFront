@@ -20,17 +20,23 @@ import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 
+
+
+
 const routes: Routes = [
-  { path: 'egresados/pre-registro', component: PreRegistroComponent },
+  { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'egresados/completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
-  { path: 'egresados', component: InicioEgresadosComponent}
+
+  { path: 'completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
+  { path: '', component: InicioEgresadosComponent}
+
   //{ path: '**', component: InicioEgresadosComponent }
 ];
 
 
 @NgModule({
   declarations: [
+    InfoDialogComponent,
     InicioEgresadosComponent,
     CompletarRegistroComponent,
     LocalizacionComponent,
@@ -40,12 +46,12 @@ const routes: Routes = [
     LocalizacionComponent,
     NavEgresadosComponent,
     FooterEgresadosComponent,
-    ComentariosComponent, 
-    ExplaboralComponent, 
-    ReferidoComponent,
-    InfoDialogComponent
+    ComentariosComponent,
+    ExplaboralComponent,
+    ReferidoComponent
   ],
   imports: [
+
     CommonModule,
     LayoutModule,
     FormsModule,
@@ -56,8 +62,10 @@ const routes: Routes = [
     ConfirmarEmailService, RouterModule, AlertService, AuthGuard
   ],
   entryComponents: [
-    ExplaboralComponent,
     InfoDialogComponent,
+
+    ExplaboralComponent,
+    ReferidoComponent
   ],
 })
 export class EgresadosModule { }

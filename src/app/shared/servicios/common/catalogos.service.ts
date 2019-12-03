@@ -9,6 +9,7 @@ import { ProgramaInterface } from '../../modelos/programaInteface';
 import { DiscapacidadInterface } from '../../modelos/discapacidadInterface';
 import { NivelesEstudioInterface } from '../../modelos/nivelesEstudioInterface';
 import { SedeInterface } from '../../modelos/sedeInterface';
+import { SolicitudInterface } from '../../modelos/solicitudeInterface';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -35,10 +36,6 @@ export class CatalogosService {
     return this.http.get<ProgramaInterface[]>(`${baseUrl}nivelesPrograma`);
   }
 
-  getNivelAcademico(): Observable<NivelesEstudioInterface[]>{
-    return this.http.get<NivelesEstudioInterface[]>(`${baseUrl}nivelesEstudio`);
-  }
-
   getSede(): Observable<SedeInterface[]>{
     return this.http.get<SedeInterface[]>(`${baseUrl}sedes`);
   }
@@ -51,10 +48,16 @@ export class CatalogosService {
     return this.http.get<ProgramaInterface[]>(`${baseUrl}programas/${idSede}/${idFacultad}/${idNivelEstudio}`);
   }
 
-
-
   getDiscapacidad(): Observable<DiscapacidadInterface[]>{
     return this.http.get<DiscapacidadInterface[]>(`${baseUrl}discapacidades`);
+  }
+
+  getSolicitudesCarnet(): Observable<SolicitudInterface[]>{
+    return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
+  }
+
+  getCarnetizacion(idEgreado: number): Observable<SolicitudInterface[]>{
+    return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
 
 }

@@ -1,13 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocalizacionComponent } from '../localizacion/localizacion.component';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Experiencia } from 'src/app/shared/modelos/experiencia';
-import { MatDialog } from '@angular/material';
-import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { MatDialog, ErrorStateMatcher } from '@angular/material';
+import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
 
 export interface DialogData {
   varTitulo: string;
   varMensaje: string;
+}
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
 }
 
 @Component({
@@ -29,11 +36,7 @@ export class ExplaboralComponent implements OnInit {
   TipoContrato = new FormControl('', [Validators.required]);
   Sector = new FormControl('', [Validators.required]);
   fechaInicio = new FormControl('', [Validators.required]);
-  fechaFin = new FormControl('', [Validators.required]);
-  minDate: Date;
-  maxDate: Date;
-  minDateN: Date;
-  maxDateN: Date;
+  fechaFin = new FormControl('');
 
   rangoSalarial: string[] = ["Menos de $1.000.000","$1.000.001 - $2.000.000",
                             "$2.000.001 - $3.000.000","$3.000.001 - $6.000.000",
@@ -41,8 +44,11 @@ export class ExplaboralComponent implements OnInit {
   tipoContrato: string[] = ["Contrato a termino fijo","Contrato a termino indefinido","Contrato de Obra o labor",
                             "Contrato civil por prestación de servicios","Contrato de aprendizaje",
                             "Contrato ocasional de trabajo","Contrato temporal, ocasional o accidental"];
+  categoria: string[] = ["Empleado","Independiente","Empresario"];
   
   varExperiencia : Experiencia;
+  experiencias = new Array<Experiencia>();
+
   tituloInfo: string;
   mensajeInfo: string;
 
@@ -65,11 +71,7 @@ export class ExplaboralComponent implements OnInit {
     this.TipoContrato = new FormControl('', [Validators.required]);
     this.Sector = new FormControl('', [Validators.required]);
     this.fechaInicio = new FormControl('', [Validators.required]);
-    this.fechaFin = new FormControl('', [Validators.required]);
-    this.minDate = new Date(new Date().getFullYear() - 170, 0, 1);
-    this.maxDate = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate());
-    this.minDateN = new Date(new Date().getFullYear() - 170, 0, 1);
-    this.maxDateN = new Date(new Date().getFullYear() - 14,new Date().getMonth(),new Date().getDate());
+    this.fechaFin = new FormControl('');
   }
   validarDatos(){
     console.log('entro validar');
@@ -110,12 +112,15 @@ export class ExplaboralComponent implements OnInit {
       this.varExperiencia.fecha_inicio = this.fechaInicio.value;
       this.varExperiencia.fecha_fin = this.fechaFin.value;
 
+      this.experiencias.push(this.varExperiencia);
+
       this.tituloInfo="Solicitud exitosa";
       this.mensajeInfo="Contacto agregado de manera exitosa.";
     }
     this.mensaje();
   }
   mensaje(){
-    this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
+    var info : Information = { title : this.tituloInfo, message : this.mensajeInfo};
+    this.dialog.open(InfoDialogComponent,{data : info});
   }
 }

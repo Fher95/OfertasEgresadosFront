@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrarComponent } from './registrar/registrar.component';
 import { MaterialModule } from 'src/app/layout/material/material.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { GeneralesService } from 'src/app/shared/servicios/generales.service';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DatosEmpresaComponent } from './datosEmpresa/datos-empresa/datos-empresa.component';
@@ -17,6 +18,7 @@ import { VerPostuladosComponent } from './ver-postulados/ver-postulados.componen
 import { Routes, RouterModule } from '@angular/router';
 import { FiltrarCiudadesPipe } from '../../shared/pipes/filtrar-ciudades.pipe';
 import { PipesModule } from '../../shared/pipes/pipes.module';
+import { ModificarOfertaLaboralComponent } from './modificar-oferta-laboral/modificar-oferta-laboral.component';
 
 const routes: Routes = [
   { path: 'empresa/:id/datosEmpresa', component:DatosEmpresaComponent},
@@ -38,11 +40,13 @@ const routes: Routes = [
     OfertasPublicadasComponent, 
     DialogInfoOfertaComponent, 
     DialogEstadoOfertaComponent, VerPostuladosComponent,
-    FiltrarCiudadesPipe
+    FiltrarCiudadesPipe,
+    ModificarOfertaLaboralComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
+    MatProgressSpinnerModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
