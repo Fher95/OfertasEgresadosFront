@@ -7,7 +7,6 @@ import { CompletarRegistro } from '../../modelos/completarRegistro';
 
 
 const URL = 'http://localhost:8081/api/egresados';
-const URLCompletar = 'http://localhost:8081/api/completeEgresados/2'
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +22,14 @@ export class RegistroService {
     return this.http.post(URL, egresado);
   }
 
-  public completarRegistroEgresado(completar: CompletarRegistro) {
+  public completarRegistroEgresado(completar: CompletarRegistro,id: number) {
+    const URLCompletar = 'http://localhost:8081/api/completeEgresados/'+id;
     return this.http.put(URLCompletar, completar);
+  }
+
+  public idEgresado(correo: string) : Observable<number>{
+    const URLId = 'http://localhost:8081/api/getIdegresados/'+correo;
+    return this.http.get<number>(URLId);
   }
 
 }

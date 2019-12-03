@@ -10,6 +10,7 @@ import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 import { Router } from '@angular/router';
 import { Referido } from 'src/app/shared/modelos/referido';
 import { Experiencia } from 'src/app/shared/modelos/experiencia';
+import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 
 @Component({
   selector: 'app-completar-registro',
@@ -43,7 +44,7 @@ export class CompletarRegistroComponent implements OnInit {
   dataExpActual: MatTableDataSource<any>;
   expActuales: any[];
 
-  constructor(private servicioCompletar: RegistroService, private alert: AlertService, private router:Router) {
+  constructor(private servicioCompletar: RegistroService, private alert: AlertService, private router:Router, private auth: AuthService) {
     this.limpiarFormulario();
    }
 
@@ -164,15 +165,18 @@ export class CompletarRegistroComponent implements OnInit {
   {
     if(this.verificarCampos()){
       this.llenarDatos();
-      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro).subscribe(
-        respuesta => {
-          this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
-            ()=>{ this.router.navigateByUrl('home');});
-          console.log(respuesta);
-        }, 
-        error => {
-          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');  
-        });
+      this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
+        id => {
+          this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,id).subscribe(
+            respuesta => {
+              this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
+                ()=>{ this.router.navigateByUrl('home');});
+              console.log(respuesta);
+            }, 
+            error => {
+              this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');  
+            });
+      });
     }
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.');
