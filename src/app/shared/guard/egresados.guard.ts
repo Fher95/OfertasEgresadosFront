@@ -3,14 +3,14 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@a
 import { AuthService } from '../servicios/auth/auth.service';
 
 @Injectable()
-export class UserGuard {
+export class EgresadosGuard {
   constructor(
     private auth: AuthService,
     private router: Router
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (!this.auth.isLogin || this.auth.userRol.toUpperCase() !== 'USER') {
+    if (!this.auth.isLogin || this.auth.userRol.toUpperCase() !== 'EGRESADO') {
       this.router.navigateByUrl('/home');
       return false;
     }
