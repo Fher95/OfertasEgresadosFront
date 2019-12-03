@@ -112,7 +112,8 @@ export class CompletarRegistroComponent implements OnInit {
         "Progra "+element.id_aut_programa+"Correo "+element.correo+"Celular "+element.telefono_movil);
   
       });
-      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro);
+
+      console.log("RESULTADO: "+this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro));
 
       this.tituloInfo="Solicitud exitosa";
       this.mensajeInfo="Datos agregados de manera exitosa.";
