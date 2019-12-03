@@ -1,10 +1,10 @@
+import { EgresadosGuard } from './shared/guard/egresados.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeOfertasComponent } from './pages/home/home-ofertas/home-ofertas.component';
 import { RegistrarComponent } from './pages/empresa/registrar/registrar.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { LogoutComponent } from './pages/auth/logout/logout.component';
-import { UserGuard } from './shared/guard/user.guard';
 import { AjustesAdministradorComponent } from './pages/administrador/ajustes-administrador/ajustes-administrador.component';
 import { SolicitudCarnetizacionComponent } from './pages/administrador/solicitud-carnetizacion/solicitud-carnetizacion.component';
 
@@ -27,6 +27,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [UserGuard]
+  providers: [EgresadosGuard]
 })
 export class AppRoutingModule { }

@@ -1,3 +1,5 @@
+import { AdminGuard } from './shared/guard/admin.guard';
+import { EgresadosGuard } from './shared/guard/egresados.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,7 +18,6 @@ import { Config } from './shared/servicios/config/config';
 import { AlertService } from './shared/servicios/common/alert.service';
 import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interceptor';
 import { AuthModule } from './pages/auth/auth.module';
-import { UserGuard } from './shared/guard/user.guard';
 import { EgresadosModule } from './pages/egresados/egresados.module';
 
 @NgModule({
@@ -42,7 +43,8 @@ import { EgresadosModule } from './pages/egresados/egresados.module';
   providers: [
     Config,
     AlertService,
-    UserGuard,
+    EgresadosGuard,
+    AdminGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true }
   ],
   entryComponents: [

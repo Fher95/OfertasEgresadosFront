@@ -22,8 +22,7 @@ import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.compo
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-
-  { path: 'completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
+  { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
   { path: '', component: InicioEgresadosComponent}
 
   //{ path: '**', component: InicioEgresadosComponent }

@@ -70,4 +70,8 @@ export class CatalogosService {
     return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
 
+  enviarEstadoSolicitud(idSolicitud: number, estado: boolean){
+    return this.http.get(`${baseUrl}programas/${idSolicitud}/${estado}`);
+  }
+
 }

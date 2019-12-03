@@ -1,5 +1,5 @@
 export interface SolicitudInterface {
-    
+    id_aut_carnetizacion?: number;
     nombres?: string;
     apellidos?: string;
     correo?: string;

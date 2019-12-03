@@ -33,7 +33,6 @@ export class ProgramaComponent implements OnInit {
   pruebas:string[] = ['prueba1','prueba2','prueba3'];
 
   constructor(private catalogoService:CatalogosService) { 
-
   }
 
   ngOnInit() {

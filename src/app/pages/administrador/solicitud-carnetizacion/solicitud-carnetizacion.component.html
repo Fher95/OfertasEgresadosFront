@@ -32,10 +32,10 @@
         </div>
         <div class="row justify-content-end no-gutters">
           <div class="col-6 col-md-2">
-            <button class="btnRefuse" (click)="cancelarSolicitud(solicitud, index)">Rechazar</button>
+            <button class="btnRefuse" (click)="cancelarSolicitud(solicitud.id_aut_carnetizacion, index)">Rechazar</button>
           </div>
           <div class=" col-6 col-md-2">
-            <button class="btnAccept" (click)="aceptarSolicitud(solicitud, index)">Aceptar</button>
+            <button class="btnAccept" (click)="aceptarSolicitud(solicitud.id_aut_carnetizacion, index)">Aceptar</button>
           </div>
         </div>
       </mat-expansion-panel>
