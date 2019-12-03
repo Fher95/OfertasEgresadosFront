@@ -22,6 +22,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class ReferidoComponent implements OnInit {
   @ViewChild('programa') programa: ProgramaComponent;
+  @Output()
+  darReferido: EventEmitter<any> = new EventEmitter<any>();
 
   Nombre = new FormControl('', [Validators.required]);
   Egresado = new FormControl('', [Validators.required]);
@@ -32,14 +34,33 @@ export class ReferidoComponent implements OnInit {
   listaParentesco: string[] = ['Pareja/Cónyuge', 'Padre', 'Madre', 'Abuelo/a', 'Hijo/a', 'Otro'];
 
   varReferido: Referido;
-  referidos = new Array<Referido>();
 
   constructor(private dialog:MatDialog,private router: Router, private alert: AlertService) {
-    this.referidos = new Array<Referido>();
     this.limpiarDatos();
   }
 
   ngOnInit() {
+  }
+
+  guardarReferido() {
+    if (this.validarDatos()) {
+      this.varReferido.nombres = this.Nombre.value;
+      this.varReferido.parentesco = this.Parentesco.value;
+      if (this.Egresado.value == 0) {
+        this.varReferido.es_egresado = true;
+        this.varReferido.id_aut_programa = this.programa.Programa.value;
+      }
+      else if (this.Egresado.value == 1) {
+        this.varReferido.es_egresado = false;
+      }
+      this.varReferido.correo = this.Correo.value;
+      this.varReferido.telefono_movil = this.Celular.value;
+
+      this.darReferido.emit(this.varReferido);
+    }
+    else{
+      this.alert.showErrorMessage('Error','Complete todos los datos.');
+    }
   }
 
   limpiarDatos() {
@@ -58,32 +79,6 @@ export class ReferidoComponent implements OnInit {
       bandera = true;
     }
     return bandera;
-  }
-  referidoDatos() {
-    if (this.validarDatos()) {
-      this.varReferido.nombres = this.Nombre.value;
-      this.varReferido.parentesco = this.Parentesco.value;
-      if (this.Egresado.value == 0) {
-        this.varReferido.es_egresado = true;
-        //this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
-        this.varReferido.id_aut_programa = this.programa.Programa.value;
-      }
-      else if (this.Egresado.value == 1) {
-        this.varReferido.es_egresado = false;
-      }
-      this.varReferido.correo = this.Correo.value;
-      this.varReferido.telefono_movil = this.Celular.value;
-
-      this.referidos.push(this.varReferido);
-
-      if(this.referidos.length!=0){
-        this.alert.showSuccesMessage('','Referencia agregada exitosamente.');
-        this.limpiarDatos();
-      }
-    }
-    else{
-      this.alert.showErrorMessage('Error','Complete todos los datos.');
-    }
   }
   cancelar(){
     this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(

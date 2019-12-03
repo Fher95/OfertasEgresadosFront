@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { LocalizacionComponent } from '../localizacion/localizacion.component';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Experiencia } from 'src/app/shared/modelos/experiencia';
@@ -21,6 +21,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class ExplaboralComponent implements OnInit {
 
   @ViewChild('localizacionEmpresa') localizacionEmpresa : LocalizacionComponent;
+  @Output()
+  darExperiencia: EventEmitter<any> = new EventEmitter<any>();
   
   Labora_Area = new FormControl('', [Validators.required]);
   NombreCategoria = new FormControl('', [Validators.required]);
@@ -43,7 +45,6 @@ export class ExplaboralComponent implements OnInit {
   categoria: string[] = ["Empleado","Independiente","Empresario"];
   
   varExperiencia : Experiencia;
-  experiencias = new Array<Experiencia>();
 
   constructor(private dialog:MatDialog,private alert:AlertService) {
     this.limpiarDatos();
@@ -78,7 +79,7 @@ export class ExplaboralComponent implements OnInit {
     }
     return bandera;
   }
-  experienciaLaboralDatos()
+  guardarExperienciaLaboral()
   {
     if(this.validarDatos()){
       this.varExperiencia.trabajo_en_su_area = this.Labora_Area.value;
@@ -93,11 +94,7 @@ export class ExplaboralComponent implements OnInit {
       this.varExperiencia.fecha_inicio = this.fechaInicio.value;
       this.varExperiencia.fecha_fin = this.fechaFin.value;
 
-      this.experiencias.push(this.varExperiencia);
-      if(this.experiencias.length!=0){
-        this.alert.showSuccesMessage('','Labor agregada exitosamente.');
-        this.limpiarDatos();
-      }
+      this.darExperiencia.emit(this.varExperiencia);
     }
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.');
