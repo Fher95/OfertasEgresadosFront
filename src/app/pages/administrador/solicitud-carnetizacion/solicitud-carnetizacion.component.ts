@@ -52,8 +52,13 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   }
 
   private aceptarSolicitud(egresado, index) {
-    this.solicitudesAceptadas.push(egresado);
-    this.solicitudes.splice(index, 1);
+    this.alert.showconfirmationMessage('Registro Exitoso', 'Por favor verifique su correo.').then((result) => {
+      if (result.value) {
+        this.solicitudesAceptadas.push(egresado);
+        this.solicitudes.splice(index, 1);
+      }
+    });
+
 
   }
 
