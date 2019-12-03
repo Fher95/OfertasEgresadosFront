@@ -219,7 +219,7 @@ private tituloPrograma: string = "Musica";
   // Método para validar los datos ingresados por el usuario
   validData() {
     var valid: boolean = false;
-    console.log("esto es lo que tiene hijos"+this.user.numero_hijos);
+    console.log("esto es lo que tiene hijos"+this.user.num_hijos);
     console.log("esto es lo que tiene nacimiento"+this.fechaNFormControl.value);
     if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 && 
       this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' && 
