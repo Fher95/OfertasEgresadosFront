@@ -47,7 +47,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatSidenavModule
   ],
-  entryComponents: [],
+  entryComponents: [InfoSolicitudEmpresaComponent],
   exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent]
 })
 export class AdministradorModule { }

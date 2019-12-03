@@ -22,7 +22,7 @@
                 </div>
             </div>
             <hr>
-            
+
             <a mat-list-item [class.seleccionado]="op3" (click)="setSeleccion(3)">
                 <mat-icon aria-hidden="false" aria-label="Example home icon" class="mr-2">home</mat-icon>
                 Inicio
@@ -40,13 +40,8 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <!--p>
-            <mat-checkbox [(ngModel)]="opened">Sidebar abierta</mat-checkbox>
-        </p>
-        <p><button mat-button (click)="sidenav.toggle()">Abrir/Cerrar barra lateral</button></p>
-        <p>Aqui debe ir el contenido</p-->
-
-        <div>
+        <div class="m-3">
+            <!-- Por favor poner router outlet aqui para la navegación entre las opciones del menú -->
             <app-listar-solicitudes-empresa></app-listar-solicitudes-empresa>
         </div>
     </mat-sidenav-content>
