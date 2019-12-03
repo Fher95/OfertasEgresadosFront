@@ -9,7 +9,7 @@ export class User {
         public genero?: String,
         public estado_civil?: String,
         public grupo_etnico?: String,
-        public numero_hijos?: number,
+        public num_hijos?: number,
         public discapacidad?: number[],
         public id_lugar_nacimiento?: Number,
         public id_nivel_educativo?: Number,
