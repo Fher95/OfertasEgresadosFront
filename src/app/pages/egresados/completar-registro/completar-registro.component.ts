@@ -32,7 +32,7 @@ export class CompletarRegistroComponent implements OnInit {
   columnas : string[] = ['nombres','parentesco','telefono_movil', 'acciones'];
   dataReferidos: MatTableDataSource<any>;
   referidos: any[];
-
+  
   //Tabla expAnterior
   columnasExpAnterior : string[] = ['cargo_nombre','nombre_empresa','sector', 'acciones'];
   dataExpAnterior: MatTableDataSource<any>;

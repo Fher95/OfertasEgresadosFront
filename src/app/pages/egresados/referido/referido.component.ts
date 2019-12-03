@@ -48,6 +48,7 @@ export class ReferidoComponent implements OnInit {
       this.varReferido.parentesco = this.Parentesco.value;
       if (this.Egresado.value == 0) {
         this.varReferido.es_egresado = true;
+        this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
         this.varReferido.id_aut_programa = this.programa.Programa.value;
       }
       else if (this.Egresado.value == 1) {
