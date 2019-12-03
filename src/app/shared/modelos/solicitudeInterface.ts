@@ -1,8 +1,8 @@
 export interface SolicitudInterface {
     
-    nombre?: string;
-    apellido?: string;
+    nombres?: string;
+    apellidos?: string;
     correo?: string;
     identificacion?: number;
-    fechaSolicitud?: String;
+    fecha_solicitud?: String;
 }

@@ -15,9 +15,8 @@ import { CatalogosService } from '../../../shared/servicios/common/catalogos.ser
 import { Utilities } from '../../../shared/servicios/egresados/utilities';
 import { RegistroService } from '../../../shared/servicios/egresados/registro.service';
 import { LocalizacionComponent } from '../localizacion/localizacion.component';
-import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { NivelesEstudioInterface } from 'src/app/shared/modelos/nivelesEstudioInterface';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 
 
@@ -119,7 +118,7 @@ export class PreRegistroComponent implements OnInit {
   //Variable para programa con titulo
 private tituloPrograma: string = "Musica";
 
-  constructor(private dialog: MatDialog, private registroService: RegistroService, private catalogoService: CatalogosService, private router: Router) {
+  constructor( private alert: AlertService, private dialog: MatDialog, private registroService: RegistroService, private catalogoService: CatalogosService, private router: Router) {
     this.cleanFormData();
     this.aniosGrado();
 
@@ -241,6 +240,7 @@ private tituloPrograma: string = "Musica";
 
   // Método para registrar la solicitud
   register() {
+    
     console.log("Datos validos"+this.anioGFormControl.value);
     if (this.validData()) {
       
@@ -259,32 +259,19 @@ private tituloPrograma: string = "Musica";
       this.user.discapacidad = this.discapacidad;
       this.registroService.storeEgresado(this.user).subscribe(
         response => {
-          this.user = (<any>response).user;
-          if (!this.user.identificacion) {
-            this.msgError = "Error al registrarse, intente de nuevo";
-          } else {
-            this.abrirDialogo();
-          }
-        },
-        error => {
-          let err = <any>error;
-          if (err != null) {
-            this.msgError = err.error.message;
-          }
+          this.alert.showSuccesMessage('Registro Exitoso', 'Por favor verifique su correo.'+this.emailFormControl.value).then((result)=>{
+            if(result.value){
+              this.router.navigateByUrl('/home');
+            }else{
+              this.alert.showSuccesMessage('Registro Exitoso', 'Por favor verifique su correo.');
+            }
+            
+          });
+        },error => {
+          this.alert.showErrorMessage('Error', 'A ocurrido un error al registrar sus datos intente de nuevo');
         }
       );
     }   
-  }
-
-
-
-  // Método para abrir dialogo de información exitosa
-  abrirDialogo() {
-    var info: Information = { title: "Pre-Registro Exitoso", message: "Se ha enviado una notificación para la verificación del registro al correo electronico " + this.emailFormControl.value  };
-    this.dialog.open(InfoDialogComponent, { data: info }).beforeClosed().subscribe(result => {
-      this.router.navigateByUrl("/home");
-      this.cleanFormData();
-    });
   }
 
 }
