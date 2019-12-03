@@ -22,7 +22,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private fecha: String = this.dia + "/" + this.mes + "/" + this.anio
 
   constructor(private alert: AlertService, private dialog: MatDialog, private catalogoService: CatalogosService, private router: Router) {
-    //this.solicitudes=[{nombres: 'Edinsson',apellidos:'Lopez',correo:'Edinsson@hotmail.com',identificacion:1,fecha_solicitud:this.fecha}]
+    this.solicitudes=[{nombres: 'Edinsson',apellidos:'Lopez',correo:'Edinsson@hotmail.com',identificacion:1,fecha_solicitud:this.fecha}]
   }
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   }
 
   private aceptarSolicitud(egresado, index) {
-    this.alert.showconfirmationMessage('Registro Exitoso', 'Por favor verifique su correo.').then((result) => {
+    this.alert.showconfirmationMessage('¿Aceptar Solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
         this.solicitudesAceptadas.push(egresado);
         this.solicitudes.splice(index, 1);
@@ -64,7 +64,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
 
   private cancelarSolicitud(egresado, index) {
 
-    this.alert.showconfirmationMessage('Registro Exitoso', 'Por favor verifique su correo.').then((result) => {
+    this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
         this.solicitudesCanceladas.push(egresado);
         this.solicitudes.splice(index, 1);

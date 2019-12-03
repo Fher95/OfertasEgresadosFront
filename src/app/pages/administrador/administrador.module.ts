@@ -18,9 +18,12 @@ import { ListaApoyoComponent } from './gestion-apoyos/lista-apoyo/lista-apoyo.co
 import { DialogoEditarComponent } from './gestion-apoyos/dialogo-editar/dialogo-editar.component';
 import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component'
 import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solicitud-carnetizacion.component';
+import {
+  MatSidenavModule} from '@angular/material';
+import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
 
 const routes: Routes = [
-  { path: 'admin/listar', component: PrincipalComponent },
+  { path: 'admin/principal', component: PrincipalComponent },
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'admin/ofertas', component: ListarOfertasComponent },
   { path: 'egresados/verificar', component: VerificarExcelComponent },
@@ -42,16 +45,18 @@ const routes: Routes = [
     ListaApoyoComponent,
     DialogoEditarComponent,
     AjustesAdministradorComponent,
-    SolicitudCarnetizacionComponent
+    SolicitudCarnetizacionComponent,
+    InfoSolicitudEmpresaComponent
   ],
   imports: [
     CommonModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatSidenavModule
   ],
-  entryComponents: [DialogoEditarComponent],
+  entryComponents: [InfoSolicitudEmpresaComponent, DialogoEditarComponent],
   exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent],
   providers: [CatalogosService, ApoyoService]
 })
