@@ -3,12 +3,8 @@ import { LocalizacionComponent } from '../localizacion/localizacion.component';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Experiencia } from 'src/app/shared/modelos/experiencia';
 import { MatDialog, ErrorStateMatcher } from '@angular/material';
-import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
-
-export interface DialogData {
-  varTitulo: string;
-  varMensaje: string;
-}
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
+import { CancelarDialogComponent } from '../cancelar-dialog/cancelar-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -49,10 +45,7 @@ export class ExplaboralComponent implements OnInit {
   varExperiencia : Experiencia;
   experiencias = new Array<Experiencia>();
 
-  tituloInfo: string;
-  mensajeInfo: string;
-
-  constructor(private dialog:MatDialog) {
+  constructor(private dialog:MatDialog,private alert:AlertService) {
     this.limpiarDatos();
   }
 
@@ -74,14 +67,7 @@ export class ExplaboralComponent implements OnInit {
     this.fechaFin = new FormControl('');
   }
   validarDatos(){
-    console.log('entro validar');
-
     var bandera:boolean = false;
-
-    console.log("laboraArea"+this.Labora_Area.value+"NombreEmpresa"+this.NombreEmpresa.value+
-      "NombreCategoria"+this.NombreCategoria.value+"DirTrabajo"+this.DirTrabajo.value+"teltrabajo"+this.TelTrabajo.value
-      +"Cargo"+this.Cargo.value+"RangoSalario"+this.RangoSalario.value+"TipoContrato"+this.TipoContrato.value+
-      "Sector"+this.Sector.value+"FechaInciio"+this.fechaInicio.value+"FechaFin"+this.fechaFin.value);
 
     if(this.Labora_Area.value!='' && this.localizacionEmpresa.obtenerIdLocalizacion()!=null && this.NombreEmpresa.value!='' 
       && this.NombreCategoria.value!='' && this.DirTrabajo.value!='' && this.TelTrabajo.value!='' && this.Cargo.value!=''
@@ -90,16 +76,11 @@ export class ExplaboralComponent implements OnInit {
     {
       bandera = true;
     }
-    else{
-      this.tituloInfo="Información Faltante";
-      this.mensajeInfo="Faltan datos por ingresar.";
-    }
     return bandera;
   }
   experienciaLaboralDatos()
   {
-    if(this.validarDatos())
-    {
+    if(this.validarDatos()){
       this.varExperiencia.trabajo_en_su_area = this.Labora_Area.value;
       this.varExperiencia.id_ciudad = this.localizacionEmpresa.obtenerIdLocalizacion();
       this.varExperiencia.nombre_empresa = this.NombreEmpresa.value;
@@ -113,14 +94,20 @@ export class ExplaboralComponent implements OnInit {
       this.varExperiencia.fecha_fin = this.fechaFin.value;
 
       this.experiencias.push(this.varExperiencia);
-
-      this.tituloInfo="Solicitud exitosa";
-      this.mensajeInfo="Contacto agregado de manera exitosa.";
+      if(this.experiencias.length!=0){
+        this.alert.showSuccesMessage('','Labor agregada exitosamente.');
+        this.limpiarDatos();
+      }
     }
-    this.mensaje();
+    else{
+      this.alert.showErrorMessage('Error','Complete todos los datos.');
+    }
   }
-  mensaje(){
-    var info : Information = { title : this.tituloInfo, message : this.mensajeInfo};
-    this.dialog.open(InfoDialogComponent,{data : info});
+  cancelar(){
+    this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
+      resultado => { 
+        if(resultado==0){
+          this.limpiarDatos();
+        }});
   }
 }

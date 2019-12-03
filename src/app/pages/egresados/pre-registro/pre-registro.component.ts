@@ -15,7 +15,6 @@ import { CatalogosService } from '../../../shared/servicios/common/catalogos.ser
 import { Utilities } from '../../../shared/servicios/egresados/utilities';
 import { RegistroService } from '../../../shared/servicios/egresados/registro.service';
 import { LocalizacionComponent } from '../localizacion/localizacion.component';
-import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { NivelesEstudioInterface } from 'src/app/shared/modelos/nivelesEstudioInterface';
 
@@ -280,11 +279,6 @@ private tituloPrograma: string = "Musica";
 
   // Método para abrir dialogo de información exitosa
   abrirDialogo() {
-    var info: Information = { title: "Pre-Registro Exitoso", message: "Se ha enviado una notificación para la verificación del registro al correo electronico " + this.emailFormControl.value  };
-    this.dialog.open(InfoDialogComponent, { data: info }).beforeClosed().subscribe(result => {
-      this.router.navigateByUrl("/home");
-      this.cleanFormData();
-    });
   }
 
 }

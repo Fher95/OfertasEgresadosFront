@@ -17,11 +17,7 @@ import { InicioEgresadosComponent } from '../home/inicio-egresados/inicio-egresa
 import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/nav-egresados.component';
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
-import { InfoDialogComponent } from './info-dialog/info-dialog.component';
-
-
-
-
+import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -33,10 +29,8 @@ const routes: Routes = [
   //{ path: '**', component: InicioEgresadosComponent }
 ];
 
-
 @NgModule({
   declarations: [
-    InfoDialogComponent,
     InicioEgresadosComponent,
     CompletarRegistroComponent,
     LocalizacionComponent,
@@ -48,7 +42,8 @@ const routes: Routes = [
     FooterEgresadosComponent,
     ComentariosComponent,
     ExplaboralComponent,
-    ReferidoComponent
+    ReferidoComponent,
+    CancelarDialogComponent
   ],
   imports: [
 
@@ -62,10 +57,7 @@ const routes: Routes = [
     ConfirmarEmailService, RouterModule, AlertService, AuthGuard
   ],
   entryComponents: [
-    InfoDialogComponent,
-
-    ExplaboralComponent,
-    ReferidoComponent
+    CancelarDialogComponent,
   ],
 })
 export class EgresadosModule { }

@@ -4,15 +4,10 @@ import { CompletarRegistro } from 'src/app/shared/modelos/completarRegistro';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { ExplaboralComponent } from '../explaboral/explaboral.component';
 import { ReferidoComponent } from '../referido/referido.component';
-import { MatDialog } from '@angular/material/dialog';
-import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
 import { MatTableDataSource } from '@angular/material';
 import { ComentariosComponent } from '../comentarios/comentarios.component';
-
-export interface DialogData {
-  varTitulo: string;
-  varMensaje: string;
-}
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-completar-registro',
@@ -35,11 +30,7 @@ export class CompletarRegistroComponent implements OnInit {
   displayedColumns = ['No','Nombre','Parentesco','Celular'];
   dataSource: any;
 
-  //Mensajes de error o exito
-  tituloInfo: string;
-  mensajeInfo: string;
-
-  constructor(private dialog:MatDialog, private servicioCompletar: RegistroService) {
+  constructor(private servicioCompletar: RegistroService, private alert: AlertService, private router:Router) {
     this.limpiarFormulario();
    }
 
@@ -82,32 +73,27 @@ export class CompletarRegistroComponent implements OnInit {
     {
       bandera = true;
     }
-    else{
-      this.tituloInfo="Información Faltante";
-      this.mensajeInfo="Faltan datos por ingresar.";
-    }
     return bandera;
   }
   enviarDatos()
   {
-    if(this.verificarCampos())
-    {
+    if(this.verificarCampos()){
       this.llenarDatos();
       this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro).subscribe(
         respuesta => {
-          this.tituloInfo="Solicitud exitosa";
-          this.mensajeInfo="Datos agregados de manera exitosa.";
+          this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
+            ()=>{ this.router.navigateByUrl('home');});
           console.log(respuesta);
         }, 
-        err => { console.log("Error")});
+        error => {
+          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');  
+        });
     }
-    this.mensaje();
+    else{
+      this.alert.showErrorMessage('Error','Complete todos los datos.');
+    }
   }
   llenarTabla(){
     this.dataSource.data = this.varCompletarRegistro.referidos;  
-  }
-  mensaje(){
-    var info : Information = { title : this.tituloInfo, message : this.mensajeInfo};
-    this.dialog.open(InfoDialogComponent,{data : info});
   }
 }

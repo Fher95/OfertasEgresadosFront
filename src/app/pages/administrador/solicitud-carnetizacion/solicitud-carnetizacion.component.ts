@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudInterface } from '../../../shared/modelos/solicitudeInterface'
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
-import { InfoDialogComponent, Information } from '../../egresados/info-dialog/info-dialog.component';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -63,7 +62,6 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   }
 
   abrirDialogo() {
-    var info: Information = { title: "Confirmación", message: "¿Deseas continuar?"};
-    this.dialog.open(InfoDialogComponent, { data: info }).beforeClosed().subscribe(result => {  });
+    
   }
 }

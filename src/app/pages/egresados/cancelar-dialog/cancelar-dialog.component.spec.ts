@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoDialogComponent } from './info-dialog.component';
+import { CancelarDialogComponent } from './cancelar-dialog.component';
 
-describe('InfoDialogComponent', () => {
-  let component: InfoDialogComponent;
-  let fixture: ComponentFixture<InfoDialogComponent>;
+describe('CancelarDialogComponent', () => {
+  let component: CancelarDialogComponent;
+  let fixture: ComponentFixture<CancelarDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoDialogComponent ]
+      declarations: [ CancelarDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InfoDialogComponent);
+    fixture = TestBed.createComponent(CancelarDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
