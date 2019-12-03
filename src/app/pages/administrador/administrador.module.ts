@@ -1,3 +1,4 @@
+import { AdminGuard } from './../../shared/guard/admin.guard';
 import { ApoyoService } from './../../shared/servicios/egresados/apoyo.service';
 import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -14,7 +15,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista-egresados.component';
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
 import { GestionApoyosComponent } from './gestion-apoyos/gestion-apoyos.component';
-import { ListaApoyoComponent } from './gestion-apoyos/lista-apoyo/lista-apoyo.component';
 import { DialogoEditarComponent } from './gestion-apoyos/dialogo-editar/dialogo-editar.component';
 import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component'
 import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solicitud-carnetizacion.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'admin/principal', component: PrincipalComponent },
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'admin/ofertas', component: ListarOfertasComponent },
-  { path: 'egresados/verificar', component: VerificarExcelComponent },
+  { path: 'egresados/verificar', component: VerificarExcelComponent, canActivate: [AdminGuard] },
   { path: 'admin/egresados/ajustes', component: AjustesAdministradorComponent },
   { path: 'apoyos', component: GestionApoyosComponent }
 ];
@@ -42,7 +42,6 @@ const routes: Routes = [
     ListaEgresadosComponent,
     FileUploadComponent,
     GestionApoyosComponent,
-    ListaApoyoComponent,
     DialogoEditarComponent,
     AjustesAdministradorComponent,
     SolicitudCarnetizacionComponent,
