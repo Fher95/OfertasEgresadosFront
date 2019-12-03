@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudInterface } from '../../../shared/modelos/solicitudeInterface'
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
-
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
@@ -63,7 +62,6 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   }
 
   private cancelarSolicitud(egresado, index) {
-
     this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
         this.solicitudesCanceladas.push(egresado);
