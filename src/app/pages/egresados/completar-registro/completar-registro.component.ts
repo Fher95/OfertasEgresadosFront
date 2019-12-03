@@ -78,7 +78,7 @@ export class CompletarRegistroComponent implements OnInit {
   verificarCampos()
   {
     var bandera:boolean = false;
-    if(this.referido.referidos.length!=0 && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='' && this.comentarios.validarCampos())
+    if(this.referido.referidos.length!=0 && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='' )//&& this.comentarios.validarCampos())
     {
       bandera = true;
     }
@@ -99,9 +99,8 @@ export class CompletarRegistroComponent implements OnInit {
           this.mensajeInfo="Datos agregados de manera exitosa.";
           console.log(respuesta);
         }, 
-        err => console.log("Error"));
+        err => { console.log("Error")});
     }
-    console.log("titulo: "+this.tituloInfo+"mensaje: "+this.mensajeInfo);
     this.mensaje();
   }
   llenarTabla(){
