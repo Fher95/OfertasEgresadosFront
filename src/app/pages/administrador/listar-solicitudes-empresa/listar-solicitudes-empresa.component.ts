@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Solicitud, solicitudGenerica } from './Solicitud';
 import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { ListarSolicitudesService } from './listar-solicitudes.service';
 import { isNull } from 'util';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InfoSolicitudEmpresaComponent } from '../info-solicitud-empresa/info-solicitud-empresa.component';
 
 export interface DialogData {
@@ -22,7 +22,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   solicitudes: Solicitud[];
   displayedColumns: string[] = ['estado', 'nombre', 'fecha', 'acciones'];
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
-  seleccionNumOfertas: number = 0 ;
+  seleccionNumOfertas: number = 0;
   seleccionValida = false;
 
   solicitudSeleccionada = solicitudGenerica;
@@ -38,7 +38,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudes = null;
-    this.getSolicitudes2();    
+    this.getSolicitudes();
   }
 
   getSolicitudes(): void {
@@ -55,8 +55,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
         }
       });
   }
-  
-// Este método solo se usa para realizar pruebas sin valerse del back-end
+
+  // Este método solo se usa para realizar pruebas sin valerse del back-end
   getSolicitudes2(): void {
     this.solicitudes = this.servicioLista.getSolicitudes2();
     this.auxiliar = true;
@@ -79,7 +79,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }
 
   setSolicitudActual(parId: number): void {
-    console.log('parID: '+parId);
+    console.log('parID: ' + parId);
     for (let index = 0; index < this.solicitudes.length; index++) {
       if (this.solicitudes[index].id_aut_empresa === parId) {
         this.solicitudSeleccionada = this.solicitudes[index];
@@ -112,7 +112,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }*/
 
   activarEmpresa(parSolicitud: Solicitud): void {
-    if (parSolicitud != null){
+    if (parSolicitud != null) {
       this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, this.seleccionNumOfertas)
         .subscribe(result => {
           console.log(result);
@@ -123,7 +123,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }
 
   desactivarEmpresa(parSolicitud: Solicitud): void {
-    if (parSolicitud != null){
+    if (parSolicitud != null) {
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
           console.log(result);
@@ -134,7 +134,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }
 
   activacionValida(): void {
-    if (this.seleccionNumOfertas > 0){
+    if (this.seleccionNumOfertas > 0) {
       this.seleccionValida = true;
     } else {
       this.seleccionValida = false;
@@ -145,11 +145,11 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     this.seleccionNumOfertas = 0;
     this.seleccionValida = false;
   }
-  
+
 
   openDialog() {
     const dial = this.dialog.open(InfoSolicitudEmpresaComponent, {
-      data : {
+      data: {
         solicitud: this.solicitudSeleccionada
       },
       width: '40vw'
@@ -157,6 +157,11 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     this.dialogAbierto(dial);
   }
   dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
-    dial.afterClosed().subscribe((result) => {this.getSolicitudes()});
+    dial.afterClosed().subscribe((result) => {
+      if (this.servicioLista.cambioRegistrado()) {
+        this.getSolicitudes();
+        this.servicioLista.cambioActualizado();
+      }
+    });
   }
 }

@@ -17,6 +17,7 @@ import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solic
 import {
   MatSidenavModule} from '@angular/material';
 import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
+import { InfoOfertaLaboralComponent } from './info-oferta-laboral/info-oferta-laboral.component';
 
 const routes: Routes = [
   { path: 'admin/principal', component: PrincipalComponent }, 
@@ -37,7 +38,8 @@ const routes: Routes = [
      FileUploadComponent,
      AjustesAdministradorComponent,
      SolicitudCarnetizacionComponent,
-     InfoSolicitudEmpresaComponent
+     InfoSolicitudEmpresaComponent,
+     InfoOfertaLaboralComponent
     ],
   imports: [
     CommonModule,
@@ -47,7 +49,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatSidenavModule
   ],
-  entryComponents: [InfoSolicitudEmpresaComponent],
+  entryComponents: [InfoSolicitudEmpresaComponent, InfoOfertaLaboralComponent],
   exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent]
 })
 export class AdministradorModule { }
