@@ -113,7 +113,7 @@ export class CompletarRegistroComponent implements OnInit {
   
       });
 
-      console.log("RESULTADO: "+this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro));
+      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro).subscribe(dta => console.log(dta), err => console.log("Error"));
 
       this.tituloInfo="Solicitud exitosa";
       this.mensajeInfo="Datos agregados de manera exitosa.";
