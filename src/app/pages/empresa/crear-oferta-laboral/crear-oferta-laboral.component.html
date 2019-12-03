@@ -194,8 +194,8 @@
                             <mat-form-field  floatLabel="auto" appearance="outline" >
                                 <mat-label>Estudio minimo</mat-label>
                                     <mat-select formControlName="idrequisitosMinimos" required placeholder="Estudio minimo">
-                                        <mat-option (onSelectionChange)="estudiosMinimosSeleccionado($event)" *ngFor="let estudiosMinimo of estudiosMinimos" [value]="programa.idPrograma">
-                                                {{programa.Nombre}}
+                                        <mat-option (onSelectionChange)="estudiosMinimosSeleccionado($event)" *ngFor="let estudiosMinimo of estudiosMinimos" [value]="estudiosMinimo.id_aut_estudio">
+                                                {{estudiosMinimo.nombre}}
                                             </mat-option>
                                         <mat-error class="ml-3"
                                             *ngIf="formOfertaLaboral.get('requisitos').controls.idrequisitosMinimos.errors?.required">

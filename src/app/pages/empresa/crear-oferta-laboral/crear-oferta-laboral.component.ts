@@ -210,8 +210,12 @@ datosFormChecked: FormGroup;
   }
   cargarContactoHv()
   {
-    this.servGenerales.getDatosContactoHv().subscribe(resultado => {
-     //IMPLEMENTAR
+    this.empService.getDatosContactoHv(this.id).subscribe(resultado => {
+      this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.data.nombres)
+      this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.data.apellidos)
+      this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.data.telefono_movil)
+      this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.data.correo_corporativo)
+
     },
       error => {
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
