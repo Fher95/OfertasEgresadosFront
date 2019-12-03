@@ -26,8 +26,8 @@
               <th mat-header-cell *matHeaderCellDef> Celular </th>
               <td mat-cell *matCellDef="let row"> {{row.telefono_movil}} </td>
             </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
           </table>
           <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div-->
@@ -40,7 +40,7 @@
           <mat-radio-button value=0>Si</mat-radio-button>
           <mat-radio-button value=1>No</mat-radio-button>
         </mat-radio-group>
-        <app-explaboral *ngIf="haTrabajado.value=='0'" #expLaboralAnterior></app-explaboral>
+        <app-explaboral *ngIf="haTrabajado.value=='0'" #expAnterior></app-explaboral>
         <div class="botones">
           <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
           <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
@@ -53,7 +53,7 @@
           <mat-radio-button value=0>Si</mat-radio-button>
           <mat-radio-button value=1>No</mat-radio-button>
         </mat-radio-group>
-        <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expLaboralActual></app-explaboral>
+        <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expActual></app-explaboral>
         <div class="botones">
           <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
           <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
