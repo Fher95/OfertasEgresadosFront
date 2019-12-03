@@ -27,7 +27,7 @@ export class CompletarRegistroComponent implements OnInit {
   Labora_Actualmente = new FormControl('', [Validators.required]);
 
   //Tabla
-  displayedColumns = ['No','Nombre','Parentesco','Celular'];
+  columnas : string[] = ['Nombre','Parentesco','Celular'];
   dataSource: any;
 
   constructor(private servicioCompletar: RegistroService, private alert: AlertService, private router:Router) {
