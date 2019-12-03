@@ -246,7 +246,7 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Correo Electrónico</mat-label>
                 <input matInput type="email" placeholder="Correo Electronico " [formControl]="emailFormControl"
-                  [errorStateMatcher]="matcher" required pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                required pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
                 <mat-error *ngIf="emailFormControl.hasError('pattern')">
                   Por favor ingresar una dirección de correo correcta. ej: ejemplo@gmail.com
                 </mat-error>
@@ -258,7 +258,7 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Correo Electrónico Alternativo</mat-label>
                 <input matInput placeholder="Correo Electrónico Alternativo" [formControl]="emailFormControl2"
-                  [errorStateMatcher]="matcher" required pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                   required pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
                 <mat-error *ngIf="emailFormControl2.hasError('email') ">
                   Por favor ingresar una dirección de correo correcta
                 </mat-error>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SolicitudInterface } from '../../../shared/modelos/solicitudeInterface'
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
-import { InfoDialogComponent, Information } from '../../egresados/info-dialog/info-dialog.component';
+
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 
 @Component({
@@ -13,15 +14,15 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class SolicitudCarnetizacionComponent implements OnInit {
   private solicitudes: SolicitudInterface[];
-  private solicitudesAceptadas: SolicitudInterface[]=[];
-  private solicitudesCanceladas: SolicitudInterface[]=[];
-  private dia=new Date().getDate();
-  private mes= new Date().getMonth()+1;
+  private solicitudesAceptadas: SolicitudInterface[] = [];
+  private solicitudesCanceladas: SolicitudInterface[] = [];
+  private dia = new Date().getDate();
+  private mes = new Date().getMonth() + 1;
   private anio = new Date().getFullYear();
-  private fecha:String = this.dia+"/"+this.mes+"/"+this.anio
- 
-  constructor(private dialog: MatDialog,private catalogoService: CatalogosService,private router: Router) {
-    
+  private fecha: String = this.dia + "/" + this.mes + "/" + this.anio
+
+  constructor(private alert: AlertService, private dialog: MatDialog, private catalogoService: CatalogosService, private router: Router) {
+    this.solicitudes=[{nombres: 'Edinsson',apellidos:'Lopez',correo:'Edinsson@hotmail.com',identificacion:1,fecha_solicitud:this.fecha}]
   }
 
   ngOnInit() {
@@ -34,36 +35,35 @@ export class SolicitudCarnetizacionComponent implements OnInit {
     return this.solicitudes == null || this.solicitudes.length == 0 ? "No hay solicitudes pendientes" : "Solicitudes de carnetización pendientes: " + this.solicitudes.length;
   }
 
-  obtenerNombreCorto(nombre, apellido){
-      var nombres = nombre.split(' ');
-      var apellidos = apellido.split(' ');
-      return nombres[0] + " " + apellidos[0];
+  obtenerNombreCorto(nombre, apellido) {
+    var nombres = nombre.split(' ');
+    var apellidos = apellido.split(' ');
+    return nombres[0] + " " + apellidos[0];
 
   }
 
-/*   private obtenerSolicitudes() {
-    return this.solicitudes;
-    
-  } */
+  /*   private obtenerSolicitudes() {
+      return this.solicitudes;
+      
+    } */
 
-  private obtenerSolicitudesCarnet(){
+  private obtenerSolicitudesCarnet() {
     this.catalogoService.getSolicitudesCarnet().subscribe(data => this.solicitudes = data);
-  } 
+  }
 
   private aceptarSolicitud(egresado, index) {
-    this.abrirDialogo();
     this.solicitudesAceptadas.push(egresado);
-    this.solicitudes.splice(index,1);
-    
+    this.solicitudes.splice(index, 1);
+
   }
 
   private cancelarSolicitud(egresado, index) {
-    this.solicitudesCanceladas.push(egresado);
-    this.solicitudes.splice(index,1);
-  }
 
-  abrirDialogo() {
-    var info: Information = { title: "Confirmación", message: "¿Deseas continuar?"};
-    this.dialog.open(InfoDialogComponent, { data: info }).beforeClosed().subscribe(result => {  });
+    this.alert.showconfirmationMessage('Registro Exitoso', 'Por favor verifique su correo.').then((result) => {
+      if (result.value) {
+        this.solicitudesCanceladas.push(egresado);
+        this.solicitudes.splice(index, 1);
+      }
+    });
   }
 }

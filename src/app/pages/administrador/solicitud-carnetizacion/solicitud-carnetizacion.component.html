@@ -6,14 +6,14 @@
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-title class="item-name">{{obtenerNombreCorto(solicitud.nombre, solicitud.apellido)}}</mat-panel-title>
+          <mat-panel-title class="item-name">{{obtenerNombreCorto(solicitud.nombres, solicitud.apellidos)}}</mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row no-gutters">
           <div class="col-12 col-md-6">
             <div class="info">
               <div class="data">
                 <p class="item-name">Nombre Completo:</p>
-                <p class="item-data"> {{solicitud.nombre}} {{solicitud.apellido}}</p>
+                <p class="item-data"> {{solicitud.nombres}} {{solicitud.apellidos}}</p>
               </div>
               <div class="data">
                 <p class="item-name">Correo:</p>
@@ -25,7 +25,7 @@
               </div>
               <div class="data">
                   <p class="item-name">Fecha Solicitud:</p>
-                  <p class="item-data"> {{solicitud.fechaSolicitud}}</p>
+                  <p class="item-data"> {{solicitud.fecha_solicitud}}</p>
                 </div>
             </div>
           </div>

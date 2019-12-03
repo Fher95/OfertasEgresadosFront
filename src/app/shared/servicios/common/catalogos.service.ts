@@ -53,7 +53,7 @@ export class CatalogosService {
   }
 
   getSolicitudesCarnet(): Observable<SolicitudInterface[]>{
-    return this.http.get<SolicitudInterface[]>(`${baseUrl}getAll`);
+    return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
 
   getCarnetizacion(idEgreado: number): Observable<SolicitudInterface[]>{
