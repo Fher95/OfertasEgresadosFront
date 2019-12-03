@@ -56,7 +56,7 @@
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Duración de contrato: </Strong>
                                           <label *ngIf="datosOferta.contrato.duracion === null; else contrato">No incluido</label>
-                                          <ng-template #contrato>{{datosOferta.contrato.duracion}}</ng-template>                                          
+                                          <ng-template #contrato>{{datosOferta.contrato.duracion}}</ng-template>
                                     </label>
                         </div>
       </div>
@@ -67,7 +67,7 @@
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Horario: </Strong>
                                           <label *ngIf="datosOferta.contrato.horario === null; else horario">No incluido</label>
-                                          <ng-template #horario>{{datosOferta.contrato.horario}}</ng-template>  
+                                          <ng-template #horario>{{datosOferta.contrato.horario}}</ng-template>
                                     </label>
                         </div>
       </div>
@@ -78,7 +78,7 @@
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Rangos salariales: </Strong>
                                           <label *ngIf="datosOferta.contrato.rangoSalarial === null; else rangoSalarial">No incluido</label>
-                                          <ng-template #rangoSalarial>{{datosOferta.contrato.rangoSalarial}}</ng-template>  
+                                          <ng-template #rangoSalarial>{{datosOferta.contrato.rangoSalarial}}</ng-template>
                                     </label>
                         </div>
       </div>
@@ -92,7 +92,7 @@
                                                       <textarea  matInput disabled value="No incluido" rows="3"></textarea>
                                           </div>
                                           <ng-template #comentariosSalario><textarea  matInput disabled value="{{datosOferta.contrato.comentariosSalario}}" rows="3"></textarea>
-                                          </ng-template>  
+                                          </ng-template>
                               </mat-form-field>
                   </div>
       </div>
@@ -111,14 +111,14 @@
                         <label><Strong>Estudios minimos: </Strong>{{datosOferta.requisitos.estudiosMinimos}}</label>
                   </div>
             <div class="col-sm-12 col-md-6">
-                  <label><Strong>Carrera: </Strong>{{datosOferta.requisitos.programa}}</label>
+                  <label><Strong>Carrera: </Strong>{{datosOferta.requisitos.programas}}</label>
             </div>
       </div>
       <div class="row">
                   <div class="col-sm-12 col-md-6">
                               <label><Strong>Experiencia laboral: </Strong>{{datosOferta.requisitos.experienciaLaboral}} {{datosOferta.requisitos.anios}} años</label>
                         </div>
-                       
+
       </div>
       <div class="row" *ngIf="datosOferta.requisitos.idiomas.length == 0; else idiomas">
                   <div class="col-12">
@@ -140,7 +140,7 @@
                                           </mat-panel-title>
                                     </mat-expansion-panel-header>
                                     <!--Contenido-->
-                                    <div class="row">                                                  
+                                    <div class="row">
                                                 <div class="col-sm-12 col-md-4">
                                                             <label><Strong>Lectura: </Strong>{{idioma.nivel_lectura}}</label>
                                                       </div>
@@ -178,7 +178,7 @@
                                                 </mat-panel-title>
                                           </mat-expansion-panel-header>
                                           <!--Contenido-->
-                                          <div class="row">                                                  
+                                          <div class="row">
                                                       <div class="col-4">
                                                                   <label><Strong>Nivel: </Strong>{{software.nivel}}</label>
                                                             </div>
@@ -210,7 +210,7 @@
                               <label><Strong>Licencia de conducción: </Strong>{{datosOferta.requisitos.licenciaConduccion}}</label>
                         </div>
       </div>
-    
+
       <div class="row" *ngIf="datosOferta.requisitos.preguntasCandidato.length == 0; else preguntasCandidato">
                   <div class="col-12">
                               <label><Strong>No se requieren preguntas al candidato </Strong></label>
@@ -228,7 +228,7 @@
                                                       <label>{{pregunta}}</label>
                                                       <mat-divider></mat-divider>
                                           </div>
-                                          
+
                                     </div>
                                     </mat-list>
                   </mat-card-content>

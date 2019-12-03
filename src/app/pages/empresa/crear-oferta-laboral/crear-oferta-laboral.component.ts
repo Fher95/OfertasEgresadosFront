@@ -30,6 +30,7 @@ export class CrearOfertaLaboralComponent implements OnInit {
   labelPosition = 'before';
   cargos = []
   sectores = []
+  estudiosMinimos = []
   areas = []
   programas = []
   discapacidades = [ ]
@@ -97,8 +98,8 @@ datosFormChecked: FormGroup;
           perfil:[null,Validators.required],
           idrequisitosMinimos:[null,Validators.required],
           estudiosMinimos:[null],
-          programa:[null],
-          idPrograma:[null,Validators.required],
+          programas:[null],
+          idProgramas:[null,Validators.required],
           anios:[null,[Validators.required,Validators.min(0)]],
           experienciaLaboral:[null,Validators.required],
           requisitosMinimos:[null,Validators.required],
@@ -124,6 +125,7 @@ datosFormChecked: FormGroup;
     this.cargarCargos();
     this.cargarAreas();
     this.cargarSectores();
+    this.cargarEstudiosMinimos();
     this.cargarProgramas();
     this.cargarIdiomas();
     this.cargarDiscapacidades();
@@ -156,6 +158,15 @@ datosFormChecked: FormGroup;
       error => {
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los sectores: ", JSON.stringify(error));
+      });
+  }
+  cargarEstudiosMinimos(){
+    this.empService.obtenerEstudiosMinimos().subscribe(resultado => {
+      this.estudiosMinimos = resultado;
+    },
+      error => {
+        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
+        console.log("Error al obtener los estudios minimos: ", JSON.stringify(error));
       });
   }
   cargarProgramas(){
@@ -266,16 +277,28 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(event.source.viewValue);
     }
   }
-  estudioMinimoeleccionado(event)
+  estudiosMinimosSeleccionado(event)
   {
     if(event.isUserInput) {
       this.formOfertaLaboral.controls['requisitos'].get('estudiosMinimos').setValue(event.source.viewValue);
     }
   }
-  programaSeleccionado(event)
+  programasSeleccionados(event)
   {
     if(event.isUserInput) {
-      this.formOfertaLaboral.controls['requisitos'].get('programa').setValue(event.source.viewValue);
+      let programas = this.formOfertaLaboral.controls['requisitos'].get('programas').value
+      if(programas == null){
+        this.formOfertaLaboral.controls['requisitos'].get('programas').setValue([event.source.viewValue])
+      }
+      else{
+        let pos = this.formOfertaLaboral.controls['requisitos'].get('programas').value.indexOf(event.source.viewValue)
+        if(pos==-1){
+          this.formOfertaLaboral.controls['requisitos'].get('programas').value.push(event.source.viewValue)
+        }
+        else{
+            this.formOfertaLaboral.controls['requisitos'].get('programas').value.splice(pos,1)
+      }
+    }
     }
   }
   idiomaSeleccionado(event)

@@ -96,6 +96,9 @@ export class EmpresaService {
   obtenerAreasConocimiento(): Observable<any[]>{
     return this.httpClient.get<any[]>("http://127.0.0.1:8081/api/areasConocimiento", this.httpOptions);
   }
+  obtenerEstudiosMinimos(): Observable<any[]>{
+    return this.httpClient.get<any[]>("http://127.0.0.1:8081/api/nivelesEstudioU", this.httpOptions);
+  }
   obtenerProgramas(): Observable<any[]>{
     return this.httpClient.get<any[]>("http://127.0.0.1:8081/api/programas", this.httpOptions);
   }
@@ -109,7 +112,8 @@ export class EmpresaService {
     return this.httpClient.get<any[]>("http://localhost:8081/api/salarios/"+moneda,this.httpOptions);
   }
   crearOfertaLaboral(idEmpresa:String ,objeto: Object){
-    //return this.httpClient.put('http://127.0.0.1:8081/api/ofertas/store' + idEmpresa, objeto, {headers: this.headers});
-      return this.httpClient.post('http://127.0.0.1:8081/api/ofertas/store', objeto, {headers: this.headers});
+    return this.httpClient.post('http://127.0.0.1:8081/api/empresas/oferta/store/' + idEmpresa, objeto, {headers: this.headers});
+      //return this.httpClient.post('http://127.0.0.1:8081/api/ofertas/store', objeto, {headers: this.headers});
   }
+
 }
