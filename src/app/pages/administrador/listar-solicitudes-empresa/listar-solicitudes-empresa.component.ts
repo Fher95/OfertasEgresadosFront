@@ -5,7 +5,12 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import { ListarSolicitudesService } from './listar-solicitudes.service';
 import { isNull } from 'util';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { InfoSolicitudEmpresaComponent } from '../info-solicitud-empresa/info-solicitud-empresa.component';
 
+export interface DialogData {
+  solicitud: Solicitud;
+}
 @Component({
   selector: 'app-listar-solicitudes-empresa',
   templateUrl: './listar-solicitudes-empresa.component.html',
@@ -27,12 +32,13 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private location: Location,
-    private servicioLista: ListarSolicitudesService
+    private servicioLista: ListarSolicitudesService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.solicitudes = null;
-    this.getSolicitudes();
+    this.getSolicitudes2();    
   }
 
   getSolicitudes(): void {
@@ -60,6 +66,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       this.arregloVacio = true;
     }
     this.dataSource.paginator = this.paginator;
+    console.log('Obtenidas Peticiones');
   }
 
   getEstado(parEstado: string): string {
@@ -79,6 +86,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       }
     }
     console.log(this.solicitudSeleccionada);
+    this.openDialog();
   }
 
   /*getEstadoBoton(parSolicitud: Solicitud): string {
@@ -136,5 +144,19 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   reiniciarSeleccion(): void {
     this.seleccionNumOfertas = 0;
     this.seleccionValida = false;
+  }
+  
+
+  openDialog() {
+    const dial = this.dialog.open(InfoSolicitudEmpresaComponent, {
+      data : {
+        solicitud: this.solicitudSeleccionada
+      },
+      width: '40vw'
+    });
+    this.dialogAbierto(dial);
+  }
+  dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
+    dial.afterClosed().subscribe((result) => {this.getSolicitudes()});
   }
 }

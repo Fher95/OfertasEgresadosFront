@@ -14,9 +14,12 @@ import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
 import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component'
 import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solicitud-carnetizacion.component';
+import {
+  MatSidenavModule} from '@angular/material';
+import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
 
 const routes: Routes = [
-  { path: 'admin/listar', component: PrincipalComponent }, 
+  { path: 'admin/principal', component: PrincipalComponent }, 
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
   { path: 'admin/ofertas', component: ListarOfertasComponent},
   { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
@@ -33,15 +36,18 @@ const routes: Routes = [
      ListaEgresadosComponent, 
      FileUploadComponent,
      AjustesAdministradorComponent,
-     SolicitudCarnetizacionComponent
+     SolicitudCarnetizacionComponent,
+     InfoSolicitudEmpresaComponent
     ],
   imports: [
     CommonModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatSidenavModule
   ],
+  entryComponents: [InfoSolicitudEmpresaComponent],
   exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent]
 })
 export class AdministradorModule { }
