@@ -5,7 +5,7 @@ import { RegistroService } from 'src/app/shared/servicios/egresados/registro.ser
 import { ExplaboralComponent } from '../explaboral/explaboral.component';
 import { ReferidoComponent } from '../referido/referido.component';
 import { MatDialog } from '@angular/material/dialog';
-import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
 import { MatTableDataSource } from '@angular/material';
 import { ComentariosComponent } from '../comentarios/comentarios.component';
 
@@ -74,18 +74,10 @@ export class CompletarRegistroComponent implements OnInit {
     else if(this.Labora_Actualmente.value==1){
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
-  
-    console.log("Metodo llenar: hatrabajado: "+
-      this.varCompletarRegistro.ha_trabajado+"trabajoactual: "+this.varCompletarRegistro.trabajo_actualmente);
-
   }
   verificarCampos()
   {
-    console.log("Verificar:");
     var bandera:boolean = false;
-
-    console.log("HaTraba: "+this.haTrabajado.value+"laboraA: "+this.Labora_Actualmente.value);
-
     if(this.referido.referidos.length!=0 && this.haTrabajado.value!='' && this.Labora_Actualmente.value!='' && this.comentarios.validarCampos())
     {
       bandera = true;
@@ -98,25 +90,16 @@ export class CompletarRegistroComponent implements OnInit {
   }
   enviarDatos()
   {
-    console.log("Enviar Datos");
     if(this.verificarCampos())
     {
       this.llenarDatos();
-      console.log("Lleno Datos: ");
-      console.log("hatrabajado "+
-      this.varCompletarRegistro.ha_trabajado+"trabajoactual "+this.varCompletarRegistro.trabajo_actualmente);
-
-      this.varCompletarRegistro.referidos.forEach(element => {
-        console.log('Nombre '+element.nombres+"Parentesco "+element.parentesco
-        +"Egresado "+element.es_egresado+"NivelEduca "+element.id_nivel_educativo+
-        "Progra "+element.id_aut_programa+"Correo "+element.correo+"Celular "+element.telefono_movil);
-  
-      });
-
-      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro).subscribe(dta => console.log(dta), err => console.log("Error"));
-
-      this.tituloInfo="Solicitud exitosa";
-      this.mensajeInfo="Datos agregados de manera exitosa.";
+      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro).subscribe(
+        respuesta => {
+          this.tituloInfo="Solicitud exitosa";
+          this.mensajeInfo="Datos agregados de manera exitosa.";
+          console.log(respuesta);
+        }, 
+        err => console.log("Error"));
     }
     console.log("titulo: "+this.tituloInfo+"mensaje: "+this.mensajeInfo);
     this.mensaje();
@@ -125,6 +108,7 @@ export class CompletarRegistroComponent implements OnInit {
     this.dataSource.data = this.varCompletarRegistro.referidos;  
   }
   mensaje(){
-    this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
+    var info : Information = { title : this.tituloInfo, message : this.mensajeInfo};
+    this.dialog.open(InfoDialogComponent,{data : info});
   }
 }

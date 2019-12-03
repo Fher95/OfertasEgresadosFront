@@ -3,7 +3,7 @@ import { LocalizacionComponent } from '../localizacion/localizacion.component';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Experiencia } from 'src/app/shared/modelos/experiencia';
 import { MatDialog, ErrorStateMatcher } from '@angular/material';
-import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
 
 export interface DialogData {
   varTitulo: string;
@@ -120,6 +120,7 @@ export class ExplaboralComponent implements OnInit {
     this.mensaje();
   }
   mensaje(){
-    this.dialog.open(InfoDialogComponent,{data : {varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo}});
+    var info : Information = { title : this.tituloInfo, message : this.mensajeInfo};
+    this.dialog.open(InfoDialogComponent,{data : info});
   }
 }

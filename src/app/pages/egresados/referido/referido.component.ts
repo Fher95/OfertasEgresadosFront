@@ -3,7 +3,7 @@ import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/fo
 import { ProgramaComponent } from '../programa/programa.component';
 import { Referido } from 'src/app/shared/modelos/referido';
 import { MatDialog, MAT_DIALOG_DATA, ErrorStateMatcher } from '@angular/material';
-import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { InfoDialogComponent, Information } from '../info-dialog/info-dialog.component';
 import { Router } from '@angular/router';
 
 export interface DialogData {
@@ -95,6 +95,7 @@ export class ReferidoComponent implements OnInit {
     this.mensaje();
   }
   mensaje() {
-    this.dialog.open(InfoDialogComponent, { data: { varTitulo: this.tituloInfo, varMensaje: this.mensajeInfo } });
+    var info : Information = { title : this.tituloInfo, message : this.mensajeInfo};
+    this.dialog.open(InfoDialogComponent,{data : info});
   }
 }

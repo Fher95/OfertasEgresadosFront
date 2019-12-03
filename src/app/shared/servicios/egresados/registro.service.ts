@@ -24,7 +24,6 @@ export class RegistroService {
   }
 
   public completarRegistroEgresado(completar: CompletarRegistro) {
-    console.log("Entro a completar registro egresado de registro service");
     return this.http.put(URLCompletar, completar);
   }
 
