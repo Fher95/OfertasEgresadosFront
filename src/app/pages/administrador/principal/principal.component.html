@@ -42,7 +42,8 @@
     <mat-sidenav-content>
         <div class="m-3">
             <!-- Por favor poner un router outlet aqui para la navegación entre las opciones del menú -->
-            <app-listar-solicitudes-empresa></app-listar-solicitudes-empresa>
+            <app-listar-solicitudes-empresa *ngIf="this.op1" ></app-listar-solicitudes-empresa>
+            <app-listar-ofertas *ngIf="this.op2"></app-listar-ofertas>
         </div>
     </mat-sidenav-content>
 

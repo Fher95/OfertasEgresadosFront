@@ -18,7 +18,7 @@ export class InfoSolicitudEmpresaComponent implements OnInit  {
               private servicioLista: ListarSolicitudesService) {}
   
   ngOnInit() {
-    console.log("Entra al dialog");
+    console.log('Abierto dialog de información de empresa');
   }
 
 
@@ -49,7 +49,8 @@ export class InfoSolicitudEmpresaComponent implements OnInit  {
       this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, this.seleccionNumOfertas)
         .subscribe(result => {
           console.log(result);
-          //this.getSolicitudes();
+          // this.getSolicitudes();
+          this.servicioLista.notificarCambio();
           this.reiniciarSeleccion();
         });
     }
@@ -60,7 +61,8 @@ export class InfoSolicitudEmpresaComponent implements OnInit  {
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
           console.log(result);
-          //this.getSolicitudes();
+          // this.getSolicitudes();
+          this.servicioLista.notificarCambio();
           this.reiniciarSeleccion();
         });
     }

@@ -9,7 +9,7 @@ import { CiudadInterface } from '../modelos/ciudadesInterface';
   providedIn: 'root'
 })
 export class GeneralesService {
-  
+
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
@@ -41,7 +41,5 @@ export class GeneralesService {
   {
     return this.httpClient.get<any[]>("http://localhost:8081/api/ciudadesPais/"+ id, this.httpOptions);
   }
-  getDatosContactoHv(): Observable<any>{
-    return null
-  }
+
 }

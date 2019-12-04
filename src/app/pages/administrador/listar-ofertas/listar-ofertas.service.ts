@@ -8,6 +8,8 @@ import { OfertaLaboral, lstOfertas } from './OfertaLaboral';
   providedIn: 'root'
 })
 export class ListarOfertasService {
+  
+  private cambioRealizado: boolean = false;
 
   private urlSolicitud = 'http://localhost:8081/api/ofertas';  // URL to web api
   httpOptions = {
@@ -61,4 +63,17 @@ export class ListarOfertasService {
       catchError(this.handleError<any>('activarEmpresa'))
     );
   }
+
+  notificarCambio() {
+    this.cambioRealizado = true;
+  }
+
+  cambioRegistrado(): boolean {
+    return this.cambioRealizado;
+  }
+
+  cambioActualizado(){
+    this.cambioRealizado = false;
+  }
+
 }
