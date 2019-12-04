@@ -34,7 +34,7 @@
                         <mat-form-field  floatLabel="auto" appearance="outline" >
                                 <mat-label>Tipo de cargo</mat-label>
 
-                                        <mat-select formControlName="cargo" [(ngModel)]="cargo" required placeholder="Tipo de cargo" >
+                                        <mat-select       formControlName="cargo" [(ngModel)]="cargo" required placeholder="Tipo de cargo" >
                                             <mat-option *ngFor="let cargo of cargos" [value]="cargo.Nombre">
                                                 {{cargo.Nombre}}
                                             </mat-option>
@@ -182,7 +182,7 @@
                                     <mat-radio-button class="ml-3" value="Estudiante pregrado">Estudiante pregrado</mat-radio-button>
                                     <mat-radio-button class="ml-3" value="Profesional">Profesional</mat-radio-button>
                                     <mat-radio-button class="ml-3" value="Especialista">Especialista</mat-radio-button>
-                                    <mat-radio-button class="ml-3" value="Master">Master</mat-radio-button>
+                                    <mat-radio-button class="ml-3" value="Magister">Magister</mat-radio-button>
                                     <mat-radio-button class="ml-3" value="Doctor">Doctor</mat-radio-button>
                                     <mat-error
                                         *ngIf="formOfertaLaboral.get('requisitos').controls.perfil.errors?.required">
@@ -204,7 +204,8 @@
                                 </mat-form-field>
                                 <mat-form-field  floatLabel="auto" appearance="outline" >
                                      <mat-label>Carrera</mat-label>
-                                    <mat-select formControlName="idPrograma" required placeholder="Carrera">
+                                    <mat-select panelClass="tamanoSelectPanel" formControlName="idPrograma" required placeholder="Carrera">
+                                        <mat-option>prueba de fue vamso que vams eprritosasd sas sas</mat-option>
                                         <mat-option (onSelectionChange)="programaSeleccionado($event)" *ngFor="let programa of programas" [value]="programa.idPrograma">
                                                 {{programa.Nombre}}
                                             </mat-option>
@@ -477,8 +478,8 @@
                                 <div *ngIf="discapacidadChecked">
                                         <mat-form-field  floatLabel="auto" appearance="outline" >
                                              <mat-label>discapacidad</mat-label>
-                                                <mat-select formControlName="idDiscapacidad" required placeholder="discapacidad">
-                                                        <mat-option (onSelectionChange)="discapacidadSeleccionada($event)" *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad">
+                                                <mat-select formControlName="idDiscapacidad" required multiple placeholder="discapacidad">
+                                                        <mat-option (onSelectionChange)="discapacidadesSeleccionadas($event)" *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad">
                                                                 {{discapacidad.Nombre}}
                                                         </mat-option>
                                                 </mat-select>
