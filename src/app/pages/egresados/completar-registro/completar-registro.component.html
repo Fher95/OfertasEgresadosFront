@@ -7,31 +7,35 @@
     <mat-horizontal-stepper [linear]="isLinear" class="stepper">
       <mat-step>
         <ng-template matStepLabel>Referencias Personales</ng-template>
-        <app-referido #referido></app-referido>
-        <!--div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="No">
-              <th mat-header-cell *matHeaderCellDef> No. </th>
-              <td mat-cell *matCellDef="let row"> {{row.position}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Nombre">
+        <app-referido #referido (darReferido)="addToList($event)"></app-referido>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataReferidos">
+            <ng-container matColumnDef="nombres">
               <th mat-header-cell *matHeaderCellDef> Nombre </th>
-              <td mat-cell *matCellDef="let row"> {{row.nombres}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
             </ng-container>
-            <ng-container matColumnDef="Parentesco">
+            <ng-container matColumnDef="parentesco">
               <th mat-header-cell *matHeaderCellDef> Parentesco </th>
-              <td mat-cell *matCellDef="let row"> {{row.parentesco}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
             </ng-container>
-            <ng-container matColumnDef="Celular">
+            <ng-container matColumnDef="telefono_movil">
               <th mat-header-cell *matHeaderCellDef> Celular </th>
-              <td mat-cell *matCellDef="let row"> {{row.telefono_movil}} </td>
+              <td mat-cell *matCellDef="let element"> {{element.telefono_movil}} </td>
             </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button class="btn btn-danger" (click)="eliminarReferido(element)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
           </table>
           <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </div-->
-        <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+        </div>
+        <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Experiencia Laboral</ng-template>
@@ -40,10 +44,37 @@
           <mat-radio-button value=0>Si</mat-radio-button>
           <mat-radio-button value=1>No</mat-radio-button>
         </mat-radio-group>
-        <app-explaboral *ngIf="haTrabajado.value=='0'" #expLaboralAnterior></app-explaboral>
+        <app-explaboral *ngIf="haTrabajado.value=='0'" #expAnterior (darExperiencia)="addExpAnterior($event)"></app-explaboral>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataExpAnterior">
+            <ng-container matColumnDef="cargo_nombre">
+              <th mat-header-cell *matHeaderCellDef> Cargo </th>
+              <td mat-cell *matCellDef="let element"> {{element.cargo_nombre}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nombre_empresa">
+              <th mat-header-cell *matHeaderCellDef> Empresa </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre_empresa}} </td>
+            </ng-container>
+            <ng-container matColumnDef="sector">
+              <th mat-header-cell *matHeaderCellDef> Sector </th>
+              <td mat-cell *matCellDef="let element"> {{element.sector}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button class="btn btn-danger" (click)="eliminarExpAnterior(element)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnasExpAnterior"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasExpAnterior;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
         <div class="botones">
           <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-          <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+          <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
         </div>
       </mat-step>
       <mat-step>
@@ -53,10 +84,37 @@
           <mat-radio-button value=0>Si</mat-radio-button>
           <mat-radio-button value=1>No</mat-radio-button>
         </mat-radio-group>
-        <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expLaboralActual></app-explaboral>
+        <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expActual (darExperiencia)="addExpActual($event)"></app-explaboral>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataExpActual">
+            <ng-container matColumnDef="cargo_nombre">
+              <th mat-header-cell *matHeaderCellDef> Cargo </th>
+              <td mat-cell *matCellDef="let element"> {{element.cargo_nombre}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nombre_empresa">
+              <th mat-header-cell *matHeaderCellDef> Empresa </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre_empresa}} </td>
+            </ng-container>
+            <ng-container matColumnDef="sector">
+              <th mat-header-cell *matHeaderCellDef> Sector </th>
+              <td mat-cell *matCellDef="let element"> {{element.sector}} </td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button class="btn btn-danger" (click)="eliminarExpActual(element)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnasExpActual"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasExpActual;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
         <div class="botones">
           <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-          <button class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
+          <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
         </div>
       </mat-step>
       <mat-step>

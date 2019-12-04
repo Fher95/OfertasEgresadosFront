@@ -33,7 +33,6 @@ export class ProgramaComponent implements OnInit {
   pruebas:string[] = ['prueba1','prueba2','prueba3'];
 
   constructor(private catalogoService:CatalogosService) { 
-
   }
 
   ngOnInit() {
@@ -45,10 +44,6 @@ export class ProgramaComponent implements OnInit {
     this.catalogoService.getNivelEducativo().subscribe(data => this.nivelAcade = data);
   }
 
-  obtenerNivelAcademico(){
-    this.catalogoService.getNivelAcademico().subscribe(data => this.nivelAcade = data);
-  }
-
   obtenerSedes(){
     this.catalogoService.getSede().subscribe(data => this.sedes = data);
   }
@@ -58,6 +53,6 @@ export class ProgramaComponent implements OnInit {
   }
 
   obtenerPrograma(){
-    this.catalogoService.getPrograma(this.Facultad.value,this.Sede.value,this.NivelAcademico.value).subscribe(data => this.programas = data);
+    this.catalogoService.getPrograma(this.Sede.value,this.Facultad.value,this.NivelAcademico.value).subscribe(data => this.programas = data);
   }
 }

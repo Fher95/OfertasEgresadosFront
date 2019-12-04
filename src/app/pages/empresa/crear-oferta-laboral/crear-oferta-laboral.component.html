@@ -194,8 +194,8 @@
                             <mat-form-field  floatLabel="auto" appearance="outline" >
                                 <mat-label>Estudio minimo</mat-label>
                                     <mat-select formControlName="idrequisitosMinimos" required placeholder="Estudio minimo">
-                                        <mat-option (onSelectionChange)="estudioMinimoeleccionado($event)" *ngFor="let programa of programas" [value]="programa.idPrograma">
-                                                {{programa.Nombre}}
+                                        <mat-option (onSelectionChange)="estudiosMinimosSeleccionado($event)" *ngFor="let estudiosMinimo of estudiosMinimos" [value]="estudiosMinimo.id_aut_estudio">
+                                                {{estudiosMinimo.nombre}}
                                             </mat-option>
                                         <mat-error class="ml-3"
                                             *ngIf="formOfertaLaboral.get('requisitos').controls.idrequisitosMinimos.errors?.required">
@@ -204,13 +204,12 @@
                                 </mat-form-field>
                                 <mat-form-field  floatLabel="auto" appearance="outline" >
                                      <mat-label>Carrera</mat-label>
-                                    <mat-select panelClass="tamanoSelectPanel" formControlName="idPrograma" required placeholder="Carrera">
-                                        <mat-option>prueba de fue vamso que vams eprritosasd sas sas</mat-option>
-                                        <mat-option (onSelectionChange)="programaSeleccionado($event)" *ngFor="let programa of programas" [value]="programa.idPrograma">
+                                    <mat-select panelClass="tamanoSelectPanel" formControlName="idProgramas" required placeholder="Carrera" multiple>
+                                        <mat-option (onSelectionChange)="programasSeleccionados($event)" *ngFor="let programa of programas" [value]="programa.idPrograma">
                                                 {{programa.Nombre}}
                                             </mat-option>
                                         <mat-error class="ml-3"
-                                            *ngIf="formOfertaLaboral.get('requisitos').controls.idPrograma.errors?.required">
+                                            *ngIf="formOfertaLaboral.get('requisitos').controls.idProgramas.errors?.required">
                                             campo requerido</mat-error>
                                       </mat-select>
                                 </mat-form-field>

@@ -1,2 +1,50 @@
-<!--app-listar-ofertas></app-listar-ofertas-->
-<app-listar-solicitudes-empresa></app-listar-solicitudes-empresa>
+<app-header></app-header>
+<!--app-navbar-home-ofertas></app-navbar-home-ofertas>
+<app-listar-ofertas></app-listar-ofertas
+<app-listar-solicitudes-empresa></app-listar-solicitudes-empresa-->
+<mat-sidenav-container class="example-container m-0">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+        (closed)="events.push('close!')">
+
+        <mat-nav-list>
+            <!-- SIDEBAR USERPIC -->
+            <div class="profile-userpic text-center">
+                <img src="../../../../assets/img/escudo-unicauca.jpg" alt="">
+            </div>
+            <!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    Funcionario Generico
+                </div>
+                <div class="profile-usertitle-job">
+                    Administrador
+                </div>
+            </div>
+            <hr>
+
+            <a mat-list-item [class.seleccionado]="op3" (click)="setSeleccion(3)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" class="mr-2">home</mat-icon>
+                Inicio
+            </a>
+            <a mat-list-item [class.seleccionado]="op1" (click)="setSeleccion(1)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" class="mr-2">dvr</mat-icon>
+                Solicitudes Pendientes
+            </a>
+            <a mat-list-item [class.seleccionado]="op2" (click)="setSeleccion(2)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" class="mr-2">list</mat-icon>
+                Ofertas Laborales
+            </a>
+
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="m-3">
+            <!-- Por favor poner un router outlet aqui para la navegación entre las opciones del menú -->
+            <app-listar-solicitudes-empresa *ngIf="this.op1" ></app-listar-solicitudes-empresa>
+            <app-listar-ofertas *ngIf="this.op2"></app-listar-ofertas>
+        </div>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

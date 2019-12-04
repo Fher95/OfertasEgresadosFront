@@ -42,8 +42,8 @@
     </mat-radio-group>
     <app-programa *ngIf="Egresado.value=='0'" #programa></app-programa>
     <div class="row">
-      <button id="cancelar" (click)="limpiarDatos()" mat-raised-button>Cancelar</button>
-      <button color="primary" id="agregar" (click)="referidoDatos()" mat-raised-button>Agregar</button>
+      <button id="cancelar" (click)="cancelar()" mat-raised-button class="btn btn-danger">Cancelar</button>
+      <button id="agregar" (click)="guardarReferido()" mat-raised-button color="primary">Agregar</button>
     </div>
   </form>
 </mat-card>

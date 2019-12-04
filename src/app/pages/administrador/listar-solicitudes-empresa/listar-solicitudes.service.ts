@@ -11,11 +11,12 @@ export class ListarSolicitudesService {
     private urlSolicitud = 'http://localhost:8081/api/empresa';  // URL to web api
     httpOptions = {
         headers: new HttpHeaders({
-          // "Content-Type": "application/x-www-form-urlencoded",
-          "Content-Type": "application/json",
-          // "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjAsImVtYWlsIjoianVhbkBhZG1pbi5jb20iLCJpZF9yb2wiOjAsImZpcnN0X25hbWUiOiJKdWFuIiwibGFzdF9uYW1lIjoiVmVsZXoiLCJpYXQiOjE1NzE1MzI2MjcsImV4cCI6MTU3MjEzNzQyN30.ggfsEewjLgzg9PNKf8a4onkpYVTbBS2FFeYbFDh2QXE"
+            // "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "application/json",
+            // "Authorization": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjAsImVtYWlsIjoianVhbkBhZG1pbi5jb20iLCJpZF9yb2wiOjAsImZpcnN0X25hbWUiOiJKdWFuIiwibGFzdF9uYW1lIjoiVmVsZXoiLCJpYXQiOjE1NzE1MzI2MjcsImV4cCI6MTU3MjEzNzQyN30.ggfsEewjLgzg9PNKf8a4onkpYVTbBS2FFeYbFDh2QXE"
         })
     };
+    private cambioRealizado: boolean = false;
 
     constructor(
         private http: HttpClient
@@ -34,7 +35,7 @@ export class ListarSolicitudesService {
     }
     /** PUT: update the solicitud on the server */
     activarSolicitud(parId: number, parNumPublicaciones: number): Observable<any> {
-        let params = '{ "estado" : "Activo", "limite_publicaciones": '+  parNumPublicaciones + '}';
+        let params = '{ "estado" : "Activo", "limite_publicaciones": ' + parNumPublicaciones + '}';
         // let params = "json="+json;
         const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
         return this.http.put(nuevaUrl, params, this.httpOptions).pipe(
@@ -45,8 +46,8 @@ export class ListarSolicitudesService {
 
     desactivarSolicitud(parId: number): Observable<any> {
 
-        let json =  JSON.stringify({ estado : 'Inactivo' });
-        let params = "json="+json;
+        let json = JSON.stringify({ estado: 'Inactivo' });
+        let params = "json=" + json;
         console.log(params);
         const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
         return this.http.put(nuevaUrl, params, this.httpOptions).pipe(
@@ -64,5 +65,16 @@ export class ListarSolicitudesService {
             // Let the app keep running by returning an empty result.
             return of(result as T);
         };
+    }
+    notificarCambio() {
+        this.cambioRealizado = true;
+    }
+
+    cambioRegistrado(): boolean {
+        return this.cambioRealizado;
+    }
+
+    cambioActualizado() {
+        this.cambioRealizado = false;
     }
 }

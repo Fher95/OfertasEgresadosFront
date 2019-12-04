@@ -1,0 +1,30 @@
+<div id="base">
+  <app-navbar-home-ofertas></app-navbar-home-ofertas>
+  <div class="row no-gutters">
+    <div class="col-12 col-md-10 offset-md-1">
+      <div id="content" class="row no-gutters">
+         
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
+        <div id="config" class="col-12 col-md-9">
+          <app-solicitud-carnetizacion *ngIf="codigoPantalla == 1"></app-solicitud-carnetizacion>
+          <h1 *ngIf="codigoPantalla == 0">BIENVENIDOS</h1>
+        </div>
+        <div class="col-12 col-md-3">
+          <mat-list id="list" role="list">
+            <h4 matSubHeader  class="header">Carnetización</h4>
+            <mat-list-item role="list-item" (click)="opcionPantalla(1)">
+              Solicitudes de carnetización
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <h4 matSubHeader class="header">Egresados</h4>
+            <mat-divider></mat-divider>
+            <h4 matSubHeader class="header">Evento</h4>
+            <mat-divider></mat-divider>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+  </div>

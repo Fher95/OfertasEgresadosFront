@@ -1,0 +1,43 @@
+#base {
+    height: 100%;
+    width: 100%;
+}
+
+#content {
+    background-color: #fafafa;
+    padding: 9px;
+    padding-top: 2%;
+}
+
+#list {
+    padding-top: 10px;
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+}
+
+.header {
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #0D4185;
+    font-weight: bold;
+}
+
+mat-list-item {
+    padding-left: 10px !important;
+    cursor: pointer;
+    margin: 0 !important;
+}
+
+mat-list-item:hover {
+    padding-left: 30px !important;
+    background-color: rgba(231, 235, 253, 0.541);
+}
+
+mat-divider {
+    margin-bottom: 10px;
+}
+
+#config {
+    background-color: white;
+}

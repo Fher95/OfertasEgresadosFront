@@ -34,6 +34,9 @@ export class AuthService {
 
   get isLogin() {
     if (localStorage.getItem('token')) {
+      const payload = jwt_decode(localStorage.getItem('token'));
+      this.userEmail = payload.email;
+      this.userRol = payload.rol;
       return true;
     }
     return false;

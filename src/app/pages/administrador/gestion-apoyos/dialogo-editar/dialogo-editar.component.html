@@ -1,0 +1,83 @@
+<h2 mat-dialog-title>Editar egresados</h2>
+<mat-dialog-content>
+  <form novalidate (onSubmit)="onSubmit()">
+    <div class="form-row">
+      <mat-form-field class="form-group col-md-4">
+        <input matInput #nombre="ngModel" name="nombre" type="text" [(ngModel)]="apoyo.nombres" required
+          placeholder="Nombres">
+        <mat-error *ngIf="nombre.invalid && (nombre.dirty || nombre.touched) && nombre.errors.required">
+          El nombre es requerido
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-group col-md-4">
+        <input matInput #apellido="ngModel" name="apellido" placeholder="Apellidos" type="text"
+          [(ngModel)]="apoyo.apellidos" required>
+        <mat-error *ngIf="apellido.invalid && (apellido.dirty || apellido.touched) && apellido.errors.required">
+          El apellido es requerido
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-group col-md-4">
+        <input matInput #nombreRol="ngModel" placeholder="Nombre rol" name="nombreRol" type="text"
+          [(ngModel)]="apoyo.nombreRol" required>
+        <mat-error *ngIf="nombreRol.invalid && (nombreRol.dirty || nombreRol.touched) && nombreRol.errors.required">
+          El nombre del rol es requerido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="form-group col-md-6">
+        <input matInput type="email" #email name="email" required [(ngModel)]="apoyo.correo" placeholder="Correo">
+        <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.required">
+          El elmail es requerido
+        </mat-error>
+        <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.email">
+          Debe ingresaro un email válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-6">
+        <input matInput type="email" #emailSecundario name="emailSecundario" required
+          [(ngModel)]="apoyo.correoSecundario" placeholder="Correo secundario">
+        <mat-error
+          *ngIf="emailSecundario.invalid && (emailSecundario.dirty || emailSecundario.touched) && emailSecundario.errors.required">
+          El elmail es requerido
+        </mat-error>
+        <mat-error
+          *ngIf="emailSecundario.invalid && (emailSecundario.dirty || emailSecundario.touched) && emailSecundario.errors.email">
+          Debe ingresaro un email válido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field class="form-group col-md-5">
+        <mat-label>Servicios</mat-label>
+        <mat-select name="servicio" [(ngModel)]="servicioSeleccionado">
+          <mat-option *ngFor="let servicio of servicios" [value]="servicio">
+            {{ servicio.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button type="button" mat-mini-fab color="primary" class="col-md-1" (click)="agregarServicio()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-form-field class="col-md-6 form-group">
+        <mat-label>Servicios seleccionados</mat-label>
+        <mat-chip-list #chipList matInput>
+          <mat-chip *ngFor="let servicio of apoyo?.servicios" [removable]="true" (removed)="eliminarServicio(servicio)">
+            {{ servicio.nombre }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+        <mat-error *ngIf="apoyo.servicios.length">
+          Debe seleccionar un servicio.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-dialog-actions>
+      <button type="button" mat-raised-button class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+      <button type="submit" mat-raised-button color="primary" class="btn" (click)="onSubmit()">Guardar</button>
+    </mat-dialog-actions>
+  </form>
+
+</mat-dialog-content>

@@ -1,3 +1,6 @@
+import { AdminGuard } from './../../shared/guard/admin.guard';
+import { ApoyoService } from './../../shared/servicios/egresados/apoyo.service';
+import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,23 +14,51 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ListaEgresadosComponent } from './verificar-excel/lista-egresados/lista-egresados.component';
 import { FileUploadComponent } from './verificar-excel/file-upload/file-upload.component';
+import { GestionApoyosComponent } from './gestion-apoyos/gestion-apoyos.component';
+import { DialogoEditarComponent } from './gestion-apoyos/dialogo-editar/dialogo-editar.component';
+import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component'
+import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solicitud-carnetizacion.component';
+import {
+  MatSidenavModule} from '@angular/material';
+import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
+import { InfoOfertaLaboralComponent } from './info-oferta-laboral/info-oferta-laboral.component';
 
 const routes: Routes = [
-  { path: 'admin/listar', component: PrincipalComponent }, 
+  { path: 'admin/principal', component: PrincipalComponent },
   { path: 'admin/solicitudes', component: ListarSolicitudesEmpresaComponent },
-  { path: 'admin/ofertas', component: ListarOfertasComponent},
-  { path: 'admin/egresados/verificar', component: VerificarExcelComponent},
+  { path: 'admin/ofertas', component: ListarOfertasComponent },
+  { path: 'egresados/verificar', component: VerificarExcelComponent, canActivate: [AdminGuard] },
+  { path: 'admin/egresados/ajustes', component: AjustesAdministradorComponent },
+  { path: 'apoyos', component: GestionApoyosComponent }
 ];
 
 @NgModule({
-  declarations: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent, SpinnerComponent, ListaEgresadosComponent, FileUploadComponent],
+  declarations: [
+    ListarSolicitudesEmpresaComponent,
+    PrincipalComponent,
+    ListarOfertasComponent,
+    VerificarExcelComponent,
+    ListarEgresadosAceptadosComponent,
+    SpinnerComponent,
+    ListaEgresadosComponent,
+    FileUploadComponent,
+    GestionApoyosComponent,
+    DialogoEditarComponent,
+    AjustesAdministradorComponent,
+    SolicitudCarnetizacionComponent,
+    InfoSolicitudEmpresaComponent,
+    InfoOfertaLaboralComponent
+  ],
   imports: [
     CommonModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatSidenavModule
   ],
-  exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent]
+  entryComponents: [InfoSolicitudEmpresaComponent, DialogoEditarComponent, InfoOfertaLaboralComponent],
+  exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent],
+  providers: [CatalogosService, ApoyoService]
 })
 export class AdministradorModule { }

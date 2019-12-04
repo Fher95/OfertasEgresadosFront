@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Información de la empresa</h1>
+<hr>
+<div mat-dialog-content >  
+  <p>                                                                     </p>
+  <strong>Nombre de la empresa: </strong> <a>{{data.solicitud.nombre}}</a>
+  <p></p>
+  <strong>NIT: </strong> <a>{{data.solicitud.nit}}</a>
+  <p></p>
+  <strong>Año de creación: </strong> <a>{{data.solicitud.anio_creacion}}</a>
+  <p></p>
+  <strong>Razon social: </strong> <a>{{data.solicitud.razon_social}}</a>
+  <p></p>
+  <strong>Sitio Web: </strong> <a href={{data.solicitud.sitio_web}}>{{data.solicitud.sitio_web}}</a>
+  <p></p>
+  <strong>Numero de empleados: </strong> <a>{{data.solicitud.numero_empleados}}</a>
+  <p></p>
+  <strong>Fecha de registro: </strong> <a>{{data.solicitud.fecha_registro}}</a>
+  <p></p>
+  <strong>Estado: </strong> <a>{{getEstado(data.solicitud.estado)}}</a>
+  <p></p>
+  <div class="form-group">
+    <strong for="numOfertas">Numero de publicaciones permitidas: </strong>
+    <p></p>
+    <input [(ngModel)]="seleccionNumOfertas" type="number" class="form-control"
+      placeholder="Debe ingresar un numero para activar" (change)="activacionValida()" (keyup)="activacionValida()"
+      required>
+  </div>
+</div>
+<mat-dialog-actions align="end">
+    <!--button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button-->
+
+    <button type="button" class="btn btn-secondary m-1" (click)="reiniciarSeleccion()"
+    mat-dialog-close>Cancelar</button>
+          <button type="button" class="btn btn-primary m-1" *ngIf="seleccionValida"
+            (click)="activarEmpresa(data.solicitud)" data-dismiss="modal" [mat-dialog-close]="true">
+            Activar</button>
+          <button type="button" class="btn btn-primary m-1" (click)="desactivarEmpresa(data.solicitud)"
+            data-dismiss="modal" [mat-dialog-close]="true">
+            Rechazar</button>
+</mat-dialog-actions>

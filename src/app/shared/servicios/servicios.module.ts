@@ -1,3 +1,5 @@
+import { AdminGuard } from './../guard/admin.guard';
+import { EgresadosGuard } from './../guard/egresados.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralesService } from './generales.service';
@@ -11,7 +13,6 @@ import { EmpresaService } from './empresa/empresa.service';
 import { Config } from './config/config';
 import { AlertService } from './common/alert.service';
 import { AuthService } from './auth/auth.service';
-import { UserGuard } from '../guard/user.guard';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserGuard } from '../guard/user.guard';
     Utilities,
     EmpresaService,
     AlertService,
-    UserGuard
+    EgresadosGuard,
+    AdminGuard
   ],
   providers: [Config, AuthService]
 })
