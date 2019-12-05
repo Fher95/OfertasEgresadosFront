@@ -21,6 +21,7 @@ import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solic
 import {
   MatSidenavModule} from '@angular/material';
 import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
+import { ListaApoyosComponent } from './gestion-apoyos/lista-apoyos/lista-apoyos.component';
 
 const routes: Routes = [
   { path: 'admin/principal', component: PrincipalComponent },
@@ -45,7 +46,8 @@ const routes: Routes = [
     DialogoEditarComponent,
     AjustesAdministradorComponent,
     SolicitudCarnetizacionComponent,
-    InfoSolicitudEmpresaComponent
+    InfoSolicitudEmpresaComponent,
+    ListaApoyosComponent
   ],
   imports: [
     CommonModule,
