@@ -103,6 +103,7 @@ export class GestionApoyosComponent implements OnInit {
     this.apoyo.nombres = this.nombre.value;
     this.apoyo.apellidos = this.apellido.value;
     this.apoyo.correo = this.email.value;
+    this.apoyo.nombreRol = this.nombreApoyo.value;
     this.apoyo.correoSecundario = this.emailSecundario.value;
     this.apoyo.servicios = this.rolesSeleccionados;
     console.log(this.apoyo.servicios);

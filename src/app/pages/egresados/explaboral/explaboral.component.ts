@@ -72,8 +72,7 @@ export class ExplaboralComponent implements OnInit {
 
     if(this.Labora_Area.value!='' && this.localizacionEmpresa.obtenerIdLocalizacion()!=null && this.NombreEmpresa.value!='' 
       && this.NombreCategoria.value!='' && this.DirTrabajo.value!='' && this.TelTrabajo.value!='' && this.Cargo.value!=''
-      && this.RangoSalario.value!='' && this.TipoContrato.value!='' && this.Sector.value!='' && this.fechaInicio.value!='' 
-      && this.fechaFin.value!='')
+      && this.RangoSalario.value!='' && this.TipoContrato.value!='' && this.Sector.value!='' && this.fechaInicio.value!='')
     {
       bandera = true;
     }

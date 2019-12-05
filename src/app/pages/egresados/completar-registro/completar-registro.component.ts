@@ -76,7 +76,7 @@ export class CompletarRegistroComponent implements OnInit {
     console.log('Referido a eliminar: ' + referido);
     const index = this.referidos.indexOf(referido);
     if(index >= 0) {
-      this.expAnteriores.splice(index, 1);
+      this.referidos.splice(index, 1);
       this.dataReferidos = new MatTableDataSource<any>(this.referidos);
       console.log('Referido eliminado');
     }
@@ -166,8 +166,9 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.verificarCampos()){
       this.llenarDatos();
       this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
-        id => {
-          this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,id).subscribe(
+        data => {
+          console.log(data);
+          this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,data.id_aut_egresado).subscribe(
             respuesta => {
               this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
                 ()=>{ this.router.navigateByUrl('home');});
