@@ -25,12 +25,14 @@ import {
   MatTooltipModule,
   MatSnackBarModule
 } from '@angular/material';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const MaterialComponents = [
   MatButtonModule,
   MatStepperModule,
   MatFormFieldModule,
   MatInputModule,
+  MatProgressSpinnerModule,
   MatCardModule,
   MatButtonToggleModule,
   MatListModule,

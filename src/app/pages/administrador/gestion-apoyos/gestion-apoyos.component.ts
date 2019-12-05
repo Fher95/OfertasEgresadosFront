@@ -1,3 +1,4 @@
+import { ListaApoyosComponent } from './lista-apoyos/lista-apoyos.component';
 import { DialogoEditarComponent } from './dialogo-editar/dialogo-editar.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource, MatPaginator, MatDialogConfig } from '@angular/material';
@@ -7,7 +8,9 @@ import { ApoyoModel } from './../../../shared/modelos/apoyo.model';
 import { ServicioModel } from './../../../shared/modelos/servicio.model';
 import { CatalogosService } from './../../../shared/servicios/common/catalogos.service';
 import { FormControl, Validators, NgForm } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { merge } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gestion-apoyos',
@@ -42,14 +45,8 @@ export class GestionApoyosComponent implements OnInit {
    */
   private apoyo: ApoyoModel;
 
-  /**
-   * Lista apoyos.
-   */
-  columnas: string[] = ['nombres', 'apellidos', 'activo', 'acciones'];
-
-  @ViewChild(MatPaginator)
-  paginator: MatPaginator;
-  apoyos: MatTableDataSource<ApoyoModel>;
+  @ViewChild('tblApoyos')
+  tblApoyos: ListaApoyosComponent;
 
   constructor(
     private catalogService: CatalogosService,
@@ -61,10 +58,6 @@ export class GestionApoyosComponent implements OnInit {
   ngOnInit() {
     this.catalogService.getServicios()
       .subscribe(arg => this.servicios = arg);
-    this.apoyoService.getAll().subscribe(data => {
-      this.apoyos = new MatTableDataSource<ApoyoModel>(data);
-      this.apoyos.paginator = this.paginator;
-    });
   }
 
   agregarRol() {
@@ -82,19 +75,15 @@ export class GestionApoyosComponent implements OnInit {
     }
   }
 
-  abrirDialogo(idApoyo: number) {
-    this.apoyoService.getById(idApoyo).subscribe(data => {
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.hasBackdrop = true;
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      dialogConfig.data = data;
-      const dialogRef = this.dialog.open(DialogoEditarComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe(response => {
-        if (response === true) {
-          // TODO: Paginate table.
-        }
-      });
+  abrirDialogo(apoyo: ApoyoModel) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = apoyo;
+    const dialogRef = this.dialog.open(DialogoEditarComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(response => {
+      this.tblApoyos.editarApoyo(response);
     });
   }
 
@@ -110,7 +99,8 @@ export class GestionApoyosComponent implements OnInit {
     this.apoyoService.save(this.apoyo).subscribe(() => {
       this.alertService.showSuccesMessage('Éxito', 'Nuevo apoyo registrado exitosamente')
         .then(() => {
-          this.apoyoService.getAll().subscribe(data => this.apoyos = new MatTableDataSource<ApoyoModel>(data));
+          this.tblApoyos.nuevoApoyo(this.apoyo);
+          this.apoyo = new ApoyoModel();
           form.reset();
         });
     }, err => {
