@@ -26,6 +26,7 @@ export class ListarOfertasComponent implements OnInit {
   auxiliar = false;
   estadoActivacion: string;
   motivoInactivacion: string;
+  filtroEstado = '';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -169,6 +170,25 @@ export class ListarOfertasComponent implements OnInit {
         this.servicioOfertas.cambioActualizado();
       }
     });
+  }
+
+  filtrarOfertas(columna: string) {
+    if (this.filtroEstado == '' || this.filtroEstado == 'Todas') {
+      return this.ofertas;
+    }
+    //Filtro para los valores
+    return this.ofertas.filter(item => {
+      return item[columna].toLowerCase() == this.filtroEstado.toLowerCase();
+    });
+  }
+
+  /**
+ * Actualiza la tabla segun el filtro escogido en el método filtrarOfertas, el cual las filtra así:
+ * Todas - Aceptadas - Pendientes - Rechazadas
+ */
+  filtrar(columna) {
+    this.dataSource = new MatTableDataSource<OfertaLaboral>(this.filtrarOfertas(columna));
+    this.dataSource.paginator = this.paginator;
   }
 
 }
