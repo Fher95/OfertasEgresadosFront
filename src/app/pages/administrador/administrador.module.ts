@@ -22,6 +22,7 @@ import {
   MatSidenavModule} from '@angular/material';
 import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
 import { InfoOfertaLaboralComponent } from './info-oferta-laboral/info-oferta-laboral.component';
+import { ListaApoyosComponent } from './gestion-apoyos/lista-apoyos/lista-apoyos.component';
 
 const routes: Routes = [
   { path: 'admin/principal', component: PrincipalComponent },
@@ -47,7 +48,8 @@ const routes: Routes = [
     AjustesAdministradorComponent,
     SolicitudCarnetizacionComponent,
     InfoSolicitudEmpresaComponent,
-    InfoOfertaLaboralComponent
+    InfoOfertaLaboralComponent,
+    ListaApoyosComponent
   ],
   imports: [
     CommonModule,

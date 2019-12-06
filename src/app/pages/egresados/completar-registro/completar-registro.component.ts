@@ -33,7 +33,7 @@ export class CompletarRegistroComponent implements OnInit {
   columnas : string[] = ['nombres','parentesco','telefono_movil', 'acciones'];
   dataReferidos: MatTableDataSource<any>;
   referidos: any[];
-  
+
   //Tabla expAnterior
   columnasExpAnterior : string[] = ['cargo_nombre','nombre_empresa','sector', 'acciones'];
   dataExpAnterior: MatTableDataSource<any>;
@@ -76,7 +76,7 @@ export class CompletarRegistroComponent implements OnInit {
     console.log('Referido a eliminar: ' + referido);
     const index = this.referidos.indexOf(referido);
     if(index >= 0) {
-      this.expAnteriores.splice(index, 1);
+      this.referidos.splice(index, 1);
       this.dataReferidos = new MatTableDataSource<any>(this.referidos);
       console.log('Referido eliminado');
     }
@@ -142,7 +142,7 @@ export class CompletarRegistroComponent implements OnInit {
     else if(this.haTrabajado.value==1){
       this.varCompletarRegistro.ha_trabajado = false;
     }
-    
+
     if(this.Labora_Actualmente.value==0)
     {
       this.varCompletarRegistro.trabajo_actualmente = true;
@@ -166,15 +166,16 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.verificarCampos()){
       this.llenarDatos();
       this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
-        id => {
-          this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,id).subscribe(
+        data => {
+          console.log(data);
+          this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,data.id_aut_egresado).subscribe(
             respuesta => {
               this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
                 ()=>{ this.router.navigateByUrl('home');});
               console.log(respuesta);
-            }, 
+            },
             error => {
-              this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');  
+              this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');
             });
       });
     }
