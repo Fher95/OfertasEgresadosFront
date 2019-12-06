@@ -33,7 +33,7 @@ export class CompletarRegistroComponent implements OnInit {
   columnas : string[] = ['nombres','parentesco','telefono_movil', 'acciones'];
   dataReferidos: MatTableDataSource<any>;
   referidos: any[];
-  
+
   //Tabla expAnterior
   columnasExpAnterior : string[] = ['cargo_nombre','nombre_empresa','sector', 'acciones'];
   dataExpAnterior: MatTableDataSource<any>;
@@ -142,7 +142,7 @@ export class CompletarRegistroComponent implements OnInit {
     else if(this.haTrabajado.value==1){
       this.varCompletarRegistro.ha_trabajado = false;
     }
-    
+
     if(this.Labora_Actualmente.value==0)
     {
       this.varCompletarRegistro.trabajo_actualmente = true;
@@ -173,9 +173,9 @@ export class CompletarRegistroComponent implements OnInit {
               this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
                 ()=>{ this.router.navigateByUrl('home');});
               console.log(respuesta);
-            }, 
+            },
             error => {
-              this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');  
+              this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');
             });
       });
     }
