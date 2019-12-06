@@ -23,7 +23,7 @@ export class VerPostuladosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.listaPostulados = [];
     this.listaPostuladosEscogidos = [];
-    this.cargarPostulados2();
+    this.cargarPostulados();
   }
   cargarPostulados() {
     this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {
@@ -76,15 +76,15 @@ export class VerPostuladosComponent implements OnInit {
 
   setPostuladoActual(parPostulado: IEgresado) {
     this.postuladoSeleccionado  = parPostulado;
-    if (this.postuladoSeleccionado !== undefined || this.postuladoSeleccionado !== null){   
+    if (this.postuladoSeleccionado !== undefined || this.postuladoSeleccionado !== null){
       const fechaActual = new Date();
       const strFecha = fechaActual.getFullYear() + '-' + fechaActual.getMonth() + '-' + fechaActual.getDay()
-      + ' ' + fechaActual.getHours() + ':' + fechaActual.getMinutes(); 
+      + ' ' + fechaActual.getHours() + ':' + fechaActual.getMinutes();
       this.empresaService.guardarRegistroVisualizacionPostulado(this.postuladoSeleccionado.identificacion, strFecha)
       .subscribe();
     }
   }
-  
+
   reiniciarSeleccion() {
     this.postuladoSeleccionado = undefined;
   }
