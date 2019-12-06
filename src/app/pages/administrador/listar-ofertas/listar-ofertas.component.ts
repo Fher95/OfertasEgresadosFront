@@ -35,7 +35,7 @@ export class ListarOfertasComponent implements OnInit {
 
   ngOnInit() {
     this.ofertas = null;
-    this.getOfertas2();
+    this.getOfertas();
   }
 
   getOfertas(): void {

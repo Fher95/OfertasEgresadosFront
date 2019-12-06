@@ -23,6 +23,7 @@ import {
 import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
 import { InfoOfertaLaboralComponent } from './info-oferta-laboral/info-oferta-laboral.component';
 import { ListaApoyosComponent } from './gestion-apoyos/lista-apoyos/lista-apoyos.component';
+import { MaterialModule } from 'src/app/layout/material/material.module';
 
 const routes: Routes = [
   { path: 'admin/principal', component: PrincipalComponent },
@@ -57,7 +58,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    MatSidenavModule
+    MatSidenavModule,
+    MaterialModule
   ],
   entryComponents: [InfoSolicitudEmpresaComponent, DialogoEditarComponent, InfoOfertaLaboralComponent],
   exports: [ListarSolicitudesEmpresaComponent, PrincipalComponent, ListarOfertasComponent, VerificarExcelComponent, ListarEgresadosAceptadosComponent],
