@@ -38,7 +38,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudes = null;
-    this.getSolicitudes();
+    this.getSolicitudes2();
   }
 
   getSolicitudes(): void {
@@ -158,7 +158,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }
   dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
     dial.afterClosed().subscribe((result) => {
-      if (this.servicioLista.cambioRegistrado()) {
+      console.log('Resultado dialogo cerrado:' + result);
+      if (result === 'true') {
         this.getSolicitudes();
         this.servicioLista.cambioActualizado();
       }
