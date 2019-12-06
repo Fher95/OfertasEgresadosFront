@@ -159,7 +159,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
     dial.afterClosed().subscribe((result) => {
       console.log('Resultado dialogo cerrado:' + result);
-      if (result === 'true') {
+      if (result) {
+        console.log('Entra al if');
         this.getSolicitudes();
         this.servicioLista.cambioActualizado();
       }
