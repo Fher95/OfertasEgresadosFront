@@ -36,11 +36,11 @@ export class VerPostuladosComponent implements OnInit {
   }
   cargarPostulados2(){
     const lstPostulados: IEgresado[] = [
-    {identificacion: 3243, id_aut_egresado: '106167234',nombres:'Andres Felipe',apellidos:'Muñoz Andrade'},
-    {identificacion: 3244, id_aut_egresado: '106145234',nombres:'Luz Maritza',apellidos:'Tabares Paz'},
-    {identificacion: 3245, id_aut_egresado: '106178256',nombres:'John',apellidos:'Doe'},
-    {identificacion: 3246, id_aut_egresado: '106175345',nombres:'Marco Alberto',apellidos:'Hernandez Noriega'},
-    {identificacion: 3247, id_aut_egresado: '104346567',nombres:'Natalia Andrea',apellidos:'Yasnó Ceron'}
+    {idEgresado: 3243, id_aut_egresado: '106167234',nombres:'Andres Felipe',apellidos:'Muñoz Andrade'},
+    {idEgresado: 3244, id_aut_egresado: '106145234',nombres:'Luz Maritza',apellidos:'Tabares Paz'},
+    {idEgresado: 3245, id_aut_egresado: '106178256',nombres:'John',apellidos:'Doe'},
+    {idEgresado: 3246, id_aut_egresado: '106175345',nombres:'Marco Alberto',apellidos:'Hernandez Noriega'},
+    {idEgresado: 3247, id_aut_egresado: '104346567',nombres:'Natalia Andrea',apellidos:'Yasnó Ceron'}
   ];
   this.listaPostulados = lstPostulados;
   }
