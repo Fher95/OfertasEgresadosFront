@@ -24,6 +24,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
   seleccionNumOfertas: number = 0;
   seleccionValida = false;
+  filtroEstado = '';
 
   solicitudSeleccionada = solicitudGenerica;
   arregloVacio = false;
@@ -38,7 +39,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
   ngOnInit() {
     this.solicitudes = null;
-    this.getSolicitudes();
+    this.getSolicitudes2();
   }
 
   getSolicitudes(): void {
@@ -158,10 +159,32 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }
   dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
     dial.afterClosed().subscribe((result) => {
-      if (this.servicioLista.cambioRegistrado()) {
+      console.log('Resultado dialogo cerrado:' + result);
+      if (result) {
+        console.log('Entra al if');
         this.getSolicitudes();
         this.servicioLista.cambioActualizado();
       }
     });
   }
+
+  filtrarOfertas(columna: string) {
+    if (this.filtroEstado == '' || this.filtroEstado == 'Todas') {
+      return this.solicitudes;
+    }
+    //Filtro para los valores
+    return this.solicitudes.filter(item => {
+      return item[columna].toLowerCase() == this.filtroEstado.toLowerCase();
+    });
+  }
+
+  /**
+ * Actualiza la tabla segun el filtro escogido en el método filtrarOfertas, el cual las filtra así:
+ * Todas - Aceptadas - Pendientes - Rechazadas
+ */
+  filtrar(columna) {
+    this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarOfertas(columna));
+    this.dataSource.paginator = this.paginator;
+  }
+
 }

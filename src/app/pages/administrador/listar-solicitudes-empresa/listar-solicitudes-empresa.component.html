@@ -11,7 +11,19 @@
     </div>
   </div>
   <h3 *ngIf="arregloVacio" class="text-centered"> No se encontraron solicitudes </h3>
-
+  <div *ngIf="!arregloVacio" class="row">
+      <div class="col-2">
+        <mat-form-field>
+          <mat-label>Filtrar por:</mat-label>
+          <mat-select [(value)]="filtroEstado" (selectionChange)="filtrar('estado')">
+            <mat-option value="Todas">Todas</mat-option>
+            <mat-option value="En espera">Pendiente</mat-option>
+            <mat-option value="Activo">Activo</mat-option>
+            <mat-option value="Inactivo">Inactivo</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
   <div *ngIf="!arregloVacio" class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
