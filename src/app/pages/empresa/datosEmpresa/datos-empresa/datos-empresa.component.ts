@@ -17,7 +17,6 @@ export class DatosEmpresaComponent implements OnInit {
   id: string;
   showSpinner = true;
   data:any;
-  @ViewChild('logoInput') logoInput;
   formRegistroEmp: FormGroup;
 
  
@@ -118,14 +117,17 @@ export class DatosEmpresaComponent implements OnInit {
   }
 
   modificarFoto(event){
+
+  //No implementado
+    /*
     let formData = new FormData();
-    formData.append('logoInput', this.logoInput.nativeElement.files[0]);
+    //formData.append('logoInput', this.logoInput.nativeElement.files[0]);
 
     console.log(event);
     let file = <File>event.target.files[0];
     //this.empresaService.modificarFoto(file);
     console.log(file);
-    //document.getElementById(imgUser).style.backgroundImage =
+    //document.getElementById(imgUser).style.backgroundImage =*/
   }
 
 }
