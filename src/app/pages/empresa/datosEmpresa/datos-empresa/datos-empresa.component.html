@@ -40,15 +40,7 @@
                             </mat-card-header>
                             <mat-card-content formGroupName="datos-generales-empresa">
                                     <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Nombre de la empresa</label>
-                                            <div class="col-sm-9">
-                                                <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
-                                                    <input  matInput formControlName="nombreEmpresa" >
-                                                </mat-form-field>
-                                            </div>
-                                    </div>
-                                    <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Nit</label>
+                                            <label class="col-sm-3 col-form-label">NIT</label>
                                             <div class="col-sm-9">
                                                 <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                     <input  matInput formControlName="nit" >
@@ -56,7 +48,16 @@
                                             </div>
                                     </div>
                                     <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Razon social</label>
+                                            <label class="col-sm-3 col-form-label">Nombre de la empresa</label>
+                                            <div class="col-sm-9">
+                                                <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
+                                                    <input  matInput formControlName="nombreEmpresa" >
+                                                </mat-form-field>
+                                            </div>
+                                    </div>
+                                   
+                                    <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Razón social</label>
                                             <div class="col-sm-9">
                                                 <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                     <input  matInput formControlName="razonSocial" >
@@ -64,7 +65,7 @@
                                             </div>
                                     </div>
                                     <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Año de creacion</label>
+                                            <label class="col-sm-3 col-form-label">Año de creación</label>
                                             <div class="col-sm-9">
                                                 <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                     <input  matInput formControlName="anioCreacion" >
@@ -72,7 +73,7 @@
                                             </div>
                                     </div>
                                     <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Numero de empleados</label>
+                                            <label class="col-sm-3 col-form-label">Número de empleados</label>
                                             <div class="col-sm-3">
                                                 <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                     <input  matInput formControlName="numEmpleados" >
@@ -141,7 +142,7 @@
                             </mat-card-header>
                             <mat-card-content formGroupName="loc-contact-empresa">
                                     <div class="form-group row ">
-                                            <label class="col-sm-2 col-form-label">Pais</label>
+                                            <label class="col-sm-2 col-form-label">País</label>
                                             <div class="col-sm-2">
                                                 <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                     <input  matInput formControlName="paisEmp" >
@@ -161,7 +162,7 @@
                                             </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Codigo Postal</label>
+                                        <label class="col-sm-2 col-form-label">Código Postal</label>
                                         <div class="col-sm-4">
                                             <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                 <input  matInput formControlName="codigoPostalEmp" >
@@ -175,7 +176,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Direccion</label>
+                                        <label class="col-sm-2 col-form-label">Dirección</label>
                                         <div class="col-sm-4">
                                             <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                 <input  matInput formControlName="direccionEmp" >
@@ -189,7 +190,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Telefono</label>
+                                        <label class="col-sm-2 col-form-label">Teléfono</label>
                                         <div class="col-sm-4">
                                             <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                 <input  matInput formControlName="telefonoEmp" >
@@ -231,13 +232,13 @@
                                     </div>
                             </div>
                             <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Telofono fijo</label>
+                                    <label class="col-sm-2 col-form-label">Teléfono fijo</label>
                                     <div class="col-sm-4">
                                         <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                <input  matInput formControlName="telefonoFijoRespLegal" >
                                         </mat-form-field>
                                     </div>
-                                    <label class="col-sm-2 col-form-label">Telefono movil</label>
+                                    <label class="col-sm-2 col-form-label">Teléfono móvil</label>
                                     <div class="col-sm-4">
                                         <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                <input  matInput formControlName="telefonoMovilRespLegal" >
@@ -284,13 +285,13 @@
                                        </div>
                                     </div>
                                     <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Telefono fijo</label>
+                                            <label class="col-sm-2 col-form-label">Teléfono fijo</label>
                                            <div class="col-sm-3">
                                                <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                       <input  matInput formControlName="telefonoResp" >
                                                </mat-form-field>
                                            </div>
-                                           <label class="col-sm-3 col-form-label">Telefono movil</label>
+                                           <label class="col-sm-3 col-form-label">Teléfono móvil</label>
                                            <div class="col-sm-4">
                                                <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                       <input  matInput formControlName="telefonoMovilResp" >
@@ -298,7 +299,7 @@
                                            </div>
                                     </div>
                                     <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Direccion de trabajo</label>
+                                            <label class="col-sm-3 col-form-label">Dirección de trabajo</label>
                                            <div class="col-sm-9">
                                                <mat-form-field  appearance="outline"  class="tamForm labelCompleto" >
                                                       <input  matInput formControlName="direccionTrabajo" >

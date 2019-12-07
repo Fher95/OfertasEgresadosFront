@@ -105,7 +105,7 @@ datosFormChecked: FormGroup;
           requisitosMinimos:[null,Validators.required],
           movilizacionPropia:[null,Validators.required],
           licenciaConduccion:[null],
-          discapacidad:[null],
+          discapacidades:[null],
           idDiscapacidad:[null],
           idiomas:[[]],
           softwareOferta:[[]],
@@ -312,10 +312,22 @@ datosFormChecked: FormGroup;
     }
 
   }
-  discapacidadSeleccionada(event)
+  discapacidadesSeleccionadas(event)
   {
     if(event.isUserInput) {
-      this.formOfertaLaboral.controls['requisitos'].get('discapacidad').setValue(event.source.viewValue);
+      let discapacidades = this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value
+      if(discapacidades == null){
+        this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue([event.source.viewValue])
+      }
+      else{
+        let pos = this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.indexOf(event.source.viewValue)
+        if(pos==-1){
+          this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.push(event.source.viewValue)
+        }
+        else{
+            this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.splice(pos,1)
+      }
+    }
     }
   }
   ciudadSeleccionada(event){
