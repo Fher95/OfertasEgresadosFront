@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Información de la empresa</h1>
 <hr>
-<div mat-dialog-content >  
+<div mat-dialog-content >
   <p>                                                                     </p>
   <strong>Nombre de la empresa: </strong> <a>{{data.solicitud.nombre}}</a>
   <p></p>
@@ -26,10 +26,10 @@
       required>
   </div>
 </div>
+<hr>
 <mat-dialog-actions align="end">
     <!--button mat-button mat-dialog-close>Cancel</button>
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button-->
-
     <button type="button" class="btn btn-secondary m-1" (click)="reiniciarSeleccion()"
     mat-dialog-close>Cancelar</button>
           <button type="button" class="btn btn-primary m-1" *ngIf="seleccionValida"

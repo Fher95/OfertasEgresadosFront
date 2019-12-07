@@ -24,21 +24,22 @@ const routes: Routes = [
   { path: 'empresa/:id/datosEmpresa', component:DatosEmpresaComponent},
   { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent},
   { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent},
+  { path: 'empresa/:id/modificarOfertaLaboral', component: ModificarOfertaLaboralComponent},
   { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent},
   { path: 'oferta/:id/misPostulados', component: VerPostuladosComponent}
-  
+
 ];
 
 @NgModule({
   declarations: [
     RegistrarComponent,
     DatosEmpresaComponent,
-    EditarEmpresaComponent, 
-    DialogFinalRegistroComponent, 
-    CrearOfertaLaboralComponent, 
-    DialogFinalModificarComponent, 
-    OfertasPublicadasComponent, 
-    DialogInfoOfertaComponent, 
+    EditarEmpresaComponent,
+    DialogFinalRegistroComponent,
+    CrearOfertaLaboralComponent,
+    DialogFinalModificarComponent,
+    OfertasPublicadasComponent,
+    DialogInfoOfertaComponent,
     DialogEstadoOfertaComponent, VerPostuladosComponent,
     FiltrarCiudadesPipe,
     ModificarOfertaLaboralComponent
@@ -51,19 +52,19 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    
+
   ],
   entryComponents: [DialogFinalRegistroComponent, DialogInfoOfertaComponent, DialogEstadoOfertaComponent],
   providers: [GeneralesService],
   exports: [
-    RegistrarComponent, 
+    RegistrarComponent,
     DatosEmpresaComponent,
-    EditarEmpresaComponent, 
-    DialogFinalRegistroComponent, 
-    CrearOfertaLaboralComponent, 
-    DialogFinalModificarComponent, 
+    EditarEmpresaComponent,
+    DialogFinalRegistroComponent,
+    CrearOfertaLaboralComponent,
+    DialogFinalModificarComponent,
     OfertasPublicadasComponent,
-    
+
   ]
 })
 export class EmpresaModule { }

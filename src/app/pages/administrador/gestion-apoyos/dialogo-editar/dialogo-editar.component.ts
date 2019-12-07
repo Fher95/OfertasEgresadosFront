@@ -53,7 +53,7 @@ export class DialogoEditarComponent implements OnInit {
     console.log('Submiting the form ' + this.apoyo);
     this.apoyoService.update(this.apoyo).subscribe(data => {
       this.alertService.showSuccesMessage('Éxito', 'Apoyo actualizado exitosamente')
-        .then(() => { this.dialogRef.close(true); });
+        .then(() => { this.dialogRef.close(this.apoyo); });
     }, err => {
       this.alertService.showErrorMessage('Error', 'Error actualizando el apoyo');
     });

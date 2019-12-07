@@ -23,7 +23,7 @@ export class VerPostuladosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.listaPostulados = [];
     this.listaPostuladosEscogidos = [];
-    this.cargarPostulados2();
+    this.cargarPostulados();
   }
   cargarPostulados() {
     this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {
@@ -36,11 +36,11 @@ export class VerPostuladosComponent implements OnInit {
   }
   cargarPostulados2(){
     const lstPostulados: IEgresado[] = [
-    {identificacion: 3243, id_aut_egresado: '106167234',nombres:'Andres Felipe',apellidos:'Muñoz Andrade'},
-    {identificacion: 3244, id_aut_egresado: '106145234',nombres:'Luz Maritza',apellidos:'Tabares Paz'},
-    {identificacion: 3245, id_aut_egresado: '106178256',nombres:'John',apellidos:'Doe'},
-    {identificacion: 3246, id_aut_egresado: '106175345',nombres:'Marco Alberto',apellidos:'Hernandez Noriega'},
-    {identificacion: 3247, id_aut_egresado: '104346567',nombres:'Natalia Andrea',apellidos:'Yasnó Ceron'}
+    {idEgresado: 3243, id_aut_egresado: '106167234',nombres:'Andres Felipe',apellidos:'Muñoz Andrade'},
+    {idEgresado: 3244, id_aut_egresado: '106145234',nombres:'Luz Maritza',apellidos:'Tabares Paz'},
+    {idEgresado: 3245, id_aut_egresado: '106178256',nombres:'John',apellidos:'Doe'},
+    {idEgresado: 3246, id_aut_egresado: '106175345',nombres:'Marco Alberto',apellidos:'Hernandez Noriega'},
+    {idEgresado: 3247, id_aut_egresado: '104346567',nombres:'Natalia Andrea',apellidos:'Yasnó Ceron'}
   ];
   this.listaPostulados = lstPostulados;
   }
@@ -76,15 +76,15 @@ export class VerPostuladosComponent implements OnInit {
 
   setPostuladoActual(parPostulado: IEgresado) {
     this.postuladoSeleccionado  = parPostulado;
-    if (this.postuladoSeleccionado !== undefined || this.postuladoSeleccionado !== null){   
+    if (this.postuladoSeleccionado !== undefined || this.postuladoSeleccionado !== null){
       const fechaActual = new Date();
       const strFecha = fechaActual.getFullYear() + '-' + fechaActual.getMonth() + '-' + fechaActual.getDay()
-      + ' ' + fechaActual.getHours() + ':' + fechaActual.getMinutes(); 
+      + ' ' + fechaActual.getHours() + ':' + fechaActual.getMinutes();
       this.empresaService.guardarRegistroVisualizacionPostulado(this.postuladoSeleccionado.identificacion, strFecha)
       .subscribe();
     }
   }
-  
+
   reiniciarSeleccion() {
     this.postuladoSeleccionado = undefined;
   }

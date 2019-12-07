@@ -73,6 +73,12 @@
         </mat-error>
       </mat-form-field>
     </div>
+    <div class="form-row">
+      <div class="col-md-6 form-group">
+        <mat-label>Estado</mat-label>
+        <mat-checkbox name="estado" class="ml-3" [labelPosition]="before" [(ngModel)]="apoyo.usuario.activo"></mat-checkbox>
+      </div>
+    </div>
 
     <mat-dialog-actions>
       <button type="button" mat-raised-button class="btn btn-danger" (click)="cancelar()">Cancelar</button>

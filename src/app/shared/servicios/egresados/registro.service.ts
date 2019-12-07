@@ -22,14 +22,14 @@ export class RegistroService {
     return this.http.post(URL, egresado);
   }
 
-  public completarRegistroEgresado(completar: CompletarRegistro,id: number) {
-    const URLCompletar = 'http://localhost:8081/api/completeEgresados/'+id;
+  public completarRegistroEgresado(completar: CompletarRegistro, idEgresado: number) {
+    const URLCompletar = 'http://localhost:8081/api/completeEgresados/' + idEgresado;
     return this.http.put(URLCompletar, completar);
   }
 
-  public idEgresado(correo: string) : Observable<number>{
-    const URLId = 'http://localhost:8081/api/getIdegresados/'+correo;
-    return this.http.get<number>(URLId);
+  public idEgresado(correo: string): Observable<any> {
+    const URLId = 'http://localhost:8081/api/getIdegresados/' + correo;
+    return this.http.get<any>(URLId);
   }
 
 }

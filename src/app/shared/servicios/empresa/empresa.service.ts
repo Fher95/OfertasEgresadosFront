@@ -74,6 +74,11 @@ export class EmpresaService {
     console.log("objeto a mandar: ", objEstadoOferta);
       return this.httpClient.put("http://127.0.0.1:8081/api/ofertas/estado-proceso/" + idOferta, objEstadoOferta, {headers: this.headers});
   }
+
+  getDatosOferta(id: string): Observable<any>{
+    return this.httpClient.get('http://127.0.0.1:8081/api/ofertas/' + id, {headers: this.headers});
+  }
+
   getDatos(id: String): Observable<any>{
     // obtener los datos de la peticion datos empresa
     return this.httpClient.get('http://127.0.0.1:8081/api/empresa/' + id, {headers: this.headers});
