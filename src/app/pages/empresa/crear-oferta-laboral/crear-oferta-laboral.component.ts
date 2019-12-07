@@ -16,18 +16,20 @@ import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 export class CrearOfertaLaboralComponent implements OnInit {
 
-  id: string;
-  isLinear = true;
-  formOfertaLaboral: FormGroup;
-  formIdioma:FormGroup;
-  formSoftware:FormGroup;
-  formPregunta:FormGroup;
+  id: string; //Id de la empresa
+  idPaisColombia = "42"; //El id del  pais colombia en la BD
+  showSpinner = true; //Determina cuando se muestra el spinner
+  formOfertaLaboral: FormGroup; //Formulario de la oferta Laboral
+  formIdioma:FormGroup; //Formulario para agregar un idioma
+  formSoftware:FormGroup; //Forulario para agregar un software
+  formPregunta:FormGroup; //Formulario para agregar una pregunta
   formUbicacion:FormGroup;
-  idiomasEscogidos = []
-  softwaresEscogidos = []
-  preguntasEscogidas = []
-  ubicacionesEscogidas = []
-  labelPosition = 'before';
+  idiomasEscogidos = [] //Guarda temporalmente los idiomas seleccionados
+  softwaresEscogidos = [] //Guarda temporalmente los softwares seleccionados
+  preguntasEscogidas = [] //Guarda temporalmente las preguntas seleccionados
+  ubicacionesEscogidas = [] //Guarda temporalmente las ubicaciones seleccionados
+  labelPosition = 'before'; //Posicion de los checkBox
+  //Datos cargados de la BD
   cargos = []
   sectores = []
   estudiosMinimos = []
@@ -40,15 +42,17 @@ export class CrearOfertaLaboralComponent implements OnInit {
 
 datosFormChecked: FormGroup;
   constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
-    private servGenerales: GeneralesService,    private alert: AlertService,
+    private servGenerales: GeneralesService,private alert: AlertService,
     private empService: EmpresaService,    private router: Router,
     ) {
+      //Form encargado de verificar si se desea crear idiomas,softwares, preguntas y discapacidades
       this.datosFormChecked = this.formBuilder.group({
         idiomaChecked: [false],
         softwareChecked: [false],
         preguntasChecked: [false],
         discapacidadChecked: [false]
       });
+      //Formulario para agregar un idioma
       this.formIdioma = this.formBuilder.group({
         id:[null,Validators.required],
         nombre:[null],
@@ -56,19 +60,23 @@ datosFormChecked: FormGroup;
         nivel_escritura:[null,Validators.required],
         nivel_conversacion:[null,Validators.required]
       });
+      //Formulario para agregar un software
       this.formSoftware = this.formBuilder.group({
         nombre:[null,Validators.required],
         nivel:[null,Validators.required]
       });
+      //Formulario para agregar una pregunta
       this.formPregunta = this.formBuilder.group({
         pregunta:[null,Validators.required],
       });
+      //Formulario para agregar una ubicacion
       this.formUbicacion = this.formBuilder.group({
         pais:['Colombia',Validators.required],
         departamento:[null,Validators.required],
         idCiudad:[null,Validators.required],
         ciudad:[null],
       });
+      //Formulario de la oferta Laboral
       this.formOfertaLaboral = this.formBuilder.group({
         'informacionPrincipal': this.formBuilder.group({
           nombreOferta: [null, Validators.required],
@@ -79,7 +87,7 @@ datosFormChecked: FormGroup;
           idSector:[null, Validators.required],
           nombreTempEmpresa: [null],
           areas:[null],
-          idAreaConocimiento:[null, Validators.required],
+          idAreasConocimiento:[null, Validators.required],
           vigenciaDias:[null,[Validators.required,Validators.min(0)]],
           ubicaciones:[],
           idUbicaciones:[[],Validators.required]
@@ -96,8 +104,8 @@ datosFormChecked: FormGroup;
         }),
         'requisitos':this.formBuilder.group({
           perfil:[null,Validators.required],
-          idrequisitosMinimos:[null,Validators.required],
-          estudiosMinimos:[null],
+          idEstudioMinimo:[null,Validators.required],
+          estudioMinimo:[null],
           programas:[null],
           idProgramas:[null,Validators.required],
           anios:[null,[Validators.required,Validators.min(0)]],
@@ -106,7 +114,7 @@ datosFormChecked: FormGroup;
           movilizacionPropia:[null,Validators.required],
           licenciaConduccion:[null],
           discapacidades:[null],
-          idDiscapacidad:[null],
+          idDiscapacidades:[null],
           idiomas:[[]],
           softwareOferta:[[]],
           preguntasCandidato:[[]]
@@ -131,83 +139,100 @@ datosFormChecked: FormGroup;
     this.cargarDiscapacidades();
     this.cargarUbicaciones();
     this.cargarContactoHv();
+    this.showSpinner = false; //Cierra el spinner
   }
+  //Carga todos los cargos de la BD
   cargarCargos(){
     this.servGenerales.obtenerListaCargos().subscribe(resultado => {
       this.cargos = resultado;
       console.log(this.cargos)
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los cargos: ", JSON.stringify(error));
       });
   }
+  //Carga todas las areas de conocimiento de la BD
   cargarAreas(){
     this.empService.obtenerAreasConocimiento().subscribe(resultado => {
     this.areas = resultado;
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los cargos: ", JSON.stringify(error));
       });
   }
+  //Carga todos los sectores de la BD
   cargarSectores(){
     this.servGenerales.obtenerListaSectores().subscribe(resultado => {
       this.sectores = resultado;
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los sectores: ", JSON.stringify(error));
       });
   }
+  //Carga todos los estudios minimos de la BD
   cargarEstudiosMinimos(){
     this.empService.obtenerEstudiosMinimos().subscribe(resultado => {
       this.estudiosMinimos = resultado;
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los estudios minimos: ", JSON.stringify(error));
       });
   }
+  //Carga todos los cargos de la BD
   cargarProgramas(){
     this.empService.obtenerProgramas().subscribe(resultado => {
       this.programas = resultado;
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los programas: ", JSON.stringify(error));
       });
   }
+  //Carga todos los idiomas de la BD
   cargarIdiomas(){
     this.empService.obtenerIdiomas().subscribe(resultado => {
       this.idiomas = resultado;
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los idiomas: ", JSON.stringify(error));
       });
   }
+  //Carga todos las discapacidades de la BD
   cargarDiscapacidades()
   {
     this.empService.obtenerDiscapacidades().subscribe(resultado => {
       this.discapacidades = resultado;
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener las discapacidades: ", JSON.stringify(error));
       });
   }
+  //Carga todas los ubicaciones del pais
   cargarUbicaciones()
   {
-    let idPaisColombia = "42";
-    this.servGenerales.obtenerListaDepartamentosCiudades(idPaisColombia).subscribe(resultado => {
+    this.servGenerales.obtenerListaDepartamentosCiudades(this.idPaisColombia).subscribe(resultado => {
       this.ubicaciones = resultado;
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener las ubicaciones: ", JSON.stringify(error));
       });
   }
+  //Carga los datos del contacto encargado de las HV
   cargarContactoHv()
   {
     this.empService.getDatosContactoHv(this.id).subscribe(resultado => {
@@ -215,135 +240,16 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.data.apellidos)
       this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.data.telefono_movil)
       this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.data.correo_corporativo)
-
     },
       error => {
+        this.showSpinner = false;
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los datos de contacto: ", JSON.stringify(error));
       });
   }
-  agregarIdioma(form)
-  {
-    this.idiomasEscogidos.push(form.value)
-  }
-  eliminarIdioma(idioma)
-  {
-    let indexIdioma =this.idiomasEscogidos.indexOf(idioma)
-    this.idiomasEscogidos.splice(indexIdioma,1)
-  }
-  agregarSoftware(form)
-  {
-    this.softwaresEscogidos.push(form.value)
-  }
-  eliminarSoftware(software)
-  {
-    let indexSoftware=this.softwaresEscogidos.indexOf(software)
-    this.softwaresEscogidos.splice(indexSoftware,1)
-  }
-  agregarPregunta(form){
-    this.preguntasEscogidas.push(form.value.pregunta)
-  }
-  eliminarPregunta(pregunta)
-  {
-    let indexPregunta=this.preguntasEscogidas.indexOf(pregunta)
-    this.preguntasEscogidas.splice(indexPregunta,1)
-  }
-  agregarUbicacion(form)
-  {
-    this.ubicacionesEscogidas.push(form.value)
-  }
-  eliminarUbicacion(ubicacion)
-  {
-    let indexUbicacion =this.ubicacionesEscogidas.indexOf(ubicacion)
-    this.ubicacionesEscogidas.splice(indexUbicacion,1)
-  }
-  areasSeleccionadas(event)
-  {
-    if(event.isUserInput) {
-      let areas = this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value
-      if(areas == null){
-        this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').setValue([event.source.viewValue])
-      }
-      else{
-        let pos = this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.indexOf(event.source.viewValue)
-        if(pos==-1){
-          this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.push(event.source.viewValue)
-        }
-        else{
-            this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.splice(pos,1)
-      }
-    }
-    }
-  }
-  sectorSeleccionado(event)
-  {
-    if(event.isUserInput) {
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(event.source.viewValue);
-    }
-  }
-  estudiosMinimosSeleccionado(event)
-  {
-    if(event.isUserInput) {
-      this.formOfertaLaboral.controls['requisitos'].get('estudiosMinimos').setValue(event.source.viewValue);
-    }
-  }
-  programasSeleccionados(event)
-  {
-    if(event.isUserInput) {
-      let programas = this.formOfertaLaboral.controls['requisitos'].get('programas').value
-      if(programas == null){
-        this.formOfertaLaboral.controls['requisitos'].get('programas').setValue([event.source.viewValue])
-      }
-      else{
-        let pos = this.formOfertaLaboral.controls['requisitos'].get('programas').value.indexOf(event.source.viewValue)
-        if(pos==-1){
-          this.formOfertaLaboral.controls['requisitos'].get('programas').value.push(event.source.viewValue)
-        }
-        else{
-            this.formOfertaLaboral.controls['requisitos'].get('programas').value.splice(pos,1)
-      }
-    }
-    }
-  }
-  idiomaSeleccionado(event)
-  {
-    if(event.isUserInput) {
-      this.formIdioma.get('nombre').setValue(event.source.viewValue);
-    }
-
-  }
-  discapacidadesSeleccionadas(event)
-  {
-    if(event.isUserInput) {
-      let discapacidades = this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value
-      if(discapacidades == null){
-        this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue([event.source.viewValue])
-      }
-      else{
-        let pos = this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.indexOf(event.source.viewValue)
-        if(pos==-1){
-          this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.push(event.source.viewValue)
-        }
-        else{
-            this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.splice(pos,1)
-      }
-    }
-    }
-  }
-  ciudadSeleccionada(event){
-    if(event.isUserInput) {
-      this.formUbicacion.get('ciudad').setValue(event.source.viewValue);
-    }
-  }
-  rangoSalarialSeccionado(event)
-  {
-    if(event.isUserInput) {
-      this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(event.source.viewValue);
-    }
-  }
+  //Obtiene los rangos salariales dependiendo Si es en Dolares o Moneda Local
   getRangosSalariales(moneda){
     this.empService.getRangoSalariales(moneda).subscribe(resultado => {
-      console.log(resultado)
       this.rangosSalariales = resultado;
     },
       error => {
@@ -351,19 +257,173 @@ datosFormChecked: FormGroup;
         console.log("Error al obtener las discapacidades: ", JSON.stringify(error));
       });
   }
+  //Agrega un idioma temporalmente
+  agregarIdioma(form)
+  {
+    this.idiomasEscogidos.push(form.value)
+  }
+  //Elimina un idioma de los idiomas escogidos
+  eliminarIdioma(idioma)
+  {
+    let indexIdioma =this.idiomasEscogidos.indexOf(idioma)
+    this.
+    idiomasEscogidos.splice(indexIdioma,1)
+  }
+  //Agrega un software temporalmente
+  agregarSoftware(form)
+  {
+    this.softwaresEscogidos.push(form.value)
+  }
+  //Elimina un software de los softwares escogidos
+  eliminarSoftware(software)
+  {
+    let indexSoftware=this.softwaresEscogidos.indexOf(software)
+    this.softwaresEscogidos.splice(indexSoftware,1)
+  }
+  //Agrega una pregunta temporalmente
+  agregarPregunta(form){
+    this.preguntasEscogidas.push(form.value.pregunta)
+  }
+  //Elimina una pregunta de las preguntas escogidos
+  eliminarPregunta(pregunta)
+  {
+    let indexPregunta=this.preguntasEscogidas.indexOf(pregunta)
+    this.preguntasEscogidas.splice(indexPregunta,1)
+  }
+  //Agrega una ubicacion temporalmente
+  agregarUbicacion(form)
+  {
+    this.ubicacionesEscogidas.push(form.value)
+  }
+  //Elimina una ubicacion de las ubicaciones escogidos
+  eliminarUbicacion(ubicacion)
+  {
+    let indexUbicacion =this.ubicacionesEscogidas.indexOf(ubicacion)
+    this.ubicacionesEscogidas.splice(indexUbicacion,1)
+  }
+  //Guarda o elimina el nombre de las areas de conocimiento escogidas
+  areasSeleccionadas(event)
+  {
+    //Si el usuario a seleccionado o deseleccionado un area de conocomiento
+    if(event.isUserInput) {
+      let areas = this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value
+      if(areas == null){
+        //Si no hay ningun area en el vector se agrega el area selecionada
+        this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').setValue([event.source.viewValue])
+      }
+      else{
+        let pos = this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.indexOf(event.source.viewValue)
+        if(pos==-1){
+          //Si no se encuentra ningun area en el vector se agrega el area selecionada
+          this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.push(event.source.viewValue)
+        }
+        else{
+            //Si el area seleccionada se encuentra en el vector entonces se elimina
+            this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').value.splice(pos,1)
+      }
+    }
+    }
+  }
+  //Guarda el nombre del sector seleccionado
+  sectorSeleccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(event.source.viewValue);
+    }
+  }
+  //Guarda el nombre del estudio minimo seleccionado
+  estudioMinimoSeleccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formOfertaLaboral.controls['requisitos'].get('estudioMinimo').setValue(event.source.viewValue);
+    }
+  }
+  //Guarda o elimina el nombre de los programas escogidos
+  programasSeleccionados(event)
+  {
+    if(event.isUserInput) {
+      //Si el usuario a seleccionado o deseleccionado un programa
+      let programas = this.formOfertaLaboral.controls['requisitos'].get('programas').value
+      if(programas == null){
+        //Si no hay ningun programa en el vector se agrega el programa 
+        this.formOfertaLaboral.controls['requisitos'].get('programas').setValue([event.source.viewValue])
+      }
+      else{
+        let pos = this.formOfertaLaboral.controls['requisitos'].get('programas').value.indexOf(event.source.viewValue)
+        if(pos==-1){
+          //Si no se encuentra ningun programa en el vector se agrega el programa 
+          this.formOfertaLaboral.controls['requisitos'].get('programas').value.push(event.source.viewValue)
+        }
+        else{
+          //Si el programa seleccionado se encuentra en el vector entonces se elimina
+          this.formOfertaLaboral.controls['requisitos'].get('programas').value.splice(pos,1)
+      }
+    }
+    }
+  }
+  //Guarda el nombre del idioma seleccionado
+  idiomaSeleccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formIdioma.get('nombre').setValue(event.source.viewValue);
+    }
+  }
+  //Guarda o elimina el nombre de las discapacidades escogidas
+  discapacidadesSeleccionadas(event)
+  {
+    if(event.isUserInput) {
+      //Si el usuario a seleccionado o deseleccionado una discapacidad
+      let discapacidades = this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value
+      if(discapacidades == null){
+        //Si no hay ninguna discapacidad en el vector se agrega la discapacidad 
+        this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue([event.source.viewValue])
+      }
+      else{
+        let pos = this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.indexOf(event.source.viewValue)
+        if(pos==-1){
+          //Si no se encuentra ninguna discapacidad en el vector se agrega la discapacidad selecionada
+          this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.push(event.source.viewValue)
+        }
+        else{
+            //Si la discapacidad seleccionada se encuentra en el vector entonces se elimina
+            this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.splice(pos,1)
+      }
+    }
+    }
+  }
+  //Guarda el nombre de la ciudad seleccionada
+  ciudadSeleccionada(event){
+    if(event.isUserInput) {
+      this.formUbicacion.get('ciudad').setValue(event.source.viewValue);
+    }
+  }
+  //Guarda el valor del rango salarial seleccionado
+  rangoSalarialSeccionado(event)
+  {
+    if(event.isUserInput) {
+      this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(event.source.viewValue);
+    }
+  }
+  //Crea la oferta laboral
   registrarOfertaLaboral(form)
   {
-    this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(this.idiomasEscogidos);
+    //Agrega todos los idiomas seleccionados al form de oferta laboral
+    this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(this.idiomasEscogidos); 
+    //Agrega todos los softwares seleccionados al form de oferta laboral
     this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').setValue(this.softwaresEscogidos);
+    //Agrega todas las preguntas seleccionadas al form de oferta laboral
     this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').setValue(this.preguntasEscogidas);
+    //Agrega todas las ubicaciones seleccionadas al form de oferta laboral
     this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').setValue(this.ubicacionesEscogidas);
-    let idsCiudades = []
+    let idsCiudades = [] //Guarda los id de las ciudades Seleccionadas
     for (let i=0; i<this.ubicacionesEscogidas.length;i++){
-      idsCiudades.push(this.ubicacionesEscogidas[i].idCiudad)
+      idsCiudades.push(this.ubicacionesEscogidas[i].idCiudad)  
     }
+    //Agrega todas los ids de las ubicaciones seleccionadas al form de oferta laboral
     this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(idsCiudades)
     if(form.status !== "INVALID"){
       console.log(form.value)
+      //Si los datos son valios abre el dialog de previzualizacion
       this.openDialog(form.value)
     }
     else
@@ -374,16 +434,15 @@ datosFormChecked: FormGroup;
 
   /**
  * Abre un dialog de angular material
- * El contenido del dialog esta creado en el componente DialogFinalRegistroComponent
- * <p>
- * Si se cierra el dialog redirige a la pagina principal
+ * El contenido del dialog esta creado en el componente DialogInfoOfertaComponent
  */
   openDialog(datos) {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
       width: '60%',
-      data: { datos: datos }
+      data: { datos: datos, crear: false} //Envia los datos del form al componente
     });
     dialogRef.afterClosed().subscribe(result => {
+        //Al cerrar el dialog si el resultado es verdadero se crea la oferta
         if(result) {
           this.empService.crearOfertaLaboral(this.id,datos).subscribe(resultado => {
             this.alert.showSuccesMessage('Exito','Se ha creado la oferta exitosamente')
