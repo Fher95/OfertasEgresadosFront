@@ -1,4 +1,5 @@
 <h1 mat-dialog-title>Información del postulado</h1>
+<hr>
 <div mat-dialog-content>
     <strong>Identificación de postulado: </strong> <a>{{this.postuladoSeleccionado.idEgresado}}</a>
     <p></p>
@@ -6,4 +7,19 @@
     <p></p>
     <strong>Apellidos: </strong> <a>{{this.postuladoSeleccionado.apellidos}}</a>
     <p></p>
+    <div class="form-group">
+        <strong for="numOfertas">Estado: </strong>
+        <select [(ngModel)]="this.estado" class="form-control" id="numOfertas">          
+          <option value="Aceptado">Aceptado</option>
+          <option value="Rechazado">Rechazado</option>
+          <option value="Pendiente">Pendiente</option>
+        </select>
+      </div>
 </div>
+<hr>
+<mat-dialog-actions align="end">
+    <button type="button" class="btn btn-secondary m-1"
+      mat-dialog-close>Cancelar</button>
+          <button type="button" class="btn btn-primary"
+           [mat-dialog-close]="true">Aceptar</button>  
+</mat-dialog-actions>
