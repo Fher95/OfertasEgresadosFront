@@ -9,6 +9,8 @@ import { IEgresado } from '../../modelos/egresadoInterface';
 })
 export class EmpresaService {
 
+  private urlBase = 'http://127.0.0.1:8081/api';
+
   headers: HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest'
@@ -122,6 +124,16 @@ export class EmpresaService {
   crearOfertaLaboral(idEmpresa:String ,objeto: Object){
     return this.httpClient.post('http://127.0.0.1:8081/api/empresas/oferta/store/' + idEmpresa, objeto, {headers: this.headers});
       //return this.httpClient.post('http://127.0.0.1:8081/api/ofertas/store', objeto, {headers: this.headers});
+  }
+  guardarEstadoPostulado(parId: number, parEstado: string): Observable<any> {
+    // let json = JSON.stringify({ estado: 'Aceptada' });
+    // let params = 'json=' + json;
+    const objEstado = {estado: parEstado};
+    const nuevaUrl = this.urlBase.concat('/postulado/').concat(parId.toString())
+    .concat('/estado');
+    return this.httpClient.put(nuevaUrl, objEstado, this.httpOptions).pipe(
+
+    );
   }
 
 }
