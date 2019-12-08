@@ -105,6 +105,7 @@ export class VerPostuladosComponent implements OnInit {
       this.empresaService.guardarRegistroVisualizacionPostulado(this.postuladoSeleccionado.idEgresado, strFecha)
         .subscribe();
     }
+    this.openDialog();
   }
 
   reiniciarSeleccion() {
@@ -136,6 +137,7 @@ export class VerPostuladosComponent implements OnInit {
 export class DialogPostuladoComponent {
 
   postuladoSeleccionado: IEgresado;
+  estado: string = "Pendiente";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
               private empresaService: EmpresaService) { }
