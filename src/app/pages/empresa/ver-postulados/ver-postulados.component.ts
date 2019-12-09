@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { isNull } from 'util';
 
 export interface DialogData {
   postulado: IEgresado;
@@ -21,7 +22,7 @@ export class VerPostuladosComponent implements OnInit {
   postuladoSeleccionado: IEgresado;
   displayedColumns: string[] = ['Identificacion', 'Nombres', 'Apellidos', 'Acciones'];
   dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
-  arregloVacio: boolean;
+  arregloVacio = false;
   auxiliar = false;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,9 +34,9 @@ export class VerPostuladosComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.listaPostulados = [];
+    this.listaPostulados = null;
     this.listaPostuladosEscogidos = [];
-    this.cargarPostulados2();
+    this.cargarPostulados();
   }
   cargarPostulados() {
     this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {
@@ -45,7 +46,7 @@ export class VerPostuladosComponent implements OnInit {
       this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
       this.dataSource.paginator = this.paginator;
 
-      if (this.listaPostulados.length === 0) {
+      if (this.listaPostulados.length === 0 || isNull(this.listaPostulados)) {
         this.arregloVacio = true;
       }
     },
@@ -105,6 +106,7 @@ export class VerPostuladosComponent implements OnInit {
       this.empresaService.guardarRegistroVisualizacionPostulado(this.postuladoSeleccionado.idEgresado, strFecha)
         .subscribe();
     }
+    this.openDialog();
   }
 
   reiniciarSeleccion() {
@@ -136,12 +138,18 @@ export class VerPostuladosComponent implements OnInit {
 export class DialogPostuladoComponent {
 
   postuladoSeleccionado: IEgresado;
+  estado: string = 'Pendiente';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
               private empresaService: EmpresaService) { }
 
   ngOnInit() {
     this.postuladoSeleccionado = this.data.postulado;
+  }
+
+  guardarEstado(){
+    this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.estado)
+    .subscribe();
   }
 
 }
