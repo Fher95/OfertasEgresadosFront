@@ -1,7 +1,15 @@
 import { MatPaginator } from '@angular/material';
 import { ApoyoService } from './../../../../shared/servicios/egresados/apoyo.service';
 import { ApoyoModel } from './../../../../shared/modelos/apoyo.model';
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild
+} from '@angular/core';
 import { merge, of } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
@@ -11,10 +19,17 @@ import { startWith, switchMap, map, catchError } from 'rxjs/operators';
   styleUrls: ['./lista-apoyos.component.css']
 })
 export class ListaApoyosComponent implements AfterViewInit {
-
-  displayedColumns: string[] = ['nombres', 'apellidos', 'nombreRol', 'activo', 'opciones'];
+  displayedColumns: string[] = [
+    'nombres',
+    'apellidos',
+    'nombreRol',
+    'activo',
+    'opciones'
+  ];
   data: ApoyoModel[] = [];
-  @Output() seleccionarApoyo: EventEmitter<ApoyoModel> = new EventEmitter<ApoyoModel>();
+  @Output() seleccionarApoyo: EventEmitter<ApoyoModel> = new EventEmitter<
+    ApoyoModel
+  >();
   actualizarTabla: EventEmitter<any> = new EventEmitter();
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -22,9 +37,7 @@ export class ListaApoyosComponent implements AfterViewInit {
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  constructor(
-    private service: ApoyoService
-  ) { }
+  constructor(private service: ApoyoService) {}
 
   ngAfterViewInit() {
     merge(this.paginator.page, this.actualizarTabla)
@@ -32,7 +45,10 @@ export class ListaApoyosComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.service.getAll(this.paginator.pageIndex, this.paginator.pageSize);
+          return this.service.getAll(
+            this.paginator.pageIndex,
+            this.paginator.pageSize
+          );
         }),
         map(response => {
           // Flip flag to show that loading has finished.
@@ -49,7 +65,8 @@ export class ListaApoyosComponent implements AfterViewInit {
           this.isRateLimitReached = true;
           return of([]);
         })
-      ).subscribe(data => {
+      )
+      .subscribe(data => {
         this.data = data;
       });
   }
@@ -69,5 +86,4 @@ export class ListaApoyosComponent implements AfterViewInit {
   onApoyoSeleccionado(apoyo: ApoyoModel) {
     this.seleccionarApoyo.emit(apoyo);
   }
-
 }
