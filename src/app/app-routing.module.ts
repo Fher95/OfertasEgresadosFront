@@ -16,11 +16,8 @@ const routes: Routes = [
   { path: 'home', component: HomeOfertasComponent },
   { path: 'registroEmpresa', component: RegistrarComponent },
   { path: 'egresados', loadChildren: './pages/egresados/egresados.module#EgresadosModule'},
-
   { path: 'empresa', loadChildren: './pages/empresa/empresa.module#EmpresaModule'},
   { path: 'admin', loadChildren: './pages/administrador/administrador.module#AdministradorModule'},
-
-
   { path: '**', redirectTo: 'home' }
 ];
 

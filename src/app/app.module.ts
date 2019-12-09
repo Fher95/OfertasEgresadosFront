@@ -27,7 +27,6 @@ import { EgresadosModule } from './pages/egresados/egresados.module';
   ],
   imports: [
     EmpresaModule,
-    AdministradorModule,
     LayoutModule,
     BrowserModule,
     BrowserAnimationsModule,
