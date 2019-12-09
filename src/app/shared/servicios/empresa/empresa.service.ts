@@ -121,7 +121,6 @@ export class EmpresaService {
   }
   crearOfertaLaboral(idEmpresa:String ,objeto: Object){
     return this.httpClient.post('http://127.0.0.1:8081/api/empresas/oferta/store/' + idEmpresa, objeto, {headers: this.headers});
-      //return this.httpClient.post('http://127.0.0.1:8081/api/ofertas/store', objeto, {headers: this.headers});
   }
 
 }

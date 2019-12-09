@@ -127,7 +127,7 @@ datosFormChecked: FormGroup;
         })
       });
   }
-
+  //Inicializa la informacion
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.cargarCargos();
