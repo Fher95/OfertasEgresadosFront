@@ -7,12 +7,21 @@
     <p></p>
     <strong>Apellidos: </strong> <a>{{this.postuladoSeleccionado.apellidos}}</a>
     <p></p>
+    <strong>Correo: </strong> <a>{{this.postuladoSeleccionado.correo}}</a>
+    <p></p>
+    <strong>Celular: </strong> <a>{{this.postuladoSeleccionado.celular}}</a>
+    <p></p>
+    <strong>Nivel educativo: </strong> <a>{{this.postuladoSeleccionado.nivelEducativo}}</a>
+    <p></p>
     <div class="form-group">
         <strong for="numOfertas">Estado: </strong>
         <select [(ngModel)]="this.estado" class="form-control" id="numOfertas">          
-          <option value="Aceptado">Aceptado</option>
-          <option value="Rechazado">Rechazado</option>
-          <option value="Pendiente">Pendiente</option>
+          <option value="Contratado">Contratado</option>
+          <option value="Muy bueno">Muy bueno</option>
+          <option value="Bueno">Bueno</option>
+          <option value="Descartado">Descartado</option>
+          <option value="Desistió">Desistió</option>
+          <option value="Sin clasificación">Sin clasificación</option>
         </select>
       </div>
 </div>
