@@ -36,7 +36,9 @@ const routes: Routes = [
     children: [
       { path: 'apoyos', component: GestionApoyosComponent },
       { path: 'verificar', component: VerificarExcelComponent },
-      { path: 'eventos' }
+      { path: 'eventos' },
+      { path: 'solicitudesEmpresas', component: ListarSolicitudesEmpresaComponent },
+      { path: 'ofertasLaborales', component: ListarOfertasComponent }
     ]
   },
   {
