@@ -38,53 +38,14 @@
         <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Experiencia Laboral</ng-template>
-        <mat-label>¿Ha laborado antes?: </mat-label>
-        <mat-radio-group [formControl]="haTrabajado" required>
-          <mat-radio-button value=0>Si</mat-radio-button>
-          <mat-radio-button value=1>No</mat-radio-button>
-        </mat-radio-group>
-        <app-explaboral *ngIf="haTrabajado.value=='0'" #expAnterior (darExperiencia)="addExpAnterior($event)"></app-explaboral>
-        <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataExpAnterior">
-            <ng-container matColumnDef="cargo_nombre">
-              <th mat-header-cell *matHeaderCellDef> Cargo </th>
-              <td mat-cell *matCellDef="let element"> {{element.cargo_nombre}} </td>
-            </ng-container>
-            <ng-container matColumnDef="nombre_empresa">
-              <th mat-header-cell *matHeaderCellDef> Empresa </th>
-              <td mat-cell *matCellDef="let element"> {{element.nombre_empresa}} </td>
-            </ng-container>
-            <ng-container matColumnDef="sector">
-              <th mat-header-cell *matHeaderCellDef> Sector </th>
-              <td mat-cell *matCellDef="let element"> {{element.sector}} </td>
-            </ng-container>
-            <ng-container matColumnDef="acciones">
-              <th mat-header-cell *matHeaderCellDef> Acciones </th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-raised-button class="btn btn-danger" (click)="eliminarExpAnterior(element)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="columnasExpAnterior"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnasExpAnterior;"></tr>
-          </table>
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-        </div>
-        <div class="botones">
-          <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-          <button color="primary" class="siguiente" mat-button mat-raised-button matStepperNext>Siguiente</button>
-        </div>
-      </mat-step>
-      <mat-step>
         <ng-template matStepLabel>Trabajo Actual</ng-template>
         <mat-label>¿Labora actualmente?: </mat-label>
         <mat-radio-group [formControl]="Labora_Actualmente">
           <mat-radio-button value=0>Si</mat-radio-button>
           <mat-radio-button value=1>No</mat-radio-button>
         </mat-radio-group>
-        <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expActual (darExperiencia)="addExpActual($event)"></app-explaboral>
+        <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expActual (darExperiencia)="addExpActual($event)">
+        </app-explaboral>
         <div class="mat-elevation-z8">
           <table mat-table [dataSource]="dataExpActual">
             <ng-container matColumnDef="cargo_nombre">
@@ -119,7 +80,52 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Comentarios y Sugerencias</ng-template>
-        <app-comentarios #comentarios></app-comentarios>
+        <app-comentarios #comentario></app-comentarios> <!--(darComentario)="addComentario($event)"></app-comentarios-->
+        <mat-label>¿Se esta graduando de otra carrera en esta fecha?: </mat-label>
+        <mat-radio-group [formControl]="otroGrado">
+          <mat-radio-button value=0>Si</mat-radio-button>
+          <mat-radio-button value=1>No</mat-radio-button>
+        </mat-radio-group>
+        <div class="botones">
+          <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
+          <button color="primary" class="siguiente" *ngIf="otroGrado.value=='0'" mat-button mat-raised-button
+            matStepperNext>Siguiente</button>
+          <button class="btnCompletar" color="primary" *ngIf="otroGrado.value=='1'" mat-raised-button
+            (click)="enviarDatos()">Completar
+            Información</button>
+        </div>
+      </mat-step>
+      <mat-step *ngIf="otroGrado.value=='0'">
+        <ng-template matStepLabel>Grado Adicional</ng-template>
+        <mat-card>
+          <form>
+            <mat-card-title>Grado Adicional</mat-card-title>
+            <app-programa #programaAdicional></app-programa>
+            <!--mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+              <mat-label>Titulo Academico</mat-label>
+              <mat-select [formControl]="tituloGradoAdicional" required>
+                <mat-option [value]="progra.id_aut_programa" *ngFor="let progra of programas">{{progra.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="Programa.hasError('required')">Por favor seleccionar la Programa </mat-error>
+            </mat-form-field-->
+            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+              <mat-label>Mención</mat-label>
+              <input matInput [formControl]="mencionAdicional">
+            </mat-form-field>
+            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+              <mat-label>Comentarios, sugerencias sobre el programa del cual es egresado:</mat-label>
+              <textarea matInput placeholder="Escribe el comentario aquí"
+                [formControl]="ComentProgramaAdicional"> </textarea>
+            </mat-form-field>
+            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+              <mat-label>¿Cuál considera que es el docente del programa que influyó positivamente en su formación como
+                profesional?:</mat-label>
+              <input matInput placeholder="Escribe el comentario aquí" [formControl]="DocenteInfluenciaAdicional"
+                required>
+            </mat-form-field>
+          </form>
+        </mat-card>
         <div class="botones">
           <button class="atras" mat-button mat-raised-button matStepperPrevious>Atrás</button>
           <button class="btnCompletar" color="primary" mat-raised-button (click)="enviarDatos()">Completar
