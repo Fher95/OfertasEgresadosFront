@@ -37,7 +37,7 @@ export class VerPostuladosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.listaPostulados = null;
     this.listaPostuladosEscogidos = [];
-    this.cargarPostulados2();
+    this.cargarPostulados();
   }
   cargarPostulados() {
     this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {
