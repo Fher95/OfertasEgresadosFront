@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Información de la oferta laboral</h1>
 <hr>
-<div mat-dialog-content>  
+<div mat-dialog-content>
   <strong>Nombre de la empresa: </strong> <a>{{data.oferta.empresa.nombre}}</a>
   <p></p>
   <strong>Descripcion: </strong> <a>{{data.oferta.descripcion}}</a>
@@ -27,12 +27,12 @@
   <a>{{data.oferta.salario ? data.oferta.salario.forma_pago : 'No se especifica'}}</a>
   <p></p>
   <div class="form-group">
-    <strong for="numOfertas">Estado: </strong>
-    <select [(ngModel)]="this.estadoActivacion" class="form-control" id="numOfertas">
-      <option value="Pendiente">Pendiente</option>
+    <strong for="numOfertas">Estado: </strong><a>{{this.estadoActivacion}}</a>
+    <!--select [(ngModel)]="this.estadoActivacion" class="form-control" id="numOfertas">
+      <option *ngIf="this.estadoActivacion" value="Pendiente">Pendiente</option>
       <option value="Aceptada">Aceptada</option>
       <option value="Rechazada">Rechazada</option>
-    </select>
+    </select-->
   </div>
   <p></p>
   <div *ngIf="this.estadoActivacion === 'Inactivar'" class="form-group">
@@ -43,8 +43,13 @@
 </div>
 <hr>
 <mat-dialog-actions align="end">
-  <button type="button" class="btn btn-secondary m-1"
-    mat-dialog-close>Cancelar</button>
-        <button type="button" class="btn btn-primary"
-        (click)="this.guardarCambio()" [mat-dialog-close]="true">Guardar</button>  
+  <button type="button" class="btn btn-secondary m-1" mat-dialog-close>Cancelar</button>
+  <!--button type="button" class="btn btn-primary" (click)="this.guardarCambio()"
+    [mat-dialog-close]="true">Guardar</button-->
+    <button *ngIf="this.estadoActivacion === 'Pendiente' || this.estadoActivacion === 'Rechazada'"
+    type="button" class="btn btn-primary m-1" (click)="this.aprobarOfertaLaboral()"
+    [mat-dialog-close]="true">Aprobar</button>
+    <button *ngIf="this.estadoActivacion === 'Pendiente' || this.estadoActivacion === 'Aceptada'"
+    type="button" class="btn btn-danger m-1" (click)="this.desaprobarOfertaLaboral()"
+    [mat-dialog-close]="true">Rechazar</button>
 </mat-dialog-actions>

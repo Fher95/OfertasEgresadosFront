@@ -25,6 +25,7 @@
   <div *ngIf="data.solicitud.estado === 'Pendiente' || data.solicitud.estado === 'Inactivo'" class="form-group">
     <strong for="numOfertas">Numero de publicaciones permitidas: </strong>
     <h6 *ngIf="this.seleccionNumOfertas === 0" class="text-muted">Ingrese un número de publicaciones para activar</h6>
+    <p *ngIf="this.seleccionNumOfertas > this.limitePublicaciones" class="text-danger">El límite de publicaciones es de {{this.limitePublicaciones}}</p>
     <p></p>
     <input [(ngModel)]="seleccionNumOfertas" type="number" class="form-control"
       placeholder="Debe ingresar un numero para activar" (change)="activacionValida()" (keyup)="activacionValida()"
@@ -39,7 +40,7 @@
   <button type="button" class="btn btn-primary m-1" *ngIf="seleccionValida" (click)="activarEmpresa(data.solicitud)"
     data-dismiss="modal" [mat-dialog-close]="true">
     Activar</button>
-  <button *ngIf="data.solicitud.estado !== 'Inactivo'" type="button" class="btn btn-primary m-1"
+  <button *ngIf="data.solicitud.estado !== 'Inactivo'" type="button" class="btn btn-danger m-1"
     (click)="desactivarEmpresa(data.solicitud)" data-dismiss="modal" [mat-dialog-close]="true">
     Rechazar</button>
 </mat-dialog-actions>

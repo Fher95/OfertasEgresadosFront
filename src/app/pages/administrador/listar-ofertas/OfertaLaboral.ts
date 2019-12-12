@@ -129,7 +129,7 @@ export const lstOfertas: OfertaLaboral[] = [
     {
         id_aut_oferta: 113, id_empresa: 1234, nombre_oferta: 'Requeridos Medicos', descripcion: 'Mas o menos pago',
         id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera2', anios_experiencia: 2,
-        fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
+        fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Aceptada', estado_proceso: 'Pendiente por aprobar',
         id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
         // tslint:disable-next-line: max-line-length
         id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Medicina' }], salario: salarioPrueba
@@ -139,7 +139,7 @@ export const lstOfertas: OfertaLaboral[] = [
     {
         id_aut_oferta: 114, id_empresa: 1234, nombre_oferta: 'Requeridos Biologos', descripcion: 'Bien pago',
         id_cargo: 1, id_contrato: 2, numero_vacantes: 6, id_forma_pago: 3, experiencia: 'Cualquiera3', anios_experiencia: 2,
-        fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Pendiente', estado_proceso: 'Pendiente por aprobar',
+        fecha_publicacion: '2019-05-04', fecha_cierre: '2019-07-04', estado: 'Rechazada', estado_proceso: 'Pendiente por aprobar',
         id_sector: 4, nombre_temporal_empresa: 'Temporal', licencia_conduccion: 'cualquiera', requisitos_minimos: 'ninguno',
         id_discapacidad: 5, empresa: empresaGenerica, areas_conocimiento: [{ id_aut_areaconocimiento: 7, nombre: 'Cualquiera' }],
         salario: salarioPrueba,
