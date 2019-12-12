@@ -18,7 +18,7 @@ export class OfertasPublicadasComponent implements OnInit {
 
   filtroEstado: string;
   id: string;
-  displayedColumns: string[] = ['estado', 'fecha', 'cargo', 'vacantes', 'estadoEmpresa', 'acciones'];
+  displayedColumns: string[] = ['estado', 'fecha', 'fecha_cierre', 'cargo', 'vacantes', 'estadoEmpresa', 'acciones'];
   ofertas: IHistorialOfertas[];
   dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
   filtro = 'Aceptada';
@@ -46,6 +46,7 @@ export class OfertasPublicadasComponent implements OnInit {
  */
   cargarOfertas() {
     this.empService.getHistorialOfertas(this.id).subscribe(resultado => {
+      console.log(resultado)
       this.ofertas = resultado;
       this.listaCargada = true;
       this.dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
