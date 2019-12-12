@@ -95,8 +95,8 @@ export class EmpresaService {
     return this.httpClient.get<IEgresado[]>('http://127.0.0.1:8081/api/ofertas/postulados/' 
     + idOferta, {headers: this.headers});
   }
-  getPostuladosSeleccionadosOferta(idOferta: string): Observable<IEgresado[]> {
-    return this.httpClient.get<IEgresado[]>('http://127.0.0.1:8081/api/ofertas/postulados/' + idOferta, {headers: this.headers});
+  getPostuladosSeleccionadosOferta(idOferta: string): Observable<any> {
+    return this.httpClient.get('http://127.0.0.1:8081/api/ofertas/postulados/' + idOferta, {headers: this.headers});
   }
   eliminarOferta(idEmpresa: string, idOferta: string){
     return this.httpClient.delete('http://127.0.0.1:8081/api/empresa/' + idEmpresa + '/' + idOferta, {headers: this.headers});
