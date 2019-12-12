@@ -138,7 +138,6 @@ datosFormChecked: FormGroup;
     this.cargarIdiomas();
     this.cargarDiscapacidades();
     this.cargarUbicaciones();
-    this.cargarContactoHv();
     this.cargarDatosOferta();
     this.showSpinner = false; //Cierra el spinner
   }
@@ -232,175 +231,72 @@ datosFormChecked: FormGroup;
         console.log("Error al obtener las ubicaciones: ", JSON.stringify(error));
       });
   }
-  //Carga los datos del contacto encargado de las HV
-  cargarContactoHv()
-  {
-    this.empService.getDatosContactoHv(this.id).subscribe(resultado => {
-      if(resultado.data != null){
-        this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.data.nombres)
-        this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.data.apellidos)
-        this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.data.telefono_movil)
-        this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.data.correo_corporativo)
-      }
-     
-    },
-      error => {
-        this.showSpinner = false;
-        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
-        console.log("Error al obtener los datos de contacto: ", JSON.stringify(error));
-      });
-  }
+ 
   //Carga los datos de la oferta a modificar
   cargarDatosOferta()
   {
-    this.empService.getDatosOferta(this.idOferta).subscribe(resultado => {
-      resultado = {
-        "contactoHV": [],
-        "contrato": null,
-        "informacionPrincipal": {
-            "areas": [
-                "Ingeniería",
-                "Tecnología"
-            ],
-            "cargo": "Webmaster/Desarrollador(a)",
-            "descripcion": "Se busca desarrollador de software para trabajar en PHP",
-            "idAreasConocimiento": [
-                48,
-                76
-            ],
-            "idSector": 32,
-            "idUbicaciones": [],
-            "nombreOferta": "Desarrollador de software",
-            "nombreTempEmpresa": null,
-            "numVacantes": 2,
-            "sector": "Tecnología",
-            "ubicaciones": [],
-            "vigenciaDias": 25
-        },
-        "requisitos": {
-            "anios": 0,
-            "discapacidades": [
-                "Visual",
-                "Física"
-            ],
-            "estudioMinimo": "Bachillerato",
-            "experienciaLaboral": "Sin experiencia",
-            "idDiscapacidades": [
-                2,
-                3
-            ],
-            "idProgramas": [],
-            "idiomas": [
-                {
-                    "id": 22,
-                    "nombre": "Español",
-                    "nivel_lectura": "Avanzado",
-                    "nivel_escritura": "Avanzado",
-                    "nivel_conversacion": "Nativo"
-                }
-            ],
-            "idEstudioMinimo": 2,
-            "licenciaConduccion": null,
-            "movilizacionPropia": 0,
-            "perfil": "Profesional",
-            "preguntasCandidato": [],
-            "programas": [],
-            "requisitosMinimos": "Habilidades en Framework de desarrollo symfony 3.4 o 4.2 (demostrable)",
-            "softwareOferta": [
-                {
-                    "nombre": "Microsoft Excel",
-                    "nivel": "Nivel técnico"
-                },
-                {
-                    "nombre": "Linux",
-                    "nivel": "Nivel usuario avanzado"
-                },
-                {
-                    "nombre": "PHP MyAd125min",
-                    "nivel": "Nivel profesional"
-                },
-                {
-                    "nombre": "Visual Studio Code",
-                    "nivel": "Nivel técnico"
-                },
-                {
-                    "nombre": "PHP Storm",
-                    "nivel": "Nivel técnico"
-                }
-            ]
-        }
+    this.empService.getDatosOferta(this.idOferta).subscribe(resultado => {  
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('nombreOferta').setValue(resultado.informacionPrincipal.nombreOferta)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('descripcion').setValue(resultado.informacionPrincipal.descripcion)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('cargo').setValue(resultado.informacionPrincipal.cargo)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('numVacantes').setValue(resultado.informacionPrincipal.numVacantes)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(resultado.informacionPrincipal.sector)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('idSector').setValue(resultado.informacionPrincipal.idSector)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('nombreTempEmpresa').setValue(resultado.informacionPrincipal.nombreTempEmpresa)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').setValue(resultado.informacionPrincipal.areas)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('idAreasConocimiento').setValue(resultado.informacionPrincipal.idAreasConocimiento)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('vigenciaDias').setValue(resultado.informacionPrincipal.vigenciaDias)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').setValue(resultado.informacionPrincipal.ubicaciones)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(resultado.informacionPrincipal.idUbicaciones)
+    this.formOfertaLaboral.controls['contrato'].get('tipoContrato').setValue(resultado.contrato.tipoContrato)
+    this.formOfertaLaboral.controls['contrato'].get('formaPago').setValue(resultado.contrato.formaPago)
+    this.getRangosSalariales(this.formOfertaLaboral.controls['contrato'].get('formaPago').value)
+    this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(resultado.contrato.duracion)
+    this.formOfertaLaboral.controls['contrato'].get('horario').setValue(resultado.contrato.horario)
+    this.formOfertaLaboral.controls['contrato'].get('jornada').setValue(resultado.contrato.jornada)
+    this.formOfertaLaboral.controls['contrato'].get('idRangoSalarial').setValue(resultado.contrato.idRangoSalarial)
+    this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(resultado.contrato.rangoSalarial)
+    this.formOfertaLaboral.controls['contrato'].get('comentariosSalario').setValue(resultado.contrato.comentariosSalario)
+    this.formOfertaLaboral.controls['requisitos'].get('perfil').setValue(resultado.requisitos.perfil)
+    this.formOfertaLaboral.controls['requisitos'].get('idEstudioMinimo').setValue(resultado.requisitos.idEstudioMinimo)
+    this.formOfertaLaboral.controls['requisitos'].get('estudioMinimo').setValue(resultado.requisitos.estudioMinimo)
+    this.formOfertaLaboral.controls['requisitos'].get('programas').setValue(resultado.requisitos.programas)
+    this.formOfertaLaboral.controls['requisitos'].get('idProgramas').setValue(resultado.requisitos.idProgramas)
+    this.formOfertaLaboral.controls['requisitos'].get('anios').setValue(resultado.requisitos.anios)
+    this.formOfertaLaboral.controls['requisitos'].get('experienciaLaboral').setValue(resultado.requisitos.experienciaLaboral)
+    this.formOfertaLaboral.controls['requisitos'].get('requisitosMinimos').setValue(resultado.requisitos.requisitosMinimos)
+    this.formOfertaLaboral.controls['requisitos'].get('movilizacionPropia').setValue(resultado.requisitos.movilizacionPropia)
+    this.formOfertaLaboral.controls['requisitos'].get('licenciaConduccion').setValue(resultado.requisitos.licenciaConduccion)
+    this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue(resultado.requisitos.discapacidades)
+    this.formOfertaLaboral.controls['requisitos'].get('idDiscapacidades').setValue(resultado.requisitos.idDiscapacidades)
+    this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(resultado.requisitos.idiomas)
+    this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').setValue(resultado.requisitos.softwareOferta)
+    this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').setValue(resultado.requisitos.preguntasCandidato)
+    if(resultado.contactoHV != null){
+      this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.contactoHV.nombres)
+      this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.contactoHV.apellidos)
+      this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.contactoHV.telefonoMovil)
+      this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.contactoHV.correo)
     }
-      this.formOfertaLaboral.setValue(resultado)
-      this.idiomasEscogidos = this.formOfertaLaboral.controls['requisitos'].get('idiomas').value
-      this.softwaresEscogidos = this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').value
-      this.preguntasEscogidas = this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').value
-      this.ubicacionesEscogidas = this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').value
-      /*
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('nombreOferta').setValue(resultado.informacionPrincipal.nombreOferta)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('descripcion').setValue(resultado.informacionPrincipal.descripcion)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('cargo').setValue(resultado.informacionPrincipal.cargo)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('numVacantes').setValue(resultado.informacionPrincipal.numVacantes)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(resultado.informacionPrincipal.sector)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('idSector').setValue(resultado.informacionPrincipal.idSector)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('nombreTempEmpresa').setValue(resultado.informacionPrincipal.nombreTempEmpresa)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').setValue(resultado.informacionPrincipal.areas)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('idAreasConocimiento').setValue(resultado.informacionPrincipal.idAreasConocimiento)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('vigenciaDias').setValue(resultado.informacionPrincipal.vigenciaDias)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').setValue(resultado.informacionPrincipal.ubicaciones)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(resultado.informacionPrincipal.idUbicaciones)
-      this.formOfertaLaboral.controls['contrato'].get('tipoContrato').setValue(resultado.contrato.tipoContrato)
-      this.formOfertaLaboral.controls['contrato'].get('formaPago').setValue(resultado.contrato.formaPago)
-      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(resultado.contrato.duracion)
-      this.formOfertaLaboral.controls['contrato'].get('horario').setValue(resultado.contrato.horario)
-      this.formOfertaLaboral.controls['contrato'].get('jornada').setValue(resultado.contrato.jornada)
-      this.formOfertaLaboral.controls['contrato'].get('idRangoSalarial').setValue(resultado.contrato.idRangoSalarial)
-      this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(resultado.contrato.rangoSalarial)
-      this.formOfertaLaboral.controls['contrato'].get('comentariosSalario').setValue(resultado.contrato.comentariosSalario)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-
-
-
-      'requisitos':this.formBuilder.group({
-        perfil:[null,Validators.required],
-        idEstudioMinimo:[null,Validators.required],
-        estudioMinimo:[null],
-        programas:[null],
-        idProgramas:[null,Validators.required],
-        anios:[null,[Validators.required,Validators.min(0)]],
-        experienciaLaboral:[null,Validators.required],
-        requisitosMinimos:[null,Validators.required],
-        movilizacionPropia:[null,Validators.required],
-        licenciaConduccion:[null],
-        discapacidades:[null],
-        idDiscapacidades:[null],
-        idiomas:[[]],
-        softwareOferta:[[]],
-        preguntasCandidato:[[]]
-      }),
-      'contactoHV': this.formBuilder.group({
-        correo:[null,[Validators.required,Validators.email]],
-        nombres:[null,Validators.required],
-        apellidos:[null,Validators.required],
-        telefonoMovil:[null,Validators.required],
-      })*/
-      
+    this.idiomasEscogidos = this.formOfertaLaboral.controls['requisitos'].get('idiomas').value
+    this.softwaresEscogidos = this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').value
+    this.preguntasEscogidas = this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').value
+    this.ubicacionesEscogidas = this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').value
+    if(this.idiomasEscogidos.length != 0){
+      this.datosFormChecked.get('idiomaChecked').setValue(true)
+    }
+    if(this.softwaresEscogidos.length != 0){
+      this.datosFormChecked.get('softwareChecked').setValue(true)
+    }
+    if(this.preguntasEscogidas.length != 0){
+      this.datosFormChecked.get('preguntasChecked').setValue(true)
+    }
+    if(this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.length != 0){
+      this.datosFormChecked.get('discapacidadChecked').setValue(true)
+    }
     },
       error => {
-        this.showSpinner = false;
+        this.showSpinner = false;     
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los datos de la oferta: ", JSON.stringify(error));
       });
@@ -583,8 +479,8 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['requisitos'].get('idDiscapacidades').setValue(null)
       this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue(null)}
   }
-  //Crea la oferta laboral
-  registrarOfertaLaboral(form)
+  //MOdifica la oferta laboral
+  modificarOfertaLaboral(form)
   {
     //Agrega todos los idiomas seleccionados al form de oferta laboral
     this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(this.idiomasEscogidos); 
@@ -623,16 +519,16 @@ datosFormChecked: FormGroup;
     dialogRef.afterClosed().subscribe(result => {
         //Al cerrar el dialog si el resultado es verdadero se crea la oferta
         if(result) {
-          this.empService.crearOfertaLaboral(this.id,datos).subscribe(resultado => {
+          this.empService.modificarOfertaLaboral(this.idOferta,datos).subscribe(resultado => {
             console.log(resultado)
-            this.alert.showSuccesMessage('Exito','Se ha creado la oferta exitosamente')
+            this.alert.showSuccesMessage('Exito','Se ha modificado la oferta exitosamente')
             .then((value) => {
               this.router.navigate(['empresa/'+this.id+'/misOfertas']);
             });
           },
             error => {
               this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde")
-              console.log("Error al crear la oferta: ", JSON.stringify(error));
+              console.log("Error al modificar la oferta: ", JSON.stringify(error));
             });
         }
     });

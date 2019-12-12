@@ -125,6 +125,9 @@ export class EmpresaService {
   crearOfertaLaboral(idEmpresa:String ,objeto: Object){
     return this.httpClient.post('http://127.0.0.1:8081/api/empresas/oferta/store/' + idEmpresa, objeto, {headers: this.headers});
   }
+  modificarOfertaLaboral(idOferta: string,objeto: Object){
+    return this.httpClient.post('http://127.0.0.1:8081/api/empresas/oferta/update/' + idOferta, objeto, {headers: this.headers});
+  }
   guardarEstadoPostulado(parId: number, parIdOferta: string, parEstado: string): Observable<any> {
     
     const objEstado = {estado: parEstado};

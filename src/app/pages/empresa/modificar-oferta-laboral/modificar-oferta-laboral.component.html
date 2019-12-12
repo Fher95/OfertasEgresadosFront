@@ -11,12 +11,12 @@
 <mat-card class="carta-registro" >
     <mat-card-header class="headerCartaRegistro">
         <mat-toolbar color="primary">
-            <span>Creación oferta laboral</span>
+            <span>Modificación de oferta laboral</span>
         </mat-toolbar>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
-        <form  [formGroup]="formOfertaLaboral" (ngSubmit)="registrarOfertaLaboral(formOfertaLaboral)">
+        <form  [formGroup]="formOfertaLaboral" (ngSubmit)="modificarOfertaLaboral(formOfertaLaboral)">
             <mat-horizontal-stepper #stepper>
                 <mat-step formGroupName="informacionPrincipal" [stepControl]="formOfertaLaboral.get('informacionPrincipal')" label="Información principal">
                     <div class="Subtitulos-card" >
@@ -623,9 +623,9 @@
                                 <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                                         <mat-label>Días vigencia de la oferta</mat-label>
                                         <mat-select formControlName="vigenciaDias" required >
-                                            <mat-option value="8">8 días</mat-option>
-                                            <mat-option value="15">15 días</mat-option>
-                                            <mat-option value="30">30 días</mat-option>
+                                            <mat-option [value]="8">8 días</mat-option>
+                                            <mat-option [value]="15">15 días</mat-option>
+                                            <mat-option [value]="30">30 días</mat-option>
                                             <mat-error class="ml-3"
                                                 *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.vigenciaDias.errors?.required">
                                                 campo requerido</mat-error>
@@ -633,7 +633,7 @@
                                 </mat-form-field>                            
                         </div>
                         <div class="botonesStepper">
-                                <button  type="submit" mat-raised-button color="primary" matStepperNext>Crear oferta laboral</button>
+                                <button  type="submit" mat-raised-button color="primary" matStepperNext>Modificar oferta laboral</button>
                         </div>
                 </mat-step>
             </mat-horizontal-stepper>
