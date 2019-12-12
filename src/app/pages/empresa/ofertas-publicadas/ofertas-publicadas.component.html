@@ -84,10 +84,16 @@
         <td mat-cell *matCellDef="let element"> {{ element.fecha_publicacion }} </td>
       </ng-container>
 
+      <!-- Columna Fecha Cierre-->
+      <ng-container matColumnDef="fecha_cierre">
+        <th mat-header-cell *matHeaderCellDef> Fecha de finalizacion </th>
+        <td mat-cell *matCellDef="let element"> {{ element.fecha_cierre }} </td>
+      </ng-container>
+
       <!-- Columna Cargo -->
       <ng-container matColumnDef="cargo">
         <th mat-header-cell *matHeaderCellDef> Cargo </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombreCargo}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.cargo_nombre}} </td>
       </ng-container>
 
       <!-- Columna Vacante -->
