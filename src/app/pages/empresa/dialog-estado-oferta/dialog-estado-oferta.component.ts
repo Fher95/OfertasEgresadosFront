@@ -31,9 +31,9 @@ export class DialogEstadoOfertaComponent implements OnInit {
  * una peticion http.
  */
   cargarPostuladosSeleccionados() {
-    this.empService.getPostuladosSeleccionadosOferta(this.datosOferta.id_empresa).subscribe(resultado => {
+    this.empService.getPostuladosSeleccionadosOferta(this.datosOferta.id_aut_oferta).subscribe(resultado => {
       console.log("postulados: ", resultado);
-      this.listaPostuladosEscogidos = resultado;
+      this.listaPostuladosEscogidos = resultado.data;
     },
       error => {
         this.alert.showErrorMessage("Ha ocurrido un error", "No se pudo cargar los postulados a tu oferta. Por favor recarga la página o intenta más tarde")

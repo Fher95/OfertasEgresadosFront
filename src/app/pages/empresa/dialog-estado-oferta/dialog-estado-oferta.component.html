@@ -20,8 +20,8 @@
     <div *ngIf="estado === 'Finalizada con contratación'">
       <mat-label>Egresado contratado</mat-label>
       <mat-select [(value)]="idEgresadoEscogido">
-        <mat-option *ngFor="let postulado of listaPostuladosEscogidos" [value]="postulado.id_aut_egresado">
-          {{postulado.nombre}}
+        <mat-option *ngFor="let postulado of listaPostuladosEscogidos" [value]="postulado.idEgresado">
+          {{postulado.nombres + " " +postulado.apellidos }}
         </mat-option>
       </mat-select>
     </div>
