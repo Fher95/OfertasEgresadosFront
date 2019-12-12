@@ -62,7 +62,7 @@
                     </div>
                     <div class="row centrarContenidoRow">
                             <mat-form-field  floatLabel="auto" appearance="outline" >
-                                 <mat-label>Área de conocomiento</mat-label>
+                                 <mat-label>Área(s) de conocomiento</mat-label>
                                     <mat-select   formControlName="idAreasConocimiento" required placeholder="Area" multiple>
                                         <mat-option (onSelectionChange)="areasSeleccionadas($event)" *ngFor="let area of areas" [value]="area.id_aut_areaconocimiento">
                                             {{area.nombre}}
@@ -218,7 +218,7 @@
                                       </mat-select>
                             </mat-form-field>
                             <mat-form-field  floatLabel="auto" appearance="outline" >
-                                     <mat-label>Carrera</mat-label>
+                                     <mat-label>Carrera(s)</mat-label>
                                     <mat-select panelClass="tamanoSelectPanel" formControlName="idProgramas" required multiple>
                                         <mat-option (onSelectionChange)="programasSeleccionados($event)" *ngFor="let programa of programas" [value]="programa.idPrograma">
                                                 {{programa.Nombre}}
@@ -253,7 +253,7 @@
                             </mat-form-field>
                     </div>
                     <div class="row offset-1 " [formGroup]="datosFormChecked">
-                            <mat-checkbox formControlName="idiomaChecked" [(ngModel)]="idiomaChecked" [labelPosition]="labelPosition"><Strong>Requiere idiomas?</Strong></mat-checkbox>
+                            <mat-checkbox formControlName="idiomaChecked" [(ngModel)]="idiomaChecked" (change)="idiomaIsChecked($event)" [labelPosition]="labelPosition"><Strong>Requiere idiomas?</Strong></mat-checkbox>
                     </div>
                     <!--En caso de que se seleccione la opcion de requerimiento de idioma se muestra el form de idiomas-->
                     <div class="row offset-1 " *ngIf="idiomaChecked">
@@ -338,7 +338,7 @@
                     </div>
                     <!--Fin form idiomas-->
                     <div class="row mt-2 offset-1 " [formGroup]="datosFormChecked">
-                            <mat-checkbox formControlName="softwareChecked" [(ngModel)]="softwareChecked" [labelPosition]="labelPosition"><Strong>Requiere softwares?</Strong></mat-checkbox>
+                            <mat-checkbox formControlName="softwareChecked" [(ngModel)]="softwareChecked" (change)="softwareIsChecked($event)" [labelPosition]="labelPosition"><Strong>Requiere softwares?</Strong></mat-checkbox>
                     </div>
                     <!--En caso de que se seleccione la opcion de requerimiento de idioma se muestra el form de idiomas-->
                     <div class="row  offset-1 " *ngIf="softwareChecked">
@@ -414,7 +414,7 @@
                             </div>
                     </div>
                     <div class="row offset-1" [formGroup]="datosFormChecked">
-                            <mat-checkbox formControlName="preguntasChecked" [(ngModel)]="preguntasChecked" [labelPosition]="labelPosition"><Strong>Desea hacer preguntas al aspirante?</Strong></mat-checkbox>
+                            <mat-checkbox formControlName="preguntasChecked" [(ngModel)]="preguntasChecked" (change)="preguntasIsChecked($event)" [labelPosition]="labelPosition"><Strong>Desea hacer preguntas al aspirante?</Strong></mat-checkbox>
                     </div>
                     <!--En caso de que se seleccione la opcion de requerimiento de idioma se muestra el form de idiomas-->
                     <div class="row offset-1" *ngIf="preguntasChecked">
@@ -460,8 +460,8 @@
                             <mat-form-field  floatLabel="auto" appearance="outline" >
                                  <mat-label>Movilización propia</mat-label>
                                     <mat-select formControlName="movilizacionPropia" required placeholder="Dispone de movilizacion propia">
-                                            <mat-option value="1">Si</mat-option>
-                                            <mat-option value="0">No</mat-option>
+                                            <mat-option  [value]="1">Si</mat-option>
+                                            <mat-option  [value]="0">No</mat-option>
                                             <mat-error class="ml-3"
                                                 *ngIf="formOfertaLaboral.get('requisitos').controls.movilizacionPropia.errors?.required">
                                                 campo requerido</mat-error>
@@ -487,13 +487,13 @@
                                 </mat-form-field>
                     </div>
                     <div class="row offset-1 " [formGroup]="datosFormChecked">
-                            <mat-checkbox formControlName="discapacidadChecked" [(ngModel)]="discapacidadChecked" [labelPosition]="labelPosition"><Strong>Pueden acceder a la oferta personas con discapacidad?</Strong></mat-checkbox>
+                            <mat-checkbox formControlName="discapacidadChecked" [(ngModel)]="discapacidadChecked" (change)="discapacidadIsChecked($event)" [labelPosition]="labelPosition"><Strong>Pueden acceder a la oferta personas con discapacidad?</Strong></mat-checkbox>
                     </div>
                     <!--En caso de que se seleccione la opcion de requerimiento de idioma se muestra el form de idiomas-->
                     <div class="row offset-1 ">
                                 <div *ngIf="discapacidadChecked">
                                         <mat-form-field  floatLabel="auto" appearance="outline" >
-                                             <mat-label>Discapacidad</mat-label>
+                                             <mat-label>Discapacidad(es)</mat-label>
                                                 <mat-select formControlName="idDiscapacidades" required multiple placeholder="discapacidad">
                                                         <mat-option (onSelectionChange)="discapacidadesSeleccionadas($event)" *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad">
                                                                 {{discapacidad.Nombre}}

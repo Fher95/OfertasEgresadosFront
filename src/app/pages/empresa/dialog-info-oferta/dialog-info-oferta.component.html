@@ -20,7 +20,7 @@
       </div>
       <div class="row">
                   <div class="col-sm-12 col-md-6">
-                              <label><Strong>Areas: </Strong>{{datosOferta.informacionPrincipal.areas}}</label>
+                              <label><Strong>Area(s): </Strong>{{datosOferta.informacionPrincipal.areas}}</label>
                         </div>
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Sector de la oferta: </Strong>{{datosOferta.informacionPrincipal.sector}}</label>
@@ -111,7 +111,7 @@
                         <label><Strong>Estudio minimo: </Strong>{{datosOferta.requisitos.estudioMinimo}}</label>
                   </div>
             <div class="col-sm-12 col-md-6">
-                  <label><Strong>Carrera: </Strong>{{datosOferta.requisitos.programas}}</label>
+                  <label><Strong>Carrera(s): </Strong>{{datosOferta.requisitos.programas}}</label>
             </div>
       </div>
       <div class="row">
@@ -201,9 +201,14 @@
                   </div>
       </div>
       <div class="row">
-                  <div class="col-12">
-                              <label><Strong>Dispone de movilización propia: </Strong>{{datosOferta.requisitos.movilizacionPropia}}</label>
+                  <div class="col-12" *ngIf="datosOferta.requisitos.movilizacionPropia == 0; else movilizacionPropia">
+                              <label><Strong>Dispone de movilización propia: </Strong>No</label>
                         </div>
+                        <ng-template #movilizacionPropia>
+                                    <div class="col-12">
+                                                <label><Strong>Dispone de movilización propia: </Strong>Si</label>
+                                          </div>
+                        </ng-template>
       </div>
       <div class="row">
                   <div class="col-12">
@@ -244,7 +249,7 @@
                         </label>
                   </div>
                   <div class="col-sm-12 col-md-6" *ngIf="datosOferta.requisitos.discapacidades !== null">
-                              <label><Strong>Discapacidades: </Strong>{{datosOferta.requisitos.discapacidades}}</label>
+                              <label><Strong>Discapacidad(es): </Strong>{{datosOferta.requisitos.discapacidades}}</label>
                   </div>
       </div>
       <mat-card>
