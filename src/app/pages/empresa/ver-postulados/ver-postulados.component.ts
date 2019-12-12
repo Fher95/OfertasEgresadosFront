@@ -53,6 +53,8 @@ export class VerPostuladosComponent implements OnInit {
     },
       error => {
         console.log('Error al obtener el listado de postulados: ', JSON.stringify(error));
+        this.auxiliar = true;
+        this.arregloVacio = true;
       });
   }
   cargarPostulados2() {
