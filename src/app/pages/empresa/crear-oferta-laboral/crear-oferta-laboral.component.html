@@ -470,7 +470,7 @@
                                 <mat-form-field  floatLabel="auto" appearance="outline" >
                                     <mat-label>Licencia de conducción</mat-label>
 
-                                    <mat-select formControlName="licenciaConduccion"  placeholder="Licencia de conduccion">
+                                    <mat-select formControlName="licenciaConduccion" required placeholder="Licencia de conduccion">
                                             <mat-option value="Ninguna">Ninguna</mat-option>
                                             <mat-option value="A1">A1</mat-option>
                                             <mat-option value="A2">A2</mat-option>
@@ -494,7 +494,7 @@
                                 <div *ngIf="discapacidadChecked">
                                         <mat-form-field  floatLabel="auto" appearance="outline" >
                                              <mat-label>Discapacidad(es)</mat-label>
-                                                <mat-select formControlName="idDiscapacidades" required multiple placeholder="discapacidad">
+                                                <mat-select formControlName="idDiscapacidades"  multiple placeholder="discapacidad">
                                                         <mat-option (onSelectionChange)="discapacidadesSeleccionadas($event)" *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad">
                                                                 {{discapacidad.Nombre}}
                                                         </mat-option>
