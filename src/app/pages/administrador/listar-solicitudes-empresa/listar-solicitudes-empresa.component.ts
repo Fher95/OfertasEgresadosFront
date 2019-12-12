@@ -70,12 +70,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     console.log('Obtenidas Peticiones');
   }
 
-  getEstado(parEstado: string): string {
-    /*if (parEstado === null) {
-      return 'En Espera';
-    } else if (parEstado) {
-      return 'Activo';
-    } else { return 'Inactivo'; }*/
+  getEstado(parEstado: string): string {   
     return parEstado;
   }
 
@@ -88,29 +83,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     }
     console.log(this.solicitudSeleccionada);
     this.openDialog();
-  }
-
-  /*getEstadoBoton(parSolicitud: Solicitud): string {
-    let accion = 'Pendiente';
-    console.log(parSolicitud.estado);
-    if (!parSolicitud.estado) {
-      accion = 'Activar';
-    } else {
-      accion = 'Desactivar';
-    }
-    return accion;
-  }*/
-
-  /*activarDesactivarEmpresa(parSolicitud: Solicitud): void {
-    console.log("Enviando peticion!!!!!");
-    if (parSolicitud != null) {
-      if (parSolicitud.estado === null) {
-        this.servicioLista.activarSolicitud(parSolicitud.id);
-      } else if (parSolicitud.estado) {
-        this.servicioLista.desactivarSolicitud(parSolicitud.id);
-      }
-    }
-  }*/
+  }  
 
   activarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null) {
@@ -147,7 +120,6 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     this.seleccionValida = false;
   }
 
-
   openDialog() {
     const dial = this.dialog.open(InfoSolicitudEmpresaComponent, {
       data: {
@@ -157,6 +129,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     });
     this.dialogAbierto(dial);
   }
+  
   dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
     dial.afterClosed().subscribe((result) => {
       console.log('Resultado dialogo cerrado:' + result);

@@ -40,7 +40,7 @@
   <button type="button" class="btn btn-primary m-1" *ngIf="seleccionValida" (click)="activarEmpresa(data.solicitud)"
     data-dismiss="modal" [mat-dialog-close]="true">
     Activar</button>
-  <button *ngIf="data.solicitud.estado !== 'Inactivo'" type="button" class="btn btn-primary m-1"
+  <button *ngIf="data.solicitud.estado !== 'Inactivo'" type="button" class="btn btn-danger m-1"
     (click)="desactivarEmpresa(data.solicitud)" data-dismiss="modal" [mat-dialog-close]="true">
     Rechazar</button>
 </mat-dialog-actions>
