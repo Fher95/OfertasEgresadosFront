@@ -146,7 +146,6 @@ datosFormChecked: FormGroup;
   cargarCargos(){
     this.servGenerales.obtenerListaCargos().subscribe(resultado => {
       this.cargos = resultado;
-      console.log(this.cargos)
     },
       error => {
         this.showSpinner = false;
@@ -237,10 +236,13 @@ datosFormChecked: FormGroup;
   cargarContactoHv()
   {
     this.empService.getDatosContactoHv(this.id).subscribe(resultado => {
-      this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.data.nombres)
-      this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.data.apellidos)
-      this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.data.telefono_movil)
-      this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.data.correo_corporativo)
+      if(resultado.data != null){
+        this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.data.nombres)
+        this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.data.apellidos)
+        this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.data.telefono_movil)
+        this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.data.correo_corporativo)
+      }
+     
     },
       error => {
         this.showSpinner = false;
@@ -252,6 +254,82 @@ datosFormChecked: FormGroup;
   cargarDatosOferta()
   {
     this.empService.getDatosOferta(this.idOferta).subscribe(resultado => {
+      resultado = {
+        "contactoHV": [],
+        "contrato": null,
+        "informacionPrincipal": {
+            "areas": [
+                "Ingeniería",
+                "Tecnología"
+            ],
+            "cargo": "Webmaster/Desarrollador(a)",
+            "descripcion": "Se busca desarrollador de software para trabajar en PHP",
+            "idAreasConocimiento": [
+                48,
+                76
+            ],
+            "idSector": 32,
+            "idUbicaciones": [],
+            "nombreOferta": "Desarrollador de software",
+            "nombreTempEmpresa": null,
+            "numVacantes": 2,
+            "sector": "Tecnología",
+            "ubicaciones": [],
+            "vigenciaDias": 25
+        },
+        "requisitos": {
+            "anios": 0,
+            "discapacidades": [
+                "Visual",
+                "Física"
+            ],
+            "estudioMinimo": "Bachillerato",
+            "experienciaLaboral": "Sin experiencia",
+            "idDiscapacidades": [
+                2,
+                3
+            ],
+            "idProgramas": [],
+            "idiomas": [
+                {
+                    "id": 22,
+                    "nombre": "Español",
+                    "nivel_lectura": "Avanzado",
+                    "nivel_escritura": "Avanzado",
+                    "nivel_conversacion": "Nativo"
+                }
+            ],
+            "idEstudioMinimo": 2,
+            "licenciaConduccion": null,
+            "movilizacionPropia": 0,
+            "perfil": "Profesional",
+            "preguntasCandidato": [],
+            "programas": [],
+            "requisitosMinimos": "Habilidades en Framework de desarrollo symfony 3.4 o 4.2 (demostrable)",
+            "softwareOferta": [
+                {
+                    "nombre": "Microsoft Excel",
+                    "nivel": "Nivel técnico"
+                },
+                {
+                    "nombre": "Linux",
+                    "nivel": "Nivel usuario avanzado"
+                },
+                {
+                    "nombre": "PHP MyAd125min",
+                    "nivel": "Nivel profesional"
+                },
+                {
+                    "nombre": "Visual Studio Code",
+                    "nivel": "Nivel técnico"
+                },
+                {
+                    "nombre": "PHP Storm",
+                    "nivel": "Nivel técnico"
+                }
+            ]
+        }
+    }
       this.formOfertaLaboral.setValue(resultado)
       this.idiomasEscogidos = this.formOfertaLaboral.controls['requisitos'].get('idiomas').value
       this.softwaresEscogidos = this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').value
@@ -484,6 +562,27 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(event.source.viewValue);
     }
   }
+  idiomaIsChecked(event){
+    if(!event.checked){
+        this.idiomasEscogidos = []
+    }
+  }
+  softwareIsChecked(event){
+    if(!event.checked){
+      this.softwaresEscogidos = []
+    }
+  }
+
+  preguntasIsChecked(event){
+    if(!event.checked){
+      this.preguntasEscogidas = []
+    }
+  }
+  discapacidadIsChecked(event){
+    if(!event.checked){
+      this.formOfertaLaboral.controls['requisitos'].get('idDiscapacidades').setValue(null)
+      this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue(null)}
+  }
   //Crea la oferta laboral
   registrarOfertaLaboral(form)
   {
@@ -525,6 +624,7 @@ datosFormChecked: FormGroup;
         //Al cerrar el dialog si el resultado es verdadero se crea la oferta
         if(result) {
           this.empService.crearOfertaLaboral(this.id,datos).subscribe(resultado => {
+            console.log(resultado)
             this.alert.showSuccesMessage('Exito','Se ha creado la oferta exitosamente')
             .then((value) => {
               this.router.navigate(['empresa/'+this.id+'/misOfertas']);
@@ -537,5 +637,4 @@ datosFormChecked: FormGroup;
         }
     });
   }
-
 }
