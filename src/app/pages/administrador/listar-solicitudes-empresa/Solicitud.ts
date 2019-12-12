@@ -26,7 +26,7 @@ export const solicitudGenerica: Solicitud = {
 
 export const lstSolicitudes: Solicitud[] = [
     {
-        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'En espera', razon_social: 'Cualquiera',
+        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'Pendiente', razon_social: 'Cualquiera',
         anio_creacion: 2012, numero_empleados: 1000, ingresos: 2000, sitio_web: 'CualquierCosa.com', id_direccion: 1,
         fecha_activacion: '1092-12-03', total_publicaciones: 2, limite_publicaciones: 10, num_publicaciones_actuales: 2,
         nit: '32534fd'
@@ -44,7 +44,7 @@ export const lstSolicitudes: Solicitud[] = [
         nit: '32534fd'
     },
     {
-        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'En espera', razon_social: 'Cualquiera',
+        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'Pendiente', razon_social: 'Cualquiera',
         anio_creacion: 2012, numero_empleados: 1000, ingresos: 2000, sitio_web: 'CualquierCosa.com', id_direccion: 1,
         fecha_activacion: '1092-12-03', total_publicaciones: 2, limite_publicaciones: 10, num_publicaciones_actuales: 2,
         nit: '32534fd'
@@ -62,7 +62,7 @@ export const lstSolicitudes: Solicitud[] = [
         nit: '32534fd'
     },
     {
-        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'En espera', razon_social: 'Cualquiera',
+        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'Pendiente', razon_social: 'Cualquiera',
         anio_creacion: 2012, numero_empleados: 1000, ingresos: 2000, sitio_web: 'CualquierCosa.com', id_direccion: 1,
         fecha_activacion: '1092-12-03', total_publicaciones: 2, limite_publicaciones: 10, num_publicaciones_actuales: 2,
         nit: '32534fd'
@@ -80,7 +80,7 @@ export const lstSolicitudes: Solicitud[] = [
         nit: '32534fd'
     },
     {
-        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'En espera', razon_social: 'Cualquiera',
+        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'Pendiente', razon_social: 'Cualquiera',
         anio_creacion: 2012, numero_empleados: 1000, ingresos: 2000, sitio_web: 'CualquierCosa.com', id_direccion: 1,
         fecha_activacion: '1092-12-03', total_publicaciones: 2, limite_publicaciones: 10, num_publicaciones_actuales: 2,
         nit: '32534fd'
@@ -98,7 +98,7 @@ export const lstSolicitudes: Solicitud[] = [
         nit: '32534fd'
     },
     {
-        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'En espera', razon_social: 'Cualquiera',
+        nombre: 'primero', id_aut_empresa: 1231, fecha_registro: '2019-01-8', estado: 'Pendiente', razon_social: 'Cualquiera',
         anio_creacion: 2012, numero_empleados: 1000, ingresos: 2000, sitio_web: 'CualquierCosa.com', id_direccion: 1,
         fecha_activacion: '1092-12-03', total_publicaciones: 2, limite_publicaciones: 10, num_publicaciones_actuales: 2,
         nit: '32534fd'
