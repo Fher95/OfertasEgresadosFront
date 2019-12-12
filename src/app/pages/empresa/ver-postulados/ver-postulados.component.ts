@@ -8,6 +8,7 @@ import { isNull } from 'util';
 
 export interface DialogData {
   postulado: IEgresado;
+  idOferta: string;
 }
 
 @Component({
@@ -56,11 +57,11 @@ export class VerPostuladosComponent implements OnInit {
   }
   cargarPostulados2() {
     const lstPostulados: IEgresado[] = [
-      { idEgresado: 3243, id_aut_egresado: '106167234', nombres: 'Andres Felipe', apellidos: 'Muñoz Andrade' },
-      { idEgresado: 3244, id_aut_egresado: '106145234', nombres: 'Luz Maritza', apellidos: 'Tabares Paz' },
-      { idEgresado: 3245, id_aut_egresado: '106178256', nombres: 'John', apellidos: 'Doe' },
-      { idEgresado: 3246, id_aut_egresado: '106175345', nombres: 'Marco Alberto', apellidos: 'Hernandez Noriega' },
-      { idEgresado: 3247, id_aut_egresado: '104346567', nombres: 'Natalia Andrea', apellidos: 'Yasnó Ceron' }
+      { idEgresado: 3243, nombres: 'Andres Felipe', apellidos: 'Muñoz Andrade' },
+      { idEgresado: 3244, nombres: 'Luz Maritza', apellidos: 'Tabares Paz' },
+      { idEgresado: 3245, nombres: 'John', apellidos: 'Doe' },
+      { idEgresado: 3246, nombres: 'Marco Alberto', apellidos: 'Hernandez Noriega' },
+      { idEgresado: 3247, nombres: 'Natalia Andrea', apellidos: 'Yasnó Ceron' }
     ];
     this.listaPostulados = lstPostulados;
     this.auxiliar = true;
@@ -116,7 +117,8 @@ export class VerPostuladosComponent implements OnInit {
   openDialog() {
     const dial = this.dialog.open(DialogPostuladoComponent, {
       data: {
-        postulado: this.postuladoSeleccionado
+        postulado: this.postuladoSeleccionado,
+        idOferta: this.id
       },
       width: '40vw'
     });
@@ -138,6 +140,7 @@ export class VerPostuladosComponent implements OnInit {
 export class DialogPostuladoComponent {
 
   postuladoSeleccionado: IEgresado;
+  idOferta: string;
   estado: string = 'Pendiente';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -145,10 +148,12 @@ export class DialogPostuladoComponent {
 
   ngOnInit() {
     this.postuladoSeleccionado = this.data.postulado;
+    this.idOferta = this.data.idOferta;
+    this.estado = this.postuladoSeleccionado.estado;
   }
 
   guardarEstado(){
-    this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.estado)
+    this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.idOferta, this.estado)
     .subscribe();
   }
 
