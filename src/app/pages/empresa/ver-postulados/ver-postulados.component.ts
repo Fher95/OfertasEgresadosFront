@@ -8,6 +8,7 @@ import { isNull } from 'util';
 
 export interface DialogData {
   postulado: IEgresado;
+  idOferta: string;
 }
 
 @Component({
@@ -36,7 +37,7 @@ export class VerPostuladosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.listaPostulados = null;
     this.listaPostuladosEscogidos = [];
-    this.cargarPostulados();
+    this.cargarPostulados2();
   }
   cargarPostulados() {
     this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {
@@ -116,7 +117,8 @@ export class VerPostuladosComponent implements OnInit {
   openDialog() {
     const dial = this.dialog.open(DialogPostuladoComponent, {
       data: {
-        postulado: this.postuladoSeleccionado
+        postulado: this.postuladoSeleccionado,
+        idOferta: this.id
       },
       width: '40vw'
     });
@@ -138,6 +140,7 @@ export class VerPostuladosComponent implements OnInit {
 export class DialogPostuladoComponent {
 
   postuladoSeleccionado: IEgresado;
+  idOferta: string;
   estado: string = 'Pendiente';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -145,10 +148,12 @@ export class DialogPostuladoComponent {
 
   ngOnInit() {
     this.postuladoSeleccionado = this.data.postulado;
+    this.idOferta = this.data.idOferta;
+    this.estado = this.postuladoSeleccionado.estado;
   }
 
   guardarEstado(){
-    this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.estado)
+    this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.idOferta, this.estado)
     .subscribe();
   }
 
