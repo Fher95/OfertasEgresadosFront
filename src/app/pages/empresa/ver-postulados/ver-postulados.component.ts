@@ -42,7 +42,7 @@ export class VerPostuladosComponent implements OnInit {
   cargarPostulados() {
     this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {
       console.log(resultado);
-      this.listaPostulados = resultado;
+      this.listaPostulados = resultado.data;
       this.auxiliar = true;
       this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
       this.dataSource.paginator = this.paginator;
