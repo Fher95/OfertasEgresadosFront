@@ -32,12 +32,14 @@
                         </mat-form-field>
                         <mat-form-field  floatLabel="auto" appearance="outline">
                             <mat-label>Número de vacantes</mat-label>
-                            <input type="number" formControlName="numVacantes" matInput required>
+                            <input type="number" pattern="[0-9]*" formControlName="numVacantes" matInput required>
                             <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.numVacantes.errors?.required">campo
                                 requerido</mat-error>
                                 <mat-error
                                     *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.numVacantes.errors?.min">
                                     minimo 1 vacante</mat-error>
+                                    <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.numVacantes.errors?.pattern">
+                                        no se permiten números decimales</mat-error>
                         </mat-form-field>
                         <mat-form-field  floatLabel="auto" appearance="outline" >
                                 <mat-label>Tipo de cargo</mat-label>
@@ -111,7 +113,7 @@
                     <div class="row centrarContenidoRow">
                         <mat-form-field  floatLabel="auto" appearance="outline" >
                                 <mat-label>Tipo de contrato</mat-label>
-                                <mat-select formControlName="tipoContrato" [(ngModel)]="tipoContrato" required>
+                                <mat-select formControlName="tipoContrato" [(ngModel)]="tipoContrato" (selectionChange)="cambioTipoContrato($event.value)" required>
                                 <mat-option value="Término indefinido">Término indefinido</mat-option>
                                 <mat-option value="Contrato de aprendizaje">Contrato de aprendizaje</mat-option>
                                 <mat-option value="Prestación de servicios">Prestación de servicios</mat-option>
@@ -124,7 +126,10 @@
                         </mat-form-field>
                         <mat-form-field  floatLabel="auto" appearance="outline">
                             <mat-label>Duración del contrato</mat-label>
-                            <input formControlName="duracion" matInput>
+                            <input *ngIf="tipoContrato === 'Término indefinido';else duracionContrato" formControlName="duracion"  readonly matInput>
+                            <ng-template #duracionContrato>
+                                <input formControlName="duracion" matInput>
+                            </ng-template>
                         </mat-form-field>
                         <mat-form-field  floatLabel="auto" appearance="outline" >
                              <mat-label>Jornada laboral</mat-label>
@@ -242,13 +247,15 @@
                             </mat-form-field>
                             <mat-form-field  floatLabel="auto" appearance="outline">
                                     <mat-label>Años</mat-label>
-                                    <input type="number" value="null" formControlName="anios" matInput required >            
+                                    <input type="number" pattern="[0-9]*" value="null" formControlName="anios" matInput required >            
                                     <mat-error
                                             *ngIf="formOfertaLaboral.get('requisitos').controls.anios.errors?.required">
                                             campo requerido</mat-error>
                                             <mat-error
                                             *ngIf="formOfertaLaboral.get('requisitos').controls.anios.errors?.min">
                                             minimo 0 años</mat-error>
+                                            <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.numVacantes.errors?.pattern">
+                                                no se permiten números decimales</mat-error>
 
                             </mat-form-field>
                     </div>
@@ -602,10 +609,12 @@
                                         </mat-form-field>
                                         <mat-form-field  floatLabel="auto" appearance="outline">
                                                 <mat-label>Teléfono celular</mat-label>
-                                                <input type="number" formControlName="telefonoMovil" matInput  required >
+                                                <input pattern="[0-9]*" formControlName="telefonoMovil" matInput  required >
                                                 <mat-error
                                                 *ngIf="formOfertaLaboral.get('contactoHV').controls.telefonoMovil.errors?.required">
                                                 campo requerido</mat-error>
+                                                <mat-error *ngIf="formOfertaLaboral.get('contactoHV').controls.telefonoMovil.errors?.pattern">
+                                                    Solo se aceptan números</mat-error>
                                         </mat-form-field>
                         </div>
                         <div class="botonesStepper">
