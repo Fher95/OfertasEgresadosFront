@@ -483,7 +483,16 @@ datosFormChecked: FormGroup;
       this.alert.showErrorMessage('Datos incorrectos','Por favor verique que todos los datos esten ingresados correctamente')
     }
   }
-
+  //Cambia el valor cuando se cambia el tipo de contrato
+  cambioTipoContrato(value){
+    console.log(value)
+    if(value === 'Término indefinido' || value === 'Término fijo'){
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(value)
+    }
+    else{
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(null)
+    }
+  }
   /**
  * Abre un dialog de angular material
  * El contenido del dialog esta creado en el componente DialogInfoOfertaComponent

@@ -91,8 +91,8 @@ export class EmpresaService {
   getOfertasActivas(idEmpresa: string): Observable<IHistorialOfertas[]>{
     return this.httpClient.get<IHistorialOfertas[]>('http://127.0.0.1:8081/api/ofertas/activas/empresa/' + idEmpresa, {headers: this.headers});
   }
-  getPostuladosOferta(idOferta: string): Observable<IEgresado[]> {
-    return this.httpClient.get<IEgresado[]>('http://127.0.0.1:8081/api/ofertas/postulados/' 
+  getPostuladosOferta(idOferta: string): Observable<any> {
+    return this.httpClient.get('http://127.0.0.1:8081/api/ofertas/postulados/' 
     + idOferta, {headers: this.headers});
   }
   getPostuladosSeleccionadosOferta(idOferta: string): Observable<any> {
