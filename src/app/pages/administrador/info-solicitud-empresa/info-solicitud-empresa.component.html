@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Información de la empresa</h1>
 <hr>
-<div mat-dialog-content >
-  <p>                                                                     </p>
+<div mat-dialog-content>
+  <p> </p>
   <strong>Nombre de la empresa: </strong> <a>{{data.solicitud.nombre}}</a>
   <p></p>
   <strong>NIT: </strong> <a>{{data.solicitud.nit}}</a>
@@ -18,8 +18,14 @@
   <p></p>
   <strong>Estado: </strong> <a>{{getEstado(data.solicitud.estado)}}</a>
   <p></p>
-  <div class="form-group">
+  <div *ngIf="data.solicitud.estado === 'Activo'">
+    <strong>Número de publicaciones permitidas: </strong> <a>{{data.solicitud.limite_publicaciones}}</a>
+    <p></p>
+  </div>
+  <div *ngIf="data.solicitud.estado === 'Pendiente' || data.solicitud.estado === 'Inactivo'" class="form-group">
     <strong for="numOfertas">Numero de publicaciones permitidas: </strong>
+    <h6 *ngIf="this.seleccionNumOfertas === 0" class="text-muted">Ingrese un número de publicaciones para activar</h6>
+    <p *ngIf="this.seleccionNumOfertas > this.limitePublicaciones" class="text-danger">El límite de publicaciones es de {{this.limitePublicaciones}}</p>
     <p></p>
     <input [(ngModel)]="seleccionNumOfertas" type="number" class="form-control"
       placeholder="Debe ingresar un numero para activar" (change)="activacionValida()" (keyup)="activacionValida()"
@@ -28,14 +34,13 @@
 </div>
 <hr>
 <mat-dialog-actions align="end">
-    <!--button mat-button mat-dialog-close>Cancel</button>
+  <!--button mat-button mat-dialog-close>Cancel</button>
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button-->
-    <button type="button" class="btn btn-secondary m-1" (click)="reiniciarSeleccion()"
-    mat-dialog-close>Cancelar</button>
-          <button type="button" class="btn btn-primary m-1" *ngIf="seleccionValida"
-            (click)="activarEmpresa(data.solicitud)" data-dismiss="modal" [mat-dialog-close]="true">
-            Activar</button>
-          <button type="button" class="btn btn-primary m-1" (click)="desactivarEmpresa(data.solicitud)"
-            data-dismiss="modal" [mat-dialog-close]="true">
-            Rechazar</button>
+  <button type="button" class="btn btn-secondary m-1" (click)="reiniciarSeleccion()" mat-dialog-close>Cancelar</button>
+  <button type="button" class="btn btn-primary m-1" *ngIf="seleccionValida" (click)="activarEmpresa(data.solicitud)"
+    data-dismiss="modal" [mat-dialog-close]="true">
+    Activar</button>
+  <button *ngIf="data.solicitud.estado !== 'Inactivo'" type="button" class="btn btn-danger m-1"
+    (click)="desactivarEmpresa(data.solicitud)" data-dismiss="modal" [mat-dialog-close]="true">
+    Rechazar</button>
 </mat-dialog-actions>

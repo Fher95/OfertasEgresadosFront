@@ -91,11 +91,12 @@ export class EmpresaService {
   getOfertasActivas(idEmpresa: string): Observable<IHistorialOfertas[]>{
     return this.httpClient.get<IHistorialOfertas[]>('http://127.0.0.1:8081/api/ofertas/activas/empresa/' + idEmpresa, {headers: this.headers});
   }
-  getPostuladosOferta(idOferta: string): Observable<IEgresado[]> {
-    return this.httpClient.get<IEgresado[]>('http://127.0.0.1:8081/api/ofertas/postulados/' + idOferta, {headers: this.headers});
+  getPostuladosOferta(idOferta: string): Observable<any> {
+    return this.httpClient.get('http://127.0.0.1:8081/api/ofertas/postulados/' 
+    + idOferta, {headers: this.headers});
   }
-  getPostuladosSeleccionadosOferta(idOferta: string): Observable<IEgresado[]> {
-    return this.httpClient.get<IEgresado[]>('http://127.0.0.1:8081/api/ofertas/postuladosSelect/' + idOferta, {headers: this.headers});
+  getPostuladosSeleccionadosOferta(idOferta: string): Observable<any> {
+    return this.httpClient.get('http://127.0.0.1:8081/api/ofertas/postulados/' + idOferta, {headers: this.headers});
   }
   eliminarOferta(idEmpresa: string, idOferta: string){
     return this.httpClient.delete('http://127.0.0.1:8081/api/empresa/' + idEmpresa + '/' + idOferta, {headers: this.headers});
@@ -124,14 +125,17 @@ export class EmpresaService {
   crearOfertaLaboral(idEmpresa:String ,objeto: Object){
     return this.httpClient.post('http://127.0.0.1:8081/api/empresas/oferta/store/' + idEmpresa, objeto, {headers: this.headers});
   }
-  guardarEstadoPostulado(parId: number, parEstado: string): Observable<any> {
-    // let json = JSON.stringify({ estado: 'Aceptada' });
-    // let params = 'json=' + json;
+  modificarOfertaLaboral(idOferta: string,objeto: Object){
+    return this.httpClient.post('http://127.0.0.1:8081/api/empresas/oferta/update/' + idOferta, objeto, {headers: this.headers});
+  }
+  guardarEstadoPostulado(parId: number, parIdOferta: string, parEstado: string): Observable<any> {
+    
     const objEstado = {estado: parEstado};
     const nuevaUrl = this.urlBase.concat('/postulado/').concat(parId.toString())
+    .concat('/').concat(parIdOferta)
     .concat('/estado');
     return this.httpClient.put(nuevaUrl, objEstado, this.httpOptions).pipe(
-
+      
     );
   }
 

@@ -17,7 +17,7 @@
           <mat-label>Filtrar por:</mat-label>
           <mat-select [(value)]="filtroEstado" (selectionChange)="filtrar('estado')">
             <mat-option value="Todas">Todas</mat-option>
-            <mat-option value="En espera">Pendiente</mat-option>
+            <mat-option value="Pendiente">Pendiente</mat-option>
             <mat-option value="Activo">Activo</mat-option>
             <mat-option value="Inactivo">Inactivo</mat-option>
           </mat-select>
@@ -38,7 +38,7 @@
               <span>Activo</span>
             </div>
           </div>
-          <div *ngIf="element.estado == 'En espera'" class="justify-content-center">
+          <div *ngIf="element.estado == 'Pendiente'" class="justify-content-center">
             <button mat-icon-button>
               <mat-icon>fiber_manual_record</mat-icon>
             </button>

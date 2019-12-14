@@ -106,9 +106,10 @@ export class DatosEmpresaComponent implements OnInit {
       this.formDatosEmp.controls['datos-resp-cuenta-empresa'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
       this.showSpinner = false; //Cierra el spinner
     }),
-    error => 
+    error => {
     this.showSpinner = false; //Cierra el spinner
     this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
+  }
   }
    //Redirige a la pagian de modificacion de los datos de la empresa
    modificarDatos() {

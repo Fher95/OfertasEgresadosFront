@@ -46,8 +46,8 @@ export class ListarSolicitudesService {
 
     desactivarSolicitud(parId: number): Observable<any> {
 
-        let json = JSON.stringify({ estado: 'Inactivo' });
-        let params = "json=" + json;
+        // let json = JSON.stringify({ estado: 'Inactivo' });
+        let params = { estado: 'Inactivo' };
         console.log(params);
         const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
         return this.http.put(nuevaUrl, params, this.httpOptions).pipe(
