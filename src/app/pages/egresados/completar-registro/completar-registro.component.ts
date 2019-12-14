@@ -66,21 +66,30 @@ export class CompletarRegistroComponent implements OnInit {
     this.ComentProgramaAdicional = new FormControl('', [Validators.required]);
     this.DocenteInfluenciaAdicional = new FormControl('', [Validators.required]);
   }
-
   //Añadir datos referidos
   addToList(referido: Referido) {
+    var bandera:boolean=true;
     console.log(referido);
     if(!this.referidos) {
       this.referidos = [];
     }
-    this.referidos.push(referido);
-    if(this.referidos.length!=0){
-      this.alert.showSuccesMessage('','Referencia agregada exitosamente.');
-      this.referido.limpiarDatos();
+    this.referidos.forEach(element => {
+      if(element.correo==referido.correo){
+        bandera=false;
+      }
+    });
+    if(bandera){
+      this.referidos.push(referido);
+      if(this.referidos.length!=0){
+        this.alert.showSuccesMessage('','Referencia agregada exitosamente.');
+        this.referido.limpiarDatos();
+      }
+      this.dataReferidos = new MatTableDataSource<any>(this.referidos);
     }
-    this.dataReferidos = new MatTableDataSource<any>(this.referidos);
+    else{
+      this.alert.showErrorMessage('','La referencia personal ya existe.');
+    }
   }
-
   eliminarReferido(referido: Referido){
     console.log('Referido a eliminar: ' + referido);
     const index = this.referidos.indexOf(referido);
@@ -90,8 +99,7 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Referido eliminado');
     }
   }
-
-  //Añadir datos actual
+  //Añadir labor actual
   addExpActual(experiencia: Experiencia){
     console.log(experiencia);
     if(!this.expActuales) {
@@ -104,7 +112,6 @@ export class CompletarRegistroComponent implements OnInit {
     }
     this.dataExpActual = new MatTableDataSource<any>(this.expActuales);
   }
-
   eliminarExpActual(experiencia: Experiencia){
     console.log('Labor actual a eliminar: ' + experiencia);
     const index = this.expActuales.indexOf(experiencia);
@@ -114,7 +121,21 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Labor actual eliminada');
     }
   }
-
+  verificarCantReferidos(){
+    var bandera:boolean = false;
+    if(!this.referidos) {
+      this.referidos = [];
+    }
+    if(this.referidos.length>=2){
+      bandera=true;
+    }
+    return bandera;
+  }
+  validarSigReferido(){
+    if(!this.verificarCantReferidos()){
+      this.alert.showInfoMessage('','Para continuar a la siguiente sección, debe ingresar al menos dos referencias personales.');
+    }
+  }
   llenarDatos()
   {
     console.log('Llenar Datos Completar');
@@ -167,7 +188,6 @@ export class CompletarRegistroComponent implements OnInit {
   agregarGradoAdicional(){
     if(this.ComentProgramaAdicional.value!='' && this.DocenteInfluenciaAdicional.value!='' 
     && this.programaAdicional.Programa.value!=''){
-      this.varCompletarRegistro.gradoAdicional.id_nivel_educativo = this.programaAdicional.NivelAcademico.value;
       this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
       //this.varCompletarRegistro.gradoAdicional.titulo_especial = this.tituloGradoAdicional.value;
       this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
