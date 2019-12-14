@@ -12,7 +12,7 @@
             <input
               type="text"
               name="nombre"
-              ngModel
+              [(ngModel)]="evento.nombre"
               matInput
               #nombre="ngModel"
               required
@@ -30,20 +30,19 @@
             <input
               type="number"
               name="cupos"
-              ngModel
+              [(ngModel)]="evento.cupos"
               matInput
               #cupos="ngModel"
-              required
               placeholder="Cupos"
               min="0"
             />
-            <mat-error
+            <!-- <mat-error
               *ngIf="
                 cupos.invalid && cupos.touched && cupos.hasError('required')
               "
             >
               La cantidad de cupos del evento es requerida
-            </mat-error>
+            </mat-error> -->
             <mat-error
               *ngIf="cupos.invalid && cupos.touched && cupos.hasError('min')"
             >
@@ -57,10 +56,10 @@
               matInput
               [matDatepicker]="fechaInicioPicker"
               placeholder="Fecha de inicio"
-              ngModel
+              [(ngModel)]="evento.fechaInicio"
               #fechaInicio="ngModel"
               required
-              name="fechaInicio"
+              name="fehcaInicio"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -82,7 +81,7 @@
               matInput
               [matDatepicker]="fechaFinPicker"
               placeholder="Fecha de finalización"
-              ngModel
+              [(ngModel)]="evento.fechaFin"
               #fechaFin="ngModel"
               required
               name="fechaFin"
@@ -109,7 +108,7 @@
               type="text"
               matInput
               placeholder="Lugar"
-              ngModel
+              [(ngModel)]="evento.lugar"
               #lugar="ngModel"
               name="lugar"
               required
@@ -128,7 +127,7 @@
             <textarea
               matInput
               name="descripcion"
-              ngModel
+              [(ngModel)]="evento.descripcion"
               #descripcion="ngModel"
               rows="3"
               placeholder="Descripción"
@@ -152,7 +151,7 @@
               placeholder="Dirigido a"
               name="dirigido"
               #dirigido="ngModel"
-              ngModel
+              [(ngModel)]="evento.dirigidoA"
               rows="3"
               required
             ></textarea>
@@ -173,6 +172,10 @@
             [accept]="'.jpg, .png'"
             (importEvent)="importFile($event)"
           ></app-egr-file-upload>
+        </div>
+        <div class="form-row">
+          <img src="{{ evento.imagePath }}" alt="Imagen del evento"
+          class="image-thumbnail/>
         </div>
         <mat-card-actions>
           <button

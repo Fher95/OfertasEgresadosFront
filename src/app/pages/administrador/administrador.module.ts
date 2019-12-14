@@ -1,3 +1,4 @@
+import { EgrFileUploadComponent } from './eventos/egr-file-upload/egr-file-upload.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { AdminGuard } from './../../shared/guard/admin.guard';
@@ -28,6 +29,7 @@ import { MaterialModule } from 'src/app/layout/material/material.module';
 import { ListaEventosComponent } from './eventos/lista-eventos/lista-eventos.component';
 import { RegistroEventoComponent } from './eventos/registro-evento/registro-evento.component';
 import { EventoComponent } from './eventos/evento/evento.component';
+import { DialogoActualizarEventoComponent } from './eventos/dialogo-actualizar-evento/dialogo-actualizar-evento.component';
 
 const routes: Routes = [
   {
@@ -37,7 +39,11 @@ const routes: Routes = [
       { path: 'apoyos', component: GestionApoyosComponent },
       { path: 'verificar', component: VerificarExcelComponent },
       { path: 'eventos' },
-      { path: 'solicitudesEmpresas', component: ListarSolicitudesEmpresaComponent },
+      { path: 'eventos/crear', component: RegistroEventoComponent },
+      {
+        path: 'solicitudesEmpresas',
+        component: ListarSolicitudesEmpresaComponent
+      },
       { path: 'ofertasLaborales', component: ListarOfertasComponent }
     ]
   },
@@ -75,7 +81,9 @@ const routes: Routes = [
     ListaEventosComponent,
     RegistroEventoComponent,
     EventosComponent,
-    EventoComponent
+    EventoComponent,
+    EgrFileUploadComponent,
+    DialogoActualizarEventoComponent
   ],
   imports: [
     CommonModule,
