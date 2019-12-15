@@ -20,7 +20,6 @@ export class ComentariosComponent implements OnInit {
   carreras: string[] = ["Tecnología","Pregrado","Especialización","Maestría","Doctorado"];
   razon: string[] = ["Planta docente","Infraestructura","Planes de estudio","Otra razón"];
 
-  comentario : Comentario;
   varComentario : Comentario[];
 
   constructor() {
@@ -31,7 +30,6 @@ export class ComentariosComponent implements OnInit {
   }
 
   limpiarFormulario(){
-    this.comentario = new Comentario;
     this.varComentario = new Array<Comentario>();
     this.EstudiarUnicauca = new FormControl('', [Validators.required]);
     this.Carrera = new FormControl('');
@@ -63,12 +61,17 @@ export class ComentariosComponent implements OnInit {
       this.varComentario.push(this.llenarComentario(3,this.DocenteInfluencia.value));
       this.varComentario.push(this.llenarComentario(4,this.ComentarioFuturoEgresado.value));
 
+      this.varComentario.forEach(element => {
+        console.log('Id: '+element.id_aut_comentario+' coment: '+element.respuesta);
+      });
+      console.log('Cant: '+this.varComentario.length);
       return this.varComentario;
     }
   }
   llenarComentario(idComentario : number, respuesta : string){
-    this.comentario.id_aut_comentario = idComentario;
-    this.comentario.respuesta = respuesta;
-    return this.comentario;
+    var comentario = new Comentario;
+    comentario.id_aut_comentario = idComentario;
+    comentario.respuesta = respuesta;
+    return comentario;
   }  
 }

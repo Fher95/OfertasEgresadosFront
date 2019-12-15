@@ -47,7 +47,7 @@ export class CatalogosService {
   }
 
   getFacultad(idSede: number): Observable<FacultadInterface[]> {
-    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades/${idSede}`);
+    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades`);
   }
 
   getPrograma(idSede: number, idFacultad: number, idNivelEstudio: number): Observable<ProgramaInterface[]> {
