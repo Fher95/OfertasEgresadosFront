@@ -50,11 +50,12 @@ export class ComentariosComponent implements OnInit {
   guardarComentario(){
     console.log('Entro a guardar');
     if(this.validarCampos()){
-      this.varComentario.push(this.llenarComentario(0,this.EstudiarUnicauca.value));
       if(this.EstudiarUnicauca.value == 0){
+        this.varComentario.push(this.llenarComentario(0,'true'));
         this.varComentario.push(this.llenarComentario(1,this.Carrera.value));
       }
       else if (this.EstudiarUnicauca.value == 1){
+        this.varComentario.push(this.llenarComentario(0,'false'));
         this.varComentario.push(this.llenarComentario(1,this.Razon.value));
       }
       this.varComentario.push(this.llenarComentario(2,this.ComentarioPrograma.value));
