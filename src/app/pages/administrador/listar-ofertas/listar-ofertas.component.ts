@@ -167,8 +167,10 @@ export class ListarOfertasComponent implements OnInit {
     dial.afterClosed().subscribe((result) => {
       this.getOfertas();        
       if (result) {
-        this.getOfertas();        
-        this.servicioOfertas.cambioActualizado();
+        setTimeout(() => {
+          console.log('Cargando ofertas');
+          this.getOfertas();
+        }, 1000);      
       }
     });
   }

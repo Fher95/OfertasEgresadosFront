@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Solicitud, solicitudGenerica } from './Solicitud';
 import { Location } from '@angular/common';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
-import { MatSelectModule } from '@angular/material/select';
 import { ListarSolicitudesService } from './listar-solicitudes.service';
 import { isNull } from 'util';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { InfoSolicitudEmpresaComponent } from '../info-solicitud-empresa/info-solicitud-empresa.component';
+
 
 export interface DialogData {
   solicitud: Solicitud;
@@ -48,12 +48,12 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
         this.solicitudes = solicitudes;
         this.auxiliar = true;
 
-        this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
-        this.dataSource.paginator = this.paginator;
-        this.filtrar('estado');
+        this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarSolicitudes('estado'));
+        this.dataSource.paginator = this.paginator;        
         if (this.solicitudes.length == 0 || isNull(this.solicitudes)) {
           this.arregloVacio = true;
-        }
+        } 
+        
       });
   }
 
@@ -88,10 +88,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   activarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null) {
       this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, this.seleccionNumOfertas)
-        .subscribe(result => {
-          console.log(result);
-          this.getSolicitudes();
-          this.reiniciarSeleccion();
+        .subscribe(result => {          
+          this.getSolicitudes();          
         });
     }
   }
@@ -101,7 +99,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
           console.log(result);
-          this.getSolicitudes();          
+          this.getSolicitudes();                    
           this.reiniciarSeleccion();
         });
     }
@@ -133,16 +131,19 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
     dial.afterClosed().subscribe((result) => {
       console.log('Resultado dialogo cerrado:' + result);
-      this.getSolicitudes();
       if (result) {
         console.log('Entra al if');
-        this.getSolicitudes();        
-        this.servicioLista.cambioActualizado();
+        setTimeout(() => {
+          console.log('Cargando solicitudes');
+          this.getSolicitudes();
+        }, 1000);
+        
+        
       }
     });
   }
 
-  filtrarOfertas(columna: string) {
+  filtrarSolicitudes(columna: string) {    
     if (this.filtroEstado == '' || this.filtroEstado == 'Todas') {
       return this.solicitudes;
     }
@@ -150,15 +151,15 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     return this.solicitudes.filter(item => {
       return item[columna].toLowerCase() == this.filtroEstado.toLowerCase();
     });
-  }
-
+  }  
   /**
  * Actualiza la tabla segun el filtro escogido en el método filtrarOfertas, el cual las filtra así:
  * Todas - Aceptadas - Pendientes - Rechazadas
  */
   filtrar(columna) {
-    this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarOfertas(columna));
+    
+    this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarSolicitudes(columna));
     this.dataSource.paginator = this.paginator;
-  }
+  }    
 
 }

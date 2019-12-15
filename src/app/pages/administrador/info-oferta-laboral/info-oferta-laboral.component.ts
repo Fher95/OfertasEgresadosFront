@@ -49,7 +49,7 @@ export class InfoOfertaLaboralComponent implements OnInit {
     this.servicioOfertas.aprobarOferta(this.data.oferta.id_aut_oferta)
       .subscribe(result => {              
         this.servicioOfertas.notificarCambio();
-        this.openSnackBar('Oferta laboral aceptada');
+        this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" aceptada');
       });
   }
 
@@ -58,7 +58,7 @@ export class InfoOfertaLaboralComponent implements OnInit {
       .subscribe(result => {
         // this.getOfertas();
         this.servicioOfertas.notificarCambio();
-        this.openSnackBar('Oferta laboral rechazada');
+        this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" rechazada');
       });
   }
 

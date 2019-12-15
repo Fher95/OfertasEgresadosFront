@@ -49,25 +49,23 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
     this.seleccionValida = false;
   }
 
-  activarEmpresa(parSolicitud: Solicitud): void {
+  activarEmpresa(parSolicitud: Solicitud): void {    
     if (parSolicitud != null) {
       this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, this.seleccionNumOfertas)
         .subscribe(result => {
-          this.openSnackBar('Empresa activada');
-          // this.getSolicitudes();
-          this.servicioLista.notificarCambio();
+          this.openSnackBar('Empresa "' + parSolicitud.nombre + '" activada');
+          // this.getSolicitudes();          
           this.reiniciarSeleccion();
         });
     }
   }
 
-  desactivarEmpresa(parSolicitud: Solicitud): void {
+  desactivarEmpresa(parSolicitud: Solicitud): void {    
     if (parSolicitud != null) {
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
-          this.openSnackBar('Empresa desactivada');
-          // this.getSolicitudes();
-          this.servicioLista.notificarCambio();
+          this.openSnackBar('Empresa "' + parSolicitud.nombre + '" desactivada');
+          // this.getSolicitudes();          
           this.reiniciarSeleccion();
         });
     }
