@@ -51,21 +51,17 @@ export class ComentariosComponent implements OnInit {
     console.log('Entro a guardar');
     if(this.validarCampos()){
       if(this.EstudiarUnicauca.value == 0){
-        this.varComentario.push(this.llenarComentario(0,'true'));
-        this.varComentario.push(this.llenarComentario(1,this.Carrera.value));
+        this.varComentario.push(this.llenarComentario(1,'true'));
+        this.varComentario.push(this.llenarComentario(2,this.Carrera.value));
       }
       else if (this.EstudiarUnicauca.value == 1){
-        this.varComentario.push(this.llenarComentario(0,'false'));
-        this.varComentario.push(this.llenarComentario(1,this.Razon.value));
+        this.varComentario.push(this.llenarComentario(1,'false'));
+        this.varComentario.push(this.llenarComentario(3,this.Razon.value));
       }
-      this.varComentario.push(this.llenarComentario(2,this.ComentarioPrograma.value));
-      this.varComentario.push(this.llenarComentario(3,this.DocenteInfluencia.value));
-      this.varComentario.push(this.llenarComentario(4,this.ComentarioFuturoEgresado.value));
+      this.varComentario.push(this.llenarComentario(4,this.ComentarioPrograma.value));
+      this.varComentario.push(this.llenarComentario(5,this.DocenteInfluencia.value));
+      this.varComentario.push(this.llenarComentario(6,this.ComentarioFuturoEgresado.value));
 
-      this.varComentario.forEach(element => {
-        console.log('Id: '+element.id_aut_comentario+' coment: '+element.respuesta);
-      });
-      console.log('Cant: '+this.varComentario.length);
       return this.varComentario;
     }
   }
