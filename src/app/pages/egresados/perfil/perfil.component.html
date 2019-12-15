@@ -3,8 +3,8 @@
   <mat-toolbar color="primary">
     <span class="titulo">Perfil Egresado</span>
   </mat-toolbar>
-  <h2>Información Personal</h2>
-  <div class="infoPersonal row card-layout" color="primary">
+  <h2>Información personal</h2>
+  <div class="infoPersonal row card-layout">
     <div class="card-column-1">
       <div class="column">
         <div class="row">
@@ -127,5 +127,69 @@
         </div>
       </div>
     </div>
+  </div>
+  <h2>Grados</h2>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataReferidos">
+      <ng-container matColumnDef="nombres">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> Nombre </td>
+      </ng-container>
+      <ng-container matColumnDef="parentesco">
+        <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+        <td mat-cell *matCellDef="let element"> Parentesco </td>
+      </ng-container>
+      <ng-container matColumnDef="telefono_movil">
+        <th mat-header-cell *matHeaderCellDef> Celular </th>
+        <td mat-cell *matCellDef="let element"> telefono_movil </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  <h2>Referencias personales</h2>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataReferidos">
+      <ng-container matColumnDef="nombres">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+      </ng-container>
+      <ng-container matColumnDef="parentesco">
+        <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+        <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+      </ng-container>
+      <ng-container matColumnDef="telefono_movil">
+        <th mat-header-cell *matHeaderCellDef> Celular </th>
+        <td mat-cell *matCellDef="let element"> {{element.telefono_movil}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  <h2>Trabajo actual</h2>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataReferidos">
+      <ng-container matColumnDef="nombres">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+      </ng-container>
+      <ng-container matColumnDef="parentesco">
+        <th mat-header-cell *matHeaderCellDef> Parentesco </th>
+        <td mat-cell *matCellDef="let element"> {{element.parentesco}} </td>
+      </ng-container>
+      <ng-container matColumnDef="telefono_movil">
+        <th mat-header-cell *matHeaderCellDef> Celular </th>
+        <td mat-cell *matCellDef="let element"> {{element.telefono_movil}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  <div class="botones">
+    <button mat-raised-button (click)="btnAtras()">Atrás</button>
+    <button color="primary" mat-raised-button (click)="actualizarInformacion()">Actualizar Información</button>
   </div>
 </mat-card>
