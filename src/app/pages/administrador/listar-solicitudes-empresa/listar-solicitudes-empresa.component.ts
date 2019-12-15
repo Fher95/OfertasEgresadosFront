@@ -50,7 +50,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
 
         this.dataSource = new MatTableDataSource<Solicitud>(this.solicitudes);
         this.dataSource.paginator = this.paginator;
-
+        this.filtrar('estado');
         if (this.solicitudes.length == 0 || isNull(this.solicitudes)) {
           this.arregloVacio = true;
         }
@@ -101,7 +101,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
           console.log(result);
-          this.getSolicitudes();
+          this.getSolicitudes();          
           this.reiniciarSeleccion();
         });
     }
@@ -133,9 +133,10 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
     dial.afterClosed().subscribe((result) => {
       console.log('Resultado dialogo cerrado:' + result);
+      this.getSolicitudes();
       if (result) {
         console.log('Entra al if');
-        this.getSolicitudes();
+        this.getSolicitudes();        
         this.servicioLista.cambioActualizado();
       }
     });
