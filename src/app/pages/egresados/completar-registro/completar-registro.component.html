@@ -48,7 +48,6 @@
           <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expActual (darExperiencia)="addExpActual($event)">
           </app-explaboral>
           <div class="mat-elevation-z8">
-            <h2>Trabajo Actual</h2>
             <table mat-table [dataSource]="dataExpActual">
               <ng-container matColumnDef="cargo_nombre">
                 <th mat-header-cell *matHeaderCellDef> Cargo </th>
@@ -139,4 +138,3 @@
     </mat-horizontal-stepper>
   </mat-card>
 </form>
-<!--app-footer-egresados></app-footer-egresados-->

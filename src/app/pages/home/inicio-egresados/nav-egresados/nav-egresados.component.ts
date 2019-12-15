@@ -22,4 +22,8 @@ export class NavEgresadosComponent implements OnInit {
   ofertasLab(){
     this.router.navigate(['home']);
   }
+  logout() {
+    this.auth.logout();
+    this.router.navigateByUrl('/home');
+  }
 }

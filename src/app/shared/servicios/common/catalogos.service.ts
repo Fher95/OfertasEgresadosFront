@@ -11,6 +11,7 @@ import { DiscapacidadInterface } from '../../modelos/discapacidadInterface';
 import { NivelesEstudioInterface } from '../../modelos/nivelesEstudioInterface';
 import { SedeInterface } from '../../modelos/sedeInterface';
 import { SolicitudInterface } from '../../modelos/solicitudeInterface';
+import { ObservacionComentario } from '../../modelos/observacionComentario';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -47,7 +48,7 @@ export class CatalogosService {
   }
 
   getFacultad(idSede: number): Observable<FacultadInterface[]> {
-    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades/${idSede}`);
+    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades`);
   }
 
   getPrograma(idSede: number, idFacultad: number, idNivelEstudio: number): Observable<ProgramaInterface[]> {
@@ -73,5 +74,8 @@ export class CatalogosService {
   enviarEstadoSolicitud(idSolicitud: number, estado: boolean){
     return this.http.get(`${baseUrl}programas/${idSolicitud}/${estado}`);
   }
-
+  
+  /*getObservacion():Observable<ObservacionComentario>{
+    return this.http.get<ObservacionComentario>(`${baseUrl}cuestionario`);
+  }*/
 }
