@@ -5,7 +5,11 @@ mat-form-field{
     position: relative;
     top: 25px;
 }
-mat-label, mat-radio-button{
+mat-label{
+    margin-right: 20px;
+}
+
+mat-radio-button{
     margin-right: 20px;
 }
 mat-card{

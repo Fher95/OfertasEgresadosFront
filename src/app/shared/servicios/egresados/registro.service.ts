@@ -31,4 +31,6 @@ export class RegistroService {
     const URLId = 'http://localhost:8081/api/getIdegresados/' + correo;
     return this.http.get<any>(URLId);
   }
+
+  
 }
