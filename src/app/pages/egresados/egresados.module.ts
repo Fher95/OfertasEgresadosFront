@@ -52,7 +52,9 @@ const routes: Routes = [
     ReferidoComponent,
     CancelarDialogComponent,
     PerfilComponent,
-    ActualizarInformacionComponent
+    ActualizarInformacionComponent,
+    EventosComponent,
+    CarnetizacionComponent
   ],
   imports: [
 
