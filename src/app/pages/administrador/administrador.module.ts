@@ -38,8 +38,7 @@ const routes: Routes = [
     children: [
       { path: 'apoyos', component: GestionApoyosComponent },
       { path: 'verificar', component: VerificarExcelComponent },
-      { path: 'eventos' },
-      { path: 'eventos/crear', component: RegistroEventoComponent },
+      { path: 'eventos', component: EventosComponent },
       {
         path: 'solicitudesEmpresas',
         component: ListarSolicitudesEmpresaComponent
@@ -97,7 +96,8 @@ const routes: Routes = [
   entryComponents: [
     InfoSolicitudEmpresaComponent,
     DialogoEditarComponent,
-    InfoOfertaLaboralComponent
+    InfoOfertaLaboralComponent,
+    DialogoActualizarEventoComponent
   ],
   exports: [
     ListarSolicitudesEmpresaComponent,

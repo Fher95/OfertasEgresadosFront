@@ -5,8 +5,8 @@ export class EventoModel {
     public descripcion?: string,
     public lugar?: string,
     public cupos?: number,
-    public fechaInicio?: Date,
-    public fechaFin?: Date,
+    public fechaInicio?: string,
+    public fechaFin?: string,
     public dirigidoA?: string,
     public imagePath?: string | File | null
   ) {}

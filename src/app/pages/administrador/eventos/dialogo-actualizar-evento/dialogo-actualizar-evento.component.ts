@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { EventoModel } from 'src/app/shared/modelos/evento.model';
 import { EventosService } from 'src/app/shared/servicios/admin/eventos.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dialogo-actualizar-evento',
@@ -20,23 +21,45 @@ export class DialogoActualizarEventoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data,
     private alertService: AlertService,
     private eventoService: EventosService
-  ) {}
+  ) {
+    this.evento = data;
+  }
 
   ngOnInit() {}
 
   onSave(form: NgForm) {
     if (form.valid) {
-      this.eventoService.update(this.evento).subscribe(
-        data => {},
-        err => {
-          console.log(err);
-        }
-      );
+      this.eventoService
+        .update(this.evento, null)
+        .pipe(
+          map(data => {
+            return data;
+          })
+        )
+        .subscribe(
+          data => {
+            this.alertService
+              .showSuccesMessage(
+                'Éxito',
+                'Los datos del evento actualizaron correctamente'
+              )
+              .then(() => {
+                this.dialogRef.close(data);
+              });
+          },
+          err => {
+            this.alertService.showErrorMessage('Error', err.message);
+          }
+        );
     }
   }
 
   importFile(file: File) {
     this.eventImage = file;
     this.evento.imagePath = file;
+  }
+
+  cancelar() {
+    this.dialogRef.close(false);
   }
 }

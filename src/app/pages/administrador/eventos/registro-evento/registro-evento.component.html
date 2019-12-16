@@ -6,7 +6,7 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form #addEventForm="ngForm" invalidate (ngSubmit)="onSave(addEventForm)">
+      <form #addEventForm="ngForm" (ngSubmit)="onSave(addEventForm)">
         <div class="form-row">
           <mat-form-field class="form-group col-md-9">
             <input

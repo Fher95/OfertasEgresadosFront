@@ -1,3 +1,4 @@
+import { Utilities } from './../../../../shared/servicios/egresados/utilities';
 import { EventoModel } from './../../../../shared/modelos/evento.model';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -28,8 +29,8 @@ export class RegistroEventoComponent implements OnInit {
     if (form.valid) {
       const evento = new EventoModel();
       evento.nombre = form.value.nombre;
-      evento.fechaInicio = new Date(form.value.fechaInicio);
-      evento.fechaFin = new Date(form.value.fechaFin);
+      evento.fechaInicio = Utilities.dateToString(form.value.fechaInicio, '-');
+      evento.fechaFin = Utilities.dateToString(form.value.fechaFin, '-');
       evento.descripcion = form.value.descripcion;
       evento.lugar = form.value.lugar;
       evento.dirigidoA = form.value.dirigido;
@@ -39,6 +40,7 @@ export class RegistroEventoComponent implements OnInit {
       this.eventosService.save(evento, this.eventImage).subscribe(
         data => {
           console.log(data);
+          form.reset();
         },
         err => {
           console.log(err);
