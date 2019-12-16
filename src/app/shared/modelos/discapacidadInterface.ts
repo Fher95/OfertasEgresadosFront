@@ -1,4 +1,4 @@
 export interface DiscapacidadInterface {
-    id_aut_discacidades?: number;
-    nombre?: string;
+    idDiscapacidad?: number;
+    Nombre?: string;
 }

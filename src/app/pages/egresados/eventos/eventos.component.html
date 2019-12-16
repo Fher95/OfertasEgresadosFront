@@ -5,7 +5,7 @@
       <div class="col-12 col-md-6" *ngFor="let evento of eventos; let index = index">
         <div class="evento">
           <div class="imagenEvento">
-            <img *ngIf="evento.imagen && evento.imagen != 'null'" src="{{evento.imagen}}"
+            <img *ngIf="evento.imagePath && evento.imagePath != 'null'" src="{{evento.imagePath}}"
               style="height: 150px; width: 100%;" alt="">
           </div>
           <div class="infoEvento">

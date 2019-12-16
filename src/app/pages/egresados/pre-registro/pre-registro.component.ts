@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../../shared/modelos/user';
 import { DiscapacidadInterface } from '../../../shared/modelos/discapacidadInterface';
 import { SedeInterface } from '../../../shared/modelos/sedeInterface';
+import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
 import { ProgramaInterface } from '../../../shared/modelos/programaInteface';
 import { FacultadInterface } from '../../../shared/modelos/facultadInterface';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
@@ -96,7 +97,7 @@ export class PreRegistroComponent implements OnInit {
   private programas: ProgramaInterface[];
   private discapacidades: DiscapacidadInterface[] = [];
   private niveles_academicos: NivelesEstudioInterface[];
-  private titulos = [1, 2, 3, 4];
+  private titulos: TituloInterface[];
   private anios: number[] = [];
   private discapacidad: number[] = [];
 
@@ -119,6 +120,8 @@ export class PreRegistroComponent implements OnInit {
   //Variable para programa con titulo
   private tituloPrograma: string = "Musica";
 
+  private respuestaDiscapacidad: boolean = false;
+
   constructor(private alert: AlertService, private dialog: MatDialog, private registroService: RegistroService, private catalogoService: CatalogosService, private router: Router) {
     this.cleanFormData();
     this.aniosGrado();
@@ -135,8 +138,10 @@ export class PreRegistroComponent implements OnInit {
 
   // Método para limpiar datos de control de formulario
   private cleanFormData() {
-    this.user = new User("", "", "", 0, "", "", "", "", 0, [], 0, 0, "", "", "", "", 0, "", "", "", "");
+    this.user = new User("", "", "", 0, "", "", "", "", 0, [],"", 0, 0, "", "", "", "", 0, "", "", "", "");
     this.msgError = "";
+    this.titulos = [];
+    this.discapacidades = [];
     this.emailFormControl = new FormControl();
     this.emailFormControl2 = new FormControl();
     this.sedeFormControl = new FormControl();
@@ -194,13 +199,27 @@ export class PreRegistroComponent implements OnInit {
     this.catalogoService.getPrograma(this.sedeFormControl.value, this.facultadFormControl.value, this.nivelAFormControl.value).subscribe(data => this.programas = data);
   }
 
-  otraDiscapacidad(otraDiscapacidad: String){
+  obtenerTitulo(){
+    this.catalogoService.getTitulo(this.programaFormControl.value).subscribe(data => this.titulos = data);
+  }
+
+  existenTitulos(){
     var respuesta: boolean = false;
-    if(otraDiscapacidad == "Otra(s)"){
+    if(this.titulos.length>0){
       respuesta = true;
     }
     return respuesta;
   }
+
+  otraDiscapacidad(otraDiscapacidad: String){
+    
+    if(otraDiscapacidad == "Otra(s)"){
+      this.respuestaDiscapacidad = true;
+    }
+    return this.respuestaDiscapacidad;
+
+  }
+
 
   //Método pra cargar las discapacidades del usuario
   obtenerDiscapacidades() {
@@ -209,7 +228,7 @@ export class PreRegistroComponent implements OnInit {
 
   //Método para guardar las discapacidades del usuario
   discapacidadesUsuario(discapacidad: number) {
-    if (this.discapacidades[discapacidad].nombre == "Ninguno") {
+    if (this.discapacidades[discapacidad].Nombre == "Ninguno") {
       this.discapacidad = [];
       this.discapacidad.push(discapacidad);
     } else {
@@ -222,13 +241,7 @@ export class PreRegistroComponent implements OnInit {
 
   }
 
-  validarDiscapacidad(discapacidad: String){
-    var respuesta: boolean = false;
-    if(discapacidad== "Otra(s)"){
-      respuesta = true;
-    }
-        return respuesta;
-  }
+ 
 
   ngOnInit() {
     //this.obtenerDiscapacidades();
@@ -241,8 +254,6 @@ export class PreRegistroComponent implements OnInit {
   // Método para validar los datos ingresados por el usuario
   validData() {
     var valid: boolean = false;
-    console.log("esto es lo que tiene hijos" + this.user.num_hijos);
-    console.log("esto es lo que tiene nacimiento" + this.fechaNFormControl.value);
     if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 &&
       this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' &&
       this.lExpedicion.departamentoFormControl.value != '' && this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null && this.facultadFormControl.value != null &&

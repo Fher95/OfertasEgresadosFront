@@ -4,8 +4,8 @@
     <div class="row">
       <div class="col-12 col-md-6">
         <div id="imagen">
-          <div *ngIf="data.event.imagen && data.event.imagen != 'null'">
-            <img src="{{data.event.imagen}}" style="width: 90%; height: 150px;" alt="">
+          <div *ngIf="data.event.imagePath && data.event.imagePath != 'null'">
+            <img src="{{data.event.imagePath}}" style="width: 90%; height: 150px;" alt="">
           </div>
         </div>
       </div>
@@ -17,12 +17,12 @@
 
         <div>
           <b>Fecha y hora inicio: </b>
-          {{data.event.fecha_inicio}} {{data.event.hora_inicio}}
+          {{data.event.fechaInicio}}
         </div>
 
         <div>
           <b>Fecha y hora fin: </b>
-          {{data.event.fecha_fin}} {{data.event.hora_fin}}
+          {{data.event.fechaFin}}
         </div>
 
         <div>
@@ -37,7 +37,7 @@
 
         <div>
           <b>Dirigido a: </b>
-          {{data.event.a_quien_va_dirigido}}
+          {{data.event.dirigidoA}}
         </div>
 
       </div>

@@ -92,15 +92,15 @@
               <div class="form-group col-md-6 ">
               <h5>Discapacidad:*</h5>
               <mat-error *ngIf="discapacidad.length == 0">Por favor seleccione una opción</mat-error>
-              <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.id_aut_discacidades"
-                (change)="discapacidadesUsuario(discapacidad.id_aut_discacidades)" (change)="otraDiscapacidad(discapacidad.nombre)" [labelPosition]="after" required>
-                {{discapacidad.nombre}}
+              <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad"
+                (change)="discapacidadesUsuario(discapacidad.idDiscapacidad)" (change)="otraDiscapacidad(discapacidad.Nombre)" [labelPosition]="after" required>
+                {{discapacidad.Nombre}}
               </mat-checkbox>
             </div>
 
-            <mat-form-field  *ngIf="discapacidad.nombre =='Otra(s)'" appearance="outline" class="form-group col-md-6 ">
+            <mat-form-field *ngIf="respuestaDiscapacidad" appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Discapacidad</mat-label>
-                <input matInput placeholder="Discapacidad" #name="ngModel" name="discapacidad2" [(ngModel)]="mension">
+                <input matInput placeholder="Discapacidad" #name="ngModel" name="otraDiscapacidad" [(ngModel)]="user.otraDiscapacidad">
                 <mat-error *ngIf="null">Por favor ingresar un apellido</mat-error>
               </mat-form-field>
             </div>
@@ -178,7 +178,7 @@
                 <mat-error *ngIf="programaFormControl.hasError('required')">Por favor seleccionar un programa</mat-error>
               </mat-form-field>
 
-              <mat-form-field *ngIf="titulos.length>0" appearance="outline"
+              <mat-form-field *ngIf="existenTitulos()" appearance="outline"
                 class="form-group col-md-6 ">
                 <mat-label>Titulo</mat-label>
                 <mat-select [formControl]="tituloFormControl" required>
