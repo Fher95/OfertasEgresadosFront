@@ -21,7 +21,7 @@ mat-card{
 }
 h2{
     position: relative;
-    top: 20px;
+    top: 10px;
     font-size: large;
 }
 .titulo{
@@ -35,5 +35,4 @@ button{
 }
 table{
     position: relative;
-    top: 20px;
 }

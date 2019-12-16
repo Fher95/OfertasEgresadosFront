@@ -47,7 +47,7 @@ export class CatalogosService {
     return this.http.get<SedeInterface[]>(`${baseUrl}sedes`);
   }
 
-  getFacultad(idSede: number): Observable<FacultadInterface[]> {
+  getFacultad(): Observable<FacultadInterface[]> {
     return this.http.get<FacultadInterface[]>(`${baseUrl}facultades`);
   }
 
@@ -75,7 +75,4 @@ export class CatalogosService {
     return this.http.get(`${baseUrl}programas/${idSolicitud}/${estado}`);
   }
   
-  /*getObservacion():Observable<ObservacionComentario>{
-    return this.http.get<ObservacionComentario>(`${baseUrl}cuestionario`);
-  }*/
 }

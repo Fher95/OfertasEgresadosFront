@@ -184,7 +184,7 @@ private tituloPrograma: string = "Musica";
 
   //Método pra cargar las facultades
   obtenerFacultad() {
-    this.catalogoService.getFacultad(this.sedeFormControl.value).subscribe(data => this.facultades = data);
+    this.catalogoService.getFacultad().subscribe(data => this.facultades = data);
   }
 
 
