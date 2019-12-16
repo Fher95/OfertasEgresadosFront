@@ -19,18 +19,15 @@ import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresa
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { EventosComponent } from './eventos/eventos.component';
-import { VerEventoComponent } from './ver-evento/ver-evento.component';
-import { CarnetizacionComponent } from './carnetizacion/carnetizacion.component';
+import { ActualizarInformacionComponent } from './actualizar-informacion/actualizar-informacion.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
   { path: 'completarRegistro', component: CompletarRegistroComponent},//, canActivate: [AuthGuard]},
+  { path: 'actualizar', component: ActualizarInformacionComponent},
   { path: 'perfil', component: PerfilComponent},
-  { path: '', component: InicioEgresadosComponent},
-  { path: 'eventos', component: EventosComponent },
-  { path: 'carnetizacion', component: CarnetizacionComponent },
+  { path: '', component: InicioEgresadosComponent}
 
   //{ path: '**', component: InicioEgresadosComponent }
 ];
@@ -51,9 +48,7 @@ const routes: Routes = [
     ReferidoComponent,
     CancelarDialogComponent,
     PerfilComponent,
-    EventosComponent,
-    VerEventoComponent,
-    CarnetizacionComponent
+    ActualizarInformacionComponent
   ],
   imports: [
 

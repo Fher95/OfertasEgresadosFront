@@ -4,7 +4,7 @@ import { CompletarRegistro } from 'src/app/shared/modelos/completarRegistro';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { ExplaboralComponent } from '../explaboral/explaboral.component';
 import { ReferidoComponent } from '../referido/referido.component';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { ComentariosComponent } from '../comentarios/comentarios.component';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { Experiencia } from 'src/app/shared/modelos/experiencia';
 import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Comentario } from 'src/app/shared/modelos/comentario';
+import { CancelarDialogComponent } from '../cancelar-dialog/cancelar-dialog.component';
 
 @Component({
   selector: 'app-completar-registro',
@@ -48,7 +49,7 @@ export class CompletarRegistroComponent implements OnInit {
   ComentProgramaAdicional = new FormControl('', [Validators.required]);
   DocenteInfluenciaAdicional = new FormControl('', [Validators.required]);
 
-  constructor(private servicioCompletar: RegistroService, private alert: AlertService, private router:Router, private auth: AuthService) {
+  constructor(private dialog:MatDialog,private servicioCompletar: RegistroService, private alert: AlertService, private router:Router, private auth: AuthService) {
     this.limpiarFormulario();
    }
 
@@ -187,7 +188,7 @@ export class CompletarRegistroComponent implements OnInit {
   }
   agregarGradoAdicional(){
     if(this.ComentProgramaAdicional.value!='' && this.DocenteInfluenciaAdicional.value!='' 
-    && this.programaAdicional.Programa.value!=''){
+    && this.programaAdicional.verificarCampos()){
       this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
       //this.varCompletarRegistro.gradoAdicional.titulo_especial = this.tituloGradoAdicional.value;
       this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
@@ -203,5 +204,12 @@ export class CompletarRegistroComponent implements OnInit {
     comentario.id_aut_comentario = idComentario;
     comentario.respuesta = respuesta;
     return comentario;
+  }
+  cancelar(){
+    this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
+      resultado => { 
+        if(resultado==0){
+          this.limpiarFormulario();
+        }});
   }
 }

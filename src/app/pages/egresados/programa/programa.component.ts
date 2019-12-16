@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { FacultadInterface } from 'src/app/shared/modelos/facultadInterface';
@@ -34,11 +33,26 @@ export class ProgramaComponent implements OnInit {
   pruebas:string[] = ['prueba1','prueba2','prueba3'];
 
   constructor(private catalogoService:CatalogosService) { 
+    this.limpiarDatos();
   }
 
   ngOnInit() {
     this.obtenerNivelEstudio();
     this.obtenerSedes();
+  }
+
+  limpiarDatos(){
+    this.NivelAcademico = new FormControl('', [Validators.required]);
+    this.Sede = new FormControl('', [Validators.required]);
+    this.Facultad = new FormControl('', [Validators.required]);
+    this.Programa = new FormControl('', [Validators.required]);
+  }
+  verificarCampos(){
+    var bandera:boolean=false;
+    if(this.Programa.value!='' && this.Facultad.value!='' && this.Sede.value!='' && this.NivelAcademico.value!=''){
+      bandera=true;
+    }
+    return bandera;
   }
 
   obtenerNivelEstudio(){
@@ -56,5 +70,4 @@ export class ProgramaComponent implements OnInit {
   obtenerPrograma(){
     this.catalogoService.getPrograma(this.Sede.value,this.Facultad.value,this.NivelAcademico.value).subscribe(data => this.programas = data);
   }
-
 }
