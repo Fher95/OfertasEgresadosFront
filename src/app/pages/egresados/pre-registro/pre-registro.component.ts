@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../../shared/modelos/user';
 import { DiscapacidadInterface } from '../../../shared/modelos/discapacidadInterface';
 import { SedeInterface } from '../../../shared/modelos/sedeInterface';
+import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
 import { ProgramaInterface } from '../../../shared/modelos/programaInteface';
 import { FacultadInterface } from '../../../shared/modelos/facultadInterface';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
@@ -95,7 +96,7 @@ export class PreRegistroComponent implements OnInit {
   private programas: ProgramaInterface[];
   private discapacidades: DiscapacidadInterface[] = [];
   private niveles_academicos: NivelesEstudioInterface[];
-  private titulos = [1, 2, 3, 4];
+  private titulos: TituloInterface[];
   private anios: number[] = [];
   private discapacidad: number[] = [];
 
@@ -118,7 +119,9 @@ export class PreRegistroComponent implements OnInit {
   //Variable para programa con titulo
 private tituloPrograma: string = "Musica";
 
-  constructor( private alert: AlertService, private dialog: MatDialog, private registroService: RegistroService, private catalogoService: CatalogosService, private router: Router) {
+  private respuestaDiscapacidad: boolean = false;
+
+  constructor(private alert: AlertService, private dialog: MatDialog, private registroService: RegistroService, private catalogoService: CatalogosService, private router: Router) {
     this.cleanFormData();
     this.aniosGrado();
 
@@ -134,8 +137,10 @@ private tituloPrograma: string = "Musica";
 
   // Método para limpiar datos de control de formulario
   private cleanFormData() {
-    this.user = new User("", "", "", 0, "", "", "", "",0, [], 0, 0, "", false, "", "", 0, "", "", "", "");
+    this.user = new User("", "", "", 0, "", "", "", "", 0, [],"", 0, 0, "", "", "", "", 0, "", "", "", "");
     this.msgError = "";
+    this.titulos = [];
+    this.discapacidades = [];
     this.emailFormControl = new FormControl();
     this.emailFormControl2 = new FormControl();
     this.sedeFormControl = new FormControl();
@@ -193,6 +198,28 @@ private tituloPrograma: string = "Musica";
     this.catalogoService.getPrograma(this.sedeFormControl.value, this.facultadFormControl.value, this.nivelAFormControl.value).subscribe(data => this.programas = data);
   }
 
+  obtenerTitulo(){
+    this.catalogoService.getTitulo(this.programaFormControl.value).subscribe(data => this.titulos = data);
+  }
+
+  existenTitulos(){
+    var respuesta: boolean = false;
+    if(this.titulos.length>0){
+      respuesta = true;
+    }
+    return respuesta;
+  }
+
+  otraDiscapacidad(otraDiscapacidad: String){
+    
+    if(otraDiscapacidad == "Otra(s)"){
+      this.respuestaDiscapacidad = true;
+    }
+    return this.respuestaDiscapacidad;
+
+  }
+
+
   //Método pra cargar las discapacidades del usuario
   obtenerDiscapacidades() {
     this.catalogoService.getDiscapacidad().subscribe(data => this.discapacidades = data);
@@ -200,13 +227,16 @@ private tituloPrograma: string = "Musica";
 
   //Método para guardar las discapacidades del usuario
   discapacidadesUsuario(discapacidad: number) {
-    if (!this.discapacidad.includes(discapacidad)) {
+    if (this.discapacidades[discapacidad].Nombre == "Ninguno") {
+      this.discapacidad = [];
       this.discapacidad.push(discapacidad);
     } else {
       this.discapacidad.splice(this.discapacidad.indexOf(discapacidad), 1)
     }
 
   }
+
+ 
 
   ngOnInit() {
     this.obtenerDiscapacidades();
@@ -219,13 +249,10 @@ private tituloPrograma: string = "Musica";
   // Método para validar los datos ingresados por el usuario
   validData() {
     var valid: boolean = false;
-    console.log("esto es lo que tiene hijos"+this.user.num_hijos);
-    console.log("esto es lo que tiene nacimiento"+this.fechaNFormControl.value);
-    if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 && 
-      this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' && 
-      this.lExpedicion.departamentoFormControl.value != ''&& this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null && this.facultadFormControl.value != null && 
-      this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.user.mension != false && 
-      this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null && 
+    if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 &&
+      this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' &&
+      this.lExpedicion.departamentoFormControl.value != '' && this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null && this.facultadFormControl.value != null &&
+      this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null &&
       this.user.identificacion.length > 0 && this.user.direccion.length > 0 //this.user.discapacidad.length > 0 &&
       ) {
 

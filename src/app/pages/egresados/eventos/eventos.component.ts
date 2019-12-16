@@ -21,7 +21,7 @@ export class EventosComponent implements OnInit {
   private msgError: String;
 
   constructor(public dialog: MatDialog, private servicios: CatalogosService) {
-    this.eventos = [{id_aut_evento:1,
+    /* this.eventos = [{id_aut_evento:1,
       nombre:"9 Ecuentro de Egresados ",
       descripcion:" is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       cupos: 5,
@@ -64,12 +64,12 @@ export class EventosComponent implements OnInit {
       fecha_fin:"12-12-2020",
       lugar: "Club de Leones",
       a_quien_va_dirigido:"Egresados",
-      imagen:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ70b_BN_rgsDKY6H38ooUzxnzHlGVbJ9nqIop5EOkoni9o9lWUrw&s"}];
+      imagen:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ70b_BN_rgsDKY6H38ooUzxnzHlGVbJ9nqIop5EOkoni9o9lWUrw&s"}]; */
     this.maxDescLength = 200;
    }
 
   ngOnInit() {
-    //this.cargarEventos();
+    this.cargarEventos();
     this.msgError = '';
   }
 
@@ -78,18 +78,12 @@ export class EventosComponent implements OnInit {
   verEvento(json: EventoInterface,indice: number ) {
     var eventCloned: EventoInterface = this.eventos[indice];
     let data: Data = { event: eventCloned };
-    this.dialog.open(VerEventoComponent, { data: data }).beforeClosed().subscribe(result => {
-    });
+    this.dialog.open(VerEventoComponent, { data: data }).beforeClosed().subscribe(result => { });
   }
 
-  obtenerUrlImagen(image) {
-    return this.servicios.getUrlGetImage(image);
+  cargarEventos() {
+    this.servicios.getEventos().subscribe(data => this.eventos = data);
   }
-
-
-  /* cargarEventos() {
-    this.servicios.getEventos().subscribe(data => this.eventos = data;);
-  } */
 
   obtenerDescripcionCorta(description) {
     var result = description;

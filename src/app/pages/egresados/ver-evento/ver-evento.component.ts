@@ -38,10 +38,6 @@ export class VerEventoComponent implements OnInit {
     return new Date(this.startDateControl.value);
   }
 
-  private getUrlImage() {
-    return this.servicios.getUrlGetImage(this.data.event.imagen);
-  }
-
   // Funcion para validar el llenado de campos
   validData(): boolean {
     return this.data.event.nombre.length > 0 && this.data.event.descripcion.length > 0 && this.startDateControl.value != null;
@@ -56,6 +52,5 @@ export class VerEventoComponent implements OnInit {
 }
 
 export interface Data {
-  event: EventoInterface,
-  image?: Array<File>
+  event: EventoInterface
 }
