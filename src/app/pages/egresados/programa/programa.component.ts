@@ -49,7 +49,7 @@ export class ProgramaComponent implements OnInit {
   }
 
   obtenerFacultad(){
-    this.catalogoService.getFacultad(this.Sede.value).subscribe(data => this.facultades = data);
+    this.catalogoService.getFacultad().subscribe(data => this.facultades = data);
   }
 
   obtenerPrograma(){

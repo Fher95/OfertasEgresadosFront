@@ -1,4 +1,3 @@
-
 <app-nav-egresados></app-nav-egresados>
 <div id="base">
   <div id="imgBandera"></div>
@@ -26,9 +25,8 @@
                 <mat-error *ngIf="user.apellidos != null">Por favor ingresar apellido</mat-error>
               </mat-form-field>
             </div>
+
             <div class="row">
-
-
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Identificación</mat-label>
                 <input matInput type="text" pattern="[1-9][0-9]{6,9}" placeholder="Identificación" #name="ngModel"
@@ -57,7 +55,7 @@
               </mat-form-field>
 
               <div class="form-group col-md-6 ">
-                <mat-error *ngIf="validarIdentificacion()">Los numeros de identificación no conincide</mat-error>
+                <mat-error *ngIf="validarIdentificacion()">Los numeros de identificación no coincide</mat-error>
               </div>
 
             </div>
@@ -89,13 +87,21 @@
               </mat-radio-group>
             </div>
 
-            <div>
+            <div class="row">
+              <div class="form-group col-md-6 ">
               <h5>Discapacidad:*</h5>
               <mat-error *ngIf="discapacidad.length == 0">Por favor seleccione una opción</mat-error>
-              <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad"
-                (change)="discapacidadesUsuario(discapacidad.idDiscapacidad)" [labelPosition]="after" required>
-                {{discapacidad.Nombre}}
+              <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.id_aut_discacidades"
+                (change)="discapacidadesUsuario(discapacidad.id_aut_discacidades)" (change)="otraDiscapacidad(discapacidad.nombre)" [labelPosition]="after" required>
+                {{discapacidad.nombre}}
               </mat-checkbox>
+            </div>
+
+            <mat-form-field  *ngIf="discapacidad.nombre =='Otra(s)'" appearance="outline" class="form-group col-md-6 ">
+                <mat-label>Discapacidad</mat-label>
+                <input matInput placeholder="Discapacidad" #name="ngModel" name="discapacidad2" [(ngModel)]="mension">
+                <mat-error *ngIf="null">Por favor ingresar un apellido</mat-error>
+              </mat-form-field>
             </div>
 
             <div class="row">
@@ -106,7 +112,7 @@
                     {{estadoC}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="estadoCFormControl.hasError('required')">Por favor selecionar un estado civil
+                <mat-error *ngIf="estadoCFormControl.hasError('required')">Por favor seleccionar un estado civil
                 </mat-error>
               </mat-form-field>
 
@@ -117,7 +123,7 @@
                     {{grupoE}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="grupoEFormControl.hasError('required')">Por favor selecionar una opción</mat-error>
+                <mat-error *ngIf="grupoEFormControl.hasError('required')">Por favor seleccionar una opción</mat-error>
               </mat-form-field>
             </div>
 
@@ -133,9 +139,8 @@
             <ng-template matStepLabel>Info. Academica</ng-template>
             <mat-radio-group name="nivel_estudio" [formControl]="nivelAFormControl" required>
               <h5>Nivel Academico*</h5>
-              <mat-error *ngIf="nivelAFormControl.hasError('required')">Por favor selecionar una opción</mat-error>
-              <mat-radio-button *ngFor="let nivel_estudio of niveles_academicos"
-                [value]="nivel_estudio.id_aut_estudio">
+              <mat-error *ngIf="nivelAFormControl.hasError('required')">Por favor seleccionar una opción</mat-error>
+              <mat-radio-button *ngFor="let nivel_estudio of niveles_academicos" [value]="nivel_estudio.id_aut_estudio">
                 {{nivel_estudio.nombre}}
               </mat-radio-button>
             </mat-radio-group>
@@ -147,7 +152,7 @@
                     {{sede.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="sedeFormControl.hasError('required')">Por favor selecionar una facultad</mat-error>
+                <mat-error *ngIf="sedeFormControl.hasError('required')">Por favor seleccionar una facultad</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
@@ -157,7 +162,7 @@
                     {{facultad.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="facultadFormControl.hasError('required')">Por favor selecionar una facultad
+                <mat-error *ngIf="facultadFormControl.hasError('required')">Por favor seleccionar una facultad
                 </mat-error>
               </mat-form-field>
             </div>
@@ -169,10 +174,10 @@
                     {{programa.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="programaFormControl.hasError('required')">Por favor selecionar un programa</mat-error>
+                <mat-error *ngIf="programaFormControl.hasError('required')">Por favor seleccionar un programa</mat-error>
               </mat-form-field>
 
-              <mat-form-field *ngIf="programaFormControl.value==tituloPrograma" appearance="outline"
+              <mat-form-field *ngIf="titulos.length>0" appearance="outline"
                 class="form-group col-md-6 ">
                 <mat-label>Titulo</mat-label>
                 <mat-select [formControl]="tituloFormControl" required>
@@ -180,7 +185,7 @@
                     {{titulo}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="tituloFormControl.hasError('required')">Por favor selecionar un titulo</mat-error>
+                <mat-error *ngIf="tituloFormControl.hasError('required')">Por favor seleccionar un titulo</mat-error>
               </mat-form-field>
             </div>
             <div class="row">
@@ -190,29 +195,30 @@
                   placeholder="Fecha de Graduación">
                 <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                 <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-                <mat-error *ngIf="fechaGFormControl.hasError('required')">Por favor selecionar una fecha de grado
+                <mat-error *ngIf="fechaGFormControl.hasError('required')">Por favor seleccionar una fecha de grado
                 </mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
-                <mat-label>Año de graduación</mat-label>
                 <mat-label>Año de graduación</mat-label>
                 <mat-select [formControl]="anioGFormControl" required>
                   <mat-option *ngFor="let anio of anios" [value]="anio">
                     {{anio}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="anioGFormControl.hasError('required')">Por favor selecionar un año de grado
+                <mat-error *ngIf="anioGFormControl.hasError('required')">Por favor seleccionar un año de grado
                 </mat-error>
               </mat-form-field>
             </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="form-group col-md-6 ">
+                <mat-label>Mención</mat-label>
+                <input matInput placeholder="Mensión" #name="ngModel" name="mension" [(ngModel)]="user.mension">
+              </mat-form-field>
+              <div class="form-group col-md-6 "></div>
 
-            <mat-radio-group #name="ngModel" name="mension" [(ngModel)]="user.mension" class="form-group col-md-6 ">
-              <h5>Mención*</h5>
-              <mat-error *ngIf="user.mension == false">Por favor seleccionar una opción</mat-error>
-              <mat-radio-button value='true'>Si</mat-radio-button>
-              <mat-radio-button value='false'>No</mat-radio-button>
-            </mat-radio-group>
+            </div>
+
             <div class="row">
               <div class="botonesStepper form-group col-md-6 ">
                 <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
@@ -245,8 +251,8 @@
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Correo Electrónico</mat-label>
-                <input matInput type="email" placeholder="Correo Electronico " [formControl]="emailFormControl"
-                required pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                <input matInput type="email" placeholder="Correo Electronico " [formControl]="emailFormControl" required
+                  pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
                 <mat-error *ngIf="emailFormControl.hasError('pattern')">
                   Por favor ingresar una dirección de correo correcta. ej: ejemplo@gmail.com
                 </mat-error>
@@ -257,8 +263,8 @@
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Correo Electrónico Alternativo</mat-label>
-                <input matInput placeholder="Correo Electrónico Alternativo" [formControl]="emailFormControl2"
-                   required pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                <input matInput placeholder="Correo Electrónico Alternativo" [formControl]="emailFormControl2" required
+                  pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
                 <mat-error *ngIf="emailFormControl2.hasError('email') ">
                   Por favor ingresar una dirección de correo correcta
                 </mat-error>

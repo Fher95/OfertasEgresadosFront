@@ -1,0 +1,60 @@
+<div id="base">
+  <h2 mat-dialog-title align="center">Evento</h2>
+  <form id="form">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div id="imagen">
+          <div *ngIf="data.event.imagen && data.event.imagen != 'null'">
+            <img src="{{data.event.imagen}}" style="width: 90%; height: 150px;" alt="">
+          </div>
+        </div>
+      </div>
+      <div id="data" class="col-12 col-md-6">
+        <div>
+          <b>Nombre: </b>
+          {{data.event.nombre}}
+        </div>
+
+        <div>
+          <b>Fecha y hora inicio: </b>
+          {{data.event.fecha_inicio}} {{data.event.hora_inicio}}
+        </div>
+
+        <div>
+          <b>Fecha y hora fin: </b>
+          {{data.event.fecha_fin}} {{data.event.hora_fin}}
+        </div>
+
+        <div>
+          <b>Lugar: </b>
+          {{data.event.lugar}}
+        </div>
+
+        <div>
+          <b>Cupos: </b>
+          {{data.event.cupos}}
+        </div>
+
+        <div>
+          <b>Dirigido a: </b>
+          {{data.event.a_quien_va_dirigido}}
+        </div>
+
+      </div>
+
+    </div>
+    <div>
+      <b>Descripción</b>
+      {{data.event.descripcion}}
+    </div>
+
+
+
+  </form>
+  <mat-dialog-content class="mat-typography">
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button class='btnSalir' [mat-dialog-close]="false" mat-button>Salir</button>
+  </mat-dialog-actions>
+</div>
