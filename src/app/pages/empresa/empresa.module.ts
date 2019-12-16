@@ -19,27 +19,28 @@ import { Routes, RouterModule } from '@angular/router';
 import { FiltrarCiudadesPipe } from '../../shared/pipes/filtrar-ciudades.pipe';
 import { PipesModule } from '../../shared/pipes/pipes.module';
 import { ModificarOfertaLaboralComponent } from './modificar-oferta-laboral/modificar-oferta-laboral.component';
+import { DialogPostuladoComponent } from './ver-postulados/ver-postulados.component';
 
 const routes: Routes = [
   { path: 'empresa/:id/datosEmpresa', component:DatosEmpresaComponent},
   { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent},
   { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent},
+  { path: 'empresa/:id/modificarOfertaLaboral/:idOferta', component: ModificarOfertaLaboralComponent},
   { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent},
   { path: 'oferta/:id/misPostulados', component: VerPostuladosComponent}
-  
 ];
 
 @NgModule({
   declarations: [
     RegistrarComponent,
     DatosEmpresaComponent,
-    EditarEmpresaComponent, 
-    DialogFinalRegistroComponent, 
-    CrearOfertaLaboralComponent, 
-    DialogFinalModificarComponent, 
-    OfertasPublicadasComponent, 
-    DialogInfoOfertaComponent, 
-    DialogEstadoOfertaComponent, VerPostuladosComponent,
+    EditarEmpresaComponent,
+    DialogFinalRegistroComponent,
+    CrearOfertaLaboralComponent,
+    DialogFinalModificarComponent,
+    OfertasPublicadasComponent,
+    DialogInfoOfertaComponent,
+    DialogEstadoOfertaComponent, VerPostuladosComponent, DialogPostuladoComponent,
     FiltrarCiudadesPipe,
     ModificarOfertaLaboralComponent
   ],
@@ -51,19 +52,19 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    
+
   ],
-  entryComponents: [DialogFinalRegistroComponent, DialogInfoOfertaComponent, DialogEstadoOfertaComponent],
+  entryComponents: [DialogFinalRegistroComponent, DialogInfoOfertaComponent, DialogEstadoOfertaComponent, DialogPostuladoComponent],
   providers: [GeneralesService],
   exports: [
-    RegistrarComponent, 
+    RegistrarComponent,
     DatosEmpresaComponent,
-    EditarEmpresaComponent, 
-    DialogFinalRegistroComponent, 
-    CrearOfertaLaboralComponent, 
-    DialogFinalModificarComponent, 
+    EditarEmpresaComponent,
+    DialogFinalRegistroComponent,
+    CrearOfertaLaboralComponent,
+    DialogFinalModificarComponent,
     OfertasPublicadasComponent,
-    
+
   ]
 })
 export class EmpresaModule { }

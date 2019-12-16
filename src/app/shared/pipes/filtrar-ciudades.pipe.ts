@@ -6,8 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FiltrarCiudadesPipe implements PipeTransform {
 
   transform(ubicaciones:any [], departamento: string): any [] {
-    console.log(ubicaciones)
-    console.log(departamento)
     let ciudades = []
     for(let i =0; i<ubicaciones.length; i++){
       if(ubicaciones[i].nombre == departamento){

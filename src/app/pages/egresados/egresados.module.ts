@@ -18,6 +18,7 @@ import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/na
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { VerEventoComponent } from './ver-evento/ver-evento.component';
 import { CarnetizacionComponent } from './carnetizacion/carnetizacion.component';
@@ -25,7 +26,8 @@ import { CarnetizacionComponent } from './carnetizacion/carnetizacion.component'
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
+  { path: 'completarRegistro', component: CompletarRegistroComponent},//, canActivate: [AuthGuard]},
+  { path: 'perfil', component: PerfilComponent},
   { path: '', component: InicioEgresadosComponent},
   { path: 'eventos', component: EventosComponent },
   { path: 'carnetizacion', component: CarnetizacionComponent },
@@ -48,6 +50,7 @@ const routes: Routes = [
     ExplaboralComponent,
     ReferidoComponent,
     CancelarDialogComponent,
+    PerfilComponent,
     EventosComponent,
     VerEventoComponent,
     CarnetizacionComponent
@@ -65,7 +68,6 @@ const routes: Routes = [
   ],
   entryComponents: [
     CancelarDialogComponent,
-    VerEventoComponent,
   ],
 })
 export class EgresadosModule { }

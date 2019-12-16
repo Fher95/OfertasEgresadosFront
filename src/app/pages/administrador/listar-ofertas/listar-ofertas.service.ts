@@ -46,7 +46,7 @@ export class ListarOfertasService {
   aprobarOferta(parId: number): Observable<any> {
     // let json = JSON.stringify({ estado: 'Aceptada' });
     // let params = 'json=' + json;
-    const objEstado = {estado: 'Rechazada'};
+    const objEstado = {estado: 'Aceptada'};
     const nuevaUrl = this.urlSolicitud.concat('/estado/').concat(parId.toString());
     return this.http.put(nuevaUrl, objEstado, this.httpOptions).pipe(
 

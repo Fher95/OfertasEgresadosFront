@@ -32,4 +32,5 @@ export class RegistroService {
     return this.http.get<any>(URLId);
   }
 
+  
 }

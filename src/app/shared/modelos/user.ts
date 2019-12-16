@@ -1,3 +1,4 @@
+
 export class User {
 
     constructor(
@@ -32,4 +33,5 @@ export class User {
              , json.direccion, json.fecha_grado, json.id_programa, json.titulo_especial);
     }
     
+
 }

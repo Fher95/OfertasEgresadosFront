@@ -3,6 +3,7 @@ import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogData } from '../listar-ofertas/listar-ofertas.component';
 import { ListarOfertasService } from '../listar-ofertas/listar-ofertas.service';
 import { Ubicacion } from '../listar-ofertas/OfertaLaboral';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-info-oferta-laboral',
@@ -15,7 +16,8 @@ export class InfoOfertaLaboralComponent implements OnInit {
   motivoInactivacion: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private servicioOfertas: ListarOfertasService) { }
+              private servicioOfertas: ListarOfertasService,
+              private _snackBar: MatSnackBar) { }
   ngOnInit() {
     this.estadoActivacion = this.data.oferta.estado;
   }
@@ -43,21 +45,36 @@ export class InfoOfertaLaboralComponent implements OnInit {
     return strNumero;
   }
 
+  aprobarOfertaLaboral(){
+    this.servicioOfertas.aprobarOferta(this.data.oferta.id_aut_oferta)
+      .subscribe(result => {              
+        this.servicioOfertas.notificarCambio();
+        this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" aceptada');
+      });
+  }
+
+  desaprobarOfertaLaboral(){
+    this.servicioOfertas.desaprobarOferta(this.data.oferta.id_aut_oferta, this.motivoInactivacion)
+      .subscribe(result => {
+        // this.getOfertas();
+        this.servicioOfertas.notificarCambio();
+        this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" rechazada');
+      });
+  }
+
   guardarCambio() {
     if (this.estadoActivacion === 'Aceptada') {
-      this.servicioOfertas.aprobarOferta(this.data.oferta.id_aut_oferta)
-      .subscribe(result => {
-        // this.getOfertas();
-        this.servicioOfertas.notificarCambio();
-      });
+      this.aprobarOfertaLaboral();
     } else if (this.estadoActivacion === 'Rechazada') {
-      this.servicioOfertas.desaprobarOferta(this.data.oferta.id_aut_oferta, this.motivoInactivacion)
-      .subscribe(result => {
-        // this.getOfertas();
-        this.servicioOfertas.notificarCambio();
-      });
+      this.desaprobarOfertaLaboral();
     }
 
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: 5000,
+    });
   }
 
 }

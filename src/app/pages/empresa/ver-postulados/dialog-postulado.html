@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Información del postulado</h1>
+<hr>
+<div mat-dialog-content>
+    <strong>Identificación de postulado: </strong> <a>{{this.postuladoSeleccionado.idEgresado}}</a>
+    <p></p>
+    <strong>Nombres: </strong> <a>{{this.postuladoSeleccionado.nombres}}</a>
+    <p></p>
+    <strong>Apellidos: </strong> <a>{{this.postuladoSeleccionado.apellidos}}</a>
+    <p></p>
+    <strong>Correo: </strong> <a>{{this.postuladoSeleccionado.correo}}</a>
+    <p></p>
+    <strong>Celular: </strong> <a>{{this.postuladoSeleccionado.celular}}</a>
+    <p></p>
+    <strong>Nivel educativo: </strong> <a>{{this.postuladoSeleccionado.nivelEducativo}}</a>
+    <p></p>
+    <div class="form-group">
+        <strong for="numOfertas">Estado: </strong>
+        <select [(ngModel)]="this.estado" class="form-control" id="numOfertas">          
+          <option value="Contratado">Contratado</option>
+          <option value="Muy bueno">Muy bueno</option>
+          <option value="Bueno">Bueno</option>
+          <option value="Descartado">Descartado</option>
+          <option value="Desistió">Desistió</option>
+          <option value="Sin clasificación">Sin clasificación</option>
+        </select>
+      </div>
+</div>
+<hr>
+<mat-dialog-actions align="end">
+    <button type="button" class="btn btn-secondary m-1"
+      mat-dialog-close>Cancelar</button>
+          <button type="button" class="btn btn-primary"
+          (click)="this.guardarEstado()"
+           [mat-dialog-close]="true">Aceptar</button>  
+</mat-dialog-actions>

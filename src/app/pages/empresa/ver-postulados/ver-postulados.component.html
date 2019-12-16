@@ -1,6 +1,55 @@
 <app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
-<div>
+<div class="container mt-4 mb-3" role="main">
+  <mat-toolbar color="primary">LISTA DE POSTULADOS PARA "{{this.nombreOferta}}"</mat-toolbar>
+  <p></p>
+  <div *ngIf="!auxiliar" class="row">
+    <h3 class="text-centered px-3"> Cargando postulados...</h3>
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only"> Loading...</span>
+    </div>
+  </div>  
+  <h3 *ngIf="arregloVacio" class="text-centered"> No se encontraron postulados </h3>
+  <div *ngIf="!arregloVacio" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Columna Identificacion -->
+      <ng-container matColumnDef="Identificacion">
+        <th mat-header-cell *matHeaderCellDef> Identificacion </th>
+        <td mat-cell *matCellDef="let element"> {{element.idEgresado}} </td>
+      </ng-container>
+
+      <!-- Columna Nombres -->
+      <ng-container matColumnDef="Nombres">
+        <th mat-header-cell *matHeaderCellDef> Nombres </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+      </ng-container>
+
+      <!-- Columna Apellidos -->
+      <ng-container matColumnDef="Apellidos">
+        <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+        <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button (click)="setPostuladoActual(element)">Ver Información</button>
+          </td>
+        </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+<!--div>
   <h2 class="text-center my-2"><b>Lista de postulados</b></h2>
   <mat-divider [inset]="true"></mat-divider>
 </div>
@@ -8,7 +57,7 @@
   <div class="col-6">
     <h3 class="text-center">Postulados</h3>    
     <h3 *ngIf="this.listaPostulados.length === 0" class="text-centered"> No se encontraron postulados </h3>
-    <!--Contenido-->
+    
     <mat-action-list dense *ngFor="let postulado of listaPostulados">
       <button class="btn btn-outline-primary" type="button" mat-list-item value="{{postulado.nombres}}" (click)="seleccionarPostulado(postulado)">
         {{ postulado.nombres +' '+postulado.apellidos+''}} <hr>
@@ -29,22 +78,22 @@
       </mat-action-list >
     
   </div>
-</div>
+</div-->
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+
+<!--div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">Informacion Del Postulado</h5>
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Informacion del postulado</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <strong>Identificación de postulado: </strong> <a>{{this.postuladoSeleccionado.identificacion}}</a>
+        <strong>Identificación de postulado: </strong> <a>{{this.postuladoSeleccionado.idEgresado}}</a>
         <p></p>
         <strong>Nombre: </strong> <a>{{this.postuladoSeleccionado.nombres}}</a>
         <p></p>
@@ -58,4 +107,4 @@
       </div>
     </div>
   </div>
-</div>
+</div-->

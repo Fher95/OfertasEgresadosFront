@@ -23,7 +23,7 @@ export class ExplaboralComponent implements OnInit {
   @ViewChild('localizacionEmpresa') localizacionEmpresa : LocalizacionComponent;
   @Output()
   darExperiencia: EventEmitter<any> = new EventEmitter<any>();
-  
+
   Labora_Area = new FormControl('', [Validators.required]);
   NombreCategoria = new FormControl('', [Validators.required]);
   NombreEmpresa = new FormControl('', [Validators.required]);
@@ -43,7 +43,7 @@ export class ExplaboralComponent implements OnInit {
                             "Contrato civil por prestación de servicios","Contrato de aprendizaje",
                             "Contrato ocasional de trabajo","Contrato temporal, ocasional o accidental"];
   categoria: string[] = ["Empleado","Independiente","Empresario"];
-  
+
   varExperiencia : Experiencia;
 
   constructor(private dialog:MatDialog,private alert:AlertService) {
@@ -70,7 +70,7 @@ export class ExplaboralComponent implements OnInit {
   validarDatos(){
     var bandera:boolean = false;
 
-    if(this.Labora_Area.value!='' && this.localizacionEmpresa.obtenerIdLocalizacion()!=null && this.NombreEmpresa.value!='' 
+    if(this.Labora_Area.value!='' && this.localizacionEmpresa.obtenerIdLocalizacion()!=null && this.NombreEmpresa.value!=''
       && this.NombreCategoria.value!='' && this.DirTrabajo.value!='' && this.TelTrabajo.value!='' && this.Cargo.value!=''
       && this.RangoSalario.value!='' && this.TipoContrato.value!='' && this.Sector.value!='' && this.fechaInicio.value!='')
     {
@@ -101,7 +101,7 @@ export class ExplaboralComponent implements OnInit {
   }
   cancelar(){
     this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
-      resultado => { 
+      resultado => {
         if(resultado==0){
           this.limpiarDatos();
         }});

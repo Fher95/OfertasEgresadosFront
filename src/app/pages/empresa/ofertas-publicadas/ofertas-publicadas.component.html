@@ -84,10 +84,16 @@
         <td mat-cell *matCellDef="let element"> {{ element.fecha_publicacion }} </td>
       </ng-container>
 
+      <!-- Columna Fecha Cierre-->
+      <ng-container matColumnDef="fecha_cierre">
+        <th mat-header-cell *matHeaderCellDef> Fecha de finalizacion </th>
+        <td mat-cell *matCellDef="let element"> {{ element.fecha_cierre }} </td>
+      </ng-container>
+
       <!-- Columna Cargo -->
       <ng-container matColumnDef="cargo">
         <th mat-header-cell *matHeaderCellDef> Cargo </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombreCargo}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.cargo_nombre}} </td>
       </ng-container>
 
       <!-- Columna Vacante -->
@@ -107,19 +113,19 @@
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell class="text-center" *matCellDef="let element">
           <div class="row m-auto justify-content-center">
-            <a href="" data-toggle="modal">
+            <a href="" data-toggle="modal" (click)="mostrarInfo(element)">
               <mat-icon class="acciones" matListIcon>description</mat-icon>
               Ver/Modificar oferta
             </a>
           </div>
           <div class="row m-auto justify-content-center">
-            <a href="" data-toggle="modal" (click)="mostrarInfo(element)">
+            <a href="" data-toggle="modal" (click)="actualizarEstado(element)">
               <mat-icon class="acciones" matListIcon>cached</mat-icon>
               Actualizar estado
             </a>
           </div>
-          <div class="row m-auto justify-content-center">
-            <a href="localhost:4200/oferta/:{{element.id}}/misPostulados" data-toggle="modal">
+          <div class="row m-auto justify-content-center">            
+            <a href="" data-toggle="modal" (click)="verPostulados(element.id_aut_oferta)">
               <mat-icon class="acciones" matListIcon>assignment_ind</mat-icon>
               Ver postulados
             </a>

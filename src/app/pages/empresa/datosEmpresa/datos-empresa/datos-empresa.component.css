@@ -1,4 +1,5 @@
 
+/*Cambia el tamaño a los label desabilitados*/
 .tamForm ::ng-deep.mat-form-field-infix{
   height: 35px;
   border: 0px;
@@ -9,47 +10,35 @@
 mat-card{
   width: 100%;
 }
+/*Cambia el tamaño a las decripciones*/
 .textArea{
   margin-left: 20px;
-
   width: 96%;
 }
+/*Cambia al tamaño de los label al maximo posible*/
 .labelCompleto{
   display: flex;
   flex-direction: column;
 }
-
+/*Cambia el tamaño de las sombras de la card*/
 .mat-card:not([class*=mat-elevation-z]) {
   box-shadow: 0 0px 20px rgba(0,0,0,0.19),
   0 6px 6px rgba(0,0,0,0.23);
-
 }
-/*
-::ng-deep.mat-form-field-disabled .mat-form-field-underline
-{
-  background-image: linear-gradient( to right, rgba(0, 0, 0, 1) 0, rgba(0, 0, 0, 0.42) 33%, #4082c5 0 ) !important;
-  background-size: 1px 100% !important;
-   background-repeat: repeat-x !important;
-} */
-
-
-
+/*Cambia el color a los label desabilitados*/
 ::ng-deep.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{
   color:rgb(158, 158, 160);
   font-size: 15px;
 }
-
+/*Cambia el color del borde los label desabilitados*/
 ::ng-deep.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
-  color:rgb(85, 85, 201);
   color:rgb(158, 158, 160);
-
-
 }
+/*Cambia el color de la letra de los label desabilitados*/
 .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after, .mat-input-element:disabled{
   color:rgb(7, 7, 7);
 }
-
-
+/*Oculta el boton file*/
 #file{
   border:0px;
   padding: 0px;
@@ -63,7 +52,6 @@ mat-card{
 label img{
   margin-top: -1px;
   margin-right: -2px;
-
   padding: 0px;
   height: 32px;
   width: 32px;
@@ -78,7 +66,6 @@ mat-card-footer{
 }
 img{
   padding-top: 0px;
-
 }
 #a{
   margin-top:-16px;
@@ -91,6 +78,7 @@ img{
   margin-left: 35px;
   margin-bottom: 20px;
 }
+/*centra el spinner*/
 .center {
   position: absolute;
   top: 50%;
@@ -99,6 +87,7 @@ img{
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
 }
+/*Convierte el fondo en gris mientras el spinner este activo*/
 .overlay{
   height:100vh;
   width:100%;

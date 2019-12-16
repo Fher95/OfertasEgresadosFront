@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { FacultadInterface } from 'src/app/shared/modelos/facultadInterface';
@@ -55,4 +56,5 @@ export class ProgramaComponent implements OnInit {
   obtenerPrograma(){
     this.catalogoService.getPrograma(this.Sede.value,this.Facultad.value,this.NivelAcademico.value).subscribe(data => this.programas = data);
   }
+
 }

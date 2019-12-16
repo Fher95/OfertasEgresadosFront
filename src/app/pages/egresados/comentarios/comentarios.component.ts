@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Comentario } from 'src/app/shared/modelos/comentario';
 
 @Component({
   selector: 'app-comentarios',
@@ -19,8 +20,7 @@ export class ComentariosComponent implements OnInit {
   carreras: string[] = ["Tecnología","Pregrado","Especialización","Maestría","Doctorado"];
   razon: string[] = ["Planta docente","Infraestructura","Planes de estudio","Otra razón"];
 
-  tituloInfo : string;
-  mensajeInfo : string;
+  varComentario : Comentario[];
 
   constructor() {
     this.limpiarFormulario();
@@ -30,6 +30,7 @@ export class ComentariosComponent implements OnInit {
   }
 
   limpiarFormulario(){
+    this.varComentario = new Array<Comentario>();
     this.EstudiarUnicauca = new FormControl('', [Validators.required]);
     this.Carrera = new FormControl('');
     this.Razon = new FormControl('');
@@ -38,22 +39,36 @@ export class ComentariosComponent implements OnInit {
     this.DocenteInfluencia = new FormControl('', [Validators.required]);  
   }  
   validarCampos(){
-    console.log('Validacion comentarios');
-    
     var bandera:boolean = false;
     
-    console.log('EstudiarUni '+this.EstudiarUnicauca.value+"Carrera "+this.Carrera.value+"Razon "+this.Razon.value+"ComentarioProga "
-    +this.ComentarioPrograma.value+"ComenFuturo "+this.ComentarioFuturoEgresado.value+"Docente "+this.DocenteInfluencia.value);
-
     if(this.EstudiarUnicauca.value!='' && this.ComentarioPrograma.value!='' && this.ComentarioFuturoEgresado.value!='' 
     && this.DocenteInfluencia.value!=''){
       bandera = true;
     }
-    else{
-      this.tituloInfo="Información Faltante";
-      this.mensajeInfo="Faltan datos por ingresar.";
-    }
     return bandera; 
   }
-  
+  guardarComentario(){
+    console.log('Entro a guardar');
+    if(this.validarCampos()){
+      if(this.EstudiarUnicauca.value == 0){
+        this.varComentario.push(this.llenarComentario(1,'true'));
+        this.varComentario.push(this.llenarComentario(2,this.Carrera.value));
+      }
+      else if (this.EstudiarUnicauca.value == 1){
+        this.varComentario.push(this.llenarComentario(1,'false'));
+        this.varComentario.push(this.llenarComentario(3,this.Razon.value));
+      }
+      this.varComentario.push(this.llenarComentario(4,this.ComentarioPrograma.value));
+      this.varComentario.push(this.llenarComentario(5,this.DocenteInfluencia.value));
+      this.varComentario.push(this.llenarComentario(6,this.ComentarioFuturoEgresado.value));
+
+      return this.varComentario;
+    }
+  }
+  llenarComentario(idComentario : number, respuesta : string){
+    var comentario = new Comentario;
+    comentario.id_aut_comentario = idComentario;
+    comentario.respuesta = respuesta;
+    return comentario;
+  }  
 }

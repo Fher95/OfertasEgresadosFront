@@ -5,11 +5,6 @@ mat-form-field{
 .buttonRequisitos{
   padding: 0px;
 }
-.labelCompleto{
-  display: flex;
-  flex-direction: column;
-}
-
 .carta-registro{
   margin-top: 5%;
   margin-bottom: 5%;
@@ -19,16 +14,13 @@ mat-form-field{
   padding-right: 10%;
   padding: 0px;
 }
-
 .example-container {
 height: 400px;
 overflow: auto;
 }
-
 .Subtitulos-card{
   margin-bottom: 5%;
 }
-
 .botonesStepper{
   text-align: end;
 }
@@ -60,15 +52,42 @@ background: #3F51B5;
 color: white;
 padding: 5px;
 justify-content: center;
+}
 
+img{
+  width: 15px;
+  height: 15px;
+}
+/*centra el spinner*/
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+/*Convierte el fondo en gris mientras el spinner este activo*/
+.overlay{
+  height:100vh;
+  width:100%;
+  background-color:rgba(0, 0, 0, 0.286);
+  z-index:    10;
+  top:        0; 
+  left:       0; 
+  position:   fixed;
 }
 
 @media only screen and (max-width: 768px) {
 /* For mobile phones: */
 .full-width {
-  max-width: 100%;
+    max-width: 100%;
 }
 .example-container{
   display: contents;
 }
+.example.mat-select-panel{
+  max-width:  100%;;
+} 
+
 }

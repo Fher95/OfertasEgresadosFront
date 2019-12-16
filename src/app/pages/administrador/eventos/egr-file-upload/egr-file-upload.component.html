@@ -1,0 +1,33 @@
+<div class="row">
+  <input
+    type="file"
+    name="fileUpload"
+    id="fileUpload"
+    style="display:none;"
+    accept="{{ accept }}"
+    ngModel
+    #file="ngModel"
+    required
+    (change)="onFileChange($event.target.files)"
+  />
+  <mat-form-field class="form-group col-md-9">
+    <input
+      type="text"
+      disabled
+      matInput
+      name="fileName"
+      #fileName="ngModel"
+      [ngModel]="fileText"
+      placeholder="Seleccione un archivo"
+      required
+    />
+    <mat-error *ngIf="file.invalid && file.hasError('required')">
+      Debe seleccionar un archivo.
+    </mat-error>
+  </mat-form-field>
+  <div class="col-md-3">
+    <button mat-raised-button type="button" color="primary" (click)="onClick()">
+      <mat-icon>file_upload</mat-icon> {{ text }}
+    </button>
+  </div>
+</div>

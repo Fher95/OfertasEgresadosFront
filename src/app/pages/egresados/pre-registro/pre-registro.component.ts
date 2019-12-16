@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
@@ -295,5 +296,6 @@ export class PreRegistroComponent implements OnInit {
   }
 
 }
+
 
 

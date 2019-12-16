@@ -1,19 +1,17 @@
 <app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
+<!--Spinner de carga-->
 <div class="overlay" *ngIf="showSpinner">
     <div class="center">
-        <mat-progress-spinner diameter=50 
-                              mode="indeterminate" 
+        <mat-progress-spinner diameter=50
+                              mode="indeterminate"
                              >
-        </mat-progress-spinner> 
+        </mat-progress-spinner>
     </div>
 </div>
+<!--Fin spinner de carga-->
 <mat-card class="carta-registro">
-
     <mat-card-header class="headerCartaRegistro">
-        <!--<mat-card-title>
-            Registre su empresa
-        </mat-card-title>-->
         <mat-toolbar color="primary">
             <span>Datos de la empresa</span>
         </mat-toolbar>
@@ -72,7 +70,7 @@
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" readonly appearance="outline"
                                 hintLabel="Modificable solo por administrador">
-                                <mat-label>Razon Social</mat-label>
+                                <mat-label>Razón Social</mat-label>
                                 <input formControlName="razonSocial" readonly matInput>
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline">
@@ -87,22 +85,13 @@
 
                             <mat-form-field readonly floatLabel="auto" appearance="outline"
                                 hintLabel="Modificable solo por administrador">
-                                <mat-label>Año creacion</mat-label><input type="number" readonly matInput
+                                <mat-label>Año de creación</mat-label><input type="number" readonly matInput
                                     formControlName="anioCreacion">
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-                                <!--<mat-select formControlName="numEmpleados">
-                                    <mat-option value="1-10">1-10</mat-option>
-                                    <mat-option value="11-50">11-50</mat-option>
-                                    <mat-option value="51-150">51-150</mat-option>
-                                    <mat-option value="151-300">151-300</mat-option>
-                                    <mat-option value="301-500">301-500</mat-option>
-                                    <mat-option value="501-1000">501-1000</mat-option>
-                                    <mat-option value="1001-5000">1001-5000</mat-option>
-                                    <mat-option value="Mas de 5000">Más de 5000</mat-option>
-                                </mat-select>-->
+
                                 <input matInput formControlName="numEmpleados">
-                                <mat-label>Numero de empleados</mat-label>
+                                <mat-label>Número de empleados</mat-label>
                                 <mat-error
                                     *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
                                     campo requerido</mat-error>
@@ -118,7 +107,7 @@
                                     <mat-option value="10.000.001 - 25.000.000">10.000.001 - 25.000.000</mat-option>
                                     <mat-option value="25.000.001 - 50.000.000">25.000.001 - 50.000.000</mat-option>
                                     <mat-option value="50.000.001 - 100.000.000">50.000.001 - 100.000.000</mat-option>
-                                    <mat-option value="más de 100.000.000">más de 100.000.000</mat-option>
+                                    <mat-option value="Más de 100.000.000">Más de 100.000.000</mat-option>
                                 </mat-select>
                                 <mat-label>Ingresos de la empresa</mat-label>
                             </mat-form-field>
@@ -191,9 +180,9 @@
                 </mat-step>
 
                 <mat-step formGroupName="loc-contact-empresa"
-                    [stepControl]="formDatosEmpresa.get('loc-contact-empresa')" label="Localizacion">
+                    [stepControl]="formDatosEmpresa.get('loc-contact-empresa')" label="Localización">
                     <div class="Subtitulos-card">
-                        <p class="text-center"><b>Localizacion de su empresa</b></p>
+                        <p class="text-center"><b>Localización de su empresa</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
                     <div class="text-center">
@@ -217,7 +206,7 @@
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" readonly appearance="outline"
                             hintLabel="Modificable solo por administrador">
-                            <mat-label>Direccion de la empresa</mat-label>
+                            <mat-label>Dirección de la empresa</mat-label>
                             <input formControlName="direccionEmp" readonly matInput required>
                             <mat-error
                                 *ngIf="formDatosEmpresa.get('loc-contact-empresa').controls.direccionEmp.errors?.required">
@@ -232,7 +221,7 @@
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Codigo Postal</mat-label>
+                            <mat-label>Código Postal</mat-label>
                             <input matInput maxlength="5" type="number" formControlName="codigoPostalEmp">
                             <mat-error
                                 *ngIf="formDatosEmpresa.get('loc-contact-empresa').controls.codigoPostalEmp.errors?.min">
@@ -244,11 +233,11 @@
                     </div>
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Telefono de la empresa</mat-label>
+                            <mat-label>Teléfono de la empresa</mat-label>
                             <input type="number" formControlName="telefonoEmp" matInput>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Email de la empresa</mat-label>
+                            <mat-label>E-mail de la empresa</mat-label>
                             <input formControlName="emailEmp" matInput>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
@@ -268,7 +257,7 @@
                 <mat-step formGroupName="datos-resp" [stepControl]="formDatosEmpresa.get('datos-resp')"
                     label="Datos de contacto">
                     <div class="Subtitulos-card">
-                        <p class="text-center"><b>Datos de sus representantes</b></p>
+                        <p class="text-center"><b>Datos de contacto</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
                     <div class="text-center">
@@ -290,11 +279,11 @@
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Telefono</mat-label>
+                            <mat-label>Teléfono</mat-label>
                             <input type="number" formControlName="telefonoreplegal" matInput>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Telefono móvil</mat-label>
+                            <mat-label>Teléfono móvil</mat-label>
                             <input type="number" formControlName="telefonoMovilreplegal" matInput required>
                             <mat-error
                                 *ngIf="formDatosEmpresa.get('datos-resp').controls.telefonoMovilreplegal.errors?.required">
@@ -303,7 +292,7 @@
 
                     </div>
                     <div class="text-center">
-                        <p>Datos responsable de la cuenta</p>
+                        <p>Datos del administrador de la cuenta</p>
                     </div>
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
@@ -330,11 +319,11 @@
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Telefono</mat-label>
+                            <mat-label>Teléfono</mat-label>
                             <input type="number" formControlName="telefonoResp" matInput>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Telefono móvil</mat-label>
+                            <mat-label>Teléfono móvil</mat-label>
                             <input type="number" formControlName="telefonoMovilResp" matInput required>
                             <mat-error
                                 *ngIf="formDatosEmpresa.get('datos-resp').controls.telefonoMovilResp.errors?.required">
@@ -345,14 +334,14 @@
                             <input formControlName="horarioContactoResp" matInput>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Direccion de trabajo</mat-label>
+                            <mat-label>Dirección de trabajo</mat-label>
                             <input formControlName="direccionTrabajoResp" matInput required>
                             <mat-error
                                 *ngIf="formDatosEmpresa.get('datos-resp').controls.direccionTrabajoResp.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Email personal corporativo</mat-label>
+                            <mat-label>E-mail personal corporativo</mat-label>
                             <input formControlName="emailCorpResp" matInput required>
                             <mat-error
                                 *ngIf="formDatosEmpresa.get('datos-resp').controls.emailCorpResp.errors?.required">

@@ -10,15 +10,12 @@ export class DialogInfoOfertaComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DialogInfoOfertaComponent>,
-    @Inject(MAT_DIALOG_DATA) public datos: any,
+    @Inject(MAT_DIALOG_DATA) public datos: any, // Datos enviaidos de la oferta
   ) { }
 
   datosOferta ;
   ngOnInit() {
-    console.log("datos en dialog:", this.datos);
     this.datosOferta = this.datos.datos;
-    console.log(this.datosOferta)
-    console.log(this.datosOferta.requisitos.preguntasCandidato.length)
   }
 
   onNoClick(): void {
