@@ -24,7 +24,7 @@ export class CompletarRegistroComponent implements OnInit {
   @ViewChild('referido') referido : ReferidoComponent;
   @ViewChild('expActual') expActual : ExplaboralComponent;
   @ViewChild('comentario') comentario : ComentariosComponent;
-  @ViewChild('prograAdic') programaAdicional : ProgramaComponent;
+  @ViewChild('programaAdicional') programaAdicional : ProgramaComponent;
 
   varCompletarRegistro : CompletarRegistro;
   //Trabajos anteriores
