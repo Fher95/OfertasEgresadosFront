@@ -188,7 +188,7 @@ export class CompletarRegistroComponent implements OnInit {
   }
   agregarGradoAdicional(){
     if(this.ComentProgramaAdicional.value!='' && this.DocenteInfluenciaAdicional.value!='' 
-    && this.programaAdicional.Programa.value!=''){
+    && this.programaAdicional.verificarCampos()){
       this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
       //this.varCompletarRegistro.gradoAdicional.titulo_especial = this.tituloGradoAdicional.value;
       this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;

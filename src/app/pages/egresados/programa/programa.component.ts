@@ -47,6 +47,13 @@ export class ProgramaComponent implements OnInit {
     this.Facultad = new FormControl('', [Validators.required]);
     this.Programa = new FormControl('', [Validators.required]);
   }
+  verificarCampos(){
+    var bandera:boolean=false;
+    if(this.Programa.value!='' && this.Facultad.value!='' && this.Sede.value!='' && this.NivelAcademico.value!=''){
+      bandera=true;
+    }
+    return bandera;
+  }
 
   obtenerNivelEstudio(){
     this.catalogoService.getNivelEducativo().subscribe(data => this.nivelAcade = data);
