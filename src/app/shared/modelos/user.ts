@@ -1,3 +1,4 @@
+
 export class User {
 
     constructor(
@@ -11,10 +12,11 @@ export class User {
         public grupo_etnico?: String,
         public num_hijos?: number,
         public discapacidad?: number[],
+        public otraDiscapacidad?: String,
         public id_lugar_nacimiento?: Number,
         public id_nivel_educativo?: Number,
         public anio_graduacion?: String,
-        public mension?: Boolean,
+        public mension?: String,
         public celular?: String,
         public telefono_fijo?: String,
         public id_lugar_residencia?: Number,
@@ -32,4 +34,5 @@ export class User {
              , json.direccion, json.fecha_grado, json.id_programa, json.titulo_especial);
     }
     
+
 }

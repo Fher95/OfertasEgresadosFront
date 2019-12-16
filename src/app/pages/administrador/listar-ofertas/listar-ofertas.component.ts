@@ -47,7 +47,7 @@ export class ListarOfertasComponent implements OnInit {
 
         this.dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
         this.dataSource.paginator = this.paginator;
-
+        this.filtrar('estado');
         if (this.ofertas.length === 0 || isNull(this.ofertas)) {
           this.arregloVacio = true;
         }
@@ -81,7 +81,7 @@ export class ListarOfertasComponent implements OnInit {
       this.servicioOfertas.aprobarOferta(parOferta.id_aut_oferta)
         .subscribe(result => {
           console.log(result);
-          this.getOfertas();
+          this.getOfertas();          
         });
     }
   }
@@ -90,7 +90,7 @@ export class ListarOfertasComponent implements OnInit {
       this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta, this.motivoInactivacion)
         .subscribe(result => {
           console.log(result);
-          this.getOfertas();
+          this.getOfertas();          
         });
     }
   }
@@ -141,7 +141,7 @@ export class ListarOfertasComponent implements OnInit {
     } else if (this.estadoActivacion === 'Rechazada') {
       this.servicioOfertas.desaprobarOferta(this.ofertaSeleccionada.id_aut_oferta, this.motivoInactivacion)
         .subscribe(result => {
-          this.getOfertas();
+          this.getOfertas();          
         });
     }
 
@@ -165,9 +165,12 @@ export class ListarOfertasComponent implements OnInit {
   }
   dialogAbierto(dial: MatDialogRef<InfoOfertaLaboralComponent, any>) {
     dial.afterClosed().subscribe((result) => {
+      this.getOfertas();        
       if (result) {
-        this.getOfertas();
-        this.servicioOfertas.cambioActualizado();
+        setTimeout(() => {
+          console.log('Cargando ofertas');
+          this.getOfertas();
+        }, 1000);      
       }
     });
   }

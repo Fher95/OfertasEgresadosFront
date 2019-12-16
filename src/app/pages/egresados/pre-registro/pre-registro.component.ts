@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
@@ -9,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../../shared/modelos/user';
 import { DiscapacidadInterface } from '../../../shared/modelos/discapacidadInterface';
 import { SedeInterface } from '../../../shared/modelos/sedeInterface';
+import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
 import { ProgramaInterface } from '../../../shared/modelos/programaInteface';
 import { FacultadInterface } from '../../../shared/modelos/facultadInterface';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
@@ -86,7 +88,7 @@ export class PreRegistroComponent implements OnInit {
   //private sedes = [1, 2, 3, 4, 5];
   //private facultades = ['Facultad Ingenieria Electronica y Telecomunicaciones', 'Facultad de Ingenieria Civil', 'Facultad de Ciencias Naturales y Exactas', 'Facultad de Artes', 'Facultad de Derecho', 'Facultad de Ciencias Contables', 'Facultad de Ciencias Agropecuarias', 'Facultad de Ciencias Humanas'];
   //private programas = ['Musica', 'Medicina', 'Ingenieria de Sistemas', 'Ingenieria Electronica', 'Ingenieria Civil', 'Enfermeria', 'Fonoaudiologia', 'Contaduria Publica'];
-  //private discapacidades: string[] = ['Visual', 'Cognitiva', 'Auditiva', 'Fisica', 'Ninguna'];
+  //private discapacidades: string[] = ['Visual', 'Cognitiva', 'Auditiva', 'Fisica', 'Ninguna','todasson','stas tambien','creo ortas'];
   //private niveles_academicos: string[] = ['Pregardo', 'Posgrado'];
 
   // Variables para almacenar los datos desde el back
@@ -95,7 +97,7 @@ export class PreRegistroComponent implements OnInit {
   private programas: ProgramaInterface[];
   private discapacidades: DiscapacidadInterface[] = [];
   private niveles_academicos: NivelesEstudioInterface[];
-  private titulos = [1, 2, 3, 4];
+  private titulos: TituloInterface[];
   private anios: number[] = [];
   private discapacidad: number[] = [];
 
@@ -105,7 +107,7 @@ export class PreRegistroComponent implements OnInit {
 
 
   private generos: string[] = ['Masculino', 'Femenino'];
-  private estadosC: string[] = ['Soltero(a)', 'Casado(a)','Viudo(a)','Union Libre','Separado(a)','Comprometido(a)','Divorciado(a)'];
+  private estadosC: string[] = ['Soltero(a)', 'Casado(a)', 'Viudo(a)', 'Union Libre', 'Separado(a)', 'Comprometido(a)', 'Divorciado(a)'];
   private gruposE: string[] = ['Afrodescendiente', 'Indígena', 'Mestizo', 'Blanco', 'Otro'];
 
 
@@ -116,9 +118,11 @@ export class PreRegistroComponent implements OnInit {
   private maxDateN: Date;
 
   //Variable para programa con titulo
-private tituloPrograma: string = "Musica";
+  private tituloPrograma: string = "Musica";
 
-  constructor( private alert: AlertService, private dialog: MatDialog, private registroService: RegistroService, private catalogoService: CatalogosService, private router: Router) {
+  private respuestaDiscapacidad: boolean = false;
+
+  constructor(private alert: AlertService, private dialog: MatDialog, private registroService: RegistroService, private catalogoService: CatalogosService, private router: Router) {
     this.cleanFormData();
     this.aniosGrado();
 
@@ -134,8 +138,10 @@ private tituloPrograma: string = "Musica";
 
   // Método para limpiar datos de control de formulario
   private cleanFormData() {
-    this.user = new User("", "", "", 0, "", "", "", "",0, [], 0, 0, "", false, "", "", 0, "", "", "", "");
+    this.user = new User("", "", "", 0, "", "", "", "", 0, [],"", 0, 0, "", "", "", "", 0, "", "", "", "");
     this.msgError = "";
+    this.titulos = [];
+    this.discapacidades = [];
     this.emailFormControl = new FormControl();
     this.emailFormControl2 = new FormControl();
     this.sedeFormControl = new FormControl();
@@ -147,7 +153,7 @@ private tituloPrograma: string = "Musica";
     this.grupoEFormControl = new FormControl();
     this.estadoCFormControl = new FormControl();
     this.anioGFormControl = new FormControl();
-    this.nivelAFormControl =  new FormControl();
+    this.nivelAFormControl = new FormControl();
     this.minDate = new Date(new Date().getFullYear() - 170, 0, 1);
     this.maxDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     this.minDateN = new Date(new Date().getFullYear() - 170, 0, 1);
@@ -157,16 +163,16 @@ private tituloPrograma: string = "Musica";
   //Método para validar el campo titulo si el programa es musica
   validarTitulo() {
     var validar: boolean = true;
-    if (this.programaFormControl.value == this.tituloPrograma && this.tituloFormControl.value == null) {
+    if (this.titulos.length > 0 && this.tituloFormControl.value == null) {
       validar = false;
     }
     return validar;
   }
 
-  validarIdentificacion(){
+  validarIdentificacion() {
     var respuesta: boolean = true;
-    if(this.identificacionFormControl.value==this.user.identificacion){
-      respuesta=false;
+    if (this.identificacionFormControl.value == this.user.identificacion) {
+      respuesta = false;
     }
     return respuesta;
   }
@@ -193,6 +199,28 @@ private tituloPrograma: string = "Musica";
     this.catalogoService.getPrograma(this.sedeFormControl.value, this.facultadFormControl.value, this.nivelAFormControl.value).subscribe(data => this.programas = data);
   }
 
+  obtenerTitulo(){
+    this.catalogoService.getTitulo(this.programaFormControl.value).subscribe(data => this.titulos = data);
+  }
+
+  existenTitulos(){
+    var respuesta: boolean = false;
+    if(this.titulos.length>0){
+      respuesta = true;
+    }
+    return respuesta;
+  }
+
+  otraDiscapacidad(otraDiscapacidad: String){
+    
+    if(otraDiscapacidad == "Otra(s)"){
+      this.respuestaDiscapacidad = true;
+    }
+    return this.respuestaDiscapacidad;
+
+  }
+
+
   //Método pra cargar las discapacidades del usuario
   obtenerDiscapacidades() {
     this.catalogoService.getDiscapacidad().subscribe(data => this.discapacidades = data);
@@ -200,16 +228,23 @@ private tituloPrograma: string = "Musica";
 
   //Método para guardar las discapacidades del usuario
   discapacidadesUsuario(discapacidad: number) {
-    if (!this.discapacidad.includes(discapacidad)) {
+    if (this.discapacidades[discapacidad].Nombre == "Ninguno") {
+      this.discapacidad = [];
       this.discapacidad.push(discapacidad);
     } else {
-      this.discapacidad.splice(this.discapacidad.indexOf(discapacidad), 1)
+      if (!this.discapacidad.includes(discapacidad)) {
+        this.discapacidad.push(discapacidad);
+      } else {
+        this.discapacidad.splice(this.discapacidad.indexOf(discapacidad), 1)
+      }
     }
 
   }
 
+ 
+
   ngOnInit() {
-    this.obtenerDiscapacidades();
+    //this.obtenerDiscapacidades();
     this.obtenerSedes();
     this.obtenerNivelEstudio();
   }
@@ -219,15 +254,12 @@ private tituloPrograma: string = "Musica";
   // Método para validar los datos ingresados por el usuario
   validData() {
     var valid: boolean = false;
-    console.log("esto es lo que tiene hijos"+this.user.num_hijos);
-    console.log("esto es lo que tiene nacimiento"+this.fechaNFormControl.value);
-    if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 && 
-      this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' && 
-      this.lExpedicion.departamentoFormControl.value != ''&& this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null && this.facultadFormControl.value != null && 
-      this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.user.mension != false && 
-      this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null && 
+    if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 &&
+      this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' &&
+      this.lExpedicion.departamentoFormControl.value != '' && this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null && this.facultadFormControl.value != null &&
+      this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null &&
       this.user.identificacion.length > 0 && this.user.direccion.length > 0 //this.user.discapacidad.length > 0 &&
-      ) {
+    ) {
 
       valid = true;
       this.msgError = "";
@@ -240,10 +272,10 @@ private tituloPrograma: string = "Musica";
 
   // Método para registrar la solicitud
   register() {
-    
-    console.log("Datos validos"+this.anioGFormControl.value);
+
+    console.log("Datos validos" + this.anioGFormControl.value);
     if (this.validData()) {
-      
+
       this.user.fecha_grado = Utilities.parseDateToString(this.fechaGFormControl.value, '-');
       this.user.fecha_nacimiento = Utilities.parseDateToString(this.fechaNFormControl.value, '-');
       this.user.correo = this.emailFormControl.value;
@@ -259,21 +291,22 @@ private tituloPrograma: string = "Musica";
       this.user.discapacidad = this.discapacidad;
       this.registroService.storeEgresado(this.user).subscribe(
         response => {
-          this.alert.showSuccesMessage('Registro Exitoso', 'Por favor verifique su correo.'+this.emailFormControl.value).then((result)=>{
-            if(result.value){
+          this.alert.showSuccesMessage('Registro Exitoso', 'Por favor verifique su correo.' + this.emailFormControl.value).then((result) => {
+            if (result.value) {
               this.router.navigateByUrl('/home');
-            }else{
+            } else {
               this.alert.showSuccesMessage('Registro Exitoso', 'Por favor verifique su correo.');
             }
-            
+
           });
-        },error => {
+        }, error => {
           this.alert.showErrorMessage('Error', 'A ocurrido un error al registrar sus datos intente de nuevo');
         }
       );
-    }   
+    }
   }
 
 }
+
 
 

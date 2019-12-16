@@ -11,23 +11,17 @@ import { CaptchaModule } from 'ng-captcha';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { EmpresaModule } from './pages/empresa/empresa.module';
 import { LayoutModule } from './layout/layout.module';
-import { AdministradorModule } from './pages/administrador/administrador.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Config } from './shared/servicios/config/config';
 import { AlertService } from './shared/servicios/common/alert.service';
 import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interceptor';
 import { AuthModule } from './pages/auth/auth.module';
-import { EgresadosModule } from './pages/egresados/egresados.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeOfertasComponent
-  ],
+  declarations: [AppComponent, HomeOfertasComponent],
   imports: [
     EmpresaModule,
-    AdministradorModule,
     LayoutModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -38,17 +32,20 @@ import { EgresadosModule } from './pages/egresados/egresados.module';
     RecaptchaModule,
     CaptchaModule,
     AuthModule,
-    PaginationModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [
     Config,
     AlertService,
     EgresadosGuard,
     AdminGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AccessTokenInterceptor,
+      multi: true
+    }
   ],
-  entryComponents: [
-  ],
-  bootstrap: [AppComponent],
+  entryComponents: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

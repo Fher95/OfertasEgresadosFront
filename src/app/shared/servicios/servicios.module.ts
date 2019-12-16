@@ -13,34 +13,34 @@ import { EmpresaService } from './empresa/empresa.service';
 import { Config } from './config/config';
 import { AlertService } from './common/alert.service';
 import { AuthService } from './auth/auth.service';
-
+import { EventosService } from './admin/eventos.service';
 @NgModule({
   declarations: [
     GeneralesService,
-    AuthServicesService, 
-    CatalogosService, 
-    ConfirmarEmailService, 
+    AuthServicesService,
+    CatalogosService,
+    ConfirmarEmailService,
     FileUploadService,
     RegistroService,
     Utilities,
     EmpresaService,
+    EventosService
   ],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     GeneralesService,
-    AuthServicesService, 
-    CatalogosService, 
-    ConfirmarEmailService, 
+    AuthServicesService,
+    CatalogosService,
+    ConfirmarEmailService,
     FileUploadService,
     RegistroService,
     Utilities,
     EmpresaService,
     AlertService,
     EgresadosGuard,
-    AdminGuard
+    AdminGuard,
+    EventosService
   ],
   providers: [Config, AuthService]
 })
-export class ServiciosModule { }
+export class ServiciosModule {}

@@ -38,6 +38,7 @@ export class ModificarOfertaLaboralComponent implements OnInit {
   idiomas = []
   ubicaciones = []
   rangosSalariales = []
+ 
 
 datosFormChecked: FormGroup;
   constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
@@ -126,7 +127,7 @@ datosFormChecked: FormGroup;
         })
       });
   }
-
+  //Inicializa la informacion
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.idOferta = this.activatedRoute.snapshot.paramMap.get('idOferta');
@@ -138,15 +139,12 @@ datosFormChecked: FormGroup;
     this.cargarIdiomas();
     this.cargarDiscapacidades();
     this.cargarUbicaciones();
-    this.cargarContactoHv();
     this.cargarDatosOferta();
-    this.showSpinner = false; //Cierra el spinner
   }
   //Carga todos los cargos de la BD
   cargarCargos(){
     this.servGenerales.obtenerListaCargos().subscribe(resultado => {
       this.cargos = resultado;
-      console.log(this.cargos)
     },
       error => {
         this.showSpinner = false;
@@ -233,96 +231,73 @@ datosFormChecked: FormGroup;
         console.log("Error al obtener las ubicaciones: ", JSON.stringify(error));
       });
   }
-  //Carga los datos del contacto encargado de las HV
-  cargarContactoHv()
-  {
-    this.empService.getDatosContactoHv(this.id).subscribe(resultado => {
-      this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.data.nombres)
-      this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.data.apellidos)
-      this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.data.telefono_movil)
-      this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.data.correo_corporativo)
-    },
-      error => {
-        this.showSpinner = false;
-        this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
-        console.log("Error al obtener los datos de contacto: ", JSON.stringify(error));
-      });
-  }
+ 
   //Carga los datos de la oferta a modificar
   cargarDatosOferta()
   {
-    this.empService.getDatosOferta(this.idOferta).subscribe(resultado => {
-      this.formOfertaLaboral.setValue(resultado)
-      this.idiomasEscogidos = this.formOfertaLaboral.controls['requisitos'].get('idiomas').value
-      this.softwaresEscogidos = this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').value
-      this.preguntasEscogidas = this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').value
-      this.ubicacionesEscogidas = this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').value
-      /*
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('nombreOferta').setValue(resultado.informacionPrincipal.nombreOferta)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('descripcion').setValue(resultado.informacionPrincipal.descripcion)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('cargo').setValue(resultado.informacionPrincipal.cargo)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('numVacantes').setValue(resultado.informacionPrincipal.numVacantes)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(resultado.informacionPrincipal.sector)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('idSector').setValue(resultado.informacionPrincipal.idSector)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('nombreTempEmpresa').setValue(resultado.informacionPrincipal.nombreTempEmpresa)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').setValue(resultado.informacionPrincipal.areas)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('idAreasConocimiento').setValue(resultado.informacionPrincipal.idAreasConocimiento)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('vigenciaDias').setValue(resultado.informacionPrincipal.vigenciaDias)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').setValue(resultado.informacionPrincipal.ubicaciones)
-      this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(resultado.informacionPrincipal.idUbicaciones)
-      this.formOfertaLaboral.controls['contrato'].get('tipoContrato').setValue(resultado.contrato.tipoContrato)
-      this.formOfertaLaboral.controls['contrato'].get('formaPago').setValue(resultado.contrato.formaPago)
-      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(resultado.contrato.duracion)
-      this.formOfertaLaboral.controls['contrato'].get('horario').setValue(resultado.contrato.horario)
-      this.formOfertaLaboral.controls['contrato'].get('jornada').setValue(resultado.contrato.jornada)
-      this.formOfertaLaboral.controls['contrato'].get('idRangoSalarial').setValue(resultado.contrato.idRangoSalarial)
-      this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(resultado.contrato.rangoSalarial)
-      this.formOfertaLaboral.controls['contrato'].get('comentariosSalario').setValue(resultado.contrato.comentariosSalario)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-      this.formOfertaLaboral.controls['contrato'].get('').setValue(resultado.contrato.)
-
-
-
-      'requisitos':this.formBuilder.group({
-        perfil:[null,Validators.required],
-        idEstudioMinimo:[null,Validators.required],
-        estudioMinimo:[null],
-        programas:[null],
-        idProgramas:[null,Validators.required],
-        anios:[null,[Validators.required,Validators.min(0)]],
-        experienciaLaboral:[null,Validators.required],
-        requisitosMinimos:[null,Validators.required],
-        movilizacionPropia:[null,Validators.required],
-        licenciaConduccion:[null],
-        discapacidades:[null],
-        idDiscapacidades:[null],
-        idiomas:[[]],
-        softwareOferta:[[]],
-        preguntasCandidato:[[]]
-      }),
-      'contactoHV': this.formBuilder.group({
-        correo:[null,[Validators.required,Validators.email]],
-        nombres:[null,Validators.required],
-        apellidos:[null,Validators.required],
-        telefonoMovil:[null,Validators.required],
-      })*/
-      
+    this.empService.getDatosOferta(this.idOferta).subscribe(resultado => {  
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('nombreOferta').setValue(resultado.informacionPrincipal.nombreOferta)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('descripcion').setValue(resultado.informacionPrincipal.descripcion)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('cargo').setValue(resultado.informacionPrincipal.cargo)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('numVacantes').setValue(resultado.informacionPrincipal.numVacantes)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('sector').setValue(resultado.informacionPrincipal.sector)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('idSector').setValue(resultado.informacionPrincipal.idSector)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('nombreTempEmpresa').setValue(resultado.informacionPrincipal.nombreTempEmpresa)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('areas').setValue(resultado.informacionPrincipal.areas)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('idAreasConocimiento').setValue(resultado.informacionPrincipal.idAreasConocimiento)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('vigenciaDias').setValue(resultado.informacionPrincipal.vigenciaDias)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').setValue(resultado.informacionPrincipal.ubicaciones)
+    this.formOfertaLaboral.controls['informacionPrincipal'].get('idUbicaciones').setValue(resultado.informacionPrincipal.idUbicaciones)
+    this.formOfertaLaboral.controls['contrato'].get('tipoContrato').setValue(resultado.contrato.tipoContrato)
+    this.formOfertaLaboral.controls['contrato'].get('formaPago').setValue(resultado.contrato.formaPago)
+    this.getRangosSalariales(this.formOfertaLaboral.controls['contrato'].get('formaPago').value)
+    this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(resultado.contrato.duracion)
+    this.formOfertaLaboral.controls['contrato'].get('horario').setValue(resultado.contrato.horario)
+    this.formOfertaLaboral.controls['contrato'].get('jornada').setValue(resultado.contrato.jornada)
+    this.formOfertaLaboral.controls['contrato'].get('idRangoSalarial').setValue(resultado.contrato.idRangoSalarial)
+    this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(resultado.contrato.rangoSalarial)
+    this.formOfertaLaboral.controls['contrato'].get('comentariosSalario').setValue(resultado.contrato.comentariosSalario)
+    this.formOfertaLaboral.controls['requisitos'].get('perfil').setValue(resultado.requisitos.perfil)
+    this.formOfertaLaboral.controls['requisitos'].get('idEstudioMinimo').setValue(resultado.requisitos.idEstudioMinimo)
+    this.formOfertaLaboral.controls['requisitos'].get('estudioMinimo').setValue(resultado.requisitos.estudioMinimo)
+    this.formOfertaLaboral.controls['requisitos'].get('programas').setValue(resultado.requisitos.programas)
+    this.formOfertaLaboral.controls['requisitos'].get('idProgramas').setValue(resultado.requisitos.idProgramas)
+    this.formOfertaLaboral.controls['requisitos'].get('anios').setValue(resultado.requisitos.anios)
+    this.formOfertaLaboral.controls['requisitos'].get('experienciaLaboral').setValue(resultado.requisitos.experienciaLaboral)
+    this.formOfertaLaboral.controls['requisitos'].get('requisitosMinimos').setValue(resultado.requisitos.requisitosMinimos)
+    this.formOfertaLaboral.controls['requisitos'].get('movilizacionPropia').setValue(resultado.requisitos.movilizacionPropia)
+    this.formOfertaLaboral.controls['requisitos'].get('licenciaConduccion').setValue(resultado.requisitos.licenciaConduccion)
+    this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue(resultado.requisitos.discapacidades)
+    this.formOfertaLaboral.controls['requisitos'].get('idDiscapacidades').setValue(resultado.requisitos.idDiscapacidades)
+    this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(resultado.requisitos.idiomas)
+    this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').setValue(resultado.requisitos.softwareOferta)
+    this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').setValue(resultado.requisitos.preguntasCandidato)
+    if(resultado.contactoHV != null){
+      this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.contactoHV.nombres)
+      this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.contactoHV.apellidos)
+      this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.contactoHV.telefonoMovil)
+      this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.contactoHV.correo)
+    }
+    this.idiomasEscogidos = this.formOfertaLaboral.controls['requisitos'].get('idiomas').value
+    this.softwaresEscogidos = this.formOfertaLaboral.controls['requisitos'].get('softwareOferta').value
+    this.preguntasEscogidas = this.formOfertaLaboral.controls['requisitos'].get('preguntasCandidato').value
+    this.ubicacionesEscogidas = this.formOfertaLaboral.controls['informacionPrincipal'].get('ubicaciones').value
+    if(this.idiomasEscogidos.length != 0){
+      this.datosFormChecked.get('idiomaChecked').setValue(true)
+    }
+    if(this.softwaresEscogidos.length != 0){
+      this.datosFormChecked.get('softwareChecked').setValue(true)
+    }
+    if(this.preguntasEscogidas.length != 0){
+      this.datosFormChecked.get('preguntasChecked').setValue(true)
+    }
+    if(this.formOfertaLaboral.controls['requisitos'].get('discapacidades').value.length != 0){
+      this.datosFormChecked.get('discapacidadChecked').setValue(true)
+    }
+    this.showSpinner = false; //Cierra el spinner
     },
       error => {
-        this.showSpinner = false;
+        this.showSpinner = false;     
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
         console.log("Error al obtener los datos de la oferta: ", JSON.stringify(error));
       });
@@ -340,19 +315,42 @@ datosFormChecked: FormGroup;
   //Agrega un idioma temporalmente
   agregarIdioma(form)
   {
-    this.idiomasEscogidos.push(form.value)
+    let seEncuentraIdioma = false
+    for(let i=0; this.idiomasEscogidos.length;i++)
+    {
+      if(this.idiomasEscogidos[i].nombre == form.value.nombre )
+      { 
+        seEncuentraIdioma = true
+        break
+      }
+    }
+    if(!seEncuentraIdioma)
+    { 
+      this.idiomasEscogidos.push(form.value)
+    }
   }
   //Elimina un idioma de los idiomas escogidos
   eliminarIdioma(idioma)
   {
     let indexIdioma =this.idiomasEscogidos.indexOf(idioma)
-    this.
-    idiomasEscogidos.splice(indexIdioma,1)
+    this.idiomasEscogidos.splice(indexIdioma,1)
   }
   //Agrega un software temporalmente
   agregarSoftware(form)
   {
-    this.softwaresEscogidos.push(form.value)
+    let seEncuentraSoftware = false
+    for(let i=0; this.softwaresEscogidos.length;i++)
+    {
+      if(this.softwaresEscogidos[i].nombre == form.value.nombre )
+      { 
+        seEncuentraSoftware = true
+        break
+      }
+    }
+    if(!seEncuentraSoftware)
+    { 
+      this.softwaresEscogidos.push(form.value)
+    }
   }
   //Elimina un software de los softwares escogidos
   eliminarSoftware(software)
@@ -362,7 +360,10 @@ datosFormChecked: FormGroup;
   }
   //Agrega una pregunta temporalmente
   agregarPregunta(form){
-    this.preguntasEscogidas.push(form.value.pregunta)
+    if(this.preguntasEscogidas.indexOf(form.value.pregunta)==-1)
+    { 
+      this.preguntasEscogidas.push(form.value.pregunta)
+    }
   }
   //Elimina una pregunta de las preguntas escogidos
   eliminarPregunta(pregunta)
@@ -373,7 +374,10 @@ datosFormChecked: FormGroup;
   //Agrega una ubicacion temporalmente
   agregarUbicacion(form)
   {
-    this.ubicacionesEscogidas.push(form.value)
+    if(this.ubicacionesEscogidas.indexOf(form.value)==-1)
+    { 
+      this.ubicacionesEscogidas.push(form.value)
+    }
   }
   //Elimina una ubicacion de las ubicaciones escogidos
   eliminarUbicacion(ubicacion)
@@ -484,8 +488,29 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(event.source.viewValue);
     }
   }
-  //Crea la oferta laboral
-  registrarOfertaLaboral(form)
+  idiomaIsChecked(event){
+    if(!event.checked){
+        this.idiomasEscogidos = []
+    }
+  }
+  softwareIsChecked(event){
+    if(!event.checked){
+      this.softwaresEscogidos = []
+    }
+  }
+
+  preguntasIsChecked(event){
+    if(!event.checked){
+      this.preguntasEscogidas = []
+    }
+  }
+  discapacidadIsChecked(event){
+    if(!event.checked){
+      this.formOfertaLaboral.controls['requisitos'].get('idDiscapacidades').setValue(null)
+      this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue(null)}
+  }
+  //MOdifica la oferta laboral
+  modificarOfertaLaboral(form)
   {
     //Agrega todos los idiomas seleccionados al form de oferta laboral
     this.formOfertaLaboral.controls['requisitos'].get('idiomas').setValue(this.idiomasEscogidos); 
@@ -511,7 +536,16 @@ datosFormChecked: FormGroup;
       this.alert.showErrorMessage('Datos incorrectos','Por favor verique que todos los datos esten ingresados correctamente')
     }
   }
-
+  //Cambia el valor cuando se cambia el tipo de contrato
+  cambioTipoContrato(value){
+    console.log(value)
+    if(value === 'Término indefinido' || value === 'Término fijo'){
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(value)
+    }
+    else{
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(null)
+    }
+  }
   /**
  * Abre un dialog de angular material
  * El contenido del dialog esta creado en el componente DialogInfoOfertaComponent
@@ -524,18 +558,18 @@ datosFormChecked: FormGroup;
     dialogRef.afterClosed().subscribe(result => {
         //Al cerrar el dialog si el resultado es verdadero se crea la oferta
         if(result) {
-          this.empService.crearOfertaLaboral(this.id,datos).subscribe(resultado => {
-            this.alert.showSuccesMessage('Exito','Se ha creado la oferta exitosamente')
+          this.empService.modificarOfertaLaboral(this.idOferta,datos).subscribe(resultado => {
+            console.log(resultado)
+            this.alert.showSuccesMessage('Exito','Se ha modificado la oferta exitosamente')
             .then((value) => {
               this.router.navigate(['empresa/'+this.id+'/misOfertas']);
             });
           },
             error => {
               this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde")
-              console.log("Error al crear la oferta: ", JSON.stringify(error));
+              console.log("Error al modificar la oferta: ", JSON.stringify(error));
             });
         }
     });
   }
-
 }

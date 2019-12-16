@@ -19,25 +19,20 @@ export interface DialogData {
   styleUrls: ['./editar-empresa.component.css']
 })
 export class EditarEmpresaComponent implements OnInit {
-  showSpinner = true;
-  textoModal:String;
-  sectores: ISector[] =[]
-  emailInicial:String ;
-  sectoresInteresEmpresa = [];
-  cargos: ICargo[];
-  sectoresUsuario: ISector[];
-  id: string;
-  debouncer: any;
-  subSecEscogidos: ISubSector[] = [];
-  anios: any[] = [];
-  paises: Object;
-  departamentos: Object;
-  ciudades: Object;
-  code: string;
-  formDatosEmpresa: FormGroup;
-  isLinear = true;
-  contOculto = true;
-  mensajesError: String[] = [];
+  showSpinner = true; //Determina cuando se muestra el spinner
+  sectores: ISector[] =[] //Sectores cargados de la bd
+  emailInicial:String //Email de la cuenta;
+  sectoresInteresEmpresa = [] //Sectores a guardar;
+  cargos: ICargo[] //Cargos de la BD;
+  id: string //Id de la empresa;
+  debouncer: any //Almacena el tiempo para la verificacion de email;
+  subSecEscogidos: ISubSector[] = []; //Subsectores a guardar;
+  anios: any[] = []; //Cantidad de años
+  paises: Object; //Paises de la bd
+  departamentos: Object; //Departamentos de la bd
+  ciudades: Object; //Ciudades de la bd
+  formDatosEmpresa: FormGroup; //Formulario de la modificacion de la empresa
+  mensajesError: String[] = []; //Guarda los mensajes de error de los datos
   constructor(
     private servGenerales: GeneralesService,
     private formBuilder: FormBuilder,
@@ -47,10 +42,10 @@ export class EditarEmpresaComponent implements OnInit {
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     private alert: AlertService
-
   ) {
     this.cargos = [ ];
     this.sectoresInteresEmpresa = [];
+    //Formulario de la modificacion de la empresa
     this.formDatosEmpresa = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
         email: ['', [Validators.required, Validators.email], this.validarExistenciaEmail.bind(this)],
@@ -97,13 +92,13 @@ export class EditarEmpresaComponent implements OnInit {
       })
     });
   }
-
+  //Inicializa la informacion
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.cargarCargos();
+    this.id = this.activatedRoute.snapshot.paramMap.get('id'); //Obtiene el id de la empresa
+    this.cargarCargos(); 
+    // obtiene la informacion de la empresa y pasarla al form
     this.empresaService.getDatos(this.id)
     .subscribe(data => {
-      // obtener la data y pasarla al form
       this.formDatosEmpresa.controls['datos-cuenta'].get('email').setValue(data.administrador.user.email);
       this.emailInicial = this.formDatosEmpresa.controls['datos-cuenta'].get('email').value;
       this.formDatosEmpresa.controls['datos-generales-empresa'].get('NIT').setValue(data.nit);
@@ -138,24 +133,24 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
       this.formDatosEmpresa.controls['datos-resp'].get('direccionTrabajoResp').setValue(data.administrador.direccion.direccion);
       this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
+      //Selecciona la opcion de los ingresos guardados por la empresa
       if((<HTMLInputElement>document.getElementById('selectIngresos'))!=null)
       {
         let ingresos = this.formDatosEmpresa.controls['datos-generales-empresa'].get('ingresosEmp').value;
         (<HTMLInputElement>document.getElementById('selectIngresos')).value= ingresos
       }
+      //Selecciona la opcion del cargo guardado por la empresa
       if((<HTMLInputElement>document.getElementById('selectCargo'))!=null)
       {
         let cargo = this.formDatosEmpresa.controls['datos-resp'].get('cargo').value;
         (<HTMLInputElement>document.getElementById('selectCargo')).value= cargo
       }
       this.cargarSectoresInteres();
-      this.showSpinner = false;
+      this.showSpinner = false; //Cierra el spinner
     }),
     error =>{
-    console.log(error);
-    this.showSpinner = false;
+    this.showSpinner = false; //Cierra el spinner
     this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde")
-
   }
   }
 
@@ -288,27 +283,6 @@ sectorValidator(control: FormControl) {
   //En caso contrario se deja pasar
   return null;
 }
-
-
-
-
-  modificarEmpresa(formulario) {
-    if(formulario.status != 'INVALID'){
-      this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
-        this.alert.showSuccesMessage('Exito','Se ha modificado la empresa exitosamente')
-        .then((value) => {
-          this.router.navigate(['empresa/'+this.id+'/datosEmpresa']);
-        });
-      },
-        errorRegistro => {
-          this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
-          console.log(errorRegistro);
-        });
-    }
-    else{
-      this.alert.showErrorMessage('Datos incorrectos','Por favor verique que todos los datos esten ingresados correctamente')
-    }
-  }
   /**
  * Validador personalizado para saber si el email escrito existe
  * Verifica a partir de una peticion al back que es realizada por el metodo de servicios
@@ -319,8 +293,6 @@ sectorValidator(control: FormControl) {
  */
   validarExistenciaEmail(control: FormControl): any {
     clearTimeout(this.debouncer);
-
-
     return new Promise(resolve => {
       if (control.value != "") {
         this.debouncer = setTimeout(() => {
@@ -373,7 +345,7 @@ sectorValidator(control: FormControl) {
       }
     });
   }
-
+  // Valida el nit de la empresa
   NitLengthValidator(control: FormControl) {
     //Si la lista esta vacia se invalida
     if (control.value.length < 4) {
@@ -382,18 +354,29 @@ sectorValidator(control: FormControl) {
     //En caso contrario se deja pasar
     return null;
   }
-  /**
- * Abre un dialog de angular material
- * El contenido del dialog esta creado en el componente DialogFinalRegistroComponent
- * <p>
- * Si se cierra el dialog redirige a la pagina principal
- */
+ 
+  //Manda la peticion de modificacion a la empresa
+  modificarEmpresa(formulario) {
+    if(formulario.status != 'INVALID'){
+      this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
+        this.alert.showSuccesMessage('Exito','Se ha modificado la empresa exitosamente')
+        .then((value) => {
+          this.router.navigate(['empresa/'+this.id+'/datosEmpresa']);
+        });
+      },
+        errorRegistro => {
+          this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
+          console.log(errorRegistro);
+        });
+    }
+    else{
+      this.alert.showErrorMessage('Datos incorrectos','Por favor verique que todos los datos esten ingresados correctamente')
+    }
+  }
+  //Retorna a los datos de la empresa
   cancelarModificar(){
     const url = 'empresa/' + this.id + '/datosEmpresa';
     this.router.navigate([url]);
-   }
-
- 
- 
+   } 
 }
 

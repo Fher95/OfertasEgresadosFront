@@ -1,5 +1,6 @@
 <app-header></app-header>
 <app-navbar-empresa [id]="id"></app-navbar-empresa>
+<!--Spinner de carga-->
 <div class="overlay" *ngIf="showSpinner">
     <div class="center">
         <mat-progress-spinner diameter=50 
@@ -8,8 +9,9 @@
         </mat-progress-spinner> 
     </div>
 </div>
+<!--Fin spinner de carga-->
 <div class="container-fluid">
-  <form [formGroup]="formRegistroEmp">
+  <form [formGroup]="formDatosEmp">
       <div class="row mt-4">
         <div class="col-3">
             <mat-card >
@@ -26,10 +28,10 @@
                                 <div class="col-xs-1">
                                         <button id="btnModificar" mat-raised-button color="primary" (click)="modificarDatos()">Modificar Datos</button>
                                 </div>
-
                         </div>
                 </mat-card-footer>
               </mat-card>
+              <!--Se encarga de cargar la foto, Permanece oculto ante la empresa-->
               <input id="file" type="file" (change)="modificarFoto($event)">
         </div>
         <div class="col-8 offset-xs-1">
@@ -89,7 +91,7 @@
                                     <div class="form-group row">
                                             <label class="col-sm-3 col-form-label">Descripción</label>
                                             <div class="col-sm-9">
-                                                <mat-form-field  appearance="outline"   class="tamForm labelCompleto">
+                                                <mat-form-field  appearance="outline"   class="labelCompleto">
                                                         <textarea  matInput  formControlName="descripcionEmpresa" rows="4"></textarea>
                                                 </mat-form-field>
                                             </div>
@@ -104,7 +106,6 @@
                               <mat-card-title>Sectores</mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
-                              <!--Acordeon que contiene la lista desplegable-->
                               <mat-accordion class="alinearAcordion">
                                     <mat-expansion-panel >
                                             <mat-expansion-panel-header>
@@ -116,7 +117,7 @@
                                                 <!--Contenido-->
                                                 <mat-accordion>
                                                         <!--Lista desplegable-->
-                                                        <mat-expansion-panel *ngFor="let sector of formRegistroEmp.get('sectores').value.sectores">
+                                                        <mat-expansion-panel *ngFor="let sector of formDatosEmp.get('sectores').value.sectores">
                                                             <mat-expansion-panel-header>
                                                                 <mat-panel-title>
                                                                     {{ sector.nombre }}

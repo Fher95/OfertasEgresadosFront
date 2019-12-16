@@ -4,10 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { isNull } from 'util';
+import { isNull, isUndefined } from 'util';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface DialogData {
   postulado: IEgresado;
+  idOferta: string;
 }
 
 @Component({
@@ -20,10 +22,11 @@ export class VerPostuladosComponent implements OnInit {
   listaPostulados: IEgresado[];
   listaPostuladosEscogidos: IEgresado[];
   postuladoSeleccionado: IEgresado;
-  displayedColumns: string[] = ['Identificacion', 'Nombres', 'Apellidos', 'Acciones'];
+  displayedColumns: string[] = ['Identificacion', 'Nombres', 'Apellidos', 'Estado', 'Acciones'];
   dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
   arregloVacio = false;
   auxiliar = false;
+  nombreOferta: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -36,31 +39,42 @@ export class VerPostuladosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.listaPostulados = null;
     this.listaPostuladosEscogidos = [];
+    this.cargarDatosOferta();
     this.cargarPostulados();
   }
+  cargarDatosOferta(){
+    this.empresaService.getDatosOferta(this.id).subscribe(
+      result => {
+        this.nombreOferta = result.informacionPrincipal.nombreOferta;
+      }
+    );
+  }
   cargarPostulados() {
-    this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {
-      console.log(resultado);
-      this.listaPostulados = resultado;
+    this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {      
+      this.listaPostulados = resultado.data as IEgresado[];    
+      if(resultado.status === "failure"){
+        this.arregloVacio = true;
+      }
       this.auxiliar = true;
       this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
       this.dataSource.paginator = this.paginator;
-
       if (this.listaPostulados.length === 0 || isNull(this.listaPostulados)) {
         this.arregloVacio = true;
-      }
+      }      
     },
       error => {
         console.log('Error al obtener el listado de postulados: ', JSON.stringify(error));
+        this.auxiliar = true;
+        this.arregloVacio = true;
       });
   }
   cargarPostulados2() {
     const lstPostulados: IEgresado[] = [
-      { idEgresado: 3243, id_aut_egresado: '106167234', nombres: 'Andres Felipe', apellidos: 'Muñoz Andrade' },
-      { idEgresado: 3244, id_aut_egresado: '106145234', nombres: 'Luz Maritza', apellidos: 'Tabares Paz' },
-      { idEgresado: 3245, id_aut_egresado: '106178256', nombres: 'John', apellidos: 'Doe' },
-      { idEgresado: 3246, id_aut_egresado: '106175345', nombres: 'Marco Alberto', apellidos: 'Hernandez Noriega' },
-      { idEgresado: 3247, id_aut_egresado: '104346567', nombres: 'Natalia Andrea', apellidos: 'Yasnó Ceron' }
+      { idEgresado: 3243, nombres: 'Andres Felipe', apellidos: 'Muñoz Andrade' },
+      { idEgresado: 3244, nombres: 'Luz Maritza', apellidos: 'Tabares Paz' },
+      { idEgresado: 3245, nombres: 'John', apellidos: 'Doe' },
+      { idEgresado: 3246, nombres: 'Marco Alberto', apellidos: 'Hernandez Noriega' },
+      { idEgresado: 3247, nombres: 'Natalia Andrea', apellidos: 'Yasnó Ceron' }
     ];
     this.listaPostulados = lstPostulados;
     this.auxiliar = true;
@@ -116,7 +130,8 @@ export class VerPostuladosComponent implements OnInit {
   openDialog() {
     const dial = this.dialog.open(DialogPostuladoComponent, {
       data: {
-        postulado: this.postuladoSeleccionado
+        postulado: this.postuladoSeleccionado,
+        idOferta: this.id
       },
       width: '40vw'
     });
@@ -125,7 +140,9 @@ export class VerPostuladosComponent implements OnInit {
   dialogAbierto(dial: MatDialogRef<DialogPostuladoComponent, any>) {
     dial.afterClosed().subscribe((result) => {
       if (result) {
-        this.cargarPostulados();
+        setTimeout(() => {
+          this.cargarPostulados();
+        }, 1000);        
       }
     });
   }
@@ -138,18 +155,32 @@ export class VerPostuladosComponent implements OnInit {
 export class DialogPostuladoComponent {
 
   postuladoSeleccionado: IEgresado;
+  idOferta: string;
   estado: string = 'Pendiente';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private empresaService: EmpresaService) { }
+              private empresaService: EmpresaService,
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.postuladoSeleccionado = this.data.postulado;
+    this.idOferta = this.data.idOferta;
+    this.estado = this.postuladoSeleccionado.estado;
   }
 
   guardarEstado(){
-    this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.estado)
-    .subscribe();
+    this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.idOferta, this.estado)
+    .subscribe( result => {
+      this.openSnackBar('Estado de "'+this.postuladoSeleccionado.nombres 
+      + ' ' + this.postuladoSeleccionado.apellidos + '" cambio a "' + this.estado + '"');
+    }
+    );
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: 5000,
+    });
   }
 
 }

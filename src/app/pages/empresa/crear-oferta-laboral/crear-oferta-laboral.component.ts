@@ -127,7 +127,7 @@ datosFormChecked: FormGroup;
         })
       });
   }
-
+  //Inicializa la informacion
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.cargarCargos();
@@ -145,7 +145,6 @@ datosFormChecked: FormGroup;
   cargarCargos(){
     this.servGenerales.obtenerListaCargos().subscribe(resultado => {
       this.cargos = resultado;
-      console.log(this.cargos)
     },
       error => {
         this.showSpinner = false;
@@ -236,10 +235,13 @@ datosFormChecked: FormGroup;
   cargarContactoHv()
   {
     this.empService.getDatosContactoHv(this.id).subscribe(resultado => {
-      this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.data.nombres)
-      this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.data.apellidos)
-      this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.data.telefono_movil)
-      this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.data.correo_corporativo)
+      if(resultado.data != null){
+        this.formOfertaLaboral.controls['contactoHV'].get('nombres').setValue(resultado.data.nombres)
+        this.formOfertaLaboral.controls['contactoHV'].get('apellidos').setValue(resultado.data.apellidos)
+        this.formOfertaLaboral.controls['contactoHV'].get('telefonoMovil').setValue(resultado.data.telefono_movil)
+        this.formOfertaLaboral.controls['contactoHV'].get('correo').setValue(resultado.data.correo_corporativo)
+      }
+     
     },
       error => {
         this.showSpinner = false;
@@ -260,19 +262,42 @@ datosFormChecked: FormGroup;
   //Agrega un idioma temporalmente
   agregarIdioma(form)
   {
-    this.idiomasEscogidos.push(form.value)
+    let seEncuentraIdioma = false
+    for(let i=0; this.idiomasEscogidos.length;i++)
+    {
+      if(this.idiomasEscogidos[i].nombre == form.value.nombre )
+      { 
+        seEncuentraIdioma = true
+        break
+      }
+    }
+    if(!seEncuentraIdioma)
+    { 
+      this.idiomasEscogidos.push(form.value)
+    }
   }
   //Elimina un idioma de los idiomas escogidos
   eliminarIdioma(idioma)
   {
     let indexIdioma =this.idiomasEscogidos.indexOf(idioma)
-    this.
-    idiomasEscogidos.splice(indexIdioma,1)
+    this.idiomasEscogidos.splice(indexIdioma,1)
   }
   //Agrega un software temporalmente
   agregarSoftware(form)
   {
-    this.softwaresEscogidos.push(form.value)
+    let seEncuentraSoftware = false
+    for(let i=0; this.softwaresEscogidos.length;i++)
+    {
+      if(this.softwaresEscogidos[i].nombre == form.value.nombre )
+      { 
+        seEncuentraSoftware = true
+        break
+      }
+    }
+    if(!seEncuentraSoftware)
+    { 
+      this.softwaresEscogidos.push(form.value)
+    }
   }
   //Elimina un software de los softwares escogidos
   eliminarSoftware(software)
@@ -282,7 +307,10 @@ datosFormChecked: FormGroup;
   }
   //Agrega una pregunta temporalmente
   agregarPregunta(form){
-    this.preguntasEscogidas.push(form.value.pregunta)
+    if(this.preguntasEscogidas.indexOf(form.value.pregunta)==-1)
+    { 
+      this.preguntasEscogidas.push(form.value.pregunta)
+    }
   }
   //Elimina una pregunta de las preguntas escogidos
   eliminarPregunta(pregunta)
@@ -293,7 +321,10 @@ datosFormChecked: FormGroup;
   //Agrega una ubicacion temporalmente
   agregarUbicacion(form)
   {
-    this.ubicacionesEscogidas.push(form.value)
+    if(this.ubicacionesEscogidas.indexOf(form.value)==-1)
+    { 
+      this.ubicacionesEscogidas.push(form.value)
+    }
   }
   //Elimina una ubicacion de las ubicaciones escogidos
   eliminarUbicacion(ubicacion)
@@ -404,6 +435,27 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['contrato'].get('rangoSalarial').setValue(event.source.viewValue);
     }
   }
+  idiomaIsChecked(event){
+    if(!event.checked){
+        this.idiomasEscogidos = []
+    }
+  }
+  softwareIsChecked(event){
+    if(!event.checked){
+      this.softwaresEscogidos = []
+    }
+  }
+
+  preguntasIsChecked(event){
+    if(!event.checked){
+      this.preguntasEscogidas = []
+    }
+  }
+  discapacidadIsChecked(event){
+    if(!event.checked){
+      this.formOfertaLaboral.controls['requisitos'].get('idDiscapacidades').setValue(null)
+      this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue(null)}
+  }
   //Crea la oferta laboral
   registrarOfertaLaboral(form)
   {
@@ -431,7 +483,16 @@ datosFormChecked: FormGroup;
       this.alert.showErrorMessage('Datos incorrectos','Por favor verique que todos los datos esten ingresados correctamente')
     }
   }
-
+  //Cambia el valor cuando se cambia el tipo de contrato
+  cambioTipoContrato(value){
+    console.log(value)
+    if(value === 'Término indefinido' || value === 'Término fijo'){
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(value)
+    }
+    else{
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(null)
+    }
+  }
   /**
  * Abre un dialog de angular material
  * El contenido del dialog esta creado en el componente DialogInfoOfertaComponent
@@ -439,12 +500,13 @@ datosFormChecked: FormGroup;
   openDialog(datos) {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
       width: '60%',
-      data: { datos: datos, crear: false} //Envia los datos del form al componente
+      data: { datos: datos, crear: true} //Envia los datos del form al componente
     });
     dialogRef.afterClosed().subscribe(result => {
         //Al cerrar el dialog si el resultado es verdadero se crea la oferta
         if(result) {
           this.empService.crearOfertaLaboral(this.id,datos).subscribe(resultado => {
+            console.log(resultado)
             this.alert.showSuccesMessage('Exito','Se ha creado la oferta exitosamente')
             .then((value) => {
               this.router.navigate(['empresa/'+this.id+'/misOfertas']);

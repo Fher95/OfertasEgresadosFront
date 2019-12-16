@@ -2,7 +2,7 @@
 <div mat-dialog-content>
             <div class="row">
                         <div class="col-12">
-                              <h5>informacion principal</h5>
+                              <h5>Información principal</h5>
                         </div>
                   </div>
       <div class="row">
@@ -20,7 +20,7 @@
       </div>
       <div class="row">
                   <div class="col-sm-12 col-md-6">
-                              <label><Strong>Areas: </Strong>{{datosOferta.informacionPrincipal.areas}}</label>
+                              <label><Strong>Area(s): </Strong>{{datosOferta.informacionPrincipal.areas}}</label>
                         </div>
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Sector de la oferta: </Strong>{{datosOferta.informacionPrincipal.sector}}</label>
@@ -35,10 +35,10 @@
                   </div>
       </div>
       <div class="row">
-                  <div class="col-sm-12 col-md-6">
+                  <div class="col-sm-12 col-md-12">
                         <label><Strong>Descripción de la oferta de trabajo</Strong></label>
                   </div>
-                  <div class="col-sm-12 col-md-6">
+                  <div class="col-sm-12 col-md-12">
                               <mat-form-field class="labelCompleto" appearance="outline" >
                                           <textarea  matInput disabled value="{{datosOferta.informacionPrincipal.descripcion}}" rows="3"></textarea>
                                   </mat-form-field>
@@ -46,7 +46,7 @@
       </div>
       <div class="row">
                   <div class="col-12">
-                        <h5>información de contrato</h5>
+                        <h5>Información de contrato</h5>
                   </div>
             </div>
       <div class="row">
@@ -83,18 +83,19 @@
                         </div>
       </div>
       <div class="row">
-                  <div class="col-sm-12 col-md-6">
-                        <label><Strong>Comentarios salarios</Strong></label>
+                  <div class="col-sm-12 col-md-12" *ngIf="datosOferta.contrato.comentariosSalario === null; else comentariosSalario">
+                              <label><Strong>Comentarios salarios:</Strong> No incluido</label>
                   </div>
-                  <div class="col-sm-12 col-md-6">
-                              <mat-form-field  class="labelCompleto" appearance="outline" >
-                                          <div *ngIf="datosOferta.contrato.comentariosSalario === null; else comentariosSalario">
-                                                      <textarea  matInput disabled value="No incluido" rows="3"></textarea>
-                                          </div>
-                                          <ng-template #comentariosSalario><textarea  matInput disabled value="{{datosOferta.contrato.comentariosSalario}}" rows="3"></textarea>
-                                          </ng-template>
-                              </mat-form-field>
-                  </div>
+                  <ng-template #comentariosSalario>
+                              <div class="col-sm-12 col-md-12">
+                                          <label><Strong>Comentarios salarios</Strong></label>
+                              </div>
+                                    <div class="col-sm-12 col-md-12" >
+                                                <mat-form-field  class="labelCompleto" appearance="outline" >                                          
+                                                           <textarea  matInput disabled value="{{datosOferta.contrato.comentariosSalario}}" rows="3"></textarea>
+                                                </mat-form-field>
+                                    </div>
+                  </ng-template>
       </div>
       <div class="row">
                   <div class="col-12">
@@ -111,7 +112,7 @@
                         <label><Strong>Estudio minimo: </Strong>{{datosOferta.requisitos.estudioMinimo}}</label>
                   </div>
             <div class="col-sm-12 col-md-6">
-                  <label><Strong>Carrera: </Strong>{{datosOferta.requisitos.programas}}</label>
+                  <label><Strong>Carrera(s): </Strong>{{datosOferta.requisitos.programas}}</label>
             </div>
       </div>
       <div class="row">
@@ -191,19 +192,24 @@
             </mat-card>
       </ng-template>
       <div class="row mt-4">
-                  <div class="col-sm-12 col-md-5">
-                        <label><Strong>Requisitos minimos</Strong></label>
+                  <div class="col-sm-12 col-md-12">
+                        <label><Strong>Requisitos mínimos</Strong></label>
                   </div>
-                  <div class="col-sm-12 col-md-7">
+                  <div class="col-sm-12 col-md-12">
                               <mat-form-field class="labelCompleto"  appearance="outline" >
                                           <textarea  matInput disabled value="{{datosOferta.requisitos.requisitosMinimos}}" rows="3"></textarea>
                                   </mat-form-field>
                   </div>
       </div>
       <div class="row">
-                  <div class="col-12">
-                              <label><Strong>Dispone de movilización propia: </Strong>{{datosOferta.requisitos.movilizacionPropia}}</label>
+                  <div class="col-12" *ngIf="datosOferta.requisitos.movilizacionPropia == 0; else movilizacionPropia">
+                              <label><Strong>Dispone de movilización propia: </Strong>No</label>
                         </div>
+                        <ng-template #movilizacionPropia>
+                                    <div class="col-12">
+                                                <label><Strong>Dispone de movilización propia: </Strong>Si</label>
+                                          </div>
+                        </ng-template>
       </div>
       <div class="row">
                   <div class="col-12">
@@ -237,14 +243,14 @@
        <div class="row mt-4">
                   <div class="col-sm-12 col-md-6">
                               <label><Strong>Personas con discapacidad: </Strong>
-                                    <label *ngIf="datosOferta.requisitos.discapacidad === null;else discapacidad">No</label>
+                                    <label *ngIf="datosOferta.requisitos.discapacidades === null;else discapacidad">No</label>
                                     <ng-template #discapacidad>
                                           Sí
                                     </ng-template>
                         </label>
                   </div>
                   <div class="col-sm-12 col-md-6" *ngIf="datosOferta.requisitos.discapacidades !== null">
-                              <label><Strong>Discapacidades: </Strong>{{datosOferta.requisitos.discapacidades}}</label>
+                              <label><Strong>Discapacidad(es): </Strong>{{datosOferta.requisitos.discapacidades}}</label>
                   </div>
       </div>
       <mat-card>
@@ -272,7 +278,7 @@
       </mat-card>
       <div class="row mt-4">
                   <div class="col-12">
-                        <h5>informacion HVs</h5>
+                        <h5>Información HVs</h5>
                   </div>
             </div>
       <div class="row mt-2">
@@ -299,6 +305,7 @@
                         </div>
       </div>
 </div>
+<!--Verifica si el dialog fue invocado desde la creacion o la modificacion de oferta-->
 <div *ngIf="datos.crear" mat-dialog-actions align="end">
   <button color="primary" mat-button mat-dialog-close>Volver a modificar</button>
   <button type="button" mat-raised-button [mat-dialog-close]="true" color="primary" cdkFocusInitial>Crear oferta</button>
