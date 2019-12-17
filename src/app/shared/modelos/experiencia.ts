@@ -1,5 +1,6 @@
 export class Experiencia{
     trabajo_en_su_area:boolean;
+    categoria:string;
     id_ciudad:number;
     nombre_empresa:string;
     dir_empresa:string;
@@ -14,6 +15,7 @@ export class Experiencia{
     constructor()
     {
         this.trabajo_en_su_area=false;
+        this.categoria="";
         this.id_ciudad=0;
         this.nombre_empresa="";
         this.dir_empresa="";
