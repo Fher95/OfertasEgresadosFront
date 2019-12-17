@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
+import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 
 @Component({
   selector: 'app-carnetizacion',
@@ -7,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarnetizacionComponent implements OnInit {
 
+  private idEgresado: number;
 
   private mensajeCompletar: String;
   private mensajeEstado: String;
@@ -14,7 +17,7 @@ export class CarnetizacionComponent implements OnInit {
   private mensajeEstadoAceptado: String;
   private mensajeEstadoRechazado: String;
 
-  constructor() {
+  constructor(private servicioCompletar: RegistroService,private auth: AuthService) {
     this.mensajeCompletar = " Aun no ha completado el registro, Presione 'Completar registro' para poder continuar.";
     this.mensajeEstado2 = "Existen una solicitud de carnetización pendiente.";
     this.mensajeEstado = "No existe solicitud de carnetización pendiente.";
@@ -25,6 +28,11 @@ export class CarnetizacionComponent implements OnInit {
 
 
   ngOnInit() {
+  }
+
+  obtenerIdegresado(){
+    this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
+      data => this.idEgresado = data);
   }
 
   estadoEgresado() {

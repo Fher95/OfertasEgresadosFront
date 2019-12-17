@@ -16,7 +16,7 @@ export class User {
         public id_lugar_nacimiento?: Number,
         public id_nivel_educativo?: Number,
         public anio_graduacion?: String,
-        public mension?: String,
+        public mencion?: String,
         public celular?: String,
         public telefono_fijo?: String,
         public id_lugar_residencia?: Number,
