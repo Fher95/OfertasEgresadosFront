@@ -11,6 +11,8 @@ import { DiscapacidadInterface } from '../../modelos/discapacidadInterface';
 import { NivelesEstudioInterface } from '../../modelos/nivelesEstudioInterface';
 import { SedeInterface } from '../../modelos/sedeInterface';
 import { SolicitudInterface } from '../../modelos/solicitudeInterface';
+import { EventoInterface } from '../../../shared/modelos/evento';
+import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -46,12 +48,17 @@ export class CatalogosService {
     return this.http.get<SedeInterface[]>(`${baseUrl}sedes`);
   }
 
-  getFacultad(idSede: number): Observable<FacultadInterface[]> {
-    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades/${idSede}`);
+  getFacultad(): Observable<FacultadInterface[]> {
+    return this.http.get<FacultadInterface[]>(`${baseUrl}facultades`);
   }
 
   getPrograma(idSede: number, idFacultad: number, idNivelEstudio: number): Observable<ProgramaInterface[]> {
     return this.http.get<ProgramaInterface[]>(`${baseUrl}programas/${idSede}/${idFacultad}/${idNivelEstudio}`);
+  }
+
+
+  getTitulo(idPrograma: number): Observable<TituloInterface[]> {
+    return this.http.get<ProgramaInterface[]>(`${baseUrl}titulos/${idPrograma}`);
   }
 
   getServicios(): Observable<ServicioModel[]> {
@@ -70,8 +77,18 @@ export class CatalogosService {
     return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
 
-  enviarEstadoSolicitud(idSolicitud: number, estado: boolean){
+  enviarEstadoSolicitud(idSolicitud: number, estado: boolean) {
     return this.http.get(`${baseUrl}programas/${idSolicitud}/${estado}`);
   }
 
+
+  public getEventos(): Observable<EventoInterface[]> {
+    return this.http.get<EventoInterface[]>(`${baseUrl}eventos`);
+  }
+
+  getUrlGetImage(image) {
+  }
+
+  public updateImage(eventId: string, files: Array<File>) {
+  }
 }

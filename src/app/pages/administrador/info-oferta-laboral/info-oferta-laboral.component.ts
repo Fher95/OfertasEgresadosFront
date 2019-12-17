@@ -45,21 +45,28 @@ export class InfoOfertaLaboralComponent implements OnInit {
     return strNumero;
   }
 
-  guardarCambio() {
-    if (this.estadoActivacion === 'Aceptada') {
-      this.servicioOfertas.aprobarOferta(this.data.oferta.id_aut_oferta)
-      .subscribe(result => {
-        // this.getOfertas();        
+  aprobarOfertaLaboral(){
+    this.servicioOfertas.aprobarOferta(this.data.oferta.id_aut_oferta)
+      .subscribe(result => {              
         this.servicioOfertas.notificarCambio();
-        this.openSnackBar('Oferta laboral aceptada');
+        this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" aceptada');
       });
-    } else if (this.estadoActivacion === 'Rechazada') {
-      this.servicioOfertas.desaprobarOferta(this.data.oferta.id_aut_oferta, this.motivoInactivacion)
+  }
+
+  desaprobarOfertaLaboral(){
+    this.servicioOfertas.desaprobarOferta(this.data.oferta.id_aut_oferta, this.motivoInactivacion)
       .subscribe(result => {
         // this.getOfertas();
         this.servicioOfertas.notificarCambio();
-        this.openSnackBar('Oferta laboral rechazada');
+        this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" rechazada');
       });
+  }
+
+  guardarCambio() {
+    if (this.estadoActivacion === 'Aceptada') {
+      this.aprobarOfertaLaboral();
+    } else if (this.estadoActivacion === 'Rechazada') {
+      this.desaprobarOfertaLaboral();
     }
 
   }

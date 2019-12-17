@@ -4,7 +4,7 @@ import { CompletarRegistro } from 'src/app/shared/modelos/completarRegistro';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { ExplaboralComponent } from '../explaboral/explaboral.component';
 import { ReferidoComponent } from '../referido/referido.component';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { ComentariosComponent } from '../comentarios/comentarios.component';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { Experiencia } from 'src/app/shared/modelos/experiencia';
 import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Comentario } from 'src/app/shared/modelos/comentario';
+import { CancelarDialogComponent } from '../cancelar-dialog/cancelar-dialog.component';
 
 @Component({
   selector: 'app-completar-registro',
@@ -23,7 +24,7 @@ export class CompletarRegistroComponent implements OnInit {
   @ViewChild('referido') referido : ReferidoComponent;
   @ViewChild('expActual') expActual : ExplaboralComponent;
   @ViewChild('comentario') comentario : ComentariosComponent;
-  @ViewChild('prograAdic') programaAdicional : ProgramaComponent;
+  @ViewChild('programaAdicional') programaAdicional : ProgramaComponent;
 
   varCompletarRegistro : CompletarRegistro;
   //Trabajos anteriores
@@ -48,7 +49,7 @@ export class CompletarRegistroComponent implements OnInit {
   ComentProgramaAdicional = new FormControl('', [Validators.required]);
   DocenteInfluenciaAdicional = new FormControl('', [Validators.required]);
 
-  constructor(private servicioCompletar: RegistroService, private alert: AlertService, private router:Router, private auth: AuthService) {
+  constructor(private dialog:MatDialog,private servicioCompletar: RegistroService, private alert: AlertService, private router:Router, private auth: AuthService) {
     this.limpiarFormulario();
    }
 
@@ -66,21 +67,30 @@ export class CompletarRegistroComponent implements OnInit {
     this.ComentProgramaAdicional = new FormControl('', [Validators.required]);
     this.DocenteInfluenciaAdicional = new FormControl('', [Validators.required]);
   }
-
   //Añadir datos referidos
   addToList(referido: Referido) {
+    var bandera:boolean=true;
     console.log(referido);
     if(!this.referidos) {
       this.referidos = [];
     }
-    this.referidos.push(referido);
-    if(this.referidos.length!=0){
-      this.alert.showSuccesMessage('','Referencia agregada exitosamente.');
-      this.referido.limpiarDatos();
+    this.referidos.forEach(element => {
+      if(element.correo==referido.correo){
+        bandera=false;
+      }
+    });
+    if(bandera){
+      this.referidos.push(referido);
+      if(this.referidos.length!=0){
+        this.alert.showSuccesMessage('','Referencia agregada exitosamente.');
+        this.referido.limpiarDatos();
+      }
+      this.dataReferidos = new MatTableDataSource<any>(this.referidos);
     }
-    this.dataReferidos = new MatTableDataSource<any>(this.referidos);
+    else{
+      this.alert.showErrorMessage('','La referencia personal ya existe.');
+    }
   }
-
   eliminarReferido(referido: Referido){
     console.log('Referido a eliminar: ' + referido);
     const index = this.referidos.indexOf(referido);
@@ -90,8 +100,7 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Referido eliminado');
     }
   }
-
-  //Añadir datos actual
+  //Añadir labor actual
   addExpActual(experiencia: Experiencia){
     console.log(experiencia);
     if(!this.expActuales) {
@@ -104,7 +113,6 @@ export class CompletarRegistroComponent implements OnInit {
     }
     this.dataExpActual = new MatTableDataSource<any>(this.expActuales);
   }
-
   eliminarExpActual(experiencia: Experiencia){
     console.log('Labor actual a eliminar: ' + experiencia);
     const index = this.expActuales.indexOf(experiencia);
@@ -114,7 +122,21 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Labor actual eliminada');
     }
   }
-
+  verificarCantReferidos(){
+    var bandera:boolean = false;
+    if(!this.referidos) {
+      this.referidos = [];
+    }
+    if(this.referidos.length>=2){
+      bandera=true;
+    }
+    return bandera;
+  }
+  validarSigReferido(){
+    if(!this.verificarCantReferidos()){
+      this.alert.showInfoMessage('','Para continuar a la siguiente sección, debe ingresar al menos dos referencias personales.');
+    }
+  }
   llenarDatos()
   {
     console.log('Llenar Datos Completar');
@@ -166,8 +188,7 @@ export class CompletarRegistroComponent implements OnInit {
   }
   agregarGradoAdicional(){
     if(this.ComentProgramaAdicional.value!='' && this.DocenteInfluenciaAdicional.value!='' 
-    && this.programaAdicional.Programa.value!=''){
-      this.varCompletarRegistro.gradoAdicional.id_nivel_educativo = this.programaAdicional.NivelAcademico.value;
+    && this.programaAdicional.verificarCampos()){
       this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
       //this.varCompletarRegistro.gradoAdicional.titulo_especial = this.tituloGradoAdicional.value;
       this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
@@ -183,5 +204,12 @@ export class CompletarRegistroComponent implements OnInit {
     comentario.id_aut_comentario = idComentario;
     comentario.respuesta = respuesta;
     return comentario;
+  }
+  cancelar(){
+    this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
+      resultado => { 
+        if(resultado==0){
+          this.limpiarFormulario();
+        }});
   }
 }

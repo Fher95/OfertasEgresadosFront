@@ -262,19 +262,42 @@ datosFormChecked: FormGroup;
   //Agrega un idioma temporalmente
   agregarIdioma(form)
   {
-    this.idiomasEscogidos.push(form.value)
+    let seEncuentraIdioma = false
+    for(let i=0; this.idiomasEscogidos.length;i++)
+    {
+      if(this.idiomasEscogidos[i].nombre == form.value.nombre )
+      { 
+        seEncuentraIdioma = true
+        break
+      }
+    }
+    if(!seEncuentraIdioma)
+    { 
+      this.idiomasEscogidos.push(form.value)
+    }
   }
   //Elimina un idioma de los idiomas escogidos
   eliminarIdioma(idioma)
   {
     let indexIdioma =this.idiomasEscogidos.indexOf(idioma)
-    this.
-    idiomasEscogidos.splice(indexIdioma,1)
+    this.idiomasEscogidos.splice(indexIdioma,1)
   }
   //Agrega un software temporalmente
   agregarSoftware(form)
   {
-    this.softwaresEscogidos.push(form.value)
+    let seEncuentraSoftware = false
+    for(let i=0; this.softwaresEscogidos.length;i++)
+    {
+      if(this.softwaresEscogidos[i].nombre == form.value.nombre )
+      { 
+        seEncuentraSoftware = true
+        break
+      }
+    }
+    if(!seEncuentraSoftware)
+    { 
+      this.softwaresEscogidos.push(form.value)
+    }
   }
   //Elimina un software de los softwares escogidos
   eliminarSoftware(software)
@@ -284,7 +307,10 @@ datosFormChecked: FormGroup;
   }
   //Agrega una pregunta temporalmente
   agregarPregunta(form){
-    this.preguntasEscogidas.push(form.value.pregunta)
+    if(this.preguntasEscogidas.indexOf(form.value.pregunta)==-1)
+    { 
+      this.preguntasEscogidas.push(form.value.pregunta)
+    }
   }
   //Elimina una pregunta de las preguntas escogidos
   eliminarPregunta(pregunta)
@@ -295,7 +321,10 @@ datosFormChecked: FormGroup;
   //Agrega una ubicacion temporalmente
   agregarUbicacion(form)
   {
-    this.ubicacionesEscogidas.push(form.value)
+    if(this.ubicacionesEscogidas.indexOf(form.value)==-1)
+    { 
+      this.ubicacionesEscogidas.push(form.value)
+    }
   }
   //Elimina una ubicacion de las ubicaciones escogidos
   eliminarUbicacion(ubicacion)
@@ -454,7 +483,16 @@ datosFormChecked: FormGroup;
       this.alert.showErrorMessage('Datos incorrectos','Por favor verique que todos los datos esten ingresados correctamente')
     }
   }
-
+  //Cambia el valor cuando se cambia el tipo de contrato
+  cambioTipoContrato(value){
+    console.log(value)
+    if(value === 'Término indefinido' || value === 'Término fijo'){
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(value)
+    }
+    else{
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(null)
+    }
+  }
   /**
  * Abre un dialog de angular material
  * El contenido del dialog esta creado en el componente DialogInfoOfertaComponent

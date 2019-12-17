@@ -20,7 +20,6 @@ export class ComentariosComponent implements OnInit {
   carreras: string[] = ["Tecnología","Pregrado","Especialización","Maestría","Doctorado"];
   razon: string[] = ["Planta docente","Infraestructura","Planes de estudio","Otra razón"];
 
-  comentario : Comentario;
   varComentario : Comentario[];
 
   constructor() {
@@ -31,7 +30,6 @@ export class ComentariosComponent implements OnInit {
   }
 
   limpiarFormulario(){
-    this.comentario = new Comentario;
     this.varComentario = new Array<Comentario>();
     this.EstudiarUnicauca = new FormControl('', [Validators.required]);
     this.Carrera = new FormControl('');
@@ -52,23 +50,25 @@ export class ComentariosComponent implements OnInit {
   guardarComentario(){
     console.log('Entro a guardar');
     if(this.validarCampos()){
-      this.varComentario.push(this.llenarComentario(0,this.EstudiarUnicauca.value));
       if(this.EstudiarUnicauca.value == 0){
-        this.varComentario.push(this.llenarComentario(1,this.Carrera.value));
+        this.varComentario.push(this.llenarComentario(1,'true'));
+        this.varComentario.push(this.llenarComentario(2,this.Carrera.value));
       }
       else if (this.EstudiarUnicauca.value == 1){
-        this.varComentario.push(this.llenarComentario(1,this.Razon.value));
+        this.varComentario.push(this.llenarComentario(1,'false'));
+        this.varComentario.push(this.llenarComentario(3,this.Razon.value));
       }
-      this.varComentario.push(this.llenarComentario(2,this.ComentarioPrograma.value));
-      this.varComentario.push(this.llenarComentario(3,this.DocenteInfluencia.value));
-      this.varComentario.push(this.llenarComentario(4,this.ComentarioFuturoEgresado.value));
+      this.varComentario.push(this.llenarComentario(4,this.ComentarioPrograma.value));
+      this.varComentario.push(this.llenarComentario(5,this.DocenteInfluencia.value));
+      this.varComentario.push(this.llenarComentario(6,this.ComentarioFuturoEgresado.value));
 
       return this.varComentario;
     }
   }
   llenarComentario(idComentario : number, respuesta : string){
-    this.comentario.id_aut_comentario = idComentario;
-    this.comentario.respuesta = respuesta;
-    return this.comentario;
+    var comentario = new Comentario;
+    comentario.id_aut_comentario = idComentario;
+    comentario.respuesta = respuesta;
+    return comentario;
   }  
 }

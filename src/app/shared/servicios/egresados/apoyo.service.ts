@@ -8,15 +8,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ApoyoService {
-
   baseUrl: string = environment.baseUrl;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   getAll(pageIndex: number, pageSize: number): Observable<ApoyoResponse> {
-    return this.http.get<ApoyoResponse>(`${this.baseUrl}apoyos?page_size=${pageSize}&page=${pageIndex + 1}`);
+    return this.http.get<ApoyoResponse>(
+      `${this.baseUrl}apoyos?page_size=${pageSize}&page=${pageIndex + 1}`
+    );
   }
 
   getById(idApoyo: number): Observable<ApoyoModel> {
@@ -32,12 +31,11 @@ export class ApoyoService {
   }
 }
 
-
 export interface ApoyoResponse {
   data: ApoyoModel[];
   meta: {
-    total: number,
-    last_page: number,
-    current_page: number
+    total: number;
+    last_page: number;
+    current_page: number;
   };
 }

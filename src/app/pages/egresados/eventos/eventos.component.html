@@ -1,0 +1,21 @@
+<app-navbar-home-ofertas></app-navbar-home-ofertas>
+<div id="base">
+    <h2>Eventos</h2>
+    <div id="listaEventos" class="row no-gutters">
+      <div class="col-12 col-md-6" *ngFor="let evento of eventos; let index = index">
+        <div class="evento">
+          <div class="imagenEvento">
+            <img *ngIf="evento.imagePath && evento.imagePath != 'null'" src="{{evento.imagePath}}"
+              style="height: 150px; width: 100%;" alt="">
+          </div>
+          <div class="infoEvento">
+            <p class="nombreEvento">{{evento.nombre}}</p>
+            <p class="descripcion">{{obtenerDescripcionCorta(evento.descripcion)}}</p>
+            <div class="justify-content-center no-gutters" align="center">
+                <button class="btnVer" (click)="verEvento(evento, index)">Ver</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

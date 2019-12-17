@@ -1,0 +1,39 @@
+<app-nav-egresados></app-nav-egresados>
+<div id="base">
+  <div id="imgBandera"></div>
+  <app-navbar-home-ofertas></app-navbar-home-ofertas>
+  <div id="row" class="row ">
+    <mat-toolbar class="col-12 col-md-8 offset-md-2 " color="primary">
+      <span class="titulo">Carnetizacion</span>
+    </mat-toolbar>
+    <div id="content" class="col-12 col-md-8 offset-md-2">
+      <form id="form" #registerForm="ngForm">
+        
+            <div *ngIf="!estadoEgresado()" align="center">
+              <p>{{mensajeCompletar}}</p>
+              <button class='boton' color="primary" mat-button>Completar Registro</button>
+            </div>
+            <div *ngIf="estadoEgresado() && !estadoSolicitudCarnet()" align="center">
+              <button class='boton' color="primary" mat-button>Solicitar Carnet</button>
+            </div>
+            <ng-template matStepLabel>
+              Estado de solicitud de carnetización
+            </ng-template>
+            <div *ngIf="estadoSolicitudCarnet()" align="center">
+              <p>{{mensajeEstado2}}</p>
+              <button class='botonCancelar'  mat-button>Cancelar Solicitud</button>
+            </div>
+            <div *ngIf="!estadoSolicitudCarnet()" align="center">
+                <p>{{mensajeEstado}}</p>
+              </div>
+            <div *ngIf="estadoSolicitud() && !estadoSolicitudCarnet()" align="center">
+              <p>{{mensajeEstadoAceptado}}</p>
+            </div>
+            <div *ngIf="!estadoSolicitud() && estadoSolicitudCarnet()" align="center">
+              <p>{{mensajeEstadoRechazado}}</p>
+            </div>
+      </form>
+
+    </div>
+  </div>
+</div>

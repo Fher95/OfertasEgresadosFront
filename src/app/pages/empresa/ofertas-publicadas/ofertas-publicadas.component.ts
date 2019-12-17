@@ -70,7 +70,7 @@ export class OfertasPublicadasComponent implements OnInit {
   mostrarInfo(row: any){
     this.empService.getDatosOferta(row.id_aut_oferta).subscribe(resultado => {
       console.log("datos oferta: ", resultado);
-      this.openDialogInfoOferta(resultado);
+      this.openDialogInfoOferta(resultado,row.id_aut_oferta);
     },
       error => {
         this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
@@ -101,13 +101,13 @@ export class OfertasPublicadasComponent implements OnInit {
   * Abre un dialog de angular material
   * El contenido del dialog esta creado en el componente DialogInfoOferta
   */
-  openDialogInfoOferta(row: any) {
+  openDialogInfoOferta(row: any, idOferta: string) {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
       data: { datos: row, crear: false }
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.router.navigate(['empresa/'+this.id+'/modificarOfertaLaboral']);
+        this.router.navigate(['empresa/'+this.id+'/modificarOfertaLaboral/'+idOferta]);
       }
     });
   }
