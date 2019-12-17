@@ -95,7 +95,7 @@ export class PreRegistroComponent implements OnInit {
   private sedes: SedeInterface[];
   private facultades: FacultadInterface[];
   private programas: ProgramaInterface[];
-  private discapacidades: DiscapacidadInterface[] = [];
+  private discapacidades: DiscapacidadInterface[];
   private niveles_academicos: NivelesEstudioInterface[];
   private titulos: TituloInterface[];
   private anios: number[] = [];
@@ -211,10 +211,12 @@ export class PreRegistroComponent implements OnInit {
     return respuesta;
   }
 
-  otraDiscapacidad(otraDiscapacidad: String){
-    
-    if(otraDiscapacidad == "Otra(s)"){
+  otraDiscapacidad(indice: number,event){
+    console.log("Nombre discapacidad"+this.discapacidades[indice].Nombre );
+    if(this.discapacidades[indice].Nombre == "Otra(s)" && event.checked){
       this.respuestaDiscapacidad = true;
+    }else {
+      this.respuestaDiscapacidad = false;
     }
     return this.respuestaDiscapacidad;
 
@@ -226,25 +228,27 @@ export class PreRegistroComponent implements OnInit {
     this.catalogoService.getDiscapacidad().subscribe(data => this.discapacidades = data);
   }
 
-  //Método para guardar las discapacidades del usuario
-  discapacidadesUsuario(discapacidad: number) {
-    if (this.discapacidades[discapacidad].Nombre == "Ninguno") {
-      this.discapacidad = [];
-      this.discapacidad.push(discapacidad);
-    } else {
-      if (!this.discapacidad.includes(discapacidad)) {
-        this.discapacidad.push(discapacidad);
-      } else {
-        this.discapacidad.splice(this.discapacidad.indexOf(discapacidad), 1)
-      }
-    }
-
+  checkCheckBoxvalue(event){
+    console.log(event.checked)
   }
 
- 
+  //Método para guardar las discapacidades del usuario
+  discapacidadesUsuario(idDiscapacidad: number,indice: number,event) {
+    console.log("Indice: "+indice);
+    if (this.discapacidades[indice].Nombre == "Ninguna" && event.checked) {
+      this.discapacidad = [];
+      this.discapacidad.push(idDiscapacidad);
+    } else if (!this.discapacidad.includes(idDiscapacidad) && event.checked && this.discapacidades[indice].Nombre != "Ninguna") {
+        this.discapacidad.push(idDiscapacidad);
+      } else {
+        this.discapacidad.splice(this.discapacidad.indexOf(idDiscapacidad), 1)
+      }
+    console.log("discapacidades: "+this.discapacidad);
+  }
 
   ngOnInit() {
     //this.obtenerDiscapacidades();
+    this.obtenerTitulo();
     this.obtenerSedes();
     this.obtenerNivelEstudio();
   }
