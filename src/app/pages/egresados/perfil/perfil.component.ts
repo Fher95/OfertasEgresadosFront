@@ -25,8 +25,5 @@ export class PerfilComponent implements OnInit {
     this.router.navigate(['egresados/actualizar']);
 
   }
-  btnAtras(){
-    this.router.navigate(['home']);
-  }
 
 }
