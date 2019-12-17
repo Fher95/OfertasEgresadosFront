@@ -1,0 +1,38 @@
+.btnSalir {
+    margin: 2%;
+    width: 20%;
+    padding: 4px;
+    color: #fff;
+    border: 1px solid rgb(68, 109, 197);
+    background-color: rgb(68, 109, 197);
+    box-shadow: 1px 1px 7px rgb(126, 126, 126);
+}
+.btnSalir:hover {
+    color: #fff;
+    border: 1px solid rgb(68, 109, 197);
+    background-color: rgb(89, 126, 207);
+    font-weight: bold;
+    box-shadow: 2px 2px 6px rgb(87, 87, 87);
+}
+#descripcion {
+    text-align: justify;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    height: 130px;
+}
+
+#base {
+    background-color: #fff;
+    width: 100% !important;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#imagen {
+    height: 150px;
+    width: 100%;
+}

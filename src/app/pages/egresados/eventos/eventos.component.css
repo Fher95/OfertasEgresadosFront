@@ -1,0 +1,62 @@
+#base {
+    margin: 1% 15% 15% 15%;
+}
+
+
+.icon {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#listaEventos {
+    margin-top: 25px;
+    background-color: #fff;
+    padding: 2%;
+}
+
+.evento {
+    margin: 7px 4px 7px 4px;
+    background-color: #fff;
+    /* box-shadow: 2px 2px 6px rgb(177, 177, 177); */ 
+}
+
+.imagenEvento {
+    height: 150px;
+    width: 100%;
+}
+
+.infoEvento {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
+
+.nombreEvento {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    font-weight: bold;
+}
+
+.descripcion {
+    text-align: justify;
+    color: rgb(109, 109, 109);
+}
+
+.btnVer {
+    margin: 2%;
+    width: 20%;
+    padding: 4px;
+    color: #fff;
+    border: 1px solid rgb(68, 109, 197);
+    background-color: rgb(60, 109, 197);
+    box-shadow: 1px 1px 7px rgb(126, 126, 126);
+}
+
+.btnVer:hover {
+    color: #fff;
+    border: 1px solid rgb(68, 109, 197);
+    background-color: rgb(89, 126, 207);
+    font-weight: bold;
+    box-shadow: 2px 2px 6px rgb(87, 87, 87);
+}

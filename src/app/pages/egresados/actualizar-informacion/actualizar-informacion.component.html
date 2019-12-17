@@ -1,0 +1,15 @@
+<app-nav-egresados> </app-nav-egresados>
+<form class="actualizar informacion">
+  <mat-card>
+    <mat-toolbar color="primary">
+      <span class="titulo">Actualizar Información</span>
+    </mat-toolbar>
+    <mat-horizontal-stepper [linear]="isLinear" class="stepper">
+      <mat-step>
+        <ng-template matStepLabel>Información básica</ng-template>
+        <!--checkbox [value]="discapacidad.idDiscapacidad" *ngFor="let discapacidad of discapacidades" [(ngModel)]="checked">{{discapacidad.Nombre}}</checkbox-->
+        <mat-checkbox *ngFor="let discapacidad of pruebas" >{{discapacidad}}</mat-checkbox>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</form>

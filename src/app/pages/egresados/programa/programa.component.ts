@@ -33,11 +33,26 @@ export class ProgramaComponent implements OnInit {
   pruebas:string[] = ['prueba1','prueba2','prueba3'];
 
   constructor(private catalogoService:CatalogosService) { 
+    this.limpiarDatos();
   }
 
   ngOnInit() {
     this.obtenerNivelEstudio();
     this.obtenerSedes();
+  }
+
+  limpiarDatos(){
+    this.NivelAcademico = new FormControl('', [Validators.required]);
+    this.Sede = new FormControl('', [Validators.required]);
+    this.Facultad = new FormControl('', [Validators.required]);
+    this.Programa = new FormControl('', [Validators.required]);
+  }
+  verificarCampos(){
+    var bandera:boolean=false;
+    if(this.Programa.value!='' && this.Facultad.value!='' && this.Sede.value!='' && this.NivelAcademico.value!=''){
+      bandera=true;
+    }
+    return bandera;
   }
 
   obtenerNivelEstudio(){
@@ -49,7 +64,7 @@ export class ProgramaComponent implements OnInit {
   }
 
   obtenerFacultad(){
-    this.catalogoService.getFacultad(this.Sede.value).subscribe(data => this.facultades = data);
+    this.catalogoService.getFacultad().subscribe(data => this.facultades = data);
   }
 
   obtenerPrograma(){
