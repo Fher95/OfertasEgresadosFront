@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 import { DiscapacidadInterface } from 'src/app/shared/modelos/discapacidadInterface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-actualizar-informacion',
@@ -10,10 +11,16 @@ import { DiscapacidadInterface } from 'src/app/shared/modelos/discapacidadInterf
 export class ActualizarInformacionComponent implements OnInit {
 
   discapacidades:DiscapacidadInterface[];
-  pruebas: string[] = ['a','b','c','d'];
+
+  estadosCiviles: string[] = ['Soltero(a)', 'Casado(a)', 'Viudo(a)', 'Union Libre', 'Separado(a)', 'Comprometido(a)', 'Divorciado(a)'];
+  
+  pruebas: string[] = ['a','b','c','d','Otra(s)'];
+  value: string='Holi';
 
 
-  constructor(private catalogoService:CatalogosService) { }
+  constructor(private router:Router,private catalogoService:CatalogosService) {
+    
+   }
 
   ngOnInit() {
     this.obtenerDiscapacidades();
@@ -21,6 +28,9 @@ export class ActualizarInformacionComponent implements OnInit {
 
   obtenerDiscapacidades(){
     this.catalogoService.getDiscapacidad();
+  }
+  irPerfil(){
+    this.router.navigate(['egresados/perfil']);
   }
 
 }

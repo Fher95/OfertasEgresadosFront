@@ -192,8 +192,8 @@ export class CompletarRegistroComponent implements OnInit {
       this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
       //this.varCompletarRegistro.gradoAdicional.titulo_especial = this.tituloGradoAdicional.value;
       this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
-      this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(2,this.ComentProgramaAdicional.value));
-      this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(3,this.DocenteInfluenciaAdicional.value));
+      this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(4,this.ComentProgramaAdicional.value));
+      this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(5,this.DocenteInfluenciaAdicional.value));
     }
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.');
