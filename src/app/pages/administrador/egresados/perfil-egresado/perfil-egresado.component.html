@@ -1,0 +1,11 @@
+<div class="container">
+  <div *ngIf="egresadoObservable$ | async as egresado; else loading">
+    <app-informacion-personal [egresado]="egresado"></app-informacion-personal>
+    <div class="divider"></div>
+    <app-lista-grados [grados]="egresado.grados"></app-lista-grados>
+    <div class="divider"></div>
+  </div>
+  <ng-template #loading>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </ng-template>
+</div>

@@ -30,7 +30,7 @@ export class DialogoActualizarEventoComponent implements OnInit {
   onSave(form: NgForm) {
     if (form.valid) {
       this.eventoService
-        .update(this.evento, null)
+        .update(this.evento, this.eventImage)
         .pipe(
           map(data => {
             return data;
