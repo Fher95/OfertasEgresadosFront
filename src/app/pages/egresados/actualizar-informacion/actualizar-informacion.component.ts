@@ -3,9 +3,10 @@ import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.serv
 import { DiscapacidadInterface } from 'src/app/shared/modelos/discapacidadInterface';
 import { Router } from '@angular/router';
 import { ReferidoComponent } from '../referido/referido.component';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Referido } from 'src/app/shared/modelos/referido';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
+import { VisualizarReferenciaComponent } from './visualizar-referencia/visualizar-referencia.component';
 
 @Component({
   selector: 'app-actualizar-informacion',
@@ -15,20 +16,19 @@ import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 export class ActualizarInformacionComponent implements OnInit {
   @ViewChild('referido') referido : ReferidoComponent;
 
+  discapacidades:DiscapacidadInterface[];
+  estadosCiviles: string[] = ['Soltero(a)', 'Casado(a)', 'Viudo(a)', 'Union Libre', 'Separado(a)', 'Comprometido(a)', 'Divorciado(a)'];
+  
   //Tabla referidos
   columnas : string[] = ['nombres','parentesco','telefono_movil', 'acciones'];
   dataReferidos: MatTableDataSource<any>;
   referidos: any[];
-
-  discapacidades:DiscapacidadInterface[];
-
-  estadosCiviles: string[] = ['Soltero(a)', 'Casado(a)', 'Viudo(a)', 'Union Libre', 'Separado(a)', 'Comprometido(a)', 'Divorciado(a)'];
+  
   
   pruebas: string[] = ['a','b','c','d','Otra(s)'];
   value: string='Holi';
 
-
-  constructor(private router:Router,private catalogoService:CatalogosService,private alert: AlertService) {
+  constructor(private dialog:MatDialog,private router:Router,private catalogoService:CatalogosService,private alert: AlertService) {
     
    }
 
@@ -40,7 +40,7 @@ export class ActualizarInformacionComponent implements OnInit {
     this.catalogoService.getDiscapacidad();
   }
 
-  //Añadir datos referidos
+  //Datos referencias personales
   addToList(referido: Referido) {
     var bandera:boolean=true;
     console.log(referido);
@@ -73,7 +73,30 @@ export class ActualizarInformacionComponent implements OnInit {
       console.log('Referido eliminado');
     }
   }
+  verificarCantReferidos(){
+    var bandera:boolean = false;
+    if(!this.referidos) {
+      this.referidos = [];
+    }
+    if(this.referidos.length>=2){
+      bandera=true;
+    }
+    return bandera;
+  }
+  validarSigReferido(){
+    if(!this.verificarCantReferidos()){
+      this.alert.showInfoMessage('','Para continuar a la siguiente sección, debe tener al menos dos referencias personales.');
+    }
+  }
   visualizar(referido: Referido){
+    this.dialog.open(VisualizarReferenciaComponent,{data: referido}).afterClosed().subscribe(
+      respuesta => {
+        if(respuesta!=null){
+          console.log('Entro');
+          console.log(respuesta);
+        }
+      }
+    );
   }
 
   irPerfil(){

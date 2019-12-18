@@ -1,32 +1,29 @@
 import { CiudadInterface } from './ciudadesInterface';
 import { DiscapacidadInterface } from './discapacidadInterface';
-import { Localizacion } from './localizacion';
 import { Experiencia } from './experiencia';
 import { Referido } from './referido';
 import { Grado } from './grado';
-import { Local } from 'protractor/built/driverProviders';
+import { Localizacion } from './localizacion';
 
 export class PerfilEgresado{
+    id_aut_egresado:number;
     nombres:string;
     apellidos:string;
-    estado:string;
     identificacion:number;
-    //Dpt,País 
-    lugarExpedicion:CiudadInterface;
-    lugarNacimiento:CiudadInterface;
-    genero:string;
-    correo_alternativo:string;
-    celular:string;
+    estado:string;
     grupo_etnico:string;
-    discapacidades:DiscapacidadInterface[];
-    estado_civil:string;
-    lugarResidencia:Localizacion;
+    genero:string;
     correo:string;
-    telefono_fijo:number;
-    //Grados
+    correo_alternativo:string;
+    estado_civil:string;
+    celular:string;
     grados:Grado[];
     referidos:Referido[];
     trabajoActual:Experiencia[];
+    telefono_fijo:number;
+    lugarNacimiento:CiudadInterface;
+    lugarResidencia:Localizacion;
+    discapacidades:DiscapacidadInterface[];
 
     constructor(){
         this.nombres='';
