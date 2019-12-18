@@ -5,52 +5,60 @@
     (ngSubmit)="acutalizarGrado(frmInformacionGrado)"
   >
     <div class="form-row">
-      <!-- Sede -->
       <mat-form-field class="form-group col-md-4">
-        <mat-label>Sede</mat-label>
-        <mat-select [(value)]="grado.programa.sede">
-          <mat-option *ngFor="let sede of sedes" [value]="sede">
-            {{ sede.nombre }}
-          </mat-option>
-        </mat-select>
+        <input
+          type="text"
+          matInput
+          placeholder="Sede"
+          [ngModel]="grado.programa?.sede.nombre"
+          name="sede"
+          disabled
+        />
       </mat-form-field>
-      <!-- Nivel de estudio -->
+
       <mat-form-field class="form-group col-md-4">
-        <mat-label>Nivel de estudio</mat-label>
-        <mat-select [(value)]="grado.programa.nivelEstudio">
-          <mat-option *ngFor="let nivel of nivelesEstudio" [value]="nivel">
-            {{ nivel.nombre }}
-          </mat-option>
-        </mat-select>
+        <input
+          type="text"
+          matInput
+          placeholder="Nivel de estudio"
+          disabled
+          name="nivelEstudio"
+          [ngModel]="grado.programa.nivelEstudio.nombre"
+        />
       </mat-form-field>
-      <!-- Facultad -->
+
       <mat-form-field class="form-group col-md-4">
-        <mat-label>Facultad</mat-label>
-        <mat-select [(value)]="grado.programa.facultad">
-          <mat-option *ngFor="let facultad of facultades" [value]="facultad">
-            {{ facultad.nombre }}
-          </mat-option>
-        </mat-select>
+        <input
+          type="text"
+          placeholder="Facultad"
+          matInput
+          disabled
+          [ngModel]="grado.programa.facultad.nombre"
+          name="facultad"
+        />
       </mat-form-field>
     </div>
 
     <div class="form-row">
       <mat-form-field class="form-group col-md-6">
-        <mat-label>Programa</mat-label>
-        <mat-select [(value)]="grado.programa">
-          <mat-option *ngFor="let programa of progrmas" [value]="programa">
-            {{ programa.nombre }}
-          </mat-option>
-        </mat-select>
+        <input
+          type="text"
+          matInput
+          placeholder="Programa"
+          disabled
+          name="programa"
+          [ngModel]="grado.programa.Nombre"
+        />
       </mat-form-field>
-
       <mat-form-field class="form-group col-md-6">
-        <mat-label>Título</mat-label>
-        <mat-select [(value)]="grado.programa.titulo">
-          <mat-option *ngFor="let titulo of titulos" [value]="titulo">
-            {{ titulo.nombre }}
-          </mat-option>
-        </mat-select>
+        <input
+          type="text"
+          matInput
+          placeholder="Título"
+          disabled
+          name="titulo"
+          [ngModel]="grado.programa.titulo"
+        />
       </mat-form-field>
 
       <mat-form-field class="form-group col-md-6">
@@ -58,22 +66,36 @@
           type="text"
           matInput
           #mencion
+          disabled
+          placeholder="Mención"
           name="mencion"
-          [value]="grado.mencion"
+          [ngModel]="grado.mencion"
         />
       </mat-form-field>
     </div>
 
-    <div class="form-row" *ngFor="let observacion of observaciones; index as i">
+    <div class="form-row" *ngFor="let observacion of grado.comentarios">
       <mat-form-field class="col-md-12">
+        <mat-label>{{ observacion.pregunta }}</mat-label>
         <textarea
           matInput
+          disabled
           name="observacion{{ observacion.id }}"
           rows="3"
-          placeholder="{{ observacion.pregunta }}"
-        ></textarea>
+        >
+        {{ observacion.respuesta }}
+      </textarea
+        >
       </mat-form-field>
     </div>
+    <mat-dialog-actions class="align-center">
+      <button class="btn btn-danger" mat-raised-button type="button">
+        Cerrar
+      </button>
+      <button class="btn" color="primary" mat-raised-button type="button">
+        Guardar
+      </button>
+    </mat-dialog-actions>
   </form>
 </mat-dialog-content>
 <ng-template #loading>

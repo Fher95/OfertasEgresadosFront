@@ -36,12 +36,13 @@
 
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let egresado">
+        <td mat-cell *matCellDef="let grado">
           <button
             type="button"
             mat-icon-button
             matTooltip="Presione para editar el grado"
             class="btn"
+            (click)="abrirDialogoGrado(grado.id)"
           >
             <mat-icon aria-label="Editar">edit</mat-icon>
           </button>

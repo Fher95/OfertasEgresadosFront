@@ -50,10 +50,18 @@ const routes: Routes = [
       { path: 'apoyos', component: GestionApoyosComponent },
       { path: 'verificar', component: VerificarExcelComponent },
       { path: 'eventos', component: EventosComponent },
-      { path: 'solicitudesEmpresas', component: ListarSolicitudesEmpresaComponent, canActivate: [AdminGuard] },
+      {
+        path: 'solicitudesEmpresas',
+        component: ListarSolicitudesEmpresaComponent,
+        canActivate: [AdminGuard]
+      },
       { path: 'egresados', component: EgresadosComponent },
       { path: 'egresados/perfil/:id', component: PerfilEgresadoComponent },
-      { path: 'ofertasLaborales', component: ListarOfertasComponent, canActivate: [AdminGuard] }
+      {
+        path: 'ofertasLaborales',
+        component: ListarOfertasComponent,
+        canActivate: [AdminGuard]
+      }
     ]
   },
   {
@@ -118,7 +126,10 @@ const routes: Routes = [
     InfoSolicitudEmpresaComponent,
     DialogoEditarComponent,
     InfoOfertaLaboralComponent,
-    DialogoActualizarEventoComponent
+    DialogoActualizarEventoComponent,
+    GradoComponent,
+    ReferenciaPersonalComponent,
+    TrabajoActualComponent
   ],
   exports: [
     ListarSolicitudesEmpresaComponent,

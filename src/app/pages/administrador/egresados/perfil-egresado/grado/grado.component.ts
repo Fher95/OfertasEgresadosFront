@@ -7,6 +7,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { GradoService } from 'src/app/shared/servicios/egresados/grado.service';
 import { throws } from 'assert';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ObservacionModel } from 'src/app/shared/modelos/observacion.model';
+import { ObservacionService } from 'src/app/shared/servicios/admin/observacion.service';
 
 @Component({
   selector: 'app-grado',
@@ -16,6 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class GradoComponent implements OnInit {
   grado: GradoModel;
   private gradoObservable$: Observable<GradoModel>;
+
   idGrado: number;
 
   constructor(
