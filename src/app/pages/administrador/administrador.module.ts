@@ -1,3 +1,4 @@
+import { ListaSolicitudesCarnetizacionComponent } from './egresados/perfil-egresado/lista-solicitudes-carnetizacion/lista-solicitudes-carnetizacion.component';
 import { EgrFileUploadComponent } from './eventos/egr-file-upload/egr-file-upload.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { InicioComponent } from './inicio/inicio.component';
@@ -107,6 +108,7 @@ const routes: Routes = [
     ListaGradosComponent,
     GradoComponent,
     InformarcionPersonalComponent,
+    ListaSolicitudesCarnetizacionComponent,
     ListaGestionEgresadoComponent
   ],
   imports: [

@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class EventosService {
-  private baseUrl: string = environment.baseUrl;
+  private baseUrl: string = `${environment.baseUrl}admin/`;
   constructor(private http: HttpClient) {}
 
   save(evento: EventoModel, fileInput: File) {

@@ -1,3 +1,54 @@
-<p>
-  lista-trabajos-actuales works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      TRABAJO ACTUALES
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="experiencias">
+      <!-- Cargo -->
+      <ng-container matColumnDef="cargo">
+        <th mat-header-cell *matHeaderCellDef>Cargo</th>
+        <td mat-cell *matCellDef="let experiencia">
+          {{ experiencia.cargo.Nombre }}
+        </td>
+      </ng-container>
+
+      <!-- Empresa -->
+      <ng-container matColumnDef="empresa">
+        <th mat-header-cell *matHeaderCellDef>Empresa</th>
+        <td mat-cell *matCellDef="let experiencia">
+          {{ experiencia.nombreEmpresa }}
+        </td>
+      </ng-container>
+
+      <!-- Empresa -->
+      <ng-container matColumnDef="sector">
+        <th mat-header-cell *matHeaderCellDef>Sector</th>
+        <td mat-cell *matCellDef="let experiencia">
+          {{ experiencia.sector }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let experiencia">
+          <button
+            type="button"
+            mat-icon-button
+            matTooltip="Presione para editar el trabajo actual"
+            class="btn"
+          >
+            <mat-icon aria-label="Editar">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <div class="div" *ngIf="experiencias.length === 0">
+      No hay datos registrados
+    </div>
+  </mat-card-content>
+</mat-card>

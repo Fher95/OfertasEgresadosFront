@@ -1,52 +1,59 @@
-<div class="mat-elevation-z8">
-  <h3 class="p2">GRADOS</h3>
-  <div class="loading-shape">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-  </div>
-  <table mat-table [dataSource]="grados" *ngIf="!isLoadingResults">
-    <ng-container matColumnDef="fechaGrado">
-      <th mat-header-cell *matHeaderCellDef>Fecha de grado</th>
-      <td mat-cell *matCellDef="let grado">
-        {{ grado.fechaGrado }}
-      </td>
-    </ng-container>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      GRADOS
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="grados" *ngIf="!isLoadingResults">
+      <ng-container matColumnDef="fechaGrado">
+        <th mat-header-cell *matHeaderCellDef>Fecha de grado</th>
+        <td mat-cell *matCellDef="let grado">
+          {{ grado.fechaGrado }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="programa">
-      <th mat-header-cell *matHeaderCellDef>Programa</th>
-      <td mat-cell *matCellDef="let grado">
-        {{ grado.programa.Nombre }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="programa">
+        <th mat-header-cell *matHeaderCellDef>Programa</th>
+        <td mat-cell *matCellDef="let grado">
+          {{ grado.programa.Nombre }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="mencion">
-      <th mat-header-cell *matHeaderCellDef>Mención</th>
-      <td mat-cell *matCellDef="let grado">
-        {{ grado.mencion }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="mencion">
+        <th mat-header-cell *matHeaderCellDef>Mención</th>
+        <td mat-cell *matCellDef="let grado">
+          {{ grado.mencion }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="estado">
-      <th mat-header-cell *matHeaderCellDef>Estado</th>
-      <td mat-cell *matCellDef="let grado">
-        {{ grado.estado }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let grado">
+          {{ grado.estado }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="acciones">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
-      <td mat-cell *matCellDef="let egresado">
-        <button
-          type="button"
-          mat-icon-button
-          matTooltip="Presione para editar el grado"
-          class="btn"
-        >
-          <mat-icon aria-label="Editar">edit</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let egresado">
+          <button
+            type="button"
+            mat-icon-button
+            matTooltip="Presione para editar el grado"
+            class="btn"
+          >
+            <mat-icon aria-label="Editar">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-</div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <div class="div" *ngIf="grados.length === 0">
+      No hay datos registrados
+    </div>
+  </mat-card-content>
+</mat-card>
