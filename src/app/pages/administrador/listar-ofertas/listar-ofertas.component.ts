@@ -47,6 +47,7 @@ export class ListarOfertasComponent implements OnInit {
 
         this.dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
         this.filtrar('estado');
         if (this.ofertas.length === 0 || isNull(this.ofertas)) {
           this.arregloVacio = true;
@@ -56,7 +57,7 @@ export class ListarOfertasComponent implements OnInit {
   getOfertas2(): void {
     this.ofertas = this.servicioOfertas.getOfertas2();
     this.auxiliar = true;
-    this.dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
+    this.dataSource = new MatTableDataSource<OfertaLaboral>(this.filtrarOfertas('estado'));
     this.dataSource.paginator = this.paginator;
     if (this.ofertas.length == 0 || isNull(this.ofertas)) {
       this.arregloVacio = true;

@@ -58,6 +58,7 @@ export class VerPostuladosComponent implements OnInit {
       this.auxiliar = true;
       this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
       if (this.listaPostulados.length === 0 || isNull(this.listaPostulados)) {
         this.arregloVacio = true;
       }      
@@ -171,7 +172,7 @@ export class DialogPostuladoComponent {
     this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.idOferta, this.estado)
     .subscribe( result => {
       this.openSnackBar('Estado de "'+this.postuladoSeleccionado.nombres 
-      + ' ' + this.postuladoSeleccionado.apellidos + '" cambio a "' + this.estado + '"');
+      + ' ' + this.postuladoSeleccionado.apellidos + '" cambió a "' + this.estado + '"');
     }
     );
   }

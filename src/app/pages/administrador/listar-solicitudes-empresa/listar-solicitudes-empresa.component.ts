@@ -49,7 +49,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
         this.auxiliar = true;
 
         this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarSolicitudes('estado'));
-        this.dataSource.paginator = this.paginator;        
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
         if (this.solicitudes.length == 0 || isNull(this.solicitudes)) {
           this.arregloVacio = true;
         } 
@@ -152,7 +153,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   filtrar(columna) {
     
     this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarSolicitudes(columna));
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;    
   }    
 
 }
