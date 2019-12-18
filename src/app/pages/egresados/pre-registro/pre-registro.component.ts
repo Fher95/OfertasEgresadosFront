@@ -228,7 +228,10 @@ private tituloPrograma: string = "Musica";
 
   //Método pra cargar las discapacidades del usuario
   obtenerDiscapacidades() {
-    this.catalogoService.getDiscapacidad().subscribe(data => this.discapacidades = data);
+    this.catalogoService.getDiscapacidad().subscribe(data => {
+      this.discapacidades = data;
+      console.log(this.discapacidades);
+    });
   }
 
 
@@ -249,7 +252,7 @@ private tituloPrograma: string = "Musica";
 
   ngOnInit() {
     this.obtenerDiscapacidades();
-    this.obtenerTitulo();
+    //this.obtenerTitulo();
     this.obtenerSedes();
     this.obtenerNivelEstudio();
   }
