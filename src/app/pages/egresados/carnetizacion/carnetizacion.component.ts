@@ -41,7 +41,7 @@ export class CarnetizacionComponent implements OnInit {
 
   obtenerIdEgresado() {
     this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
-      data => this.idEgresado = data);
+      data => this.idEgresado = data.id_aut_egresado);
   }
 
   estadoEgresado() {
