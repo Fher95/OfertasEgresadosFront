@@ -1,38 +1,44 @@
-<nav id="navBar" class="navbar navbar-light bg-light shadow border-bottom sticky-top">
-  <div class="row">
-    <ul class="nav col-6">
-      <li class="nav-item">
-        <a class="nav-link active" href="home">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Ofertas Laborales</a>
-      </li>
-      <li class="nav-item" *ngIf="isAdmin">
-        <a class="nav-link" href="#">Admin área</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="onEgresados()">Egresados</a>
-        <!--<a class="nav-link" [routerLink]="['/egresados']" >Egresados</a>-->
-      </li>
-      <li class="nav-item">
-        <a [routerLink]="['/admin/egresados/verificar']" routerLinkActive="router-link-active"  class="nav-link">Verificar Egresados</a>
-      </li>
-    </ul>
+<div *ngIf="isEmpresa">
+  <app-navbar-empresa [id]="1"></app-navbar-empresa>
+</div>
+<div *ngIf="!isEmpresa || !isLogin">
+  <nav id="navBar" class="navbar navbar-light bg-light shadow border-bottom sticky-top">
+    <div class="row">
+      <ul class="nav col-6">
+        <li class="nav-item">
+          <a class="nav-link active" href="home">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="onOfertas()">Ofertas Laborales</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a class="nav-link" href="#">Admin área</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="onEgresados()">Egresados</a>
+          <!--<a class="nav-link" [routerLink]="['/egresados']" >Egresados</a>-->
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/admin/egresados/verificar']" routerLinkActive="router-link-active"
+            class="nav-link">Verificar Egresados</a>
+        </li>
+      </ul>
 
-    <ul class="nav justify-content-end col-6">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-          aria-expanded="false">Registrarse</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="egresados/pre-registro">Egresado</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/registroEmpresa">Empresa</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a *ngIf="!isLogin" class="nav-link" [routerLink]="['/login']" >Iniciar Sesión</a>
-        <a *ngIf="isLogin" class="nav-link" (click)="logout()" >Cerrar Sesión</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+      <ul class="nav justify-content-end col-6">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false">Registrarse</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="egresados/pre-registro">Egresado</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/registroEmpresa">Empresa</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="!isLogin" class="nav-link" [routerLink]="['/login']">Iniciar Sesión</a>
+          <a *ngIf="isLogin" class="nav-link" (click)="logout()">Cerrar Sesión</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

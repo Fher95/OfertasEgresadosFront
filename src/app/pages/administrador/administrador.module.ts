@@ -30,6 +30,16 @@ import { ListaEventosComponent } from './eventos/lista-eventos/lista-eventos.com
 import { RegistroEventoComponent } from './eventos/registro-evento/registro-evento.component';
 import { EventoComponent } from './eventos/evento/evento.component';
 import { DialogoActualizarEventoComponent } from './eventos/dialogo-actualizar-evento/dialogo-actualizar-evento.component';
+import { EgresadosComponent } from './egresados/egresados.component';
+import { PerfilEgresadoComponent } from './egresados/perfil-egresado/perfil-egresado.component';
+import { ListaReferenciasPersonalesComponent } from './egresados/perfil-egresado/lista-referencias-personales/lista-referencias-personales.component';
+import { ReferenciaPersonalComponent } from './egresados/perfil-egresado/referencia-personal/referencia-personal.component';
+import { ListaTrabajosActualesComponent } from './egresados/perfil-egresado/lista-trabajos-actuales/lista-trabajos-actuales.component';
+import { TrabajoActualComponent } from './egresados/perfil-egresado/trabajo-actual/trabajo-actual.component';
+import { ListaGradosComponent } from './egresados/perfil-egresado/lista-grados/lista-grados.component';
+import { GradoComponent } from './egresados/perfil-egresado/grado/grado.component';
+import { InformarcionPersonalComponent } from './egresados/perfil-egresado/informarcion-personal/informarcion-personal.component';
+import { ListaGestionEgresadoComponent } from './egresados/lista-gestion-egresado/lista-gestion-egresado.component';
 
 const routes: Routes = [
   {
@@ -43,6 +53,11 @@ const routes: Routes = [
         path: 'solicitudesEmpresas',
         component: ListarSolicitudesEmpresaComponent
       },
+      {
+        path: 'egresados',
+        component: EgresadosComponent
+      },
+      { path: 'egresados/perfil/:id', component: PerfilEgresadoComponent },
       { path: 'ofertasLaborales', component: ListarOfertasComponent }
     ]
   },
@@ -82,7 +97,17 @@ const routes: Routes = [
     EventosComponent,
     EventoComponent,
     EgrFileUploadComponent,
-    DialogoActualizarEventoComponent
+    DialogoActualizarEventoComponent,
+    EgresadosComponent,
+    PerfilEgresadoComponent,
+    ListaReferenciasPersonalesComponent,
+    ReferenciaPersonalComponent,
+    ListaTrabajosActualesComponent,
+    TrabajoActualComponent,
+    ListaGradosComponent,
+    GradoComponent,
+    InformarcionPersonalComponent,
+    ListaGestionEgresadoComponent
   ],
   imports: [
     CommonModule,

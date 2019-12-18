@@ -88,12 +88,12 @@
               </mat-radio-group>
             </div>
 
-            <div class="row">
+            <div class="row" >
               <div class="form-group col-md-6 ">
               <h5>Discapacidad:*</h5>
               <mat-error *ngIf="discapacidad.length == 0">Por favor seleccione una opción</mat-error>
-              <mat-checkbox *ngFor="let discapacidad of discapacidades" [value]="discapacidad.idDiscapacidad"
-                (change)="discapacidadesUsuario(discapacidad.idDiscapacidad)" (change)="otraDiscapacidad(discapacidad.Nombre)" [labelPosition]="after" required>
+              <mat-checkbox  *ngFor="let discapacidad of discapacidades let index = index" [value]="discapacidad.idDiscapacidad"
+                (change)="discapacidadesUsuario(discapacidad.idDiscapacidad,index,$event)" (change)="otraDiscapacidad(index,$event)" (change)="checkCheckBoxvalue($event)" [labelPosition]="after" required>
                 {{discapacidad.Nombre}}
               </mat-checkbox>
             </div>
@@ -211,10 +211,11 @@
                 </mat-error>
               </mat-form-field>
             </div>
+
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Mención</mat-label>
-                <input matInput placeholder="Mensión" #name="ngModel" name="mension" [(ngModel)]="user.mension">
+                <input matInput placeholder="Mención" #name="ngModel" name="mencion" [(ngModel)]="user.mencion">
               </mat-form-field>
               <div class="form-group col-md-6 "></div>
 

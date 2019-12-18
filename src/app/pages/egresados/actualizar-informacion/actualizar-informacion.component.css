@@ -21,13 +21,17 @@ mat-select{
 }
 mat-form-field{
     margin-right: 20px;
-    margin-left: 0px;
+    width: 450px;
+    margin-left: 20px;
 }
 mat-label, mat-radio-button{
     margin-right: 20px;
 }
-button{
+.botones{
     text-align: end;
     margin-left: 20px;
     top:20px;
+}
+table{
+    width:100%;
 }
