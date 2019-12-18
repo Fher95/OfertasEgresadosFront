@@ -27,7 +27,7 @@ import { VisualizarReferenciaComponent } from './actualizar-informacion/visualiz
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
+  { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
   { path: 'actualizar', component: ActualizarInformacionComponent},
   { path: 'perfil', component: PerfilComponent},
   { path: 'eventos', component: EventosComponent},
