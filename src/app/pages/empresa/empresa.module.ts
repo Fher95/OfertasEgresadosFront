@@ -20,14 +20,15 @@ import { FiltrarCiudadesPipe } from '../../shared/pipes/filtrar-ciudades.pipe';
 import { PipesModule } from '../../shared/pipes/pipes.module';
 import { ModificarOfertaLaboralComponent } from './modificar-oferta-laboral/modificar-oferta-laboral.component';
 import { DialogPostuladoComponent } from './ver-postulados/ver-postulados.component';
+import { EmpresaGuard } from 'src/app/shared/guard/empresa.guard';
 
 const routes: Routes = [
-  { path: 'empresa/:id/datosEmpresa', component:DatosEmpresaComponent},
-  { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent},
-  { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent},
-  { path: 'empresa/:id/modificarOfertaLaboral/:idOferta', component: ModificarOfertaLaboralComponent},
-  { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent},
-  { path: 'oferta/:id/misPostulados', component: VerPostuladosComponent}
+  { path: 'empresa/:id/datosEmpresa', component:DatosEmpresaComponent, canActivate: [EmpresaGuard]},
+  { path: 'empresa/:id/editarEmpresa', component: EditarEmpresaComponent, canActivate: [EmpresaGuard]},
+  { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent, canActivate: [EmpresaGuard]},
+  { path: 'empresa/:id/modificarOfertaLaboral/:idOferta', component: ModificarOfertaLaboralComponent, canActivate: [EmpresaGuard]},
+  { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent, canActivate: [EmpresaGuard]},
+  { path: 'oferta/:id/misPostulados', component: VerPostuladosComponent, canActivate: [EmpresaGuard]}
 ];
 
 @NgModule({

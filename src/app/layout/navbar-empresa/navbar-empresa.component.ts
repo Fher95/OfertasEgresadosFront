@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 
 @Component({
   selector: 'app-navbar-empresa',
@@ -10,7 +11,8 @@ export class NavbarEmpresaComponent implements OnInit {
 
   @Input() id:string;
   constructor(
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,10 @@ export class NavbarEmpresaComponent implements OnInit {
   onPerfil(){
     let ruta = 'empresa/' + this.id + '/datosEmpresa';
     this.router.navigate([ruta]);
+  }
+  logout() {
+    this.auth.logout();
+    this.router.navigateByUrl('/home');
   }
 
 }

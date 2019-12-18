@@ -5,7 +5,7 @@ import { ISector } from '../../../shared/modelos/sectorInterface'
 import { ISubSector } from '../../../shared/modelos/subSectorInterface'
 import { ICargo } from '../../../shared/modelos/cargoInterface'
 import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { DialogFinalRegistroComponent } from '../dialog-final-registro/dialog-final-registro.component';
 import { Router } from '@angular/router';
 import { CiudadInterface } from 'src/app/shared/modelos/ciudadesInterface';
@@ -55,18 +55,17 @@ export class RegistrarComponent implements OnInit {
     // Formulario
     this.formRegistroEmp = this.formBuilder.group({
       'datos-cuenta': this.formBuilder.group({
-        email: ['', [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmail.bind(this)],
-        contrasenia: ['', [Validators.required, Validators.pattern("^([1-zA-Z0-1@.\s]{1,255}).{5,}$")]],
+        email: ['', [Validators.required, Validators.maxLength(60), Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmail.bind(this)],
         captchaDigitado: [''],
       }),
       'datos-generales-empresa': this.formBuilder.group({
         NIT: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)], this.validarExistenciaNIT.bind(this)],
-        razonSocial: [null, Validators.required],
-        nombreEmpresa: [null, Validators.required, this.validarExistenciaNombre.bind(this)],
-        anioCreacion: [null, Validators.required],
-        numEmpleados: [null, [Validators.required, Validators.min(0)]],
+        razonSocial: [null, [Validators.required, Validators.maxLength(200)]],
+        nombreEmpresa: [null, [Validators.required, Validators.maxLength(100)], this.validarExistenciaNombre.bind(this)],
+        anioCreacion: [null, [Validators.required]],
+        numEmpleados: [null, [Validators.required]],
         ingresosEmp: [null],
-        descripcionEmpresa: [null, Validators.required],
+        descripcionEmpresa: [null, [Validators.required, Validators.maxLength(500)]],
       }),
       'sectores': this.formBuilder.group({
         subsectores: [[], [Validators.required, this.sectorValidator]],
@@ -75,26 +74,26 @@ export class RegistrarComponent implements OnInit {
         paisEmp: [null, Validators.required],
         departamentoEmp: [null, Validators.required],
         ciudadEmp: [null, Validators.required],
-        direccionEmp: [null, Validators.required],
-        barrioEmp: [null, Validators.required],
-        codigoPostalEmp: [null, Validators.min(0)],
-        telefonoEmp: [null, [Validators.required, Validators.min(0)]],
-        emailEmp: [null, [Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
-        sitioWebEmp: [null],
+        direccionEmp: [null, [Validators.required, Validators.maxLength(100)]],
+        barrioEmp: [null, [Validators.required, Validators.maxLength(40)]],
+        codigoPostalEmp: [null, [Validators.min(0), Validators.maxLength(6)]],
+        telefonoEmp: [null, [Validators.required, Validators.min(0), Validators.maxLength(16)]],
+        emailEmp: [null, [Validators.maxLength(60), Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
+        sitioWebEmp: [null, [Validators.maxLength(200)]],
       }),
       'datos-resp': this.formBuilder.group({
-        nombrereplegal: [null, Validators.required],
-        apellidoreplegal: [null, Validators.required],
-        telefonoreplegal: [null, Validators.min(0)],
-        telefonoMovilreplegal: [null, [Validators.required, Validators.min(0)]],
-        nombreResp: [null, Validators.required],
-        apellidoResp: [null, Validators.required],
-        cargo: [null, Validators.required],
-        telefonoResp: [null, Validators.min(0)],
-        telefonoMovilResp: [null, [Validators.required, Validators.min(0)]],
-        horarioContactoResp: [null],
-        direccionTrabajoResp: [null, Validators.required],
-        emailCorpResp: [null, [Validators.required, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmailCorporativo.bind(this)],
+        nombrereplegal: [null, [Validators.required, Validators.maxLength(60)]],
+        apellidoreplegal: [null, [Validators.required, Validators.maxLength(60)]],
+        telefonoreplegal: [null, [Validators.min(0), Validators.maxLength(16)]],
+        telefonoMovilreplegal: [null, [Validators.required, Validators.min(0), Validators.maxLength(16)]],
+        nombreResp: [null, [Validators.required, Validators.maxLength(40)]],
+        apellidoResp: [null, [Validators.required, Validators.maxLength(40)]],
+        cargo: [null, [Validators.required]],
+        telefonoResp: [null, [Validators.min(0), Validators.maxLength(16)]],
+        telefonoMovilResp: [null, [Validators.required, Validators.min(0), Validators.maxLength(16)]],
+        horarioContactoResp: [null, [Validators.maxLength(40)]],
+        direccionTrabajoResp: [null, [Validators.required, Validators.maxLength(100)]],
+        emailCorpResp: [null, [Validators.required, Validators.maxLength(60), Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmailCorporativo.bind(this)],
       }),
       'archivos': this.formBuilder.group({
         camaraycomercio: [null, Validators.required],

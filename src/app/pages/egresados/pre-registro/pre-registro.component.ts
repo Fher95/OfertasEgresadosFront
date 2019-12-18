@@ -179,12 +179,16 @@ private tituloPrograma: string = "Musica";
   //Método pra cargar los niveles de estudio
   obtenerNivelEstudio() {
     this.catalogoService.getNivelEducativo().subscribe(data => this.niveles_academicos = data);
+    this.sedeFormControl = new FormControl();
+    this.programaFormControl = new FormControl();
+    this.facultadFormControl = new FormControl();
   }
 
 
   //Método pra cargar las sedes
   obtenerSedes() {
     this.catalogoService.getSede().subscribe(data => this.sedes = data);
+
   }
 
   //Método pra cargar las facultades
@@ -227,9 +231,7 @@ private tituloPrograma: string = "Musica";
     this.catalogoService.getDiscapacidad().subscribe(data => this.discapacidades = data);
   }
 
-  checkCheckBoxvalue(event){
-    console.log(event.checked)
-  }
+
 
   //Método para guardar las discapacidades del usuario
   discapacidadesUsuario(idDiscapacidad: number,indice: number,event) {
@@ -303,7 +305,12 @@ private tituloPrograma: string = "Musica";
             
           });
         },error => {
+          let err = <any>error;
+          if(err==422){
+            this.alert.showErrorMessage('Error', 'Ya hay una cuenta con los datos ingresados.');
+          }else{
           this.alert.showErrorMessage('Error', 'A ocurrido un error al registrar sus datos intente de nuevo');
+          }
         }
       );
     }   

@@ -251,7 +251,7 @@ a.article, a.article:hover {
     }
 }
 
-li:has(> a.active) {
+/*li:has(> a.active) {
     color: #fff;
     background: #6d7fcc;
-}
+}*/

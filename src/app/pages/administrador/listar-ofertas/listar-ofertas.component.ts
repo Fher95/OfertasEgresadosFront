@@ -47,6 +47,7 @@ export class ListarOfertasComponent implements OnInit {
 
         this.dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
         this.filtrar('estado');
         if (this.ofertas.length === 0 || isNull(this.ofertas)) {
           this.arregloVacio = true;
@@ -56,7 +57,7 @@ export class ListarOfertasComponent implements OnInit {
   getOfertas2(): void {
     this.ofertas = this.servicioOfertas.getOfertas2();
     this.auxiliar = true;
-    this.dataSource = new MatTableDataSource<OfertaLaboral>(this.ofertas);
+    this.dataSource = new MatTableDataSource<OfertaLaboral>(this.filtrarOfertas('estado'));
     this.dataSource.paginator = this.paginator;
     if (this.ofertas.length == 0 || isNull(this.ofertas)) {
       this.arregloVacio = true;
@@ -64,23 +65,20 @@ export class ListarOfertasComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  setOfertaActual(parId: number): void {
-    console.log("Id recibido: " + parId);
+  setOfertaActual(parId: number): void {    
     for (let index = 0; index < this.ofertas.length; index++) {
       if (this.ofertas[index].id_aut_oferta === parId) {
         this.ofertaSeleccionada = this.ofertas[index];
         this.estadoActivacion = this.ofertaSeleccionada.estado;
       }
-    }
-    console.log(this.ofertaSeleccionada);
+    }    
     this.openDialog();
   }
 
   aprobarEmpresa(parOferta: OfertaLaboral): void {
     if (OfertaLaboral != null) {
       this.servicioOfertas.aprobarOferta(parOferta.id_aut_oferta)
-        .subscribe(result => {
-          console.log(result);
+        .subscribe(result => {          
           this.getOfertas();          
         });
     }
@@ -88,8 +86,7 @@ export class ListarOfertasComponent implements OnInit {
   desaprobarEmpresa(parOferta: OfertaLaboral): void {
     if (OfertaLaboral != null) {
       this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta, this.motivoInactivacion)
-        .subscribe(result => {
-          console.log(result);
+        .subscribe(result => {          
           this.getOfertas();          
         });
     }
@@ -167,8 +164,7 @@ export class ListarOfertasComponent implements OnInit {
     dial.afterClosed().subscribe((result) => {
       this.getOfertas();        
       if (result) {
-        setTimeout(() => {
-          console.log('Cargando ofertas');
+        setTimeout(() => {          
           this.getOfertas();
         }, 1000);      
       }
