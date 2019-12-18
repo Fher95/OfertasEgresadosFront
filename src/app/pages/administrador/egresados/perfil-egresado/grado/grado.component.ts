@@ -41,4 +41,8 @@ export class GradoComponent implements OnInit {
       })
     );
   }
+
+  cerrar() {
+    this.dialogRef.close();
+  }
 }

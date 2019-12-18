@@ -51,7 +51,7 @@
             type="text"
             matInput
             ngModel
-            placeholder="Descapacidades"
+            placeholder="Discapacidades"
             #grupoEtnico
             name="discapacidades"
             disabled
@@ -168,7 +168,7 @@
             placeholder="Municipio/Ciudad nacimiento"
             disabled
             name="ciudadNacimiento"
-            [ngModel]="egresado.lugarNacimeinto?.nombre"
+            [ngModel]="egresado.lugarNacimiento?.nombre"
           />
         </mat-form-field>
 
@@ -203,7 +203,7 @@
             matInput
             name="correo"
             #correo
-            required
+            disabled
             [(ngModel)]="egresado.correo"
           />
         </mat-form-field>
