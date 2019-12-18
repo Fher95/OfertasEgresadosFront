@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ReferenciaPersonalComponent } from './../referencia-personal/referencia-personal.component';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ReferenciaPersonalModel } from './../../../../../shared/modelos/referencia-personal.model';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-lista-referencias-personales',
@@ -6,10 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-referencias-personales.component.css']
 })
 export class ListaReferenciasPersonalesComponent implements OnInit {
+  displayedColumns: string[] = ['nombre', 'parentesco', 'celular', 'acciones'];
 
-  constructor() { }
+  @Input()
+  referidos: ReferenciaPersonalModel[];
 
-  ngOnInit() {
+  constructor(private dialog: MatDialog) {}
+
+  ngOnInit() {}
+
+  abrirDialogo(referido: ReferenciaPersonalModel) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = referido;
+    dialogConfig.maxHeight = '600px';
+
+    const dialogRef = this.dialog.open(
+      ReferenciaPersonalComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(response => {
+      console.log(response);
+    });
   }
-
 }

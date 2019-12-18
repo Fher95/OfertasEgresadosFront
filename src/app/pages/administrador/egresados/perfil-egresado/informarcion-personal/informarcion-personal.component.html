@@ -51,7 +51,7 @@
             type="text"
             matInput
             ngModel
-            placeholder="Descapacidades"
+            placeholder="Discapacidades"
             #grupoEtnico
             name="discapacidades"
             disabled
@@ -96,7 +96,7 @@
             [ngModel]="egresado.identificacion"
           />
         </mat-form-field>
-        <!--
+
         <mat-form-field class="form-group col-md-6">
           <input
             type="text"
@@ -105,14 +105,15 @@
             name="paisResidencia"
             #paisResidencia
             placeholder="País de residencia"
-            [ngModel]="egresado.lugarResidencia.ciudad.departamento.pais.nombre"
+            [ngModel]="
+              egresado.lugarResidencia?.ciudad.departamento.pais.nombre
+            "
           />
         </mat-form-field>
-        -->
       </div>
 
       <div class="row">
-        <!-- <mat-form-field class="form-group col-md-6">
+        <mat-form-field class="form-group col-md-6">
           <input
             type="text"
             matInput
@@ -120,54 +121,54 @@
             name="paisNacimiento"
             #paisNacimiento
             disabled
-            [ngModel]="egresado.lugarNacimiento.departamento.pais.nombre"
+            [ngModel]="egresado.lugarNacimiento?.departamento.pais.nombre"
           />
-        </mat-form-field> -->
+        </mat-form-field>
 
-        <!-- <mat-form-field class="form-group col-md-6">
+        <mat-form-field class="form-group col-md-6">
           <input
             type="text"
             matInput
             placeholder="Departamento residencia"
             name="departamentoResidencia"
-            [ngModel]="egresado.lugarResidencia.ciudad.departamento.nombre"
+            [ngModel]="egresado.lugarResidencia?.ciudad.departamento.nombre"
             disabled
           />
-        </mat-form-field> -->
+        </mat-form-field>
       </div>
       <div class="row">
-        <!--  <mat-form-field class="form-group col-md-6">
+        <mat-form-field class="form-group col-md-6">
           <input
             type="text"
             matInput
             placeholder="Departamento nacimiento"
             disabled
             name="departamentoNaciminto"
-            [ngModel]="egresado.lugarNacimiento.departamento.nombre"
+            [ngModel]="egresado.lugarNacimiento?.departamento.nombre"
           />
         </mat-form-field>
- -->
-        <!-- <mat-form-field class="form-group col-md-6">
+
+        <mat-form-field class="form-group col-md-6">
           <input
             type="text"
             matInput
             placeholder="Municipio/Ciudad residencia"
             disabled
             name="municipioResidencia"
-            [ngModel]="egresado.lugarResidencia.ciudad.nombre"
+            [ngModel]="egresado.lugarResidencia?.ciudad.nombre"
           />
-        </mat-form-field> -->
+        </mat-form-field>
       </div>
 
       <div class="row">
-        <!-- <mat-form-field class="form-group col-md-6">
+        <mat-form-field class="form-group col-md-6">
           <input
             type="text"
             matInput
             placeholder="Municipio/Ciudad nacimiento"
             disabled
             name="ciudadNacimiento"
-            [ngModel]="egresado.lugarNacimeinto.nombre"
+            [ngModel]="egresado.lugarNacimiento?.nombre"
           />
         </mat-form-field>
 
@@ -178,9 +179,9 @@
             disabled
             matInput
             name="direccionResidencia"
-            [ngModel]="egresado.lugarResidencia.direccion"
+            [ngModel]="egresado.lugarResidencia?.direccion"
           />
-        </mat-form-field> -->
+        </mat-form-field>
       </div>
 
       <div class="row">
@@ -202,7 +203,7 @@
             matInput
             name="correo"
             #correo
-            required
+            disabled
             [(ngModel)]="egresado.correo"
           />
         </mat-form-field>

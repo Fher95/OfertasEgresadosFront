@@ -1,3 +1,4 @@
+import { ListaSolicitudesCarnetizacionComponent } from './egresados/perfil-egresado/lista-solicitudes-carnetizacion/lista-solicitudes-carnetizacion.component';
 import { EgrFileUploadComponent } from './eventos/egr-file-upload/egr-file-upload.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { InicioComponent } from './inicio/inicio.component';
@@ -49,10 +50,18 @@ const routes: Routes = [
       { path: 'apoyos', component: GestionApoyosComponent },
       { path: 'verificar', component: VerificarExcelComponent },
       { path: 'eventos', component: EventosComponent },
-      { path: 'solicitudesEmpresas', component: ListarSolicitudesEmpresaComponent, canActivate: [AdminGuard] },
+      {
+        path: 'solicitudesEmpresas',
+        component: ListarSolicitudesEmpresaComponent,
+        canActivate: [AdminGuard]
+      },
       { path: 'egresados', component: EgresadosComponent },
       { path: 'egresados/perfil/:id', component: PerfilEgresadoComponent },
-      { path: 'ofertasLaborales', component: ListarOfertasComponent, canActivate: [AdminGuard] }
+      {
+        path: 'ofertasLaborales',
+        component: ListarOfertasComponent,
+        canActivate: [AdminGuard]
+      }
     ]
   },
   {
@@ -101,6 +110,7 @@ const routes: Routes = [
     ListaGradosComponent,
     GradoComponent,
     InformarcionPersonalComponent,
+    ListaSolicitudesCarnetizacionComponent,
     ListaGestionEgresadoComponent
   ],
   imports: [
@@ -116,7 +126,10 @@ const routes: Routes = [
     InfoSolicitudEmpresaComponent,
     DialogoEditarComponent,
     InfoOfertaLaboralComponent,
-    DialogoActualizarEventoComponent
+    DialogoActualizarEventoComponent,
+    GradoComponent,
+    ReferenciaPersonalComponent,
+    TrabajoActualComponent
   ],
   exports: [
     ListarSolicitudesEmpresaComponent,

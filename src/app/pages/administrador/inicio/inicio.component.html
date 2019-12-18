@@ -20,7 +20,12 @@
           Apoyos
         </a>
         <!-- Link a la gestión de egresados -->
-        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <a
+          href="#pageSubmenu"
+          data-toggle="collapse"
+          aria-expanded="false"
+          class="dropdown-toggle"
+        >
           <i class="fa fa-copy"></i>
           Pages
         </a>
@@ -37,9 +42,18 @@
         </ul>
       </li>
       <li>
-        <a [routerLink]="['/admin/solicitudesEmpresas']" routerLinkActive="active">
+        <a
+          [routerLink]="['/admin/solicitudesEmpresas']"
+          routerLinkActive="active"
+        >
           <i class="fa fa-building-o"></i>
           Solicides de empresas
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/admin/verificar']" routerLinkActive="active">
+          <i class="fa fa-check"></i>
+          Verificar
         </a>
       </li>
       <li>
@@ -91,13 +105,25 @@
   <div id="content">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <button type="button" id="sidebarCollapse" color="primary" mat-raised-button class="btn"
-          (click)="toogleSidebar()">
+        <button
+          type="button"
+          id="sidebarCollapse"
+          color="primary"
+          mat-raised-button
+          class="btn"
+          (click)="toogleSidebar()"
+        >
           <i class="fa fa-align-left"></i>
         </button>
-        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
-          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
+        <button
+          class="btn btn-dark d-inline-block d-lg-none ml-auto"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <i class="fa fa-align-justify"></i>
         </button>
 

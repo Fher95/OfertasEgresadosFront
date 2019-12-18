@@ -1,5 +1,4 @@
-<app-header></app-header>
-<app-navbar-home-ofertas></app-navbar-home-ofertas>
+<h3>VERIFICAR EGRESADO</h3>
 <div class="container-fluid mt-3">
   <div class="row">
     <!-- File upload component -->
@@ -10,10 +9,27 @@
   <div class="row results mt-3" *ngIf="processFinished">
     <div class="col-12 col-md-3 aside">
       <ul class="list-group">
-        <li (click)="mostrarActivos()" class="list-group-item" [ngClass]="{activo: showActivos}">Activos</li>
-        <li (click)="mostrarPendientes()" class="list-group-item" [ngClass]="{activo: showPendientes}">Pendientes</li>
-        <li (click)="mostrarInconsistentes()" class="list-group-item" [ngClass]="{activo: showInconsistentes}">
-          Inconsistentes</li>
+        <li
+          (click)="mostrarActivos()"
+          class="list-group-item"
+          [ngClass]="{ activo: showActivos }"
+        >
+          Activos Logueado
+        </li>
+        <li
+          (click)="mostrarPendientes()"
+          class="list-group-item"
+          [ngClass]="{ activo: showPendientes }"
+        >
+          Activos No Logueados
+        </li>
+        <li
+          (click)="mostrarInconsistentes()"
+          class="list-group-item"
+          [ngClass]="{ activo: showInconsistentes }"
+        >
+          Inconsistentes
+        </li>
       </ul>
     </div>
     <div class="col-12 col-md-9 main-content">
@@ -21,19 +37,28 @@
         <mat-toolbar color="primary">
           ACTIVOS LOGUEADOS
         </mat-toolbar>
-        <app-lista-egresados [dataSource]="activos" #tblAceptados></app-lista-egresados>
+        <app-lista-egresados
+          [dataSource]="activos"
+          #tblAceptados
+        ></app-lista-egresados>
       </div>
       <div class="pendientes mat-elevation-z8" *ngIf="showPendientes">
         <mat-toolbar color="primary">
           ACTIVOS NO LOGUEADOS
         </mat-toolbar>
-        <app-lista-egresados [dataSource]="pendientes" #tblPendientes></app-lista-egresados>
+        <app-lista-egresados
+          [dataSource]="pendientes"
+          #tblPendientes
+        ></app-lista-egresados>
       </div>
       <div class="inconsistentes mat-elevation-z8" *ngIf="showInconsistentes">
         <mat-toolbar color="primary">
           INCONSISTENTES
         </mat-toolbar>
-        <app-lista-egresados [dataSource]="inconsistentes" #tblInconsistentes></app-lista-egresados>
+        <app-lista-egresados
+          [dataSource]="inconsistentes"
+          #tblInconsistentes
+        ></app-lista-egresados>
       </div>
     </div>
   </div>
