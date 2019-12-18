@@ -18,6 +18,7 @@
         <!--Si el egresado no esta validado en el sistema-->
         <div *ngIf="!estadoEgres" align="center">
           <p>{{mensajeEstadoEgresado}}</p>
+          <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
         </div>
         <!--Si el egresado no ha solicitado un carnet-->
         <div *ngIf="estadoEgres && estadoCarnet =='0' " align="center">
