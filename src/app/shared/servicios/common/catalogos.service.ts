@@ -89,6 +89,14 @@ export class CatalogosService {
     return this.http.get(`${baseUrl}programas/${idSolicitud}/${estado}`);
   }
 
+  enviarSolicitudCarnet(idSolicitud: number) {
+    return this.http.get(`${baseUrl}enviarSolicitud/${idSolicitud}`);
+  }
+
+  cancelarSolicitudCarnet(idSolicitud: number) {
+    return this.http.get(`${baseUrl}cancelarSolicitud/${idSolicitud}`);
+  }
+
 
   public getEventos(): Observable<EventoInterface[]> {
     return this.http.get<EventoInterface[]>(`${baseUrl}eventos`);

@@ -28,7 +28,7 @@ export class CarnetizacionComponent implements OnInit {
     this.mensajeEstadoAceptado = "Estado de solicitud es Aceptado";
     this.mensajeEstadoRechazado = "Estado de solicitud es Rechazado.";
     this.mensajeEstadoEgresado = "Aún no ha sido validado en el sistema por favor dirigirse al area de EGRESADOS";
-  }
+   }
 
 
 
@@ -55,5 +55,14 @@ export class CarnetizacionComponent implements OnInit {
     this.catalogoService.getEstadoInformacionEgresado(this.idEgresado).subscribe(data => this.estadoInfoEgresado = data);
   }
 
+  enviarSolicitudCarnet(){
+    //this.catalogoService.enviarSolicitudCarnet(this.idEgresado).subscribe()
+    console.log("si funcionan los botones");
+  }
+  
+  cancelarSolicitudCarnet(){
+    //this.catalogoService.cancelarSolicitudCarnet(this.idEgresado).subscribe()
+    console.log("si funcionan los botones cancelar");
+  }
 
 }
