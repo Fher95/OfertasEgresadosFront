@@ -3,6 +3,8 @@ import { authInterface } from 'src/app/shared/modelos/authInterface';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { AuthServicesService } from 'src/app/shared/servicios/authServices/auth-services.service';
+import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-navbar-home-ofertas',
@@ -11,16 +13,24 @@ import { AuthServicesService } from 'src/app/shared/servicios/authServices/auth-
 })
 export class NavbarHomeOfertasComponent implements OnInit {
 
+  id: string;
 
   private user: authInterface = {
     email: "",
     password: ""
   }
-  constructor(private auth: AuthService, private router: Router, private authService: AuthServicesService) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private authService: AuthServicesService,
+    private empService: EmpresaService,
+    private alert: AlertService,
+  ) { }
 
   ngOnInit() {
-    console.log(this.auth.userRol);
-    console.log(this.authService.getCurrentUser());
+    console.log("Rol: ", this.auth.userRol);
+    console.log("Email: ", this.auth.userEmail);
+    this.asignarID();
   }
 
   onRegistroEmpresa() {
@@ -29,8 +39,26 @@ export class NavbarHomeOfertasComponent implements OnInit {
   onEgresados() {
     this.router.navigate(['/egresados']);
   }
-  onOfertas() {
-    this.router.navigate(['empresa/1/datosEmpresa'])
+  
+  onPanelAdmin(){
+    this.router.navigate(['/admin'])
+  }
+
+  asignarID() {
+    if (this.isLogin) {
+      if (this.isEmpresa && (this.auth.userEmail != undefined)) {
+        this.empService.obtenerID(this.auth.userEmail).subscribe(resultado => {
+          console.log("id: ", resultado.data.id_aut_empresa);
+          this.id = resultado.data.id_aut_empresa;
+        },
+        error => {
+          this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
+          console.log("Error al obtener el id de la empresa: ", JSON.stringify(error));
+        });
+      }
+      /* TODO: obtener el id de Administrador */
+      /* TODO: obtener el id de Egresado */
+    }
   }
 
   get isLogin() {
@@ -38,7 +66,7 @@ export class NavbarHomeOfertasComponent implements OnInit {
   }
 
   get isAdmin() {
-    return this.auth.userRol ? this.auth.userRol.toUpperCase() === 'ADMIN' : false;
+    return this.auth.userRol ? this.auth.userRol.toUpperCase() === 'ADMINISTRADOR' : false;
   }
 
   get isEmpresa() {

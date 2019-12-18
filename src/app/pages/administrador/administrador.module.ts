@@ -49,16 +49,10 @@ const routes: Routes = [
       { path: 'apoyos', component: GestionApoyosComponent },
       { path: 'verificar', component: VerificarExcelComponent },
       { path: 'eventos', component: EventosComponent },
-      {
-        path: 'solicitudesEmpresas',
-        component: ListarSolicitudesEmpresaComponent
-      },
-      {
-        path: 'egresados',
-        component: EgresadosComponent
-      },
+      { path: 'solicitudesEmpresas', component: ListarSolicitudesEmpresaComponent, canActivate: [AdminGuard] },
+      { path: 'egresados', component: EgresadosComponent },
       { path: 'egresados/perfil/:id', component: PerfilEgresadoComponent },
-      { path: 'ofertasLaborales', component: ListarOfertasComponent }
+      { path: 'ofertasLaborales', component: ListarOfertasComponent, canActivate: [AdminGuard] }
     ]
   },
   {

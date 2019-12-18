@@ -1,15 +1,38 @@
+<!--Navbar Empresa-->
 <div *ngIf="isEmpresa">
-  <app-navbar-empresa [id]="1"></app-navbar-empresa>
+  <app-navbar-empresa [id]="id"></app-navbar-empresa>
 </div>
-<div *ngIf="!isEmpresa || !isLogin">
+
+<!--Navbar Administrador-->
+<div *ngIf="isAdmin">
   <nav id="navBar" class="navbar navbar-light bg-light shadow border-bottom sticky-top">
     <div class="row">
+
       <ul class="nav col-6">
         <li class="nav-item">
           <a class="nav-link active" href="home">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="onOfertas()">Ofertas Laborales</a>
+          <a class="nav-link" (click)="onPanelAdmin()">Panel de administración</a>
+        </li>
+      </ul>
+
+      <ul class="nav justify-content-end col-6">
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Cerrar Sesión</a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+</div>
+<!--Navbar para egresado-->
+<div *ngIf="(!isEmpresa && !isAdmin) || !isLogin">
+  <nav id="navBar" class="navbar navbar-light bg-light shadow border-bottom sticky-top">
+    <div class="row">
+      <ul class="nav col-6">
+        <li class="nav-item">
+          <a class="nav-link active" href="home">Inicio</a>
         </li>
         <li class="nav-item" *ngIf="isAdmin">
           <a class="nav-link" href="#">Admin área</a>
