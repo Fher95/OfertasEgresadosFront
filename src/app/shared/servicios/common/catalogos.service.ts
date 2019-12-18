@@ -74,7 +74,7 @@ export class CatalogosService {
   }
 
   getEstadoEgresado(idEgresado: number): Observable<any>{
-    return this.http.get(`${baseUrl}ValidarEstado/${idEgresado}`);
+    return this.http.get(`${baseUrl}validarEstado/${idEgresado}`);
   }
 
   getEstadoInformacionEgresado(idEgresado: number): Observable<any>{
@@ -86,7 +86,7 @@ export class CatalogosService {
   }
 
   enviarEstadoSolicitud(idSolicitud: number, estado: boolean) {
-    return this.http.get(`${baseUrl}programas/${idSolicitud}/${estado}`);
+    return this.http.get(`${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}/${estado}`);
   }
 
   enviarSolicitudCarnet(idSolicitud: number) {
