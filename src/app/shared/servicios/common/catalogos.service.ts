@@ -73,8 +73,16 @@ export class CatalogosService {
     return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
 
-  getCarnetizacion(idEgreado: number): Observable<SolicitudInterface[]> {
-    return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
+  getEstadoEgresado(idEgresado: number): Observable<any>{
+    return this.http.get(`${baseUrl}ValidarEstado/${idEgresado}`);
+  }
+
+  getEstadoInformacionEgresado(idEgresado: number): Observable<any>{
+    return this.http.get(`${baseUrl}validaCompletarInformacion/${idEgresado}`);
+  }
+
+  getEstadoSolicitudCarnet(idEgresado: number): Observable<any>{
+    return this.http.get(`${baseUrl}validarSolicitudes/${idEgresado}`);
   }
 
   enviarEstadoSolicitud(idSolicitud: number, estado: boolean) {
@@ -84,9 +92,6 @@ export class CatalogosService {
 
   public getEventos(): Observable<EventoInterface[]> {
     return this.http.get<EventoInterface[]>(`${baseUrl}eventos`);
-  }
-
-  getUrlGetImage(image) {
   }
 
   public updateImage(eventId: string, files: Array<File>) {

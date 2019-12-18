@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
+import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 
 @Component({
   selector: 'app-carnetizacion',
@@ -11,39 +12,47 @@ export class CarnetizacionComponent implements OnInit {
 
   private idEgresado: number;
 
+  private estadoEgres: boolean;
+  private estadoInfoEgresado: boolean;
+  private estadoCarnet: String;
+
   private mensajeCompletar: String;
   private mensajeEstado: String;
-  private mensajeEstado2: String;
   private mensajeEstadoAceptado: String;
   private mensajeEstadoRechazado: String;
+  private mensajeEstadoEgresado: String;
 
-  constructor(private servicioCompletar: RegistroService,private auth: AuthService) {
-    this.mensajeCompletar = " Aun no ha completado el registro, Presione 'Completar registro' para poder continuar.";
-    this.mensajeEstado2 = "Existen una solicitud de carnetización pendiente.";
-    this.mensajeEstado = "No existe solicitud de carnetización pendiente.";
+  constructor(private catalogoService: CatalogosService, private servicioCompletar: RegistroService, private auth: AuthService) {
+    this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar registro' para poder continuar.";
+    this.mensajeEstado = "Existen una solicitud de carnetización pendiente.";
     this.mensajeEstadoAceptado = "Estado de solicitud es Aceptado";
     this.mensajeEstadoRechazado = "Estado de solicitud es Rechazado.";
+    this.mensajeEstadoEgresado = "Aún no ha sido validado en el sistema por favor dirigirse al area de EGRESADOS";
   }
 
 
 
   ngOnInit() {
+    this.estadoEgresado();
+    this.obtenerIdEgresado();
+    this.estadoInformacionEgresado();
+    this.estadoSolicitudCarnet();
   }
 
-  obtenerIdegresado(){
+  obtenerIdEgresado() {
     this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
       data => this.idEgresado = data);
   }
 
   estadoEgresado() {
-    return true;
+    this.catalogoService.getEstadoEgresado(this.idEgresado).subscribe(data => this.estadoEgres = data);
   }
 
   estadoSolicitudCarnet() {
-    return true;
+    this.catalogoService.getEstadoSolicitudCarnet(this.idEgresado).subscribe(data => this.estadoCarnet = data);
   }
-  estadoSolicitud() {
-    return this.estadoSolicitudCarnet();
+  estadoInformacionEgresado() {
+    this.catalogoService.getEstadoInformacionEgresado(this.idEgresado).subscribe(data => this.estadoInfoEgresado = data);
   }
 
 
