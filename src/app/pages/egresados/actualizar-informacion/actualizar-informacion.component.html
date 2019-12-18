@@ -122,6 +122,8 @@
         </table>
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </div>
+      <button class="botones" mat-button mat-raised-button matStepperPrevious>Atrás</button>
+      <button class="botones" color="primary" mat-button mat-raised-button matStepperNext (click)="validarSigReferido()">Siguiente</button>
     </mat-step>
   </mat-horizontal-stepper>
 </mat-card>
