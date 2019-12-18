@@ -166,7 +166,7 @@ export class ListarOfertasComponent implements OnInit {
       if (result) {
         setTimeout(() => {          
           this.getOfertas();
-        }, 1000);      
+        }, 1500);      
       }
     });
   }
