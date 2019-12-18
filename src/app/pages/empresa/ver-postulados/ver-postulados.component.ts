@@ -82,8 +82,7 @@ export class VerPostuladosComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
   cargarPostuladosSeleccionados() {
-    this.empresaService.getPostuladosSeleccionadosOferta(this.id).subscribe(resultado => {
-      console.log(resultado);
+    this.empresaService.getPostuladosSeleccionadosOferta(this.id).subscribe(resultado => {      
       this.listaPostuladosEscogidos = resultado;
     },
       error => {
