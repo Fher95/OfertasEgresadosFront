@@ -57,7 +57,7 @@ export class CompletarRegistroComponent implements OnInit {
 
   ngOnInit() {
     this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
-      data => { this.idEgresado=data.id_aut_egresado; }
+      data => { this.idEgresado = data.id_aut_egresado; }
       );
   }
 
