@@ -3,24 +3,24 @@
 <div mat-dialog-content>
   <strong>Nombre de la empresa: </strong> <a>{{data.oferta.empresa.nombre}}</a>
   <p></p>
-  <strong>Descripcion: </strong> <a>{{data.oferta.descripcion}}</a>
+  <strong>Descripción: </strong> <a>{{data.oferta.descripcion}}</a>
   <p></p>
-  <strong>Fecha publicacion: </strong> <a>{{data.oferta.fecha_publicacion}}</a>
+  <strong>Fecha publicación: </strong> <a>{{data.oferta.fecha_publicacion}}</a>
   <p></p>
-  <strong>Experiencia Requerida: </strong> <a>{{data.oferta.experiencia}}</a>
+  <strong>Experiencia requerida: </strong> <a>{{data.oferta.experiencia}}</a>
   <p></p>
   <strong>Años de experiencia: </strong> <a>{{data.oferta.anios_experiencia}}</a>
   <p></p>
-  <strong>Numero de vacantes: </strong> <a>{{data.oferta.numero_vacantes}}</a>
+  <strong>Número de vacantes: </strong> <a>{{data.oferta.numero_vacantes}}</a>
   <p></p>
   <div *ngIf="data.oferta.ubicaciones">
-    <strong>Ubicacion: </strong>
+    <strong>Ubicación: </strong>
     <a>{{this.getStrUbicaciones(data.oferta.ubicaciones)}} </a>
     <p></p>
   </div>
   <strong>Salario: </strong>
   <a>{{data.oferta.salario ? 'Entre '+this.getSalario(data.oferta.salario.minimo) : 'No se especifica'}}
-    {{data.oferta.salario ? ' y '+this.getSalario(data.oferta.salario.maximo) : 'No se especifica'}}
+    {{data.oferta.salario ? ' y '+this.getSalario(data.oferta.salario.maximo) : ' '}}
   </a>
   <p></p>
   <strong>Forma de pago: </strong>
@@ -36,7 +36,7 @@
   </div>
   <p></p>
   <div *ngIf="this.estadoActivacion === 'Inactivar'" class="form-group">
-    <strong for="exampleFormControlTextarea1">Motivos inhabilitacion:</strong>
+    <strong for="exampleFormControlTextarea1">Motivos inhabilitación:</strong>
     <textarea [(ngModel)]="this.motivoInactivacion" class="form-control" id="exampleFormControlTextarea1"
       rows="3"></textarea>
   </div>

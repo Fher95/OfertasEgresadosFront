@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ReferenciaPersonalModel } from './../../../../../shared/modelos/referencia-personal.model';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-lista-referencias-personales',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-referencias-personales.component.css']
 })
 export class ListaReferenciasPersonalesComponent implements OnInit {
+  displayedColumns: string[] = ['nombre', 'parentesco', 'celular', 'acciones'];
 
-  constructor() { }
+  @Input()
+  referidos: ReferenciaPersonalModel[];
 
-  ngOnInit() {
-  }
+  constructor() {}
 
+  ngOnInit() {}
 }

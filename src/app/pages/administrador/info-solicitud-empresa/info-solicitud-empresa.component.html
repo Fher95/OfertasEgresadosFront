@@ -12,7 +12,7 @@
   <p></p>
   <strong>Sitio Web: </strong> <a href={{data.solicitud.sitio_web}}>{{data.solicitud.sitio_web}}</a>
   <p></p>
-  <strong>Numero de empleados: </strong> <a>{{data.solicitud.numero_empleados}}</a>
+  <strong>Número de empleados: </strong> <a>{{data.solicitud.numero_empleados}}</a>
   <p></p>
   <strong>Fecha de registro: </strong> <a>{{data.solicitud.fecha_registro}}</a>
   <p></p>
@@ -23,7 +23,7 @@
     <p></p>
   </div>
   <div *ngIf="data.solicitud.estado === 'Pendiente' || data.solicitud.estado === 'Inactivo'" class="form-group">
-    <strong for="numOfertas">Numero de publicaciones permitidas: </strong>
+    <strong for="numOfertas">Número de publicaciones permitidas: </strong>
     <h6 *ngIf="this.seleccionNumOfertas === 0" class="text-muted">Ingrese un número de publicaciones para activar</h6>
     <p *ngIf="this.seleccionNumOfertas > this.limitePublicaciones" class="text-danger">El límite de publicaciones es de {{this.limitePublicaciones}}</p>
     <p></p>

@@ -1,3 +1,81 @@
-<p>
-  grado works!
-</p>
+<h2 mat-dialog-title>VER INFORMACIÓN GRADO</h2>
+<mat-dialog-content *ngIf="gradoObservable$ | async as grado; else loading">
+  <form
+    #frmInformacionGrado="ngForm"
+    (ngSubmit)="acutalizarGrado(frmInformacionGrado)"
+  >
+    <div class="form-row">
+      <!-- Sede -->
+      <mat-form-field class="form-group col-md-4">
+        <mat-label>Sede</mat-label>
+        <mat-select [(value)]="grado.programa.sede">
+          <mat-option *ngFor="let sede of sedes" [value]="sede">
+            {{ sede.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Nivel de estudio -->
+      <mat-form-field class="form-group col-md-4">
+        <mat-label>Nivel de estudio</mat-label>
+        <mat-select [(value)]="grado.programa.nivelEstudio">
+          <mat-option *ngFor="let nivel of nivelesEstudio" [value]="nivel">
+            {{ nivel.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Facultad -->
+      <mat-form-field class="form-group col-md-4">
+        <mat-label>Facultad</mat-label>
+        <mat-select [(value)]="grado.programa.facultad">
+          <mat-option *ngFor="let facultad of facultades" [value]="facultad">
+            {{ facultad.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field class="form-group col-md-6">
+        <mat-label>Programa</mat-label>
+        <mat-select [(value)]="grado.programa">
+          <mat-option *ngFor="let programa of progrmas" [value]="programa">
+            {{ programa.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-6">
+        <mat-label>Título</mat-label>
+        <mat-select [(value)]="grado.programa.titulo">
+          <mat-option *ngFor="let titulo of titulos" [value]="titulo">
+            {{ titulo.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-6">
+        <input
+          type="text"
+          matInput
+          #mencion
+          name="mencion"
+          [value]="grado.mencion"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row" *ngFor="let observacion of observaciones; index as i">
+      <mat-form-field class="col-md-12">
+        <textarea
+          matInput
+          name="observacion{{ observacion.id }}"
+          rows="3"
+          placeholder="{{ observacion.pregunta }}"
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<ng-template #loading>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</ng-template>

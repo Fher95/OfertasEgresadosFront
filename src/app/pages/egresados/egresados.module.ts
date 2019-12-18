@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'actualizar', component: ActualizarInformacionComponent},
   { path: 'perfil', component: PerfilComponent},
   { path: 'eventos', component: EventosComponent},
-  { path: 'carnetizacion', component: CarnetizacionComponent },
+  { path: 'carnetizacion', component: CarnetizacionComponent,canActivate: [AuthGuard] },
   { path: '', component: InicioEgresadosComponent}
 
   //{ path: '**', component: InicioEgresadosComponent }

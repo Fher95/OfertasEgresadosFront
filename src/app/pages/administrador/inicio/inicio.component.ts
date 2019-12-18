@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -9,7 +11,10 @@ export class InicioComponent implements OnInit {
 
   showSideBar: boolean = true;
 
-  constructor() { }
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
   }
@@ -17,5 +22,9 @@ export class InicioComponent implements OnInit {
   toogleSidebar() {
     this.showSideBar = !this.showSideBar;
   }
-
+  
+  onLogout() {
+    this.auth.logout();
+    this.router.navigateByUrl('/home');
+  }
 }

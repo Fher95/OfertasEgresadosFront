@@ -73,8 +73,7 @@ export class EmpresaService {
     // this.httpClient.post('', fd,{headers: this.headers});
   }
   modificarEstadoOferta(idOferta, objEstadoOferta){
-    console.log("objeto a mandar: ", objEstadoOferta);
-      return this.httpClient.put("http://127.0.0.1:8081/api/ofertas/estado-proceso/" + idOferta, objEstadoOferta, {headers: this.headers});
+    return this.httpClient.put("http://127.0.0.1:8081/api/ofertas/estado-proceso/" + idOferta, objEstadoOferta, {headers: this.headers});
   }
 
   getDatosOferta(id: string): Observable<any>{
@@ -115,6 +114,9 @@ export class EmpresaService {
   }
   obtenerDiscapacidades(): Observable<any[]>{
     return this.httpClient.get<any[]>("http://localhost:8081/api/discapacidades", this.httpOptions);
+  }
+  obtenerID(email: string): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8081/api/getEmpresa/" + email, this.httpOptions);
   }
   getRangoSalariales(moneda:String):Observable<any[]>{
     return this.httpClient.get<any[]>("http://localhost:8081/api/salarios/"+moneda,this.httpOptions);
