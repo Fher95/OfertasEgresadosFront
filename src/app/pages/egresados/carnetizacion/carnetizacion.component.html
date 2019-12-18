@@ -21,7 +21,7 @@
           <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
         </div>
         <!--Si el egresado no ha solicitado un carnet-->
-        <div *ngIf="estadoEgres && estadoCarnet =='0' " align="center">
+        <div *ngIf="estadoEgres && estadoCarnet =='' " align="center">
           <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
           <button class='boton' color="primary" (click)="enviarSolicitudCarnet()" mat-button>Solicitar Carnet</button>
         </div>
