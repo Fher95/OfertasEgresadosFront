@@ -1,11 +1,11 @@
 export class Localizacion{
-    id_aut_localizacion:number;
     direccion:string;
-    id_ciudad:number;
+    barrio:string;
+    id_aut_ciudad:number;
 
     constructor(){
-        this.id_aut_localizacion=0;
         this.direccion='';
-        this.id_ciudad=0;
+        this.barrio='';
+        this.id_aut_ciudad=0;
     }
 }

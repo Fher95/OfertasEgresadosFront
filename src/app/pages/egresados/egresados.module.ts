@@ -22,11 +22,12 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { ActualizarInformacionComponent } from './actualizar-informacion/actualizar-informacion.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
+import { VisualizarReferenciaComponent } from './actualizar-informacion/visualizar-referencia/visualizar-referencia.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
+  { path: 'completarRegistro', component: CompletarRegistroComponent},// canActivate: [AuthGuard]},
   { path: 'actualizar', component: ActualizarInformacionComponent},
   { path: 'perfil', component: PerfilComponent},
   { path: 'eventos', component: EventosComponent},
@@ -54,7 +55,8 @@ const routes: Routes = [
     PerfilComponent,
     ActualizarInformacionComponent,
     EventosComponent,
-    CarnetizacionComponent
+    CarnetizacionComponent,
+    VisualizarReferenciaComponent
   ],
   imports: [
 
@@ -69,6 +71,7 @@ const routes: Routes = [
   ],
   entryComponents: [
     CancelarDialogComponent,
+    VisualizarReferenciaComponent
   ],
 })
 export class EgresadosModule { }
