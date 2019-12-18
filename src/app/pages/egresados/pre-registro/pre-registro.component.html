@@ -93,7 +93,7 @@
               <h5>Discapacidad:*</h5>
               <mat-error *ngIf="discapacidad.length == 0">Por favor seleccione una opción</mat-error>
               <mat-checkbox  *ngFor="let discapacidad of discapacidades let index = index" [value]="discapacidad.idDiscapacidad"
-                (change)="discapacidadesUsuario(discapacidad.idDiscapacidad,index,$event)" (change)="otraDiscapacidad(index,$event)" (change)="checkCheckBoxvalue($event)" [labelPosition]="after" required>
+                (change)="discapacidadesUsuario(discapacidad.idDiscapacidad,index,$event)" (change)="otraDiscapacidad(index,$event)" |21[labelPosition]="after" required>
                 {{discapacidad.Nombre}}
               </mat-checkbox>
             </div>
