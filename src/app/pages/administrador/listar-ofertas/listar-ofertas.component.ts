@@ -162,7 +162,7 @@ export class ListarOfertasComponent implements OnInit {
   }
   dialogAbierto(dial: MatDialogRef<InfoOfertaLaboralComponent, any>) {
     dial.afterClosed().subscribe((result) => {
-      this.getOfertas();        
+      //this.getOfertas();        
       if (result) {
         setTimeout(() => {          
           this.getOfertas();
