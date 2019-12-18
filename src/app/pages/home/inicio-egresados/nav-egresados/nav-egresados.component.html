@@ -6,10 +6,10 @@
   <nav class="nav justify-content-end navbar-light bg-light shadow border-bottom sticky-top">
     <div class = "row">
       <ul class = "nav col-12 " routerLinkActive = "active"> 
-        <li class = "nav-item"> 
+        <li *ngIf="auth.isLogin" class = "nav-item"> 
           <a class = "nav-link" (click) = "completarReg()">Completar Registro</a>
         </li>
-        <li class = "nav-item"> 
+        <li *ngIf="auth.isLogin" class = "nav-item"> 
           <a class = "nav-link" (click) = "perfil()">Perfil</a>
         </li>
         <li *ngIf="auth.isLogin" class = "nav-item"> 

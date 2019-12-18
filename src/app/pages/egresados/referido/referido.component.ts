@@ -28,7 +28,7 @@ export class ReferidoComponent implements OnInit {
   Nombre = new FormControl('', [Validators.required]);
   Egresado = new FormControl('', [Validators.required]);
   Correo = new FormControl('', [Validators.required, Validators.email]);
-  Celular = new FormControl('', [Validators.required, Validators.minLength(13)]);
+  Celular = new FormControl('', [Validators.required, Validators.minLength(10)]);
   Parentesco = new FormControl('', [Validators.required]);
 
   listaParentesco: string[] = ['Pareja/Cónyuge', 'Padre', 'Madre', 'Abuelo/a', 'Hijo/a', 'Otro'];
@@ -70,7 +70,7 @@ export class ReferidoComponent implements OnInit {
     this.Parentesco = new FormControl('', [Validators.required]);
     this.Egresado = new FormControl('', [Validators.required]);
     this.Correo = new FormControl('', [Validators.required, Validators.email]);
-    this.Celular = new FormControl('', [Validators.required, Validators.minLength(13)]);
+    this.Celular = new FormControl('', [Validators.required, Validators.minLength(10)]);
   }
   validarDatos() {  
     var bandera: boolean = false;
