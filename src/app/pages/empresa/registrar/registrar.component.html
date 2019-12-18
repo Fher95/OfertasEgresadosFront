@@ -31,22 +31,9 @@
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.EmailExiste">
                                 Usted ya posee una cuenta</mat-error>
                             <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.pattern">Digite
-                                un correo valido. ej: ejemplo@gmail.com</mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                            <mat-label>Contraseña</mat-label>
-                            <input formControlName="contrasenia" matInput [type]="contOculto ? 'password' : 'text'"
-                                required>
-                            <mat-icon matSuffix (click)="contOculto = !contOculto">
-                                {{contOculto ? 'visibility_off' : 'visibility'}}
-                            </mat-icon>
-                            <mat-error
-                                *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.required">
-                                campo
-                                requerido</mat-error>
-                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.contrasenia.errors?.pattern">
-                                La contraseña debe contener al menos 6 caracteres.
-                            </mat-error>
+                                un correo válido. ej: ejemplo@gmail.com</mat-error>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-cuenta').controls.email.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                     </div>
                     <!--<div class="row justify-content-center">
@@ -96,11 +83,14 @@
                                     NIT ya registrado</mat-error>
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline">
-                                <mat-label>Razon Social</mat-label>
+                                <mat-label>Razón Social</mat-label>
                                 <input formControlName="razonSocial" matInput required>
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.razonSocial.errors?.required">
                                     campo requerido</mat-error>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.razonSocial.errors?.maxlength">
+                                    Demasiados caracteres</mat-error>
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline">
                                 <mat-label>Nombre Empresa</mat-label>
@@ -111,6 +101,9 @@
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.nombreEmpresa.hasError('NombreExiste')">
                                     La empresa ya está registrada</mat-error>
+                                <mat-error
+                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.nombreEmpresa.errors?.maxlength">
+                                    Demasiados caracteres</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="row centrarContenidoRow">
@@ -118,7 +111,7 @@
                                 <mat-select formControlName="anioCreacion" required>
                                     <mat-option *ngFor="let anio of anios" value="{{anio}}">{{anio}}</mat-option>
                                 </mat-select>
-                                <mat-label>Año de creacion</mat-label>
+                                <mat-label>Año de creación</mat-label>
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.anioCreacion.errors?.required">
                                     campo requerido</mat-error>
@@ -139,9 +132,6 @@
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
                                     campo requerido</mat-error>
-                                <!-- <mat-error
-                                    *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.min">
-                                    minimo 0</mat-error> -->
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
                                 <mat-select formControlName="ingresosEmp">
@@ -162,6 +152,9 @@
                                     <mat-error
                                         *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.descripcionEmpresa.errors?.required">
                                         campo requerido</mat-error>
+                                    <mat-error
+                                        *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.descripcionEmpresa.errors?.maxlength">
+                                        Demasiados caracteres</mat-error>
                                     <mat-label>Descripción de la empresa</mat-label>
                                 </mat-form-field>
                             </div>
@@ -222,9 +215,9 @@
                 </mat-step>
 
                 <mat-step formGroupName="loc-contact-empresa" [stepControl]="formRegistroEmp.get('loc-contact-empresa')"
-                    label="Localizacion">
+                    label="Localización">
                     <div class="Subtitulos-card">
-                        <p class="text-center"><b>Localizacion de su empresa</b></p>
+                        <p class="text-center"><b>Localización de su empresa</b></p>
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
                     <div class="text-center">
@@ -269,11 +262,14 @@
                     </div>
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Direccion de la empresa</mat-label>
+                            <mat-label>Dirección de la empresa</mat-label>
                             <input formControlName="direccionEmp" matInput required>
                             <mat-error
                                 *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.direccionEmp.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.direccionEmp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Barrio/Localidad</mat-label>
@@ -281,13 +277,19 @@
                             <mat-error
                                 *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.barrioEmp.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.barrioEmp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Codigo Postal</mat-label>
+                            <mat-label>Código Postal</mat-label>
                             <input matInput maxlength="6" type="number" formControlName="codigoPostalEmp">
                             <mat-error
                                 *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.codigoPostalEmp.errors?.min">
-                                No hay codigo postal negativo</mat-error>
+                                Ingrese un código postal válido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.codigoPostalEmp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="text-center">
@@ -295,11 +297,14 @@
                     </div>
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Telefono de la empresa</mat-label>
+                            <mat-label>Teléfono de la empresa</mat-label>
                             <input type="number" formControlName="telefonoEmp" matInput required>
                             <mat-error
                                 *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.telefonoEmp.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.telefonoEmp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Email de la empresa</mat-label>
@@ -308,7 +313,10 @@
                                 *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.emailEmp.errors?.pattern">
                                 Digite
                                 un
-                                correo valido. ej: ejemplo@gmail.com</mat-error>
+                                correo válido. ej: ejemplo@gmail.com</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.emailEmp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Sitio Web</mat-label>
@@ -316,6 +324,9 @@
                             <mat-error
                                 *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.sitioWebEmp.errors?.pattern">
                                 El formatio del sitio web es erroneo</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('loc-contact-empresa').controls.sitioWebEmp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
@@ -341,6 +352,9 @@
                             <mat-error
                                 *ngIf="formRegistroEmp.get('datos-resp').controls.nombrereplegal.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.nombrereplegal.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Apellidos</mat-label>
@@ -348,17 +362,31 @@
                             <mat-error
                                 *ngIf="formRegistroEmp.get('datos-resp').controls.apellidoreplegal.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.apellidoreplegal.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Telefono</mat-label>
+                            <mat-label>Teléfono</mat-label>
                             <input type="number" formControlName="telefonoreplegal" matInput>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoreplegal.errors?.min">
+                                Ingrese un telefono correcto</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoreplegal.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Telefono móvil</mat-label>
+                            <mat-label>Teléfono móvil</mat-label>
                             <input type="number" formControlName="telefonoMovilreplegal" matInput required>
                             <mat-error
                                 *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoMovilreplegal.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoMovilreplegal.errors?.min">
+                                Ingrese un teléfono válido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoMovilreplegal.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
 
                     </div>
@@ -371,12 +399,17 @@
                             <input formControlName="nombreResp" matInput required>
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.nombreResp.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.nombreResp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Apellidos</mat-label>
                             <input formControlName="apellidoResp" matInput required>
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.apellidoResp.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.apellidoResp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
@@ -388,33 +421,43 @@
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
                                 campo requerido</mat-error>
                         </mat-form-field>
-                        <!--<mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Otro Cargo</mat-label>
-                            <input formControlName="cargo" matInput required>
-                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.cargo.errors?.required">
-                                campo requerido</mat-error>
-                        </mat-form-field>-->
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
-                            <mat-label>Telefono</mat-label>
+                            <mat-label>Teléfono</mat-label>
                             <input type="number" formControlName="telefonoResp" matInput>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoResp.errors?.min">
+                                Ingrese un télefono válido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoResp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Telefono móvil</mat-label>
+                            <mat-label>Teléfono móvil</mat-label>
                             <input type="number" formControlName="telefonoMovilResp" matInput required>
                             <mat-error
                                 *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoMovilResp.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoMovilResp.errors?.min">
+                                Ingrese un teléfono válido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.telefonoMovilResp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" hideRequiredMarker appearance="outline">
                             <mat-label>Horario contacto</mat-label>
                             <input formControlName="horarioContactoResp" matInput>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.horarioContactoResp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
-                            <mat-label>Direccion de trabajo</mat-label>
+                            <mat-label>Dirección de trabajo</mat-label>
                             <input formControlName="direccionTrabajoResp" matInput required>
                             <mat-error
                                 *ngIf="formRegistroEmp.get('datos-resp').controls.direccionTrabajoResp.errors?.required">
                                 campo requerido</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.direccionTrabajoResp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Email personal corporativo</mat-label>
@@ -425,10 +468,13 @@
                             <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.email">
                                 Digite
                                 un
-                                correo valido. ej: ejemplo@gmail.com</mat-error>
-                                <mat-error
+                                correo válido. ej: ejemplo@gmail.com</mat-error>
+                            <mat-error
                                 *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.EmailExiste">
                                 Email corporativo ya registrado</mat-error>
+                            <mat-error
+                                *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.maxlength">
+                                Demasiados caracteres</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="botonesStepper">
@@ -445,7 +491,7 @@
                     </div>
                     <div class="mb-5">
                         <div class="row centrado">
-                            <label for="file">Cámara y comercio de tu empresa (Unicamente archivo PDF)</label>
+                            <label for="file">Cámara y comercio de tu empresa (Únicamente archivo PDF)</label>
                         </div>
                         <div class="row centrado">
                             <input #fileInput id="file" name="file" type="file" accept=".pdf"
@@ -457,7 +503,7 @@
                     </div>
                     <div>
                         <div class="row centrado">
-                            <label for="logo">Logo de tu empresa (Unicamente imagen JPG)</label>
+                            <label for="logo">Logo de tu empresa (Únicamente imagen JPG)</label>
                         </div>
                         <div class="row centrado">
                             <input #logoInput id="logo" type="file" accept=".jpg">
