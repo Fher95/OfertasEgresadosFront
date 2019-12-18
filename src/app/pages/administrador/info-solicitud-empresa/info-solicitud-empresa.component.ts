@@ -21,7 +21,7 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
     private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    console.log('Abierto dialog de información de empresa');
+    
   }
 
 

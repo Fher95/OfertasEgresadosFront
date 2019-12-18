@@ -49,7 +49,8 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
         this.auxiliar = true;
 
         this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarSolicitudes('estado'));
-        this.dataSource.paginator = this.paginator;        
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
         if (this.solicitudes.length == 0 || isNull(this.solicitudes)) {
           this.arregloVacio = true;
         } 
@@ -66,22 +67,19 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     if (this.solicitudes.length == 0 || isNull(this.solicitudes)) {
       this.arregloVacio = true;
     }
-    this.dataSource.paginator = this.paginator;
-    console.log('Obtenidas Peticiones');
+    this.dataSource.paginator = this.paginator;    
   }
 
   getEstado(parEstado: string): string {   
     return parEstado;
   }
 
-  setSolicitudActual(parId: number): void {
-    console.log('parID: ' + parId);
+  setSolicitudActual(parId: number): void {    
     for (let index = 0; index < this.solicitudes.length; index++) {
       if (this.solicitudes[index].id_aut_empresa === parId) {
         this.solicitudSeleccionada = this.solicitudes[index];
       }
-    }
-    console.log(this.solicitudSeleccionada);
+    }    
     this.openDialog();
   }  
 
@@ -97,8 +95,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   desactivarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null) {
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
-        .subscribe(result => {
-          console.log(result);
+        .subscribe(result => {          
           this.getSolicitudes();                    
           this.reiniciarSeleccion();
         });
@@ -129,12 +126,9 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   }
   
   dialogAbierto(dial: MatDialogRef<InfoSolicitudEmpresaComponent, any>) {
-    dial.afterClosed().subscribe((result) => {
-      console.log('Resultado dialogo cerrado:' + result);
-      if (result) {
-        console.log('Entra al if');
-        setTimeout(() => {
-          console.log('Cargando solicitudes');
+    dial.afterClosed().subscribe((result) => {      
+      if (result) {        
+        setTimeout(() => {          
           this.getSolicitudes();
         }, 1000);
         
@@ -159,7 +153,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
   filtrar(columna) {
     
     this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarSolicitudes(columna));
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;    
   }    
 
 }

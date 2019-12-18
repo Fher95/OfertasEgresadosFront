@@ -73,20 +73,33 @@ export class CatalogosService {
     return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
 
-  getCarnetizacion(idEgreado: number): Observable<SolicitudInterface[]> {
-    return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
+  getEstadoEgresado(idEgresado: number): Observable<any>{
+    return this.http.get(`${baseUrl}validarEstado/${idEgresado}`);
+  }
+
+  getEstadoInformacionEgresado(idEgresado: number): Observable<any>{
+    return this.http.get(`${baseUrl}validaCompletarInformacion/${idEgresado}`);
+  }
+
+  getEstadoSolicitudCarnet(idEgresado: number): Observable<any>{
+    return this.http.get(`${baseUrl}validarSolicitudes/${idEgresado}`);
   }
 
   enviarEstadoSolicitud(idSolicitud: number, estado: boolean) {
-    return this.http.get(`${baseUrl}programas/${idSolicitud}/${estado}`);
+    return this.http.get(`${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}/${estado}`);
+  }
+
+  enviarSolicitudCarnet(idSolicitud: number) {
+    return this.http.get(`${baseUrl}enviarSolicitud/${idSolicitud}`);
+  }
+
+  cancelarSolicitudCarnet(idSolicitud: number) {
+    return this.http.get(`${baseUrl}cancelarSolicitud/${idSolicitud}`);
   }
 
 
   public getEventos(): Observable<EventoInterface[]> {
     return this.http.get<EventoInterface[]>(`${baseUrl}eventos`);
-  }
-
-  getUrlGetImage(image) {
   }
 
   public updateImage(eventId: string, files: Array<File>) {
