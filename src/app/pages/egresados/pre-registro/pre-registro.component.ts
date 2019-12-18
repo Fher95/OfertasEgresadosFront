@@ -305,7 +305,12 @@ private tituloPrograma: string = "Musica";
             
           });
         },error => {
+          let err = <any>error;
+          if(err==422){
+            this.alert.showErrorMessage('Error', 'Ya hay una cuenta con los datos ingresados.');
+          }else{
           this.alert.showErrorMessage('Error', 'A ocurrido un error al registrar sus datos intente de nuevo');
+          }
         }
       );
     }   
