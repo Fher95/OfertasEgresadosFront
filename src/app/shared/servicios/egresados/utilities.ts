@@ -24,15 +24,12 @@ export class Utilities {
   }
 
   public static dateToString(date: Date, separator: string): string {
-    return date == null && separator != null
+    return date == null
       ? ''
       : date.getDate() +
-          '' +
-          separator +
-          '' +
+          '/' +
           (date.getMonth() + 1) +
-          '' +
-          separator +
+          '/' +
           date.getFullYear();
   }
 }

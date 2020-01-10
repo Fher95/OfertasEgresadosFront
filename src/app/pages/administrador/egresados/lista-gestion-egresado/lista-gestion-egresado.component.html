@@ -5,7 +5,7 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form #frmFiltrarEgresados (ngSubmit)="onFiltrar(frmFiltrarEgresados)">
+    <form #frmFiltrarEgresados="ngForm" (ngSubmit)="filtrar(frmFiltrarEgresados)">
       <div class="form-row">
         <mat-form-field class="form-group col-md-6">
           <input
