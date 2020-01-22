@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 })
 export class EventosService {
   private baseUrl: string = `${environment.baseUrl}admin/`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   save(evento: EventoModel, fileInput: File) {
     const formData = new FormData();
@@ -27,19 +27,13 @@ export class EventosService {
 
   update(evento: EventoModel, fileInput: File): Observable<EventoModel> {
     const formData = new FormData();
-    formData.set('fileInput', fileInput);
-    formData.set('nombre', evento.nombre);
-    formData.set('lugar', evento.lugar);
-    formData.set('descripcion', evento.descripcion);
-    formData.set('id', evento.id.toString());
-    formData.set('fechaInicio', evento.fechaInicio);
-    formData.set('fechaFin', evento.fechaFin);
-    formData.set('cupos', evento.cupos.toString());
-    formData.set('dirigidoA', evento.dirigidoA);
+    formData.append('fileInput', fileInput);
     return this.http
       .put<EventoModel>(`${this.baseUrl}eventos`, {
-        formData
-      })
+        evento,
+        'file': formData
+      }
+      )
       .pipe(
         map(response => {
           return response;

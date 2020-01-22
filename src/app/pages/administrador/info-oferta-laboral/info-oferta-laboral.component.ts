@@ -4,6 +4,7 @@ import { DialogData } from '../listar-ofertas/listar-ofertas.component';
 import { ListarOfertasService } from '../listar-ofertas/listar-ofertas.service';
 import { Ubicacion } from '../listar-ofertas/OfertaLaboral';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-info-oferta-laboral',
@@ -17,7 +18,8 @@ export class InfoOfertaLaboralComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
               private servicioOfertas: ListarOfertasService,
-              private _snackBar: MatSnackBar) { }
+              private _snackBar: MatSnackBar,
+              private alert: AlertService) { }
   ngOnInit() {
     this.estadoActivacion = this.data.oferta.estado;
   }
@@ -49,7 +51,8 @@ export class InfoOfertaLaboralComponent implements OnInit {
     this.servicioOfertas.aprobarOferta(this.data.oferta.id_aut_oferta)
       .subscribe(result => {              
         this.servicioOfertas.notificarCambio();
-        this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" aceptada');
+        this.alert.showSuccesMessage("Cambio exitoso", "Oferta laboral aceptada");
+        //this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" aceptada');
       });
   }
 
@@ -58,7 +61,8 @@ export class InfoOfertaLaboralComponent implements OnInit {
       .subscribe(result => {
         // this.getOfertas();
         this.servicioOfertas.notificarCambio();
-        this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" rechazada');
+        this.alert.showSuccesMessage("Cambio exitoso", "Oferta laboral rechazada");
+        //this.openSnackBar('Oferta laboral "' + this.data.oferta.nombre_oferta + '" rechazada');
       });
   }
 

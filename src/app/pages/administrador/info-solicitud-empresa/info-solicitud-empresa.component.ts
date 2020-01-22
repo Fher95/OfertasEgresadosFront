@@ -4,6 +4,7 @@ import { Solicitud } from '../listar-solicitudes-empresa/Solicitud';
 import { ListarSolicitudesEmpresaComponent, DialogData } from '../listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { ListarSolicitudesService } from '../listar-solicitudes-empresa/listar-solicitudes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-info-solicitud-empresa',
@@ -18,7 +19,8 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
     private servicioLista: ListarSolicitudesService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private alert: AlertService) { }
 
   ngOnInit() {
     
@@ -53,7 +55,8 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
     if (parSolicitud != null) {
       this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, this.seleccionNumOfertas)
         .subscribe(result => {
-          this.openSnackBar('Empresa "' + parSolicitud.nombre + '" activada');
+          this.alert.showSuccesMessage("Cambio de estado correcto", 'Empresa "' + parSolicitud.nombre + '" activada');
+          //this.openSnackBar('Empresa "' + parSolicitud.nombre + '" activada');
           // this.getSolicitudes();          
           this.reiniciarSeleccion();
         });
@@ -64,7 +67,8 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
     if (parSolicitud != null) {
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
-          this.openSnackBar('Empresa "' + parSolicitud.nombre + '" desactivada');
+          this.alert.showSuccesMessage("Cambio de estado correcto", 'Empresa "' + parSolicitud.nombre + '" desactivada');
+          //this.openSnackBar('Empresa "' + parSolicitud.nombre + '" desactivada');
           // this.getSolicitudes();          
           this.reiniciarSeleccion();
         });

@@ -79,7 +79,7 @@ export class ListaEventosComponent implements OnInit, AfterViewInit {
         lugar: form.value.lugar,
         fecha:
           form.value.fecha !== ''
-            ? Utilities.dateToString(form.value.fecha, '-')
+            ? Utilities.dateToString(form.value.fecha, '/')
             : ''
       };
     } else {
