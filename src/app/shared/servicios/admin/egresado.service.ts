@@ -47,7 +47,7 @@ export class EgresadoService implements OnInit {
     let httpParams = new HttpParams();
     if (filter) {
       Object.entries(filter).forEach(key => {
-        if (key[1] !== undefined) {
+        if (key[1] !== undefined && key[1] !== '') {
           httpParams = httpParams.append(key[0], key[1]);
         }
       });
@@ -59,7 +59,7 @@ export class EgresadoService implements OnInit {
 export class EgresadoFilter {
   constructor(
     public cedula?: string,
-    public nombreCompleto?: string,
+    public nombre?: string,
     public programa?: string,
     public titulo?: string,
     public estado?: string
