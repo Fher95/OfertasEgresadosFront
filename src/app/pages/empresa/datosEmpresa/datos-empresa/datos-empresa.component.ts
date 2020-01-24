@@ -119,7 +119,7 @@ export class DatosEmpresaComponent implements OnInit {
   //Modifica la foto de la empresa
   modificarFoto(event){
 
-  //No implementado
+  //No implementado futuras generaciones
     /*
     let formData = new FormData();
     //formData.append('logoInput', this.logoInput.nativeElement.files[0]);
