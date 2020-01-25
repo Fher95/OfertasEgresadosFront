@@ -6,6 +6,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { isNull, isUndefined } from 'util';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 export interface DialogData {
   postulado: IEgresado;
@@ -32,7 +33,7 @@ export class VerPostuladosComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private empresaService: EmpresaService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -58,7 +59,7 @@ export class VerPostuladosComponent implements OnInit {
       this.auxiliar = true;
       this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
+      //this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
       if (this.listaPostulados.length === 0 || isNull(this.listaPostulados)) {
         this.arregloVacio = true;
       }      
@@ -142,7 +143,7 @@ export class VerPostuladosComponent implements OnInit {
       if (result) {
         setTimeout(() => {
           this.cargarPostulados();
-        }, 1000);
+        }, 1500);        
       }
     });
   }
@@ -160,7 +161,8 @@ export class DialogPostuladoComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
               private empresaService: EmpresaService,
-              private _snackBar: MatSnackBar) { }
+              private _snackBar: MatSnackBar,
+              private alert: AlertService) { }
 
   ngOnInit() {
     this.postuladoSeleccionado = this.data.postulado;
@@ -171,8 +173,8 @@ export class DialogPostuladoComponent {
   guardarEstado(){
     this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.idOferta, this.estado)
     .subscribe( result => {
-      this.openSnackBar('Estado de "'+this.postuladoSeleccionado.nombres 
-      + ' ' + this.postuladoSeleccionado.apellidos + '" cambió a "' + this.estado + '"');
+      this.alert.showSuccesMessage("Cambio exitoso", 'Estado de "'+this.postuladoSeleccionado.nombres + ' ' + this.postuladoSeleccionado.apellidos + '" cambió a "' + this.estado + '"');
+      //this.openSnackBar('Estado de "'+this.postuladoSeleccionado.nombres + ' ' + this.postuladoSeleccionado.apellidos + '" cambió a "' + this.estado + '"');
     }
     );
   }

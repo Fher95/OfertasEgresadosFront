@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      SOLICITUDES DE CARNETIZACIÓN
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="solicitudes">
+      <!-- Fecha solicitud -->
+      <ng-container matColumnDef="fechaSolicitud">
+        <th mat-header-cell *matHeaderCellDef>Fecha de solicitud</th>
+        <td mat-cell *matCellDef="let solicitud">
+          {{ solicitud.fechaSolicitud }}
+        </td>
+      </ng-container>
+
+      <!-- Fecha respuesta -->
+      <ng-container matColumnDef="fechaRespuesta">
+        <th mat-header-cell *matHeaderCellDef>Fecha de respuesta</th>
+        <td mat-cell *matCellDef="let solicitud">
+          {{ solicitud.fechaRespuesta }}
+        </td>
+      </ng-container>
+
+      <!-- Estado solicitud -->
+      <ng-container matColumnDef="estadoSolicitud">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let solicitud">
+          {{ solicitud.estadoSolicitud }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <div class="div" *ngIf="solicitudes.length === 0">
+      No hay datos registrados
+    </div>
+  </mat-card-content>
+</mat-card>

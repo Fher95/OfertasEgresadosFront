@@ -47,7 +47,13 @@
           routerLinkActive="active"
         >
           <i class="fa fa-building-o"></i>
-          Solicides de empresas
+          Solicitudes de empresas
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/admin/verificar']" routerLinkActive="active">
+          <i class="fa fa-check"></i>
+          Verificar
         </a>
       </li>
       <li>
@@ -84,6 +90,12 @@
         <a href="#">
           <i class="fa fa-paper-plane"></i>
           Contact
+        </a>
+      </li>
+      <li>
+        <a (click)="onLogout()">
+          <i class="fa fa-sign-out"></i>
+          Cerrar Sesión
         </a>
       </li>
     </ul>

@@ -49,11 +49,16 @@ export class CompletarRegistroComponent implements OnInit {
   ComentProgramaAdicional = new FormControl('', [Validators.required]);
   DocenteInfluenciaAdicional = new FormControl('', [Validators.required]);
 
+  idEgresado : number;
+
   constructor(private dialog:MatDialog,private servicioCompletar: RegistroService, private alert: AlertService, private router:Router, private auth: AuthService) {
     this.limpiarFormulario();
    }
 
   ngOnInit() {
+    this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
+      data => { this.idEgresado = data; }
+      );
   }
 
   limpiarFormulario()
@@ -168,7 +173,7 @@ export class CompletarRegistroComponent implements OnInit {
   {
     if(this.verificarCampos()){
       this.llenarDatos();
-      this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
+      /*this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
         data => {
           console.log(data);
           this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,data.id_aut_egresado).subscribe(
@@ -180,7 +185,16 @@ export class CompletarRegistroComponent implements OnInit {
             error => {
               this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');
             });
-      });
+      });*/
+      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
+        respuesta => {
+          this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
+            ()=>{ this.router.navigateByUrl('home');});
+          console.log(respuesta);
+        },
+        error => {
+          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');
+        });
     }
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.');

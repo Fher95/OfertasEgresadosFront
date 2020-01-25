@@ -74,7 +74,7 @@ export class ListaGestionEgresadoComponent implements OnInit, AfterViewInit {
   filtrar(form: NgForm) {
     this.filter = new EgresadoFilter();
     this.filter.cedula = form.value.identificacion;
-    this.filter.nombreCompleto = form.value.nombreCompleto;
+    this.filter.nombre = form.value.nombreCompleto;
     this.filter.programa = form.value.programa;
     this.filter.estado = form.value.estado;
     this.filter.titulo = form.value.titulo;

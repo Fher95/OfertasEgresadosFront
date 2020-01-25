@@ -1,9 +1,26 @@
 <div class="container">
   <div *ngIf="egresadoObservable$ | async as egresado; else loading">
     <app-informacion-personal [egresado]="egresado"></app-informacion-personal>
+
     <div class="divider"></div>
+
     <app-lista-grados [grados]="egresado.grados"></app-lista-grados>
+
     <div class="divider"></div>
+
+    <app-lista-referencias-personales
+      [referidos]="egresado.referenciasPersonales"
+    ></app-lista-referencias-personales>
+
+    <div class="divider"></div>
+
+    <app-lista-trabajos-actuales [experiencias]="egresado.trabajosActuales">
+    </app-lista-trabajos-actuales>
+
+    <div class="divider"></div>
+
+    <app-lista-solicitudes-carnetizacion [solicitudes]="egresado.solicitudes">
+    </app-lista-solicitudes-carnetizacion>
   </div>
   <ng-template #loading>
     <mat-spinner *ngIf="isLoading"></mat-spinner>

@@ -130,7 +130,7 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
       if (result) {        
         setTimeout(() => {          
           this.getSolicitudes();
-        }, 1000);
+        }, 1500);
         
         
       }

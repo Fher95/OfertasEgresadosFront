@@ -1,3 +1,4 @@
+import { ObservacionModel } from './observacion.model';
 import { ProgramaModel } from './programa.model';
 
 export interface GradoModel {
@@ -6,4 +7,5 @@ export interface GradoModel {
   mencion_honor?: string;
   estado?: string;
   fechaGrado?: Date | string;
+  comentarios?: ObservacionModel[];
 }
