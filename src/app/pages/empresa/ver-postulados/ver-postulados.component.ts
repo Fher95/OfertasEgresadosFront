@@ -142,7 +142,7 @@ export class VerPostuladosComponent implements OnInit {
       if (result) {
         setTimeout(() => {
           this.cargarPostulados();
-        }, 1000);        
+        }, 1000);
       }
     });
   }
