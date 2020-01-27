@@ -27,9 +27,9 @@
                         <mat-divider [inset]="true"></mat-divider>
                     </div>
                     <div class="cartaCuenta">
-                        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+                        <mat-form-field class="full-width"   hintLabel="Modificable solo por administrador" floatLabel="auto" appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input formControlName="email" matInput required>
+                            <input formControlName="email" readonly matInput required>
                             <mat-error *ngIf="formDatosEmpresa.get('datos-cuenta').controls.email.errors?.required">campo
                                 requerido</mat-error>
                             <mat-error *ngIf="formDatosEmpresa.get('datos-cuenta').controls.email.errors?.EmailExiste">
