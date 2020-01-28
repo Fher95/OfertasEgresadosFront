@@ -41,6 +41,9 @@ export class InfoOfertaLaboralComponent implements OnInit {
   }
 
   getSalario(parSalario: string): string{
+    if (parSalario.includes('US')){
+      return parSalario;  
+    }
     const salarioSinSigno = parSalario.replace('$', '');
     const numSalario = +salarioSinSigno;
     const strNumero = '$' + numSalario.toLocaleString();

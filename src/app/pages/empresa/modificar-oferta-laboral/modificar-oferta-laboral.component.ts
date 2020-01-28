@@ -538,7 +538,6 @@ datosFormChecked: FormGroup;
   }
   //Cambia el valor cuando se cambia el tipo de contrato
   cambioTipoContrato(value){
-    console.log(value)
     if(value === 'Término indefinido' || value === 'Término fijo'){
       this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(value)
     }
