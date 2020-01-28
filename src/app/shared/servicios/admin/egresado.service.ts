@@ -47,7 +47,8 @@ export class EgresadoService implements OnInit {
     let httpParams = new HttpParams();
     if (filter) {
       Object.entries(filter).forEach(key => {
-        if (key[1] !== undefined && key[1] !== '') {
+        if (key[1] !== undefined && key[1] !== "") {
+
           httpParams = httpParams.append(key[0], key[1]);
         }
       });
