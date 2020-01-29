@@ -23,6 +23,7 @@ export class RegistroService {
   }
 
   public completarRegistroEgresado(completar: CompletarRegistro, idEgresado: number) {
+    console.log("Egresado: "+idEgresado);
     const URLCompletar = 'http://localhost:8081/api/completeEgresados/' + idEgresado;
     return this.http.put(URLCompletar, completar);
   }
