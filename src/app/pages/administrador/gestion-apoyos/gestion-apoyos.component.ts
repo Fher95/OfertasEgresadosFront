@@ -104,7 +104,16 @@ export class GestionApoyosComponent implements OnInit {
           form.reset();
         });
     }, err => {
-      this.alertService.showErrorMessage('Error', 'Error al registrar el nuevo apoyo');
+      console.log("Errro");
+      console.log(err);
+      console.log(err.error);
+      let msg = "Error al registrar el nuevo apoyo";
+      if (err.status == 422) {
+        if (err.error.errors.correo !== undefined) {
+          msg = 'Ya existe un usuario registrado con el correo electrónico proporcionado';
+        }
+      }
+      this.alertService.showErrorMessage('Error', msg);
     });
   }
 }
