@@ -158,7 +158,8 @@ export class CompletarRegistroComponent implements OnInit {
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
     this.varCompletarRegistro.comentarios = this.comentario.guardarComentario();
-    if(this.otroGrado.value==0){
+    if(this.otroGrado.value==0){    
+      this.varCompletarRegistro.otroGrado = true;
       this.agregarGradoAdicional();
     }
   }
