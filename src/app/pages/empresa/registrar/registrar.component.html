@@ -67,7 +67,7 @@
                         <div class="row centrarContenidoRow">
                             <mat-form-field floatLabel="auto" appearance="outline" hintLabel="entre 8-15 caracteres">
                                 <mat-label>NIT</mat-label>
-                                <input formControlName="NIT" #input matInput minlength="8" maxlength="15" required>
+                                <input type="number" formControlName="NIT" #input matInput minlength="8" maxlength="15" required>
                                 <mat-hint align="end">{{input.value.length || 0}}/15</mat-hint>
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.NIT.errors?.required">
@@ -116,8 +116,8 @@
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.anioCreacion.errors?.required">
                                     campo requerido</mat-error>
                             </mat-form-field>
-                            <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-                                <mat-select formControlName="numEmpleados">
+                            <mat-form-field floatLabel="auto" appearance="outline">
+                                <mat-select formControlName="numEmpleados" required>
                                     <mat-option value="1 - 10">1-10</mat-option>
                                     <mat-option value="11 - 50">11-50</mat-option>
                                     <mat-option value="51 - 150">51-150</mat-option>
@@ -127,7 +127,6 @@
                                     <mat-option value="1001 - 5000">1001-5000</mat-option>
                                     <mat-option value="Más de 5000">Más de 5000</mat-option>
                                 </mat-select>
-                                <!-- <input matInput type="number" formControlName="numEmpleados"> -->
                                 <mat-label>Numero de empleados</mat-label>
                                 <mat-error
                                     *ngIf="formRegistroEmp.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
@@ -226,7 +225,7 @@
                     <div class="row centrarContenidoRow">
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>País</mat-label>
-                            <mat-select formControlName="paisEmp" (selectionChange)="cargarDepartamentos($event.value)">
+                            <mat-select formControlName="paisEmp" (selectionChange)="cargarDepartamentos($event.value)" required>
                                 <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
                                     {{pais.nombre}}
                                 </mat-option>
@@ -238,7 +237,7 @@
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Departamento</mat-label>
                             <mat-select formControlName="departamentoEmp"
-                                (selectionChange)="cargarCiudades($event.value)">
+                                (selectionChange)="cargarCiudades($event.value)" required>
                                 <mat-option *ngFor="let departamento of departamentos"
                                     [value]="departamento.id_aut_dep">
                                     {{departamento.nombre}}
@@ -250,7 +249,7 @@
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Ciudad</mat-label>
-                            <mat-select formControlName="ciudadEmp">
+                            <mat-select formControlName="ciudadEmp" required>
                                 <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id_aut_ciudad">
                                     {{ciudad.nombre}}
                                 </mat-option>
@@ -413,7 +412,7 @@
                         </mat-form-field>
                         <mat-form-field floatLabel="auto" appearance="outline">
                             <mat-label>Cargo</mat-label>
-                            <mat-select formControlName="cargo">
+                            <mat-select formControlName="cargo" required>
                                 <mat-option *ngFor="let cargo of cargos" [value]="cargo.Nombre">
                                     {{cargo.Nombre}}
                                 </mat-option>
@@ -465,7 +464,7 @@
                             <mat-error
                                 *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.required">
                                 campo requerido</mat-error>
-                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.email">
+                            <mat-error *ngIf="formRegistroEmp.get('datos-resp').controls.emailCorpResp.errors?.pattern">
                                 Digite
                                 un
                                 correo válido. ej: ejemplo@gmail.com</mat-error>

@@ -20,7 +20,12 @@
       </div>
       <div class="row">
                   <div class="col-sm-12 col-md-6">
-                              <label><Strong>Area(s): </Strong>{{datosOferta.informacionPrincipal.areas}}</label>
+                              <label><Strong>Área(s): </Strong>
+                                    <a *ngFor="let area of datosOferta.informacionPrincipal.areas;  index as i">
+                                          {{area}}<label *ngIf="datosOferta.informacionPrincipal.areas.length-1 !== i">,&nbsp;</label>
+                                    </a>
+                              </label>
+                              
                         </div>
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Sector de la oferta: </Strong>{{datosOferta.informacionPrincipal.sector}}</label>
@@ -109,10 +114,14 @@
       </div>
       <div class="row">
             <div class="col-sm-12 col-md-6">
-                        <label><Strong>Estudio minimo: </Strong>{{datosOferta.requisitos.estudioMinimo}}</label>
+                        <label><Strong>Estudio mínimo: </Strong>{{datosOferta.requisitos.estudioMinimo}}</label>
                   </div>
             <div class="col-sm-12 col-md-6">
-                  <label><Strong>Carrera(s): </Strong>{{datosOferta.requisitos.programas}}</label>
+                  <label><Strong>Carrera(s): </Strong>
+                        <a *ngFor="let programa of datosOferta.requisitos.programas;  index as i">
+                              {{programa}}<label *ngIf="datosOferta.requisitos.programas.length-1 !== i">,&nbsp;</label>
+                        </a>
+                  </label>
             </div>
       </div>
       <div class="row">
@@ -243,13 +252,13 @@
        <div class="row mt-4">
                   <div class="col-sm-12 col-md-6">
                               <label><Strong>Personas con discapacidad: </Strong>
-                                    <label *ngIf="datosOferta.requisitos.discapacidades === null;else discapacidad">No</label>
+                                    <label *ngIf="datosOferta.requisitos.discapacidades === null || datosOferta.requisitos.discapacidades.length === 0;else discapacidad">No</label>
                                     <ng-template #discapacidad>
                                           Sí
                                     </ng-template>
                         </label>
                   </div>
-                  <div class="col-sm-12 col-md-6" *ngIf="datosOferta.requisitos.discapacidades !== null">
+                  <div class="col-sm-12 col-md-6" *ngIf="datosOferta.requisitos.discapacidades !== null && datosOferta.requisitos.discapacidades.length !== 0">
                               <label><Strong>Discapacidad(es): </Strong>{{datosOferta.requisitos.discapacidades}}</label>
                   </div>
       </div>
