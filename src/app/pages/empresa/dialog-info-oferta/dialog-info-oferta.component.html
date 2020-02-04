@@ -83,7 +83,7 @@
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Rangos salariales: </Strong>
                                           <label *ngIf="datosOferta.contrato.rangoSalarial === null; else rangoSalarial">No incluido</label>
-                                          <ng-template #rangoSalarial>{{datosOferta.contrato.rangoSalarial}}</ng-template>
+                                          <ng-template #rangoSalarial>{{formatNumber(datosOferta.contrato.rangoSalarial)}}</ng-template>
                                     </label>
                         </div>
       </div>
