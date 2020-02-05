@@ -82,14 +82,14 @@ export class ExplaboralComponent implements OnInit {
   {
     if(this.validarDatos()){
       this.varExperiencia.trabajo_en_su_area = this.Labora_Area.value;
-      this.varExperiencia.categoria= this.NombreCategoria.value;
+      this.varExperiencia.categoria= this.NombreCategoria.value.toUpperCase();
       this.varExperiencia.id_ciudad = this.localizacionEmpresa.obtenerIdLocalizacion();
       this.varExperiencia.nombre_empresa = this.NombreEmpresa.value;
       this.varExperiencia.dir_empresa = this.DirTrabajo.value;
       this.varExperiencia.tel_trabajo = this.TelTrabajo.value;
       this.varExperiencia.cargo_nombre = this.Cargo.value;
       this.varExperiencia.rango_salario = this.RangoSalario.value;
-      this.varExperiencia.tipo_contrato = this.TipoContrato.value;
+      this.varExperiencia.tipo_contrato = this.TipoContrato.value.toUpperCase();
       this.varExperiencia.sector = this.Sector.value;
       this.varExperiencia.fecha_inicio = this.fechaInicio.value;
       this.varExperiencia.fecha_fin = this.fechaFin.value;

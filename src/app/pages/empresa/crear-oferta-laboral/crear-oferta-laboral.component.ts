@@ -95,12 +95,12 @@ datosFormChecked: FormGroup;
         'contrato':this.formBuilder.group({
           tipoContrato:[null, Validators.required],
           formaPago:[null,Validators.required],
-          duracion:[null],
-          horario:[null],
+          duracion:[""],
+          horario:[""],
           jornada:[null, Validators.required],
           idRangoSalarial:[null,Validators.required],
           rangoSalarial:[null,],
-          comentariosSalario:[null]
+          comentariosSalario:[""]
         }),
         'requisitos':this.formBuilder.group({
           perfil:[null,Validators.required],

@@ -140,5 +140,8 @@ export class EmpresaService {
       
     );
   }
+  validarEmpresaActiva(email: string): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8081/api/verificar-empresa-activa/" + email, this.httpOptions);
+  }
 
 }

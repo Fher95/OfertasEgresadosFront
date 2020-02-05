@@ -8,6 +8,7 @@ export class CompletarRegistro{
     expActual?: Experiencia[];
     trabajo_actualmente:boolean;
     comentarios:Comentario[];
+    otroGrado:boolean;
     gradoAdicional?:GradoAdicional;
     
     constructor()
@@ -16,6 +17,7 @@ export class CompletarRegistro{
         this.expActual = new Array<Experiencia>();
         this.trabajo_actualmente = false;
         this.comentarios = new Array<Comentario>();
+        this.otroGrado = false;
         this.gradoAdicional = new GradoAdicional;
     }
 }
