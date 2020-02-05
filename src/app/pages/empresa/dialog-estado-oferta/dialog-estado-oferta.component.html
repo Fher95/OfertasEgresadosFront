@@ -3,7 +3,7 @@
 
 <div mat-dialog-content>
 
-  <!--Estado diferente a procesando-->
+  <!--Estado diferente a Pendiente-->
   <div
     *ngIf="datosOferta.estado === 'Aceptada' && (datosOferta.estado_proceso === 'Activa' || datosOferta.estado_proceso === 'En selección')">
     <!--Opciones Dialog-->
@@ -12,18 +12,21 @@
       <mat-select [(value)]="estado">
         <mat-option value="Activa">Activa</mat-option>
         <mat-option value="En selección">En selección</mat-option>
-        <mat-option value="Finalizada con contratación" (click)="cargarPostuladosSeleccionados()">Finalizada con contratación</mat-option>
+        <mat-option value="Finalizada con contratación" (click)="cargarPostuladosSeleccionados()">Finalizada con
+          contratación</mat-option>
         <mat-option value="Finalizada sin contratación">Finalizada sin contratación</mat-option>
       </mat-select>
     </mat-form-field>
 
     <div *ngIf="estado === 'Finalizada con contratación'">
-      <mat-label>Egresado contratado</mat-label>
-      <mat-select [(value)]="idEgresadoEscogido">
-        <mat-option *ngFor="let postulado of listaPostuladosEscogidos" [value]="postulado.idEgresado">
-          {{postulado.nombres + " " +postulado.apellidos }}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-label>Seleccione el egresado:</mat-label>
+        <mat-select [(value)]="idEgresadoEscogido">
+          <mat-option *ngFor="let postulado of listaPostuladosEscogidos" [value]="postulado.idEgresado">
+            {{postulado.nombres + " " +postulado.apellidos }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div mat-dialog-actions>
@@ -33,7 +36,29 @@
     </div>
   </div>
 
-  <!--Estado procesando-->
+  <!--Estado Pendiente-->
+  <div
+    *ngIf="datosOferta.estado === 'Pendiente' && (datosOferta.estado_proceso === 'Activa' || datosOferta.estado_proceso === 'En selección')">
+    <!--Opciones Dialog-->
+    <mat-form-field>
+      <mat-label>Estado:</mat-label>
+      <mat-select [(value)]="estado">
+        <mat-option value="Activa">Activa</mat-option>
+        <mat-option value="En selección">En selección</mat-option>
+        <mat-option value="Finalizada con contratación" (click)="cargarPostuladosSeleccionados()">Finalizada con
+          contratación</mat-option>
+        <mat-option value="Finalizada sin contratación">Finalizada sin contratación</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancelar</button>
+      <button mat-button (click)="cambiarEstado()" [mat-dialog-close]="estado">Guardar</button>
+      <!--<button mat-button [mat-dialog-close]="datosOferta" (click)="cambiarEstado()" cdkFocusInitial>Guardar</button>-->
+    </div>
+  </div>
+
+  <!--Estado Rechazada o finalizada-->
   <div
     *ngIf="datosOferta.estado !== 'Aceptada' || datosOferta.estado_proceso === 'Finalizada con contratación' || datosOferta.estado_proceso === 'Finalizada sin contratación'">
     <p>Su oferta esta en <b>proceso de activación</b> o ha <b>terminado</b></p>
