@@ -33,18 +33,21 @@ export class CarnetizacionComponent implements OnInit {
 
 
   ngOnInit() {
-    this.estadoEgresado();
     this.obtenerIdEgresado();
+    this.estadoEgresado();
     this.estadoInformacionEgresado();
     this.estadoSolicitudCarnet();
   }
 
   obtenerIdEgresado() {
     this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
-      data => this.idEgresado = data.id_aut_egresado);
+      data => { this.idEgresado = data.id_aut_egresado;
+      console.log('idegresado_car'+this.idEgresado)}
+      );
   }
 
   estadoEgresado() {
+    console.log('idegresado_car2'+this.idEgresado);
     this.catalogoService.getEstadoEgresado(this.idEgresado).subscribe(data => this.estadoEgres = data);
   }
 
