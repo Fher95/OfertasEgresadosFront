@@ -19,16 +19,13 @@ import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresa
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { ActualizarInformacionComponent } from './actualizar-informacion/actualizar-informacion.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
-import { VisualizarReferenciaComponent } from './actualizar-informacion/visualizar-referencia/visualizar-referencia.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
   { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
-  { path: 'actualizar', component: ActualizarInformacionComponent},
   { path: 'perfil', component: PerfilComponent},
   { path: 'eventos', component: EventosComponent},
   { path: 'carnetizacion', component: CarnetizacionComponent,canActivate: [AuthGuard] },
@@ -53,10 +50,8 @@ const routes: Routes = [
     ReferidoComponent,
     CancelarDialogComponent,
     PerfilComponent,
-    ActualizarInformacionComponent,
     EventosComponent,
     CarnetizacionComponent,
-    VisualizarReferenciaComponent
   ],
   imports: [
 
@@ -71,7 +66,6 @@ const routes: Routes = [
   ],
   entryComponents: [
     CancelarDialogComponent,
-    VisualizarReferenciaComponent
   ],
 })
 export class EgresadosModule { }

@@ -44,17 +44,17 @@ export class ReferidoComponent implements OnInit {
 
   guardarReferido() {
     if (this.validarDatos()) {
-      this.varReferido.nombres = this.Nombre.value;
-      this.varReferido.parentesco = this.Parentesco.value;
+      this.varReferido.nombres = this.Nombre.value.toUpperCase();
+      this.varReferido.parentesco = this.Parentesco.value.toUpperCase();
       if (this.Egresado.value == 0) {
         this.varReferido.es_egresado = true;
-        this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
+        this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value.toUpperCase();
         this.varReferido.id_aut_programa = this.programa.Programa.value;
       }
       else if (this.Egresado.value == 1) {
         this.varReferido.es_egresado = false;
       }
-      this.varReferido.correo = this.Correo.value;
+      this.varReferido.correo = this.Correo.value.toLowerCase();
       this.varReferido.telefono_movil = this.Celular.value;
 
       this.darReferido.emit(this.varReferido);

@@ -59,7 +59,7 @@ export class RegistrarComponent implements OnInit {
         captchaDigitado: [''],
       }),
       'datos-generales-empresa': this.formBuilder.group({
-        NIT: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15)], this.validarExistenciaNIT.bind(this)],
+        NIT: [null, [Validators.required, Validators.min(0), Validators.pattern("^.{8,15}$")], this.validarExistenciaNIT.bind(this)],
         razonSocial: [null, [Validators.required, Validators.maxLength(200)]],
         nombreEmpresa: [null, [Validators.required, Validators.maxLength(100)], this.validarExistenciaNombre.bind(this)],
         anioCreacion: [null, [Validators.required]],
@@ -76,21 +76,21 @@ export class RegistrarComponent implements OnInit {
         ciudadEmp: [null, Validators.required],
         direccionEmp: [null, [Validators.required, Validators.maxLength(100)]],
         barrioEmp: [null, [Validators.required, Validators.maxLength(40)]],
-        codigoPostalEmp: [null, [Validators.min(0), Validators.maxLength(6)]],
-        telefonoEmp: [null, [Validators.required, Validators.min(0), Validators.maxLength(16)]],
+        codigoPostalEmp: [null, [Validators.min(0), Validators.maxLength(6), Validators.pattern("^.{0,6}$")]],
+        telefonoEmp: [null, [Validators.required, Validators.min(0), Validators.pattern("^.{7,16}$")]],
         emailEmp: [null, [Validators.maxLength(60), Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]],
         sitioWebEmp: [null, [Validators.maxLength(200)]],
       }),
       'datos-resp': this.formBuilder.group({
         nombrereplegal: [null, [Validators.required, Validators.maxLength(60)]],
         apellidoreplegal: [null, [Validators.required, Validators.maxLength(60)]],
-        telefonoreplegal: [null, [Validators.min(0), Validators.maxLength(16)]],
-        telefonoMovilreplegal: [null, [Validators.required, Validators.min(0), Validators.maxLength(16)]],
+        telefonoreplegal: [null, [Validators.min(0), Validators.pattern("^.{7,16}$")]],
+        telefonoMovilreplegal: [null, [Validators.required, Validators.min(0), Validators.pattern("^.{10,16}$")]],
         nombreResp: [null, [Validators.required, Validators.maxLength(40)]],
         apellidoResp: [null, [Validators.required, Validators.maxLength(40)]],
         cargo: [null, [Validators.required]],
-        telefonoResp: [null, [Validators.min(0), Validators.maxLength(16)]],
-        telefonoMovilResp: [null, [Validators.required, Validators.min(0), Validators.maxLength(16)]],
+        telefonoResp: [null, [Validators.min(0), Validators.pattern("^.{7,16}$")]],
+        telefonoMovilResp: [null, [Validators.required, Validators.min(0), Validators.pattern("^.{10,16}$")]],
         horarioContactoResp: [null, [Validators.maxLength(40)]],
         direccionTrabajoResp: [null, [Validators.required, Validators.maxLength(100)]],
         emailCorpResp: [null, [Validators.required, Validators.maxLength(60), Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")], this.validarExistenciaEmailCorporativo.bind(this)],
@@ -438,6 +438,34 @@ export class RegistrarComponent implements OnInit {
    * @param  control  permite obtener el valor en tiempo real del input emailCorpResp del ngForm }
    */
   validarExistenciaEmailCorporativo(control: FormControl): any {
+
+    clearTimeout(this.debouncer);
+
+    return new Promise(resolve => {
+      if (control.value != "") {
+        this.debouncer = setTimeout(() => {
+          this.empService.validarEmailCorp(control.value).subscribe((res) => {
+            if (res.data == 'Correcto') {
+              resolve(null);
+            }
+            else {
+              resolve({ 'EmailExiste': true });
+            }
+          }, (err) => {
+            resolve({ 'EmailExiste': true });
+          });
+
+        }, 10);
+      }
+    });
+  }
+
+  /**
+   * Validador personalizado para saber si la longitud minima de un campo numerico es aceptada.
+   * Si la longitud es invalida, devuelve minLong
+   * @param  control  permite obtener el valor en tiempo real del input del ngForm }
+   */
+  validarMinLong(control: FormControl): any {
 
     clearTimeout(this.debouncer);
 
