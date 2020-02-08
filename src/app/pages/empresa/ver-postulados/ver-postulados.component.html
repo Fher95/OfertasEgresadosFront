@@ -33,7 +33,11 @@
 
       <ng-container matColumnDef="Estado">
         <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        <td mat-cell *matCellDef="let element"> 
+          <div [class.rojo]="element.estado === 'Descartado'">
+          {{element.estado}} 
+        </div>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="Acciones">
