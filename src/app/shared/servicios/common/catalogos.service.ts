@@ -20,20 +20,22 @@ const baseUrl = 'http://localhost:8081/api/';
   providedIn: 'root'
 })
 export class CatalogosService {
-
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPaises(): Observable<Pais[]> {
     return this.http.get<Pais[]>(`${baseUrl}paises`);
   }
 
   getDepartamentosBy(paisId: number): Observable<DepartamentoInterface[]> {
-    return this.http.get<DepartamentoInterface[]>(`${baseUrl}departamentos/${paisId}`);
+    return this.http.get<DepartamentoInterface[]>(
+      `${baseUrl}departamentos/${paisId}`
+    );
   }
 
   getCiudadesBy(departamentoId: number): Observable<CiudadInterface[]> {
-    return this.http.get<CiudadInterface[]>(`${baseUrl}ciudades/${departamentoId}`);
+    return this.http.get<CiudadInterface[]>(
+      `${baseUrl}ciudades/${departamentoId}`
+    );
   }
 
   getNivelEducativo(): Observable<NivelesEstudioInterface[]> {
@@ -52,13 +54,20 @@ export class CatalogosService {
     return this.http.get<FacultadInterface[]>(`${baseUrl}facultades`);
   }
 
-  getPrograma(idSede: number, idFacultad: number, idNivelEstudio: number): Observable<ProgramaInterface[]> {
-    return this.http.get<ProgramaInterface[]>(`${baseUrl}programas/${idSede}/${idFacultad}/${idNivelEstudio}`);
+  getPrograma(
+    idSede: number,
+    idFacultad: number,
+    idNivelEstudio: number
+  ): Observable<ProgramaInterface[]> {
+    return this.http.get<ProgramaInterface[]>(
+      `${baseUrl}programas/${idSede}/${idFacultad}/${idNivelEstudio}`
+    );
   }
 
-
   getTitulo(idPrograma: number): Observable<TituloInterface[]> {
-    return this.http.get<ProgramaInterface[]>(`${baseUrl}titulos/${idPrograma}`);
+    return this.http.get<ProgramaInterface[]>(
+      `${baseUrl}titulos/${idPrograma}`
+    );
   }
 
   getServicios(): Observable<ServicioModel[]> {
@@ -73,20 +82,23 @@ export class CatalogosService {
     return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
 
-  getEstadoEgresado(idEgresado: number): Observable<any>{
+  getEstadoEgresado(idEgresado: number): Observable<any> {
+    console.log(idEgresado);
     return this.http.get(`${baseUrl}validarEstado/${idEgresado}`);
   }
 
-  getEstadoInformacionEgresado(idEgresado: number): Observable<any>{
+  getEstadoInformacionEgresado(idEgresado: number): Observable<any> {
     return this.http.get(`${baseUrl}validaCompletarInformacion/${idEgresado}`);
   }
 
-  getEstadoSolicitudCarnet(idEgresado: number): Observable<any>{
+  getEstadoSolicitudCarnet(idEgresado: number): Observable<any> {
     return this.http.get(`${baseUrl}validarSolicitudes/${idEgresado}`);
   }
 
   enviarEstadoSolicitud(idSolicitud: number, estado: boolean) {
-    return this.http.get(`${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}/${estado}`);
+    return this.http.get(
+      `${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}/${estado}`
+    );
   }
 
   enviarSolicitudCarnet(idSolicitud: number) {
@@ -97,11 +109,9 @@ export class CatalogosService {
     return this.http.get(`${baseUrl}cancelarSolicitud/${idSolicitud}`);
   }
 
-
   public getEventos(): Observable<EventoInterface[]> {
     return this.http.get<EventoInterface[]>(`${baseUrl}eventos`);
   }
 
-  public updateImage(eventId: string, files: Array<File>) {
-  }
+  public updateImage(eventId: string, files: Array<File>) {}
 }
