@@ -1,0 +1,243 @@
+<form
+  novalidate
+  #frmInfoPersonal="ngForm"
+  (submit)="onGuardar(frmInfoPersonal)"
+>
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <!-- Aparece un select sii está en modo edición -->
+      <mat-label *ngIf="onEditMode">Grupo étnico</mat-label>
+      <mat-select [(ngModel)]="egresado.grupoEtnico" *ngIf="onEditMode">
+        <mat-option
+          *ngFor="let grupoEtnico of gruposEtnicos"
+          [value]="grupoEtnico"
+        >
+          {{ grupoEtnico }}
+        </mat-option>
+      </mat-select>
+      <!-- De lo contrario aparece un input no habilitado para editar. -->
+      <input
+        type="text"
+        matInput
+        [ngModel]="egresado.grupoEtnico"
+        placeholder="Grupo étnico"
+        #grupoEtnico
+        name="grupoEtnico"
+        disabled
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        [ngModel]="egresado.estado"
+        placeholder="Estado"
+        name="estado"
+        #estado
+        disabled
+      />
+    </mat-form-field>
+    <mat-form-field class="form-group col-md-6">
+      <!-- Discapacidades -->
+
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        disabled
+        name="identificacion"
+        #identificacion
+        placeholder="Identificación"
+        [ngModel]="egresado.identificacion"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        disabled
+        name="estadiCivil"
+        #estadoCivil
+        placeholder="Estado civil"
+        [ngModel]="egresado.estadoCivil"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        disabled
+        name="lugarExpedicion"
+        #lugarExpedicion
+        placeholder="Lugar de expedición"
+        [ngModel]="egresado.identificacion"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        disabled
+        name="paisResidencia"
+        #paisResidencia
+        placeholder="País de residencia"
+        [ngModel]="egresado.lugarResidencia?.ciudad.departamento.pais.nombre"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        placeholder="País nacimiento"
+        name="paisNacimiento"
+        #paisNacimiento
+        disabled
+        [ngModel]="egresado.lugarNacimiento?.departamento.pais.nombre"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        placeholder="Departamento residencia"
+        name="departamentoResidencia"
+        [ngModel]="egresado.lugarResidencia?.ciudad.departamento.nombre"
+        disabled
+      />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        placeholder="Departamento nacimiento"
+        disabled
+        name="departamentoNaciminto"
+        [ngModel]="egresado.lugarNacimiento?.departamento.nombre"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        placeholder="Municipio/Ciudad residencia"
+        disabled
+        name="municipioResidencia"
+        [ngModel]="egresado.lugarResidencia?.ciudad.nombre"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        matInput
+        placeholder="Municipio/Ciudad nacimiento"
+        disabled
+        name="ciudadNacimiento"
+        [ngModel]="egresado.lugarNacimiento?.nombre"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        placeholder="Dirección residencia"
+        disabled
+        matInput
+        name="direccionResidencia"
+        [ngModel]="egresado.lugarResidencia?.direccion"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        placeholder="Género"
+        disabled
+        matInput
+        name="genero"
+        [ngModel]="egresado.genero"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        placeholder="Correo electrónico"
+        matInput
+        name="correo"
+        #correo
+        disabled
+        [(ngModel)]="egresado.correo"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        placeholder="Correo electrónico alternativo"
+        matInput
+        name="correoAlternativo"
+        disabled
+        [ngModel]="egresado.correoAlternativo"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        type="text"
+        placeholder="Teléfono fijo"
+        matInput
+        name="telefono"
+        disabled
+        [ngModel]="egresado.telefonoFijo"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="form-group col-md-6">
+      <input
+        type="text"
+        placeholder="Celular"
+        matInput
+        name="celular"
+        disabled
+        [ngModel]="egresado.celular"
+      />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <button
+      type="button"
+      class="bnt btn-danger"
+      mat-raised-button
+      (click)="onCancelar()"
+    >
+      Cancelar
+    </button>
+    <button type="submit" mat-raised-button color="primary">Guardar</button>
+  </div>
+</form>

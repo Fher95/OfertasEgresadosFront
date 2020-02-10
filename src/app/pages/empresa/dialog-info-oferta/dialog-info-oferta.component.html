@@ -34,7 +34,7 @@
       <div class="row">
                   <div class="col-12">
                         <label><Strong>Nombre de la empresa a figurar: </Strong>
-                        <label *ngIf="datosOferta.informacionPrincipal.nombreTempEmpresa === null; else nombreEmpresa">No incluido</label>
+                        <label *ngIf="datosOferta.informacionPrincipal.nombreTempEmpresa === null || datosOferta.informacionPrincipal.nombreTempEmpresa === ''; else nombreEmpresa">No incluido</label>
                               <ng-template #nombreEmpresa>{{datosOferta.informacionPrincipal.nombreTempEmpresa}}</ng-template>
                         </label>
                   </div>
@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Duración de contrato: </Strong>
-                                          <label *ngIf="datosOferta.contrato.duracion === null; else contrato">No incluido</label>
+                                          <label *ngIf="datosOferta.contrato.duracion === null || datosOferta.contrato.duracion === ''; else contrato">No incluido</label>
                                           <ng-template #contrato>{{datosOferta.contrato.duracion}}</ng-template>
                                     </label>
                         </div>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="col-sm-12 col-md-6">
                                     <label><Strong>Horario: </Strong>
-                                          <label *ngIf="datosOferta.contrato.horario === null; else horario">No incluido</label>
+                                          <label *ngIf="datosOferta.contrato.horario === null || datosOferta.contrato.horario === ''; else horario">No incluido</label>
                                           <ng-template #horario>{{datosOferta.contrato.horario}}</ng-template>
                                     </label>
                         </div>
@@ -88,7 +88,7 @@
                         </div>
       </div>
       <div class="row">
-                  <div class="col-sm-12 col-md-12" *ngIf="datosOferta.contrato.comentariosSalario === null; else comentariosSalario">
+                  <div class="col-sm-12 col-md-12" *ngIf="datosOferta.contrato.comentariosSalario === null || datosOferta.contrato.comentariosSalario === ''; else comentariosSalario">
                               <label><Strong>Comentarios salarios:</Strong> No incluido</label>
                   </div>
                   <ng-template #comentariosSalario>
