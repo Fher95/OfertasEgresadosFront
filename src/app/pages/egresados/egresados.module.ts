@@ -23,6 +23,7 @@ import { ActualizarInformacionComponent } from './actualizar-informacion/actuali
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
 import { VisualizarReferenciaComponent } from './actualizar-informacion/visualizar-referencia/visualizar-referencia.component';
+import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -56,7 +57,8 @@ const routes: Routes = [
     ActualizarInformacionComponent,
     EventosComponent,
     CarnetizacionComponent,
-    VisualizarReferenciaComponent
+    VisualizarReferenciaComponent,
+    InformacionPersonalVerPerfilComponent
   ],
   imports: [
 
