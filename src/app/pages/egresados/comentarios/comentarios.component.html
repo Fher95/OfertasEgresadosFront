@@ -30,5 +30,13 @@
       <mat-label>¿Que espera de la Universidad del Cauca como futuro egresado?:</mat-label>
       <textarea matInput placeholder="Escribe el comentario aquí" [formControl]="ComentarioFuturoEgresado"> </textarea>
     </mat-form-field>
+
+    <!--div *ngFor="let item of observacion">
+      <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+        <mat-label>{{item}}</mat-label>
+        <textarea matInput name="item.id{{item}}" rows="3">{{item}}</textarea>
+      </mat-form-field>
+    </div-->
+
   </form>
 </mat-card>

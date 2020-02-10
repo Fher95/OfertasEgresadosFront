@@ -19,17 +19,18 @@ import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresa
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { ActualizarInformacionComponent } from './actualizar-informacion/actualizar-informacion.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
+<<<<<<< HEAD
 import { VisualizarReferenciaComponent } from './actualizar-informacion/visualizar-referencia/visualizar-referencia.component';
 import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
+=======
+>>>>>>> b410353ef76d5497365454a3cefdb7d400efa43a
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
   { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
-  { path: 'actualizar', component: ActualizarInformacionComponent},
   { path: 'perfil', component: PerfilComponent},
   { path: 'eventos', component: EventosComponent},
   { path: 'carnetizacion', component: CarnetizacionComponent,canActivate: [AuthGuard] },
@@ -54,7 +55,6 @@ const routes: Routes = [
     ReferidoComponent,
     CancelarDialogComponent,
     PerfilComponent,
-    ActualizarInformacionComponent,
     EventosComponent,
     CarnetizacionComponent,
     VisualizarReferenciaComponent,
@@ -73,7 +73,6 @@ const routes: Routes = [
   ],
   entryComponents: [
     CancelarDialogComponent,
-    VisualizarReferenciaComponent
   ],
 })
 export class EgresadosModule { }
