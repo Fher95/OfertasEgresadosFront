@@ -21,11 +21,7 @@ import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.compo
 import { PerfilComponent } from './perfil/perfil.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
-<<<<<<< HEAD
-import { VisualizarReferenciaComponent } from './actualizar-informacion/visualizar-referencia/visualizar-referencia.component';
 import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
-=======
->>>>>>> b410353ef76d5497365454a3cefdb7d400efa43a
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -57,7 +53,6 @@ const routes: Routes = [
     PerfilComponent,
     EventosComponent,
     CarnetizacionComponent,
-    VisualizarReferenciaComponent,
     InformacionPersonalVerPerfilComponent
   ],
   imports: [
