@@ -20,6 +20,7 @@ export interface DialogData {
 })
 export class VerPostuladosComponent implements OnInit {
   id: string;
+  idOferta: string;
   listaPostulados: IEgresado[];
   listaPostuladosEscogidos: IEgresado[];
   postuladoSeleccionado: IEgresado;
@@ -38,20 +39,21 @@ export class VerPostuladosComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.idOferta = this.activatedRoute.snapshot.paramMap.get('idOferta');
     this.listaPostulados = null;
     this.listaPostuladosEscogidos = [];
     this.cargarDatosOferta();
     this.cargarPostulados();
   }
   cargarDatosOferta(){
-    this.empresaService.getDatosOferta(this.id).subscribe(
+    this.empresaService.getDatosOferta(this.idOferta).subscribe(
       result => {
         this.nombreOferta = result.informacionPrincipal.nombreOferta;
       }
     );
   }
   cargarPostulados() {
-    this.empresaService.getPostuladosOferta(this.id).subscribe(resultado => {      
+    this.empresaService.getPostuladosOferta(this.idOferta).subscribe(resultado => {      
       this.listaPostulados = resultado.data as IEgresado[];    
       if(resultado.status === "failure"){
         this.arregloVacio = true;
@@ -84,7 +86,7 @@ export class VerPostuladosComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
   cargarPostuladosSeleccionados() {
-    this.empresaService.getPostuladosSeleccionadosOferta(this.id).subscribe(resultado => {      
+    this.empresaService.getPostuladosSeleccionadosOferta(this.idOferta).subscribe(resultado => {      
       this.listaPostuladosEscogidos = resultado;
     },
       error => {
@@ -132,7 +134,7 @@ export class VerPostuladosComponent implements OnInit {
     const dial = this.dialog.open(DialogPostuladoComponent, {
       data: {
         postulado: this.postuladoSeleccionado,
-        idOferta: this.id
+        idOferta: this.idOferta
       },
       width: '40vw'
     });

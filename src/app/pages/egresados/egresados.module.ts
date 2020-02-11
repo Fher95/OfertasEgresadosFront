@@ -21,6 +21,7 @@ import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.compo
 import { PerfilComponent } from './perfil/perfil.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
+import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -52,6 +53,7 @@ const routes: Routes = [
     PerfilComponent,
     EventosComponent,
     CarnetizacionComponent,
+    InformacionPersonalVerPerfilComponent
   ],
   imports: [
 
