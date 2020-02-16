@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompletarRegistroComponent } from './completar-registro/completar-registro.component';

@@ -55,7 +55,7 @@ export class EditarEmpresaComponent implements OnInit {
         razonSocial: [null, Validators.required],
         nombreEmpresa: [null, Validators.required],
         anioCreacion: [null, Validators.required],
-        numEmpleados: [null, [Validators.required, Validators.min(0)]],
+        numEmpleados: [null, [Validators.required]],
         ingresosEmp: [null],
         descripcionEmpresa: [null, Validators.required]
       }),
@@ -71,22 +71,22 @@ export class EditarEmpresaComponent implements OnInit {
         ciudadEmp: [null, Validators.required],
         direccionEmp: [null, Validators.required],
         barrioEmp: [null, Validators.required],
-        codigoPostalEmp: [null, Validators.min(0)],
-        telefonoEmp: [null],
-        emailEmp: [null, [Validators.email]],
-        sitioWebEmp: [null]
+        codigoPostalEmp: ['', Validators.min(0)],
+        telefonoEmp: [''],
+        emailEmp: ['', [Validators.email]],
+        sitioWebEmp: ['']
       }),
       'datos-resp': this.formBuilder.group({
         nombrereplegal: [null, Validators.required],
         apellidoreplegal: [null, Validators.required],
-        telefonoreplegal: [null, Validators.min(0)],
+        telefonoreplegal: ['', Validators.min(0)],
         telefonoMovilreplegal: [null, [Validators.required, Validators.min(0)]],
         nombreResp: [null, Validators.required],
         apellidoResp: [null, Validators.required],
         cargo: [null, Validators.required], //se recibe de la base de datos
-        telefonoResp: [null, Validators.min(0)],
+        telefonoResp: ['', Validators.min(0)],
         telefonoMovilResp: [null, [Validators.required, Validators.min(0)]],
-        horarioContactoResp: [null],
+        horarioContactoResp: [''],
         direccionTrabajoResp: [null, Validators.required],
         emailCorpResp: [null, [Validators.required, Validators.email]]
       })
@@ -117,19 +117,54 @@ export class EditarEmpresaComponent implements OnInit {
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('ciudadEmp').setValue(data.direccion.ciudad.nombre);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('direccionEmp').setValue(data.direccion.direccion);
       this.formDatosEmpresa.controls['loc-contact-empresa'].get('barrioEmp').setValue(data.direccion.barrio);
-      this.formDatosEmpresa.controls['loc-contact-empresa'].get('codigoPostalEmp').setValue(data.direccion.codigo_postal);
-      this.formDatosEmpresa.controls['loc-contact-empresa'].get('telefonoEmp').setValue(data.telefono);
-      this.formDatosEmpresa.controls['loc-contact-empresa'].get('emailEmp').setValue(data.correo);
-      this.formDatosEmpresa.controls['loc-contact-empresa'].get('sitioWebEmp').setValue(data.sitio_web);
+        if(data.direccion.codigo_postal == null){
+          this.formDatosEmpresa.controls['loc-contact-empresa'].get('codigoPostalEmp').setValue('');
+        }
+        else{
+          this.formDatosEmpresa.controls['loc-contact-empresa'].get('codigoPostalEmp').setValue(data.direccion.codigo_postal);
+        }
+        if(data.telefono == null){
+          this.formDatosEmpresa.controls['loc-contact-empresa'].get('telefonoEmp').setValue('');
+        }
+        else{
+          this.formDatosEmpresa.controls['loc-contact-empresa'].get('telefonoEmp').setValue(data.telefono);
+        }
+        if(data.correo == null){
+          this.formDatosEmpresa.controls['loc-contact-empresa'].get('emailEmp').setValue('');
+        }
+        else{
+          this.formDatosEmpresa.controls['loc-contact-empresa'].get('emailEmp').setValue(data.correo);
+        }
+        if(data.sitio_web == null){
+          this.formDatosEmpresa.controls['loc-contact-empresa'].get('sitioWebEmp').setValue('');
+        }
+        else{
+          this.formDatosEmpresa.controls['loc-contact-empresa'].get('sitioWebEmp').setValue(data.sitio_web);
+        }
       this.formDatosEmpresa.controls['datos-resp'].get('nombrereplegal').setValue(data.representante.nombre);
       this.formDatosEmpresa.controls['datos-resp'].get('apellidoreplegal').setValue(data.representante.apellidos);
-      this.formDatosEmpresa.controls['datos-resp'].get('telefonoreplegal').setValue(data.representante.telefono);
+      if(data.representante.telefono == null){
+        this.formDatosEmpresa.controls['datos-resp'].get('telefonoreplegal').setValue('');
+      }
+      else{
+        this.formDatosEmpresa.controls['datos-resp'].get('telefonoreplegal').setValue(data.representante.telefono);
+      }
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilreplegal').setValue(data.representante.telefono_movil);
       this.formDatosEmpresa.controls['datos-resp'].get('nombreResp').setValue(data.administrador.nombres);
       this.formDatosEmpresa.controls['datos-resp'].get('apellidoResp').setValue(data.administrador.apellidos);
       this.formDatosEmpresa.controls['datos-resp'].get('cargo').setValue(data.administrador.cargo.nombre);
-      this.formDatosEmpresa.controls['datos-resp'].get('horarioContactoResp').setValue(data.administrador.horario_contacto);
-      this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue(data.administrador.telefono);
+      if(data.administrador.horario_contacto == null){
+        this.formDatosEmpresa.controls['datos-resp'].get('horarioContactoResp').setValue('');
+      }
+      else{
+        this.formDatosEmpresa.controls['datos-resp'].get('horarioContactoResp').setValue(data.administrador.horario_contacto);
+      }
+      if(data.administrador.telefono == null){
+        this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue('');
+      }
+      else{
+        this.formDatosEmpresa.controls['datos-resp'].get('telefonoResp').setValue(data.administrador.telefono);
+      }
       this.formDatosEmpresa.controls['datos-resp'].get('telefonoMovilResp').setValue(data.administrador.telefono_movil);
       this.formDatosEmpresa.controls['datos-resp'].get('direccionTrabajoResp').setValue(data.administrador.direccion.direccion);
       this.formDatosEmpresa.controls['datos-resp'].get('emailCorpResp').setValue(data.administrador.correo_corporativo);
@@ -191,7 +226,6 @@ cargarSectoresInteres() {
     error => {
       this.showSpinner = false;
       this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
-      console.log("Error al obtener los Sectores: ", JSON.stringify(error));
     });
 }
  /**
@@ -208,7 +242,6 @@ cargarCargos() {
       this.showSpinner = false;
       this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
     
-      console.log("Error al obtener los cargos: ", JSON.stringify(error));
     });
 }
  /**
@@ -366,7 +399,6 @@ sectorValidator(control: FormControl) {
       },
         errorRegistro => {
           this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");
-          console.log(errorRegistro);
         });
     }
     else{
