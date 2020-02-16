@@ -57,6 +57,7 @@ const routes: Routes = [
       },
       { path: 'egresados', component: EgresadosComponent },
       { path: 'egresados/perfil/:id', component: PerfilEgresadoComponent },
+      { path: 'carnetizacion', component: SolicitudCarnetizacionComponent  },
       {
         path: 'ofertasLaborales',
         component: ListarOfertasComponent,

@@ -26,13 +26,11 @@ export class CarnetizacionComponent implements OnInit {
     private servicioCompletar: RegistroService,
     private auth: AuthService
   ) {
-    this.mensajeCompletar =
-      " Aún no ha completado el registro, Presione 'Completar registro' para poder continuar.";
+    this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar registro' para poder continuar.";
     this.mensajeEstado = 'Existen una solicitud de carnetización pendiente.';
     this.mensajeEstadoAceptado = 'Estado de solicitud es Aceptado';
     this.mensajeEstadoRechazado = 'Estado de solicitud es Rechazado.';
-    this.mensajeEstadoEgresado =
-      'Aún no ha sido validado en el sistema por favor dirigirse al area de EGRESADOS';
+    this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema por favor dirigirse al area de EGRESADOS';
   }
 
   ngOnInit() {
@@ -51,7 +49,7 @@ export class CarnetizacionComponent implements OnInit {
       this.catalogoService
         .getEstadoSolicitudCarnet(this.idEgresado)
         .subscribe(estCarnet => {
-          if(estCarnet.lenght != 0){
+          if(estCarnet == null){
             this.estadoCarnet = estCarnet.estado_solicitud
           }else{
             this.estadoCarnet ='';
