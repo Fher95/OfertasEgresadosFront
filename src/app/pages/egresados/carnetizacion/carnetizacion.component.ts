@@ -47,10 +47,17 @@ export class CarnetizacionComponent implements OnInit {
         .subscribe(estado => (this.estadoEgres = estado));
       this.catalogoService
         .getEstadoInformacionEgresado(this.idEgresado)
-        .subscribe(solCarnet => (this.estadoInfoEgresado = solCarnet));
+        .subscribe(solCarnet => (this.estadoInfoEgresado = solCarnet.estado_completar));
       this.catalogoService
         .getEstadoSolicitudCarnet(this.idEgresado)
-        .subscribe(estCarnet => (this.estadoCarnet = estCarnet));
+        .subscribe(estCarnet => {
+          if(estCarnet.lenght != 0){
+            this.estadoCarnet = estCarnet.estado_solicitud
+          }else{
+            this.estadoCarnet ='';
+          }
+        }
+        );
     });
   }
 

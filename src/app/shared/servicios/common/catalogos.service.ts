@@ -13,6 +13,7 @@ import { SedeInterface } from '../../modelos/sedeInterface';
 import { SolicitudInterface } from '../../modelos/solicitudeInterface';
 import { EventoInterface } from '../../../shared/modelos/evento';
 import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
+import { ArrayEventoHttpResponse } from './../../base/array-eventos-http-response';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -109,8 +110,8 @@ export class CatalogosService {
     return this.http.get(`${baseUrl}cancelarSolicitud/${idSolicitud}`);
   }
 
-  public getEventos(): Observable<EventoInterface[]> {
-    return this.http.get<EventoInterface[]>(`${baseUrl}eventos`);
+  public getEventos(): Observable<ArrayEventoHttpResponse<EventoInterface[]>> {
+    return this.http.get<ArrayEventoHttpResponse<EventoInterface[]>>(`${baseUrl}eventos`);
   }
 
   public updateImage(eventId: string, files: Array<File>) {}

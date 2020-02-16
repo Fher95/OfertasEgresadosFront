@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'empresa/:id/crearOfertaLaboral', component: CrearOfertaLaboralComponent, canActivate: [EmpresaGuard]},
   { path: 'empresa/:id/modificarOfertaLaboral/:idOferta', component: ModificarOfertaLaboralComponent, canActivate: [EmpresaGuard]},
   { path: 'empresa/:id/misOfertas', component: OfertasPublicadasComponent, canActivate: [EmpresaGuard]},
-  { path: 'oferta/:id/:idOferta/misPostulados', component: VerPostuladosComponent, canActivate: [EmpresaGuard]}
+  { path: 'oferta/:id/misPostulados', component: VerPostuladosComponent, canActivate: [EmpresaGuard]}
 ];
 
 @NgModule({

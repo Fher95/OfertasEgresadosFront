@@ -1,10 +1,9 @@
 
-<app-nav-egresados></app-nav-egresados>
+
 <div id="base">
-  <div id="imgBandera"></div>
   <app-navbar-home-ofertas></app-navbar-home-ofertas>
   <div id="row" class="row ">
-    <mat-toolbar class="col-12 col-md-8 offset-md-2 " color="primary">
+    <mat-toolbar class="col-12 col-md-8 offset-md-2 " color="primary" >
       <span class="titulo">Formulario de Registro</span>
     </mat-toolbar>
     <div id="content" class="col-12 col-md-8 offset-md-2">
@@ -16,14 +15,14 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Nombres</mat-label>
                 <input matInput placeholder="Nombres" #name="ngModel" name="nombre" [(ngModel)]="user.nombres" required>
-                <mat-error *ngIf="user.nombres != null">Por favor ingresar un nombre</mat-error>
+                <mat-error *ngIf="user.nombres != null">Campo requerido</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Apellidos</mat-label>
                 <input matInput placeholder="Apellidos" #name="ngModel" name="apellidos" [(ngModel)]="user.apellidos"
                   required>
-                <mat-error *ngIf="user.apellidos != null">Por favor ingresar apellido</mat-error>
+                <mat-error *ngIf="user.apellidos != null">Campo requerido</mat-error>
               </mat-form-field>
             </div>
 
@@ -32,7 +31,7 @@
                 <mat-label>Identificación</mat-label>
                 <input matInput type="text" pattern="[1-9][0-9]{6,9}" placeholder="Identificación" #name="ngModel"
                   name="identificacion" [(ngModel)]="user.identificacion" required>
-                <mat-error *ngIf="user.identificacion != null">Por favor ingresar un número de identificación
+                <mat-error *ngIf="user.identificacion != null">Campo requerido
                 </mat-error>
               </mat-form-field>
 
@@ -40,7 +39,7 @@
                 <mat-label>Confirmar numero de Identificació</mat-label>
                 <input matInput placeholder="Confirmar numero de Identificación" pattern="[1-9][0-9]{6,9}"
                   [formControl]="identificacionFormControl" required>
-                <mat-error *ngIf="identificacionFormControl.hasError('required')">Ingresar un numero de identificación
+                <mat-error *ngIf="identificacionFormControl.hasError('required')">Campo requerido
                 </mat-error>
               </mat-form-field>
             </div>
@@ -52,7 +51,7 @@
                   [formControl]="fechaNFormControl" placeholder="Fecha de Nacimiento" required>
                 <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
                 <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-                <mat-error *ngIf="fechaNFormControl.hasError('required')">Por favor selecionar una fecha</mat-error>
+                <mat-error *ngIf="fechaNFormControl.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
 
               <div class="form-group col-md-6 ">
@@ -67,7 +66,7 @@
                 <app-localizacion #lugarNacimiento></app-localizacion>
               </div>
               <div class="form-group col-md-6 ">
-                <h5>Lugar Expedición:</h5>
+                <h5>Lugar expedición del documento</h5>
                 <app-localizacion #lugarExpedicion></app-localizacion>
               </div>
 
@@ -81,7 +80,7 @@
 
               <mat-radio-group #name="ngModel" name="genero" [(ngModel)]="user.genero" class="form-group col-md-6 ">
                 <h5>Genero:*</h5>
-                <mat-error *ngIf="user.genero.length == 0">Por favor seleccione una opción</mat-error>
+                <mat-error *ngIf="user.genero.length == 0">Campo requerido</mat-error>
                 <mat-radio-button *ngFor="let genero of generos" [value]="genero">
                   {{genero}}
                 </mat-radio-button>
@@ -91,7 +90,7 @@
             <div class="row" >
               <div class="form-group col-md-6 ">
               <h5>Discapacidad:*</h5>
-              <mat-error *ngIf="discapacidad.length == 0">Por favor seleccione una opción</mat-error>
+              <mat-error *ngIf="discapacidad.length == 0">Campo requerido</mat-error>
               <mat-checkbox  *ngFor="let discapacidad of discapacidades let index = index" [value]="discapacidad.idDiscapacidad"
                 (change)="discapacidadesUsuario(discapacidad.idDiscapacidad,index,$event)" (change)="otraDiscapacidad(index,$event)" [labelPosition]="after" required>
                 {{discapacidad.Nombre}}
@@ -101,19 +100,19 @@
             <mat-form-field *ngIf="respuestaDiscapacidad" appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Discapacidad</mat-label>
                 <input matInput placeholder="Discapacidad" #name="ngModel" name="otraDiscapacidad" [(ngModel)]="user.otraDiscapacidad">
-                <mat-error *ngIf="null">Por favor ingresar un apellido</mat-error>
+                <mat-error *ngIf="null">Campo requerido</mat-error>
               </mat-form-field>
             </div>
 
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
-                <mat-label>Estado Civil</mat-label>
+                <mat-label>Estado civil</mat-label>
                 <mat-select placeholder="Estado Civil" [formControl]="estadoCFormControl" required>
                   <mat-option *ngFor="let estadoC of estadosC" [value]="estadoC">
                     {{estadoC}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="estadoCFormControl.hasError('required')">Por favor seleccionar un estado civil
+                <mat-error *ngIf="estadoCFormControl.hasError('required')">Campo requerido
                 </mat-error>
               </mat-form-field>
 
@@ -124,7 +123,7 @@
                     {{grupoE}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="grupoEFormControl.hasError('required')">Por favor seleccionar una opción</mat-error>
+                <mat-error *ngIf="grupoEFormControl.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
             </div>
 
@@ -139,8 +138,8 @@
           <mat-step>
             <ng-template matStepLabel>Info. Academica</ng-template>
             <mat-radio-group name="nivel_estudio" [formControl]="nivelAFormControl" required>
-              <h5>Nivel Academico*</h5>
-              <mat-error *ngIf="nivelAFormControl.hasError('required')">Por favor seleccionar una opción</mat-error>
+              <h5>Nivel academico*</h5>
+              <mat-error *ngIf="nivelAFormControl.hasError('required')">Campo requerido</mat-error>
               <mat-radio-button *ngFor="let nivel_estudio of niveles_academicos" [value]="nivel_estudio.id_aut_estudio">
                 {{nivel_estudio.nombre}}
               </mat-radio-button>
@@ -153,7 +152,7 @@
                     {{sede.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="sedeFormControl.hasError('required')">Por favor seleccionar una facultad</mat-error>
+                <mat-error *ngIf="sedeFormControl.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
@@ -163,7 +162,7 @@
                     {{facultad.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="facultadFormControl.hasError('required')">Por favor seleccionar una facultad
+                <mat-error *ngIf="facultadFormControl.hasError('required')">Campo requerido
                 </mat-error>
               </mat-form-field>
             </div>
@@ -175,10 +174,10 @@
                     {{programa.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="programaFormControl.hasError('required')">Por favor seleccionar un programa</mat-error>
+                <mat-error *ngIf="programaFormControl.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
 
-              <mat-form-field *ngIf="existenTitulos()" appearance="outline"
+              <mat-form-field  appearance="outline"
                 class="form-group col-md-6 ">
                 <mat-label>Titulo</mat-label>
                 <mat-select [formControl]="tituloFormControl" required>
@@ -186,17 +185,17 @@
                     {{titulo}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="tituloFormControl.hasError('required')">Por favor seleccionar un titulo</mat-error>
+                <mat-error *ngIf="tituloFormControl.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
-                <mat-label>Fecha de Graduación</mat-label>
+                <mat-label>Fecha de graduación</mat-label>
                 <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dp3" [formControl]="fechaGFormControl"
                   placeholder="Fecha de Graduación">
                 <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                 <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-                <mat-error *ngIf="fechaGFormControl.hasError('required')">Por favor seleccionar una fecha de grado
+                <mat-error *ngIf="fechaGFormControl.hasError('required')">Campo requerido
                 </mat-error>
               </mat-form-field>
 
@@ -207,14 +206,14 @@
                     {{anio}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="anioGFormControl.hasError('required')">Por favor seleccionar un año de grado
+                <mat-error *ngIf="anioGFormControl.hasError('required')">Campo requerido
                 </mat-error>
               </mat-form-field>
             </div>
 
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
-                <mat-label>Mención</mat-label>
+                <mat-label>Mención de honor</mat-label>
                 <input matInput placeholder="Mención" #name="ngModel" name="mencion" [(ngModel)]="user.mencion">
               </mat-form-field>
               <div class="form-group col-md-6 "></div>
@@ -239,14 +238,14 @@
                 <mat-label>Celular</mat-label>
                 <input matInput type="text" pattern="[3][0-9]{9}" placeholder="Celular" #name="ngModel" name="celular"
                   [(ngModel)]="user.celular" required>
-                <mat-error *ngIf="user.celular != null">Por favor ingresar un número celular</mat-error>
+                <mat-error *ngIf="user.celular != null">Campo requerido</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Teléfono fijo</mat-label>
                 <input matInput type="text" pattern="[0-9]{7,10}" placeholder="Teléfono fijo" #name="ngModel"
                   name="telefono_fijo" [(ngModel)]="user.telefono_fijo" required>
-                <mat-error *ngIf="user.telefono_fijo != null">Por favor ingresar un número de teléfono fijo</mat-error>
+                <mat-error *ngIf="user.telefono_fijo != null">Campo requerido</mat-error>
               </mat-form-field>
             </div>
 
@@ -259,7 +258,7 @@
                   Por favor ingresar una dirección de correo correcta. ej: ejemplo@gmail.com
                 </mat-error>
                 <mat-error *ngIf="emailFormControl.hasError('required')">
-                  Correo electronico<strong> requerido</strong>
+                  Campo <strong> requerido</strong>
                 </mat-error>
               </mat-form-field>
 
@@ -274,7 +273,7 @@
                   Por favor ingresar una dirección de correo correcta. ej: ejemplo@gmail.com
                 </mat-error>
                 <mat-error *ngIf="emailFormControl2.hasError('required')">
-                  Correo electronico<strong> requerido</strong>
+                  Campo <strong> requerido</strong>
                 </mat-error>
               </mat-form-field>
 
