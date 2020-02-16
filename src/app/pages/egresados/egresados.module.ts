@@ -23,6 +23,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
 import { VerEventoComponent } from './ver-evento/ver-evento.component';
+import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -55,6 +56,7 @@ const routes: Routes = [
     EventosComponent,
     CarnetizacionComponent,
     VerEventoComponent,
+    InformacionPersonalVerPerfilComponent
   ],
   imports: [
 
