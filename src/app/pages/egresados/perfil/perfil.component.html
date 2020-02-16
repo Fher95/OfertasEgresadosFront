@@ -1,5 +1,5 @@
 <app-nav-egresados> </app-nav-egresados>
-<mat-card>
+<!--mat-card>
   <mat-toolbar color="primary">
     <span class="titulo">Perfil Egresado</span>
   </mat-toolbar>
@@ -154,7 +154,7 @@
             <mat-icon>visibility</mat-icon>
           </button>
         </td>
-      </ng-container-->
+      </ng-container>
        <tr mat-header-row *matHeaderRowDef="columnasGrado"></tr>
       <tr mat-row *matRowDef="let row; columns: columnasGrado;"></tr>
     </table>
@@ -222,4 +222,56 @@
   </div>
   <button class="botones" mat-button mat-raised-button (click)="btnAtras()">Atrás</button>
   <button class="botones" color="primary" mat-raised-button (click)="btnActualizar()">Actualizar Información</button>
+</mat-card-->
+<mat-card>
+  <mat-toolbar color="primary">
+    <span class="titulo">Mi Perfil</span>
+  </mat-toolbar>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Información personal</mat-panel-title>
+        <mat-panel-description>
+          Type your name and age
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>First name</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Age</mat-label>
+        <input matInput type="number" min="1">
+      </mat-form-field>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Referencias personales</mat-panel-title>
+        <mat-panel-description>
+          Type your name and age
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Experiencia laboral</mat-panel-title>
+        <mat-panel-description>
+          Type your name and age
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Grados</mat-panel-title>
+        <mat-panel-description>
+          Type your name and age
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
 </mat-card>

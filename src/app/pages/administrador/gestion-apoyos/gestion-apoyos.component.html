@@ -1,30 +1,30 @@
 <div class="container">
-    <mat-toolbar color="primary">
-        GESTIÓN DE APOYOS
+    <mat-toolbar  color="primary">
+         Gestion de apoyo
     </mat-toolbar>
     <div class="divider"></div>
     <mat-card>
         <mat-card-header>
             <mat-card-title>
-                REGISTRAR APOYO
+                Registrar apoyo
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
             <form #form="ngForm" novalidate (ngSubmit)="guardar(form)">
                 <div class="form-row">
-                    <mat-form-field class="form-group col-md-4">
+                    <mat-form-field appearance="outline" class="form-group col-md-4">
                         <input matInput type="text" [formControl]="nombre" placeholder="Nombres" required />
                         <mat-error *ngIf="nombre.invalid && nombre.hasError('required')">
                             El nombre es requerido
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="form-group col-md-4">
+                    <mat-form-field appearance="outline" class="form-group col-md-4">
                         <input matInput type="text" [formControl]="apellido" placeholder="Apellidos" required />
                         <mat-error *ngIf="apellido.invalid && apellido.hasError('required')">
                             El apellido es requerido
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="form-group col-md-4">
+                    <mat-form-field appearance="outline" class="form-group col-md-4">
                         <input matInput type="text" [formControl]="nombreApoyo" placeholder="Rol apoyo" required />
                         <mat-error *ngIf="nombreApoyo.invalid && nombreApoyo.hasError('required')">
                             El rol del apoyo es requerido
@@ -32,7 +32,7 @@
                     </mat-form-field>
                 </div>
                 <div class="form-row">
-                    <mat-form-field class="form-group col-md-6">
+                    <mat-form-field appearance="outline" class="form-group col-md-6">
                         <input disabled type="text" [formControl]="email" matInput placeholder="Email" required />
                         <mat-icon matSuffix>email</mat-icon>
                         <mat-error *ngIf="email.invalid && email.hasError('required')">
@@ -42,7 +42,7 @@
                             Debe ingresar un email válido
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field class="form-group col-md-6">
+                    <mat-form-field appearance="outline" class="form-group col-md-6">
                         <input type="text" [formControl]="emailSecundario" matInput placeholder="Email Secundario"
                             required />
                         <mat-icon matSuffix>email</mat-icon>
@@ -55,7 +55,7 @@
                     </mat-form-field>
                 </div>
                 <div class="form-row">
-                    <mat-form-field class="form-group col-md-5">
+                    <mat-form-field appearance="outline" class="form-group col-md-5">
                         <mat-label>Servicios</mat-label>
                         <mat-select [formControl]="rol">
                             <mat-option *ngFor="let servicio of servicios" [value]="servicio">
@@ -66,7 +66,7 @@
                     <button type="button" mat-mini-fab color="primary" class="col-md-1" (click)="agregarRol()">
                         <mat-icon>add</mat-icon>
                     </button>
-                    <mat-form-field class="col-md-6 form-group">
+                    <mat-form-field appearance="outline" class="col-md-6 form-group">
                         <mat-label>Servicios seleccionados</mat-label>
                         <mat-chip-list #chipList matInput>
                             <mat-chip *ngFor="let rol of rolesSeleccionados" [removable]="true"
@@ -92,7 +92,7 @@
     <div class="divider"></div>
     <div class="mat-elevation-z8">
         <mat-toolbar color="primary">
-            LISTA DE APOYOS
+            Lista de apoyos
         </mat-toolbar>
         <app-lista-apoyos (seleccionarApoyo)="abrirDialogo($event)" #tblApoyos></app-lista-apoyos>
     </div>

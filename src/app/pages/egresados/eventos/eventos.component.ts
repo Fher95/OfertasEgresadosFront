@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EventoInterface } from '../../../shared/modelos/evento';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
 import { VerEventoComponent, Data } from '../ver-evento/ver-evento.component';
+import { map, catchError } from 'rxjs/operators';
+import { merge, of } from 'rxjs';
 
 @Component({
   selector: 'app-eventos',
@@ -19,8 +21,10 @@ export class EventosComponent implements OnInit {
 
   private msgInfo: String;
   private msgError: String;
+  isLoadingResults: boolean;
 
   constructor(public dialog: MatDialog, private servicios: CatalogosService) {
+    this.eventos = [];
     /* this.eventos = [{id_aut_evento:1,
       nombre:"9 Ecuentro de Egresados ",
       descripcion:" is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -73,16 +77,29 @@ export class EventosComponent implements OnInit {
     this.msgError = '';
   }
 
-
+  cargarEventos() {
+    this.servicios.getEventos().pipe(
+      map(response => {
+      console.log(response);
+        return response.data;
+    }),
+    catchError(err => {
+      console.log('Error ' + err);
+      this.isLoadingResults = false;
+      return of([]);
+    })
+    )
+    .subscribe(data =>{ 
+      console.log(data);  
+      this.eventos = data
+    });
+  }
 
   verEvento(json: EventoInterface,indice: number ) {
     var eventCloned: EventoInterface = this.eventos[indice];
+    console.log("evento visto:"+ eventCloned.descripcion);
     let data: Data = { event: eventCloned };
-    this.dialog.open(VerEventoComponent, { data: data }).beforeClosed().subscribe(result => { });
-  }
-
-  cargarEventos() {
-    this.servicios.getEventos().subscribe(data => this.eventos = data);
+    this.dialog.open(VerEventoComponent,{ data: data }).beforeClosed().subscribe(result => { });
   }
 
   obtenerDescripcionCorta(description) {

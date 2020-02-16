@@ -7,7 +7,7 @@
   <mat-card-content>
     <form #frmFiltrarEgresados="ngForm" (ngSubmit)="filtrar(frmFiltrarEgresados)">
       <div class="form-row">
-        <mat-form-field class="form-group col-md-6">
+        <mat-form-field appearance="outline" class="form-group col-md-6">
           <input
             type="text"
             matInput
@@ -17,7 +17,7 @@
             placeholder="Número de identificación"
           />
         </mat-form-field>
-        <mat-form-field class="form-group col-md-6">
+        <mat-form-field appearance="outline" class="form-group col-md-6">
           <input
             type="text"
             matInput
@@ -29,7 +29,7 @@
         </mat-form-field>
       </div>
       <div class="form-row">
-        <mat-form-field class="form-group col-md-6">
+        <mat-form-field appearance="outline" class="form-group col-md-6">
           <input
             type="text"
             matInput
@@ -39,7 +39,7 @@
             placeholder="Programa"
           />
         </mat-form-field>
-        <mat-form-field class="form-group col-md-6">
+        <mat-form-field appearance="outline" class="form-group col-md-6">
           <input
             type="text"
             matInput
@@ -51,7 +51,7 @@
         </mat-form-field>
       </div>
       <div class="form-row">
-        <mat-form-field class="form-group col-md-6">
+        <mat-form-field appearance="outline" class="form-group col-md-6">
           <mat-label>Estado</mat-label>
           <mat-select name="estado" ngModel #estado>
             <mat-option *ngFor="let estado of estados" [value]="estado">

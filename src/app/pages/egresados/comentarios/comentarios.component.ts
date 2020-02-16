@@ -58,9 +58,9 @@ export class ComentariosComponent implements OnInit {
         this.varComentario.push(this.llenarComentario(1,'false'));
         this.varComentario.push(this.llenarComentario(3,this.Razon.value));
       }
-      this.varComentario.push(this.llenarComentario(4,this.ComentarioPrograma.value));
-      this.varComentario.push(this.llenarComentario(5,this.DocenteInfluencia.value));
-      this.varComentario.push(this.llenarComentario(6,this.ComentarioFuturoEgresado.value));
+      this.varComentario.push(this.llenarComentario(4,this.ComentarioPrograma.value.toUpperCase()));
+      this.varComentario.push(this.llenarComentario(5,this.DocenteInfluencia.value.toUpperCase()));
+      this.varComentario.push(this.llenarComentario(6,this.ComentarioFuturoEgresado.value.toUpperCase()));
 
       return this.varComentario;
     }

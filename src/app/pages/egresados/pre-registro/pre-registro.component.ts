@@ -81,15 +81,6 @@ export class PreRegistroComponent implements OnInit {
   // Variables para mostrar error presentados en los campos
   private msgError: String;
 
-
-  //Variables de prueba
-
-  //private sedes = [1, 2, 3, 4, 5];
-  //private facultades = ['Facultad Ingenieria Electronica y Telecomunicaciones', 'Facultad de Ingenieria Civil', 'Facultad de Ciencias Naturales y Exactas', 'Facultad de Artes', 'Facultad de Derecho', 'Facultad de Ciencias Contables', 'Facultad de Ciencias Agropecuarias', 'Facultad de Ciencias Humanas'];
-  //private programas = ['Musica', 'Medicina', 'Ingenieria de Sistemas', 'Ingenieria Electronica', 'Ingenieria Civil', 'Enfermeria', 'Fonoaudiologia', 'Contaduria Publica'];
-  //private discapacidades: string[] = ['Visual', 'Cognitiva', 'Auditiva', 'Fisica', 'Ninguna'];
-  //private niveles_academicos: string[] = ['Pregardo', 'Posgrado'];
-
   // Variables para almacenar los datos desde el back
   private sedes: SedeInterface[];
   private facultades: FacultadInterface[];
@@ -105,9 +96,9 @@ export class PreRegistroComponent implements OnInit {
   private anioIni: number = 1849;
 
 
-  private generos: string[] = ['Masculino', 'Femenino'];
-  private estadosC: string[] = ['Soltero(a)', 'Casado(a)','Viudo(a)','Union Libre','Separado(a)','Comprometido(a)','Divorciado(a)'];
-  private gruposE: string[] = ['Afrodescendiente', 'Indígena', 'Mestizo', 'Blanco', 'Otro'];
+  private generos: string[] = ['MASCULINO', 'FEMENINO'];
+  private estadosC: string[] = ['NINGUNO','SOLTERO(A)', 'CASADO(A)','VIUDO(A)','UNION LIBRE','SEPARADO(A)','COMPROMETIDO(A)','DIVORCIADO(A)'];
+  private gruposE: string[] = ['NINGUNO','AFRODESCENDIENTE', 'INDÍGENA', 'MESTIZO', 'BLANCO', 'OTRO'];
 
 
   // Variable para capturar y acotar la fecha seleccionada
@@ -239,7 +230,7 @@ private tituloPrograma: string = "Musica";
   //Método para guardar las discapacidades del usuario
   discapacidadesUsuario(idDiscapacidad: number,indice: number,event) {
     console.log("Indice: "+indice);
-    if (this.discapacidades[indice].Nombre == "Ninguna" && event.checked) {
+    if (this.discapacidades[indice].Nombre == "NINGUNA" && event.checked) {
       this.discapacidad = [];
       this.discapacidad.push(idDiscapacidad);
     } else if (!this.discapacidad.includes(idDiscapacidad) && event.checked && this.discapacidades[indice].Nombre != "Ninguna") {
@@ -265,7 +256,7 @@ private tituloPrograma: string = "Musica";
     if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 &&
       this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' &&
       this.lExpedicion.departamentoFormControl.value != '' && this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null && this.facultadFormControl.value != null &&
-      this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null &&
+      this.programaFormControl.value != null  && this.user.genero.length > 0 && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null &&
       this.user.identificacion.length > 0 && this.user.direccion.length > 0 //this.user.discapacidad.length > 0 &&
       ) {
 
@@ -296,6 +287,7 @@ private tituloPrograma: string = "Musica";
       this.user.id_lugar_nacimiento = this.lNacimiento.obtenerIdLocalizacion();
       this.user.id_lugar_residencia = this.lResidencia.obtenerIdLocalizacion();
       this.user.id_nivel_educativo = this.nivelAFormControl.value;
+      this.user.titulo_especial = this.tituloFormControl.value;
       this.user.discapacidad = this.discapacidad;
       this.registroService.storeEgresado(this.user).subscribe(
         response => {
@@ -312,7 +304,7 @@ private tituloPrograma: string = "Musica";
           if(err==422){
             this.alert.showErrorMessage('Error', 'Ya hay una cuenta con los datos ingresados.');
           }else{
-          this.alert.showErrorMessage('Error', 'A ocurrido un error al registrar sus datos intente de nuevo');
+            this.alert.showErrorMessage('Error', 'A ocurrido un error al registrar sus datos intente de nuevo');
           }
         }
       );

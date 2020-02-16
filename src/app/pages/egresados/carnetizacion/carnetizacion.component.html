@@ -4,7 +4,7 @@
   <app-navbar-home-ofertas></app-navbar-home-ofertas>
   <div id="row" class="row ">
     <mat-toolbar class="col-12 col-md-8 offset-md-2 " color="primary">
-      <span class="titulo">Carnetizacion</span>
+      <span class="titulo">Carnetización</span>
     </mat-toolbar>
     <div id="content" class="col-12 col-md-8 offset-md-2">
       <form id="form" #registerForm="ngForm">
@@ -21,7 +21,7 @@
           <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
         </div>
         <!--Si el egresado no ha solicitado un carnet-->
-        <div *ngIf="estadoEgres && estadoCarnet =='' " align="center">
+        <div *ngIf="estadoEgres && estadoCarnet =='' estadoInfoEgresado" align="center">
           <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
           <button class='boton' color="primary" (click)="enviarSolicitudCarnet()" mat-button>Solicitar Carnet</button>
         </div>
