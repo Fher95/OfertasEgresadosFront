@@ -7,7 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
   styleUrls: ['./refencia-personal.component.css']
 })
 export class RefenciaPersonalComponent implements OnInit {
-  displayedColumns: string[] = ['nombre', 'parentesco', 'celular', 'acciones'];
+  columnas: string[] = ['nombres', 'parentesco', 'celular', 'acciones'];
   
   @Input()
   public referidos: ReferenciaPersonalModel[];
@@ -16,6 +16,12 @@ export class RefenciaPersonalComponent implements OnInit {
   
   ngOnInit() { }
   
+  verReferido(referido: ReferenciaPersonalModel){
+
+  }
+  eliminarReferido(referido: ReferenciaPersonalModel){
+    
+  }
   abrirDialogo(referido: ReferenciaPersonalModel) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = true;
