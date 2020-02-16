@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompletarRegistroComponent } from './completar-registro/completar-registro.component';
@@ -28,7 +27,7 @@ const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
   { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
-  { path: 'perfil', component: PerfilComponent},
+  { path: 'verPerfil', component: PerfilComponent},
   { path: 'eventos', component: EventosComponent},
   { path: 'carnetizacion', component: CarnetizacionComponent,canActivate: [AuthGuard] },
   { path: '', component: InicioEgresadosComponent}
