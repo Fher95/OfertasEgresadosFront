@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material';
-import { Grado } from 'src/app/shared/modelos/grado';
+import { ActivatedRoute } from '@angular/router';
+import { EgresadoModel } from 'src/app/shared/modelos/egresado.model';
+import { Observable } from 'rxjs';
+import { EgresadoService } from 'src/app/shared/servicios/admin/egresado.service';
+import { map } from 'rxjs/operators';
+import { PerfilService } from 'src/app/shared/servicios/egresados/perfil.service';
+import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 
 @Component({
   selector: 'app-perfil',
@@ -9,11 +13,29 @@ import { Grado } from 'src/app/shared/modelos/grado';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
+  egresado: EgresadoModel = new EgresadoModel;
+  //egresado: any;
+  //private egresadoObservable$: Observable<EgresadoModel>;
 
-  constructor(private router: Router) {
-    
-   }
+  constructor(private auth: AuthService, private perfilService: PerfilService) {}
 
   ngOnInit() {
+    /*this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+      this.egresadoObservable$ = this.egresadosService.getById(id).pipe(
+        map(response => {
+          console.log(response);
+          return response.data;
+        })
+      );
+    });*/
+    console.log('Init-Perfil');
+    var correo=this.auth.userEmail;
+    console.log('correo '+correo);
+    this.perfilService.perfilEgresado(correo).subscribe(
+      data => { console.log('data: '+data.id); this.egresado.id = data.id;
+        console.log('idEgresadoPerfil: '+this.egresado.id); }
+    );
   }
+
 }

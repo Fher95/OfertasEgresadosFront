@@ -147,7 +147,7 @@
         <th mat-header-cell *matHeaderCellDef> Estado </th>
         <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
       </ng-container>
-      <!--ng-container matColumnDef="acciones">
+      <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element">
           <button class="btn botones" mat-icon-button matSuffix (click)="visualizar(element)">
@@ -231,46 +231,22 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title> Información personal</mat-panel-title>
-        <mat-panel-description>
-          Type your name and age
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <mat-form-field>
-        <mat-label>First name</mat-label>
-        <input matInput>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Age</mat-label>
-        <input matInput type="number" min="1">
-      </mat-form-field>
+        </mat-expansion-panel-header>
     </mat-expansion-panel>
-
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title> Referencias personales</mat-panel-title>
-        <mat-panel-description>
-          Type your name and age
-        </mat-panel-description>
       </mat-expansion-panel-header>
+      <app-refencia-personal [referidos]="egresado.referenciasPersonales"> </app-refencia-personal>
     </mat-expansion-panel>
-
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Experiencia laboral</mat-panel-title>
-        <mat-panel-description>
-          Type your name and age
-        </mat-panel-description>
       </mat-expansion-panel-header>
     </mat-expansion-panel>
-
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Grados</mat-panel-title>
-        <mat-panel-description>
-          Type your name and age
-        </mat-panel-description>
       </mat-expansion-panel-header>
     </mat-expansion-panel>
   </mat-accordion>

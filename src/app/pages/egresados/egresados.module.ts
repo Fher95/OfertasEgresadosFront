@@ -21,12 +21,13 @@ import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.compo
 import { PerfilComponent } from './perfil/perfil.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
+import { RefenciaPersonalComponent } from './perfil/refencia-personal/refencia-personal.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
   { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
-  { path: 'perfil', component: PerfilComponent},
+  { path: 'verPerfil', component: PerfilComponent},
   { path: 'eventos', component: EventosComponent},
   { path: 'carnetizacion', component: CarnetizacionComponent,canActivate: [AuthGuard] },
   { path: '', component: InicioEgresadosComponent}
@@ -52,6 +53,7 @@ const routes: Routes = [
     PerfilComponent,
     EventosComponent,
     CarnetizacionComponent,
+    RefenciaPersonalComponent,
   ],
   imports: [
 

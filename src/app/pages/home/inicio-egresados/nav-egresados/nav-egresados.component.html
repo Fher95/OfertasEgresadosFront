@@ -3,14 +3,14 @@
     <img src="../assets/img/egresados-logo.png" >
   </div>
 
-  <nav class="nav justify-content-end navbar-light bg-light shadow border-bottom sticky-top">
+  <nav class="navbar navbar-light bg-light shadow border-bottom sticky-top">
     <div class = "row">
       <ul class = "nav col-12 " routerLinkActive = "active"> 
         <li *ngIf="auth.isLogin"  class = "nav-item"> 
-          <a class = "nav-link" (click) = "completarReg()">Completar Registro</a>
+          <a class = "nav-link" routerLink = "completarRegistro">Completar registro</a>
         </li>
         <li  class = "nav-item"> 
-          <a class = "nav-link" (click) = "perfil()">Perfil</a>
+          <a class = "nav-link" routerLink = "verPerfil">Perfil</a>
         </li>
         <li *ngIf="auth.isLogin" class = "nav-item"> 
           <a class = "nav-link" routerLink = "carnetizacion">Carnetización</a>
@@ -19,7 +19,7 @@
           <a class = "nav-link" routerLink = "eventos">Eventos</a>
         </li>
         <li class = "nav-item"> 
-          <a class = "nav-link" (click) = "ofertasLab()">Ofertas Laborales</a>
+          <a class = "nav-link" routerLink = "home">Ofertas laborales</a>
         </li>
 
       </ul>
