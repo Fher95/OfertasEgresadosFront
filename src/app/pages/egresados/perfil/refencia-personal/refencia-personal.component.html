@@ -1,0 +1,56 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      REFERENCIAS PERSONALES
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="referidos">
+      <!-- Nombre -->
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombres</th>
+        <td mat-cell *matCellDef="let referido">
+          {{ referido.nombres }}
+        </td>
+      </ng-container>
+
+      <!-- Parentesco -->
+      <ng-container matColumnDef="parentesco">
+        <th mat-header-cell *matHeaderCellDef>Parentesco</th>
+        <td mat-cell *matCellDef="let referido">
+          {{ referido.parentesco }}
+        </td>
+      </ng-container>
+
+      <!-- Celular/Teléfono -->
+      <ng-container matColumnDef="celular">
+        <th mat-header-cell *matHeaderCellDef>Celular/Teléfono</th>
+        <td mat-cell *matCellDef="let referido">
+          {{ referido.telefonoMovil }}
+        </td>
+      </ng-container>
+
+      <!-- Acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let referido">
+          <button
+            type="button"
+            mat-icon-button
+            matTooltip="Presione para editar el referido"
+            class="btn"
+            (click)="abrirDialogo(referido)"
+          >
+            <mat-icon aria-label="Editar">edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <!--div class="div" *ngIf="referidos.length==0">
+      No hay datos registrados
+    </div-->
+  </mat-card-content>
+</mat-card>
