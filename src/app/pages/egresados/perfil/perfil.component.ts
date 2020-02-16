@@ -14,8 +14,7 @@ import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 })
 export class PerfilComponent implements OnInit {
   egresado: EgresadoModel = new EgresadoModel;
-  //egresado: any;
-  //private egresadoObservable$: Observable<EgresadoModel>;
+  private egresadoObservable$: Observable<EgresadoModel>;
 
   constructor(private auth: AuthService, private perfilService: PerfilService) {}
 
@@ -32,10 +31,13 @@ export class PerfilComponent implements OnInit {
     console.log('Init-Perfil');
     var correo=this.auth.userEmail;
     console.log('correo '+correo);
-    this.perfilService.perfilEgresado(correo).subscribe(
+    this.egresadoObservable$ = this.perfilService.perfilEgresado(correo).pipe(
+      map(response => {console.log('respuesta:'+response); return response.data;} ));
+    /*this.perfilService.perfilEgresado(correo).subscribe(
       data => { console.log('data: '+data.id); this.egresado.id = data.id;
         console.log('idEgresadoPerfil: '+this.egresado.id); }
-    );
+    );*/
+    console.log('observable:'+this.egresadoObservable$);
   }
 
 }

@@ -8,10 +8,14 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 })
 export class RefenciaPersonalComponent implements OnInit {
   displayedColumns: string[] = ['nombre', 'parentesco', 'celular', 'acciones'];
+  
   @Input()
   public referidos: ReferenciaPersonalModel[];
+    
   constructor(private dialog: MatDialog) { }
+  
   ngOnInit() { }
+  
   abrirDialogo(referido: ReferenciaPersonalModel) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = true;

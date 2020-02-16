@@ -9,7 +9,7 @@
         <li *ngIf="auth.isLogin"  class = "nav-item"> 
           <a class = "nav-link" routerLink = "completarRegistro">Completar registro</a>
         </li>
-        <li  class = "nav-item"> 
+        <li  *ngIf="auth.isLogin" class = "nav-item"> 
           <a class = "nav-link" routerLink = "verPerfil">Perfil</a>
         </li>
         <li *ngIf="auth.isLogin" class = "nav-item"> 
