@@ -1,243 +1,56 @@
-<form
-  novalidate
-  #frmInfoPersonal="ngForm"
-  (submit)="onGuardar(frmInfoPersonal)"
->
+<form novalidate #infoPersonalFrm="ngForm" (submit)="onGuardar(infoPersonalFrm)">
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <!-- Aparece un select sii está en modo edición -->
-      <mat-label *ngIf="onEditMode">Grupo étnico</mat-label>
-      <mat-select [(ngModel)]="egresado.grupoEtnico" *ngIf="onEditMode">
-        <mat-option
-          *ngFor="let grupoEtnico of gruposEtnicos"
-          [value]="grupoEtnico"
-        >
+    <!-- Nombres -->
+    <mat-form-field class="col-md-6">
+      <input type="text" #nombres matInput [(ngModel)]="egresado.nombres" required [disabled]="!onEditMode" placeholder="Nombres">
+    </mat-form-field>
+    <!-- Apellidos -->
+    <mat-form-field class="col-md-6">
+      <input type="text" #apellidos matInput [(ngModel)]="egresado.apellidos" required [disabled]="!onEditMode" placeholder="Apellidos">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <!-- Grupo étnico -->
+    <mat-form-field class="col-md-6">
+      <mat-label>Grupo étnico</mat-label>
+      <mat-select [disabled]="!onEditMode" [(ngModel)]="egresado.grupoEtnico">
+        <mat-option *ngFor="let grupoEtnico of gruposEtnicos" [value]="grupoEtnico">
           {{ grupoEtnico }}
         </mat-option>
       </mat-select>
-      <!-- De lo contrario aparece un input no habilitado para editar. -->
-      <input
-        type="text"
-        matInput
-        [ngModel]="egresado.grupoEtnico"
-        placeholder="Grupo étnico"
-        #grupoEtnico
-        name="grupoEtnico"
-        disabled
-      />
+    </mat-form-field>
+    <!-- Discapacidades -->
+    <mat-form-field class="col-md-6">
+      <!-- TODO: Incluir checkboxes de discapacidades -->
     </mat-form-field>
   </div>
 
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        [ngModel]="egresado.estado"
-        placeholder="Estado"
-        name="estado"
-        #estado
-        disabled
-      />
+    <!-- Identificación -->
+    <mat-form-field class="col-md-6">
+      <input type="text" matInput #identifiacion required pattern="[0-9]+" maxlength="12" [(ngModel)]="egresado.identificacion" placeholder="Identificación">
     </mat-form-field>
-    <mat-form-field class="form-group col-md-6">
-      <!-- Discapacidades -->
-
+    <!-- Estado civil -->
+    <mat-form-field class="col-md-6">
+      <mat-label>Estado civil</mat-label>
+      <mat-select [disabled]="!onEditMode" [(ngModel)]="egresado.estadoCivil">
+        <mat-option *ngFor="let estadoCivil of estadosCiviles" [value]="estadoCivil">
+        {{ estadoCivil }}
+      </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        disabled
-        name="identificacion"
-        #identificacion
-        placeholder="Identificación"
-        [ngModel]="egresado.identificacion"
-      />
+    <!-- País de nacimiento -->
+    <mat-form-field class="col-md-6">
+      <mat-label>País de nacimiento</mat-label>
+      <mat-select [disabled]="!onEditMode" [(ngModel)]="lugarNacimiento.pais">
+        <mat-option *ngFor="let pais of lstLugarNacimiento.paises" [value]="pais">
+          {{ pais.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        disabled
-        name="estadiCivil"
-        #estadoCivil
-        placeholder="Estado civil"
-        [ngModel]="egresado.estadoCivil"
-      />
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        disabled
-        name="lugarExpedicion"
-        #lugarExpedicion
-        placeholder="Lugar de expedición"
-        [ngModel]="egresado.identificacion"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        disabled
-        name="paisResidencia"
-        #paisResidencia
-        placeholder="País de residencia"
-        [ngModel]="egresado.lugarResidencia?.ciudad.departamento.pais.nombre"
-      />
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="País nacimiento"
-        name="paisNacimiento"
-        #paisNacimiento
-        disabled
-        [ngModel]="egresado.lugarNacimiento?.departamento.pais.nombre"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="Departamento residencia"
-        name="departamentoResidencia"
-        [ngModel]="egresado.lugarResidencia?.ciudad.departamento.nombre"
-        disabled
-      />
-    </mat-form-field>
-  </div>
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="Departamento nacimiento"
-        disabled
-        name="departamentoNaciminto"
-        [ngModel]="egresado.lugarNacimiento?.departamento.nombre"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="Municipio/Ciudad residencia"
-        disabled
-        name="municipioResidencia"
-        [ngModel]="egresado.lugarResidencia?.ciudad.nombre"
-      />
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="Municipio/Ciudad nacimiento"
-        disabled
-        name="ciudadNacimiento"
-        [ngModel]="egresado.lugarNacimiento?.nombre"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        placeholder="Dirección residencia"
-        disabled
-        matInput
-        name="direccionResidencia"
-        [ngModel]="egresado.lugarResidencia?.direccion"
-      />
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        placeholder="Género"
-        disabled
-        matInput
-        name="genero"
-        [ngModel]="egresado.genero"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        placeholder="Correo electrónico"
-        matInput
-        name="correo"
-        #correo
-        disabled
-        [(ngModel)]="egresado.correo"
-      />
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        placeholder="Correo electrónico alternativo"
-        matInput
-        name="correoAlternativo"
-        disabled
-        [ngModel]="egresado.correoAlternativo"
-      />
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        type="text"
-        placeholder="Teléfono fijo"
-        matInput
-        name="telefono"
-        disabled
-        [ngModel]="egresado.telefonoFijo"
-      />
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        placeholder="Celular"
-        matInput
-        name="celular"
-        disabled
-        [ngModel]="egresado.celular"
-      />
-    </mat-form-field>
-  </div>
-  <div class="row">
-    <button
-      type="button"
-      class="bnt btn-danger"
-      mat-raised-button
-      (click)="onCancelar()"
-    >
-      Cancelar
-    </button>
-    <button type="submit" mat-raised-button color="primary">Guardar</button>
+    <!-- País de residencia -->
   </div>
 </form>
