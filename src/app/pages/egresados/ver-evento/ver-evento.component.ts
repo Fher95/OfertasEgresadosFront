@@ -31,7 +31,7 @@ export class VerEventoComponent implements OnInit {
 
   ngOnInit() {
     this.nombre = this.data.event.nombre;
-    console.log(this.nombre);
+    console.log("esto es "+this.nombre);
   }
   // Funcion que calcula la minima fecha de fin a partir de la fecha de inicio seleccionada
   calculateMinEndDate() {

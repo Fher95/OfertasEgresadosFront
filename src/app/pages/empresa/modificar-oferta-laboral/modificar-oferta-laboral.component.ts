@@ -85,7 +85,7 @@ datosFormChecked: FormGroup;
           numVacantes: [null, [Validators.required,Validators.min(1)]],
           sector:[null],
           idSector:[null, Validators.required],
-          nombreTempEmpresa: [""],
+          nombreTempEmpresa: [''],
           areas:[null],
           idAreasConocimiento:[null, Validators.required],
           vigenciaDias:[null,[Validators.required,Validators.min(0)]],
@@ -95,12 +95,12 @@ datosFormChecked: FormGroup;
         'contrato':this.formBuilder.group({
           tipoContrato:[null, Validators.required],
           formaPago:[null,Validators.required],
-          duracion:[""],
-          horario:[""],
+          duracion:[''],
+          horario:[''],
           jornada:[null, Validators.required],
           idRangoSalarial:[null,Validators.required],
           rangoSalarial:[null,],
-          comentariosSalario:[""]
+          comentariosSalario:['']
         }),
         'requisitos':this.formBuilder.group({
           perfil:[null,Validators.required],
@@ -542,7 +542,7 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(value)
     }
     else{
-      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue(null)
+      this.formOfertaLaboral.controls['contrato'].get('duracion').setValue('')
     }
   }
   /**
@@ -556,7 +556,7 @@ datosFormChecked: FormGroup;
     });
     dialogRef.afterClosed().subscribe(result => {
         //Al cerrar el dialog si el resultado es verdadero se crea la oferta
-        if(result) {
+        if(result.status_code == 200) {
           this.empService.modificarOfertaLaboral(this.idOferta,datos).subscribe(resultado => {
             console.log(resultado)
             this.alert.showSuccesMessage('Exito','Se ha modificado la oferta exitosamente')

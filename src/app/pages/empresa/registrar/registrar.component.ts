@@ -64,7 +64,7 @@ export class RegistrarComponent implements OnInit {
         nombreEmpresa: [null, [Validators.required, Validators.maxLength(100)], this.validarExistenciaNombre.bind(this)],
         anioCreacion: [null, [Validators.required]],
         numEmpleados: [null, [Validators.required]],
-        ingresosEmp: [null],
+        ingresosEmp: [null, [Validators.required]],
         descripcionEmpresa: [null, [Validators.required, Validators.maxLength(500)]],
       }),
       'sectores': this.formBuilder.group({

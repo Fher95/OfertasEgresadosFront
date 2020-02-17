@@ -17,7 +17,7 @@ export class NavEgresadosComponent implements OnInit {
     this.router.navigate(['egresados/completarRegistro']);
   }
   perfil(){
-    this.router.navigate(['egresados/perfil']);
+    this.router.navigate(['egresados/verPerfil']);
   }
   ofertasLab(){
     this.router.navigate(['home']);

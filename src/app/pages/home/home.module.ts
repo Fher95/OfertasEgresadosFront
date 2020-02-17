@@ -5,12 +5,13 @@ import { HeaderComponent } from 'src/app/layout/header/header.component';
 import { InicioEgresadosComponent } from './inicio-egresados/inicio-egresados.component';
 import { FooterEgresadosComponent } from './inicio-egresados/footer-egresados/footer-egresados.component';
 import { NavEgresadosComponent } from './inicio-egresados/nav-egresados/nav-egresados.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
-  declarations: [HomeOfertasComponent, InicioEgresadosComponent, FooterEgresadosComponent, NavEgresadosComponent],
+  declarations: [InicioEgresadosComponent, FooterEgresadosComponent, NavEgresadosComponent],
   imports: [
     CommonModule,
-    HeaderComponent
+    LayoutModule
   ]
 })
 export class HomeModule { }

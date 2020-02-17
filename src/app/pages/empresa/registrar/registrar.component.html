@@ -4,18 +4,14 @@
 <mat-card class="carta-registro">
 
     <mat-card-header class="headerCartaRegistro">
-        <!--<mat-card-title>
-            Registre su empresa
-        </mat-card-title>-->
         <mat-toolbar color="primary">
-            <span>Necesitamos algunos datos de su empresa</span>
+            <mat-toolbar-row class="justify-content-center">Registrar empresa</mat-toolbar-row>
         </mat-toolbar>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
         <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
             <mat-horizontal-stepper [linear]="isLinear" #stepper>
-                <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
                     label="Cuenta">
                     <div class="Subtitulos-card">
@@ -137,7 +133,7 @@
                                     campo requerido</mat-error>
                             </mat-form-field>
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-                                <mat-select formControlName="ingresosEmp">
+                                <mat-select formControlName="ingresosEmp" required>
                                     <mat-option value="0 - 3.000.000">0-3.000.000</mat-option>
                                     <mat-option value="3.000.001 - 10.000.000">3.000.000-10.000.000</mat-option>
                                     <mat-option value="10.000.001 - 25.000.000">10.000.000-25.000.000</mat-option>

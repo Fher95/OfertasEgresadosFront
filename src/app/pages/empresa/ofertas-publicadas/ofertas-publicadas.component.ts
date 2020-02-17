@@ -64,7 +64,7 @@ export class OfertasPublicadasComponent implements OnInit {
   }
 
   verPostulados(idOferta: string){
-    this.router.navigate(['oferta/'+idOferta+'/misPostulados']);
+    this.router.navigate(['oferta/'+this.id+"/"+idOferta+'/misPostulados']);
   }
 
   mostrarInfo(row: any){

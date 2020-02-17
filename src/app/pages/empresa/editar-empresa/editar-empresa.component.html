@@ -13,7 +13,7 @@
 <mat-card class="carta-registro">
     <mat-card-header class="headerCartaRegistro">
         <mat-toolbar color="primary">
-            <span>Datos de la empresa</span>
+            <mat-toolbar-row class="justify-content-center">Editar empresa</mat-toolbar-row>
         </mat-toolbar>
     </mat-card-header>
     <mat-divider></mat-divider>
@@ -88,17 +88,23 @@
                                 <mat-label>Año de creación</mat-label><input type="number" readonly matInput
                                     formControlName="anioCreacion">
                             </mat-form-field>
-                            <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
-
-                                <input matInput formControlName="numEmpleados">
-                                <mat-label>Número de empleados</mat-label>
+                            <mat-form-field floatLabel="auto" appearance="outline">
+                                <mat-select formControlName="numEmpleados" required>
+                                    <mat-option value="1 - 10">1-10</mat-option>
+                                    <mat-option value="11 - 50">11-50</mat-option>
+                                    <mat-option value="51 - 150">51-150</mat-option>
+                                    <mat-option value="151 - 300">151-300</mat-option>
+                                    <mat-option value="301 - 500">301-500</mat-option>
+                                    <mat-option value="501 - 1000">501-1000</mat-option>
+                                    <mat-option value="1001 - 5000">1001-5000</mat-option>
+                                    <mat-option value="Más de 5000">Más de 5000</mat-option>
+                                </mat-select>
+                                <mat-label>Numero de empleados</mat-label>
                                 <mat-error
                                     *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.numEmpleados.errors?.required">
                                     campo requerido</mat-error>
-                                <mat-error
-                                    *ngIf="formDatosEmpresa.get('datos-generales-empresa').controls.numEmpleados.errors?.min">
-                                    minimo 0</mat-error>
                             </mat-form-field>
+                           
 
                             <mat-form-field floatLabel="auto" appearance="outline" hideRequiredMarker>
                                 <mat-select id="selectIngresos" formControlName="ingresosEmp">

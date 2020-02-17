@@ -21,12 +21,18 @@ import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.compo
 import { PerfilComponent } from './perfil/perfil.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
+import { VerEventoComponent } from './ver-evento/ver-evento.component';
+import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
+import { RefenciaPersonalComponent } from './perfil/refencia-personal/RefenciaPersonalComponent';
+import { GradoVerPerfilComponent } from './perfil/grado-ver-perfil/grado-ver-perfil.component';
+import { ReferidoPerfilComponent } from './perfil/referido-perfil/referido-perfil.component';
+import { UpdateDeleteDialogComponent } from './perfil/grado-ver-perfil/update-delete-dialog/update-delete-dialog.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
   { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
-  { path: 'perfil', component: PerfilComponent},
+  { path: 'verPerfil', component: PerfilComponent},
   { path: 'eventos', component: EventosComponent},
   { path: 'carnetizacion', component: CarnetizacionComponent,canActivate: [AuthGuard] },
   { path: '', component: InicioEgresadosComponent}
@@ -52,9 +58,14 @@ const routes: Routes = [
     PerfilComponent,
     EventosComponent,
     CarnetizacionComponent,
+    VerEventoComponent,
+    InformacionPersonalVerPerfilComponent,
+    RefenciaPersonalComponent,
+    ReferidoPerfilComponent,
+    GradoVerPerfilComponent,
+    UpdateDeleteDialogComponent
   ],
   imports: [
-
     CommonModule,
     LayoutModule,
     FormsModule,
@@ -66,6 +77,9 @@ const routes: Routes = [
   ],
   entryComponents: [
     CancelarDialogComponent,
+    VerEventoComponent,
+    ReferidoPerfilComponent,
+    UpdateDeleteDialogComponent
   ],
 })
 export class EgresadosModule { }

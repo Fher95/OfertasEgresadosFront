@@ -2,7 +2,11 @@
 <app-navbar-home-ofertas></app-navbar-home-ofertas-->
 
 <div class="container" role="main">
-  <mat-toolbar color="primary">SOLICITUDES DE APROBACIÓN DE EMPRESAS</mat-toolbar>
+  <mat-toolbar color="primary" > 
+    <mat-toolbar-row class="justify-content-center">
+      Lista de empresas
+    </mat-toolbar-row>    
+   </mat-toolbar>
   <p></p>
   <div *ngIf="!auxiliar" class="row">
     <h3 class="text-centered px-3"> Cargando solicitudes... </h3>
