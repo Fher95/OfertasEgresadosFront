@@ -556,7 +556,7 @@ datosFormChecked: FormGroup;
     });
     dialogRef.afterClosed().subscribe(result => {
         //Al cerrar el dialog si el resultado es verdadero se crea la oferta
-        if(result) {
+        if(result.status_code == 200) {
           this.empService.modificarOfertaLaboral(this.idOferta,datos).subscribe(resultado => {
             console.log(resultado)
             this.alert.showSuccesMessage('Exito','Se ha modificado la oferta exitosamente')
