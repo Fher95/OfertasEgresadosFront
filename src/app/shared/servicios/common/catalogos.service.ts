@@ -97,17 +97,15 @@ export class CatalogosService {
   }
 
   enviarEstadoSolicitud(idSolicitud: number, estado: boolean) {
-    return this.http.get(
-      `${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}/${estado}`
-    );
+     this.http.put(`${baseUrl}carnetizacionUpdateAdmin`,{idSolicitud,estado} );
   }
 
-  enviarSolicitudCarnet(idSolicitud: number) {
-    return this.http.get(`${baseUrl}enviarSolicitud/${idSolicitud}`);
+  enviarSolicitudCarnet(idEgresado: number) {
+     this.http.put(`${baseUrl}enviarSolicitudCarnet`,idEgresado);
   }
 
-  cancelarSolicitudCarnet(idSolicitud: number) {
-    return this.http.get(`${baseUrl}cancelarSolicitud/${idSolicitud}`);
+  cancelarSolicitudCarnet(idEgresado: number) {
+     this.http.put(`${baseUrl}cancelarSolicitud`,idEgresado);
   }
 
   public getEventos(): Observable<ArrayEventoHttpResponse<EventoInterface[]>> {

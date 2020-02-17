@@ -230,7 +230,7 @@ private tituloPrograma: string = "Musica";
   //Método para guardar las discapacidades del usuario
   discapacidadesUsuario(idDiscapacidad: number,indice: number,event) {
     console.log("Indice: "+indice);
-    if (this.discapacidades[indice].Nombre == "NINGUNA" && event.checked) {
+    if (this.discapacidades[indice].Nombre == "Ninguna" && event.checked) {
       this.discapacidad = [];
       this.discapacidad.push(idDiscapacidad);
     } else if (!this.discapacidad.includes(idDiscapacidad) && event.checked && this.discapacidades[indice].Nombre != "Ninguna") {
