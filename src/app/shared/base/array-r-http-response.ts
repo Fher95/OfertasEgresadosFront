@@ -1,4 +1,4 @@
-export interface ArrayEventoHttpResponse<T> {
+export interface ArrayRHttpResponse<T> {
     data: T;
     status: string;
     status_code: number;

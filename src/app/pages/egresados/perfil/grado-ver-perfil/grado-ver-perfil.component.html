@@ -1,0 +1,59 @@
+<!-- Lista de grados -->
+<div *ngIf="lstGradosEgresado; else loading">
+  <button mat-button (click)="openDialog('Nuevo', {})" mat-flat-button color="primary">Nuevo grado</button>
+  <table mat-table [dataSource]="lstGradosEgresado" class="mat-elevation-z8">
+    <ng-container matColumnDef="fechaGrado">
+      <th mat-header-cell *matHeaderCellDef>Fecha de grado</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.fechaGrado | date }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="programa">
+      <th mat-header-cell *matHeaderCellDef>Programa académico</th>
+      <td mat-cell *matCellDef="let element">{{ element.programa.Nombre }}</td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="mencion">
+      <th mat-header-cell *matHeaderCellDef>Mención</th>
+      <td mat-cell *matCellDef="let element">{{ element.mencion_honor }}</td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let element">{{ element.estado }}</td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="opciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell class="float-right" *matCellDef="let element">
+        <button
+          type="button"
+          mat-icon-button
+          matTooltip="Presione para editar el grado"
+          class="btn"
+          (click)="openDialog('Actualizar', element)"
+        >
+          <mat-icon aria-label="Editar">edit</mat-icon>
+        </button>
+        <button
+          type="button"
+          mat-icon-button
+          matTooltip="Presione para eliminar el grado"
+          (click)="openDialog('Eliminar', element)"
+        >
+          <mat-icon aria-label="Eliminar">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
