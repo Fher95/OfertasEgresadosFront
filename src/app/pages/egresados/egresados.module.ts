@@ -24,7 +24,11 @@ import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
 import { VerEventoComponent } from './ver-evento/ver-evento.component';
 import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
 import { RefenciaPersonalComponent } from './perfil/refencia-personal/RefenciaPersonalComponent';
+<<<<<<< HEAD
 import { GradoVerPerfilComponent } from './perfil/grado-ver-perfil/grado-ver-perfil.component';
+=======
+import { ReferidoPerfilComponent } from './perfil/referido-perfil/referido-perfil.component';
+>>>>>>> a52e3cee86e23e067428d74d074a9461032abc51
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -59,7 +63,11 @@ const routes: Routes = [
     VerEventoComponent,
     InformacionPersonalVerPerfilComponent,
     RefenciaPersonalComponent,
+<<<<<<< HEAD
     GradoVerPerfilComponent
+=======
+    ReferidoPerfilComponent
+>>>>>>> a52e3cee86e23e067428d74d074a9461032abc51
   ],
   imports: [
     CommonModule,
@@ -74,6 +82,7 @@ const routes: Routes = [
   entryComponents: [
     CancelarDialogComponent,
     VerEventoComponent,
+    ReferidoPerfilComponent,
   ],
 })
 export class EgresadosModule { }

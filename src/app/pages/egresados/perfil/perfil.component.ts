@@ -19,25 +19,9 @@ export class PerfilComponent implements OnInit {
   constructor(private auth: AuthService, private perfilService: PerfilService) {}
 
   ngOnInit() {
-    /*this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
-      this.egresadoObservable$ = this.egresadosService.getById(id).pipe(
-        map(response => {
-          console.log(response);
-          return response.data;
-        })
-      );
-    });*/
-    console.log('Init-Perfil');
     var correo=this.auth.userEmail;
     console.log('correo '+correo);
     this.egresadoObservable$ = this.perfilService.perfilEgresado(correo).pipe(
-      map(response => {console.log('respuesta:'+response); return response.data;} ));
-    /*this.perfilService.perfilEgresado(correo).subscribe(
-      data => { console.log('data: '+data.id); this.egresado.id = data.id;
-        console.log('idEgresadoPerfil: '+this.egresado.id); }
-    );*/
-    console.log('observable:'+this.egresadoObservable$);
+      map(response => { return response.data;} ));
   }
-
 }

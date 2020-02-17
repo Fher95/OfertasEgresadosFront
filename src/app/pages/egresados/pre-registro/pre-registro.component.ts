@@ -18,6 +18,8 @@ import { RegistroService } from '../../../shared/servicios/egresados/registro.se
 import { LocalizacionComponent } from '../localizacion/localizacion.component';
 import { NivelesEstudioInterface } from 'src/app/shared/modelos/nivelesEstudioInterface';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
+import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 
@@ -218,10 +220,24 @@ private tituloPrograma: string = "Musica";
 
 
   //Método pra cargar las discapacidades del usuario
+  isLoadingResults: boolean;
+
   obtenerDiscapacidades() {
-    this.catalogoService.getDiscapacidad().subscribe(data => {
-      this.discapacidades = data;
-      console.log(this.discapacidades);
+    this.catalogoService.getDiscapacidad().pipe(
+      map(response => {
+      console.log(response);
+        return response.data;
+    }),
+    catchError(err => {
+      console.log('Error ' + err);
+      this.isLoadingResults = false;
+      return of([]);
+    })
+    )
+    .subscribe(data =>{ 
+      console.log(data);  
+     this.discapacidades = data;
+     
     });
   }
 
@@ -230,7 +246,7 @@ private tituloPrograma: string = "Musica";
   //Método para guardar las discapacidades del usuario
   discapacidadesUsuario(idDiscapacidad: number,indice: number,event) {
     console.log("Indice: "+indice);
-    if (this.discapacidades[indice].Nombre == "NINGUNA" && event.checked) {
+    if (this.discapacidades[indice].Nombre == "Ninguna" && event.checked) {
       this.discapacidad = [];
       this.discapacidad.push(idDiscapacidad);
     } else if (!this.discapacidad.includes(idDiscapacidad) && event.checked && this.discapacidades[indice].Nombre != "Ninguna") {

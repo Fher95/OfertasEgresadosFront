@@ -169,7 +169,7 @@
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Programa</mat-label>
-                <mat-select [formControl]="programaFormControl" required>
+                <mat-select [formControl]="programaFormControl" required (selectionChange)="obtenerTitulo()">
                   <mat-option *ngFor="let programa of programas" [value]="programa.id_aut_programa">
                     {{programa.nombre}}
                   </mat-option>

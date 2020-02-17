@@ -1,7 +1,7 @@
 <app-nav-egresados> </app-nav-egresados>
 <mat-card *ngIf="egresadoObservable$ | async as egresado; else loading">
   <mat-toolbar color="primary">
-    <span class="titulo">Mi Perfil</span>
+    <span class="titulo">Mi perfil</span>
   </mat-toolbar>
   <mat-accordion>
     <mat-expansion-panel>
@@ -14,7 +14,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title> Referencias personales</mat-panel-title>
       </mat-expansion-panel-header>
-      <!--app-refencia-personal [referidos]="egresado.referenciasPersonales"> </app-refencia-personal-->
+      <app-refencia-personal [referidos]="egresado.referenciasPersonales"> </app-refencia-personal>
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
