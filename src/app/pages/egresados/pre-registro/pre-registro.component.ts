@@ -197,6 +197,7 @@ private tituloPrograma: string = "Musica";
 
   obtenerTitulo(){
     this.catalogoService.getTitulo(this.programaFormControl.value).subscribe(data => this.titulos = data);
+    console.log("si hay titulos"+this.titulos)
   }
 
   existenTitulos(){
