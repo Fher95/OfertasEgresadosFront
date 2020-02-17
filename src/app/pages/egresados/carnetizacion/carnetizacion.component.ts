@@ -58,6 +58,10 @@ export class CarnetizacionComponent implements OnInit {
         );
     });
   }
+  
+  entro(number: number){
+    console.log("aqui llego"+ number);
+  }
 
   enviarSolicitudCarnet() {
     console.log(this.idEgresado);

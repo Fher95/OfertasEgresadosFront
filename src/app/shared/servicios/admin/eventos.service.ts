@@ -5,7 +5,7 @@ import { EventoModel } from './../../modelos/evento.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventoInterface } from '../../../shared/modelos/evento';
-import { ArrayEventoHttpResponse } from './../../base/array-eventos-http-response';
+import { ArrayRHttpResponse } from '../../base/array-r-http-response';
 
 @Injectable({
   providedIn: 'root'
@@ -69,9 +69,7 @@ export class EventosService {
     });
   }
 
-  public getEventos(): Observable<ArrayEventoHttpResponse<EventoInterface[]>> {
-    return this.http.get<ArrayEventoHttpResponse<EventoInterface[]>>(`${this.baseUrl}eventos`);
-  }
+
 }
 
 export interface EventoResponse {

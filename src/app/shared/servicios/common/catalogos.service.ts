@@ -13,7 +13,7 @@ import { SedeInterface } from '../../modelos/sedeInterface';
 import { SolicitudInterface } from '../../modelos/solicitudeInterface';
 import { EventoInterface } from '../../../shared/modelos/evento';
 import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
-import { ArrayEventoHttpResponse } from './../../base/array-eventos-http-response';
+import { ArrayRHttpResponse } from '../../base/array-r-http-response';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -75,8 +75,8 @@ export class CatalogosService {
     return this.http.get<ServicioModel[]>(`${baseUrl}servicios`);
   }
 
-  getDiscapacidad(): Observable<DiscapacidadInterface[]> {
-    return this.http.get<DiscapacidadInterface[]>(`${baseUrl}discapacidades`);
+  getDiscapacidad():  Observable<ArrayRHttpResponse<DiscapacidadInterface[]>> {
+    return this.http.get<ArrayRHttpResponse<DiscapacidadInterface[]>>(`${baseUrl}discapacidades`);
   }
 
   getSolicitudesCarnet(): Observable<SolicitudInterface[]> {
@@ -108,8 +108,8 @@ export class CatalogosService {
      this.http.put(`${baseUrl}cancelarSolicitud`,idEgresado);
   }
 
-  public getEventos(): Observable<ArrayEventoHttpResponse<EventoInterface[]>> {
-    return this.http.get<ArrayEventoHttpResponse<EventoInterface[]>>(`${baseUrl}eventos`);
+  public getEventos(): Observable<ArrayRHttpResponse<EventoInterface[]>> {
+    return this.http.get<ArrayRHttpResponse<EventoInterface[]>>(`${baseUrl}eventos`);
   }
 
   public updateImage(eventId: string, files: Array<File>) {}

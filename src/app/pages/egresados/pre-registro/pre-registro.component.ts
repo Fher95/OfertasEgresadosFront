@@ -18,6 +18,8 @@ import { RegistroService } from '../../../shared/servicios/egresados/registro.se
 import { LocalizacionComponent } from '../localizacion/localizacion.component';
 import { NivelesEstudioInterface } from 'src/app/shared/modelos/nivelesEstudioInterface';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
+import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 
@@ -218,10 +220,24 @@ private tituloPrograma: string = "Musica";
 
 
   //Método pra cargar las discapacidades del usuario
+  isLoadingResults: boolean;
+
   obtenerDiscapacidades() {
-    this.catalogoService.getDiscapacidad().subscribe(data => {
-      this.discapacidades = data;
-      console.log(this.discapacidades);
+    this.catalogoService.getDiscapacidad().pipe(
+      map(response => {
+      console.log(response);
+        return response.data;
+    }),
+    catchError(err => {
+      console.log('Error ' + err);
+      this.isLoadingResults = false;
+      return of([]);
+    })
+    )
+    .subscribe(data =>{ 
+      console.log(data);  
+     this.discapacidades = data;
+     
     });
   }
 
