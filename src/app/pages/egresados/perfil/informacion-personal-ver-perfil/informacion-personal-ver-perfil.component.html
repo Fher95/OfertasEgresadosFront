@@ -17,12 +17,12 @@
         placeholder="Nombres"
         pattern="[a-zA-Z\s]+"
       />
-      <mat-error *ngIf="nombres.hasError('required') && nombres.dirty && nombres.invalid">
+      <!-- <mat-error *ngIf="nombres.hasError('required') && nombres.dirty && nombres.invalid">
         El campo nombres es obligatorio
       </mat-error>
       <mat-error *ngIf="nombres.hasError('pattern') && nombres.dirty && nombres.invalid">
         El campo nombres solo debe contener letras.
-      </mat-error>
+      </mat-error> -->
     </mat-form-field>
     <!-- Apellidos -->
     <mat-form-field class="col-md-6">
@@ -85,7 +85,7 @@
         [(ngModel)]="egresado.identificacion"
         placeholder="Identificación"
       />
-      <mat-error *ngIf="identifiacion.hasError('required') && identifiacion.invalid && identifiacion.dirty">
+      <!-- <mat-error *ngIf="identifiacion.hasError('required') && identifiacion.invalid && identifiacion.dirty">
         El campo identificación es obligatorio
       </mat-error>
       <mat-error *ngIf="identifiacion.hasError('pattern') && identifiacion.invalid && identifiacion.dirty">
@@ -93,7 +93,7 @@
       </mat-error>
       <mat-error *ngIf="identifiacion.hasError('maxlength') && identifiacion.invalid && identifiacion.dirty">
         El campo identificación no puede tener más de 12 caracteres
-      </mat-error>
+      </mat-error> -->
     </mat-form-field>
     <!-- Estado civil -->
     <mat-form-field class="col-md-6">
@@ -239,9 +239,9 @@
         placeholder="Dirección de residencia"
         required
       />
-      <mat-error *ngIf="direccionResidencia.hasError('required') && direccionResidencia.invalid && direccionResidencia.dirty">
+      <!-- <mat-error *ngIf="direccionResidencia.hasError('required') && direccionResidencia.invalid && direccionResidencia.dirty">
         El campo dirección de residencia es obligatorio
-      </mat-error>
+      </mat-error> -->
     </mat-form-field>
     <!-- Genero -->
     <mat-form-field class="col-md-6">
@@ -270,9 +270,9 @@
         placeholder="Correo electrónico"
         [(ngModel)]="egresado.correo"
       />
-    <mat-error *ngIf="correo.hasError('required') && correo.invalid && correo.dirty">
+      <!-- <mat-error *ngIf="correo.hasError('required') && correo.invalid && correo.dirty">
         El campo correo electrónico es obligatorio
-      </mat-error>
+      </mat-error> -->
     </mat-form-field>
     <!--  Correo electrónico alternativo-->
     <mat-form-field class="col-md-6">
