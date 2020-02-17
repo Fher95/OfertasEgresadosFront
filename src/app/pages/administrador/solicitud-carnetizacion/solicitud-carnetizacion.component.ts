@@ -21,14 +21,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private fecha: String = this.dia + "/" + this.mes + "/" + this.anio
 
   constructor(private alert: AlertService, private dialog: MatDialog, private catalogoService: CatalogosService, private router: Router) {
-    this.solicitudes = [{
-      id_aut_carnetizacion: 1,
-      nombres: 'Edinsson',
-      apellidos: 'Lopez',
-      correo: 'Edinsson@hotmail.com',
-      identificacion: 1,
-      fecha_solicitud: this.fecha
-    }]
+    this.solicitudes = []
   }
 
   ngOnInit() {
