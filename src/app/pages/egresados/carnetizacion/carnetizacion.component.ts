@@ -61,10 +61,10 @@ export class CarnetizacionComponent implements OnInit {
 
   enviarSolicitudCarnet() {
     console.log(this.idEgresado);
-    this.catalogoService.enviarSolicitudCarnet(this.idEgresado).subscribe();
+    this.catalogoService.enviarSolicitudCarnet(this.idEgresado);
   }
 
   cancelarSolicitudCarnet() {
-    this.catalogoService.cancelarSolicitudCarnet(this.idEgresado).subscribe();
+    this.catalogoService.cancelarSolicitudCarnet(this.idEgresado);
   }
 }

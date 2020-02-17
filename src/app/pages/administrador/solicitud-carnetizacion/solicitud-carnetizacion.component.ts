@@ -60,7 +60,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private aceptarSolicitud(solicitud, index) {
     this.alert.showconfirmationMessage('¿Aceptar Solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarEstadoSolicitud(solicitud, true).subscribe();
+        this.catalogoService.enviarEstadoSolicitud(solicitud, true);
         this.solicitudes.splice(index, 1);
       }
     });
@@ -71,7 +71,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private cancelarSolicitud(solicitud, index) {
     this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarEstadoSolicitud(solicitud, false).subscribe();
+        this.catalogoService.enviarEstadoSolicitud(solicitud, false);
         this.solicitudes.splice(index, 1);
       }
     });
