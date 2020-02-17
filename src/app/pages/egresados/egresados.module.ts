@@ -25,6 +25,7 @@ import { VerEventoComponent } from './ver-evento/ver-evento.component';
 import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
 import { RefenciaPersonalComponent } from './perfil/refencia-personal/RefenciaPersonalComponent';
 import { GradoVerPerfilComponent } from './perfil/grado-ver-perfil/grado-ver-perfil.component';
+import { UpdateDeleteDialogComponent } from './perfil/grado-ver-perfil/update-delete-dialog/update-delete-dialog.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -59,7 +60,8 @@ const routes: Routes = [
     VerEventoComponent,
     InformacionPersonalVerPerfilComponent,
     RefenciaPersonalComponent,
-    GradoVerPerfilComponent
+    GradoVerPerfilComponent,
+    UpdateDeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -74,6 +76,7 @@ const routes: Routes = [
   entryComponents: [
     CancelarDialogComponent,
     VerEventoComponent,
+    UpdateDeleteDialogComponent
   ],
 })
 export class EgresadosModule { }

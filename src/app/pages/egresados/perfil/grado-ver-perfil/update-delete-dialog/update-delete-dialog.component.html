@@ -1,0 +1,232 @@
+<!-- dialog-box.component.html -->
+<h1 mat-dialog-title>
+  <strong>{{ action }}</strong>
+</h1>
+<div mat-dialog-content>
+  <div class="frm" *ngIf="action != 'Eliminar'; else elseTemplate">
+    <!-- Inicio formulario nuevo grado -->
+    <form #frmNuevoGrado="ngForm" *ngIf="action == 'Nuevo'">
+      <div class="form-row">
+        <!-- Sede -->
+        <mat-form-field class="col-md-4">
+          <mat-label>Sede</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="filtroProgramas.idSede"
+            #sede="ngModel"
+            name="sede"
+            (selectionChange)="onSedeChange($event.value)"
+          >
+            <mat-option *ngFor="let sede of sedes" [value]="sede.id_aut_sede">
+              {{ sede.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="sede.hasError('required') && sede.invalid && sede.dirty"
+          >
+            El campo sede es obligatorio
+          </mat-error>
+        </mat-form-field>
+        <!-- Nivel estudio -->
+        <mat-form-field class="col-md-4">
+          <mat-label>Nivel estudio</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="filtroProgramas.idNivelEstudio"
+            #nivelEstudio="ngModel"
+            name="nivelEstudio"
+            (selectionChange)="onNivelEstudioChange($event.value)"
+          >
+            <mat-option
+              *ngFor="let nivelEstudio of nivelesEstudio"
+              [value]="nivelEstudio.id_aut_estudio"
+            >
+              {{ nivelEstudio.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              nivelEstudio.hasError('required') &&
+              nivelEstudio.invalid &&
+              nivelEstudio.dirty
+            "
+          >
+            El campo nivel de estudio es obligatorio
+          </mat-error>
+        </mat-form-field>
+        <!-- Facultad -->
+        <mat-form-field class="col-md-4">
+          <mat-label>Facultad</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="filtroProgramas.idFacultad"
+            #facultad="ngModel"
+            name="facultad"
+            (selectionChange)="onFacultadChange($event.value)"
+          >
+            <mat-option
+              [value]="facultad.id_aut_facultad"
+              *ngFor="let facultad of facultades"
+              >{{ facultad.nombre }}</mat-option
+            >
+          </mat-select>
+          <mat-error
+            *ngIf="
+              facultad.hasError('required') &&
+              facultad.invalid &&
+              facultad.dirty
+            "
+          >
+            El campo facultad es obligatorio
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <!-- Programa -->
+        <mat-form-field class="col-md-4">
+          <mat-label>Programa</mat-label>
+          <mat-select
+            required
+            (selectionChange)="onProgramaChange($event.value)"
+            name="programa"
+            [(ngModel)]="new_data.idPrograma"
+            #programa="ngModel"
+          >
+            <mat-option
+              *ngFor="let programa of programas"
+              [value]="programa.id_aut_programa"
+            >
+              {{ programa.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              programa.hasError('required') &&
+              programa.invalid &&
+              programa.dirty
+            "
+          >
+            El campo programa es obligatorio
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+          <mat-label>Título</mat-label>
+          <mat-select
+            [(ngModel)]="new_data.idTitulo"
+            [required]="programa.value == 'MÚSICA INSTRUMENTAL'"
+            #titulo="ngModel"
+            name="titulo"
+          >
+            <mat-option *ngFor="let titulo of titulos" [value]="titulo.id">
+              {{ titulo.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="titulo.hasError('required') && titulo.dirty && titulo.invalid">
+            El campo título es obligatorio.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+          <input type="text" placeholder="Mención" #mencion="ngModel" [(ngModel)]="new_data.mencion">
+        </mat-form-field>
+      </div>
+    </form>
+    <!-- Inicio formulario actualzar grado  -->
+    <form #frmActualizarGrado="ngForm" *ngIf="action == 'Actualizar'">
+      <div class="form-row">
+        <mat-form-field class="form-group col-md-4">
+          <input
+            type="text"
+            matInput
+            placeholder="Sede"
+            [ngModel]="local_data.programa?.sede.nombre"
+            name="sede"
+            disabled
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-md-4">
+          <input
+            type="text"
+            matInput
+            placeholder="Nivel de estudio"
+            disabled
+            name="nivelEstudio"
+            [ngModel]="local_data.programa.nivelEstudio.nombre"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-md-4">
+          <input
+            type="text"
+            placeholder="Facultad"
+            matInput
+            disabled
+            [ngModel]="local_data.programa.facultad.nombre"
+            name="facultad"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field class="form-group col-md-6">
+          <input
+            type="text"
+            matInput
+            placeholder="Programa"
+            disabled
+            name="programa"
+            [ngModel]="local_data.programa.Nombre"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-group col-md-6">
+          <input
+            type="text"
+            matInput
+            placeholder="Título"
+            disabled
+            name="titulo"
+            [ngModel]="local_data.programa.titulo"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-md-6">
+          <input
+            type="text"
+            matInput
+            #mencion
+            disabled
+            placeholder="Mención"
+            name="mencion"
+            [ngModel]="local_data.mencion"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="form-row" *ngFor="let observacion of local_data.comentarios">
+        <mat-form-field class="col-md-12">
+          <mat-label>{{ observacion.pregunta }}</mat-label>
+          <textarea
+            matInput
+            disabled
+            name="observacion{{ observacion.id }}"
+            rows="3"
+          >
+          {{ observacion.respuesta }}
+        </textarea
+          >
+        </mat-form-field>
+      </div>
+    </form>
+    <!-- Fin formulario actualizar grado -->
+  </div>
+  <ng-template #elseTemplate>
+    Está seguro de eliminar el <b>Grado</b>?
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()">{{ action }}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
+    Cancelar
+  </button>
+</div>
