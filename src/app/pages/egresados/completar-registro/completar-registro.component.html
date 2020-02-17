@@ -2,14 +2,14 @@
 <form class="completarRegistro">
   <mat-card>
     <mat-toolbar color="primary">
-      <span class="titulo">Completar Información</span>
+      <span class="titulo">Completar información</span>
     </mat-toolbar>
     <mat-horizontal-stepper [linear]="isLinear" class="stepper">
       <mat-step>
-        <ng-template matStepLabel>Referencias Personales</ng-template>
+        <ng-template matStepLabel>Referencias personales</ng-template>
         <app-referido #referido (darReferido)="addToList($event)"></app-referido>
-        <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataReferidos">
+        <div class="mat-elevation-z8" *ngIf="referidos.length>0">
+          <table mat-table [dataSource]="dataReferidos" >
             <ng-container matColumnDef="nombres">
               <th mat-header-cell *matHeaderCellDef> Nombre </th>
               <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
@@ -40,7 +40,7 @@
       </mat-step>
       <div *ngIf="verificarCantReferidos()">
         <mat-step>
-          <ng-template matStepLabel>Trabajo Actual</ng-template>
+          <ng-template matStepLabel>Trabajo actual</ng-template>
           <mat-label>¿Labora actualmente?: </mat-label>
           <mat-radio-group [formControl]="Labora_Actualmente">
             <mat-radio-button value=0>Si</mat-radio-button>
@@ -48,7 +48,7 @@
           </mat-radio-group>
           <app-explaboral *ngIf="Labora_Actualmente.value=='0'" #expActual (darExperiencia)="addExpActual($event)">
           </app-explaboral>
-          <div class="mat-elevation-z8">
+          <div class="mat-elevation-z8" *ngIf="expActuales.length>0"> 
             <table mat-table [dataSource]="dataExpActual">
               <ng-container matColumnDef="cargo_nombre">
                 <th mat-header-cell *matHeaderCellDef> Cargo </th>
@@ -79,7 +79,7 @@
           <button class="botones" color="primary" mat-button mat-raised-button matStepperNext>Siguiente</button>
         </mat-step>
         <mat-step>
-          <ng-template matStepLabel>Comentarios y Sugerencias</ng-template>
+          <ng-template matStepLabel>Comentarios y sugerencias</ng-template>
           <app-comentarios #comentario></app-comentarios>
           <mat-label>¿Se esta graduando de otra carrera en esta fecha?: </mat-label>
           <mat-radio-group [formControl]="otroGrado">
@@ -89,15 +89,14 @@
           <button class="botones" mat-button mat-raised-button matStepperPrevious>Atrás</button>
           <button class="botones" color="primary" *ngIf="otroGrado.value=='0'" mat-button mat-raised-button
             matStepperNext>Siguiente</button>
-          <button class="btnCompletar" color="primary" *ngIf="otroGrado.value=='1'" mat-raised-button
-            (click)="enviarDatos()">Completar
-            Información</button>
+          <button class="botones" color="primary" *ngIf="otroGrado.value=='1'" mat-raised-button
+            (click)="enviarDatos()">Completar información</button>
         </mat-step>
         <mat-step *ngIf="otroGrado.value=='0'">
-          <ng-template matStepLabel>Grado Adicional</ng-template>
+          <ng-template matStepLabel>Grado adicional</ng-template>
           <mat-card>
             <form>
-              <mat-card-title>Grado Adicional</mat-card-title>
+              <mat-card-title>Grado adicional</mat-card-title>
               <app-programa #programaAdicional></app-programa>
               <!--mat-form-field class="full-width" floatLabel="auto" appearance="outline">
               <mat-label>Titulo Academico</mat-label>
@@ -115,18 +114,20 @@
                 <mat-label>Comentarios, sugerencias sobre el programa del cual es egresado:</mat-label>
                 <textarea matInput placeholder="Escribe el comentario aquí"
                   [formControl]="ComentProgramaAdicional"> </textarea>
+                <mat-error *ngIf="ComentProgramaAdicional.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
               <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                 <mat-label>¿Que docente del programa considera que influyó positivamente en su formación como
                   profesional?:</mat-label>
                 <input matInput placeholder="Escribe el comentario aquí" [formControl]="DocenteInfluenciaAdicional"
                   required>
+                  <mat-error *ngIf="DocenteInfluenciaAdicional.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
             </form>
           </mat-card>
           <button class="botones" mat-button mat-raised-button matStepperPrevious>Atrás</button>
           <button class="botones" color="primary" mat-raised-button (click)="enviarDatos()">Completar
-            Información</button>
+            información</button>
         </mat-step>
       </div>
     </mat-horizontal-stepper>

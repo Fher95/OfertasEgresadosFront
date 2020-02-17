@@ -1,13 +1,52 @@
 <form
   novalidate
-  #frmInfoPersonal="ngForm"
-  (submit)="onGuardar(frmInfoPersonal)"
+  #infoPersonalFrm="ngForm"
+  (submit)="onGuardar(infoPersonalFrm, $event)"
 >
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <!-- Aparece un select sii está en modo edición -->
-      <mat-label *ngIf="onEditMode">Grupo étnico</mat-label>
-      <mat-select [(ngModel)]="egresado.grupoEtnico" *ngIf="onEditMode">
+    <!-- Nombres -->
+    <mat-form-field class="col-md-6">
+      <input
+        type="text"
+        name="nombres"
+        #nombres
+        matInput
+        [(ngModel)]="egresado.nombres"
+        required
+        [disabled]="!onEditMode"
+        placeholder="Nombres"
+        pattern="[a-zA-Z\s]+"
+      />
+      <!-- <mat-error *ngIf="nombres.hasError('required') && nombres.dirty && nombres.invalid">
+        El campo nombres es obligatorio
+      </mat-error>
+      <mat-error *ngIf="nombres.hasError('pattern') && nombres.dirty && nombres.invalid">
+        El campo nombres solo debe contener letras.
+      </mat-error> -->
+    </mat-form-field>
+    <!-- Apellidos -->
+    <mat-form-field class="col-md-6">
+      <input
+        type="text"
+        name="apellidos"
+        #apellidos
+        matInput
+        [(ngModel)]="egresado.apellidos"
+        required
+        [disabled]="!onEditMode"
+        placeholder="Apellidos"
+      />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <!-- Grupo étnico -->
+    <mat-form-field class="col-md-6">
+      <mat-label>Grupo étnico</mat-label>
+      <mat-select
+        [disabled]="!onEditMode"
+        name="grupoEtnico"
+        [(ngModel)]="egresado.grupoEtnico"
+      >
         <mat-option
           *ngFor="let grupoEtnico of gruposEtnicos"
           [value]="grupoEtnico"
@@ -15,229 +54,291 @@
           {{ grupoEtnico }}
         </mat-option>
       </mat-select>
-      <!-- De lo contrario aparece un input no habilitado para editar. -->
-      <input
-        type="text"
-        matInput
-        [ngModel]="egresado.grupoEtnico"
-        placeholder="Grupo étnico"
-        #grupoEtnico
-        name="grupoEtnico"
-        disabled
-      />
     </mat-form-field>
+    <!-- Discapacidades -->
+    <div class="col-md-6">
+      <mat-checkbox
+        [disabled]="!onEditMode"
+        [checked]="enDiscapacidadEgresado(discapacidad.idDiscapacidad)"
+        labelposition="after"
+        *ngFor="let discapacidad of discapacidades"
+        name="discapacidades"
+        (change)="onCheckDiscapacidad(discapacidad, $event.checked)"
+      >
+        {{ discapacidad.Nombre }}
+      </mat-checkbox>
+    </div>
   </div>
 
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
+    <!-- Identificación -->
+    <mat-form-field class="col-md-6">
       <input
         type="text"
+        [disabled]="!onEditMode"
         matInput
-        [ngModel]="egresado.estado"
-        placeholder="Estado"
-        name="estado"
-        #estado
-        disabled
-      />
-    </mat-form-field>
-    <mat-form-field class="form-group col-md-6">
-      <!-- Discapacidades -->
-
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        disabled
+        #identifiacion
         name="identificacion"
-        #identificacion
+        required
+        pattern="[0-9]+"
+        maxlength="12"
+        [(ngModel)]="egresado.identificacion"
         placeholder="Identificación"
-        [ngModel]="egresado.identificacion"
       />
+      <!-- <mat-error *ngIf="identifiacion.hasError('required') && identifiacion.invalid && identifiacion.dirty">
+        El campo identificación es obligatorio
+      </mat-error>
+      <mat-error *ngIf="identifiacion.hasError('pattern') && identifiacion.invalid && identifiacion.dirty">
+        El campo identificación debe contener solo números
+      </mat-error>
+      <mat-error *ngIf="identifiacion.hasError('maxlength') && identifiacion.invalid && identifiacion.dirty">
+        El campo identificación no puede tener más de 12 caracteres
+      </mat-error> -->
     </mat-form-field>
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        disabled
-        name="estadiCivil"
-        #estadoCivil
-        placeholder="Estado civil"
-        [ngModel]="egresado.estadoCivil"
-      />
-    </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        disabled
-        name="lugarExpedicion"
-        #lugarExpedicion
-        placeholder="Lugar de expedición"
-        [ngModel]="egresado.identificacion"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        disabled
-        name="paisResidencia"
-        #paisResidencia
-        placeholder="País de residencia"
-        [ngModel]="egresado.lugarResidencia?.ciudad.departamento.pais.nombre"
-      />
+    <!-- Estado civil -->
+    <mat-form-field class="col-md-6">
+      <mat-label>Estado civil</mat-label>
+      <mat-select
+        [disabled]="!onEditMode"
+        name="estadoCivil"
+        [(ngModel)]="egresado.estadoCivil"
+      >
+        <mat-option
+          *ngFor="let estadoCivil of estadosCiviles"
+          [value]="estadoCivil"
+        >
+          {{ estadoCivil }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="País nacimiento"
+    <!-- País de nacimiento -->
+    <mat-form-field class="col-md-6">
+      <mat-label>País de nacimiento</mat-label>
+      <mat-select
+        [disabled]="!onEditMode"
         name="paisNacimiento"
-        #paisNacimiento
-        disabled
-        [ngModel]="egresado.lugarNacimiento?.departamento.pais.nombre"
-      />
+        [(ngModel)]="lugarNacimiento.pais.id"
+        (selectionChange)="lstLugarNacimiento.onPaisSelected($event.value)"
+      >
+        <mat-option
+          [value]="pais.id"
+          *ngFor="let pais of lstLugarNacimiento.paises$ | async"
+        >
+          {{ pais.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="Departamento residencia"
-        name="departamentoResidencia"
-        [ngModel]="egresado.lugarResidencia?.ciudad.departamento.nombre"
-        disabled
-      />
-    </mat-form-field>
-  </div>
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="Departamento nacimiento"
-        disabled
-        name="departamentoNaciminto"
-        [ngModel]="egresado.lugarNacimiento?.departamento.nombre"
-      />
-    </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="Municipio/Ciudad residencia"
-        disabled
-        name="municipioResidencia"
-        [ngModel]="egresado.lugarResidencia?.ciudad.nombre"
-      />
+    <!-- Departamento de nacimiento -->
+    <mat-form-field class="col-md-6">
+      <mat-label>Departamento de nacimiento</mat-label>
+      <mat-select
+        [(ngModel)]="lugarNacimiento.departamento.id"
+        name="departamentoNacimiento"
+        [disabled]="!onEditMode"
+        (selectionChange)="
+          lstLugarNacimiento.onDepartamentoSelected($event.value)
+        "
+      >
+        <mat-option
+          *ngFor="let departamento of lstLugarNacimiento.departamentos$"
+          [value]="departamento.id"
+        >
+          {{ departamento.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        matInput
-        placeholder="Municipio/Ciudad nacimiento"
-        disabled
+    <!-- Cuidad de nacimiento-->
+    <mat-form-field class="col-md-6">
+      <mat-label>Ciudad de nacimiento</mat-label>
+      <mat-select
+        [disabled]="!onEditMode"
         name="ciudadNacimiento"
-        [ngModel]="egresado.lugarNacimiento?.nombre"
-      />
+        [(ngModel)]="lugarNacimiento.ciudad.id"
+      >
+        <mat-option
+          *ngFor="let ciudad of lstLugarNacimiento.ciudades$"
+          [value]="ciudad.id"
+        >
+          {{ ciudad.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        placeholder="Dirección residencia"
-        disabled
-        matInput
-        name="direccionResidencia"
-        [ngModel]="egresado.lugarResidencia?.direccion"
-      />
+    <!-- País de residencia -->
+    <mat-form-field class="col-md-6">
+      <mat-label>País de residencia</mat-label>
+      <mat-select
+        [disabled]="!onEditMode"
+        name="paisResidencia"
+        [(ngModel)]="lugarResidencia.pais.id"
+        (selectionChange)="lstLugarResidencia.onPaisSelected($event.value)"
+      >
+        <mat-option
+          [value]="pais.id"
+          *ngFor="let pais of lstLugarResidencia.paises$ | async"
+        >
+          {{ pais.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
-      <input
-        type="text"
-        placeholder="Género"
-        disabled
-        matInput
-        name="genero"
-        [ngModel]="egresado.genero"
-      />
+    <!-- Departamento de residencia -->
+    <mat-form-field class="col-md-6">
+      <mat-label>Departamento de residencia</mat-label>
+      <mat-select
+        [(ngModel)]="lugarResidencia.departamento.id"
+        name="departamentoResidencia"
+        [disabled]="!onEditMode"
+        (selectionChange)="
+          lstLugarResidencia.onDepartamentoSelected($event.value)
+        "
+      >
+        <mat-option
+          *ngFor="let departamento of lstLugarResidencia.departamentos$"
+          [value]="departamento.id"
+        >
+          {{ departamento.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+    <!-- Cuidad de residencia -->
+    <mat-form-field class="col-md-6">
+      <mat-label>Ciudad de residencia</mat-label>
+      <mat-select
+        [disabled]="!onEditMode"
+        name="ciudadResidencia"
+        [(ngModel)]="lugarResidencia.ciudad.id"
+      >
+        <mat-option
+          *ngFor="let ciudad of lstLugarResidencia.ciudades$"
+          [value]="ciudad.id"
+        >
+          {{ ciudad.nombre }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-    <mat-form-field class="form-group col-md-6">
+  <div class="row">
+    <!-- Dirección de residencia -->
+    <mat-form-field class="col-md-6">
       <input
         type="text"
-        placeholder="Correo electrónico"
         matInput
-        name="correo"
+        #direccionResidencia
+        name="direccionResidencia"
+        [(ngModel)]="egresado.lugarResidencia.direccion"
+        [disabled]="!onEditMode"
+        placeholder="Dirección de residencia"
+        required
+      />
+      <!-- <mat-error *ngIf="direccionResidencia.hasError('required') && direccionResidencia.invalid && direccionResidencia.dirty">
+        El campo dirección de residencia es obligatorio
+      </mat-error> -->
+    </mat-form-field>
+    <!-- Genero -->
+    <mat-form-field class="col-md-6">
+      <mat-label>Genero</mat-label>
+      <mat-select
+        [(ngModel)]="egresado.genero"
+        [disabled]="!onEditMode"
+        name="genero"
+      >
+        <mat-option value="MASCULINO">MASCULINO</mat-option>
+        <mat-option value="FEMENINO">FEMENINO</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <!-- Correo electrónico -->
+    <mat-form-field class="col-md-6">
+      <input
+        type="email"
+        required
+        matInput
         #correo
-        disabled
+        name="correo"
+        [disabled]="!onEditMode"
+        placeholder="Correo electrónico"
         [(ngModel)]="egresado.correo"
       />
+      <!-- <mat-error *ngIf="correo.hasError('required') && correo.invalid && correo.dirty">
+        El campo correo electrónico es obligatorio
+      </mat-error> -->
     </mat-form-field>
-  </div>
-
-  <div class="row">
-    <mat-form-field class="form-group col-md-6">
+    <!--  Correo electrónico alternativo-->
+    <mat-form-field class="col-md-6">
       <input
-        type="text"
-        placeholder="Correo electrónico alternativo"
+        type="email"
+        required
         matInput
+        #correoAlternativo
         name="correoAlternativo"
-        disabled
-        [ngModel]="egresado.correoAlternativo"
-      />
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        type="text"
-        placeholder="Teléfono fijo"
-        matInput
-        name="telefono"
-        disabled
-        [ngModel]="egresado.telefonoFijo"
+        [disabled]="!onEditMode"
+        placeholder="Correo electrónico alternativo"
+        [(ngModel)]="egresado.correoAlternativo"
       />
     </mat-form-field>
   </div>
 
   <div class="row">
-    <mat-form-field class="form-group col-md-6">
+    <!-- Teléfono -->
+    <mat-form-field class="col-md-6">
       <input
-        type="text"
-        placeholder="Celular"
+        type="tel"
+        name="telefonoFijo"
+        required
         matInput
+        [(ngModel)]="egresado.telefonoFijo"
+        #telefonoFijo
+        [disabled]="!onEditMode"
+        placeholder="Teléfono fijo"
+      />
+    </mat-form-field>
+    <!-- Celular -->
+    <mat-form-field class="col-md-6">
+      <input
+        type="tel"
         name="celular"
-        disabled
-        [ngModel]="egresado.celular"
+        required
+        matInput
+        [(ngModel)]="egresado.celular"
+        #celular
+        [disabled]="!onEditMode"
+        placeholder="Celular"
       />
     </mat-form-field>
   </div>
-  <div class="row">
+
+  <div class="row float-right">
     <button
       type="button"
-      class="bnt btn-danger"
+      *ngIf="!onEditMode"
+      class="btn btn-danger"
       mat-raised-button
+      (click)="onEditar()"
+    >
+      Editar
+    </button>
+    <button
+      type="button"
+      *ngIf="onEditMode"
+      class="btn btn-danger"
       (click)="onCancelar()"
+      mat-raised-button
     >
       Cancelar
     </button>
-    <button type="submit" mat-raised-button color="primary">Guardar</button>
+    <button type="submit" *ngIf="onEditMode" color="primary" mat-raised-button>
+      Guardar
+    </button>
   </div>
 </form>

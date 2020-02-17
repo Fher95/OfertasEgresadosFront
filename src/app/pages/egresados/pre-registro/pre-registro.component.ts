@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-
+import {
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  Validators
+} from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -18,9 +22,8 @@ import { RegistroService } from '../../../shared/servicios/egresados/registro.se
 import { LocalizacionComponent } from '../localizacion/localizacion.component';
 import { NivelesEstudioInterface } from 'src/app/shared/modelos/nivelesEstudioInterface';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
-
-
-
+import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-pre-registro',
@@ -28,67 +31,35 @@ import { AlertService } from 'src/app/shared/servicios/common/alert.service';
   styleUrls: ['./pre-registro.component.css']
 })
 export class PreRegistroComponent implements OnInit {
-
   @ViewChild('lugarExpedicion') lExpedicion: LocalizacionComponent;
   @ViewChild('lugarNacimiento') lNacimiento: LocalizacionComponent;
   @ViewChild('lugarResidencia') lResidencia: LocalizacionComponent;
 
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email,
+    Validators.email
   ]);
   emailFormControl2 = new FormControl('', [
     Validators.required,
-    Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"),
-    Validators.email,
+    Validators.pattern('[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}'),
+    Validators.email
   ]);
-  sedeFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  programaFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  facultadFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  tituloFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  fechaGFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  fechaNFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  estadoCFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  grupoEFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  nivelAFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  anioGFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  identificacionFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-  // Variable en la que se almacena los datos ingresados para el preregistro 
+  sedeFormControl = new FormControl('', [Validators.required]);
+  programaFormControl = new FormControl('', [Validators.required]);
+  facultadFormControl = new FormControl('', [Validators.required]);
+  tituloFormControl = new FormControl('', [Validators.required]);
+  fechaGFormControl = new FormControl('', [Validators.required]);
+  fechaNFormControl = new FormControl('', [Validators.required]);
+  estadoCFormControl = new FormControl('', [Validators.required]);
+  grupoEFormControl = new FormControl('', [Validators.required]);
+  nivelAFormControl = new FormControl('', [Validators.required]);
+  anioGFormControl = new FormControl('', [Validators.required]);
+  identificacionFormControl = new FormControl('', [Validators.required]);
+  // Variable en la que se almacena los datos ingresados para el preregistro
   private user: User;
 
   // Variables para mostrar error presentados en los campos
   private msgError: String;
-
-
-  //Variables de prueba
-
-  //private sedes = [1, 2, 3, 4, 5];
-  //private facultades = ['Facultad Ingenieria Electronica y Telecomunicaciones', 'Facultad de Ingenieria Civil', 'Facultad de Ciencias Naturales y Exactas', 'Facultad de Artes', 'Facultad de Derecho', 'Facultad de Ciencias Contables', 'Facultad de Ciencias Agropecuarias', 'Facultad de Ciencias Humanas'];
-  //private programas = ['Musica', 'Medicina', 'Ingenieria de Sistemas', 'Ingenieria Electronica', 'Ingenieria Civil', 'Enfermeria', 'Fonoaudiologia', 'Contaduria Publica'];
-  //private discapacidades: string[] = ['Visual', 'Cognitiva', 'Auditiva', 'Fisica', 'Ninguna'];
-  //private niveles_academicos: string[] = ['Pregardo', 'Posgrado'];
 
   // Variables para almacenar los datos desde el back
   private sedes: SedeInterface[];
@@ -104,11 +75,25 @@ export class PreRegistroComponent implements OnInit {
   private fecha: number = new Date().getFullYear();
   private anioIni: number = 1849;
 
-
-  private generos: string[] = ['Masculino', 'Femenino'];
-  private estadosC: string[] = ['Soltero(a)', 'Casado(a)','Viudo(a)','Union Libre','Separado(a)','Comprometido(a)','Divorciado(a)'];
-  private gruposE: string[] = ['Afrodescendiente', 'Indígena', 'Mestizo', 'Blanco', 'Otro'];
-
+  private generos: string[] = ['MASCULINO', 'FEMENINO'];
+  private estadosC: string[] = [
+    'NINGUNO',
+    'SOLTERO(A)',
+    'CASADO(A)',
+    'VIUDO(A)',
+    'UNION LIBRE',
+    'SEPARADO(A)',
+    'COMPROMETIDO(A)',
+    'DIVORCIADO(A)'
+  ];
+  private gruposE: string[] = [
+    'NINGUNO',
+    'AFRODESCENDIENTE',
+    'INDÍGENA',
+    'MESTIZO',
+    'BLANCO',
+    'OTRO'
+  ];
 
   // Variable para capturar y acotar la fecha seleccionada
   private minDate: Date;
@@ -117,14 +102,19 @@ export class PreRegistroComponent implements OnInit {
   private maxDateN: Date;
 
   //Variable para programa con titulo
-private tituloPrograma: string = "Musica";
+  private tituloPrograma: string = 'Musica';
 
   private respuestaDiscapacidad: boolean = false;
 
-  constructor(private alert: AlertService, private dialog: MatDialog, private registroService: RegistroService, private catalogoService: CatalogosService, private router: Router) {
+  constructor(
+    private alert: AlertService,
+    private dialog: MatDialog,
+    private registroService: RegistroService,
+    private catalogoService: CatalogosService,
+    private router: Router
+  ) {
     this.cleanFormData();
     this.aniosGrado();
-
   }
 
   //Método para obtener los años de grado
@@ -134,11 +124,33 @@ private tituloPrograma: string = "Musica";
     }
   }
 
-
   // Método para limpiar datos de control de formulario
   private cleanFormData() {
-    this.user = new User("", "", "", 0, "", "", "", "", 0, [],"", 0, 0, "", "", "", "", 0, "", "", "", "");
-    this.msgError = "";
+    this.user = new User(
+      '',
+      '',
+      '',
+      0,
+      '',
+      '',
+      '',
+      '',
+      0,
+      [],
+      '',
+      0,
+      0,
+      '',
+      '',
+      '',
+      '',
+      0,
+      '',
+      '',
+      '',
+      ''
+    );
+    this.msgError = '';
     this.titulos = [];
     this.discapacidades = [];
     this.emailFormControl = new FormControl();
@@ -152,102 +164,144 @@ private tituloPrograma: string = "Musica";
     this.grupoEFormControl = new FormControl();
     this.estadoCFormControl = new FormControl();
     this.anioGFormControl = new FormControl();
-    this.nivelAFormControl =  new FormControl();
+    this.nivelAFormControl = new FormControl();
     this.minDate = new Date(new Date().getFullYear() - 170, 0, 1);
-    this.maxDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    this.maxDate = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate()
+    );
     this.minDateN = new Date(new Date().getFullYear() - 170, 0, 1);
-    this.maxDateN = new Date(new Date().getFullYear() - 14, new Date().getMonth(), new Date().getDate());
+    this.maxDateN = new Date(
+      new Date().getFullYear() - 14,
+      new Date().getMonth(),
+      new Date().getDate()
+    );
   }
 
   //Método para validar el campo titulo si el programa es musica
   validarTitulo() {
     var validar: boolean = true;
-    if (this.programaFormControl.value == this.tituloPrograma && this.tituloFormControl.value == null) {
+    if (
+      this.programaFormControl.value == this.tituloPrograma &&
+      this.tituloFormControl.value == null
+    ) {
       validar = false;
     }
     return validar;
   }
 
-  validarIdentificacion(){
+  validarIdentificacion() {
     var respuesta: boolean = true;
-    if(this.identificacionFormControl.value==this.user.identificacion){
-      respuesta=false;
+    if (this.identificacionFormControl.value == this.user.identificacion) {
+      respuesta = false;
     }
     return respuesta;
   }
 
   //Método pra cargar los niveles de estudio
   obtenerNivelEstudio() {
-    this.catalogoService.getNivelEducativo().subscribe(data => this.niveles_academicos = data);
+    this.catalogoService
+      .getNivelEducativo()
+      .subscribe(data => (this.niveles_academicos = data));
     this.sedeFormControl = new FormControl();
     this.programaFormControl = new FormControl();
     this.facultadFormControl = new FormControl();
   }
 
-
   //Método pra cargar las sedes
   obtenerSedes() {
-    this.catalogoService.getSede().subscribe(data => this.sedes = data);
-
+    this.catalogoService.getSede().subscribe(data => (this.sedes = data));
   }
 
   //Método pra cargar las facultades
   obtenerFacultad() {
-    this.catalogoService.getFacultad().subscribe(data => this.facultades = data);
+    this.catalogoService
+      .getFacultad()
+      .subscribe(data => (this.facultades = data));
   }
-
 
   //Método pra cargar los programas
   obtenerPrograma() {
-    this.catalogoService.getPrograma(this.sedeFormControl.value, this.facultadFormControl.value, this.nivelAFormControl.value).subscribe(data => this.programas = data);
+    this.catalogoService
+      .getPrograma(
+        this.sedeFormControl.value,
+        this.facultadFormControl.value,
+        this.nivelAFormControl.value
+      )
+      .subscribe(data => (this.programas = data));
   }
 
-  obtenerTitulo(){
-    this.catalogoService.getTitulo(this.programaFormControl.value).subscribe(data => this.titulos = data);
+  obtenerTitulo() {
+    this.catalogoService
+      .getTitulo(this.programaFormControl.value)
+      .pipe(map(
+        res => res.data
+      ))
+      .subscribe(data => {
+        this.titulos = data;
+        console.log(data);
+      });
+    console.log('si hay titulos' + this.titulos);
   }
 
-  existenTitulos(){
+  existenTitulos() {
     var respuesta: boolean = false;
-    if(this.titulos.length>0){
+    if (this.titulos.length > 0) {
       respuesta = true;
     }
     return respuesta;
   }
 
-  otraDiscapacidad(indice: number,event){
-    console.log("Nombre discapacidad"+this.discapacidades[indice].Nombre );
-    if(this.discapacidades[indice].Nombre == "Otra(s)" && event.checked){
+  otraDiscapacidad(indice: number, event) {
+    console.log('Nombre discapacidad' + this.discapacidades[indice].Nombre);
+    if (this.discapacidades[indice].Nombre == 'Otra(s)' && event.checked) {
       this.respuestaDiscapacidad = true;
-    }else {
+    } else {
       this.respuestaDiscapacidad = false;
     }
     return this.respuestaDiscapacidad;
-
   }
-
 
   //Método pra cargar las discapacidades del usuario
+  isLoadingResults: boolean;
+
   obtenerDiscapacidades() {
-    this.catalogoService.getDiscapacidad().subscribe(data => {
-      this.discapacidades = data;
-      console.log(this.discapacidades);
-    });
+    this.catalogoService
+      .getDiscapacidad()
+      .pipe(
+        map(response => {
+          console.log(response);
+          return response.data;
+        }),
+        catchError(err => {
+          console.log('Error ' + err);
+          this.isLoadingResults = false;
+          return of([]);
+        })
+      )
+      .subscribe(data => {
+        console.log(data);
+        this.discapacidades = data;
+      });
   }
 
-
-
   //Método para guardar las discapacidades del usuario
-  discapacidadesUsuario(idDiscapacidad: number,indice: number,event) {
-    console.log("Indice: "+indice);
-    if (this.discapacidades[indice].Nombre == "Ninguna" && event.checked) {
+  discapacidadesUsuario(idDiscapacidad: number, indice: number, event) {
+    console.log('Indice: ' + indice);
+    if (this.discapacidades[indice].Nombre == 'Ninguna' && event.checked) {
       this.discapacidad = [];
       this.discapacidad.push(idDiscapacidad);
-    } else if (!this.discapacidad.includes(idDiscapacidad) && event.checked && this.discapacidades[indice].Nombre != "Ninguna") {
-        this.discapacidad.push(idDiscapacidad);
-      } else {
-        this.discapacidad.splice(this.discapacidad.indexOf(idDiscapacidad), 1)
-      }
-    console.log("discapacidades: "+this.discapacidad);
+    } else if (
+      !this.discapacidad.includes(idDiscapacidad) &&
+      event.checked &&
+      this.discapacidades[indice].Nombre != 'Ninguna'
+    ) {
+      this.discapacidad.push(idDiscapacidad);
+    } else {
+      this.discapacidad.splice(this.discapacidad.indexOf(idDiscapacidad), 1);
+    }
+    console.log('discapacidades: ' + this.discapacidad);
   }
 
   ngOnInit() {
@@ -257,35 +311,51 @@ private tituloPrograma: string = "Musica";
     this.obtenerNivelEstudio();
   }
 
-
-
   // Método para validar los datos ingresados por el usuario
   validData() {
     var valid: boolean = false;
-    if (this.user.nombres.length > 0 && this.user.celular.length > 0 && this.user.telefono_fijo.length > 0 && this.user.apellidos.length > 0 &&
-      this.emailFormControl.value != null && this.emailFormControl2.value != null && this.sedeFormControl.value != null && this.lExpedicion.ciudadFormControl.value != '' &&
-      this.lExpedicion.departamentoFormControl.value != '' && this.lExpedicion.paisFormControl.value != '' && this.fechaNFormControl.value != null && this.facultadFormControl.value != null &&
-      this.programaFormControl.value != null && this.validarTitulo() && this.user.genero.length > 0 && this.nivelAFormControl.value != '' && this.anioGFormControl.value != '' && this.grupoEFormControl.value != null && this.estadoCFormControl.value != null &&
-      this.user.identificacion.length > 0 && this.user.direccion.length > 0 //this.user.discapacidad.length > 0 &&
-      ) {
-
+    if (
+      this.user.nombres.length > 0 &&
+      this.user.celular.length > 0 &&
+      this.user.telefono_fijo.length > 0 &&
+      this.user.apellidos.length > 0 &&
+      this.emailFormControl.value != null &&
+      this.emailFormControl2.value != null &&
+      this.sedeFormControl.value != null &&
+      this.lExpedicion.ciudadFormControl.value != '' &&
+      this.lExpedicion.departamentoFormControl.value != '' &&
+      this.lExpedicion.paisFormControl.value != '' &&
+      this.fechaNFormControl.value != null &&
+      this.facultadFormControl.value != null &&
+      this.programaFormControl.value != null &&
+      this.user.genero.length > 0 &&
+      this.nivelAFormControl.value != '' &&
+      this.anioGFormControl.value != '' &&
+      this.grupoEFormControl.value != null &&
+      this.estadoCFormControl.value != null &&
+      this.user.identificacion.length > 0 &&
+      this.user.direccion.length > 0 //this.user.discapacidad.length > 0 &&
+    ) {
       valid = true;
-      this.msgError = "";
+      this.msgError = '';
     } else {
-
-      this.msgError = "Error: Todos los campos son obligatorios";
+      this.msgError = 'Error: Todos los campos son obligatorios';
     }
     return valid;
   }
 
   // Método para registrar la solicitud
   register() {
-    
-    console.log("Datos validos"+this.anioGFormControl.value);
+    console.log('Datos validos' + this.anioGFormControl.value);
     if (this.validData()) {
-      
-      this.user.fecha_grado = Utilities.parseDateToString(this.fechaGFormControl.value, '-');
-      this.user.fecha_nacimiento = Utilities.parseDateToString(this.fechaNFormControl.value, '-');
+      this.user.fecha_grado = Utilities.parseDateToString(
+        this.fechaGFormControl.value,
+        '-'
+      );
+      this.user.fecha_nacimiento = Utilities.parseDateToString(
+        this.fechaNFormControl.value,
+        '-'
+      );
       this.user.correo = this.emailFormControl.value;
       this.user.correo_alternativo = this.emailFormControl2.value;
       this.user.id_programa = this.programaFormControl.value;
@@ -296,29 +366,41 @@ private tituloPrograma: string = "Musica";
       this.user.id_lugar_nacimiento = this.lNacimiento.obtenerIdLocalizacion();
       this.user.id_lugar_residencia = this.lResidencia.obtenerIdLocalizacion();
       this.user.id_nivel_educativo = this.nivelAFormControl.value;
+      this.user.titulo_especial = this.tituloFormControl.value;
       this.user.discapacidad = this.discapacidad;
       this.registroService.storeEgresado(this.user).subscribe(
         response => {
-          this.alert.showSuccesMessage('Registro Exitoso', 'Por favor verifique su correo.'+this.emailFormControl.value).then((result)=>{
-            if(result.value){
-              this.router.navigateByUrl('/home');
-            }else{
-              this.alert.showSuccesMessage('Registro Exitoso', 'Por favor verifique su correo.');
-            }
-            
-          });
-        },error => {
+          this.alert
+            .showSuccesMessage(
+              'Registro Exitoso',
+              'Por favor verifique su correo.' + this.emailFormControl.value
+            )
+            .then(result => {
+              if (result.value) {
+                this.router.navigateByUrl('/home');
+              } else {
+                this.alert.showSuccesMessage(
+                  'Registro Exitoso',
+                  'Por favor verifique su correo.'
+                );
+              }
+            });
+        },
+        error => {
           let err = <any>error;
-          if(err==422){
-            this.alert.showErrorMessage('Error', 'Ya hay una cuenta con los datos ingresados.');
-          }else{
-          this.alert.showErrorMessage('Error', 'A ocurrido un error al registrar sus datos intente de nuevo');
+          if (err == 422) {
+            this.alert.showErrorMessage(
+              'Error',
+              'Ya hay una cuenta con los datos ingresados.'
+            );
+          } else {
+            this.alert.showErrorMessage(
+              'Error',
+              'A ocurrido un error al registrar sus datos intente de nuevo'
+            );
           }
         }
       );
-    }   
+    }
   }
-
 }
-
-

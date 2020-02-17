@@ -6,7 +6,7 @@
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
           <mat-label>Nombre</mat-label>
           <input matInput [formControl]="Nombre" required>
-          <mat-error *ngIf="Nombre.hasError('required')">Por favor ingresar el Nombre </mat-error>
+          <mat-error *ngIf="Nombre.hasError('required')">Campo requerido</mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-6">
@@ -15,7 +15,7 @@
           <mat-select [formControl]="Parentesco" required>
             <mat-option [value]="item" *ngFor="let item of listaParentesco">{{item}}</mat-option>
           </mat-select>
-          <mat-error *ngIf="Parentesco.hasError('required')">Por favor seleccionar el Parentesco </mat-error>
+          <mat-error *ngIf="Parentesco.hasError('required')">Campo requerido</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -24,14 +24,14 @@
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
           <mat-label>Correo electronico </mat-label>
           <input matInput type="email" [formControl]="Correo" required>
-          <mat-error *ngIf="Correo.hasError('required')">Por favor ingresar el Correo Electronico</mat-error>
+          <mat-error *ngIf="Correo.hasError('required')">Campo requerido</mat-error>
         </mat-form-field>
       </div>
       <div class="form-group col-md-6">
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
           <mat-label>Teléfono/Celular</mat-label>
           <input matInput [formControl]="Celular" required>
-          <mat-error *ngIf="Celular.hasError('required')">Por favor ingresar el Celular </mat-error>
+          <mat-error *ngIf="Celular.hasError('required')">Campo requerido</mat-error>
         </mat-form-field>
       </div>
     </div>

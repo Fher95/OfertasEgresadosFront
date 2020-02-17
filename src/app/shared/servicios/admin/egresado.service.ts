@@ -6,6 +6,7 @@ import { EgresadoModel } from './../../modelos/egresado.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { UpdateInformacionPersonalModel } from '../../modelos/update-informacion-personal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,10 @@ export class EgresadoService implements OnInit {
     return this.http.get<SingleHttpResponse<EgresadoModel>>(
       `${this.baseUrl}admin/egresados/${id}`
     );
+  }
+
+  updateInfoPersonal(infoPersonal: UpdateInformacionPersonalModel, idEgresado: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}egresados/infoPersonal/${idEgresado}`, infoPersonal);
   }
 
   private buildFilterParams(filter: EgresadoFilter) {

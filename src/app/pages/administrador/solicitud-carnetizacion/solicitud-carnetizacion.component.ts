@@ -21,14 +21,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private fecha: String = this.dia + "/" + this.mes + "/" + this.anio
 
   constructor(private alert: AlertService, private dialog: MatDialog, private catalogoService: CatalogosService, private router: Router) {
-    this.solicitudes = [{
-      id_aut_carnetizacion: 1,
-      nombres: 'Edinsson',
-      apellidos: 'Lopez',
-      correo: 'Edinsson@hotmail.com',
-      identificacion: 1,
-      fecha_solicitud: this.fecha
-    }]
+    this.solicitudes = []
   }
 
   ngOnInit() {
@@ -60,7 +53,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private aceptarSolicitud(solicitud, index) {
     this.alert.showconfirmationMessage('¿Aceptar Solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarEstadoSolicitud(solicitud, true).subscribe();
+        this.catalogoService.enviarEstadoSolicitud(solicitud, true);
         this.solicitudes.splice(index, 1);
       }
     });
@@ -71,7 +64,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private cancelarSolicitud(solicitud, index) {
     this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarEstadoSolicitud(solicitud, false).subscribe();
+        this.catalogoService.enviarEstadoSolicitud(solicitud, false);
         this.solicitudes.splice(index, 1);
       }
     });

@@ -35,12 +35,12 @@ export class CompletarRegistroComponent implements OnInit {
   //Tabla referidos
   columnas : string[] = ['nombres','parentesco','telefono_movil', 'acciones'];
   dataReferidos: MatTableDataSource<any>;
-  referidos: any[];
+  referidos: any[] = [];
 
   //Tabla expActual
   columnasExpActual : string[] = ['cargo_nombre','nombre_empresa','sector', 'acciones'];
   dataExpActual: MatTableDataSource<any>;
-  expActuales: any[];
+  expActuales: any[] = [];
 
   //Grado adicional
   otroGrado = new FormControl('', [Validators.required]);
@@ -51,13 +51,14 @@ export class CompletarRegistroComponent implements OnInit {
 
   idEgresado : number;
 
-  constructor(private dialog:MatDialog,private servicioCompletar: RegistroService, private alert: AlertService, private router:Router, private auth: AuthService) {
+  constructor(private dialog:MatDialog,private servicioCompletar: RegistroService, private alert: AlertService, 
+    private router:Router, private auth: AuthService) {
     this.limpiarFormulario();
    }
 
   ngOnInit() {
     this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
-      data => { console.log('data: '+data); this.idEgresado = data.id_aut_egresado;
+      data => { console.log('data: '+data.id_aut_egresado); this.idEgresado = data.id_aut_egresado;
         console.log(this.idEgresado);
     }
       );

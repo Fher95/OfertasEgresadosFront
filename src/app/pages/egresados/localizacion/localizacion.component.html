@@ -6,7 +6,7 @@
         {{pais.nombre}}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="paisFormControl.hasError('required')">Por favor seleccionar un {{mensaje1}}</mat-error>
+    <mat-error *ngIf="paisFormControl.hasError('required')">Campo requerido</mat-error>
   </mat-form-field>
 </div>
 <div id='content'>
@@ -17,7 +17,7 @@
         {{departamento.nombre}}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="departamentoFormControl.hasError('required')">Por favor seleccionar un {{mensaje2}}
+    <mat-error *ngIf="departamentoFormControl.hasError('required')">Campo requerido
     </mat-error>
   </mat-form-field>
 </div>
@@ -29,6 +29,6 @@
         {{ciudad.nombre}}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="ciudadFormControl.hasError('required')">Por favor seleccionar un {{mensaje3}}</mat-error>
+    <mat-error *ngIf="ciudadFormControl.hasError('required')">Campo requerido</mat-error>
   </mat-form-field>
 </div>

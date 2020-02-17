@@ -65,7 +65,6 @@ const routes: Routes = [
     CrearOfertaLaboralComponent,
     DialogFinalModificarComponent,
     OfertasPublicadasComponent,
-
   ]
 })
 export class EmpresaModule { }

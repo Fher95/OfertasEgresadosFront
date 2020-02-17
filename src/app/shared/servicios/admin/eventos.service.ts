@@ -4,6 +4,8 @@ import { environment } from './../../../../environments/environment';
 import { EventoModel } from './../../modelos/evento.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EventoInterface } from '../../../shared/modelos/evento';
+import { ArrayRHttpResponse } from '../../base/array-r-http-response';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +68,8 @@ export class EventosService {
       params: httpParams
     });
   }
+
+
 }
 
 export interface EventoResponse {
