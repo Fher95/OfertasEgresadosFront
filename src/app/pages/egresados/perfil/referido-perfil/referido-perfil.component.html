@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>Referencia personal</h2>
+<mat-dialog-content>
+  <div class="row">
+    <mat-form-field floatLabel="auto" appearance="outline" class="full-width form-group col-md-6">
+      <mat-label>Nombre</mat-label>
+      <input 
+        type="text"
+        matInput
+        placeholder="Nombre"
+        [ngModel]="referido.nombres"
+        disabled      />
+    </mat-form-field>
+    <mat-form-field floatLabel="auto" appearance="outline" class="full-width form-group col-md-6">
+      <mat-label>Parentesco</mat-label>
+      <input 
+        type="text"
+        matInput
+        placeholder="Parentesco"
+        [ngModel]="referido.parentesco"
+        disabled
+      />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field floatLabel="auto" appearance="outline" class="full-width form-group col-md-6">
+      <mat-label>Correo</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Correo"
+        [formControl]="Correo"
+        value={{referido.correo}}
+      />
+    </mat-form-field>
+    <mat-form-field floatLabel="auto" appearance="outline" class="full-width form-group col-md-6">
+      <mat-label>Celular</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Celular/Teléfono"
+        [formControl]="Celular"
+        value={{referido.telefonoMovil}}
+      />
+    </mat-form-field>
+  </div>
+  <div class="row" *ngIf="referido.esEgresado">
+    <mat-form-field floatLabel="auto" appearance="outline" class="full-width form-group col-md-6">
+      <mat-label>Programa</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Programa"
+        [ngModel]="referido.programa.Nombre"
+        disabled
+      />
+    </mat-form-field>
+  </div>
+  <div *ngIf="referido.esEgresado==false && varGuardar" >
+    <mat-label>¿Es egresado de la Universidad del Cauca?: </mat-label>
+    <mat-radio-group [formControl]="Egresado" required>
+      <mat-radio-button value=0>Si</mat-radio-button>
+      <mat-radio-button value=1>No</mat-radio-button>
+    </mat-radio-group>
+    <app-programa *ngIf="Egresado.value==0" #programa></app-programa>
+  </div>
+  <mat-dialog-actions>
+    <button type="button" class="btn btn-danger" (click)="cancelar()">
+      Cancelar
+    </button>
+    <button mat-raised-button *ngIf="varEditar" type="button" class="botones" color="primary" (click)="editar()">
+      Editar
+    </button>
+    <button mat-raised-button *ngIf="varGuardar" type="button" class="botones" color="primary" (click)="guardar()">
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

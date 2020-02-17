@@ -1,6 +1,6 @@
 <div class="div" *ngIf="referidos.length==0">No hay datos registrados</div>
 <div class="mat-elevation-z8" *ngIf="referidos.length>0">
-  <button class="btnAgregar" mat-raised-button color="primary">
+  <button class="btnAgregar" mat-raised-button color="primary" (click)="agregarReferido()">
     <mat-icon aria-hidden="false">add</mat-icon> Agregar referencia personal
   </button>
   <table mat-table [dataSource]="referidos">
