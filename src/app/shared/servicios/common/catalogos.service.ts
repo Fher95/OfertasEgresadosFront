@@ -14,6 +14,7 @@ import { SolicitudInterface } from '../../modelos/solicitudeInterface';
 import { EventoInterface } from '../../../shared/modelos/evento';
 import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
 import { ArrayRHttpResponse } from '../../base/array-r-http-response';
+import { ArrayHttpResponse } from '../../base/array-http-response';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -65,8 +66,8 @@ export class CatalogosService {
     );
   }
 
-  getTitulo(idPrograma: number): Observable<TituloInterface[]> {
-    return this.http.get<TituloInterface[]>(
+  getTitulo(idPrograma: number): Observable<ArrayHttpResponse<TituloInterface>> {
+    return this.http.get<ArrayHttpResponse<TituloInterface>>(
       `${baseUrl}titulos/${idPrograma}`
     );
   }
@@ -79,7 +80,7 @@ export class CatalogosService {
     return this.http.get<ArrayRHttpResponse<DiscapacidadInterface[]>>(`${baseUrl}discapacidades`);
   }
 
-  
+
   getSolicitudesCarnet(): Observable<SolicitudInterface[]> {
     return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }

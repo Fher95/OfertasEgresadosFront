@@ -7,6 +7,7 @@ import { FacultadInterface } from 'src/app/shared/modelos/facultadInterface';
 import { NivelesEstudioInterface } from 'src/app/shared/modelos/nivelesEstudioInterface';
 import { ProgramaInterface } from 'src/app/shared/modelos/programaInteface';
 import { TituloInterface } from 'src/app/shared/modelos/tituloInterface.';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-update-delete-dialog',
@@ -32,7 +33,6 @@ export class UpdateDeleteDialogComponent implements OnInit {
   };
 
   idPrograma: number;
-
 
   constructor(
     public dialogRef: MatDialogRef<UpdateInformacionPersonalModel>,
@@ -91,10 +91,12 @@ export class UpdateDeleteDialogComponent implements OnInit {
     }
   }
 
-  onProgramaChange(idPrograma: number)
-  {
+  onProgramaChange(idPrograma: number) {
     // Cargar titulos
-    this.catalogService.getTitulo(idPrograma).subscribe(titulos => this.titulos = titulos);
+    this.catalogService
+      .getTitulo(idPrograma)
+      .pipe(map(res => res.data))
+      .subscribe(titulos => (this.titulos = titulos));
   }
 
   doAction() {
