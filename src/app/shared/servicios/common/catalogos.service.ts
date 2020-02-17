@@ -66,7 +66,7 @@ export class CatalogosService {
   }
 
   getTitulo(idPrograma: number): Observable<TituloInterface[]> {
-    return this.http.get<ProgramaInterface[]>(
+    return this.http.get<TituloInterface[]>(
       `${baseUrl}titulos/${idPrograma}`
     );
   }
@@ -79,6 +79,7 @@ export class CatalogosService {
     return this.http.get<ArrayRHttpResponse<DiscapacidadInterface[]>>(`${baseUrl}discapacidades`);
   }
 
+  
   getSolicitudesCarnet(): Observable<SolicitudInterface[]> {
     return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
   }
