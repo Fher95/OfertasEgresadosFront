@@ -22,10 +22,11 @@ export class RegistroEventoComponent implements OnInit {
 
   onSave(form: NgForm) {
     console.log(form.value);
-    if (!this.eventImage) {
+    /*if (!this.eventImage) {
       this.showImageError = true;
       return;
-    }
+    }*/
+    console.log("Guardando formulario: " + form.value);
     if (form.valid) {
       const evento = new EventoModel();
       evento.nombre = form.value.nombre;

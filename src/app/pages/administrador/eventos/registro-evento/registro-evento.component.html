@@ -6,7 +6,7 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form #addEventForm="ngForm" (ngSubmit)="onSave(addEventForm)">
+      <form #addEventForm="ngForm" (submit)="onSave(addEventForm)">
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-9">
             <input
@@ -188,6 +188,7 @@
             type="submit"
             mat-raised-button
             color="primary"
+            (click)="onSave(addEventForm)"
           >
             Guardar
           </button>
