@@ -1,11 +1,7 @@
 import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators
-} from '@angular/forms';
+  FormControl,FormGroupDirective,NgForm,Validators} from '@angular/forms';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -102,7 +98,7 @@ export class PreRegistroComponent implements OnInit {
   private maxDateN: Date;
 
   //Variable para programa con titulo
-  private tituloPrograma: string = 'Musica';
+  
 
   private respuestaDiscapacidad: boolean = false;
 
@@ -126,30 +122,7 @@ export class PreRegistroComponent implements OnInit {
 
   // Método para limpiar datos de control de formulario
   private cleanFormData() {
-    this.user = new User(
-      '',
-      '',
-      '',
-      0,
-      '',
-      '',
-      '',
-      '',
-      0,
-      [],
-      '',
-      0,
-      0,
-      '',
-      '',
-      '',
-      '',
-      0,
-      '',
-      '',
-      '',
-      ''
-    );
+    this.user = new User('','','',0,'','','','',0,[],'',0,0,'','','','',0,'','','','');
     this.msgError = '';
     this.titulos = [];
     this.discapacidades = [];
@@ -182,21 +155,21 @@ export class PreRegistroComponent implements OnInit {
   //Método para validar el campo titulo si el programa es musica
   validarTitulo() {
     var validar: boolean = true;
-    if (
-      this.programaFormControl.value == this.tituloPrograma &&
-      this.tituloFormControl.value == null
-    ) {
+    if (this.titulos.length == 0) {
       validar = false;
     }
+    console.log("estas aqui"+validar);
     return validar;
   }
-
+  
+  
   validarIdentificacion() {
-    var respuesta: boolean = true;
+   
     if (this.identificacionFormControl.value == this.user.identificacion) {
-      respuesta = false;
+      this.msgError='';
+    }else{
+      this.msgError='Los numeros de identificación no coinciden';
     }
-    return respuesta;
   }
 
   //Método pra cargar los niveles de estudio
@@ -204,9 +177,6 @@ export class PreRegistroComponent implements OnInit {
     this.catalogoService
       .getNivelEducativo()
       .subscribe(data => (this.niveles_academicos = data));
-    this.sedeFormControl = new FormControl();
-    this.programaFormControl = new FormControl();
-    this.facultadFormControl = new FormControl();
   }
 
   //Método pra cargar las sedes
@@ -230,6 +200,7 @@ export class PreRegistroComponent implements OnInit {
         this.nivelAFormControl.value
       )
       .subscribe(data => (this.programas = data));
+      this.existenTitulos();
   }
 
   obtenerTitulo() {
@@ -242,15 +213,17 @@ export class PreRegistroComponent implements OnInit {
         this.titulos = data;
         console.log(data);
       });
-    console.log('si hay titulos' + this.titulos);
+      
+    console.log('si hay titulos' + this.titulos.length);
   }
 
   existenTitulos() {
-    var respuesta: boolean = false;
-    if (this.titulos.length > 0) {
-      respuesta = true;
+    var validar: boolean = true;
+    if (this.titulos.length == 0) {
+      validar = false;
     }
-    return respuesta;
+    console.log("estas aqui"+validar);
+    return validar;
   }
 
   otraDiscapacidad(indice: number, event) {
@@ -272,6 +245,7 @@ export class PreRegistroComponent implements OnInit {
       .pipe(
         map(response => {
           console.log(response);
+          console.log("Data: " + response.data);
           return response.data;
         }),
         catchError(err => {
@@ -339,14 +313,17 @@ export class PreRegistroComponent implements OnInit {
       valid = true;
       this.msgError = '';
     } else {
-      this.msgError = 'Error: Todos los campos son obligatorios';
+      this.alert.showErrorMessage(
+        'Error',
+        'Existen campos obligatorios sin diligenciar. Por favor verificar el formulario'
+      );
     }
     return valid;
   }
 
   // Método para registrar la solicitud
   register() {
-    console.log('Datos validos' + this.anioGFormControl.value);
+    console.log('Datos validos' + this.user.nombres);
     if (this.validData()) {
       this.user.fecha_grado = Utilities.parseDateToString(
         this.fechaGFormControl.value,
