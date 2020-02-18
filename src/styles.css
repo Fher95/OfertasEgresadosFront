@@ -8,3 +8,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .tamanoSelectPanel.mat-select-panel {
     max-width:  100%;
   }
+
+  .no-records {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+  }

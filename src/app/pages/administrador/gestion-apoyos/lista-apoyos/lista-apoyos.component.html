@@ -1,31 +1,63 @@
-<div class="mat-elevation-z8">
+<form #frmFiltarApoyos="ngForm" (submit)="filtarApoyos(frmFiltarApoyos)">
+  <div class="form-row">
+    <!-- Nombres -->
+    <mat-form-field class="col-md-6" appearance="outline">
+      <input
+        type="text"
+        matInput
+        placeholder="Nombres"
+        ngModel
+        #nombres
+        name="nombres"
+      />
+    </mat-form-field>
+    <!-- Apellidos -->
+    <mat-form-field class="col-md-6" appearance="outline">
+      <input
+        type="text"
+        matInput
+        placeholder="Apellidos"
+        ngModel
+        #apellidos
+        name="apellidos"
+      />
+    </mat-form-field>
+  </div>
+  <div class="form-row float-right">
+    <button type="submit" mat-raised-button color="primary">
+      Filtar
+    </button>
+  </div>
+</form>
+<div class="clearfix"></div>
+<div class="divider"></div>
+<div class="mat-elevation-z8 mt-2">
   <div class="loading-shape">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
   <div class="table">
     <table mat-table [dataSource]="data">
-
       <!-- Number Column -->
       <ng-container matColumnDef="nombres">
-        <th mat-header-cell *matHeaderCellDef> Nombres </th>
-        <td mat-cell *matCellDef="let row">{{row.nombres}}</td>
+        <th mat-header-cell *matHeaderCellDef>Nombres</th>
+        <td mat-cell *matCellDef="let row">{{ row.nombres }}</td>
       </ng-container>
 
       <!-- Number Column -->
       <ng-container matColumnDef="apellidos">
-        <th mat-header-cell *matHeaderCellDef> Apellidos </th>
-        <td mat-cell *matCellDef="let row">{{row.apellidos}}</td>
+        <th mat-header-cell *matHeaderCellDef>Apellidos</th>
+        <td mat-cell *matCellDef="let row">{{ row.apellidos }}</td>
       </ng-container>
 
       <!-- Number Column -->
       <ng-container matColumnDef="nombreRol">
-        <th mat-header-cell *matHeaderCellDef> Nombre Rol </th>
-        <td mat-cell *matCellDef="let row">{{row.nombreRol}}</td>
+        <th mat-header-cell *matHeaderCellDef>Nombre rol</th>
+        <td mat-cell *matCellDef="let row">{{ row.nombreRol }}</td>
       </ng-container>
 
       <!-- Number Column -->
       <ng-container matColumnDef="activo">
-        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
         <td mat-cell *matCellDef="let row">
           <div [ngSwitch]="row.usuario.activo">
             <div *ngSwitchCase="true">Activo</div>
@@ -36,19 +68,28 @@
 
       <!-- Number Column -->
       <ng-container matColumnDef="opciones">
-        <th mat-header-cell *matHeaderCellDef> Opciones </th>
+        <th mat-header-cell *matHeaderCellDef>Opciones</th>
         <td mat-cell *matCellDef="let row">
-          <button type="button" class="btn btn-warning" (click)="onApoyoSeleccionado(row)">
+          <button
+            type="button"
+            class="btn btn-warning"
+            (click)="onApoyoSeleccionado(row)"
+          >
             <mat-icon>edit</mat-icon>
           </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-
-  <mat-paginator [length]="resultsLength" [pageSizeOptions]="[5, 10, 20, 50]" [pageSize]="5"></mat-paginator>
-
+  <div class="no-records" *ngIf="noData()">
+    No se encontraron resultados
+  </div>
+  <mat-paginator
+    [length]="resultsLength"
+    [pageSizeOptions]="[5, 10, 20, 50]"
+    [pageSize]="5"
+  ></mat-paginator>
 </div>

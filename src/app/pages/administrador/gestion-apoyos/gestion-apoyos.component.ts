@@ -80,10 +80,10 @@ export class GestionApoyosComponent implements OnInit {
     dialogConfig.hasBackdrop = true;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = apoyo;
+    dialogConfig.data = {... apoyo};
     const dialogRef = this.dialog.open(DialogoEditarComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(response => {
-      this.tblApoyos.editarApoyo(response);
+    dialogRef.afterClosed().subscribe(() => {
+      this.tblApoyos.editarApoyo();
     });
   }
 

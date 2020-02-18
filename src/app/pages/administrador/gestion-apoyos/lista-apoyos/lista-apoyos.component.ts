@@ -12,6 +12,8 @@ import {
 } from '@angular/core';
 import { merge, of } from 'rxjs';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
+import { ApoyoFilter } from 'src/app/shared/modelos/filters/apoyo.filter';
 
 @Component({
   selector: 'app-lista-apoyos',
@@ -27,6 +29,10 @@ export class ListaApoyosComponent implements AfterViewInit {
     'opciones'
   ];
   data: ApoyoModel[] = [];
+
+  apoyoFilter: ApoyoFilter;
+  //apoyoFilterEventEmitter: EventEmitter<any> = new EventEmitter();
+
   @Output() seleccionarApoyo: EventEmitter<ApoyoModel> = new EventEmitter<
     ApoyoModel
   >();
@@ -47,7 +53,8 @@ export class ListaApoyosComponent implements AfterViewInit {
           this.isLoadingResults = true;
           return this.service.getAll(
             this.paginator.pageIndex,
-            this.paginator.pageSize
+            this.paginator.pageSize,
+            this.apoyoFilter
           );
         }),
         map(response => {
@@ -76,14 +83,23 @@ export class ListaApoyosComponent implements AfterViewInit {
     this.actualizarTabla.emit();
   }
 
-  editarApoyo(apoyo: ApoyoModel) {
-    const index = this.data.indexOf(apoyo);
-    if (index >= 0) {
-      this.data.splice(index, 1, apoyo);
-    }
+  editarApoyo() {
+    this.actualizarTabla.emit();
   }
 
   onApoyoSeleccionado(apoyo: ApoyoModel) {
     this.seleccionarApoyo.emit(apoyo);
+  }
+
+  noData() {
+    return this.data.length == 0;
+  }
+
+  filtarApoyos(frm: NgForm) {
+    this.apoyoFilter = {
+      nombre: frm.controls.nombres.value,
+      apellido: frm.controls.apellidos.value
+    }
+    this.actualizarTabla.emit();
   }
 }

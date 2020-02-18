@@ -3,6 +3,8 @@ import { environment } from './../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApoyoFilter } from '../../modelos/filters/apoyo.filter';
+import { buildParamsFiltersWithPages } from '../../common/build-param-filters';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +14,12 @@ export class ApoyoService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(pageIndex: number, pageSize: number): Observable<ApoyoResponse> {
+  getAll(pageIndex: number, pageSize: number, filter: ApoyoFilter): Observable<ApoyoResponse> {
+    let httpParams = buildParamsFiltersWithPages(filter, pageSize, pageIndex);
     return this.http.get<ApoyoResponse>(
-      `${this.baseUrl}apoyos?page_size=${pageSize}&page=${pageIndex + 1}`
+      `${this.baseUrl}apoyos`, {
+        params: httpParams
+      }
     );
   }
 
