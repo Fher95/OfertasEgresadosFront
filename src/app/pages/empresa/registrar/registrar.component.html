@@ -4,18 +4,14 @@
 <mat-card class="carta-registro">
 
     <mat-card-header class="headerCartaRegistro">
-        <!--<mat-card-title>
-            Registre su empresa
-        </mat-card-title>-->
         <mat-toolbar color="primary">
-            <span>Necesitamos algunos datos de su empresa</span>
+            <mat-toolbar-row class="justify-content-center">Registrar empresa</mat-toolbar-row>
         </mat-toolbar>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content>
         <form id="registro" [formGroup]="formRegistroEmp" (ngSubmit)="registrarEmpresa(formRegistroEmp)">
             <mat-horizontal-stepper [linear]="isLinear" #stepper>
-                <!--<mat-horizontal-stepper [linear]="isLinear" #stepper>-->
                 <mat-step formGroupName="datos-cuenta" [stepControl]="formRegistroEmp.get('datos-cuenta')"
                     label="Cuenta">
                     <div class="Subtitulos-card">

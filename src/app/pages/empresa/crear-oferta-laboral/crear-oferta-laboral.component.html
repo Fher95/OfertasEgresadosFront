@@ -11,7 +11,7 @@
 <mat-card class="carta-registro" >
     <mat-card-header class="headerCartaRegistro">
         <mat-toolbar color="primary">
-            <span>Creación oferta laboral</span>
+            <mat-toolbar-row class="justify-content-center">Crear oferta laboral</mat-toolbar-row>
         </mat-toolbar>
     </mat-card-header>
     <mat-divider></mat-divider>
@@ -101,8 +101,7 @@
                         </div>
                     </div>
                     <div class="botonesStepper">
-                        <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                            Continuar</button>
+                        <button  type="button" mat-raised-button color="primary" matStepperNext>Siguiente</button>
                     </div>
                 </mat-step>
                 <mat-step formGroupName="contrato" [stepControl]="formOfertaLaboral.get('contrato')" label="Contrato">
@@ -186,8 +185,7 @@
                             </div>
                      </div>
                     <div class="botonesStepper">
-                        <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                            Continuar</button>
+                        <button  type="button" mat-raised-button color="primary" matStepperNext>Siguiente</button>
                     </div>
                 </mat-step>
                 <mat-step formGroupName="requisitos" [stepControl]="formOfertaLaboral.get('requisitos')" label="Requisitos">
@@ -510,7 +508,7 @@
                             </div>
                     </div>
                     <div class="botonesStepper">
-                        <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y Continuar</button>
+                        <button  type="button" mat-raised-button color="primary" matStepperNext>Siguiente</button>
                     </div>
                 </mat-step>
                 <mat-step formGroupName="informacionPrincipal" [stepControl]="formOfertaLaboral.get('informacionPrincipal')" label="Ubicaciones">
@@ -575,8 +573,7 @@
                                 </div>
                         </div>
                         <div class="botonesStepper">
-                                <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                                    Continuar</button>
+                                <button  type="button" mat-raised-button color="primary" matStepperNext>Siguiente</button>
                         </div>
                 </mat-step>
                 <mat-step formGroupName="contactoHV" [stepControl]="formOfertaLaboral.get('contactoHV')" label="Contacto HV">
@@ -619,8 +616,7 @@
                         </div>
                         <div class="botonesStepper">
 
-                                        <button  type="button" mat-raised-button color="primary" matStepperNext>Guardar y
-                                            Continuar</button>
+                                        <button  type="button" mat-raised-button color="primary" matStepperNext>Siguiente</button>
                         </div>
                 </mat-step>
                 <mat-step formGroupName="informacionPrincipal" [stepControl]="formOfertaLaboral.get('informacionPrincipal')" label="Vigencia">
