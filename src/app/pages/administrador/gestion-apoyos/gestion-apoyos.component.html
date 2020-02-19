@@ -16,7 +16,9 @@
             <input
               matInput
               type="text"
-              [formControl]="nombre"
+              #nombre="ngModel"
+              name="nombre"
+              [(ngModel)]="model.nombre"
               placeholder="Nombres"
               required
             />
@@ -28,7 +30,9 @@
             <input
               matInput
               type="text"
-              [formControl]="apellido"
+              [(ngModel)]="model.apellido"
+              #apellido="ngModel"
+              name="apellido"
               placeholder="Apellidos"
               required
             />
@@ -42,7 +46,9 @@
             <input
               matInput
               type="text"
-              [formControl]="nombreApoyo"
+              [(ngModel)]="model.rol"
+              #nombreApoyo="ngModel"
+              name="nombreApoyo"
               placeholder="Rol apoyo"
               required
             />
@@ -56,9 +62,11 @@
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-6">
             <input
-              disabled
               type="text"
-              [formControl]="email"
+              [(ngModel)]="model.email"
+              name="email"
+              email
+              #email="ngModel"
               matInput
               placeholder="Email"
               required
@@ -74,8 +82,11 @@
           <mat-form-field appearance="outline" class="form-group col-md-6">
             <input
               type="text"
-              [formControl]="emailSecundario"
+              [(ngModel)]="model.emailSecundario"
+              #emailSecundario="ngModel"
+              name="emailSecundario"
               matInput
+              email
               placeholder="Email Secundario"
               required
             />
@@ -133,21 +144,23 @@
         </div>
 
         <mat-card-actions>
-          <button mat-button class="btn btn-danger">Cancelar</button>
+          <button type="button" mat-button class="btn btn-danger" (click)="onCancelar(form)">Cancelar</button>
           <button
             [disabled]="
               !(
                 email.valid &&
                 nombre.valid &&
                 apellido.valid &&
+                nombreApoyo.valid &&
                 rolesSeleccionados.length
-              )
+              ) || isSaving
             "
             mat-button
             class="btn btn-primary"
             type="submit"
           >
             Guardar
+            <mat-spinner *ngIf="isSaving" diameter="30"></mat-spinner>
           </button>
         </mat-card-actions>
       </form>

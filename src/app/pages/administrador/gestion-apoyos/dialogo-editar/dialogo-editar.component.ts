@@ -13,10 +13,24 @@ import { ApoyoModel } from 'src/app/shared/modelos/apoyo.model';
   styleUrls: ['./dialogo-editar.component.css']
 })
 export class DialogoEditarComponent implements OnInit {
-
   apoyo: ApoyoModel;
   servicios: ServicioModel[];
   servicioSeleccionado: ServicioModel;
+
+  estados: { nombre: string; value: boolean }[] = [
+    {
+      nombre: 'Activo',
+      value: true
+    },
+    {
+      nombre: 'Inctivo',
+      value: false
+    }
+  ];
+
+  estadoSeleccionado: boolean
+
+  isSaving = false;
 
   constructor(
     private dialogRef: MatDialogRef<DialogoEditarComponent>,
@@ -29,7 +43,10 @@ export class DialogoEditarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.catalogoService.getServicios().subscribe(servs => this.servicios = servs);
+    this.catalogoService
+      .getServicios()
+      .subscribe(servs => (this.servicios = servs));
+    this.estadoSeleccionado = this.apoyo.usuario.activo;
   }
 
   agregarServicio() {
@@ -39,9 +56,16 @@ export class DialogoEditarComponent implements OnInit {
   }
 
   eliminarServicio(servicio: ServicioModel) {
-    const index = this.apoyo.servicios.indexOf(servicio);
-    if (index >= 0) {
-      this.apoyo.servicios.splice(index, 1);
+    if (this.apoyo.servicios.length - 1 < 1) {
+      this.alertService.showInfoMessage(
+        'Información',
+        'No se permite menos de un servicio para un apoyo'
+      );
+    } else {
+      const index = this.apoyo.servicios.indexOf(servicio);
+      if (index >= 0) {
+        this.apoyo.servicios.splice(index, 1);
+      }
     }
   }
 
@@ -51,11 +75,24 @@ export class DialogoEditarComponent implements OnInit {
 
   onSubmit() {
     console.log('Submiting the form ' + this.apoyo);
-    this.apoyoService.update(this.apoyo).subscribe(data => {
-      this.alertService.showSuccesMessage('Éxito', 'Apoyo actualizado exitosamente')
-        .then(() => { this.dialogRef.close(this.apoyo); });
-    }, err => {
-      this.alertService.showErrorMessage('Error', 'Error actualizando el apoyo');
-    });
+    this.isSaving = true;
+    this.apoyo.usuario.activo = this.estadoSeleccionado;
+    this.apoyoService.update(this.apoyo).subscribe(
+      data => {
+        this.alertService
+          .showSuccesMessage('Éxito', 'Apoyo actualizado exitosamente')
+          .then(() => {
+            this.dialogRef.close(this.apoyo);
+          });
+        this.isSaving = false;
+      },
+      err => {
+        this.alertService.showErrorMessage(
+          'Error',
+          'Error actualizando el apoyo'
+        );
+        this.isSaving = false;
+      }
+    );
   }
 }

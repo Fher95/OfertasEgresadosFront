@@ -2,54 +2,132 @@
 <mat-dialog-content>
   <form novalidate (onSubmit)="onSubmit()">
     <div class="form-row">
-      <mat-form-field class="form-group col-md-4">
-        <input matInput #nombre="ngModel" name="nombre" type="text" [(ngModel)]="apoyo.nombres" required
-          placeholder="Nombres">
-        <mat-error *ngIf="nombre.invalid && (nombre.dirty || nombre.touched) && nombre.errors.required">
+      <mat-form-field appearance="outline" class="form-group col-md-4">
+        <input
+          matInput
+          #nombre="ngModel"
+          name="nombre"
+          type="text"
+          [(ngModel)]="apoyo.nombres"
+          required
+          placeholder="Nombres"
+        />
+        <mat-error
+          *ngIf="
+            nombre.invalid &&
+            (nombre.dirty || nombre.touched) &&
+            nombre.errors.required
+          "
+        >
           El nombre es requerido
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="form-group col-md-4">
-        <input matInput #apellido="ngModel" name="apellido" placeholder="Apellidos" type="text"
-          [(ngModel)]="apoyo.apellidos" required>
-        <mat-error *ngIf="apellido.invalid && (apellido.dirty || apellido.touched) && apellido.errors.required">
+      <mat-form-field appearance="outline" class="form-group col-md-4">
+        <input
+          matInput
+          #apellido="ngModel"
+          name="apellido"
+          placeholder="Apellidos"
+          type="text"
+          [(ngModel)]="apoyo.apellidos"
+          required
+        />
+        <mat-error
+          *ngIf="
+            apellido.invalid &&
+            (apellido.dirty || apellido.touched) &&
+            apellido.errors.required
+          "
+        >
           El apellido es requerido
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="form-group col-md-4">
-        <input matInput #nombreRol="ngModel" placeholder="Nombre rol" name="nombreRol" type="text"
-          [(ngModel)]="apoyo.nombreRol" required>
-        <mat-error *ngIf="nombreRol.invalid && (nombreRol.dirty || nombreRol.touched) && nombreRol.errors.required">
+      <mat-form-field appearance="outline" class="form-group col-md-4">
+        <input
+          matInput
+          #nombreRol="ngModel"
+          placeholder="Nombre rol"
+          name="nombreRol"
+          type="text"
+          [(ngModel)]="apoyo.nombreRol"
+          required
+        />
+        <mat-error
+          *ngIf="
+            nombreRol.invalid &&
+            (nombreRol.dirty || nombreRol.touched) &&
+            nombreRol.errors.required
+          "
+        >
           El nombre del rol es requerido
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-row">
-      <mat-form-field class="form-group col-md-6">
-        <input matInput type="email" #email name="email" required [(ngModel)]="apoyo.correo" placeholder="Correo">
-        <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.required">
+      <mat-form-field appearance="outline" class="form-group col-md-6">
+        <input
+          matInput
+          type="email"
+          #email="ngModel"
+          name="email"
+          email
+          required
+          [(ngModel)]="apoyo.correo"
+          placeholder="Correo"
+        />
+        <mat-error
+          *ngIf="
+            email.invalid &&
+            (email.dirty || email.touched) &&
+            email.errors.required
+          "
+        >
           El elmail es requerido
         </mat-error>
-        <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.email">
+        <mat-error
+          *ngIf="
+            email.invalid &&
+            (email.dirty || email.touched) &&
+            email.errors.email
+          "
+        >
           Debe ingresaro un email válido
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-6">
-        <input matInput type="email" #emailSecundario name="emailSecundario" required
-          [(ngModel)]="apoyo.correoSecundario" placeholder="Correo secundario">
+      <mat-form-field appearance="outline" class="form-group col-md-6">
+        <input
+          matInput
+          email
+          type="email"
+          #emailSecundariod="ngModel"
+          name="emailSecundariod"
+          required
+          [(ngModel)]="apoyo.correoSecundario"
+          placeholder="Correo secundario"
+        />
         <mat-error
-          *ngIf="emailSecundario.invalid && (emailSecundario.dirty || emailSecundario.touched) && emailSecundario.errors.required">
+          *ngIf="
+            emailSecundariod.invalid &&
+            (emailSecundariod.dirty || emailSecundariod.touched) &&
+            emailSecundariod.errors.required
+          "
+        >
           El elmail es requerido
         </mat-error>
         <mat-error
-          *ngIf="emailSecundario.invalid && (emailSecundario.dirty || emailSecundario.touched) && emailSecundario.errors.email">
+          *ngIf="
+            emailSecundariod.invalid &&
+            (emailSecundariod.dirty || emailSecundariod.touched) &&
+            emailSecundariod.errors.email
+          "
+        >
           Debe ingresaro un email válido
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-row">
-      <mat-form-field class="form-group col-md-5">
+      <mat-form-field appearance="outline" class="form-group col-md-5">
         <mat-label>Servicios</mat-label>
         <mat-select name="servicio" [(ngModel)]="servicioSeleccionado">
           <mat-option *ngFor="let servicio of servicios" [value]="servicio">
@@ -57,13 +135,23 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button type="button" mat-mini-fab color="primary" class="col-md-1" (click)="agregarServicio()">
+      <button
+        type="button"
+        mat-mini-fab
+        color="primary"
+        class="col-md-1"
+        (click)="agregarServicio()"
+      >
         <mat-icon>add</mat-icon>
       </button>
-      <mat-form-field class="col-md-6 form-group">
+      <mat-form-field appearance="outline" class="col-md-6 form-group">
         <mat-label>Servicios seleccionados</mat-label>
         <mat-chip-list #chipList matInput>
-          <mat-chip *ngFor="let servicio of apoyo?.servicios" [removable]="true" (removed)="eliminarServicio(servicio)">
+          <mat-chip
+            *ngFor="let servicio of apoyo?.servicios"
+            [removable]="true"
+            (removed)="eliminarServicio(servicio)"
+          >
             {{ servicio.nombre }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
@@ -75,15 +163,61 @@
     </div>
     <div class="form-row">
       <div class="col-md-6 form-group">
-        <mat-label>Estado</mat-label>
-        <mat-checkbox name="estado" class="ml-3" [labelPosition]="before" [(ngModel)]="apoyo.usuario.activo"></mat-checkbox>
+        <label id="example-radio-group-label">Estado</label>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="estadoSeleccionado"
+        >
+          <mat-radio-button
+            class="example-radio-button"
+            [checked]="estadoSeleccionado==estado.value"
+            *ngFor="let estado of estados"
+            [value]="estado.value"
+          >
+          {{ estado.nombre }}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <!-- <mat-label>Estado</mat-label>
+        <mat-checkbox
+          name="estado"
+          class="ml-3"
+          labelPosition="before"
+          [(ngModel)]="apoyo.usuario.activo"
+        ></mat-checkbox>-->
       </div>
     </div>
 
     <mat-dialog-actions>
-      <button type="button" mat-raised-button class="btn btn-danger" (click)="cancelar()">Cancelar</button>
-      <button type="submit" mat-raised-button color="primary" class="btn" (click)="onSubmit()">Guardar</button>
+      <button
+        type="button"
+        mat-raised-button
+        class="btn btn-danger"
+        (click)="cancelar()"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        mat-raised-button
+        [disabled]="
+          isSaving ||
+          !(
+            nombre.valid &&
+            apellido.valid &&
+            nombreRol.valid &&
+            email.valid &&
+            emailSecundariod.valid
+          )
+        "
+        color="primary"
+        class="btn"
+        (click)="onSubmit()"
+      >
+        Guardar
+        <mat-spinner diameter="30" *ngIf="isSaving"></mat-spinner>
+      </button>
     </mat-dialog-actions>
   </form>
-
 </mat-dialog-content>
