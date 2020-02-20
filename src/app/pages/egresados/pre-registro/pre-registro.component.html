@@ -12,15 +12,15 @@
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Nombres</mat-label>
-                <input id="nombre" matInput placeholder="Nombres" #name="ngModel" name="nombre" [(ngModel)]="user.nombres" required
-                  pattern="^[a-zñ]+[a-zñ\s]+[a-zñ]+[a-zñ\s]$">
+                <input id="nombre" matInput placeholder="Nombres" #name="ngModel" name="nombre"
+                  [(ngModel)]="user.nombres" required pattern="^[A-Za-zñ\s]{1,50}">
                 <mat-error *ngIf="user.nombres != null">Campo requerido</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Apellidos</mat-label>
                 <input matInput placeholder="Apellidos" #name="ngModel" name="apellidos" [(ngModel)]="user.apellidos"
-                  required pattern="^[a-zñ]+[a-zñ\s]+[a-zñ]+[a-zñ\s]$">
+                  required pattern="^[A-Za-zñ\s]{1,50}">
                 <mat-error *ngIf="user.apellidos != null">Campo requerido</mat-error>
               </mat-form-field>
             </div>
@@ -28,25 +28,63 @@
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Identificación</mat-label>
-                <input (ngModelChange)="validarIdentificacion()" matInput type="text" pattern="[1-9][0-9]{6,9}"
+                <input matInput (input)="validarIdentificacion()" type="text" pattern="[1-9][0-9]{6,9}"
                   placeholder="Identificación" #name="ngModel" name="identificacion" [(ngModel)]="user.identificacion"
                   required>
                 <mat-error *ngIf="user.identificacion != null">Campo requerido
                 </mat-error>
               </mat-form-field>
 
+
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Confirmar numero de identificación</mat-label>
-                <input (Change)="validarIdentificacion()" matInput
-                  placeholder="Confirmar numero de Identificación" pattern="[1-9][0-9]{6,9}"
-                  [formControl]="identificacionFormControl" required>
+                <input matInput (input)="validarIdentificacion()" placeholder="Confirmar numero de Identificación"
+                  pattern="[1-9][0-9]{6,9}" [formControl]="identificacionFormControl" required>
+                <mat-error *ngIf="departamentoExpedicionFormControl.hasError('required')">Campo requerido
+                </mat-error>
               </mat-form-field>
-              
+              <p id="msgError" *ngIf="msgError != ''">{{msgErrorIdentificacion}}</p>
+            </div>
+            <h5>Lugar de expedición del documento</h5>
+            <div class="row">
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+
+                <mat-label>{{mensaje1}}</mat-label>
+                <mat-select [formControl]="paisExpedicionFormControl" required
+                  (selectionChange)="obtenerDepartamentoExp(paisExpedicionFormControl.value)">
+                  <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
+                    {{pais.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="paisExpedicionFormControl.hasError('required')">Campo requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+                <mat-label>{{mensaje2}}</mat-label>
+                <mat-select [formControl]="departamentoExpedicionFormControl" required
+                  (selectionChange)="obtenerCiudadExp(departamentoExpedicionFormControl.value)">
+                  <mat-option *ngFor="let departamento of departamentosExp" [value]="departamento.id_aut_dep">
+                    {{departamento.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="departamentoExpedicionFormControl.hasError('required')">Campo requerido
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+            <div class="row">
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+                <mat-label>{{mensaje3}}</mat-label>
+                <mat-select [formControl]="ciudadExpedicionFormControl" required>
+                  <mat-option *ngFor="let ciudad of ciudadesExp" [value]="ciudad.id_aut_ciudad">
+                    {{ciudad.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="ciudadExpedicionFormControl.hasError('required')">Campo requerido</mat-error>
+              </mat-form-field>
             </div>
 
-            <div class="row"> <mat-error class="form-group col-md-12 ">{{msgError}}</mat-error></div>
-            
-
+            <h5>Fecha y lugar de nacimiento</h5>
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Fecha de nacimiento</mat-label>
@@ -57,13 +95,44 @@
                 <mat-error *ngIf="fechaNFormControl.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
 
-              <div class="form-group col-md-6 ">
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+                <mat-label>{{mensaje1}}</mat-label>
+                <mat-select [formControl]="paisNacimientoFormControl" required
+                  (selectionChange)="obtenerDepartamentoNac(paisNacimientoFormControl.value)">
+                  <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
+                    {{pais.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="paisNacimientoFormControl.hasError('required')">Campo requerido</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
 
-              </div>
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+                <mat-label>{{mensaje2}}</mat-label>
+                <mat-select [formControl]="departamentoNacimientoFormControl" required
+                  (selectionChange)="obtenerCiudadNac(departamentoNacimientoFormControl.value)">
+                  <mat-option *ngFor="let departamento of departamentosNac" [value]="departamento.id_aut_dep">
+                    {{departamento.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="departamentoNacimientoFormControl.hasError('required')">Campo requerido
+                </mat-error>
+              </mat-form-field>
 
+
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+                <mat-label>{{mensaje3}}</mat-label>
+                <mat-select [formControl]="ciudadNacimientoFormControl" required>
+                  <mat-option *ngFor="let ciudad of ciudadesNac" [value]="ciudad.id_aut_ciudad">
+                    {{ciudad.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="ciudadNacimientoFormControl.hasError('required')">Campo requerido</mat-error>
+              </mat-form-field>
             </div>
 
-            <div class="row">
+            <!--  <div class="row">
               <div class="form-group col-md-6 ">
                 <h5>Lugar de nacimiento</h5>
                 <app-localizacion #lugarNacimiento></app-localizacion>
@@ -73,12 +142,12 @@
                 <app-localizacion #lugarExpedicion></app-localizacion>
               </div>
 
-            </div>
+            </div> -->
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Número de hijos</mat-label>
-                <input type="number" min="0" max="10" matInput placeholder="Número de hijos" #name="ngModel"
-                  name="num_hijos" [(ngModel)]="user.num_hijos" required>
+                <input (input)=" validarNumeroHihos()" type="number" min="0" max="10" matInput
+                  placeholder="Número de hijos" #name="ngModel" name="num_hijos" [(ngModel)]="user.num_hijos" required>
               </mat-form-field>
 
               <mat-radio-group #name="ngModel" name="genero" [(ngModel)]="user.genero" class="form-group col-md-6 ">
@@ -94,10 +163,14 @@
               <div class="form-group col-md-6 ">
                 <h5>Discapacidad:*</h5>
                 <mat-error *ngIf="discapacidad.length == 0">Campo requerido</mat-error>
-                <mat-checkbox *ngFor="let discapacidad of discapacidades let index = index"
-                  [value]="discapacidad.idDiscapacidad"
-                  (change)="discapacidadesUsuario(discapacidad.idDiscapacidad,index,$event)"
-                  (change)="otraDiscapacidad(index,$event)" [labelPosition]="after" required>
+                <mat-checkbox 
+                [disabled]="onEditMode" 
+                [checked]="enDiscapacidadEgresado(discapacidad.idDiscapacidad)"
+                  labelposition="after" *ngFor="let discapacidad of discapacidades let index = index"
+                  name="discapacidades" 
+                  (change)="onCheckDiscapacidad(discapacidad, $event.checked)"
+                  (change)="otraDiscapacidad(discapacidad,$event.checked)"
+                  (change)="discapacidadesUsuario(discapacidad.idDiscapacidad,index,$event)">
                   {{discapacidad.Nombre}}
                 </mat-checkbox>
               </div>
@@ -143,10 +216,11 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Información academica</ng-template>
-            <mat-radio-group name="nivel_estudio" [formControl]="nivelAFormControl" required>
+            <mat-radio-group name="nivel_estudio" [formControl]="nivelAFormControl" required  (click)="obtenerSedes()">
               <h5>Nivel academico*</h5>
               <mat-error *ngIf="nivelAFormControl.hasError('required')">Campo requerido</mat-error>
-              <mat-radio-button *ngFor="let nivel_estudio of niveles_academicos" [value]="nivel_estudio.id_aut_estudio">
+              <mat-radio-button *ngFor="let nivel_estudio of niveles_academicos" [value]="nivel_estudio.id_aut_estudio"
+                >
                 {{nivel_estudio.nombre}}
               </mat-radio-button>
             </mat-radio-group>
@@ -172,6 +246,7 @@
                 </mat-error>
               </mat-form-field>
             </div>
+
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Programa</mat-label>
@@ -193,11 +268,17 @@
                 <mat-error *ngIf="tituloFormControl.hasError('required')">Campo requerido</mat-error>
               </mat-form-field>
             </div>
+
             <div class="row">
-              <mat-form-field  appearance="outline" class="form-group col-md-6 ">
+              <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Fecha de graduación</mat-label>
-                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dp3" [formControl]="fechaGFormControl"
-                  placeholder="Fecha de Graduación">
+                <input id="gradoA" 
+                matInput [min]="minDate" 
+                [max]="maxDate" 
+                [matDatepicker]="dp3" 
+                (dateInput)="grado()"
+                [formControl]="fechaGFormControl" 
+                placeholder="Fecha de Graduación" required>
                 <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                 <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                 <mat-error *ngIf="fechaGFormControl.hasError('required')">Campo requerido
@@ -206,7 +287,7 @@
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Año de graduación</mat-label>
-                <mat-select [formControl]="anioGFormControl" required>
+                <mat-select [disabled]="!bloquearAnio" [formControl]="anioGFormControl" required>
                   <mat-option *ngFor="let anio of anios" [value]="anio">
                     {{anio}}
                   </mat-option>
@@ -237,7 +318,7 @@
 
           <mat-step>
 
-            <ng-template matStepLabel>Info. de Contacto</ng-template>
+            <ng-template matStepLabel>Información de Contacto</ng-template>
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Celular</mat-label>
@@ -267,35 +348,65 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field appearance="outline" class="form-group col-md-6 ">
+              <mat-form-field  appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Correo electrónico alternativo</mat-label>
-                <input matInput placeholder="Correo Electrónico Alternativo" [formControl]="emailFormControl2" required>
-                <mat-error *ngIf="emailFormControl2.hasError('email') ">
+                <input  (input)="validarCorreos()" matInput placeholder="Correo Electrónico Alternativo"
+                  [formControl]="emailFormControl2" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                <mat-error *ngIf=" emailFormControl2.hasError('email') ">
                   Por favor ingresar una dirección de correo correcta
                 </mat-error>
-                <mat-error *ngIf="emailFormControl2.hasError('pattern') ">
+                <mat-error *ngIf=" emailFormControl2.hasError('pattern') ">
                   Por favor ingresar una dirección de correo correcta. ej: ejemplo@gmail.com
                 </mat-error>
-                <mat-error *ngIf="emailFormControl2.hasError('required')">
-                  Campo requerido
-                </mat-error>
               </mat-form-field>
-
+              <p id=" msgError" *ngIf="msgError != ''">{{msgErrorcorreo}}</p>
             </div>
 
+            <h5>Lugar y dirección de residencia</h5>
             <div class="row">
-              <div class="form-group col-md-6 ">
-                <h5>Lugar de residencia</h5>
-                <app-localizacion #lugarResidencia></app-localizacion>
-              </div>
+
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+                <mat-label>{{mensaje1}}</mat-label>
+                <mat-select [formControl]="paisResidenciaFormControl" required
+                  (selectionChange)="obtenerDepartamentoRes(paisResidenciaFormControl.value)">
+                  <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
+                    {{pais.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="paisResidenciaFormControl.hasError('required')">Campo requerido</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+                <mat-label>{{mensaje2}}</mat-label>
+                <mat-select [formControl]="departamentoResidenciaFormControl" required
+                  (selectionChange)="obtenerCiudadRes(departamentoResidenciaFormControl.value)">
+                  <mat-option *ngFor="let departamento of departamentosRes" [value]="departamento.id_aut_dep">
+                    {{departamento.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="departamentoResidenciaFormControl.hasError('required')">Campo requerido
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+
+              <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
+                <mat-label>{{mensaje3}}</mat-label>
+                <mat-select [formControl]="ciudadResidenciaFormControl" required>
+                  <mat-option *ngFor="let ciudad of ciudadesRes" [value]="ciudad.id_aut_ciudad">
+                    {{ciudad.nombre}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="ciudadResidenciaFormControl.hasError('required')">Campo requerido</mat-error>
+              </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Dirección de residencia</mat-label>
-                <input matInput placeholder="" #name="ngModel" name="direccion" [(ngModel)]="user.direccion" required>
+                <input matInput placeholder="Dirección de residencia" #name="ngModel" name="direccion"
+                  [(ngModel)]="user.direccion" required>
                 <mat-error *ngIf="user.direccion != null">Campo requerido</mat-error>
               </mat-form-field>
             </div>
-
 
             <div class="row">
               <div class="botonesStepper form-group col-md-6 ">
@@ -308,7 +419,7 @@
 
           </mat-step>
         </mat-horizontal-stepper>
-        <p id="msgError" *ngIf="msgError != ''">{{msgError}}</p>
+
       </form>
 
     </div>
