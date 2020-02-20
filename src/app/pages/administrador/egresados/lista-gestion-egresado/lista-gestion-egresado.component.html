@@ -5,7 +5,10 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form #frmFiltrarEgresados="ngForm" (ngSubmit)="filtrar(frmFiltrarEgresados)">
+    <form
+      #frmFiltrarEgresados="ngForm"
+      (ngSubmit)="filtrar(frmFiltrarEgresados)"
+    >
       <div class="form-row">
         <mat-form-field appearance="outline" class="form-group col-md-6">
           <input
@@ -119,6 +122,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+
+      <div class="no-records" *ngIf="noData()">
+        No se encontraron resultados
+      </div>
 
       <mat-paginator [length]="totalResults" [pageSize]="10"></mat-paginator>
     </div>
