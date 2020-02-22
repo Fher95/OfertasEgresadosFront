@@ -22,9 +22,9 @@
           <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
         </div>
         <!--Si el egresado no ha solicitado un carnet-->
-        <div *ngIf="estadoEgres && estadoCarnet =='' estadoInfoEgresado" align="center">
+        <div *ngIf="estadoEgres && estadoCarnet == '' && estadoInfoEgresado" align="center">
           <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
-          <button class='boton' color="primary" (click)="enviarSolicitudCarnet()" mat-button>Solicitar Carnet</button>
+          <button class='boton' color="primary" (click)="solicitudCarnet('PENDIENTE')"   mat-button>Solicitar Carnet</button>
         </div>
 
         <ng-template matStepLabel>
@@ -34,7 +34,7 @@
         <div *ngIf="estadoCarnet == 'PENDIENTE'" align="center">
           <p>{{mensajeEstado}}</p>
           <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
-          <button class='botonCancelar' (click)="cancelarSolicitudCarnet()" mat-button>Cancelar Solicitud</button>
+          <button class='botonCancelar' (click)="solicitudCarnet('CANCELADO')" onclick="location.href='egresados'" mat-button>Cancelar Solicitud</button>
         </div>
 
         <!--Si el estado de solicitud de carnet es aceptado-->

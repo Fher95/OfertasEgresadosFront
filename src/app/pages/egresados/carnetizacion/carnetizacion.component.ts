@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carnetizacion',
@@ -24,7 +25,8 @@ export class CarnetizacionComponent implements OnInit {
   constructor(
     private catalogoService: CatalogosService,
     private servicioCompletar: RegistroService,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) {
     this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar registro' para poder continuar.";
     this.mensajeEstado = 'Existen una solicitud de carnetización pendiente.';
@@ -63,12 +65,10 @@ export class CarnetizacionComponent implements OnInit {
     console.log("aqui llego"+ number);
   }
 
-  enviarSolicitudCarnet() {
-    console.log(this.idEgresado);
-    this.catalogoService.enviarSolicitudCarnet(this.idEgresado);
-  }
+  solicitudCarnet(solicitud: string) {
+    console.log("esto es lo que se hace "+this.idEgresado);
+    this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud);
 
-  cancelarSolicitudCarnet() {
-    this.catalogoService.cancelarSolicitudCarnet(this.idEgresado);
+    this.cargarDatos();
   }
 }

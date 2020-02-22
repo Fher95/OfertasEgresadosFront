@@ -50,10 +50,12 @@ export class SolicitudCarnetizacionComponent implements OnInit {
     this.catalogoService.getSolicitudesCarnet().subscribe(data => this.solicitudes = data);
   }
 
-  private aceptarSolicitud(solicitud, index) {
+  private enviarSolicitudCarnet(solicitud, index, estado) {
+    console.log("esto trae la variable "+estado);
+
     this.alert.showconfirmationMessage('¿Aceptar Solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarEstadoSolicitud(solicitud, true);
+        this.catalogoService.enviarRespuestaSolicitud(solicitud, estado);
         this.solicitudes.splice(index, 1);
       }
     });
@@ -61,10 +63,10 @@ export class SolicitudCarnetizacionComponent implements OnInit {
 
   }
 
-  private cancelarSolicitud(solicitud, index) {
+  private cancelarSolicitudCarnet(solicitud,index, estado) {
     this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarEstadoSolicitud(solicitud, false);
+        this.catalogoService.enviarRespuestaSolicitud(solicitud, estado);
         this.solicitudes.splice(index, 1);
       }
     });
