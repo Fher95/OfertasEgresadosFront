@@ -6,6 +6,7 @@ export class Referido{
     id_aut_programa?:number;
     telefono_movil:number;
     correo:string;
+    tipoActualizacion?:number;
 
     constructor()
     {
@@ -16,6 +17,7 @@ export class Referido{
         this.telefono_movil=0;
         this.correo="";
         this.es_egresado=false;
+        this.tipoActualizacion=0;
     }
     
 }

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { UpdateInformacionPersonalModel } from 'src/app/shared/modelos/update-informacion-personal.model';
 import { EgresadoService } from 'src/app/shared/servicios/admin/egresado.service';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
+import { VerPerfilEgresado } from 'src/app/shared/modelos/verPerfilEgresado';
 
 @Component({
   selector: 'app-informacion-personal-ver-perfil',
@@ -20,7 +21,7 @@ import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 })
 export class InformacionPersonalVerPerfilComponent implements OnInit {
   @Input()
-  egresado: EgresadoModel;
+  egresado: VerPerfilEgresado;
 
   onEditMode = false;
   // Lugares seleccionado
