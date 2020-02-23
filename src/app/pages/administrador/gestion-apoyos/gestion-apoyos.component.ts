@@ -23,12 +23,16 @@ export class GestionApoyosComponent implements OnInit {
    * Controles
    */
 
-  nombre: FormControl = new FormControl('', [Validators.required]);
-  apellido: FormControl = new FormControl('', [Validators.required]);
-  email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  model: {
+    nombre?: string;
+    apellido?: string;
+    email?: string;
+    rol?: string;
+    nombreApoyo?: string;
+    emailSecundario?: string;
+  } = {};
+
   rol: FormControl = new FormControl('', []);
-  nombreApoyo: FormControl = new FormControl('', [Validators.required]);
-  emailSecundario: FormControl = new FormControl('', [Validators.required, Validators.email]);
 
   /**
    * Catalogos
@@ -47,6 +51,8 @@ export class GestionApoyosComponent implements OnInit {
 
   @ViewChild('tblApoyos')
   tblApoyos: ListaApoyosComponent;
+
+  isSaving = false;
 
   constructor(
     private catalogService: CatalogosService,
@@ -80,20 +86,29 @@ export class GestionApoyosComponent implements OnInit {
     dialogConfig.hasBackdrop = true;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = apoyo;
+    dialogConfig.data = {... apoyo};
     const dialogRef = this.dialog.open(DialogoEditarComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(response => {
-      this.tblApoyos.editarApoyo(response);
+    dialogRef.afterClosed().subscribe(() => {
+      this.tblApoyos.editarApoyo();
     });
   }
 
+  onCancelar(form: NgForm)
+  {
+    this.model = {};
+    this.rolesSeleccionados = [];
+    form.reset();
+    form.resetForm();
+  }
+
   guardar(form: NgForm) {
+    this.isSaving = true;
     this.apoyo = new ApoyoModel();
-    this.apoyo.nombres = this.nombre.value;
-    this.apoyo.apellidos = this.apellido.value;
-    this.apoyo.correo = this.email.value;
-    this.apoyo.nombreRol = this.nombreApoyo.value;
-    this.apoyo.correoSecundario = this.emailSecundario.value;
+    this.apoyo.nombres = form.controls.nombre.value;
+    this.apoyo.apellidos = form.controls.apellido.value;
+    this.apoyo.correo = form.controls.email.value;
+    this.apoyo.nombreRol = form.controls.nombreApoyo.value;
+    this.apoyo.correoSecundario = form.controls.emailSecundario.value;
     this.apoyo.servicios = this.rolesSeleccionados;
     console.log(this.apoyo.servicios);
     this.apoyoService.save(this.apoyo).subscribe(() => {
@@ -101,7 +116,8 @@ export class GestionApoyosComponent implements OnInit {
         .then(() => {
           this.tblApoyos.nuevoApoyo(this.apoyo);
           this.apoyo = new ApoyoModel();
-          form.reset();
+          this.onCancelar(form);
+          this.isSaving = false;
         });
     }, err => {
       console.log("Errro");
@@ -114,6 +130,7 @@ export class GestionApoyosComponent implements OnInit {
         }
       }
       this.alertService.showErrorMessage('Error', msg);
+      this.isSaving = false;
     });
   }
 }

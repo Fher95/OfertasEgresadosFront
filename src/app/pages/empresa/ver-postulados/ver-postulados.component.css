@@ -8,4 +8,11 @@ table {
   th.mat-header-cell {
     text-align: center;
   }
+.rojo {
+    background: rgb(255, 0, 0);
+    color: rgb(240, 240, 240);
+    border-radius: 10px;
+    text-align: center;
+    padding: 0.2rem;
+}
   

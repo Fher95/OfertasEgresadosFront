@@ -71,6 +71,10 @@ export class ListaGestionEgresadoComponent implements OnInit, AfterViewInit {
       });
   }
 
+  noData(): boolean {
+    return this.data.length == 0;
+  }
+
   filtrar(form: NgForm) {
     this.filter = new EgresadoFilter();
     this.filter.cedula = form.value.cedula;

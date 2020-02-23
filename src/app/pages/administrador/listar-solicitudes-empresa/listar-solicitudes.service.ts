@@ -4,11 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Solicitud } from './Solicitud';
 import { lstSolicitudes } from './Solicitud';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ListarSolicitudesService {
     solicitudes = lstSolicitudes;
-    private urlSolicitud = 'http://localhost:8081/api/empresa';  // URL to web api
+    private urlSolicitud = environment.baseUrl + 'empresa';  // URL to web api
     httpOptions = {
         headers: new HttpHeaders({
             // "Content-Type": "application/x-www-form-urlencoded",
@@ -23,7 +24,7 @@ export class ListarSolicitudesService {
     ) { }
 
     getSolicitudes(): Observable<Solicitud[]> {
-        const urlSol = 'http://localhost:8081/api/empresa/enEspera';
+        const urlSol = this.urlSolicitud + '/enEspera';
         return this.http.get<Solicitud[]>(urlSol, this.httpOptions)
             .pipe(
                 catchError(this.handleError<Solicitud[]>('getSolicitudes', []))

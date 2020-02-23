@@ -21,14 +21,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   private fecha: String = this.dia + "/" + this.mes + "/" + this.anio
 
   constructor(private alert: AlertService, private dialog: MatDialog, private catalogoService: CatalogosService, private router: Router) {
-    this.solicitudes = [{
-      id_aut_carnetizacion: 1,
-      nombres: 'Edinsson',
-      apellidos: 'Lopez',
-      correo: 'Edinsson@hotmail.com',
-      identificacion: 1,
-      fecha_solicitud: this.fecha
-    }]
+    this.solicitudes = []
   }
 
   ngOnInit() {
@@ -57,10 +50,12 @@ export class SolicitudCarnetizacionComponent implements OnInit {
     this.catalogoService.getSolicitudesCarnet().subscribe(data => this.solicitudes = data);
   }
 
-  private aceptarSolicitud(solicitud, index) {
+  private enviarSolicitudCarnet(solicitud, index, estado) {
+    console.log("esto trae la variable "+estado);
+
     this.alert.showconfirmationMessage('¿Aceptar Solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarEstadoSolicitud(solicitud, true).subscribe();
+        this.catalogoService.enviarRespuestaSolicitud(solicitud, estado);
         this.solicitudes.splice(index, 1);
       }
     });
@@ -68,10 +63,10 @@ export class SolicitudCarnetizacionComponent implements OnInit {
 
   }
 
-  private cancelarSolicitud(solicitud, index) {
+  private cancelarSolicitudCarnet(solicitud,index, estado) {
     this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarEstadoSolicitud(solicitud, false).subscribe();
+        this.catalogoService.enviarRespuestaSolicitud(solicitud, estado);
         this.solicitudes.splice(index, 1);
       }
     });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carnetizacion',
@@ -24,15 +25,14 @@ export class CarnetizacionComponent implements OnInit {
   constructor(
     private catalogoService: CatalogosService,
     private servicioCompletar: RegistroService,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) {
-    this.mensajeCompletar =
-      " Aún no ha completado el registro, Presione 'Completar registro' para poder continuar.";
+    this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar registro' para poder continuar.";
     this.mensajeEstado = 'Existen una solicitud de carnetización pendiente.';
     this.mensajeEstadoAceptado = 'Estado de solicitud es Aceptado';
     this.mensajeEstadoRechazado = 'Estado de solicitud es Rechazado.';
-    this.mensajeEstadoEgresado =
-      'Aún no ha sido validado en el sistema por favor dirigirse al area de EGRESADOS';
+    this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema por favor dirigirse al area de EGRESADOS';
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class CarnetizacionComponent implements OnInit {
       this.catalogoService
         .getEstadoSolicitudCarnet(this.idEgresado)
         .subscribe(estCarnet => {
-          if(estCarnet.lenght != 0){
+          if(estCarnet == null){
             this.estadoCarnet = estCarnet.estado_solicitud
           }else{
             this.estadoCarnet ='';
@@ -60,13 +60,15 @@ export class CarnetizacionComponent implements OnInit {
         );
     });
   }
-
-  enviarSolicitudCarnet() {
-    console.log(this.idEgresado);
-    this.catalogoService.enviarSolicitudCarnet(this.idEgresado).subscribe();
+  
+  entro(number: number){
+    console.log("aqui llego"+ number);
   }
 
-  cancelarSolicitudCarnet() {
-    this.catalogoService.cancelarSolicitudCarnet(this.idEgresado).subscribe();
+  solicitudCarnet(solicitud: string) {
+    console.log("esto es lo que se hace "+this.idEgresado);
+    this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud);
+
+    this.cargarDatos();
   }
 }

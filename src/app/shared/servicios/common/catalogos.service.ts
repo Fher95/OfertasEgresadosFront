@@ -13,7 +13,8 @@ import { SedeInterface } from '../../modelos/sedeInterface';
 import { SolicitudInterface } from '../../modelos/solicitudeInterface';
 import { EventoInterface } from '../../../shared/modelos/evento';
 import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
-import { ArrayEventoHttpResponse } from './../../base/array-eventos-http-response';
+import { ArrayRHttpResponse } from '../../base/array-r-http-response';
+import { ArrayHttpResponse } from '../../base/array-http-response';
 
 const baseUrl = 'http://localhost:8081/api/';
 
@@ -65,8 +66,8 @@ export class CatalogosService {
     );
   }
 
-  getTitulo(idPrograma: number): Observable<TituloInterface[]> {
-    return this.http.get<ProgramaInterface[]>(
+  getTitulo(idPrograma: number): Observable<ArrayHttpResponse<TituloInterface>> {
+    return this.http.get<ArrayHttpResponse<TituloInterface>>(
       `${baseUrl}titulos/${idPrograma}`
     );
   }
@@ -75,9 +76,10 @@ export class CatalogosService {
     return this.http.get<ServicioModel[]>(`${baseUrl}servicios`);
   }
 
-  getDiscapacidad(): Observable<DiscapacidadInterface[]> {
-    return this.http.get<DiscapacidadInterface[]>(`${baseUrl}discapacidades`);
+  getDiscapacidad():  Observable<ArrayRHttpResponse<DiscapacidadInterface[]>> {
+    return this.http.get<ArrayRHttpResponse<DiscapacidadInterface[]>>(`${baseUrl}discapacidades`);
   }
+
 
   getSolicitudesCarnet(): Observable<SolicitudInterface[]> {
     return this.http.get<SolicitudInterface[]>(`${baseUrl}carnetizacion`);
@@ -95,23 +97,27 @@ export class CatalogosService {
   getEstadoSolicitudCarnet(idEgresado: number): Observable<any> {
     return this.http.get(`${baseUrl}validarSolicitudes/${idEgresado}`);
   }
-
-  enviarEstadoSolicitud(idSolicitud: number, estado: boolean) {
-    return this.http.get(
-      `${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}/${estado}`
-    );
+//admin
+  enviarRespuestaSolicitud(idSolicitud: number, estado: string) {
+    console.log("esto es lo que manda: "+estado);
+    console.log("esto es lo que manda en el id: "+idSolicitud);
+    const URLcompleta ='http://localhost:8081/api/carnetizacionUpdateAdmin/'+idSolicitud;
+     this.http.put(URLcompleta,estado);
+  }n
+//egresado
+  enviarSolicitudCarnet(idEgresado: number, solicitud: string) {
+    console.log("esto es lo que manda: "+solicitud);
+    console.log("esto es lo que manda en el id: "+idEgresado);
+    const URLcompleta ='http://localhost:8081/api/enviarEstadoSolicitudCarnet/';
+     this.http.put(URLcompleta,solicitud);
   }
 
-  enviarSolicitudCarnet(idSolicitud: number) {
-    return this.http.get(`${baseUrl}enviarSolicitud/${idSolicitud}`);
+  cancelarSolicitudCarnet(idEgresado: number) {
+     this.http.get(`${baseUrl}cancelarSolicitud/${idEgresado}`);
   }
 
-  cancelarSolicitudCarnet(idSolicitud: number) {
-    return this.http.get(`${baseUrl}cancelarSolicitud/${idSolicitud}`);
-  }
-
-  public getEventos(): Observable<ArrayEventoHttpResponse<EventoInterface[]>> {
-    return this.http.get<ArrayEventoHttpResponse<EventoInterface[]>>(`${baseUrl}eventos`);
+  public getEventos(): Observable<ArrayRHttpResponse<EventoInterface[]>> {
+    return this.http.get<ArrayRHttpResponse<EventoInterface[]>>(`${baseUrl}eventos`);
   }
 
   public updateImage(eventId: string, files: Array<File>) {}

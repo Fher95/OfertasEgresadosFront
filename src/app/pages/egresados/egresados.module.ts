@@ -28,6 +28,8 @@ import { ReferidoPerfilComponent } from './perfil/referido-perfil/referido-perfi
 import { NuevaReferenciaComponent } from './perfil/nueva-referencia/nueva-referencia.component';
 import { ExperienciaLaboralComponent } from './perfil/experiencia-laboral/experiencia-laboral.component';
 import { ExperienciaPerfilComponent } from './perfil/experiencia-perfil/experiencia-perfil.component';
+import { GradoVerPerfilComponent } from './perfil/grado-ver-perfil/grado-ver-perfil.component';
+import { UpdateDeleteDialogComponent } from './perfil/grado-ver-perfil/update-delete-dialog/update-delete-dialog.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -63,9 +65,8 @@ const routes: Routes = [
     InformacionPersonalVerPerfilComponent,
     RefenciaPersonalComponent,
     ReferidoPerfilComponent,
-    NuevaReferenciaComponent,
-    ExperienciaLaboralComponent,
-    ExperienciaPerfilComponent,
+    GradoVerPerfilComponent,
+    UpdateDeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -82,6 +83,7 @@ const routes: Routes = [
     VerEventoComponent,
     ReferidoPerfilComponent,
     NuevaReferenciaComponent,
+    UpdateDeleteDialogComponent
   ],
 })
 export class EgresadosModule { }
