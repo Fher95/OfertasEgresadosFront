@@ -98,22 +98,16 @@ export class CatalogosService {
     return this.http.get(`${baseUrl}validarSolicitudes/${idEgresado}`);
   }
 //admin
-  enviarRespuestaSolicitud(idSolicitud: number, estado: string) {
+  enviarRespuestaSolicitud(idSolicitud: number, estado) {
     console.log("esto es lo que manda: "+estado);
     console.log("esto es lo que manda en el id: "+idSolicitud);
-    const URLcompleta ='http://localhost:8081/api/carnetizacionUpdateAdmin/'+idSolicitud;
-     this.http.put(URLcompleta,estado);
+     return this.http.put(`${baseUrl}enviarEstadoSolicitudCarnet/${idSolicitud}`,{estado});
   }n
 //egresado
-  enviarSolicitudCarnet(idEgresado: number, solicitud: string) {
-    console.log("esto es lo que manda: "+solicitud);
+  enviarSolicitudCarnet(idEgresado: number, solicitud) {
+    console.log("esto es lo que manda: "+solicitud.solicitud);
     console.log("esto es lo que manda en el id: "+idEgresado);
-    const URLcompleta ='http://localhost:8081/api/enviarEstadoSolicitudCarnet/';
-     this.http.put(URLcompleta,solicitud);
-  }
-
-  cancelarSolicitudCarnet(idEgresado: number) {
-     this.http.get(`${baseUrl}cancelarSolicitud/${idEgresado}`);
+    return this.http.put(`${baseUrl}enviarEstadoSolicitudCarnet/${idEgresado}`,{solicitud});
   }
 
   public getEventos(): Observable<ArrayRHttpResponse<EventoInterface[]>> {

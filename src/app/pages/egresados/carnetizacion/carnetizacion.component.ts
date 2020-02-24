@@ -51,7 +51,7 @@ export class CarnetizacionComponent implements OnInit {
       this.catalogoService
         .getEstadoSolicitudCarnet(this.idEgresado)
         .subscribe(estCarnet => {
-          if(estCarnet == null){
+          if(Object.keys(estCarnet).length > 0){
             this.estadoCarnet = estCarnet.estado_solicitud
           }else{
             this.estadoCarnet ='';
@@ -65,10 +65,17 @@ export class CarnetizacionComponent implements OnInit {
     console.log("aqui llego"+ number);
   }
 
-  solicitudCarnet(solicitud: string) {
+  solicitudCarnet(solicitudC: string) {
     console.log("esto es lo que se hace "+this.idEgresado);
-    this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud);
+    var estado: Estado;
+    estado = new Estado();
+    estado.estado =solicitudC;
+    console.log("el estado: "+estado.estado)
+    this.catalogoService.enviarSolicitudCarnet(this.idEgresado, estado).subscribe();
 
-    this.cargarDatos();
+    //this.cargarDatos();
   }
+}
+export class Estado{
+ estado?:string;
 }
