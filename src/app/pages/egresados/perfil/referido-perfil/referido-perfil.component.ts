@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { ReferenciaPersonalModel } from 'src/app/shared/modelos/referencia-personal.model';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 import { Validators, FormControl } from '@angular/forms';
@@ -15,7 +14,7 @@ import { Referido } from 'src/app/shared/modelos/referido';
 export class ReferidoPerfilComponent implements OnInit {
   @ViewChild('programa') programa: ProgramaComponent;
 
-  referido: ReferenciaPersonalModel;
+  referido: Referido;
   varGuardar:boolean =false;
   varEditar:boolean=true;
 
@@ -25,7 +24,7 @@ export class ReferidoPerfilComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
-    private dialogRef: MatDialogRef<ReferenciaPersonalModel>, private alert : AlertService, private dialog : MatDialog
+    private dialogRef: MatDialogRef<Referido>, private alert : AlertService, private dialog : MatDialog
   ) {
     this.referido = data;
   }
@@ -36,14 +35,14 @@ export class ReferidoPerfilComponent implements OnInit {
     this.varEditar=false;
     this.varGuardar=true;
     this.Correo = new FormControl({value: this.referido.correo,disabled:false}, [Validators.required, Validators.email]);
-    this.Celular = new FormControl({value: this.referido.telefonoMovil,disabled:false}, [Validators.required, Validators.minLength(10)]);
+    this.Celular = new FormControl({value: this.referido.telefono_movil,disabled:false}, [Validators.required, Validators.minLength(10)]);
   }
   guardar(){
     if(this.validarDatos()){
       this.referido.correo = this.Correo.value.toLowerCase();
-      this.referido.telefonoMovil = this.Celular.value;
+      this.referido.telefono_movil = this.Celular.value;
       if(this.Egresado.value==0){
-        this.referido.esEgresado = true;
+        this.referido.es_egresado = true;
         /*this.referido.id_nivel_educativo = this.programa.NivelAcademico.value;
         this.referido.id_aut_programa = this.programa.Programa.value;*/
       }
