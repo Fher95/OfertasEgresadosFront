@@ -66,7 +66,10 @@ const routes: Routes = [
     RefenciaPersonalComponent,
     ReferidoPerfilComponent,
     GradoVerPerfilComponent,
-    UpdateDeleteDialogComponent
+    UpdateDeleteDialogComponent,
+    NuevaReferenciaComponent,
+    ExperienciaLaboralComponent,
+    ExperienciaPerfilComponent
   ],
   imports: [
     CommonModule,
