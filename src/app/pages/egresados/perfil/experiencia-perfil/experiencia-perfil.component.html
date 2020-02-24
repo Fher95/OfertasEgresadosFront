@@ -1,0 +1,158 @@
+<h2 mat-dialog-title>Experiencia laboral</h2>
+<mat-dialog-content>
+  <form>
+    <div class="row">
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          matInput
+          [ngModel]="experiencia.cargo"
+          placeholder="Cargo"
+          disabled
+          name="cargo"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          matInput
+          [ngModel]="experiencia.nombreEmpresa"
+          placeholder="Nombre empresa"
+          disabled
+          name="nombreEmpresa"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          matInput
+          [ngModel]="experiencia.fechaInicio"
+          placeholder="Fecha inicio"
+          disabled
+          name="fechaInicio"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          placeholder="Fecha fin"
+          disabled
+          matInput
+          name="fechaFin"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          name="tipoContrato"
+          matInput
+          [ngModel]="experiencia.tipoContrato"
+          placeholder="Tipo de contrado"
+          disabled
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          matInput
+          name="pais"
+          [ngModel]="experiencia.ciudad?.departamento.pais.nombre"
+          placeholder="País lugar de trabajo"
+          disabled
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          matInput
+          name="departamento"
+          [ngModel]="experiencia.ciudad?.departamento.nombre"
+          placeholder="Departamento lugar de trabajo"
+          disabled
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          matInput
+          name="ciudad"
+          [ngModel]="experiencia.ciudad?.nombre"
+          placeholder="Ciuad lugar de trabajo"
+          disabled
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          matInput
+          name="direccion"
+          [ngModel]="experiencia.direccionEmpresa"
+          placeholder="Dirección lugar de trabajo"
+          disabled
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="form-group col-md-4">
+        <input
+          matInput
+          name="salario"
+          type="text"
+          [ngModel]="experiencia.rangoSalario"
+          placeholder="Rango salarial"
+          disabled
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          name="sector"
+          [ngModel]="experiencia.sector"
+          placeholder="Sector"
+          disabled
+          matInput
+        />
+      </mat-form-field>
+
+      <mat-form-field class="form-group col-md-4">
+        <input
+          type="text"
+          matInput
+          name="telefonoTrabajo"
+          [ngModel]="experiencia.telefonoTrabajo"
+          placeholder="Teléfono lugar de trabajo"
+          disabled
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-checkbox
+        name="check"
+        class="example-margin col-md-6"
+        [(ngModel)]="experiencia.trabajaEnSuArea"
+        [disabled]="true"
+      >
+        ¿Labora en el área que se graduó?
+      </mat-checkbox>
+    </div>
+
+    <mat-dialog-actions>
+      <button type="button" (click)="cerrar()" class="btn btn-danger">
+        Cerrar
+      </button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

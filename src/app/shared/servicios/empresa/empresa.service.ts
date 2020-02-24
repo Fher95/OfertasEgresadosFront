@@ -125,10 +125,10 @@ export class EmpresaService {
   getDatosContactoHv(idEmpresa: string): Observable<any>{
     return this.httpClient.get<any>(this.urlBase + 'contactoHV/' + idEmpresa, {headers: this.headers});
   }
-  crearOfertaLaboral(idEmpresa:String ,objeto: Object){
+  crearOfertaLaboral(idEmpresa:String ,objeto: Object):Observable <any>{
     return this.httpClient.post(this.urlBase + 'empresas/oferta/store/' + idEmpresa, objeto, {headers: this.headers});
   }
-  modificarOfertaLaboral(idOferta: string,objeto: Object){
+  modificarOfertaLaboral(idOferta: string,objeto: Object):Observable <any>{
     return this.httpClient.post(this.urlBase + 'empresas/oferta/update/' + idOferta, objeto, {headers: this.headers});
   }
   guardarEstadoPostulado(parId: number, parIdOferta: string, parEstado: string): Observable<any> {

@@ -555,14 +555,20 @@ datosFormChecked: FormGroup;
       data: { datos: datos, crear: false} //Envia los datos del form al componente
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
         //Al cerrar el dialog si el resultado es verdadero se crea la oferta
-        if(result.status_code == 200) {
+        if(result) {
           this.empService.modificarOfertaLaboral(this.idOferta,datos).subscribe(resultado => {
-            console.log(resultado)
+           if(resultado.status_code == 200 || resultado.status_code == 500){
             this.alert.showSuccesMessage('Exito','Se ha modificado la oferta exitosamente')
             .then((value) => {
               this.router.navigate(['empresa/'+this.id+'/misOfertas']);
             });
+            }
+          
+            else {
+              this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde")
+            }
           },
             error => {
               this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde")

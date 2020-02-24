@@ -27,81 +27,93 @@
           <mat-error *ngIf="Sector.hasError('required')">Campo requerido</mat-error>
         </mat-form-field>
       </div>
-    </div>
-    <mat-label>Datos empresa</mat-label>
-    <div class="row card-layout">
-      <div class="card-column-1">
-        <div class="column">
-          <div class="row">
-            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-              <mat-label>Nombre de la empresa</mat-label>
-              <input matInput [formControl]="NombreEmpresa" required>
-              <mat-error *ngIf="NombreEmpresa.hasError('required')">Campo requerido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-              <mat-label>Dirección de lugar de trabajo</mat-label>
-              <input matInput [formControl]="DirTrabajo" required>
-              <mat-error *ngIf="DirTrabajo.hasError('required')">Campo requerido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-              <mat-label>Teléfono de lugar de trabajo</mat-label>
-              <input matInput [formControl]="TelTrabajo" required>
-              <mat-error *ngIf="TelTrabajo.hasError('required')">Campo requerido</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div class="card-column-2">
-        <app-localizacion #localizacionEmpresa></app-localizacion>
-      </div>
       <div class="card-column-3">
-        <div class="column">
-          <div class="row">
-            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-              <mat-label>Cargo que desempeña</mat-label>
-              <input matInput [formControl]="Cargo" required>
-              <mat-error *ngIf="Cargo.hasError('required')">Campo requerido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-              <mat-label>Rango salarial</mat-label>
-              <mat-select [formControl]="RangoSalario" required>
-                <mat-option [value]="item" *ngFor="let item of rangoSalarial">{{item}}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="RangoSalario.hasError('required')">Campo requerido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-              <mat-label>Tipo de contrato</mat-label>
-              <mat-select [formControl]="TipoContrato" required>
-                <mat-option [value]="item" *ngFor="let item of tipoContrato">{{item}}</mat-option>
-              </mat-select>
-              <mat-error *ngIf="TipoContrato.hasError('required')">Campo requerido</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Cargo que desempeña</mat-label>
+          <input matInput [formControl]="Cargo" required>
+          <mat-error *ngIf="Cargo.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
       </div>
     </div>
     <div class="row card-layout">
       <div class="card-column-1">
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-          <input matInput [matDatepicker]="picker1" placeholder="Fecha Inicio" [formControl]="fechaInicio" required>
+          <mat-label>Rango salarial</mat-label>
+          <mat-select [formControl]="RangoSalario" required>
+            <mat-option [value]="item" *ngFor="let item of rangoSalarial">{{item}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="RangoSalario.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-2">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Tipo de contrato</mat-label>
+          <mat-select [formControl]="TipoContrato" required>
+            <mat-option [value]="item" *ngFor="let item of tipoContrato">{{item}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="TipoContrato.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-3">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <input matInput [max]="maxDate" [matDatepicker]="picker1" placeholder="Fecha Inicio" [formControl]="fechaInicio" required>
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
           <mat-error *ngIf="fechaInicio.hasError('required')">Campo requerido</mat-error>
         </mat-form-field>
       </div>
+    </div>
+    <mat-card-title>Datos empresa</mat-card-title>
+    <div class="row card-layout">
+      <div class="card-column-1">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>País</mat-label>
+          <mat-select [formControl]="Pais" (selectionChange)="obtenerDepartamento()" required>
+            <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">{{pais.nombre}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="Pais.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
       <div class="card-column-2">
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-          <input matInput [matDatepicker]="picker2" placeholder="Fecha Fin" [formControl]="fechaFin">
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
+          <mat-label>Departamento</mat-label>
+          <mat-select [formControl]="Departamento" (selectionChange)="obtenerCiudad()" required>
+            <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id_aut_dep"> {{departamento.nombre}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="Departamento.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-3">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Ciudad</mat-label>
+          <mat-select [formControl]="Ciudad" required>
+            <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id_aut_ciudad">{{ciudad.nombre}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="Ciudad.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row card-layout">
+      <div class="card-column-1">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Nombre de la empresa</mat-label>
+          <input matInput [formControl]="NombreEmpresa" required>
+          <mat-error *ngIf="NombreEmpresa.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-2">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Dirección de lugar de trabajo</mat-label>
+          <input matInput [formControl]="DirTrabajo" required>
+          <mat-error *ngIf="DirTrabajo.hasError('required')">Campo requerido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="card-column-3">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label>Teléfono de lugar de trabajo</mat-label>
+          <input matInput [formControl]="TelTrabajo" pattern="[0-9]{7,10}" required>
+          <mat-error *ngIf="TelTrabajo.hasError('pattern')">Número inválido</mat-error>
+          <mat-error *ngIf="TelTrabajo.hasError('required')">Campo requerido</mat-error>
         </mat-form-field>
       </div>
     </div>
