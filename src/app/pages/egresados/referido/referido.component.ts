@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Inject, Input } from '@angular/core';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Referido } from 'src/app/shared/modelos/referido';
@@ -22,6 +22,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 export class ReferidoComponent implements OnInit {
   @ViewChild('programa') programa: ProgramaComponent;
+  @Input()
+  cantidadHijos : number;
   @Output()
   darReferido: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,8 +33,7 @@ export class ReferidoComponent implements OnInit {
   Celular = new FormControl('', [Validators.required, Validators.minLength(10)]);
   Parentesco = new FormControl('', [Validators.required]);
 
-  listaParentesco: string[] = ['Pareja/Cónyuge', 'Padre', 'Madre', 'Abuelo/a', 'Hijo/a', 'Otro'];
-
+  listaParentesco: string[]; 
   varReferido: Referido;
 
   constructor(private dialog:MatDialog,private router: Router, private alert: AlertService) {
@@ -40,16 +41,29 @@ export class ReferidoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.validarParentesco();
+  }
+
+  validarParentesco(){
+    if(this.cantidadHijos>0){
+      this.listaParentesco = ['Pareja/Cónyuge', 'Padre', 'Madre', 'Abuelo/a', 'Hijo/a', 'Otro'];
+    }
+    else{
+      this.listaParentesco = ['Pareja/Cónyuge', 'Padre', 'Madre', 'Abuelo/a', 'Otro'];
+    }
   }
 
   guardarReferido() {
-    if (this.validarDatos()) {
+    if(this.validarDatos()) {
       this.varReferido.nombres = this.Nombre.value.toUpperCase();
       this.varReferido.parentesco = this.Parentesco.value.toUpperCase();
       if (this.Egresado.value == 0) {
         this.varReferido.es_egresado = true;
         this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
         this.varReferido.id_aut_programa = this.programa.Programa.value;
+        if(this.programa.Titulo.value!=''){
+          this.varReferido.id_aut_titulo = this.programa.Titulo.value;
+        }
       }
       else if (this.Egresado.value == 1) {
         this.varReferido.es_egresado = false;
@@ -74,7 +88,6 @@ export class ReferidoComponent implements OnInit {
   }
   validarDatos() {  
     var bandera: boolean = false;
-
     if (this.Nombre.value != '' && this.Egresado.value != '' && this.Correo.value != '' && this.Celular.value != ''
       && this.Parentesco.value != '') {
       bandera = true;

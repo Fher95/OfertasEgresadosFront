@@ -32,5 +32,8 @@ export class RegistroService {
     const URLId = 'http://localhost:8081/api/getIdegresados/' + correo;
     return this.http.get<any>(URLId);
   }
-  
+  public validarCompletar(idEgresado: number){
+    const URLValidar = 'http://localhost:8081/api/validaCompletarRegistro/'+idEgresado;
+    return this.http.get<any>(URLValidar);
+  } 
 }

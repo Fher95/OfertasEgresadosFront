@@ -27,6 +27,10 @@ export class CompletarRegistroComponent implements OnInit {
   @ViewChild('programaAdicional') programaAdicional : ProgramaComponent;
 
   varCompletarRegistro : CompletarRegistro;
+  //Validaciones
+  estadoCompletar:boolean;
+  cantHijos:number;
+  idPrograma:number;
   //Trabajos anteriores
   haTrabajado = new FormControl('', [Validators.required]);
   //Trabajo actual
@@ -60,6 +64,15 @@ export class CompletarRegistroComponent implements OnInit {
     this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
       data => { console.log('data: '+data.id_aut_egresado); this.idEgresado = data.id_aut_egresado;
         console.log(this.idEgresado);
+        this.servicioCompletar.validarCompletar(this.idEgresado).subscribe(
+          respuesta => { 
+            console.log('respuesta1: '+respuesta);
+            this.estadoCompletar = respuesta.estado_completar;
+            this.cantHijos = respuesta.num_hijos;
+            this.idPrograma = respuesta.id_programa;
+            console.log('respuesta2: '+this.estadoCompletar +'cant hijos: '+this.cantHijos+ 'progra:'+ this.idPrograma);
+          }
+        );
     }
       );
   }
@@ -101,11 +114,33 @@ export class CompletarRegistroComponent implements OnInit {
   }
   eliminarReferido(referido: Referido){
     console.log('Referido a eliminar: ' + referido);
-    const index = this.referidos.indexOf(referido);
-    if(index >= 0) {
-      this.referidos.splice(index, 1);
-      this.dataReferidos = new MatTableDataSource<any>(this.referidos);
-      console.log('Referido eliminado');
+    if(this.referidos.length>2)
+    {
+      const index = this.referidos.indexOf(referido);
+      if(index >= 0) {
+        this.referidos.splice(index, 1);
+        this.dataReferidos = new MatTableDataSource<any>(this.referidos);
+        console.log('Referido eliminado');
+      }
+    }
+    else{
+      this.alert.showErrorMessage('Error','No se puede eliminar, debe tener mínimo dos referencias.');
+    }
+  }
+  verificarCantReferidos(){
+    var bandera:boolean = false;
+    if(!this.referidos) {
+      this.referidos = [];
+    }
+    if(this.referidos.length>=2){
+      bandera=true;
+    }
+    //bandera=true;
+    return bandera;
+  }
+  validarSigReferido(){
+    if(!this.verificarCantReferidos()){
+      this.alert.showInfoMessage('','Para continuar a la siguiente sección, debe ingresar al menos dos referencias personales.');
     }
   }
   //Añadir labor actual
@@ -130,26 +165,22 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Labor actual eliminada');
     }
   }
-  verificarCantReferidos(){
-    var bandera:boolean = false;
-    if(!this.referidos) {
-      this.referidos = [];
-    }
-    if(this.referidos.length>=2){
-      bandera=true;
-    }
-    return bandera;
-  }
-  validarSigReferido(){
-    if(!this.verificarCantReferidos()){
-      this.alert.showInfoMessage('','Para continuar a la siguiente sección, debe ingresar al menos dos referencias personales.');
+  validar(){
+    if(this.Labora_Actualmente.value==1 && this.expActuales.length>0){
+      this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
+        resultado => { 
+          if(resultado==0){
+            this.expActuales = [];
+            this.dataExpActual= new MatTableDataSource<any>([]);
+          }
+        }
+      );
     }
   }
   llenarDatos()
   {
     console.log('Llenar Datos Completar');
     this.varCompletarRegistro.referidos = this.referidos;
-
     if(this.Labora_Actualmente.value==0)
     {
       this.varCompletarRegistro.trabajo_actualmente = true;
@@ -194,11 +225,17 @@ export class CompletarRegistroComponent implements OnInit {
   agregarGradoAdicional(){
     if(this.ComentProgramaAdicional.value!='' && this.DocenteInfluenciaAdicional.value!='' 
     && this.programaAdicional.verificarCampos()){
-      this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
-      //this.varCompletarRegistro.gradoAdicional.titulo_especial = this.tituloGradoAdicional.value.toUpperCase();
-      this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value.toUpperCase();
-      this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(4,this.ComentProgramaAdicional.value));
-      this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(5,this.DocenteInfluenciaAdicional.value));
+      if(this.programaAdicional.Programa.value!=this.idPrograma){
+        this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
+        this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
+        this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value.toUpperCase();
+        this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(4,this.ComentProgramaAdicional.value));
+        this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(5,this.DocenteInfluenciaAdicional.value));
+      }
+      else{
+        this.alert.showErrorMessage('Error','No se puede registrar el nuevo grado.');
+      }
+      
     }
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.');

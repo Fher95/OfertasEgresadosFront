@@ -39,7 +39,7 @@
     <!--div *ngFor="let item of observacion">
       <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
         <mat-label>{{item}}</mat-label>
-        <textarea matInput name="item.id{{item}}" rows="3">{{item}}</textarea>
+        <textarea [value]="item.id_aut_comentario" matInput name="item.id{{item}}" rows="3">{{item}}</textarea>
       </mat-form-field>
     </div-->
 

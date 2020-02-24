@@ -87,6 +87,7 @@ const routes: Routes = [
     ReferidoPerfilComponent,
     UpdateDeleteDialogComponent,
     NuevaReferenciaComponent,
+    UpdateDeleteDialogComponent
   ],
 })
 export class EgresadosModule { }

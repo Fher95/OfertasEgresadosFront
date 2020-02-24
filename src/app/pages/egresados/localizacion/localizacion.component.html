@@ -1,4 +1,4 @@
-<div id='content'>
+<div class="card-column-1">
   <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
     <mat-label>{{mensaje1}}</mat-label>
     <mat-select [formControl]="paisFormControl" required (selectionChange)="obtenerDepartamento()">
@@ -9,7 +9,7 @@
     <mat-error *ngIf="paisFormControl.hasError('required')">Campo requerido</mat-error>
   </mat-form-field>
 </div>
-<div id='content'>
+<div class="card-column-2">
   <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
     <mat-label>{{mensaje2}}</mat-label>
     <mat-select [formControl]="departamentoFormControl" required (selectionChange)="obtenerCiudad()">
@@ -21,7 +21,7 @@
     </mat-error>
   </mat-form-field>
 </div>
-<div id='content'>
+<div class="card-column-3">
   <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
     <mat-label>{{mensaje3}}</mat-label>
     <mat-select [formControl]="ciudadFormControl" required>
