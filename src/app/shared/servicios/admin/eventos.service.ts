@@ -43,6 +43,10 @@ export class EventosService {
       );
   }
 
+  getImage(filename: string) : Observable<Blob> {
+    return this.http.get<Blob>(`${this.baseUrl}image/eventos/` + filename);
+  }
+
   getA() {
     return this.http.get(`${this.baseUrl}eventos`);
   }

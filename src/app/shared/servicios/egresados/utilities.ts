@@ -23,7 +23,7 @@ export class Utilities {
     return result;
   }
 
-  public static dateToString(date: Date, separator: string): string {
+  public static dateToString(date: Date): string {
     return date == null
       ? ''
       : date.getDate() +

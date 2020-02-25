@@ -50,9 +50,10 @@
           matInput
           [matDatepicker]="fechaInicioPicker"
           placeholder="Fecha de inicio"
-          [(ngModel)]="evento.fechaInicio"
+          [(ngModel)]="minmaxdate.minDate"
           #fechaInicio="ngModel"
           required
+          (dateChange)="minmaxdate.onMinDateSelect()"
           name="fehcaInicio"
         />
         <mat-datepicker-toggle
@@ -75,7 +76,8 @@
           matInput
           [matDatepicker]="fechaFinPicker"
           placeholder="Fecha de finalización"
-          [(ngModel)]="evento.fechaFin"
+          [min]="minmaxdate.minDate"
+          [(ngModel)]="minmaxdate.maxDate"
           #fechaFin="ngModel"
           required
           name="fechaFin"
@@ -159,7 +161,7 @@
       </mat-form-field>
     </div>
     <div class="form-row">
-      <app-egr-file-upload 
+      <app-egr-file-upload
         [text]="'Abrir imagen'"
         [accept]="'.jpg, .png'"
         (importEvent)="importFile($event)"
@@ -167,9 +169,16 @@
     </div>
     <div class="form-row">
       <img
-        src="{{ evento.imagePath }}"
+        *ngIf="!changeImage"
+        src="http://localhost:8081/api/image/{{ evento.imagePath }}"
         alt="Imagen del evento"
-        class="image-thumbnail"
+        class=".img-thumbnail"
+      />
+      <img
+        *ngIf="changeImage"
+        [src]="eventImage"
+        alt="Imagen del evento"
+        class=".img-thumbnail"
       />
     </div>
     <mat-dialog-actions>
@@ -177,17 +186,17 @@
         type="button"
         mat-raised-button
         class="btn btn-danger"
-        (click)="cancelar()"
+        (click)="cancelar(addEventForm)"
       >
         Cancelar
       </button>
       <button
-        [disabled]="addEventForm.invalid"
+        [disabled]="addEventForm.invalid || isSaving"
         type="submit"
         mat-raised-button
         color="primary"
       >
-        Guardar
+        Guardar<mat-spinner *ngIf="isSaving" diameter="30"></mat-spinner>
       </button>
     </mat-dialog-actions>
   </form>

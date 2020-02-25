@@ -30,12 +30,13 @@
             <input
               type="number"
               name="cupos"
-              ngModel
+              [(ngModel)]="cantidadCupos"
               matInput
               #cupos="ngModel"
               required
               placeholder="Cupos"
               min="0"
+              (change)="onCuposChange()"
             />
             <mat-error
               *ngIf="
@@ -57,9 +58,10 @@
               matInput
               [matDatepicker]="fechaInicioPicker"
               placeholder="Fecha de inicio"
-              ngModel
+              [(ngModel)]="dateControl.minDate"
               #fechaInicio="ngModel"
               required
+              (dateChange)="dateControl.onMinDateSelect()"
               name="fechaInicio"
             />
             <mat-datepicker-toggle
@@ -82,8 +84,11 @@
               matInput
               [matDatepicker]="fechaFinPicker"
               placeholder="Fecha de finalización"
-              ngModel
+              [min]="dateControl.minDate"
+              [(ngModel)]="dateControl.maxDate"
               #fechaFin="ngModel"
+              (change)=
+              "dateControl.onMaxDateSelect()"
               required
               name="fechaFin"
             />
@@ -179,18 +184,17 @@
             type="button"
             mat-raised-button
             class="btn btn-danger"
-            (click)="addEventForm.reset()"
+            (click)="onCancelar(addEventForm)"
           >
             Cancelar
           </button>
           <button
-            [disabled]="addEventForm.invalid"
+            [disabled]="addEventForm.invalid || isSaving"
             type="submit"
             mat-raised-button
             color="primary"
-            (click)="onSave(addEventForm)"
           >
-            Guardar
+            Guardar<mat-spinner *ngIf="isSaving" diameter="30"></mat-spinner>
           </button>
         </mat-card-actions>
       </form>

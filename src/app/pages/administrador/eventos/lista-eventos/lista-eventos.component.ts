@@ -2,7 +2,7 @@ import { EventosSharedService } from './../eventos-shared.service';
 import { Utilities } from './../../../../shared/servicios/egresados/utilities';
 import { EventoModel } from 'src/app/shared/modelos/evento.model';
 import { startWith, switchMap, map, catchError } from 'rxjs/operators';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { EventosService } from 'src/app/shared/servicios/admin/eventos.service';
 import { NgForm } from '@angular/forms';
 import {
@@ -13,6 +13,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { merge, of } from 'rxjs';
+import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/common/date-format';
 
 @Component({
   selector: 'app-lista-eventos',
@@ -71,6 +72,10 @@ export class ListaEventosComponent implements OnInit, AfterViewInit {
       });
   }
 
+  toDate(str) {
+    return Utilities.parseStringToDate(str, '/');
+  }
+
   filtarEventos(form: NgForm) {
     console.log('Buscando eventos outside the if');
     if (form.value.lugar !== '' || form.value.fecha !== '') {
@@ -79,7 +84,7 @@ export class ListaEventosComponent implements OnInit, AfterViewInit {
         lugar: form.value.lugar,
         fecha:
           form.value.fecha !== ''
-            ? Utilities.dateToString(form.value.fecha, '/')
+            ? Utilities.dateToString(form.value.fecha)
             : ''
       };
     } else {
