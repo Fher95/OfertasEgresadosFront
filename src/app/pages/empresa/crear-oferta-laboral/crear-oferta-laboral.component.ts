@@ -262,8 +262,9 @@ datosFormChecked: FormGroup;
   //Agrega un idioma temporalmente
   agregarIdioma(form)
   {
+    console.log("data: ", form);
     let seEncuentraIdioma = false
-    for(let i=0; this.idiomasEscogidos.length;i++)
+    for(let i=0; i < this.idiomasEscogidos.length;i++)
     {
       if(this.idiomasEscogidos[i].nombre == form.value.nombre )
       { 
@@ -286,7 +287,7 @@ datosFormChecked: FormGroup;
   agregarSoftware(form)
   {
     let seEncuentraSoftware = false
-    for(let i=0; this.softwaresEscogidos.length;i++)
+    for(let i=0; i < this.softwaresEscogidos.length;i++)
     {
       if(this.softwaresEscogidos[i].nombre == form.value.nombre )
       { 
