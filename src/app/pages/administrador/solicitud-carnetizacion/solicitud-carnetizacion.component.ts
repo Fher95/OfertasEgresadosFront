@@ -51,16 +51,12 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   }
 
   private enviarSolicitudCarnet(solicitud, index, estado) {
-    console.log("esto trae la variable "+estado);
-
     this.alert.showconfirmationMessage('¿Aceptar Solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
         this.catalogoService.enviarRespuestaSolicitud(solicitud, estado);
         this.solicitudes.splice(index, 1);
       }
     });
-
-
   }
 
   private cancelarSolicitudCarnet(solicitud,index, estado) {
@@ -72,3 +68,4 @@ export class SolicitudCarnetizacionComponent implements OnInit {
     });
   }
 }
+

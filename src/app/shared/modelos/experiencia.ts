@@ -10,7 +10,7 @@ export class Experiencia{
     tipo_contrato:string;
     sector:string;
     fecha_inicio:Date;
-    fecha_fin:Date;
+    fecha_fin?:Date;
 
     constructor()
     {

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ReferenciaPersonalModel } from 'src/app/shared/modelos/referencia-personal.model';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { Referido } from 'src/app/shared/modelos/referido';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 import { ReferidoPerfilComponent } from '../referido-perfil/referido-perfil.component';
+import { NuevaReferenciaComponent } from '../nueva-referencia/nueva-referencia.component';
+import { Referido } from 'src/app/shared/modelos/referido';
 @Component({
   selector: 'app-refencia-personal',
   templateUrl: './refencia-personal.component.html',
@@ -13,7 +14,7 @@ export class RefenciaPersonalComponent implements OnInit {
   columnas: string[] = ['nombres', 'parentesco', 'celular', 'acciones'];
   
   @Input()
-  public referidos: ReferenciaPersonalModel[];
+  public referidos: Referido[];
 
   varReferido : Referido;
     
@@ -22,14 +23,22 @@ export class RefenciaPersonalComponent implements OnInit {
   ngOnInit() { }
   
   agregarReferido(){
-    /*console.log('entro agregar');
-    this.dialog.open.afterClosed().subscribe(
-      resultado => {  this.varReferido = resultado;
+    console.log('entro agregar');
+    /*const dialogConfig = new MatDialogConfig();
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.varReferido;
+    dialogConfig.maxHeight = '1000px';
+    const dialogRef = this.dialog.open(NuevaReferenciaComponent,dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      resultado => {  
+        console.log('resul '+resultado);
+        console.log('No creo que funcione '+this.varReferido.nombre);
       }
-    );
-    console.log('Referido: '+this.varReferido.nombres);
-    console.log('referido a agregar'+resultado.nombres);
-        var bandera:boolean=true;
+    );*/
+  
+/*        var bandera:boolean=true;
         if(!this.referidos) {
           this.referidos = [];
         }
@@ -49,26 +58,31 @@ export class RefenciaPersonalComponent implements OnInit {
         }*/
   }
 
-  eliminarReferido(referido: ReferenciaPersonalModel){
-    /*console.log('Referido a eliminar: ' + referido);
-    const index = this.referidos.indexOf(referido);
-    if(index >= 0) {
-      this.referidos.splice(index, 1);
-      this.dataReferidos = new MatTableDataSource<any>(this.referidos);
-      console.log('Referido eliminado');
-    }*/
+  eliminarReferido(referido: Referido){
+    console.log('Referido a eliminar: ' + referido);
+    if(this.referidos.length>2){
+      const index = this.referidos.indexOf(referido);
+      if(index >= 0) {
+        this.referidos.splice(index, 1);
+        console.log('Referido eliminado');
+      }
+    }
+    else{
+      this.alert.showErrorMessage('Error','No se puede eliminar, debe tener mínimo dos referencias.');
+    }
   }
 
-  verReferido(referido: ReferenciaPersonalModel) {
+  verReferido(referido: Referido) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.hasBackdrop = true;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = referido;
-    dialogConfig.maxHeight = '600px';
+    dialogConfig.maxHeight = '1000px';
     const dialogRef = this.dialog.open(ReferidoPerfilComponent,dialogConfig);
     dialogRef.afterClosed().subscribe(response => {
       console.log(response);
     });
   }
 }
+
