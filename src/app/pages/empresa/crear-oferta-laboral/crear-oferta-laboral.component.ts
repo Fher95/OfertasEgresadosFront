@@ -262,7 +262,6 @@ datosFormChecked: FormGroup;
   //Agrega un idioma temporalmente
   agregarIdioma(form)
   {
-    console.log("data: ", form);
     let seEncuentraIdioma = false
     for(let i=0; i < this.idiomasEscogidos.length;i++)
     {
