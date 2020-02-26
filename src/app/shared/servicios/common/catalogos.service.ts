@@ -99,9 +99,9 @@ export class CatalogosService {
   }
 //admin
   enviarRespuestaSolicitud(idSolicitud: number, estado) {
-    console.log("esto es lo que manda: "+estado);
+    console.log("esto es lo que manda: "+estado.estado);
     console.log("esto es lo que manda en el id: "+idSolicitud);
-     return this.http.put(`${baseUrl}enviarEstadoSolicitudCarnet/${idSolicitud}`,{estado});
+     return this.http.put(`${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}`,{estado});
   }n
 //egresado
   enviarSolicitudCarnet(idEgresado: number, solicitud) {
