@@ -6,7 +6,7 @@ import {
   MAT_DATE_FORMATS
 } from '@angular/material';
 import { NgForm } from '@angular/forms';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { EventoModel } from 'src/app/shared/modelos/evento.model';
 import { EventosService } from 'src/app/shared/servicios/admin/eventos.service';
 import { map } from 'rxjs/operators';
@@ -16,6 +16,8 @@ import {
 } from 'src/app/shared/common/date-format';
 import { DateMinMaxControl } from 'src/app/shared/common/date-min-max';
 import { Utilities } from 'src/app/shared/servicios/egresados/utilities';
+import { environment } from 'src/environments/environment';
+import { EgrFileUploadComponent } from '../egr-file-upload/egr-file-upload.component';
 
 @Component({
   selector: 'app-dialogo-actualizar-evento',
@@ -33,6 +35,8 @@ export class DialogoActualizarEventoComponent implements OnInit {
   changeImage = false;
   isSaving = false;
   minmaxdate: DateMinMaxControl;
+  eventImageApi = `${environment.baseUrl}image/`;
+  urlImage = '';
 
   constructor(
     private dialogRef: MatDialogRef<DialogoActualizarEventoComponent>,
@@ -41,12 +45,19 @@ export class DialogoActualizarEventoComponent implements OnInit {
     private eventoService: EventosService
   ) {
     this.evento = data;
+    console.log("Id Evento a actualizar: " + this.evento.id);
   }
 
   ngOnInit() {
     this.minmaxdate = new DateMinMaxControl();
-    this.minmaxdate.minDate = new Date(this.evento.fechaInicio);
-    this.minmaxdate.maxDate = new Date(this.evento.fechaFin);
+    this.minmaxdate.minDate = Utilities.parseStringToDate(
+      this.evento.fechaInicio,
+      '/'
+    );
+    this.minmaxdate.maxDate = Utilities.parseStringToDate(
+      this.evento.fechaFin,
+      '/'
+    );
   }
 
   onSave(form: NgForm) {
@@ -64,6 +75,7 @@ export class DialogoActualizarEventoComponent implements OnInit {
         )
         .subscribe(
           data => {
+            this.evento.imagePath = data.imagePath;
             this.alertService
               .showSuccesMessage(
                 'Éxito',
@@ -82,9 +94,16 @@ export class DialogoActualizarEventoComponent implements OnInit {
     }
   }
 
-  importFile(file: File) {
+  importUpdateFile(file: File) {
+    this.changeImage = true;
     this.eventImage = file;
-    this.evento.imagePath = file;
+    this.evento.imagePath = 'changed';
+    // load urlImage
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.urlImage = reader.result as string;
+    };
   }
 
   cancelar(frm: NgForm) {

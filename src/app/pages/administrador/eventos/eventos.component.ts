@@ -49,7 +49,7 @@ export class EventosComponent implements OnInit, OnDestroy {
       dialogConfig
     );
     dialogRef.afterClosed().subscribe(response => {
-      // ...
+      this.procesarGuardar(null);
     });
   }
 

@@ -37,6 +37,7 @@ export class RegistroEventoComponent implements OnInit {
   }
 
   importFile(file: File) {
+    console.log("File uploaded");
     this.eventImage = file;
   }
 

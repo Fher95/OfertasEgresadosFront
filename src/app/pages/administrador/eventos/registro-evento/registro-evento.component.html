@@ -26,7 +26,7 @@
               El nombre del evento es requerido
             </mat-error>
           </mat-form-field>
-          <mat-form-field  appearance="outline" class="form-group col-md-3">
+          <mat-form-field appearance="outline" class="form-group col-md-3">
             <input
               type="number"
               name="cupos"
@@ -87,8 +87,7 @@
               [min]="dateControl.minDate"
               [(ngModel)]="dateControl.maxDate"
               #fechaFin="ngModel"
-              (change)=
-              "dateControl.onMaxDateSelect()"
+              (change)="dateControl.onMaxDateSelect()"
               required
               name="fechaFin"
             />
@@ -178,6 +177,7 @@
             [accept]="'.jpg, .png'"
             (importEvent)="importFile($event)"
           ></app-egr-file-upload>
+          Hola mundo, this is a test
         </div>
         <mat-card-actions>
           <button

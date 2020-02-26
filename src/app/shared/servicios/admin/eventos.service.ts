@@ -12,7 +12,7 @@ import { ArrayRHttpResponse } from '../../base/array-r-http-response';
 })
 export class EventosService {
   private baseUrl: string = `${environment.baseUrl}admin/`;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   save(evento: EventoModel, fileInput: File) {
     const formData = new FormData();
@@ -28,22 +28,29 @@ export class EventosService {
   }
 
   update(evento: EventoModel, fileInput: File): Observable<EventoModel> {
-    const formData = new FormData();
-    formData.append('fileInput', fileInput);
-    return this.http
-      .put<EventoModel>(`${this.baseUrl}eventos`, {
-        evento,
-        'file': formData
-      }
-      )
-      .pipe(
-        map(response => {
-          return response;
-        })
-      );
+    const formData = this.getFormData(evento, fileInput);
+    return this.http.post<EventoModel>(`${this.baseUrl}eventos/${evento.id}`, formData).pipe(
+      map(response => {
+        return response;
+      })
+    );
   }
 
-  getImage(filename: string) : Observable<Blob> {
+  getFormData(evento: EventoModel, fileInput: File): FormData {
+    const formData = new FormData();
+    formData.set('fileInput', fileInput);
+    formData.set('nombre', evento.nombre);
+    formData.set('lugar', evento.lugar);
+    formData.set('descripcion', evento.descripcion);
+    formData.set('fechaInicio', evento.fechaInicio);
+    formData.set('fechaFin', evento.fechaFin);
+    formData.set('imagePath', evento.imagePath);
+    formData.set('cupos', evento.cupos.toString());
+    formData.set('dirigidoA', evento.dirigidoA);
+    return formData;
+  }
+
+  getImage(filename: string): Observable<Blob> {
     return this.http.get<Blob>(`${this.baseUrl}image/eventos/` + filename);
   }
 
@@ -72,8 +79,6 @@ export class EventosService {
       params: httpParams
     });
   }
-
-
 }
 
 export interface EventoResponse {

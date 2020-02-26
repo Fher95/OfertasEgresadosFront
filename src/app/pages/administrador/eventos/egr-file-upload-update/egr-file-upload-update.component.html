@@ -1,8 +1,8 @@
 <div class="row">
   <input
     type="file"
-    name="fileUpload"
-    id="fileUpload"
+    name="fileUploadUpdate"
+    id="fileUploadUpdate"
     style="display:none;"
     accept="{{ accept }}"
     ngModel
@@ -22,7 +22,7 @@
       required
     />
     <mat-error *ngIf="file.invalid && file.hasError('required')">
-      Debe seleccionar un archivo.
+      Campo requerido
     </mat-error>
   </mat-form-field>
   <div class="col-md-3">

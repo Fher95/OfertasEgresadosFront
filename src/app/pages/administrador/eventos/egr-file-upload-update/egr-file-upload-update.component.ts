@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-egr-file-upload',
-  templateUrl: './egr-file-upload.component.html',
-  styleUrls: ['./egr-file-upload.component.css']
+  selector: 'app-egr-file-upload-update',
+  templateUrl: './egr-file-upload-update.component.html',
+  styleUrls: ['./egr-file-upload-update.component.css']
 })
-export class EgrFileUploadComponent implements OnInit {
+export class EgrFileUploadUpdateComponent implements OnInit {
   fileText: string | null;
   @Output() importEvent: EventEmitter<File> = new EventEmitter<File>();
 
@@ -29,7 +29,7 @@ export class EgrFileUploadComponent implements OnInit {
 
   onClick() {
     const fileUploadComp = document.getElementById(
-      'fileUpload'
+      'fileUploadUpdate'
     ) as HTMLInputElement;
     fileUploadComp.click();
   }
