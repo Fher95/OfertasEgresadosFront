@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <form #addEventForm="ngForm" invalidate (ngSubmit)="onSave(addEventForm)">
     <div class="form-row">
-      <mat-form-field class="form-group col-md-9">
+      <mat-form-field appearance="outline" class="form-group col-md-9">
         <input
           type="text"
           name="nombre"
@@ -17,10 +17,10 @@
             nombre.invalid && nombre.touched && nombre.hasError('required')
           "
         >
-          El nombre del evento es requerido
+          Campo requerido
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="form-group col-md-3">
+      <mat-form-field appearance="outline" class="form-group col-md-3">
         <input
           type="number"
           name="cupos"
@@ -30,13 +30,6 @@
           placeholder="Cupos"
           min="0"
         />
-        <!-- <mat-error
-              *ngIf="
-                cupos.invalid && cupos.touched && cupos.hasError('required')
-              "
-            >
-              La cantidad de cupos del evento es requerida
-            </mat-error> -->
         <mat-error
           *ngIf="cupos.invalid && cupos.touched && cupos.hasError('min')"
         >
@@ -45,7 +38,7 @@
       </mat-form-field>
     </div>
     <div class="form-row">
-      <mat-form-field class="form-group col-md-6">
+      <mat-form-field appearance="outline" class="form-group col-md-6">
         <input
           matInput
           [matDatepicker]="fechaInicioPicker"
@@ -68,10 +61,10 @@
             fechaInicio.hasError('required')
           "
         >
-          Debe seleccionar una fecha de inicio
+          Campo requerido
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="form-group col-md-6">
+      <mat-form-field appearance="outline" class="form-group col-md-6">
         <input
           matInput
           [matDatepicker]="fechaFinPicker"
@@ -99,7 +92,7 @@
       </mat-form-field>
     </div>
     <div class="form-row">
-      <mat-form-field class="col-md-12 form-group">
+      <mat-form-field appearance="outline" class="col-md-12 form-group">
         <input
           type="text"
           matInput
@@ -117,7 +110,7 @@
       </mat-form-field>
     </div>
     <div class="form-row">
-      <mat-form-field class="form-group col-md-12">
+      <mat-form-field appearance="outline" class="form-group col-md-12">
         <textarea
           matInput
           name="descripcion"
@@ -139,7 +132,7 @@
       </mat-form-field>
     </div>
     <div class="form-row">
-      <mat-form-field class="form-group col-md-12">
+      <mat-form-field appearance="outline" class="form-group col-md-12">
         <textarea
           matInput
           placeholder="Dirigido a"
@@ -161,24 +154,24 @@
       </mat-form-field>
     </div>
     <div class="form-row">
-      <app-egr-file-upload
-        [text]="'Abrir imagen'"
+      <app-egr-file-upload-update
+        [text]="'Abrir una imagen'"
         [accept]="'.jpg, .png'"
-        (importEvent)="importFile($event)"
-      ></app-egr-file-upload>
+        (importEvent)="importUpdateFile($event)"
+        ></app-egr-file-upload-update>
     </div>
     <div class="form-row">
       <img
         *ngIf="!changeImage"
-        src="http://localhost:8081/api/image/{{ evento.imagePath }}"
+        [src]="eventImageApi+evento.imagePath"
         alt="Imagen del evento"
-        class=".img-thumbnail"
+        class="img-thumbnail img-fluid mt-2 mb-2"
       />
       <img
         *ngIf="changeImage"
-        [src]="eventImage"
+        [src]="urlImage"
         alt="Imagen del evento"
-        class=".img-thumbnail"
+        class="img-thumbnail mt-2 mb-2 img-fluid"
       />
     </div>
     <mat-dialog-actions>
