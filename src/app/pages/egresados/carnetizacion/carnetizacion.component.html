@@ -40,10 +40,14 @@
         <!--Si el estado de solicitud de carnet es aceptado-->
         <div *ngIf="estadoCarnet == 'RESPONDIDO'" align="center">
           <p>{{mensajeEstadoAceptado}}</p>
+          <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
+          <button class='boton' color="primary" (click)="solicitudCarnet('PENDIENTE')"   mat-button>Solicitar</button>
         </div>
         <!--Si el estado de solicitud de carnet es rechazado-->
         <div *ngIf="estadoCarnet == 'RECHAZADO'" align="center">
           <p>{{mensajeEstadoRechazado}}</p>
+          <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
+          <button class='boton' color="primary" (click)="solicitudCarnet('PENDIENTE')"   mat-button>Solicitar</button>
         </div>
       </form>
 
