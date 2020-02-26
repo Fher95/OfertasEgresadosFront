@@ -114,5 +114,9 @@ export class CatalogosService {
     return this.http.get<ArrayRHttpResponse<EventoInterface[]>>(`${baseUrl}eventos`);
   }
 
+  public getImagenEventos(imagePath): Observable<any> {
+    return this.http.get<any>(`${baseUrl}image/eventos/${imagePath}`);
+  }
+
   public updateImage(eventId: string, files: Array<File>) {}
 }

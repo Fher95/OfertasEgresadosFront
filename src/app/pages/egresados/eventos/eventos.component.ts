@@ -51,13 +51,16 @@ export class EventosComponent implements OnInit {
     });
   }
 
-  verEvento(json: EventoInterface,indice: number ) {
+  verEvento(indice: number ) {
     var eventCloned: EventoInterface = this.eventos[indice];
     console.log("evento visto:"+ eventCloned.descripcion);
     let data: Data = { event: eventCloned };
     this.dialog.open(VerEventoComponent,{ data: data }).beforeClosed().subscribe(result => { });
   }
 
+  obtenerImagen(imagenPath){
+    this.servicios.getImagenEventos(imagenPath).subscribe();
+  }
   obtenerDescripcionCorta(description) {
     var result = description;
     if (description.length > this.maxDescLength) {
