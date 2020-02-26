@@ -51,6 +51,8 @@ export class SolicitudCarnetizacionComponent implements OnInit {
   }
 
   private enviarSolicitudCarnet(idSolicitud, index, estado) {
+
+
     let mensaje: string;
     if(estado== "RECHAZADO"){
       mensaje = '¿Cancelar solicitud?';
@@ -59,7 +61,7 @@ export class SolicitudCarnetizacionComponent implements OnInit {
     }
     this.alert.showconfirmationMessage(mensaje, 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarRespuestaSolicitud(idSolicitud, estado).subscribe();
+        this.catalogoService.enviarRespuestaSolicitud(idSolicitud, estado).subscribe(result=>{ console.log("si funciona")});
         this.solicitudes.splice(index, 1);
       }
     });
