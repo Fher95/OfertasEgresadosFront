@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Componentes y servicios proprios
 import { EventoInterface } from '../../../shared/modelos/evento';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
+import { EventosService } from '../../../shared/servicios/admin/eventos.service';
 import { VerEventoComponent, Data } from '../ver-evento/ver-evento.component';
 import { map, catchError } from 'rxjs/operators';
 import { merge, of } from 'rxjs';
@@ -23,7 +24,7 @@ export class EventosComponent implements OnInit {
   private msgError: String;
   isLoadingResults: boolean;
 
-  constructor(public dialog: MatDialog, private servicios: CatalogosService) {
+  constructor(public dialog: MatDialog, private servicios: CatalogosService, private seviciosEvento: EventosService) {
     this.eventos = [];
     this.maxDescLength = 200;
    }
@@ -59,7 +60,7 @@ export class EventosComponent implements OnInit {
   }
 
   obtenerImagen(imagenPath){
-    this.servicios.getImagenEventos(imagenPath).subscribe();
+    //this.seviciosEvento.(imagenPath).subscribe();
   }
   obtenerDescripcionCorta(description) {
     var result = description;

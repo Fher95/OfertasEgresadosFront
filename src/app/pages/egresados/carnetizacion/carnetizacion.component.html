@@ -12,18 +12,19 @@
         <div *ngIf="estadoEgres == true && estadoInfoEgresado == false" align="center">
           <p>{{mensajeCompletar}}</p>
           {{entro(1)}}
-          <button class='boton' color="primary" mat-button>Completar</button>
+          <button class='boton' color="primary" onclick="location.href='egresados/completarRegistro'" mat-button>Completar</button>
         </div>
 
         <!--Si el egresado no esta validado en el sistema-->
         <div *ngIf="estadoEgres == false" align="center">
           <p>{{mensajeEstadoEgresado}}</p>
           {{entro(3)}}
-          <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
+          <button class='boton' color="primary" onclick="location.href='/egresados'" mat-button>Salir</button>
         </div>
         <!--Si el egresado no ha solicitado un carnet-->
         <div *ngIf="estadoEgres && estadoCarnet == '' && estadoInfoEgresado" align="center">
-          <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
+          <p>Aún no has solicitado tu carnet</p>
+          <button class='boton' color="primary" onclick="location.href='/egresados'" mat-button>Salir</button>
           <button class='boton' color="primary" (click)="solicitudCarnet('PENDIENTE')"   mat-button>Solicitar</button>
         </div>
 
@@ -33,20 +34,20 @@
         <!--Si el estado de solicitud de carnet es pendiente-->
         <div *ngIf="estadoCarnet == 'PENDIENTE'" align="center">
           <p>{{mensajeEstado}}</p>
-          <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
+          <button class='boton' color="primary" onclick="location.href='/egresados'" mat-button>Salir</button>
           <button class='botonCancelar' (click)="solicitudCarnet('CANCELADO')" mat-button>Cancelar </button>
         </div>
 
         <!--Si el estado de solicitud de carnet es aceptado-->
         <div *ngIf="estadoCarnet == 'RESPONDIDO'" align="center">
           <p>{{mensajeEstadoAceptado}}</p>
-          <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
+          <button class='boton' color="primary" onclick="location.href='/egresados'" mat-button>Salir</button>
           <button class='boton' color="primary" (click)="solicitudCarnet('PENDIENTE')"   mat-button>Solicitar</button>
         </div>
         <!--Si el estado de solicitud de carnet es rechazado-->
         <div *ngIf="estadoCarnet == 'RECHAZADO'" align="center">
           <p>{{mensajeEstadoRechazado}}</p>
-          <button class='boton' color="primary" onclick="location.href='home'" mat-button>Salir</button>
+          <button class='boton' color="primary" onclick="location.href='/egresados'" mat-button>Salir</button>
           <button class='boton' color="primary" (click)="solicitudCarnet('PENDIENTE')"   mat-button>Solicitar</button>
         </div>
       </form>
