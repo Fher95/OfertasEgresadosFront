@@ -102,20 +102,16 @@ export class CatalogosService {
     console.log("esto es lo que manda: "+estado.estado);
     console.log("esto es lo que manda en el id: "+idSolicitud);
      return this.http.put(`${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}`,{estado});
-  }n
+  }
 //egresado
   enviarSolicitudCarnet(idEgresado: number, solicitud) {
-    console.log("esto es lo que manda: "+solicitud.solicitud);
+    console.log("esto es lo que manda: "+solicitud);
     console.log("esto es lo que manda en el id: "+idEgresado);
     return this.http.put(`${baseUrl}enviarEstadoSolicitudCarnet/${idEgresado}`,{solicitud});
   }
 
   public getEventos(): Observable<ArrayRHttpResponse<EventoInterface[]>> {
     return this.http.get<ArrayRHttpResponse<EventoInterface[]>>(`${baseUrl}eventos`);
-  }
-
-  public getImagenEventos(imagePath): Observable<any> {
-    return this.http.get<any>(`${baseUrl}image/eventos/${imagePath}`);
   }
 
   public updateImage(eventId: string, files: Array<File>) {}
