@@ -29,10 +29,10 @@ export class CarnetizacionComponent implements OnInit {
     private router: Router
   ) {
     this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar' para poder continuar.";
-    this.mensajeEstado = 'Existen una solicitud de carnetización pendiente.';
-    this.mensajeEstadoAceptado = 'Tu solicitud de carnetización a sido Aceptada';
-    this.mensajeEstadoRechazado = 'Tu solicitud de carnetización a sido Rechazada.';
-    this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema por favor dirigirse al area de EGRESADOS';
+    this.mensajeEstado = 'Tu solicitud de carnetización aún no ha sido respondida';
+    this.mensajeEstadoAceptado = 'Tu solicitud de carnetización ha sido ACEPTADA';
+    this.mensajeEstadoRechazado = 'Tu solicitud de carnetización ha sido RECHAZADA.';
+    this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema, por favor dirigirse al área de EGRESADOS';
   }
 
   ngOnInit() {

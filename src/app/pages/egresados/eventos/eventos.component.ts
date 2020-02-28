@@ -52,15 +52,15 @@ export class EventosComponent implements OnInit {
     });
   }
 
-  verEvento(indice: number ) {
-    var eventCloned: EventoInterface = this.eventos[indice];
-    console.log("evento visto:"+ eventCloned.descripcion);
+  verEvento(evento: EventoInterface) {
+    var eventCloned: EventoInterface = evento;
+    console.log("evento visto:"+eventCloned);
     let data: Data = { event: eventCloned };
     this.dialog.open(VerEventoComponent,{ data: data }).beforeClosed().subscribe(result => { });
   }
-
+  imagen: Blob;
   obtenerImagen(imagenPath){
-    //this.seviciosEvento.(imagenPath).subscribe();
+    this.seviciosEvento.getImage(imagenPath).subscribe(response=>{this.imagen = response});
   }
   obtenerDescripcionCorta(description) {
     var result = description;
