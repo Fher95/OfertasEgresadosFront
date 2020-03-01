@@ -92,6 +92,89 @@
       </mat-form-field>
     </div>
     <div class="form-row">
+      <mat-form-field class="col-md-6" appearance="outline">
+        <input
+          type="text"
+          matInput
+          placeholder="Hora de inicio"
+          [(ngModel)]="evento.horaInicio"
+          #horaInicio="ngModel"
+          name="horaInicio"
+          required
+          pattern="^\d\d:\d\d$"
+          hourDomain
+        />
+        <mat-error
+          *ngIf="
+            horaInicio.errors?.required &&
+            horaInicio.invalid &&
+            (horaInicio.dirty || horaInicio.touched)
+          "
+        >
+          Campo requerido
+        </mat-error>
+        <mat-error
+          *ngIf="
+            horaInicio.errors?.pattern &&
+            horaInicio.invalid &&
+            (horaInicio.dirty || horaInicio.touched)
+          "
+        >
+          El formato de la hora es HH:MM
+        </mat-error>
+        <mat-error
+          *ngIf="
+            horaInicio.hasError('hourDomain') &&
+            horaInicio.invalid &&
+            (horaInicio.dirty || horaInicio.touched)
+          "
+        >
+          Debe ingresar una hora válida (formato 24 horas)
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-6" appearance="outline">
+        <input
+          type="text"
+          matInput
+          placeholder="Hora de fin"
+          [(ngModel)]="evento.horaFin"
+          #horaFin="ngModel"
+          name="horaFin"
+          required
+          pattern="^\d\d:\d\d$"
+          hourDomain
+        />
+        <mat-error
+          *ngIf="
+            horaFin.errors?.required &&
+            horaFin.invalid &&
+            (horaFin.dirty || horaFin.touched)
+          "
+        >
+          Campo requerido
+        </mat-error>
+        <mat-error
+          *ngIf="
+            horaFin.errors?.pattern &&
+            horaFin.invalid &&
+            (horaFin.dirty || horaFin.touched)
+          "
+        >
+          El formato de la hora es HH:MM
+        </mat-error>
+        <mat-error
+          *ngIf="
+            horaFin.hasError('hourDomain') &&
+            horaFin.invalid &&
+            (horaFin.dirty || horaFin.touched)
+          "
+        >
+          Debe ingresar una hora válida (formato 24 horas)
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
       <mat-form-field appearance="outline" class="col-md-12 form-group">
         <input
           type="text"
@@ -155,15 +238,16 @@
     </div>
     <div class="form-row">
       <app-egr-file-upload-update
-        [text]="'Abrir una imagen'"
-        [accept]="'.jpg, .png'"
+        #fileInput
+        [text]="'Agregar imagen'"
+        [accept]="'.jpg,.png'"
         (importEvent)="importUpdateFile($event)"
-        ></app-egr-file-upload-update>
+      ></app-egr-file-upload-update>
     </div>
     <div class="form-row">
       <img
         *ngIf="!changeImage"
-        [src]="eventImageApi+evento.imagePath"
+        [src]="eventImageApi + evento.imagePath"
         alt="Imagen del evento"
         class="img-thumbnail img-fluid mt-2 mb-2"
       />

@@ -15,25 +15,19 @@ export class EventosService {
   constructor(private http: HttpClient) {}
 
   save(evento: EventoModel, fileInput: File) {
-    const formData = new FormData();
-    formData.set('fileInput', fileInput);
-    formData.set('nombre', evento.nombre);
-    formData.set('lugar', evento.lugar);
-    formData.set('descripcion', evento.descripcion);
-    formData.set('fechaInicio', evento.fechaInicio);
-    formData.set('fechaFin', evento.fechaFin);
-    formData.set('cupos', evento.cupos.toString());
-    formData.set('dirigidoA', evento.dirigidoA);
+    const formData = this.getFormData(evento, fileInput);
     return this.http.post(`${this.baseUrl}eventos`, formData);
   }
 
   update(evento: EventoModel, fileInput: File): Observable<EventoModel> {
     const formData = this.getFormData(evento, fileInput);
-    return this.http.post<EventoModel>(`${this.baseUrl}eventos/${evento.id}`, formData).pipe(
-      map(response => {
-        return response;
-      })
-    );
+    return this.http
+      .post<EventoModel>(`${this.baseUrl}eventos/${evento.id}`, formData)
+      .pipe(
+        map(response => {
+          return response;
+        })
+      );
   }
 
   getFormData(evento: EventoModel, fileInput: File): FormData {
@@ -45,6 +39,8 @@ export class EventosService {
     formData.set('fechaInicio', evento.fechaInicio);
     formData.set('fechaFin', evento.fechaFin);
     formData.set('imagePath', evento.imagePath);
+    formData.set('horaInicio', evento.horaInicio);
+    formData.set('horaFin', evento.horaFin);
     formData.set('cupos', evento.cupos.toString());
     formData.set('dirigidoA', evento.dirigidoA);
     return formData;
