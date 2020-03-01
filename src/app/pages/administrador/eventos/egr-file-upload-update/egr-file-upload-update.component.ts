@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-egr-file-upload-update',
@@ -15,16 +16,33 @@ export class EgrFileUploadUpdateComponent implements OnInit {
   @Input()
   accept: string;
 
-  constructor() {}
+  isCancelPress: boolean = false;
+
+  constructor(private alertService: AlertService) {}
 
   ngOnInit() {}
 
   onFileChange(fileList: FileList) {
-    this.fileText = Array.from(fileList)
-      .map(f => f.name)
-      .join(', ');
-    this.fileToUpload = fileList.item(0);
-    this.importEvent.emit(this.fileToUpload);
+    if (this.isCancelPress) {
+      this.fileText = '';
+      this.isCancelPress = false;
+    } else {
+      this.fileText = Array.from(fileList)
+        .map(f => f.name)
+        .join(', ');
+        let extension = this.fileText.split('.').pop();
+        let finding = false;
+        this.accept.split(',').forEach((value, idx) => {
+          if (value.trim() == extension) finding = true;
+        });
+        if(finding){
+          this.fileToUpload = fileList.item(0);
+          this.importEvent.emit(this.fileToUpload);
+        } else {
+          this.fileText = '';
+          this.alertService.showErrorMessage('Error', 'Solo se permiten extensiónes ' + this.accept);
+        }
+    }
   }
 
   onClick() {
