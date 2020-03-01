@@ -1,12 +1,23 @@
-<mat-card class="comentario" *ngIf="validarComentarios">
+<mat-card class="comentario" >
   <mat-card-title>Comentarios</mat-card-title>
-  <form [formGroup]="formularioComentario" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formularioComentario" (ngSubmit)="onSubmit()" *ngIf="validarComentarios">
     <div class="comentario" *ngFor="let item of preguntas">
-      <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-        <mat-label >{{item.pregunta}}</mat-label>
-        <input matInput [formControlName]="item.id_aut_comentario" placeholder="Escribe el comentario aquí" required>
-      </mat-form-field> 
+      <div class="comentario" *ngIf="item.pregunta_padre==null">
+        <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+          <mat-label >{{item.pregunta}}</mat-label>
+          <input matInput [formControlName]="item.id_aut_comentario" placeholder="Escribe el comentario aquí" required>
+        </mat-form-field> 
+      </div>
+      <!--div class="comentario" *ngIf="item.pregunta_padre!=null">
+        <div class="comentario" *ngIf="obtenerValorPregunta(item.pregunta_padre)=='si'">
+          <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+            <mat-label >{{item.pregunta}}</mat-label>
+            <input matInput [formControlName]="item.id_aut_comentario" placeholder="Escribe el comentario aquí" required>
+          </mat-form-field> 
+        </div>
+      </div-->
     </div>
     <button mat-raised-button color="primary" type="submit"> Agregar comentario</button>
   </form>
+  <mat-card-subtitle *ngIf="validarComentarios==false">Comentarios adicionados correctamente.</mat-card-subtitle>
 </mat-card>

@@ -1,5 +1,5 @@
 <app-nav-egresados> </app-nav-egresados>
-<div> <!--*ngIf="estadoCompletar==false"-->
+<div *ngIf="estadoCompletar==false">
   <form class="completarRegistro">
     <mat-card>
       <mat-toolbar color="primary">
@@ -117,14 +117,11 @@
     </mat-card>
   </form>
 </div>
-<div ><!--*ngIf="estadoCompletar==true"-->
+<div *ngIf="estadoCompletar==true">
   <mat-card>
     <mat-toolbar color="primary">
       <span class="titulo">Completar información</span>
     </mat-toolbar>
     <mat-card-title>Usted ya completó la información adicional.</mat-card-title>
-    <!--mat-card-content>
-      <p> Usted ya completó la información adicional. </p>
-    </mat-card-content-->
   </mat-card>
 </div>

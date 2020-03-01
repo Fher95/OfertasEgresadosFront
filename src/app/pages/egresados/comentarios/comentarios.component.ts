@@ -18,8 +18,6 @@ export class ComentariosComponent implements OnInit {
   @Output()
   comentarios: EventEmitter<any> = new EventEmitter<any>();
 
-  //carga ='';
-
   constructor(private formBuilder : FormBuilder,private servicioCompletar: RegistroService,private alert: AlertService) {
     this.formularioComentario = this.formBuilder.group({});
   }
@@ -39,10 +37,10 @@ export class ComentariosComponent implements OnInit {
     });
     return new FormGroup(group);
   }
+  obtenerValorPregunta(posicion : number){
+    return this.formularioComentario.get(posicion.toString()).value;
+  }
   onSubmit(){
-    //this.carga = JSON.stringify(this.formularioComentario.getRawValue());
-    //console.log('carga: '+this.carga);
-    
     if(this.validarCampos()){
       this.preguntas.forEach(element =>{
         var varComentario = new Comentario;
@@ -66,11 +64,19 @@ export class ComentariosComponent implements OnInit {
         cantidad++;
       }
     });
-    console.log('cantidad: '+cantidad);
-
-    if(cantidad == this.preguntas.length){
+    var totalPreguntas = this.preguntas.length - this.cantidadPreguntasDependientes();  
+    if(cantidad >= totalPreguntas){
       bandera = true;
     }
     return bandera;
+  }
+  cantidadPreguntasDependientes(){
+    var cantidad = 0;
+    this.preguntas.forEach(element =>{
+      if(element.pregunta_padre != null){
+        cantidad++;
+      }
+    });
+    return cantidad;
   }
 }

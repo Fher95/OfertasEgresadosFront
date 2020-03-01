@@ -132,7 +132,6 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.referidos.length>=2){
       bandera=true;
     }
-    //bandera=true;
     return bandera;
   }
   validarSigReferido(){
