@@ -28,7 +28,8 @@
           matInput
           #cupos="ngModel"
           placeholder="Cupos"
-          min="0"
+          min="1"
+          (change)="onCuposChange()"
         />
         <mat-error
           *ngIf="cupos.invalid && cupos.touched && cupos.hasError('min')"

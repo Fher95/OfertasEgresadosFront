@@ -112,6 +112,12 @@ export class DialogoActualizarEventoComponent implements OnInit {
     };
   }
 
+  onCuposChange() {
+    if (this.evento.cupos < 1) {
+      this.evento.cupos = 1;
+    }
+  }
+
   cancelar(frm: NgForm) {
     if (frm.dirty || this.changeImage) {
       this.alertService

@@ -37,7 +37,7 @@
               #cupos="ngModel"
               required
               placeholder="Cupos"
-              min="0"
+              min="1"
               (change)="onCuposChange()"
             />
             <mat-error
@@ -281,7 +281,7 @@
             Cancelar
           </button>
           <button
-            [disabled]="addEventForm.invalid || eventImage == null || isSaving"
+            [disabled]="addEventForm.invalid || isSaving"
             type="submit"
             mat-raised-button
             color="primary"

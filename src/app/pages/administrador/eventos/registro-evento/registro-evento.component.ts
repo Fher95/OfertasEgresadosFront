@@ -54,8 +54,8 @@ export class RegistroEventoComponent implements OnInit {
   }
 
   onCuposChange() {
-    if (this.cantidadCupos < 0) {
-      this.cantidadCupos = 0;
+    if (this.cantidadCupos < 1) {
+      this.cantidadCupos = 1;
     }
   }
 
@@ -71,6 +71,7 @@ export class RegistroEventoComponent implements OnInit {
             frm.reset();
             this.fileInput.cancelPress = true;
             this.fileInput.onFileChange(null);
+            this.eventImage = null;
           }
         });
     } else {
@@ -79,51 +80,52 @@ export class RegistroEventoComponent implements OnInit {
   }
 
   onSave(form: NgForm) {
-    console.log(form.value);
-    /*if (!this.eventImage) {
-      this.showImageError = true;
-      return;
-    }*/
-    console.log('Guardando formulario: ' + form.value);
-    if (form.valid) {
-      this.isSaving = true;
-      const evento = new EventoModel();
-      evento.nombre = form.value.nombre;
-      evento.fechaInicio = Utilities.dateToString(this.dateControl.minDate);
-      evento.fechaFin = Utilities.dateToString(this.dateControl.maxDate);
-      console.log('Fecha inicio: ' + evento.fechaInicio);
-      console.log('Fecha fin: ' + evento.fechaFin);
-      evento.descripcion = form.value.descripcion;
-      evento.lugar = form.value.lugar;
-      evento.horaInicio = form.value.horaInicio;
-      evento.horaFin = form.value.horaFin;
-      evento.dirigidoA = form.value.dirigido;
-      evento.cupos = form.value.cupos;
-
-      // Call save api method
-      this.eventosService.save(evento, this.eventImage).subscribe(
-        data => {
-          this.alertService
-            .showSuccesMessage(
-              'Éxito',
-              'El evento se ha registrado satisfactoriamente'
-            )
-            .then(() => {
-              form.reset();
-              this.eventoGuardar.emit();
-              this.isSaving = false;
-              this.fileInput.cancelPress = true;
-              this.fileInput.onFileChange(null);
-            });
-        },
-        err => {
-          this.alertService.showErrorMessage(
-            'Error',
-            'No se puedo registrar el evento'
-          );
-          this.isSaving = false;
-        }
+    if (this.eventImage == null) {
+      this.alertService.showErrorMessage(
+        'Error',
+        'No se puede registrar el evento, por favor agregue una imagen'
       );
+    } else {
+      if (form.valid) {
+        this.isSaving = true;
+        const evento = new EventoModel();
+        evento.nombre = form.value.nombre;
+        evento.fechaInicio = Utilities.dateToString(this.dateControl.minDate);
+        evento.fechaFin = Utilities.dateToString(this.dateControl.maxDate);
+        console.log('Fecha inicio: ' + evento.fechaInicio);
+        console.log('Fecha fin: ' + evento.fechaFin);
+        evento.descripcion = form.value.descripcion;
+        evento.lugar = form.value.lugar;
+        evento.horaInicio = form.value.horaInicio;
+        evento.horaFin = form.value.horaFin;
+        evento.dirigidoA = form.value.dirigido;
+        evento.cupos = form.value.cupos;
+
+        // Call save api method
+        this.eventosService.save(evento, this.eventImage).subscribe(
+          data => {
+            this.alertService
+              .showSuccesMessage(
+                'Éxito',
+                'El evento se ha registrado satisfactoriamente'
+              )
+              .then(() => {
+                form.reset();
+                this.eventoGuardar.emit();
+                this.isSaving = false;
+                this.fileInput.cancelPress = true;
+                this.fileInput.onFileChange(null);
+              });
+          },
+          err => {
+            this.alertService.showErrorMessage(
+              'Error',
+              'No se puedo registrar el evento'
+            );
+            this.isSaving = false;
+          }
+        );
+      }
     }
   }
 }
