@@ -62,7 +62,7 @@ export class EmpresaService {
     return this.httpClient.put(varUrl, objVisualizacion, {headers: this.headers});
   }
 
-  modificarEmpresa(id: String, objeto: Object){
+  modificarEmpresa(id: String, objeto: Object):Observable<any>{
     // realizar post al modificar empresas
     console.log(this.urlBase + 'empresa/' + id)
     console.log(objeto);
@@ -113,8 +113,8 @@ export class EmpresaService {
   obtenerIdiomas(): Observable<any[]>{
     return this.httpClient.get<any[]>(this.urlBase + "idiomas", this.httpOptions);
   }
-  obtenerDiscapacidades(): Observable<any[]>{
-    return this.httpClient.get<any[]>(this.urlBase + "discapacidades", this.httpOptions);
+  obtenerDiscapacidades(): Observable<any>{
+    return this.httpClient.get<any>(this.urlBase + "discapacidades", this.httpOptions);
   }
   obtenerID(email: string): Observable<any>{
     return this.httpClient.get<any>(this.urlBase + "getEmpresa/" + email, this.httpOptions);
