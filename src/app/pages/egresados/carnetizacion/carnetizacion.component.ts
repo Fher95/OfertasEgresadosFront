@@ -28,11 +28,11 @@ export class CarnetizacionComponent implements OnInit {
     private auth: AuthService,
     private router: Router
   ) {
-    this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar registro' para poder continuar.";
-    this.mensajeEstado = 'Existen una solicitud de carnetización pendiente.';
-    this.mensajeEstadoAceptado = 'Estado de solicitud es Aceptado';
-    this.mensajeEstadoRechazado = 'Estado de solicitud es Rechazado.';
-    this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema por favor dirigirse al area de EGRESADOS';
+    this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar' para poder continuar.";
+    this.mensajeEstado = 'Tu solicitud de carnetización aún no ha sido respondida';
+    this.mensajeEstadoAceptado = 'Tu solicitud de carnetización ha sido ACEPTADA';
+    this.mensajeEstadoRechazado = 'Tu solicitud de carnetización ha sido RECHAZADA.';
+    this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema, por favor dirigirse al área de EGRESADOS';
   }
 
   ngOnInit() {
@@ -65,17 +65,11 @@ export class CarnetizacionComponent implements OnInit {
     console.log("aqui llego"+ number);
   }
 
-  solicitudCarnet(solicitudC: string) {
+  solicitudCarnet(solicitud: string) {
     console.log("esto es lo que se hace "+this.idEgresado);
-    var estado: Estado;
-    estado = new Estado();
-    estado.estado =solicitudC;
-    console.log("el estado: "+estado.estado)
-    this.catalogoService.enviarSolicitudCarnet(this.idEgresado, estado).subscribe();
+    this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud).subscribe(res=>{});
+    this.router.navigateByUrl('/egresados');
 
     //this.cargarDatos();
   }
-}
-export class Estado{
- estado?:string;
 }

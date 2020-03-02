@@ -2,13 +2,14 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>
-        REGISTRAR EVENTO
+        Registrar evento
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form #addEventForm="ngForm" (submit)="onSave(addEventForm)">
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-9">
+            <mat-label>Nombre</mat-label>
             <input
               type="text"
               name="nombre"
@@ -23,26 +24,28 @@
                 nombre.invalid && nombre.touched && nombre.hasError('required')
               "
             >
-              El nombre del evento es requerido
+              Campo requerido
             </mat-error>
           </mat-form-field>
-          <mat-form-field  appearance="outline" class="form-group col-md-3">
+          <mat-form-field appearance="outline" class="form-group col-md-3">
+            <mat-label>Cupos</mat-label>
             <input
               type="number"
               name="cupos"
-              ngModel
+              [(ngModel)]="cantidadCupos"
               matInput
               #cupos="ngModel"
               required
               placeholder="Cupos"
-              min="0"
+              min="1"
+              (change)="onCuposChange()"
             />
             <mat-error
               *ngIf="
                 cupos.invalid && cupos.touched && cupos.hasError('required')
               "
             >
-              La cantidad de cupos del evento es requerida
+              Campo requerido
             </mat-error>
             <mat-error
               *ngIf="cupos.invalid && cupos.touched && cupos.hasError('min')"
@@ -53,13 +56,15 @@
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-6">
+            <mat-label>Fecha de inicio</mat-label>
             <input
               matInput
               [matDatepicker]="fechaInicioPicker"
               placeholder="Fecha de inicio"
-              ngModel
+              [(ngModel)]="dateControl.minDate"
               #fechaInicio="ngModel"
               required
+              (dateChange)="dateControl.onMinDateSelect()"
               name="fechaInicio"
             />
             <mat-datepicker-toggle
@@ -74,16 +79,19 @@
                 fechaInicio.hasError('required')
               "
             >
-              Debe seleccionar una fecha de inicio
+              Campo requerido
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-6">
+            <mat-label>Fecha de finalización</mat-label>
             <input
               matInput
               [matDatepicker]="fechaFinPicker"
               placeholder="Fecha de finalización"
-              ngModel
+              [min]="dateControl.minDate"
+              [(ngModel)]="dateControl.maxDate"
               #fechaFin="ngModel"
+              (change)="dateControl.onMaxDateSelect()"
               required
               name="fechaFin"
             />
@@ -99,12 +107,98 @@
                 fechaFin.hasError('required')
               "
             >
-              Debe seleccionar una fecha de finalización
+              Campo requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field class="col-md-6" appearance="outline">
+            <mat-label>Hora de inicio</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="05:45"
+              ngModel
+              #horaInicio="ngModel"
+              name="horaInicio"
+              required
+              pattern="^\d\d:\d\d$"
+              hourDomain
+            />
+            <mat-error
+              *ngIf="
+                horaInicio.errors?.required &&
+                horaInicio.invalid &&
+                (horaInicio.dirty || horaInicio.touched)
+              "
+            >
+              Campo requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+                horaInicio.errors?.pattern &&
+                horaInicio.invalid &&
+                (horaInicio.dirty || horaInicio.touched)
+              "
+            >
+              El formato de la hora es HH:MM
+            </mat-error>
+            <mat-error
+              *ngIf="
+                horaInicio.hasError('hourDomain') &&
+                horaInicio.invalid &&
+                (horaInicio.dirty || horaInicio.touched)
+              "
+            >
+              Debe ingresar una hora válida (formato 24 horas)
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6" appearance="outline">
+            <mat-label>Fecha de finalización</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="05:00"
+              ngModel
+              #horaFin="ngModel"
+              name="horaFin"
+              required
+              pattern="^\d\d:\d\d$"
+              hourDomain
+            />
+            <mat-error
+              *ngIf="
+                horaFin.errors?.required &&
+                horaFin.invalid &&
+                (horaFin.dirty || horaFin.touched)
+              "
+            >
+              Campo requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+                horaFin.errors?.pattern &&
+                horaFin.invalid &&
+                (horaFin.dirty || horaFin.touched)
+              "
+            >
+              El formato de la hora es HH:MM
+            </mat-error>
+            <mat-error
+              *ngIf="
+                horaFin.hasError('hourDomain') &&
+                horaFin.invalid &&
+                (horaFin.dirty || horaFin.touched)
+              "
+            >
+              Debe ingresar una hora válida (formato 24 horas)
             </mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline" class="col-md-12 form-group">
+            <mat-label>Lugar</mat-label>
             <input
               type="text"
               matInput
@@ -119,12 +213,13 @@
                 lugar.invalid && lugar.touched && lugar.hasError('required')
               "
             >
-              El lugar de realización del evento es requerido
+              Campo requerido
             </mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-12">
+            <mat-label>Descripción</mat-label>
             <textarea
               matInput
               name="descripcion"
@@ -141,12 +236,13 @@
                 descripcion.hasError('required')
               "
             >
-              La descripción de evento es requerida
+              Campo requerido
             </mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-12">
+            <mat-label>Dirigido a</mat-label>
             <textarea
               matInput
               placeholder="Dirigido a"
@@ -163,14 +259,15 @@
                 dirigido.hasError('required')
               "
             >
-              Debe ingresar a quien(es) va dirigido el evento
+              Campo requerido
             </mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
           <app-egr-file-upload
-            [text]="'Abrir imagen'"
-            [accept]="'.jpg, .png'"
+            #fileInput
+            [text]="'Agregar imagen'"
+            [accept]="'.jpg,.png'"
             (importEvent)="importFile($event)"
           ></app-egr-file-upload>
         </div>
@@ -179,18 +276,17 @@
             type="button"
             mat-raised-button
             class="btn btn-danger"
-            (click)="addEventForm.reset()"
+            (click)="onCancelar(addEventForm)"
           >
             Cancelar
           </button>
           <button
-            [disabled]="addEventForm.invalid"
+            [disabled]="addEventForm.invalid || isSaving"
             type="submit"
             mat-raised-button
             color="primary"
-            (click)="onSave(addEventForm)"
           >
-            Guardar
+            Guardar<mat-spinner *ngIf="isSaving" diameter="30"></mat-spinner>
           </button>
         </mat-card-actions>
       </form>

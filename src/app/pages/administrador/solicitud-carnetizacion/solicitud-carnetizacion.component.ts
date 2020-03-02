@@ -50,22 +50,31 @@ export class SolicitudCarnetizacionComponent implements OnInit {
     this.catalogoService.getSolicitudesCarnet().subscribe(data => this.solicitudes = data);
   }
 
-  private enviarSolicitudCarnet(solicitud, index, estado) {
-    this.alert.showconfirmationMessage('¿Aceptar Solicitud?', 'Para continuar presione Aceptar.').then((result) => {
+  private enviarSolicitudCarnet(idSolicitud, index, estado) {
+
+
+    let mensaje: string;
+    if(estado== "RECHAZADO"){
+      mensaje = '¿Cancelar solicitud?';
+    }else{
+      mensaje = '¿Aceptar Solicitud?';
+    }
+    this.alert.showconfirmationMessage(mensaje, 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarRespuestaSolicitud(solicitud, estado);
+        this.catalogoService.enviarRespuestaSolicitud(idSolicitud, estado).subscribe(result=>{ console.log("si funciona")});
         this.solicitudes.splice(index, 1);
       }
     });
   }
 
-  private cancelarSolicitudCarnet(solicitud,index, estado) {
+ /*  private cancelarSolicitudCarnet(solicitud,index, estado) {
     this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
       if (result.value) {
-        this.catalogoService.enviarRespuestaSolicitud(solicitud, estado);
+        this.catalogoService.enviarRespuestaSolicitud(solicitud, estado).subscribe();
         this.solicitudes.splice(index, 1);
       }
     });
-  }
+    sudo apt install php7.2-cli
+  } */
 }
 

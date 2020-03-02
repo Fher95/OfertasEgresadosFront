@@ -12,9 +12,25 @@ import { ArrayRHttpResponse } from '../../base/array-r-http-response';
 })
 export class EventosService {
   private baseUrl: string = `${environment.baseUrl}admin/`;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   save(evento: EventoModel, fileInput: File) {
+    const formData = this.getFormData(evento, fileInput);
+    return this.http.post(`${this.baseUrl}eventos`, formData);
+  }
+
+  update(evento: EventoModel, fileInput: File): Observable<EventoModel> {
+    const formData = this.getFormData(evento, fileInput);
+    return this.http
+      .post<EventoModel>(`${this.baseUrl}eventos/${evento.id}`, formData)
+      .pipe(
+        map(response => {
+          return response;
+        })
+      );
+  }
+
+  getFormData(evento: EventoModel, fileInput: File): FormData {
     const formData = new FormData();
     formData.set('fileInput', fileInput);
     formData.set('nombre', evento.nombre);
@@ -22,25 +38,16 @@ export class EventosService {
     formData.set('descripcion', evento.descripcion);
     formData.set('fechaInicio', evento.fechaInicio);
     formData.set('fechaFin', evento.fechaFin);
+    formData.set('imagePath', evento.imagePath);
+    formData.set('horaInicio', evento.horaInicio);
+    formData.set('horaFin', evento.horaFin);
     formData.set('cupos', evento.cupos.toString());
     formData.set('dirigidoA', evento.dirigidoA);
-    return this.http.post(`${this.baseUrl}eventos`, formData);
+    return formData;
   }
 
-  update(evento: EventoModel, fileInput: File): Observable<EventoModel> {
-    const formData = new FormData();
-    formData.append('fileInput', fileInput);
-    return this.http
-      .put<EventoModel>(`${this.baseUrl}eventos`, {
-        evento,
-        'file': formData
-      }
-      )
-      .pipe(
-        map(response => {
-          return response;
-        })
-      );
+  getImage(filename: string): Observable<Blob> {
+    return this.http.get<Blob>(`${this.baseUrl}image/eventos/` + filename);
   }
 
   getA() {
@@ -68,8 +75,6 @@ export class EventosService {
       params: httpParams
     });
   }
-
-
 }
 
 export interface EventoResponse {

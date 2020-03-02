@@ -55,16 +55,16 @@
 
         <!-- Fecha de inicio -->
         <ng-container matColumnDef="fechaInicio">
-          <th mat-header-cell *matHeaderCellDef>Fehca de inicio</th>
+          <th mat-header-cell *matHeaderCellDef>Fecha de inicio</th>
           <td mat-cell *matCellDef="let evento">
-            {{ evento.fechaInicio }}
+            {{ toDate(evento.fechaInicio) | date: 'dd/MM/yyyy' }}
           </td>
         </ng-container>
 
         <!-- Fecha de fin -->
         <ng-container matColumnDef="fechaFin">
-          <th mat-header-cell *matHeaderCellDef>Fehca de fin</th>
-          <td mat-cell *matCellDef="let evento">{{ evento.fechaFin }}</td>
+          <th mat-header-cell *matHeaderCellDef>Fecha de fin</th>
+          <td mat-cell *matCellDef="let evento">{{ toDate(evento.fechaFin) | date: 'dd/MM/yyyy'}}</td>
         </ng-container>
 
         <!-- Opciones -->
@@ -86,7 +86,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
-
+      <div class="no-records" *ngIf="noData()">
+        No se encontraron resultados
+      </div>
       <mat-paginator [length]="totalResults"></mat-paginator>
     </div>
   </mat-card-content>

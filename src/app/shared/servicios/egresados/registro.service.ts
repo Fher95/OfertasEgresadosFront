@@ -7,6 +7,7 @@ import { CompletarRegistro } from '../../modelos/completarRegistro';
 
 
 const URL = 'http://localhost:8081/api/egresados';
+const URLBase = 'http://localhost:8081/api/';
 
 @Injectable({
   providedIn: 'root'
@@ -24,16 +25,20 @@ export class RegistroService {
 
   public completarRegistroEgresado(completar: CompletarRegistro, idEgresado: number) {
     console.log("Egresado: "+idEgresado);
-    const URLCompletar = 'http://localhost:8081/api/completeEgresados/' + idEgresado;
+    const URLCompletar = URLBase +'completeEgresados/' + idEgresado;
     return this.http.put(URLCompletar, completar);
   }
 
   public idEgresado(correo: string): Observable<any> {
-    const URLId = 'http://localhost:8081/api/getIdegresados/' + correo;
+    const URLId = URLBase + 'getIdegresados/' + correo;
     return this.http.get<any>(URLId);
   }
   public validarCompletar(idEgresado: number){
-    const URLValidar = 'http://localhost:8081/api/validaCompletarRegistro/'+idEgresado;
+    const URLValidar = URLBase + 'validaCompletarRegistro/'+idEgresado;
     return this.http.get<any>(URLValidar);
   } 
+  public cuestionarioComentario(){
+    const URLComentario = URLBase + 'cuestionario';
+    return this.http.get<any>(URLComentario);
+  }
 }

@@ -99,13 +99,13 @@ export class CatalogosService {
   }
 //admin
   enviarRespuestaSolicitud(idSolicitud: number, estado) {
-    console.log("esto es lo que manda: "+estado);
+    console.log("esto es lo que manda: "+estado.estado);
     console.log("esto es lo que manda en el id: "+idSolicitud);
-     return this.http.put(`${baseUrl}enviarEstadoSolicitudCarnet/${idSolicitud}`,{estado});
-  }n
+     return this.http.put(`${baseUrl}carnetizacionUpdateAdmin/${idSolicitud}`,{estado});
+  }
 //egresado
   enviarSolicitudCarnet(idEgresado: number, solicitud) {
-    console.log("esto es lo que manda: "+solicitud.solicitud);
+    console.log("esto es lo que manda: "+solicitud);
     console.log("esto es lo que manda en el id: "+idEgresado);
     return this.http.put(`${baseUrl}enviarEstadoSolicitudCarnet/${idEgresado}`,{solicitud});
   }

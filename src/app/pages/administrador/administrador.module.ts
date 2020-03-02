@@ -41,6 +41,9 @@ import { ListaGradosComponent } from './egresados/perfil-egresado/lista-grados/l
 import { GradoComponent } from './egresados/perfil-egresado/grado/grado.component';
 import { InformarcionPersonalComponent } from './egresados/perfil-egresado/informarcion-personal/informarcion-personal.component';
 import { ListaGestionEgresadoComponent } from './egresados/lista-gestion-egresado/lista-gestion-egresado.component';
+import { EgrFileUploadUpdateComponent } from './eventos/egr-file-upload-update/egr-file-upload-update.component';
+import { HourDomainValidator } from 'src/app/shared/common/custom-validators';
+
 
 const routes: Routes = [
   {
@@ -112,7 +115,9 @@ const routes: Routes = [
     GradoComponent,
     InformarcionPersonalComponent,
     ListaSolicitudesCarnetizacionComponent,
-    ListaGestionEgresadoComponent
+    ListaGestionEgresadoComponent,
+    EgrFileUploadUpdateComponent,
+    HourDomainValidator
   ],
   imports: [
     CommonModule,

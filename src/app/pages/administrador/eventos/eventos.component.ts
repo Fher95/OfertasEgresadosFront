@@ -3,8 +3,9 @@ import { MatDialogConfig } from '@angular/material';
 import { DialogoActualizarEventoComponent } from './dialogo-actualizar-evento/dialogo-actualizar-evento.component';
 import { EventoModel } from 'src/app/shared/modelos/evento.model';
 import { EventosSharedService } from './eventos-shared.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ListaEventosComponent } from './lista-eventos/lista-eventos.component';
 
 @Component({
   selector: 'app-eventos',
@@ -13,6 +14,11 @@ import { Subscription } from 'rxjs';
 })
 export class EventosComponent implements OnInit, OnDestroy {
   seleccionSubscription: Subscription;
+
+  @ViewChild("tblEventos")
+  tblEventos: ListaEventosComponent;
+
+
   constructor(
     private shared: EventosSharedService,
     private dialog: MatDialog
@@ -43,7 +49,11 @@ export class EventosComponent implements OnInit, OnDestroy {
       dialogConfig
     );
     dialogRef.afterClosed().subscribe(response => {
-      // ...
+      this.procesarGuardar(null);
     });
+  }
+
+  procesarGuardar(res) {
+    this.tblEventos.eventoFiltrado.emit();
   }
 }

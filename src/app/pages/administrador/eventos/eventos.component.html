@@ -3,6 +3,6 @@
     GESTIÓN DE EVENTOS
   </mat-toolbar>
   <div class="divider"></div>
-  <app-registro-evento class="mt-2"></app-registro-evento>
-  <app-lista-eventos class="mt-2"></app-lista-eventos>
+  <app-registro-evento (eventoGuardar)="procesarGuardar($event)" class="mt-2"></app-registro-evento>
+  <app-lista-eventos #tblEventos class="mt-2"></app-lista-eventos>
 </div>

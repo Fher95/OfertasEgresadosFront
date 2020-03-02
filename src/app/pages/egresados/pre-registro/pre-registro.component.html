@@ -13,14 +13,14 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Nombres</mat-label>
                 <input id="nombre" matInput placeholder="Nombres" #name="ngModel" name="nombre"
-                  [(ngModel)]="user.nombres" required pattern="^[A-Za-zñ\s]{1,50}">
+                  [(ngModel)]="user.nombres" required pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,50}">
                 <mat-error *ngIf="user.nombres != null">Campo requerido</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Apellidos</mat-label>
                 <input matInput placeholder="Apellidos" #name="ngModel" name="apellidos" [(ngModel)]="user.apellidos"
-                  required pattern="^[A-Za-zñ\s]{1,50}">
+                  required pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,50}">
                 <mat-error *ngIf="user.apellidos != null">Campo requerido</mat-error>
               </mat-form-field>
             </div>
@@ -163,12 +163,9 @@
               <div class="form-group col-md-6 ">
                 <h5>Discapacidad:*</h5>
                 <mat-error *ngIf="discapacidad.length == 0">Campo requerido</mat-error>
-                <mat-checkbox 
-                [disabled]="onEditMode" 
-                [checked]="enDiscapacidadEgresado(discapacidad.idDiscapacidad)"
+                <mat-checkbox [disabled]="onEditMode" [checked]="enDiscapacidadEgresado(discapacidad.idDiscapacidad)"
                   labelposition="after" *ngFor="let discapacidad of discapacidades let index = index"
-                  name="discapacidades" 
-                  (change)="onCheckDiscapacidad(discapacidad, $event.checked)"
+                  name="discapacidades" (change)="onCheckDiscapacidad(discapacidad, $event.checked)"
                   (change)="otraDiscapacidad(discapacidad,$event.checked)"
                   (change)="discapacidadesUsuario(discapacidad.idDiscapacidad,index,$event)">
                   {{discapacidad.Nombre}}
@@ -216,11 +213,10 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Información academica</ng-template>
-            <mat-radio-group name="nivel_estudio" [formControl]="nivelAFormControl" required  (click)="obtenerSedes()">
+            <mat-radio-group name="nivel_estudio" [formControl]="nivelAFormControl" required (click)="obtenerSedes()">
               <h5>Nivel academico*</h5>
               <mat-error *ngIf="nivelAFormControl.hasError('required')">Campo requerido</mat-error>
-              <mat-radio-button *ngFor="let nivel_estudio of niveles_academicos" [value]="nivel_estudio.id_aut_estudio"
-                >
+              <mat-radio-button *ngFor="let nivel_estudio of niveles_academicos" [value]="nivel_estudio.id_aut_estudio">
                 {{nivel_estudio.nombre}}
               </mat-radio-button>
             </mat-radio-group>
@@ -272,13 +268,8 @@
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Fecha de graduación</mat-label>
-                <input id="gradoA" 
-                matInput [min]="minDate" 
-                [max]="maxDate" 
-                [matDatepicker]="dp3" 
-                (dateInput)="grado()"
-                [formControl]="fechaGFormControl" 
-                placeholder="Fecha de Graduación" required>
+                <input id="gradoA" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dp3" (dateInput)="grado()"
+                  [formControl]="fechaGFormControl" placeholder="Fecha de Graduación" required>
                 <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                 <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                 <mat-error *ngIf="fechaGFormControl.hasError('required')">Campo requerido
@@ -348,9 +339,9 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field  appearance="outline" class="form-group col-md-6 ">
+              <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Correo electrónico alternativo</mat-label>
-                <input  (input)="validarCorreos()" matInput placeholder="Correo Electrónico Alternativo"
+                <input (input)="validarCorreos()" matInput placeholder="Correo Electrónico Alternativo"
                   [formControl]="emailFormControl2" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
                 <mat-error *ngIf=" emailFormControl2.hasError('email') ">
                   Por favor ingresar una dirección de correo correcta
@@ -359,7 +350,10 @@
                   Por favor ingresar una dirección de correo correcta. ej: ejemplo@gmail.com
                 </mat-error>
               </mat-form-field>
-              <p id=" msgError" *ngIf="msgError != ''">{{msgErrorcorreo}}</p>
+              <mat-error>
+                <p id="msgError" *ngIf="msgError != ''">{{msgErrorcorreo}}</p>
+              </mat-error>
+
             </div>
 
             <h5>Lugar y dirección de residencia</h5>

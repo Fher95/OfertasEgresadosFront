@@ -1,8 +1,8 @@
 <div class="row">
   <input
     type="file"
-    name="fileUpload"
-    id="fileUpload"
+    name="fileUploadUpdate"
+    id="fileUploadUpdate"
     style="display:none;"
     accept="{{ accept }}"
     ngModel
@@ -11,7 +11,6 @@
     (change)="onFileChange($event.target.files)"
   />
   <mat-form-field appearance="outline" class="form-group col-md-9">
-    <mat-label>Seleccione un archivo</mat-label>
     <input
       type="text"
       disabled
@@ -22,7 +21,7 @@
       placeholder="Seleccione un archivo"
       required
     />
-    <mat-error *ngIf="showError">
+    <mat-error *ngIf="file.invalid && file.hasError('required')">
       Campo requerido
     </mat-error>
   </mat-form-field>

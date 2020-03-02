@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 // Componentes y servicios proprios
 import { EventoInterface } from '../../../shared/modelos/evento';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
+import { EventosService } from '../../../shared/servicios/admin/eventos.service';
 import { VerEventoComponent, Data } from '../ver-evento/ver-evento.component';
 import { map, catchError } from 'rxjs/operators';
 import { merge, of } from 'rxjs';
@@ -23,7 +24,7 @@ export class EventosComponent implements OnInit {
   private msgError: String;
   isLoadingResults: boolean;
 
-  constructor(public dialog: MatDialog, private servicios: CatalogosService) {
+  constructor(public dialog: MatDialog, private servicios: CatalogosService, private seviciosEvento: EventosService) {
     this.eventos = [];
     this.maxDescLength = 200;
    }
@@ -51,13 +52,16 @@ export class EventosComponent implements OnInit {
     });
   }
 
-  verEvento(json: EventoInterface,indice: number ) {
-    var eventCloned: EventoInterface = this.eventos[indice];
-    console.log("evento visto:"+ eventCloned.descripcion);
+  verEvento(evento: EventoInterface) {
+    var eventCloned: EventoInterface = evento;
+    console.log("evento visto:"+eventCloned);
     let data: Data = { event: eventCloned };
     this.dialog.open(VerEventoComponent,{ data: data }).beforeClosed().subscribe(result => { });
   }
-
+  imagen: Blob;
+  obtenerImagen(imagenPath){
+    this.seviciosEvento.getImage(imagenPath).subscribe(response=>{this.imagen = response});
+  }
   obtenerDescripcionCorta(description) {
     var result = description;
     if (description.length > this.maxDescLength) {
