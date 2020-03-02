@@ -3,6 +3,7 @@
   <form #addEventForm="ngForm" invalidate (ngSubmit)="onSave(addEventForm)">
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-group col-md-9">
+        <mat-label>Nombre</mat-label>
         <input
           type="text"
           name="nombre"
@@ -21,6 +22,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-group col-md-3">
+        <mat-label>Cupos</mat-label>
         <input
           type="number"
           name="cupos"
@@ -40,6 +42,7 @@
     </div>
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-group col-md-6">
+        <mat-label>Fecha de inicio</mat-label>
         <input
           matInput
           [matDatepicker]="fechaInicioPicker"
@@ -66,6 +69,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-group col-md-6">
+        <mat-label>Fecha de finalización</mat-label>
         <input
           matInput
           [matDatepicker]="fechaFinPicker"
@@ -94,6 +98,7 @@
     </div>
     <div class="form-row">
       <mat-form-field class="col-md-6" appearance="outline">
+        <mat-label>Hora de inicio</mat-label>
         <input
           type="text"
           matInput
@@ -135,6 +140,7 @@
       </mat-form-field>
 
       <mat-form-field class="col-md-6" appearance="outline">
+        <mat-label>Hora de finalización</mat-label>
         <input
           type="text"
           matInput
@@ -177,6 +183,7 @@
     </div>
     <div class="form-row">
       <mat-form-field appearance="outline" class="col-md-12 form-group">
+        <mat-label>Lugar</mat-label>
         <input
           type="text"
           matInput
@@ -195,6 +202,7 @@
     </div>
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-group col-md-12">
+        <mat-label>Descripción</mat-label>
         <textarea
           matInput
           name="descripcion"
@@ -217,6 +225,7 @@
     </div>
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-group col-md-12">
+        <mat-label>Dirigido a</mat-label>
         <textarea
           matInput
           placeholder="Dirigido a"
@@ -243,6 +252,7 @@
         [text]="'Agregar imagen'"
         [accept]="'.jpg,.png'"
         (importEvent)="importUpdateFile($event)"
+        [labelText]="'Imágen del evento'"
       ></app-egr-file-upload-update>
     </div>
     <div class="form-row">

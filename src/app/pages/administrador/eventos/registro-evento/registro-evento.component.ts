@@ -31,7 +31,7 @@ export class RegistroEventoComponent implements OnInit {
   eventImage: File | null = null;
   showImageError = false;
   dateControl: DateMinMaxControl;
-  cantidadCupos: number = 0;
+  cantidadCupos: number = 1;
   isSaving: boolean = false;
 
   @ViewChild('fileInput')
@@ -115,6 +115,7 @@ export class RegistroEventoComponent implements OnInit {
                 this.isSaving = false;
                 this.fileInput.cancelPress = true;
                 this.fileInput.onFileChange(null);
+                this.eventImage = null;
               });
           },
           err => {
