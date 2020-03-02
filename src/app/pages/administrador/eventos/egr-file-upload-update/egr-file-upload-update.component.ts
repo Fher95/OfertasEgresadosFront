@@ -15,6 +15,8 @@ export class EgrFileUploadUpdateComponent implements OnInit {
   text: string;
   @Input()
   accept: string;
+  @Input()
+  labelText: string;
 
   isCancelPress: boolean = false;
 

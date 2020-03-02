@@ -392,10 +392,18 @@ sectorValidator(control: FormControl) {
   modificarEmpresa(formulario) {
     if(formulario.status != 'INVALID'){
       this.empService.modificarEmpresa(this.id,formulario.value).toPromise().then(data => {
-        this.alert.showSuccesMessage('Exito','Se ha modificado la empresa exitosamente')
-        .then((value) => {
-          this.router.navigate(['empresa/'+this.id+'/datosEmpresa']);
-        });
+        if(data.status_code ==200)
+        {
+          this.alert.showSuccesMessage('Exito','Se ha modificado la empresa exitosamente')
+          .then((value) => {
+            this.router.navigate(['empresa/'+this.id+'/datosEmpresa']);
+          });
+        }else
+        {
+          console.log(data)
+          this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde"); 
+        }
+ 
       },
         errorRegistro => {
           this.alert.showErrorMessage("Ha ocurrido un error", "Por favor recarga la página o intenta más tarde");

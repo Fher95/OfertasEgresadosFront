@@ -257,7 +257,22 @@
 
                             </mat-form-field>
                     </div>
-                    <div class="row offset-1 " [formGroup]="datosFormChecked">
+                    <div class="row offset-1 ">
+                        <div class="programaWidth">
+                        <mat-card>
+                            <mat-card-header>
+                                        <mat-card-title>Carreras seleccionadas</mat-card-title>
+                                  </mat-card-header>
+                            <mat-card-content>
+                                <mat-list >
+                                    <mat-list-item *ngFor="let programa of formOfertaLaboral.get('requisitos').controls.programas.value">{{programa}}                                    <mat-divider></mat-divider>
+                                    </mat-list-item>
+                                  </mat-list>
+                            </mat-card-content>
+                        </mat-card>
+                        </div>
+                    </div>
+                    <div class="row mt-2 offset-1 " [formGroup]="datosFormChecked">
                             <mat-checkbox formControlName="idiomaChecked" [(ngModel)]="idiomaChecked" (change)="idiomaIsChecked($event)" [labelPosition]="labelPosition"><Strong>Requiere idiomas?</Strong></mat-checkbox>
                     </div>
                     <!--En caso de que se seleccione la opcion de requerimiento de idioma se muestra el form de idiomas-->
@@ -343,18 +358,18 @@
                     </div>
                     <!--Fin form idiomas-->
                     <div class="row mt-2 offset-1 " [formGroup]="datosFormChecked">
-                            <mat-checkbox formControlName="softwareChecked" [(ngModel)]="softwareChecked" (change)="softwareIsChecked($event)" [labelPosition]="labelPosition"><Strong>Requiere softwares?</Strong></mat-checkbox>
+                            <mat-checkbox formControlName="softwareChecked" [(ngModel)]="softwareChecked" (change)="softwareIsChecked($event)" [labelPosition]="labelPosition"><Strong>Requiere herramientas tecnológicas?</Strong></mat-checkbox>
                     </div>
                     <!--En caso de que se seleccione la opcion de requerimiento de idioma se muestra el form de idiomas-->
                     <div class="row  offset-1 " *ngIf="softwareChecked">
                             <div class="col-sm-12 col-md-5 ">
                             <mat-card>
                                 <mat-card-header>
-                                            <mat-card-title>Softwares</mat-card-title>
+                                            <mat-card-title>Herramientas tecnológicas</mat-card-title>
                                       </mat-card-header>
                                 <mat-card-content [formGroup]="formSoftware">
                                         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                                                <mat-label>Nombre del software</mat-label>
+                                                <mat-label>Nombre de la herramientas tecnológicas</mat-label>
                                                 <input formControlName="nombre" matInput required >
                                             </mat-form-field>
                                             <mat-form-field class="full-width" floatLabel="auto" appearance="outline" >
@@ -379,7 +394,7 @@
                             <div class="col-sm-12 col-md-5 ">
                             <mat-card>
                                 <mat-card-header>
-                                            <mat-card-title>Softwares requeridos</mat-card-title>
+                                            <mat-card-title>Herramientas tecnológicas requeridas</mat-card-title>
                                       </mat-card-header>
                                       <mat-accordion>
                                             <!--Lista desplegable-->

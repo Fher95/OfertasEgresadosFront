@@ -24,7 +24,9 @@ mat-form-field{
   .botonesStepper{
     text-align: end;
   }
-  
+  .programaWidth{
+    width: 93%;
+  }
   .botonesStepper button,
   .botonesStepper a {
   margin-right: 8px;
