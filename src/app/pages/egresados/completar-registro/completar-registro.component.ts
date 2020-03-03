@@ -163,6 +163,8 @@ export class CompletarRegistroComponent implements OnInit {
   }
   agregarComentario(comentarios : Array<Comentario>){
     this.comentariosRespuesta = comentarios;
+    console.log('comentarios: '+comentarios.length);
+    console.log('comentariosRespuesta: '+this.comentariosRespuesta.length);
   }
   //Grado adicional 
   agregarGradoAdicional(){
