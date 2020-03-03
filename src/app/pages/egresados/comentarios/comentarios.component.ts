@@ -45,7 +45,13 @@ export class ComentariosComponent implements OnInit {
       this.preguntas.forEach(element =>{
         var varComentario = new Comentario;
         varComentario.id_aut_comentario = element.id_aut_comentario;
-        varComentario.respuesta = this.formularioComentario.get(element.id_aut_comentario.toString()).value;
+        var respuesta = this.formularioComentario.get(element.id_aut_comentario.toString()).value
+        if(respuesta == '' && element.pregunta_padre != null){
+          varComentario.respuesta = 'N/A';
+        }
+        else{
+          varComentario.respuesta = respuesta;
+        }
         this.respuestas.push(varComentario);
       });
       this.validarComentarios = false;

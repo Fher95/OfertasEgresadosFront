@@ -26,4 +26,7 @@ export class NavEgresadosComponent implements OnInit {
     this.auth.logout();
     this.router.navigateByUrl('/home');
   }
+  get isLogin() {
+    return this.auth.isLogin;
+  }
 }
