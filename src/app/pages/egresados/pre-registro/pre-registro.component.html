@@ -48,6 +48,7 @@
                 </mat-error>
                 <mat-error *ngIf="identificacionFormControl.hasError('pattern')">El documento de identidad solo debe contener valores numéricos
                 </mat-error>
+                
               </mat-form-field>
               <p id="msgError" *ngIf="msgError != ''">{{msgErrorIdentificacion}}</p>
             </div>
@@ -264,7 +265,7 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Fecha de graduación</mat-label>
                 <input id="gradoA" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dp3" (dateInput)="grado()"
-                  [formControl]="fechaGFormControl" placeholder="Fecha de Graduación" required>
+                  [formControl]="fechaGFormControl" placeholder="Fecha de Graduación" required readonly>
                 <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                 <mat-datepicker #dp3 disabled="false"></mat-datepicker>
                 <mat-error *ngIf="fechaGFormControl.hasError('required')">Campo requerido

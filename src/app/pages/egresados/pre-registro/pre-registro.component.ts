@@ -69,6 +69,8 @@ export class PreRegistroComponent implements OnInit {
   // Variable en la que se almacena los datos ingresados para el preregistro
   private user: User;
 
+  private btnGuardar: boolean = false;
+
   // Variables para mostrar errores de correo y identificación
   private msgErrorIdentificacion: String;
   private msgErrorcorreo: String;
@@ -201,6 +203,9 @@ export class PreRegistroComponent implements OnInit {
     this.obtenerNivelEstudio();
   }
 
+  opcionGuardar(){
+    this.btnGuardar=!this.btnGuardar;
+  }
 
   onEditar() {
     this.onEditMode = !this.onEditMode;
@@ -252,7 +257,7 @@ export class PreRegistroComponent implements OnInit {
   //Metodo para poner el año a partir de la fecha de grado
   grado() {
     var bandera: boolean = false;
-    if (this.fechaGFormControl.value != null) {
+    if (this.fechaGFormControl.value != null || this.fechaGFormControl.value != '') {
       var fecha = this.fechaGFormControl.value.getFullYear();
       bandera = true;
       this.bloquearAnio = false;
@@ -467,7 +472,7 @@ export class PreRegistroComponent implements OnInit {
   // Método para validar los datos ingresados por el usuario
   validData() {
     this.discapacidadesEgersado();
-    console.log("estado identificacion" + (this.user.nombres).toUpperCase());
+    this.opcionGuardar();
     var valid: boolean = false;
     console.log(this.discapacidadesAux);
     if (
@@ -479,7 +484,6 @@ export class PreRegistroComponent implements OnInit {
       this.user.telefono_fijo.length > 0 &&
       this.user.apellidos.length > 0 &&
       this.emailFormControl.value != null &&
-      this.emailFormControl2.value != null &&
       this.sedeFormControl.value != null &&
       this.ciudadExpedicionFormControl.value != null &&
       this.ciudadNacimientoFormControl.value != null &&
@@ -501,18 +505,17 @@ export class PreRegistroComponent implements OnInit {
       this.alert.showErrorMessage(
         'Error',
         'Existen campos obligatorios sin diligenciar. Por favor verificar el formulario'
-      ).then(result=>{
-        if(result.value){
-          this.btnguardar();
-        }
+      ).then(result => {
+        if (result.value) {
+          this.opcionGuardar();
+        } 
       });
     }
     return valid;
   }
 
   // Método para registrar la solicitud
-  register() {
-    this.btnguardar();
+  registrarEgresado() {
     if (this.validData()) {
       this.user.fecha_grado = Utilities.parseDateToString(
         this.fechaGFormControl.value,
@@ -551,32 +554,18 @@ export class PreRegistroComponent implements OnInit {
             .then(result => {
               if (result.value) {
                 this.router.navigateByUrl('/home');
-              } else {
-                this.alert.showSuccesMessage(
-                  'Registro Exitoso',
-                  'Por favor verifique su correo.'
-                );
-              }
+              } 
             });
         },
         error => {
-          let err = <any>error;
-          if (err == 422) {
             this.alert.showErrorMessage(
               'Error',
-              'Ya hay una cuenta con los datos ingresados.'
-            );
-          } else {
-            this.alert.showErrorMessage(
-              'Error',
-              'A ocurrido un error al registrar sus datos intente de nuevo o dirijase al area de egresados'
-            ).then(result=>{
-              if(result.value){
-                this.btnguardar();
-              }
+              'Ha ocurrido un error al registrar sus datos, por favor intente de nuevo o diríjase al área de egresados'
+            ).then(result => {
+              if (result.value) {
+                this.opcionGuardar();
+              } 
             });
-            
-          }
         }
       );
     }
