@@ -100,4 +100,8 @@ export class ListaEventosComponent implements OnInit, AfterViewInit {
   onEventoSeleccionado(evento: EventoModel) {
     this.shared.seleccionEvento.next(evento);
   }
+
+  noData(): boolean {
+    return this.data.length == 0;
+  }
 }

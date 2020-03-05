@@ -211,7 +211,7 @@ datosFormChecked: FormGroup;
   cargarDiscapacidades()
   {
     this.empService.obtenerDiscapacidades().subscribe(resultado => {
-      this.discapacidades = resultado;
+      this.discapacidades = resultado.data;
     },
       error => {
         this.showSpinner = false;
@@ -321,6 +321,7 @@ datosFormChecked: FormGroup;
       if(this.idiomasEscogidos[i].nombre == form.value.nombre )
       { 
         seEncuentraIdioma = true
+        this.alert.showErrorMessage("El idioma ya existe", "Por favor agregar un idioma diferente")
         break
       }
     }
@@ -344,6 +345,8 @@ datosFormChecked: FormGroup;
       if(this.softwaresEscogidos[i].nombre == form.value.nombre )
       { 
         seEncuentraSoftware = true
+        this.alert.showErrorMessage("Error", "La herramienta tecnológica ya existe, por favor agregar otra herramienta")
+
         break
       }
     }

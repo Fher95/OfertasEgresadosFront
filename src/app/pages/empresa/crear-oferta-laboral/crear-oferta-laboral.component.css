@@ -33,7 +33,9 @@ margin-right: 8px;
 .full-width {
 width: 100%;
 }
-
+.programaWidth{
+  width: 93%;
+}
 .no-padding{
 padding: 0px;  
 }

@@ -24,6 +24,7 @@ export class CompletarRegistroComponent implements OnInit {
   @ViewChild('referido') referido : ReferidoComponent;
   @ViewChild('expActual') expActual : ExplaboralComponent;
   @ViewChild('comentario') comentario : ComentariosComponent;
+  @ViewChild('comentarioGradoAdic') comentarioGradoAdic : ComentariosComponent;
   @ViewChild('programaAdicional') programaAdicional : ProgramaComponent;
 
   varCompletarRegistro : CompletarRegistro;
@@ -46,12 +47,12 @@ export class CompletarRegistroComponent implements OnInit {
   dataExpActual: MatTableDataSource<any>;
   expActuales: any[] = [];
 
+  comentariosRespuesta = new Array<Comentario>();
+
   //Grado adicional
-  otroGrado = new FormControl('', [Validators.required]);
-  tituloGradoAdicional = new FormControl('', [Validators.required]);
+  otroGrado = new FormControl('',Validators.required);
   mencionAdicional = new FormControl('');
-  ComentProgramaAdicional = new FormControl('', [Validators.required]);
-  DocenteInfluenciaAdicional = new FormControl('', [Validators.required]);
+  comentariosRespuestaAdicional = new Array<Comentario>();
 
   idEgresado : number;
 
@@ -73,20 +74,16 @@ export class CompletarRegistroComponent implements OnInit {
             console.log('respuesta2: '+this.estadoCompletar +'cant hijos: '+this.cantHijos+ 'progra:'+ this.idPrograma);
           }
         );
-    }
-      );
+      }
+    );
   }
-
   limpiarFormulario()
   {
     this.varCompletarRegistro = new CompletarRegistro();
     this.haTrabajado = new FormControl('', [Validators.required]);
     this.Labora_Actualmente = new FormControl('', [Validators.required]);
-    this.otroGrado = new FormControl('', [Validators.required]);
-    this.tituloGradoAdicional = new FormControl('', [Validators.required]);
-    this.mencionAdicional = new FormControl('');
-    this.ComentProgramaAdicional = new FormControl('', [Validators.required]);
-    this.DocenteInfluenciaAdicional = new FormControl('', [Validators.required]);
+    this.comentariosRespuesta = new Array<Comentario>();
+    this.comentariosRespuestaAdicional = new Array<Comentario>();
   }
   //Añadir datos referidos
   addToList(referido: Referido) {
@@ -135,7 +132,6 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.referidos.length>=2){
       bandera=true;
     }
-    //bandera=true;
     return bandera;
   }
   validarSigReferido(){
@@ -165,6 +161,31 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Labor actual eliminada');
     }
   }
+  agregarComentario(comentarios : Array<Comentario>){
+    this.comentariosRespuesta = comentarios;
+    console.log('comentarios: '+comentarios.length);
+    console.log('comentariosRespuesta: '+this.comentariosRespuesta.length);
+  }
+  //Grado adicional 
+  agregarGradoAdicional(){
+    if(this.programaAdicional.verificarCampos()){
+      if(this.programaAdicional.Programa.value!=this.idPrograma){
+        this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
+        this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
+        this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value.toUpperCase();
+        this.varCompletarRegistro.gradoAdicional.comentarios = this.comentariosRespuestaAdicional;
+      }
+      else{
+        this.alert.showErrorMessage('Error','No se puede registrar el nuevo grado.');
+      }
+    }
+    else{
+      this.alert.showErrorMessage('Error','Complete todos los datos.');
+    }
+  }
+  agregarComentarioGradoAdic(comentarios : Array<Comentario>){
+    this.comentariosRespuestaAdicional = comentarios;
+  }
   validar(){
     if(this.Labora_Actualmente.value==1 && this.expActuales.length>0){
       this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
@@ -189,7 +210,8 @@ export class CompletarRegistroComponent implements OnInit {
     else if(this.Labora_Actualmente.value==1){
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
-    this.varCompletarRegistro.comentarios = this.comentario.guardarComentario();
+    this.varCompletarRegistro.comentarios = this.comentariosRespuesta;
+    console.log('cantidad comentarios:'+this.varCompletarRegistro.comentarios.length);
     if(this.otroGrado.value==0){    
       this.varCompletarRegistro.otroGrado = true;
       this.agregarGradoAdicional();
@@ -198,7 +220,7 @@ export class CompletarRegistroComponent implements OnInit {
   verificarCampos()
   {
     var bandera:boolean = false;
-    if(this.referidos.length!=0 && this.Labora_Actualmente.value!='' && this.comentario.validarCampos())
+    if(this.referidos.length!=0 && this.Labora_Actualmente.value!='')
     {
       bandera = true;
     }
@@ -221,31 +243,6 @@ export class CompletarRegistroComponent implements OnInit {
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.');
     }
-  }
-  agregarGradoAdicional(){
-    if(this.ComentProgramaAdicional.value!='' && this.DocenteInfluenciaAdicional.value!='' 
-    && this.programaAdicional.verificarCampos()){
-      if(this.programaAdicional.Programa.value!=this.idPrograma){
-        this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
-        this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
-        this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value.toUpperCase();
-        this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(4,this.ComentProgramaAdicional.value));
-        this.varCompletarRegistro.gradoAdicional.comentarios.push(this.comentarioGradoAdicional(5,this.DocenteInfluenciaAdicional.value));
-      }
-      else{
-        this.alert.showErrorMessage('Error','No se puede registrar el nuevo grado.');
-      }
-      
-    }
-    else{
-      this.alert.showErrorMessage('Error','Complete todos los datos.');
-    }
-  }
-  comentarioGradoAdicional(idComentario : number, respuesta : string){
-    var comentario = new Comentario;
-    comentario.id_aut_comentario = idComentario;
-    comentario.respuesta = respuesta;
-    return comentario;
   }
   cancelar(){
     this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(

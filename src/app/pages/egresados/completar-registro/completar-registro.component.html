@@ -83,7 +83,7 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Comentarios y sugerencias</ng-template>
-            <app-comentarios #comentario></app-comentarios>
+            <app-comentarios #comentario (comentarios)="agregarComentario($event)"></app-comentarios>
             <mat-label>¿Se esta graduando de otra carrera en esta fecha?: </mat-label>
             <mat-radio-group [formControl]="otroGrado">
               <mat-radio-button value=0>Si</mat-radio-button>
@@ -105,19 +105,7 @@
                   <mat-label>Mención</mat-label>
                   <input matInput [formControl]="mencionAdicional">
                 </mat-form-field>
-                <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                  <mat-label>Comentarios, sugerencias sobre el programa del cual es egresado:</mat-label>
-                  <textarea matInput placeholder="Escribe el comentario aquí"
-                    [formControl]="ComentProgramaAdicional"> </textarea>
-                  <mat-error *ngIf="ComentProgramaAdicional.hasError('required')">Campo requerido</mat-error>
-                </mat-form-field>
-                <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-                  <mat-label>¿Que docente del programa considera que influyó positivamente en su formación como
-                    profesional?:</mat-label>
-                  <input matInput placeholder="Escribe el comentario aquí" [formControl]="DocenteInfluenciaAdicional"
-                    required>
-                    <mat-error *ngIf="DocenteInfluenciaAdicional.hasError('required')">Campo requerido</mat-error>
-                </mat-form-field>
+                <app-comentarios #comentarioGradoAdic (comentarios)="agregarComentarioGradoAdic($event)"></app-comentarios>
               </form>
             </mat-card>
             <button class="botones" mat-button mat-raised-button matStepperPrevious>Atrás</button>
@@ -135,8 +123,5 @@
       <span class="titulo">Completar información</span>
     </mat-toolbar>
     <mat-card-title>Usted ya completó la información adicional.</mat-card-title>
-    <!--mat-card-content>
-      <p> Usted ya completó la información adicional. </p>
-    </mat-card-content-->
   </mat-card>
 </div>

@@ -5,7 +5,7 @@ import { EmpresaService } from 'src/app/shared/servicios/empresa/empresa.service
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { isNull, isUndefined } from 'util';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 export interface DialogData {
@@ -22,12 +22,12 @@ export class VerPostuladosComponent implements OnInit {
   id: string;
   idOferta: string;
   listaPostulados: IEgresado[];
-  listaPostuladosEscogidos: IEgresado[];
   postuladoSeleccionado: IEgresado;
   displayedColumns: string[] = ['Identificacion', 'Nombres', 'Apellidos', 'Estado', 'Acciones'];
   dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
   arregloVacio = false;
   auxiliar = false;
+  filtroEstado = '';
   nombreOferta: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,77 +41,37 @@ export class VerPostuladosComponent implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.idOferta = this.activatedRoute.snapshot.paramMap.get('idOferta');
     this.listaPostulados = null;
-    this.listaPostuladosEscogidos = [];
     this.cargarDatosOferta();
     this.cargarPostulados();
   }
-  cargarDatosOferta(){
+
+  cargarDatosOferta() {
     this.empresaService.getDatosOferta(this.idOferta).subscribe(
       result => {
         this.nombreOferta = result.informacionPrincipal.nombreOferta;
       }
     );
   }
+
   cargarPostulados() {
-    this.empresaService.getPostuladosOferta(this.idOferta).subscribe(resultado => {      
-      this.listaPostulados = resultado.data as IEgresado[];    
-      if(resultado.status === "failure"){
+    this.empresaService.getPostuladosOferta(this.idOferta).subscribe(resultado => {
+      this.listaPostulados = resultado.data as IEgresado[];
+      if (resultado.status === "failure") {
         this.arregloVacio = true;
       }
       this.auxiliar = true;
       this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
       this.dataSource.paginator = this.paginator;
-      //this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
+      this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
       if (this.listaPostulados.length === 0 || isNull(this.listaPostulados)) {
         this.arregloVacio = true;
-      }      
+      }
     },
       error => {
         console.log('Error al obtener el listado de postulados: ', JSON.stringify(error));
         this.auxiliar = true;
         this.arregloVacio = true;
       });
-  }
-  cargarPostulados2() {
-    const lstPostulados: IEgresado[] = [
-      { idEgresado: 3243, nombres: 'Andres Felipe', apellidos: 'Muñoz Andrade' },
-      { idEgresado: 3244, nombres: 'Luz Maritza', apellidos: 'Tabares Paz' },
-      { idEgresado: 3245, nombres: 'John', apellidos: 'Doe' },
-      { idEgresado: 3246, nombres: 'Marco Alberto', apellidos: 'Hernandez Noriega' },
-      { idEgresado: 3247, nombres: 'Natalia Andrea', apellidos: 'Yasnó Ceron' }
-    ];
-    this.listaPostulados = lstPostulados;
-    this.auxiliar = true;
-    this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
-    this.dataSource.paginator = this.paginator;
-  }
-  cargarPostuladosSeleccionados() {
-    this.empresaService.getPostuladosSeleccionadosOferta(this.idOferta).subscribe(resultado => {      
-      this.listaPostuladosEscogidos = resultado;
-    },
-      error => {
-        console.log('Error al obtener el listado de postulados seleccionados: ', JSON.stringify(error));
-      });
-  }
-
-  seleccionarPostulado(postulado: IEgresado) {
-    // Busca la posicion postulado en la lista de postulados para poder eliinarlo despues
-    const posicionPostulados = this.listaPostulados.indexOf(postulado);
-    // Si logra insertar en la lista de escogidos
-    if (this.listaPostuladosEscogidos.push(postulado)) {
-      // Elimina el postulado
-      this.listaPostulados.splice(posicionPostulados, 1);
-    }
-  }
-
-  desseleccionarPostulado(postulado: IEgresado) {
-    // Se busca la posicion del postulado en la lista de seleccionados
-    const posicionEscogidos = this.listaPostulados.indexOf(postulado);
-    // Si logra insertar en la lista de escogidos
-    if (this.listaPostulados.push(postulado)) {
-      // Elimina el postulado
-      this.listaPostuladosEscogidos.splice(posicionEscogidos, 1);
-    }
   }
 
   setPostuladoActual(parPostulado: IEgresado) {
@@ -140,14 +100,36 @@ export class VerPostuladosComponent implements OnInit {
     });
     this.dialogAbierto(dial);
   }
+
   dialogAbierto(dial: MatDialogRef<DialogPostuladoComponent, any>) {
     dial.afterClosed().subscribe((result) => {
       if (result) {
         setTimeout(() => {
           this.cargarPostulados();
-        }, 1500);        
+        }, 1500);
       }
     });
+  }
+
+  filtrar() {
+    if (this.filtroEstado === 'Todos') {
+      this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
+      if (this.listaPostulados.length === 0) {
+        this.arregloVacio = true;
+      } else { this.arregloVacio = false; }
+    } else {
+      const result: IEgresado[] = this.listaPostulados.filter(item => {
+        return item.estado.toLowerCase() === this.filtroEstado.toLowerCase();
+      });
+      if (result.length === 0) {
+        this.arregloVacio = true;
+      } else { this.arregloVacio = false; }
+      this.dataSource = new MatTableDataSource<IEgresado>(result);
+    }
+  }
+
+  previousState() {
+    window.history.back();
   }
 }
 
@@ -162,9 +144,9 @@ export class DialogPostuladoComponent {
   estado: string = 'Pendiente';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private empresaService: EmpresaService,
-              private _snackBar: MatSnackBar,
-              private alert: AlertService) { }
+    private empresaService: EmpresaService,
+    private _snackBar: MatSnackBar,
+    private alert: AlertService) { }
 
   ngOnInit() {
     this.postuladoSeleccionado = this.data.postulado;
@@ -172,13 +154,12 @@ export class DialogPostuladoComponent {
     this.estado = this.postuladoSeleccionado.estado;
   }
 
-  guardarEstado(){
+  guardarEstado() {
     this.empresaService.guardarEstadoPostulado(this.postuladoSeleccionado.idEgresado, this.idOferta, this.estado)
-    .subscribe( result => {
-      this.alert.showSuccesMessage("Cambio exitoso", 'Estado de "'+this.postuladoSeleccionado.nombres + ' ' + this.postuladoSeleccionado.apellidos + '" cambió a "' + this.estado + '"');
-      //this.openSnackBar('Estado de "'+this.postuladoSeleccionado.nombres + ' ' + this.postuladoSeleccionado.apellidos + '" cambió a "' + this.estado + '"');
-    }
-    );
+      .subscribe(result => {
+        this.alert.showSuccesMessage("Cambio exitoso", 'Estado de "' + this.postuladoSeleccionado.nombres + ' ' + this.postuladoSeleccionado.apellidos + '" cambió a "' + this.estado + '"');
+      }
+      );
   }
 
   openSnackBar(message: string) {

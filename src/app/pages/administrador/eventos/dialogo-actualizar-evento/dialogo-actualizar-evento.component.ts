@@ -18,6 +18,7 @@ import { DateMinMaxControl } from 'src/app/shared/common/date-min-max';
 import { Utilities } from 'src/app/shared/servicios/egresados/utilities';
 import { environment } from 'src/environments/environment';
 import { EgrFileUploadComponent } from '../egr-file-upload/egr-file-upload.component';
+import { EgrFileUploadUpdateComponent } from '../egr-file-upload-update/egr-file-upload-update.component';
 
 @Component({
   selector: 'app-dialogo-actualizar-evento',
@@ -37,6 +38,9 @@ export class DialogoActualizarEventoComponent implements OnInit {
   minmaxdate: DateMinMaxControl;
   eventImageApi = `${environment.baseUrl}image/`;
   urlImage = '';
+
+  @ViewChild('fileInput')
+  fileInput: EgrFileUploadUpdateComponent;
 
   constructor(
     private dialogRef: MatDialogRef<DialogoActualizarEventoComponent>,
@@ -84,6 +88,8 @@ export class DialogoActualizarEventoComponent implements OnInit {
               .then(() => {
                 this.dialogRef.close(data);
                 this.isSaving = false;
+                this.fileInput.isCancelPress = true;
+                this.fileInput.onFileChange(null);
               });
           },
           err => {
@@ -106,12 +112,18 @@ export class DialogoActualizarEventoComponent implements OnInit {
     };
   }
 
+  onCuposChange() {
+    if (this.evento.cupos < 1) {
+      this.evento.cupos = 1;
+    }
+  }
+
   cancelar(frm: NgForm) {
-    if (frm.dirty) {
+    if (frm.dirty || this.changeImage) {
       this.alertService
         .showconfirmationMessage(
           'Advertencia',
-          'Desea cancelar la actualización del evento'
+          'Está seguro de cancelar la actualización del evento'
         )
         .then(res => {
           if (res.value) {

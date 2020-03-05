@@ -8,6 +8,8 @@ export class EventoModel {
     public fechaInicio?: string,
     public fechaFin?: string,
     public dirigidoA?: string,
+    public horaInicio?: string,
+    public horaFin?:string,
     public imagePath?: string | File | null
   ) {}
 }
