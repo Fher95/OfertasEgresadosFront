@@ -5,7 +5,7 @@
       <span class="titulo">Formulario de registro</span>
     </mat-toolbar>
     <div id="content" class="col-12 col-md-8 offset-md-2"  >
-      <form id="form" #registerForm="ngForm" (ngSubmit)="register()" >
+      <form id="form" #registerForm="ngForm" (ngSubmit)="registrarEgresado()" >
         <mat-horizontal-stepper [linear]="isLinear" #stepper>
           <mat-step>
             <ng-template matStepLabel>Información Personal</ng-template>
