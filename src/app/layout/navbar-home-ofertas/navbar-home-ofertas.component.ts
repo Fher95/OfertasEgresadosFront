@@ -31,9 +31,10 @@ export class NavbarHomeOfertasComponent implements OnInit {
     console.log("Rol: ", this.auth.userRol);
     console.log("Email: ", this.auth.userEmail);
     this.asignarID();
+    /*
     if (this.auth.userRol.toUpperCase() === 'ADMINISTRADOR') {
       this.onPanelAdmin();
-    }
+    } */
   }
 
   onRegistroEmpresa() {
