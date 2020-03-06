@@ -5,7 +5,7 @@
       <div class="col-md-6">
         <div id="imagen">
           <div *ngIf="data.event.imagePath && data.event.imagePath != 'null'">
-            <img src="{{data.event.imagePath}}" style="width: 90%; height: 150px;" alt="">
+            <img src="{{eventImageApi+data.event.imagePath}}" style="width: 90%; height: 150px;" alt="">
           </div>
         </div>
       </div>
