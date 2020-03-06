@@ -9,6 +9,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EventoInterface } from '../../../shared/modelos/evento';
 import { CatalogosService } from '../../../shared/servicios/common/catalogos.service';
 import { Utilities } from '../../../shared/servicios/egresados/utilities';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-ver-evento',
@@ -18,7 +20,7 @@ import { Utilities } from '../../../shared/servicios/egresados/utilities';
 export class VerEventoComponent implements OnInit {
 
 
-
+  eventImageApi = `${environment.baseUrl}image/`;
   
     // Variables para configurar las fechas
     private startDateControl: FormControl;
