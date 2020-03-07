@@ -18,6 +18,7 @@
               #nombre="ngModel"
               required
               placeholder="Nombre"
+              notOnlyNumbers
             />
             <mat-error
               *ngIf="
@@ -25,6 +26,15 @@
               "
             >
               Campo requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+                nombre.invalid &&
+                nombre.touched &&
+                nombre.hasError('notOnlyNumbers')
+              "
+            >
+              Este campo no acepta solo números
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-3">

@@ -48,7 +48,8 @@ import { ListaGestionEgresadoComponent } from './egresados/lista-gestion-egresad
 import { EgrFileUploadUpdateComponent } from './eventos/egr-file-upload-update/egr-file-upload-update.component';
 import {
   HourDomainValidator,
-  LetterValidator
+  LetterValidator,
+  NotOnlyNumbersValidator
 } from 'src/app/shared/common/custom-validators';
 import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
 
@@ -125,7 +126,8 @@ const routes: Routes = [
     ListaGestionEgresadoComponent,
     EgrFileUploadUpdateComponent,
     HourDomainValidator,
-    LetterValidator
+    LetterValidator,
+    NotOnlyNumbersValidator
   ],
   imports: [
     CommonModule,
