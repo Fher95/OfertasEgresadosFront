@@ -70,19 +70,21 @@ export class RegistroEventoComponent implements OnInit {
   errorEnHora(frm: NgForm) {
     if (this.dateControl.datesAreEquals()) {
       console.log('Son iguales');
-      if (frm.value.horaFin != null && frm.value.horaFin != '') {
-        let horaInicio = frm.value.horaInicio.split(':').map(v => parseInt(v));
-        let horaFin = frm.value.horaFin.split(':').map(v => parseInt(v));
-        if (horaInicio[0] < horaFin[0]) {
-          frm.controls['horaFin'].setErrors({ horaInvalida: true });
-        } else if (horaInicio[1] > horaFin[1]) {
-          frm.controls['horaFin'].setErrors({ horaInvalida: true });
-        } else {
-          frm.controls['horaFin'].setErrors({ horaInvalida: null });
-          frm.controls['horaFin'].updateValueAndValidity();
-        }
+      let horaInicio = frm.value.horaInicio.split(':').map((v: string) => parseInt(v));
+      let horaFin = frm.value.horaFin.split(':').map((v: string) => parseInt(v));
+      if (horaInicio[0] > horaFin[0]) {
+        console.log('La hora de inicio es mayor a la de fin');
+        frm.controls['horaFin'].setErrors({ horaInvalida: true });
+      } else if (horaInicio[1] > horaFin[1]) {
+        console.log('Los minutos de inicio son mayores a los de fin');
+        frm.controls['horaFin'].setErrors({ horaInvalida: true });
+      } else {
+        console.log('No hay error');
+        frm.controls['horaFin'].setErrors({ horaInvalida: null });
+        frm.controls['horaFin'].updateValueAndValidity();
       }
     } else {
+      console.log('No hay error');
       frm.controls['horaFin'].setErrors({ horaInvalida: null });
       frm.controls['horaFin'].updateValueAndValidity();
     }

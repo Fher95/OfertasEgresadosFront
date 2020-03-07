@@ -50,7 +50,7 @@
           [(ngModel)]="minmaxdate.minDate"
           #fechaInicio="ngModel"
           required
-          (dateChange)="minmaxdate.onMinDateSelect()"
+          (dateChange)="minmaxdate.onMinDateSelect(); errorEnHora(addEventForm)"
           name="fehcaInicio"
         />
         <mat-datepicker-toggle
@@ -78,6 +78,7 @@
           [(ngModel)]="minmaxdate.maxDate"
           #fechaFin="ngModel"
           required
+          (dateChange)="minmaxdate.onMaxDateSelect(); errorEnHora(addEventForm)"
           name="fechaFin"
         />
         <mat-datepicker-toggle
@@ -109,6 +110,7 @@
           required
           pattern="^\d\d:\d\d$"
           hourDomain
+          (change)="errorEnHora(addEventForm)"
         />
         <mat-error
           *ngIf="
@@ -151,6 +153,7 @@
           required
           pattern="^\d\d:\d\d$"
           hourDomain
+          (change)="errorEnHora(addEventForm)"
         />
         <mat-error
           *ngIf="
@@ -178,6 +181,15 @@
           "
         >
           Debe ingresar una hora válida (formato 24 horas)
+        </mat-error>
+        <mat-error
+          *ngIf="
+            horaFin.hasError('horaInvalida') &&
+            horaFin.invalid &&
+            (horaFin.dirty || horaFin.touched)
+          "
+        >
+          Solo se permiter horas superiores a la hora de inicio
         </mat-error>
       </mat-form-field>
     </div>
