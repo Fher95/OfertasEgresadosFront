@@ -18,7 +18,7 @@
               #nombre="ngModel"
               required
               placeholder="Nombre"
-              letter
+              notOnlyNumbers
             />
             <mat-error
               *ngIf="
@@ -29,10 +29,12 @@
             </mat-error>
             <mat-error
               *ngIf="
-                nombre.invalid && nombre.touched && nombre.hasError('letter')
+                nombre.invalid &&
+                nombre.touched &&
+                nombre.hasError('notOnlyNumbers')
               "
             >
-              El campo solo admite letras
+              Este campo no acepta solo números
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-3">
@@ -72,7 +74,9 @@
               [(ngModel)]="dateControl.minDate"
               #fechaInicio="ngModel"
               required
-              (dateChange)="dateControl.onMinDateSelect()"
+              (dateChange)="
+                dateControl.onMinDateSelect(); errorEnHora(addEventForm)
+              "
               name="fechaInicio"
             />
             <mat-datepicker-toggle
@@ -99,7 +103,9 @@
               [min]="dateControl.minDate"
               [(ngModel)]="dateControl.maxDate"
               #fechaFin="ngModel"
-              (change)="dateControl.onMaxDateSelect()"
+              (dateChange)="
+                dateControl.onMaxDateSelect(); errorEnHora(addEventForm)
+              "
               required
               name="fechaFin"
             />
@@ -132,6 +138,7 @@
               required
               pattern="^\d\d:\d\d$"
               hourDomain
+              (change)="errorEnHora(addEventForm)"
             />
             <mat-error
               *ngIf="
@@ -174,6 +181,7 @@
               required
               pattern="^\d\d:\d\d$"
               hourDomain
+              (change)="errorEnHora(addEventForm)"
             />
             <mat-error
               *ngIf="
@@ -193,6 +201,7 @@
             >
               El formato de la hora es HH:MM
             </mat-error>
+            <mat-error></mat-error>
             <mat-error
               *ngIf="
                 horaFin.hasError('hourDomain') &&
@@ -201,6 +210,15 @@
               "
             >
               Debe ingresar una hora válida (formato 24 horas)
+            </mat-error>
+            <mat-error
+              *ngIf="
+                horaFin.hasError('horaInvalida') &&
+                horaFin.invalid &&
+                (horaFin.dirty || horaFin.touched)
+              "
+            >
+              Solo se permiter horas superiores a la hora de inicio
             </mat-error>
           </mat-form-field>
         </div>
@@ -271,15 +289,16 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="form-row">
-          <app-egr-file-upload
-            #fileInput
-            [text]="'Agregar imagen'"
-            [accept]="'.jpg,.png'"
-            [labelText]="'Imagen evento'"
-            (importEvent)="importFile($event)"
-          ></app-egr-file-upload>
-        </div>
+
+        <app-egr-file-upload
+          class="form-row"
+          #fileInput
+          [text]="'Agregar imagen'"
+          [accept]="'.jpg,.png'"
+          [labelText]="'Imagen evento'"
+          (importEvent)="importFile($event)"
+        ></app-egr-file-upload>
+
         <mat-card-actions>
           <button
             type="button"

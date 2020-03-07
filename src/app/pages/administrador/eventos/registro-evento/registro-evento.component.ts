@@ -11,7 +11,11 @@ import {
 import { EventosService } from 'src/app/shared/servicios/admin/eventos.service';
 import { DateMinMaxControl } from 'src/app/shared/common/date-min-max';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE
+} from '@angular/material';
 import {
   AppDateAdapter,
   APP_DATE_FORMATS
@@ -24,6 +28,7 @@ import { EgrFileUploadComponent } from '../egr-file-upload/egr-file-upload.compo
   styleUrls: ['./registro-evento.component.css'],
   providers: [
     { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_LOCALE, useValue: 'es' },
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
   ]
 })
@@ -42,8 +47,11 @@ export class RegistroEventoComponent implements OnInit {
 
   constructor(
     private eventosService: EventosService,
-    private alertService: AlertService
-  ) {}
+    private alertService: AlertService,
+    private dateAdapter: DateAdapter<any>
+  ) {
+    dateAdapter.setLocale('es');
+  }
 
   ngOnInit() {
     this.dateControl = new DateMinMaxControl();
@@ -56,6 +64,27 @@ export class RegistroEventoComponent implements OnInit {
   onCuposChange() {
     if (this.cantidadCupos < 1) {
       this.cantidadCupos = 1;
+    }
+  }
+
+  errorEnHora(frm: NgForm) {
+    if (this.dateControl.datesAreEquals()) {
+      console.log('Son iguales');
+      if (frm.value.horaFin != null && frm.value.horaFin != '') {
+        let horaInicio = frm.value.horaInicio.split(':').map(v => parseInt(v));
+        let horaFin = frm.value.horaFin.split(':').map(v => parseInt(v));
+        if (horaInicio[0] < horaFin[0]) {
+          frm.controls['horaFin'].setErrors({ horaInvalida: true });
+        } else if (horaInicio[1] > horaFin[1]) {
+          frm.controls['horaFin'].setErrors({ horaInvalida: true });
+        } else {
+          frm.controls['horaFin'].setErrors({ horaInvalida: null });
+          frm.controls['horaFin'].updateValueAndValidity();
+        }
+      }
+    } else {
+      frm.controls['horaFin'].setErrors({ horaInvalida: null });
+      frm.controls['horaFin'].updateValueAndValidity();
     }
   }
 

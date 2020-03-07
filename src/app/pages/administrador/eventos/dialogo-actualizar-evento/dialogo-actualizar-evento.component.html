@@ -1,4 +1,4 @@
-<h2>EDITAR EVENTO</h2>
+<h2>Editar evento</h2>
 <mat-dialog-content>
   <form #addEventForm="ngForm" invalidate (ngSubmit)="onSave(addEventForm)">
     <div class="form-row">
@@ -12,18 +12,13 @@
           #nombre="ngModel"
           required
           placeholder="Nombre"
-          letter
         />
         <mat-error
           *ngIf="
             nombre.invalid && nombre.touched && nombre.hasError('required')
           "
         >
-          Campo requerido </mat-error
-        ><mat-error
-          *ngIf="nombre.invalid && nombre.touched && nombre.hasError('letter')"
-        >
-          El campo solo admite letras
+          Campo requerido
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-group col-md-3">
