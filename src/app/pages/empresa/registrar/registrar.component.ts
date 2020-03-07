@@ -127,6 +127,7 @@ export class RegistrarComponent implements OnInit {
       formData.append('logoInput', this.logoInput.nativeElement.files[0]);
     }
     this.empService.registrarUsuario(formData).toPromise().then(data => {
+      console.log("registro completo: " + JSON.stringify(data));
       this.openDialog();
       //Al enviar los archivos se muestra el dialog y se termina el registro
       //this.enviarArchivos(data);
