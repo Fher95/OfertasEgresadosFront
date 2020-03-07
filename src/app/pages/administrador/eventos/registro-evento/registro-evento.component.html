@@ -18,6 +18,7 @@
               #nombre="ngModel"
               required
               placeholder="Nombre"
+              letter
             />
             <mat-error
               *ngIf="
@@ -25,6 +26,13 @@
               "
             >
               Campo requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+                nombre.invalid && nombre.touched && nombre.hasError('letter')
+              "
+            >
+              El campo solo admite letras
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-3">
@@ -155,7 +163,7 @@
           </mat-form-field>
 
           <mat-form-field class="col-md-6" appearance="outline">
-            <mat-label>Fecha de finalización</mat-label>
+            <mat-label>Hora de finalización</mat-label>
             <input
               type="text"
               matInput
@@ -268,7 +276,7 @@
             #fileInput
             [text]="'Agregar imagen'"
             [accept]="'.jpg,.png'"
-            [labelText]="'Imágen evento'"
+            [labelText]="'Imagen evento'"
             (importEvent)="importFile($event)"
           ></app-egr-file-upload>
         </div>

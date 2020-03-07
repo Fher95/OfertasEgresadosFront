@@ -127,7 +127,7 @@
         No se encontraron resultados
       </div>
 
-      <mat-paginator [length]="totalResults" [pageSize]="10"></mat-paginator>
+      <mat-paginator [length]="totalResults" [pageSizeOptions]="[5,10,20,50]" [pageSize]="10"></mat-paginator>
     </div>
   </mat-card-content>
 </mat-card>

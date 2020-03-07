@@ -22,9 +22,17 @@
               [(ngModel)]="model.nombre"
               placeholder="Nombres"
               required
+              letter
             />
             <mat-error *ngIf="nombre.invalid && nombre.hasError('required')">
               Campo requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+                nombre.invalid && nombre.touched && nombre.hasError('letter')
+              "
+            >
+              El campo solo admite letras
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-4">
@@ -37,11 +45,19 @@
               name="apellido"
               placeholder="Apellidos"
               required
+              letter
             />
             <mat-error
               *ngIf="apellido.invalid && apellido.hasError('required')"
             >
               Campo requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+                nombre.invalid && nombre.touched && nombre.hasError('letter')
+              "
+            >
+              El campo solo admite letras
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-4">
@@ -54,11 +70,19 @@
               name="nombreApoyo"
               placeholder="Rol apoyo"
               required
+              letter
             />
             <mat-error
               *ngIf="nombreApoyo.invalid && nombreApoyo.hasError('required')"
             >
               El rol del apoyo es requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+                nombre.invalid && nombre.touched && nombre.hasError('letter')
+              "
+            >
+              El campo solo admite letras
             </mat-error>
           </mat-form-field>
         </div>
@@ -173,7 +197,11 @@
           >
             Guardar
           </button>
-          <div class="spinner-grow text-danger ml-2 mt-2" role="status" *ngIf="isSaving">
+          <div
+            class="spinner-grow text-danger ml-2 mt-2"
+            role="status"
+            *ngIf="isSaving"
+          >
             <span class="sr-only">Guardando...</span>
           </div>
         </mat-card-actions>

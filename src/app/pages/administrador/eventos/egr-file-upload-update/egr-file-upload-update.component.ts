@@ -32,7 +32,7 @@ export class EgrFileUploadUpdateComponent implements OnInit {
       this.fileText = Array.from(fileList)
         .map(f => f.name)
         .join(', ');
-        let extension = this.fileText.split('.').pop();
+        let extension = '.' + this.fileText.split('.').pop();
         let finding = false;
         this.accept.split(',').forEach((value, idx) => {
           if (value.trim() == extension) finding = true;

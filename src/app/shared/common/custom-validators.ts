@@ -16,6 +16,18 @@ export function hourDomainValidator(control: FormControl) {
   return null;
 }
 
+export function letterValidator(control: FormControl) {
+  let value = control.value as string;
+  if (!value.match('^[a-zA-Z]+$')) {
+    return {
+      letter: {
+        domain: value
+      }
+    };
+  }
+  return null;
+}
+
 @Directive({
   selector: '[hourDomain][ngModel]',
   providers: [
@@ -27,3 +39,15 @@ export function hourDomainValidator(control: FormControl) {
   ]
 })
 export class HourDomainValidator {}
+
+@Directive({
+  selector: '[letter][ngModel]',
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useValue: letterValidator,
+      multi: true
+    }
+  ]
+})
+export class LetterValidator {}

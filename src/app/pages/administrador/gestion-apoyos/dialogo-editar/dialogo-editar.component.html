@@ -12,6 +12,7 @@
           [(ngModel)]="apoyo.nombres"
           required
           placeholder="Nombres"
+          letter
         />
         <mat-error
           *ngIf="
@@ -21,6 +22,11 @@
           "
         >
           Campo requerido
+        </mat-error>
+        <mat-error
+          *ngIf="nombre.invalid && nombre.touched && nombre.hasError('letter')"
+        >
+          El campo solo admite letras
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-group col-md-4">
@@ -33,6 +39,7 @@
           type="text"
           [(ngModel)]="apoyo.apellidos"
           required
+          letter
         />
         <mat-error
           *ngIf="
@@ -42,6 +49,11 @@
           "
         >
           Campo requerido
+        </mat-error>
+        <mat-error
+          *ngIf="nombre.invalid && nombre.touched && nombre.hasError('letter')"
+        >
+          El campo solo admite letras
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-group col-md-4">
@@ -54,6 +66,7 @@
           type="text"
           [(ngModel)]="apoyo.nombreRol"
           required
+          letter
         />
         <mat-error
           *ngIf="
@@ -63,6 +76,11 @@
           "
         >
           Campo requerido
+        </mat-error>
+        <mat-error
+          *ngIf="nombre.invalid && nombre.touched && nombre.hasError('letter')"
+        >
+          El campo solo admite letras
         </mat-error>
       </mat-form-field>
     </div>
