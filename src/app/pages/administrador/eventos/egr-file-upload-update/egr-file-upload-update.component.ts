@@ -42,7 +42,7 @@ export class EgrFileUploadUpdateComponent implements OnInit {
           this.importEvent.emit(this.fileToUpload);
         } else {
           this.fileText = '';
-          this.alertService.showErrorMessage('Error', 'Solo se permiten extensiónes ' + this.accept);
+          this.alertService.showErrorMessage('Error', 'Solo se permiten extensiones ' + this.accept);
         }
     }
   }
