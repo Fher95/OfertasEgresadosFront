@@ -46,7 +46,6 @@ export class OfertasPublicadasComponent implements OnInit {
  */
   cargarOfertas() {
     this.empService.getHistorialOfertas(this.id).subscribe(resultado => {
-      console.log(resultado)
       this.ofertas = resultado;
       this.listaCargada = true;
       this.dataSource = new MatTableDataSource<IHistorialOfertas>(this.ofertas);
@@ -103,7 +102,7 @@ export class OfertasPublicadasComponent implements OnInit {
   */
   openDialogInfoOferta(row: any, idOferta: string) {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
-      data: { datos: row, crear: false }
+      data: { datos: row, crear: false, estado: row.estado_proceso }
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
