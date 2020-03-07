@@ -1,7 +1,11 @@
 import { ListaApoyosComponent } from './lista-apoyos/lista-apoyos.component';
 import { DialogoEditarComponent } from './dialogo-editar/dialogo-editar.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource, MatPaginator, MatDialogConfig } from '@angular/material';
+import {
+  MatTableDataSource,
+  MatPaginator,
+  MatDialogConfig
+} from '@angular/material';
 import { AlertService } from './../../../shared/servicios/common/alert.service';
 import { ApoyoService } from './../../../shared/servicios/egresados/apoyo.service';
 import { ApoyoModel } from './../../../shared/modelos/apoyo.model';
@@ -18,7 +22,6 @@ import { startWith, switchMap } from 'rxjs/operators';
   styleUrls: ['./gestion-apoyos.component.css']
 })
 export class GestionApoyosComponent implements OnInit {
-
   /**
    * Controles
    */
@@ -59,11 +62,10 @@ export class GestionApoyosComponent implements OnInit {
     private apoyoService: ApoyoService,
     private alertService: AlertService,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.catalogService.getServicios()
-      .subscribe(arg => this.servicios = arg);
+    this.catalogService.getServicios().subscribe(arg => (this.servicios = arg));
   }
 
   agregarRol() {
@@ -86,15 +88,29 @@ export class GestionApoyosComponent implements OnInit {
     dialogConfig.hasBackdrop = true;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = {... apoyo};
+    dialogConfig.data = { ...apoyo };
     const dialogRef = this.dialog.open(DialogoEditarComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(() => {
       this.tblApoyos.editarApoyo();
     });
   }
 
-  onCancelar(form: NgForm)
-  {
+  onCancelar(form: NgForm) {
+    if (form.dirty) {
+      this.alertService
+        .showconfirmationMessage(
+          'Confirmación',
+          'Desea cancelar el registro del apoyo'
+        )
+        .then(res => {
+          if (res) {
+            this.cleanForm(form);
+          }
+        });
+    }
+  }
+
+  private cleanForm(form: NgForm) {
     this.model = {};
     this.rolesSeleccionados = [];
     form.reset();
@@ -110,27 +126,28 @@ export class GestionApoyosComponent implements OnInit {
     this.apoyo.nombreRol = form.controls.nombreApoyo.value;
     this.apoyo.correoSecundario = form.controls.emailSecundario.value;
     this.apoyo.servicios = this.rolesSeleccionados;
-    console.log(this.apoyo.servicios);
-    this.apoyoService.save(this.apoyo).subscribe(() => {
-      this.alertService.showSuccesMessage('Éxito', 'Nuevo apoyo registrado exitosamente')
-        .then(() => {
-          this.tblApoyos.nuevoApoyo(this.apoyo);
-          this.apoyo = new ApoyoModel();
-          this.onCancelar(form);
-          this.isSaving = false;
-        });
-    }, err => {
-      console.log("Errro");
-      console.log(err);
-      console.log(err.error);
-      let msg = "Error al registrar el nuevo apoyo";
-      if (err.status == 422) {
-        if (err.error.errors.correo !== undefined) {
-          msg = 'Ya existe un usuario registrado con el correo electrónico proporcionado';
+    this.apoyoService.save(this.apoyo).subscribe(
+      () => {
+        this.alertService
+          .showSuccesMessage('Éxito', 'Nuevo apoyo registrado exitosamente')
+          .then(() => {
+            this.tblApoyos.nuevoApoyo(this.apoyo);
+            this.apoyo = new ApoyoModel();
+            this.cleanForm(form);
+            this.isSaving = false;
+          });
+      },
+      err => {
+        let msg = 'Error al registrar el nuevo apoyo';
+        if (err.status == 422) {
+          if (err.error.errors.correo !== undefined) {
+            msg =
+              'Ya existe un usuario registrado con el correo electrónico proporcionado';
+          }
         }
+        this.alertService.showErrorMessage('Error', msg);
+        this.isSaving = false;
       }
-      this.alertService.showErrorMessage('Error', msg);
-      this.isSaving = false;
-    });
+    );
   }
 }

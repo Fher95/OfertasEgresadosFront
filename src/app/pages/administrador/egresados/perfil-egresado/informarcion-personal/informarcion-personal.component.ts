@@ -16,11 +16,13 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./informarcion-personal.component.css']
 })
 export class InformarcionPersonalComponent implements OnInit {
-  nombreCompleto = 'Nombre completo';
+  nombreCompleto = '';
   isLoadingResults = false;
   @Input()
   public egresado: EgresadoModel;
-  constructor(private sharedService: EgresadoSharedService) {}
+  constructor(private sharedService: EgresadoSharedService) {
+    this.nombreCompleto = this.egresado.nombres + ' ' + this.egresado.apellidos;
+  }
 
   ngOnInit() {}
 }

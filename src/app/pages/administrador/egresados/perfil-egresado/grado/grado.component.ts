@@ -9,6 +9,7 @@ import { throws } from 'assert';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ObservacionModel } from 'src/app/shared/modelos/observacion.model';
 import { ObservacionService } from 'src/app/shared/servicios/admin/observacion.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-grado',
@@ -17,8 +18,8 @@ import { ObservacionService } from 'src/app/shared/servicios/admin/observacion.s
 })
 export class GradoComponent implements OnInit {
   grado: GradoModel;
-  private gradoObservable$: Observable<GradoModel>;
-
+  gradoObservable$: Observable<GradoModel>;
+  isLoading = false;
   idGrado: number;
 
   constructor(
@@ -40,6 +41,10 @@ export class GradoComponent implements OnInit {
         return throwError('Error al cargar el grado con id: ' + this.idGrado);
       })
     );
+  }
+
+  actualizarGrado(frm: NgForm) {
+    //
   }
 
   cerrar() {

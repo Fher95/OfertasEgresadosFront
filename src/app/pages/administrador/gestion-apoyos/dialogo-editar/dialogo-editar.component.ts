@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ApoyoModel } from 'src/app/shared/modelos/apoyo.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-dialogo-editar',
@@ -23,7 +24,7 @@ export class DialogoEditarComponent implements OnInit {
       value: true
     },
     {
-      nombre: 'Inctivo',
+      nombre: 'Inactivo',
       value: false
     }
   ];
@@ -69,8 +70,14 @@ export class DialogoEditarComponent implements OnInit {
     }
   }
 
-  cancelar() {
-    this.dialogRef.close(false);
+  cancelar(frm: NgForm) {
+    if(frm.dirty){
+      this.alertService.showconfirmationMessage('Confirmación', 'Desea de cancelar la actualización del apoyo').then(res => {
+        if(res) {
+          this.dialogRef.close(false);
+        }
+      });
+    }
   }
 
   onSubmit() {

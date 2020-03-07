@@ -287,8 +287,15 @@
             mat-raised-button
             color="primary"
           >
-            Guardar<mat-spinner *ngIf="isSaving" diameter="30"></mat-spinner>
+            Guardar
           </button>
+          <div
+            class="spinner-grow text-danger ml-2 mt-2"
+            role="status"
+            *ngIf="isSaving"
+          >
+            <span class="sr-only">Guardando...</span>
+          </div>
         </mat-card-actions>
       </form>
     </mat-card-content>

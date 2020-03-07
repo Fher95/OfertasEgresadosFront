@@ -1,8 +1,9 @@
-<h2 mat-dialog-title>Editar egresados</h2>
+<h2 mat-dialog-title>Editar apoyo</h2>
 <mat-dialog-content>
-  <form novalidate (onSubmit)="onSubmit()">
+  <form novalidate (onSubmit)="onSubmit()" #frmEditarApoyo="ngForm">
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-group col-md-4">
+        <mat-label>Nombres</mat-label>
         <input
           matInput
           #nombre="ngModel"
@@ -19,10 +20,11 @@
             nombre.errors.required
           "
         >
-          El nombre es requerido
+          Campo requerido
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-group col-md-4">
+        <mat-label>Apellidos</mat-label>
         <input
           matInput
           #apellido="ngModel"
@@ -39,14 +41,15 @@
             apellido.errors.required
           "
         >
-          El apellido es requerido
+          Campo requerido
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-group col-md-4">
+        <mat-label>Rol apoyo</mat-label>
         <input
           matInput
           #nombreRol="ngModel"
-          placeholder="Nombre rol"
+          placeholder="Rol apoyo"
           name="nombreRol"
           type="text"
           [(ngModel)]="apoyo.nombreRol"
@@ -59,22 +62,24 @@
             nombreRol.errors.required
           "
         >
-          El nombre del rol es requerido
+          Campo requerido
         </mat-error>
       </mat-form-field>
     </div>
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-group col-md-6">
+        <mat-label>Correo</mat-label>
         <input
           matInput
           type="email"
           #email="ngModel"
           name="email"
-          email
           required
           [(ngModel)]="apoyo.correo"
           placeholder="Correo"
+          pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
         />
+        <mat-icon matSuffix>email</mat-icon>
         <mat-error
           *ngIf="
             email.invalid &&
@@ -82,30 +87,32 @@
             email.errors.required
           "
         >
-          El elmail es requerido
+          Campo requerido
         </mat-error>
         <mat-error
           *ngIf="
             email.invalid &&
             (email.dirty || email.touched) &&
-            email.errors.email
+            email.errors.pattern
           "
         >
-          Debe ingresaro un email válido
+          Debe ingresaro un correo válido
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-group col-md-6">
+        <mat-label>Correo secundario</mat-label>
         <input
           matInput
-          email
           type="email"
           #emailSecundariod="ngModel"
           name="emailSecundariod"
           required
           [(ngModel)]="apoyo.correoSecundario"
           placeholder="Correo secundario"
+          pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
         />
+        <mat-icon matSuffix>email</mat-icon>
         <mat-error
           *ngIf="
             emailSecundariod.invalid &&
@@ -113,16 +120,16 @@
             emailSecundariod.errors.required
           "
         >
-          El elmail es requerido
+          Campo requerido
         </mat-error>
         <mat-error
           *ngIf="
             emailSecundariod.invalid &&
             (emailSecundariod.dirty || emailSecundariod.touched) &&
-            emailSecundariod.errors.email
+            emailSecundariod.errors.pattern
           "
         >
-          Debe ingresaro un email válido
+          Debe ingresaro un correo válido
         </mat-error>
       </mat-form-field>
     </div>
@@ -171,21 +178,13 @@
         >
           <mat-radio-button
             class="example-radio-button"
-            [checked]="estadoSeleccionado==estado.value"
+            [checked]="estadoSeleccionado == estado.value"
             *ngFor="let estado of estados"
             [value]="estado.value"
           >
-          {{ estado.nombre }}
+            {{ estado.nombre }}
           </mat-radio-button>
         </mat-radio-group>
-
-        <!-- <mat-label>Estado</mat-label>
-        <mat-checkbox
-          name="estado"
-          class="ml-3"
-          labelPosition="before"
-          [(ngModel)]="apoyo.usuario.activo"
-        ></mat-checkbox>-->
       </div>
     </div>
 
@@ -194,7 +193,7 @@
         type="button"
         mat-raised-button
         class="btn btn-danger"
-        (click)="cancelar()"
+        (click)="cancelar(frmEditarApoyo)"
       >
         Cancelar
       </button>
@@ -216,8 +215,14 @@
         (click)="onSubmit()"
       >
         Guardar
-        <mat-spinner diameter="30" *ngIf="isSaving"></mat-spinner>
       </button>
+      <div
+        class="spinner-grow text-danger ml-2 mt-2"
+        role="status"
+        *ngIf="isSaving"
+      >
+        <span class="sr-only">Guardando...</span>
+      </div>
     </mat-dialog-actions>
   </form>
 </mat-dialog-content>
