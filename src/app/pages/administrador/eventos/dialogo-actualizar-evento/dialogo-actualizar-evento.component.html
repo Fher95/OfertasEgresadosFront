@@ -12,18 +12,13 @@
           #nombre="ngModel"
           required
           placeholder="Nombre"
-          letter
         />
         <mat-error
           *ngIf="
             nombre.invalid && nombre.touched && nombre.hasError('required')
           "
         >
-          Campo requerido </mat-error
-        ><mat-error
-          *ngIf="nombre.invalid && nombre.touched && nombre.hasError('letter')"
-        >
-          El campo solo admite letras
+          Campo requerido
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="form-group col-md-3">
