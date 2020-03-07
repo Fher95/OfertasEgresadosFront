@@ -20,18 +20,6 @@
     background-color: rgb(255, 255, 255);
     height: 130px;
 }
-
-#base {
-    background-color: #fff;
-    width: 100% !important;
-}
-
-#form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
 #imagen {
     height: 150px;
     width: 100%;

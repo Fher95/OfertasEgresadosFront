@@ -1,12 +1,30 @@
 <app-navbar-home-ofertas></app-navbar-home-ofertas>
 <div id="base">
-  <h2>Eventos</h2>
-  
+  <mat-toolbar class="barra" color="primary">
+    <span class="titulo">Eventos</span>
+  </mat-toolbar>
+  <form #formBuscarEventos="ngForm" (ngSubmit)="filtarEventos(formBuscarEventos)">
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-group col-md-6">
+      <input type="text" matInput #lugar name="lugar" ngModel placeholder="Lugar"/>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-group col-md-6">
+      <input  matInput [matDatepicker]="fechaPicker" placeholder="Fecha" ngModel #fecha="ngModel" name="fecha"/>
+      <mat-datepicker-toggle matSuffix [for]="fechaPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fechaPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="form-row form-group">
+    <button type="submit" color="primary" mat-raised-button>
+      Filtrar
+    </button>
+  </div>
+</form>
   <div id="listaEventos" class="row no-gutters">
     <div class="col-12 col-md-6" *ngFor="let evento of eventos; let index = index">
       <div class="evento">
         <div class="imagenEvento">
-          <img *ngIf="evento.imagePath && evento.imagePath != 'null'" src="{{evento.imagePath}}"
+          <img *ngIf="evento.imagePath && evento.imagePath != 'null'" [src]="eventImageApi+evento.imagePath"
             style="height: 150px; width: 100%;" alt="">
         </div>
         <div class="infoEvento">

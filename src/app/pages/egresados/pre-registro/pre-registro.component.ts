@@ -69,6 +69,8 @@ export class PreRegistroComponent implements OnInit {
   // Variable en la que se almacena los datos ingresados para el preregistro
   private user: User;
 
+  private btnGuardar: boolean = false;
+
   // Variables para mostrar errores de correo y identificación
   private msgErrorIdentificacion: String;
   private msgErrorcorreo: String;
@@ -102,24 +104,23 @@ export class PreRegistroComponent implements OnInit {
 
   onEditMode = false;
 
-  private generos: string[] = ['MASCULINO', 'FEMENINO'];
+  private generos: string[] = ['Masculino', 'Femenino'];
   private estadosC: string[] = [
-    'NINGUNO',
-    'SOLTERO(A)',
-    'CASADO(A)',
-    'VIUDO(A)',
-    'UNION LIBRE',
-    'SEPARADO(A)',
-    'COMPROMETIDO(A)',
-    'DIVORCIADO(A)'
+    'Soltero(a)',
+    'Casado(a)',
+    'Viudo(a)',
+    'Union libre',
+    'Separado(a)',
+    'Comprometido(a)',
+    'Divorciado(a)'
   ];
   private gruposE: string[] = [
-    'NINGUNO',
-    'AFRODESCENDIENTE',
-    'INDÍGENA',
-    'MESTIZO',
-    'BLANCO',
-    'OTRO'
+    'Ninguno',
+    'Afrodescendiente',
+    'Indígena',
+    'Mestiza',
+    'Blanco',
+    'Otro'
   ];
 
   // Variable para capturar y acotar la fecha seleccionada
@@ -129,6 +130,7 @@ export class PreRegistroComponent implements OnInit {
   private maxDateN: Date;
 
   //Variable para programa con titulo
+  guardar: boolean = false;
 
 
   private respuestaDiscapacidad: boolean = false;
@@ -149,6 +151,7 @@ export class PreRegistroComponent implements OnInit {
     for (let i = this.anioIni; i <= this.fecha; i++) {
       this.anios.push(i);
     }
+    this.anios = this.anios.reverse();
   }
 
   // Método para limpiar datos de control de formulario
@@ -200,6 +203,9 @@ export class PreRegistroComponent implements OnInit {
     this.obtenerNivelEstudio();
   }
 
+  opcionGuardar(){
+    this.btnGuardar=!this.btnGuardar;
+  }
 
   onEditar() {
     this.onEditMode = !this.onEditMode;
@@ -250,9 +256,8 @@ export class PreRegistroComponent implements OnInit {
 
   //Metodo para poner el año a partir de la fecha de grado
   grado() {
-    
     var bandera: boolean = false;
-    if (this.fechaGFormControl.value != null) {
+    if (this.fechaGFormControl.value != null || this.fechaGFormControl.value != '') {
       var fecha = this.fechaGFormControl.value.getFullYear();
       bandera = true;
       this.bloquearAnio = false;
@@ -467,9 +472,7 @@ export class PreRegistroComponent implements OnInit {
   // Método para validar los datos ingresados por el usuario
   validData() {
     this.discapacidadesEgersado();
-    console.log("estado identificacion" + this.validarIdentificacion());
-    console.log("estado correo" + this.validarCorreos());
-    console.log("estado año grado" + this.validarCampoAnio());
+    this.opcionGuardar();
     var valid: boolean = false;
     console.log(this.discapacidadesAux);
     if (
@@ -481,7 +484,6 @@ export class PreRegistroComponent implements OnInit {
       this.user.telefono_fijo.length > 0 &&
       this.user.apellidos.length > 0 &&
       this.emailFormControl.value != null &&
-      this.emailFormControl2.value != null &&
       this.sedeFormControl.value != null &&
       this.ciudadExpedicionFormControl.value != null &&
       this.ciudadNacimientoFormControl.value != null &&
@@ -503,13 +505,17 @@ export class PreRegistroComponent implements OnInit {
       this.alert.showErrorMessage(
         'Error',
         'Existen campos obligatorios sin diligenciar. Por favor verificar el formulario'
-      );
+      ).then(result => {
+        if (result.value) {
+          this.opcionGuardar();
+        } 
+      });
     }
     return valid;
   }
 
   // Método para registrar la solicitud
-  register() {
+  registrarEgresado() {
     if (this.validData()) {
       this.user.fecha_grado = Utilities.parseDateToString(
         this.fechaGFormControl.value,
@@ -527,14 +533,17 @@ export class PreRegistroComponent implements OnInit {
       } else {
         this.user.anio_graduacion = this.anioGFormControl.value;
       }
-      this.user.grupo_etnico = this.grupoEFormControl.value;
-      this.user.estado_civil = this.estadoCFormControl.value;
+      this.user.grupo_etnico = this.grupoEFormControl.value.toUpperCase();
+      this.user.estado_civil = this.estadoCFormControl.value.toUpperCase();
       this.user.id_lugar_expedicion = this.ciudadExpedicionFormControl.value;
       this.user.id_lugar_nacimiento = this.ciudadNacimientoFormControl.value;
       this.user.id_lugar_residencia = this.ciudadResidenciaFormControl.value;
       this.user.id_nivel_educativo = this.nivelAFormControl.value;
       this.user.titulo_especial = this.tituloFormControl.value;
       this.user.discapacidad = this.discapacidad;
+      this.user.nombres = (this.user.nombres).toUpperCase();
+      this.user.apellidos = (this.user.apellidos).toUpperCase();
+      this.user.genero = (this.user.genero).toUpperCase();
       this.registroService.storeEgresado(this.user).subscribe(
         response => {
           this.alert
@@ -545,29 +554,25 @@ export class PreRegistroComponent implements OnInit {
             .then(result => {
               if (result.value) {
                 this.router.navigateByUrl('/home');
-              } else {
-                this.alert.showSuccesMessage(
-                  'Registro Exitoso',
-                  'Por favor verifique su correo.'
-                );
-              }
+              } 
             });
         },
         error => {
-          let err = <any>error;
-          if (err == 422) {
             this.alert.showErrorMessage(
               'Error',
-              'Ya hay una cuenta con los datos ingresados.'
-            );
-          } else {
-            this.alert.showErrorMessage(
-              'Error',
-              'A ocurrido un error al registrar sus datos intente de nuevo o dirijase al area de egresados'
-            );
-          }
+              'Ha ocurrido un error al registrar sus datos, por favor intente de nuevo o diríjase al área de egresados'
+            ).then(result => {
+              if (result.value) {
+                this.opcionGuardar();
+              } 
+            });
         }
       );
     }
   }
+  btnguardar(){
+    this.guardar=!this.guardar;
+  }
+
+
 }

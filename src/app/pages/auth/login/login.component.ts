@@ -29,10 +29,14 @@ export class LoginComponent implements OnInit {
     //TODO: Realizar login.
     this.auth.login(this.email.value, this.password.value).subscribe(response => {
       // Redireccionar a home.
-      this.router.navigateByUrl('/home');
+      if (this.auth.userRol !== undefined && this.auth.userRol !== null && this.auth.userRol.toLowerCase() === 'administrador') {
+        this.onPanelAdmin();
+      } else {
+        this.router.navigateByUrl('/home');
+      }
     }, error => {
       // Mostrar mensaje de error
-      this.alert.showErrorMessage('Error', 'Por favor verifique su email y password.')
+      this.alert.showErrorMessage('Error', 'Por favor verifique su email y password.');
     });
   }
 
@@ -40,6 +44,10 @@ export class LoginComponent implements OnInit {
     /*this.email.setValue('');
     this.password.setValue('');*/
     this.router.navigateByUrl('/home');
+  }
+
+  onPanelAdmin() {
+    this.router.navigate(['/admin']);
   }
 
 }

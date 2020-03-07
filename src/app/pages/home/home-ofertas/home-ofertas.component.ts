@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthServicesService } from 'src/app/shared/servicios/authServices/auth-services.service';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
+import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-ofertas',
@@ -8,11 +10,10 @@ import { AuthServicesService } from 'src/app/shared/servicios/authServices/auth-
 })
 export class HomeOfertasComponent implements OnInit {
 
-  constructor() { }
- 
-  ngOnInit() {
-  }
+  constructor(private alert: AlertService, private auth: AuthService,
+    private router: Router) { }
 
-
+  ngOnInit() {    
+  }  
 }
- 
+

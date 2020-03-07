@@ -9,6 +9,7 @@ import { CatalogosService } from '../../../shared/servicios/common/catalogos.ser
 import { EventosService } from '../../../shared/servicios/admin/eventos.service';
 import { VerEventoComponent, Data } from '../ver-evento/ver-evento.component';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { merge, of } from 'rxjs';
 
 @Component({
@@ -17,6 +18,9 @@ import { merge, of } from 'rxjs';
   styleUrls: ['./eventos.component.css']
 })
 export class EventosComponent implements OnInit {
+
+  eventImageApi = `${environment.baseUrl}image/`;
+
   private eventos: EventoInterface[];
   private maxDescLength: number;
 
@@ -58,10 +62,7 @@ export class EventosComponent implements OnInit {
     let data: Data = { event: eventCloned };
     this.dialog.open(VerEventoComponent,{ data: data }).beforeClosed().subscribe(result => { });
   }
-  imagen: Blob;
-  obtenerImagen(imagenPath){
-    this.seviciosEvento.getImage(imagenPath).subscribe(response=>{this.imagen = response});
-  }
+  
   obtenerDescripcionCorta(description) {
     var result = description;
     if (description.length > this.maxDescLength) {

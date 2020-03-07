@@ -2,10 +2,10 @@
   <h2 mat-dialog-title align="center">Evento</h2>
   <form id="form">
     <div class="row">
-      <div class="col-12 col-md-6">
+      <div class="col-md-6">
         <div id="imagen">
           <div *ngIf="data.event.imagePath && data.event.imagePath != 'null'">
-            <img src="{{data.event.imagePath}}" style="width: 90%; height: 150px;" alt="">
+            <img src="{{eventImageApi+data.event.imagePath}}" style="width: 90%; height: 150px;" alt="">
           </div>
         </div>
       </div>
@@ -17,12 +17,12 @@
 
         <div>
           <b>Fecha y hora inicio: </b>
-          {{data.event.fechaInicio}}
+          {{data.event.fechaInicio }} - {{data.event.horaInicio}}
         </div>
 
         <div>
           <b>Fecha y hora fin: </b>
-          {{data.event.fechaFin}}
+          {{data.event.fechaFin }} - {{data.event.horaFin}}
         </div>
 
         <div>
