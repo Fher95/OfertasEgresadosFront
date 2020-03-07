@@ -16,7 +16,7 @@ export class ConfirmarRegistroComponent implements OnInit {
   hideAuxPassword: boolean = true;
   hidePassword: boolean = true;
 
-  private msgError: String;
+  msgError: any;
 
   constructor(
     private service: ConfirmarEmailService,

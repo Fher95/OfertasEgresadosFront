@@ -17,8 +17,11 @@ export function hourDomainValidator(control: FormControl) {
 }
 
 export function letterValidator(control: FormControl) {
-  let value = control.value as string;
-  if (!value.match('^[a-zA-Z]+$')) {
+  const value = control.value as string;
+  const regex = /^[a-zA-Z\s]+$/;
+  console.log(value);
+  console.log(regex.test(value));
+  if (value != null && !regex.test(value)) {
     return {
       letter: {
         domain: value

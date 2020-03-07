@@ -155,7 +155,7 @@ const routes: Routes = [
   providers: [
     CatalogosService,
     ApoyoService,
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
     { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
   ]
 })
