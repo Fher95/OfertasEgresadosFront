@@ -164,12 +164,6 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Labor actual eliminada');
     }
   }
-  //Comentarios
-  agregarComentario(comentarios : Array<Comentario>){
-    this.comentariosRespuesta = comentarios;
-    console.log('comentarios: '+comentarios.length);
-    console.log('comentariosRespuesta: '+this.comentariosRespuesta.length);
-  }
   //Grado adicional 
   agregarGradoAdicional(){
     if(this.programaAdicional.verificarCampos()){
@@ -179,7 +173,7 @@ export class CompletarRegistroComponent implements OnInit {
           this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
         }
         this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
-        this.varCompletarRegistro.gradoAdicional.comentarios = this.comentariosRespuestaAdicional;
+        this.varCompletarRegistro.gradoAdicional.comentarios = this.comentarioGradoAdic.enviarComentario();
       }
       else{
         this.alert.showErrorMessage('Error','Ya existe el grado.');
@@ -188,9 +182,6 @@ export class CompletarRegistroComponent implements OnInit {
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.');
     }
-  }
-  agregarComentarioGradoAdic(comentarios : Array<Comentario>){
-    this.comentariosRespuestaAdicional = comentarios;
   }
   validar(){
     if(this.Labora_Actualmente.value==1 && this.expActuales.length>0){
@@ -216,7 +207,7 @@ export class CompletarRegistroComponent implements OnInit {
     else if(this.Labora_Actualmente.value==1){
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
-    this.varCompletarRegistro.comentarios = this.comentariosRespuesta;
+    this.varCompletarRegistro.comentarios = this.comentario.enviarComentario();
     console.log('cantidad comentarios:'+this.varCompletarRegistro.comentarios.length);
     if(this.otroGrado.value==0){    
       this.varCompletarRegistro.otroGrado = true;

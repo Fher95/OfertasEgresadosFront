@@ -6,7 +6,7 @@
         <mat-select [formControl]="NivelAcademico" (selectionChange)="obtenerSedes()" required>
           <mat-option [value]="nivel.id_aut_estudio" *ngFor="let nivel of nivelAcade">{{nivel.nombre}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="NivelAcademico.hasError('required')">Campo requerido</mat-error>
+        <mat-error *ngIf="NivelAcademico.hasError('required')">Ingrese el nivel de estudio.</mat-error>
       </mat-form-field>
     </div>
     <div class="form-group col-md-6">
@@ -15,7 +15,7 @@
         <mat-select [formControl]="Sede" (selectionChange)="obtenerFacultad()" required>
           <mat-option [value]="sede.id_aut_sede" *ngFor="let sede of sedes">{{sede.nombre}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="Sede.hasError('required')">Campo requerido</mat-error>
+        <mat-error *ngIf="Sede.hasError('required')">Ingrese la sede.</mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -27,7 +27,7 @@
           <mat-option [value]="facultad.id_aut_facultad" *ngFor="let facultad of facultades">{{facultad.nombre}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="Facultad.hasError('required')">Campo requerido</mat-error>
+        <mat-error *ngIf="Facultad.hasError('required')">Ingrese la facultad.</mat-error>
       </mat-form-field>
     </div>
     <div class="form-group col-md-6">
@@ -36,18 +36,18 @@
         <mat-select [formControl]="Programa" (selectionChange)="obtenerTitulo()" required>
           <mat-option [value]="progra.id_aut_programa" *ngFor="let progra of programas">{{progra.nombre}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="Programa.hasError('required')">Campo requerido</mat-error>
+        <mat-error *ngIf="Programa.hasError('required')">Ingrese el programa.</mat-error>
       </mat-form-field>
     </div>
   </div>
   <div class="row">
     <div class="form-group col-md-6" *ngIf="existenTitulos()">
       <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-        <mat-label>Titulo</mat-label>
+        <mat-label>Título</mat-label>
         <mat-select [formControl]="Titulo" required>
           <mat-option [value]="titulo.id_aut_titulo" *ngFor="let titulo of titulos">{{titulo.nombre}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="Titulo.hasError('required')">Campo requerido</mat-error>
+        <mat-error *ngIf="Titulo.hasError('required')">Ingrese el título académico.</mat-error>
       </mat-form-field>
     </div>
   </div>
