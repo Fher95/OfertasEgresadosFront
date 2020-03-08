@@ -51,7 +51,7 @@
           Campo requerido
         </mat-error>
         <mat-error
-          *ngIf="nombre.invalid && nombre.touched && nombre.hasError('letter')"
+          *ngIf="apellido.invalid && apellido.touched && apellido.hasError('letter')"
         >
           El campo solo admite letras
         </mat-error>
@@ -78,7 +78,7 @@
           Campo requerido
         </mat-error>
         <mat-error
-          *ngIf="nombre.invalid && nombre.touched && nombre.hasError('letter')"
+          *ngIf="nombreRol.invalid && nombreRol.touched && nombreRol.hasError('letter')"
         >
           El campo solo admite letras
         </mat-error>
@@ -193,6 +193,9 @@
           aria-labelledby="example-radio-group-label"
           class="example-radio-group"
           [(ngModel)]="estadoSeleccionado"
+          #estado="ngModel"
+          name="estado"
+
         >
           <mat-radio-button
             class="example-radio-button"
