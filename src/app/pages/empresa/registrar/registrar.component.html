@@ -516,9 +516,8 @@
                     </div>
                     <div class="botonesStepper">
                         <button type="button" mat-raised-button color="primary" matStepperPrevious>Atras</button>
-                        <button type="submit" [disabled]="formRegistroEmp.invalid" mat-raised-button
-                            color="primary">Guardar y
-                            Continuar</button>
+                        <button type="submit" [disabled]="formRegistroEmp.invalid" (click)="actionMethod($event)" mat-raised-button
+                            color="primary" id="btnSubmit">Guardar y continuar</button>
                     </div>
                 </mat-step>
 
