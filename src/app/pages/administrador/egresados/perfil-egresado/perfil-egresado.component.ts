@@ -23,7 +23,7 @@ import { GradoService } from 'src/app/shared/servicios/egresados/grado.service';
   styleUrls: ['./perfil-egresado.component.css']
 })
 export class PerfilEgresadoComponent implements OnInit, AfterViewInit {
-  egresado: EgresadoModel;
+  //egresado: EgresadoModel;
   egresadoObservable$: Observable<EgresadoModel>;
 
   isLoading = true;

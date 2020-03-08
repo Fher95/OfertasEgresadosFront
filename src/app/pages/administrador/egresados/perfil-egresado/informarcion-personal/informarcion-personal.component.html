@@ -15,7 +15,7 @@
           <input
             type="text"
             matInput
-            [ngModel]="nombreCompleto"
+            [value]="egresado.nombres + ' ' + egresado.apellidos"
             placeholder="Nombre Completo"
             name="name"
             #name
@@ -54,13 +54,11 @@
           <input
             type="text"
             matInput
-            ngModel
-            placeholder="Discapacidades"
-            #grupoEtnico
+            #discapacidades
             name="discapacidades"
+            [value]="egresado.discapacidades | discapacidades"
             disabled
           />
-          <!-- Todo Mostrar discapacidades separadas por comas -->
         </mat-form-field>
       </div>
 

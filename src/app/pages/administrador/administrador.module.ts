@@ -52,6 +52,7 @@ import {
   NotOnlyNumbersValidator
 } from 'src/app/shared/common/custom-validators';
 import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
+import { DiscapacidadesPipe } from 'src/app/shared/pipes/discapacidades.pipe';
 
 const routes: Routes = [
   {
@@ -127,7 +128,8 @@ const routes: Routes = [
     EgrFileUploadUpdateComponent,
     HourDomainValidator,
     LetterValidator,
-    NotOnlyNumbersValidator
+    NotOnlyNumbersValidator,
+    DiscapacidadesPipe
   ],
   imports: [
     CommonModule,

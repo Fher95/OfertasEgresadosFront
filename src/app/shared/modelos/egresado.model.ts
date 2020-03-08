@@ -4,6 +4,7 @@ import { ReferenciaPersonalModel } from './referencia-personal.model';
 import { GradoModel } from './grado.model';
 import { LocalizacionModel } from './localizacion.model';
 import { CiudadModel } from './ciudad.model';
+import { DiscapacidadInterface } from './discapacidadInterface';
 
 export class EgresadoModel {
   constructor(
@@ -24,6 +25,7 @@ export class EgresadoModel {
     public grados?: GradoModel[],
     public referenciasPersonales?: ReferenciaPersonalModel[],
     public trabajosActuales?: ExperienciaModel[],
-    public solicitudes?: SolicitudModel[]
+    public solicitudes?: SolicitudModel[],
+    public discapacidades?: DiscapacidadInterface[]
   ) {}
 }
