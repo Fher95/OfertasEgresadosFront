@@ -109,7 +109,7 @@ export class PreRegistroComponent implements OnInit {
     'Soltero(a)',
     'Casado(a)',
     'Viudo(a)',
-    'Union libre',
+    'Unión libre',
     'Separado(a)',
     'Comprometido(a)',
     'Divorciado(a)'
@@ -118,7 +118,7 @@ export class PreRegistroComponent implements OnInit {
     'Ninguno',
     'Afrodescendiente',
     'Indígena',
-    'Mestiza',
+    'Mestizo',
     'Blanco',
     'Otro'
   ];

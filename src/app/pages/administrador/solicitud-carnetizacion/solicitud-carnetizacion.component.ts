@@ -66,15 +66,5 @@ export class SolicitudCarnetizacionComponent implements OnInit {
       }
     });
   }
-
- /*  private cancelarSolicitudCarnet(solicitud,index, estado) {
-    this.alert.showconfirmationMessage('¿Cancelar solicitud?', 'Para continuar presione Aceptar.').then((result) => {
-      if (result.value) {
-        this.catalogoService.enviarRespuestaSolicitud(solicitud, estado).subscribe();
-        this.solicitudes.splice(index, 1);
-      }
-    });
-    sudo apt install php7.2-cli
-  } */
 }
 
