@@ -1,13 +1,22 @@
+mat-card{
+    width:100%;
+    padding: 40px;
+    margin: auto;
+    box-shadow: 0px 0px 3px grey;
+    position: relative;
+    top: 20px;
+}
 mat-form-field{
     margin-right: 20px;
     margin-left: 0px;
+    width:100%;
 }
 mat-label,mat-radio-button{
     margin-right: 20px;
 }
-.contacto{
-    width: 60%;
-    padding: 3%;
+form{
+    display: flex;
+    flex-direction: column;
 }
 button{
     text-align:center;

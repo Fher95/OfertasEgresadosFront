@@ -18,6 +18,8 @@ export class ComentariosComponent implements OnInit {
   @Output()
   comentarios: EventEmitter<any> = new EventEmitter<any>();
 
+  cantidad:number = 0;
+
   constructor(private formBuilder : FormBuilder,private servicioCompletar: RegistroService,private alert: AlertService) {
     this.formularioComentario = this.formBuilder.group({});
   }
@@ -38,7 +40,7 @@ export class ComentariosComponent implements OnInit {
     return new FormGroup(group);
   }
   obtenerValorPregunta(posicion : number){
-    return this.formularioComentario.get(posicion.toString()).value;
+    return this.formularioComentario.get(posicion.toString()).value.toLowerCase();
   }
   onSubmit(){
     if(this.validarCampos()){

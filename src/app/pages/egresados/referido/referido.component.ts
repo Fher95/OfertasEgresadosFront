@@ -26,8 +26,8 @@ export class ReferidoComponent implements OnInit {
   cantidadHijos : number;
   @Output()
   darReferido: EventEmitter<any> = new EventEmitter<any>();
-
-  Nombre = new FormControl('', [Validators.required]);
+  Nombre = new FormControl('', [Validators.required,Validators.maxLength(50)]);
+  //Nombre = new FormControl('', [Validators.required,Validators.pattern("^[A-Za-zñÑáéíóúÁÉÍÓÚ]{1,50}"),Validators.maxLength(50)]);
   Egresado = new FormControl('', [Validators.required]);
   Correo = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]);
   Celular = new FormControl('', [Validators.required, Validators.minLength(10)]);
@@ -52,11 +52,10 @@ export class ReferidoComponent implements OnInit {
       this.listaParentesco = ['Pareja/Cónyuge', 'Padre', 'Madre', 'Abuelo/a', 'Otro'];
     }
   }
-
   guardarReferido() {
     if(this.validarDatos()) {
-      this.varReferido.nombres = this.Nombre.value.toUpperCase();
-      this.varReferido.parentesco = this.Parentesco.value.toUpperCase();
+      this.varReferido.nombres = this.Nombre.value;
+      this.varReferido.parentesco = this.Parentesco.value;
       if (this.Egresado.value == 0) {
         this.varReferido.es_egresado = true;
         this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
@@ -74,23 +73,46 @@ export class ReferidoComponent implements OnInit {
       this.darReferido.emit(this.varReferido);
     }
     else{
-      this.alert.showErrorMessage('Error','Complete todos los datos.');
+      this.alert.showErrorMessage('Error','Verifique todos los datos.');
     }
   }
-
   limpiarDatos() {
     this.varReferido = new Referido();
-    this.Nombre = new FormControl('', [Validators.required,Validators.pattern("[A-Za-z]{1,}")]);
+    this.Nombre = new FormControl('', [Validators.required,Validators.maxLength(50)]);
+    //this.Nombre = new FormControl('', [Validators.required,Validators.pattern("^[A-Za-zñÑáéíóúÁÉÍÓÚ]{1,50}"),Validators.maxLength(50)]);
     this.Parentesco = new FormControl('', [Validators.required]);
     this.Egresado = new FormControl('', [Validators.required]);
     this.Correo = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]);
     this.Celular = new FormControl('', [Validators.required, Validators.pattern("[0-9]{10}"),Validators.minLength(10)]);
   }
-  validarDatos() {  
+  validarDatos() { 
+    var bandera=false;
+    if(this.validarCampoVacio() && this.validarMensajeInvalido()){
+      bandera=true;
+    }    
+    return bandera;
+  }
+  validarMensajeInvalido(){
+    var bandera: boolean = false;
+    if(this.Nombre.status == "VALID" && this.Parentesco.status == "VALID" && this.Egresado.status == "VALID" &&
+        this.Correo.status == "VALID" && this.Celular.status == "VALID"){
+          bandera = true;
+    }
+    return bandera;
+  }
+  validarCampoVacio(){
     var bandera: boolean = false;
     if (this.Nombre.value != '' && this.Egresado.value != '' && this.Correo.value != '' && this.Celular.value != ''
-      && this.Parentesco.value != '') {
-      bandera = true;
+      && this.Parentesco.value != ''){
+        if(this.Egresado.value == 0 && this.programa.verificarCampos()){
+          bandera=true;
+        }
+        else if(this.Egresado.value == 1){
+          bandera = true;
+        }
+        else{
+          bandera=false;
+        }
     }
     return bandera;
   }

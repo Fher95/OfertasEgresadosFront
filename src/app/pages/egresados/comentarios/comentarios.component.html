@@ -5,17 +5,23 @@
       <div class="comentario" *ngIf="item.pregunta_padre==null">
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
           <mat-label >{{item.pregunta}}</mat-label>
-          <input matInput [formControlName]="item.id_aut_comentario" placeholder="Escribe el comentario aquí" required>
+          <input matInput [formControlName]="item.id_aut_comentario" placeholder="Escribe el comentario aquí" type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,}" required>
         </mat-form-field> 
       </div>
-      <!--div class="comentario" *ngIf="item.pregunta_padre!=null">
-        <div class="comentario" *ngIf="obtenerValorPregunta(item.pregunta_padre)=='si'">
+      <div class="comentario" *ngIf="item.pregunta_padre!=null">
+        <div class="comentario" *ngIf="obtenerValorPregunta(item.pregunta_padre)=='si' && item.id_aut_comentario==2">
           <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
             <mat-label >{{item.pregunta}}</mat-label>
-            <input matInput [formControlName]="item.id_aut_comentario" placeholder="Escribe el comentario aquí" required>
+            <input matInput [formControlName]="item.id_aut_comentario" placeholder="Escribe el comentario aquí"type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,}" required>
           </mat-form-field> 
         </div>
-      </div-->
+        <div class="comentario" *ngIf="obtenerValorPregunta(item.pregunta_padre)=='no' && item.id_aut_comentario==3">
+          <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+            <mat-label >{{item.pregunta}}</mat-label>
+            <input matInput [formControlName]="item.id_aut_comentario" placeholder="Escribe el comentario aquí"type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,}" required>
+          </mat-form-field> 
+        </div>
+      </div>
     </div>
     <button mat-raised-button color="primary" type="submit"> Agregar comentario</button>
   </form>
