@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-carnetizacion',
@@ -26,7 +27,8 @@ export class CarnetizacionComponent implements OnInit {
     private catalogoService: CatalogosService,
     private servicioCompletar: RegistroService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {
     this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar' para poder continuar.";
     this.mensajeEstado = 'Tu solicitud de carnetización aún no ha sido respondida';
@@ -61,14 +63,47 @@ export class CarnetizacionComponent implements OnInit {
     });
   }
   
-  entro(number: number){
-    console.log("aqui llego"+ number);
-  }
-
   solicitudCarnet(solicitud: string) {
-    console.log("esto es lo que se hace "+this.idEgresado);
-    this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud).subscribe(res=>{});
-    this.router.navigateByUrl('/egresados');
+    let mensaje: string;
+    if(solicitud == "PENDIENTE"){
+      this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud).subscribe(res=>{
+        this.alert
+              .showSuccesMessage(
+                '',
+                "Solicitud de carnet enviada."
+              )
+              .then(result => {
+                if (result.value) {
+                  this.router.navigateByUrl('/egresados');
+                } 
+              });
+      });
+    }else{
+        this.alert.showconfirmationMessage(
+                '¿cancelar solicitud de carnet?.',
+                "Para continuar presione Aceptar."
+              )
+              .then(result => {
+                if (result.value) {
+                  this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud).subscribe(res=>{
+                    this.alert
+                    .showSuccesMessage(
+                      '',
+                      "Solicitud de carnet cancelada."
+                    )
+                    .then(result => {
+                      if (result.value) {
+                        this.router.navigateByUrl('/egresados');
+                      } 
+                    });
+                  });
+                } 
+              });
+      
+      mensaje = "Solicitud de carnet cancelada."
+    }
+    
+    
 
     //this.cargarDatos();
   }

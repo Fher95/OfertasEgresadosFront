@@ -51,4 +51,10 @@
 .margen-discapacidad {
     margin: 0 10px;
   }
+ .let p:first-letter  {
+    text-transform: uppercase;
+}
 
+.let p{
+    text-transform: lowercase;
+}

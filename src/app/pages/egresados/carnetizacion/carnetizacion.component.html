@@ -11,14 +11,12 @@
         <!--Si esta validado en el sistema y  no ha completado la info -->
         <div *ngIf="estadoEgres == true && estadoInfoEgresado == false" align="center">
           <p>{{mensajeCompletar}}</p>
-          {{entro(1)}}
           <button class='boton' color="primary" onclick="location.href='egresados/completarRegistro'" mat-button>Completar</button>
         </div>
 
         <!--Si el egresado no esta validado en el sistema-->
         <div *ngIf="estadoEgres == false" align="center">
           <p>{{mensajeEstadoEgresado}}</p>
-          {{entro(3)}}
           <button class='boton' color="primary" onclick="location.href='/egresados'" mat-button>Salir</button>
         </div>
         <!--Si el egresado no ha solicitado un carnet-->
