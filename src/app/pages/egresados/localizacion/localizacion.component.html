@@ -1,6 +1,6 @@
 <div class="card-column-1">
   <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-    <mat-label>{{mensaje1}}</mat-label>
+    <mat-label>{{pais}}</mat-label>
     <mat-select [formControl]="paisFormControl" required (selectionChange)="obtenerDepartamento()">
       <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
         {{pais.nombre}}
@@ -11,7 +11,7 @@
 </div>
 <div class="card-column-2">
   <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-    <mat-label>{{mensaje2}}</mat-label>
+    <mat-label>{{departamento}}</mat-label>
     <mat-select [formControl]="departamentoFormControl" required (selectionChange)="obtenerCiudad()">
       <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id_aut_dep">
         {{departamento.nombre}}
@@ -23,7 +23,7 @@
 </div>
 <div class="card-column-3">
   <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-    <mat-label>{{mensaje3}}</mat-label>
+    <mat-label>{{municipio}}</mat-label>
     <mat-select [formControl]="ciudadFormControl" required>
       <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.id_aut_ciudad">
         {{ciudad.nombre}}

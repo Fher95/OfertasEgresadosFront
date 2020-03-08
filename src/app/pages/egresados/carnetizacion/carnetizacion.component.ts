@@ -22,6 +22,8 @@ export class CarnetizacionComponent implements OnInit {
   private mensajeEstadoAceptado: String;
   private mensajeEstadoRechazado: String;
   private mensajeEstadoEgresado: String;
+  private mensajeSolicitar: string;
+  private mensajeCancelar: string;
 
   constructor(
     private catalogoService: CatalogosService,
@@ -35,6 +37,8 @@ export class CarnetizacionComponent implements OnInit {
     this.mensajeEstadoAceptado = 'Tu solicitud de carnetización ha sido ACEPTADA';
     this.mensajeEstadoRechazado = 'Tu solicitud de carnetización ha sido RECHAZADA.';
     this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema, por favor dirigirse al área de EGRESADOS';
+    this.mensajeSolicitar = '¿Deseas solicita de nuevo tu carnet?';
+    this.mensajeCancelar = '¿Deseas cancelar la solicitud de tu carnet?';
   }
 
   ngOnInit() {
@@ -99,8 +103,6 @@ export class CarnetizacionComponent implements OnInit {
                   });
                 } 
               });
-      
-      mensaje = "Solicitud de carnet cancelada."
     }
     
     
