@@ -1,6 +1,6 @@
-<mat-card class="comentario" >
-  <mat-card-title>Comentarios</mat-card-title>
-  <form [formGroup]="formularioComentario" (ngSubmit)="onSubmit()" *ngIf="validarComentarios">
+<!--mat-card>
+  <mat-card-title>Comentarios</mat-card-title-->
+  <!--form [formGroup]="formularioComentario" (ngSubmit)="onSubmit()" *ngIf="validarComentarios">
     <div class="comentario" *ngFor="let item of preguntas">
       <div class="comentario" *ngIf="item.pregunta_padre==null">
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
@@ -25,5 +25,47 @@
     </div>
     <button mat-raised-button color="primary" type="submit"> Agregar comentario</button>
   </form>
-  <mat-card-subtitle *ngIf="validarComentarios==false">Comentarios adicionados correctamente.</mat-card-subtitle>
-</mat-card>
+  <mat-card-subtitle *ngIf="validarComentarios==false">Comentarios adicionados correctamente.</mat-card-subtitle-->
+<!--/mat-card-->
+  <form>
+    <mat-card-title>Comentarios</mat-card-title>
+    <mat-label>¿Volvería a estudiar en la Universidad del Cauca?: </mat-label>
+    <mat-radio-group [formControl]="EstudiarUnicauca" required>
+      <mat-radio-button value=0>Si</mat-radio-button>
+      <mat-radio-button value=1>No</mat-radio-button>
+    </mat-radio-group>
+    <mat-error *ngIf="EstudiarUnicauca.hasError('required')">Seleccione si volvería a estudiar.</mat-error>
+    <mat-form-field *ngIf="EstudiarUnicauca.value=='0'" class="full-width" floatLabel="auto" appearance="outline">
+      <mat-label>¿Que desearía estudiar?</mat-label>
+      <mat-select [formControl]="Carrera" required>
+        <mat-option [value]="item" *ngFor="let item of carreras">{{item}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="Carrera.hasError('required')">Seleccione que desearía estudiar.</mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="EstudiarUnicauca.value=='1'" class="full-width" floatLabel="auto" appearance="outline">
+      <mat-label>¿Cuál es la razón?</mat-label>
+      <mat-select [formControl]="Razon" required>
+        <mat-option [value]="item" *ngFor="let item of razon">{{item}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="Razon.hasError('required')">Seleccione la razón.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+      <mat-label>Comentarios, sugerencias sobre el programa del cual es egresado:</mat-label>
+      <textarea matInput placeholder="Escribe el comentario aquí" [formControl]="ComentarioPrograma" type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,}" required> </textarea>
+      <mat-error *ngIf="ComentarioPrograma.hasError('pattern')">El campo solo debe contener letras.</mat-error>
+      <mat-error *ngIf="ComentarioPrograma.hasError('required')">Ingrese el comentario o sugerencia de su programa.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+      <mat-label>¿Cuál considera que es el docente del programa que influyó positivamente en su formación como
+        profesional?:</mat-label>
+      <input matInput placeholder="Docente" [formControl]="DocenteInfluencia" type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,}" required>
+      <mat-error *ngIf="DocenteInfluencia.hasError('pattern')">El campo solo debe contener letras.</mat-error>
+      <mat-error *ngIf="DocenteInfluencia.hasError('required')">Ingrese el nombre del docente que influyó en su formación.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
+      <mat-label>¿Que espera de la Universidad del Cauca como futuro egresado?:</mat-label>
+      <textarea matInput placeholder="Escribe el comentario aquí" [formControl]="ComentarioFuturoEgresado"type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,}" required> </textarea>
+      <mat-error *ngIf="ComentarioFuturoEgresado.hasError('pattern')">El campo solo debe contener letras.</mat-error>
+      <mat-error *ngIf="ComentarioFuturoEgresado.hasError('required')">Ingrese el comentario.</mat-error>
+    </mat-form-field>
+  </form>

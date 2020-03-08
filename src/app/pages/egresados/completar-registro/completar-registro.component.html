@@ -86,7 +86,7 @@
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Comentarios y sugerencias</ng-template>
-            <app-comentarios #comentario (comentarios)="agregarComentario($event)"></app-comentarios>
+            <app-comentarios #comentario></app-comentarios>
             <mat-label>¿Se esta graduando de otra carrera en esta fecha?: </mat-label>
             <mat-radio-group [formControl]="otroGrado" required>
               <mat-radio-button value=0>Si</mat-radio-button>
@@ -110,7 +110,7 @@
                   <input matInput [formControl]="mencionAdicional" type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,50}">
                   <mat-error *ngIf="mencionAdicional.hasError('pattern')">El campo solo debe contener letras con un máximo de 50 caracteres.</mat-error>
                 </mat-form-field>
-                <app-comentarios #comentarioGradoAdic (comentarios)="agregarComentarioGradoAdic($event)"></app-comentarios>
+                <app-comentarios #comentarioGradoAdic></app-comentarios>
               </form>
             </mat-card>
             <button class="botones" mat-button mat-raised-button matStepperPrevious>Atrás</button>
