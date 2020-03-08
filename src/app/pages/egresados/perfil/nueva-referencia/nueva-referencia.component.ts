@@ -15,9 +15,9 @@ import { ReferenciaPersonalModel } from 'src/app/shared/modelos/referencia-perso
 export class NuevaReferenciaComponent implements OnInit {
   @ViewChild('programa') programa: ProgramaComponent;
 
-  Nombre = new FormControl('', [Validators.required]);
+  Nombre = new FormControl('', [Validators.required,Validators.maxLength(50)]);
   Egresado = new FormControl('', [Validators.required]);
-  Correo = new FormControl('', [Validators.required, Validators.email]);
+  Correo = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]);
   Celular = new FormControl('', [Validators.required, Validators.minLength(10)]);
   Parentesco = new FormControl('', [Validators.required]);
 
@@ -28,47 +28,73 @@ export class NuevaReferenciaComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) data,
   private dialogRef: MatDialogRef<Referido>, private dialog:MatDialog,private alert: AlertService) {
     this.varReferido=data;
-    this.limpiarDatos();
+    //this.limpiarDatos();
   }
 
   ngOnInit() {
   }
 
-  guardarReferido() {
-    if (this.validarDatos()) {
-      this.varReferido.nombres = this.Nombre.value.toUpperCase();
-      this.varReferido.parentesco = this.Parentesco.value.toUpperCase();
+  guardarReferido() {    
+    if(this.validarDatos()) {
+      this.varReferido.nombres = this.Nombre.value;
+      this.varReferido.parentesco = this.Parentesco.value;
       if (this.Egresado.value == 0) {
         this.varReferido.es_egresado = true;
-        /*this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
-        this.varReferido.id_aut_programa = this.programa.Programa.value;*/
+        this.varReferido.id_nivel_educativo = this.programa.NivelAcademico.value;
+        this.varReferido.id_aut_programa = this.programa.Programa.value;
+        if(this.programa.Titulo.value!=''){
+          this.varReferido.id_aut_titulo = this.programa.Titulo.value;
+        }
       }
       else if (this.Egresado.value == 1) {
         this.varReferido.es_egresado = false;
       }
       this.varReferido.correo = this.Correo.value.toLowerCase();
       this.varReferido.telefono_movil = this.Celular.value;
+
       this.dialogRef.close(false);
     }
     else{
-      this.alert.showErrorMessage('Error','Complete todos los datos.');
+      this.alert.showErrorMessage('Error','Verifique todos los datos.');
     }
   }
 
   limpiarDatos() {
     this.varReferido = new Referido();
-    this.Nombre = new FormControl('', [Validators.required]);
+    this.Nombre = new FormControl('', [Validators.required,Validators.maxLength(50)]);
     this.Parentesco = new FormControl('', [Validators.required]);
     this.Egresado = new FormControl('', [Validators.required]);
-    this.Correo = new FormControl('', [Validators.required, Validators.email]);
-    this.Celular = new FormControl('', [Validators.required, Validators.minLength(10)]);
+    this.Correo = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]);
+    this.Celular = new FormControl('', [Validators.required, Validators.pattern("[0-9]{10}"),Validators.minLength(10)]);
   }
-  validarDatos() {  
+  validarDatos() { 
+    var bandera=false;
+    if(this.validarCampoVacio() && this.validarMensajeInvalido()){
+      bandera=true;
+    }    
+    return bandera;
+  }
+  validarMensajeInvalido(){
     var bandera: boolean = false;
-
+    if(this.Nombre.status == "VALID" && this.Parentesco.status == "VALID" && this.Egresado.status == "VALID" &&
+        this.Correo.status == "VALID" && this.Celular.status == "VALID"){
+          bandera = true;
+    }
+    return bandera;
+  }
+  validarCampoVacio(){
+    var bandera: boolean = false;
     if (this.Nombre.value != '' && this.Egresado.value != '' && this.Correo.value != '' && this.Celular.value != ''
-      && this.Parentesco.value != '') {
-      bandera = true;
+      && this.Parentesco.value != ''){
+        if(this.Egresado.value == 0 && this.programa.verificarCampos()){
+          bandera=true;
+        }
+        else if(this.Egresado.value == 1){
+          bandera = true;
+        }
+        else{
+          bandera=false;
+        }
     }
     return bandera;
   }
