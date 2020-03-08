@@ -33,7 +33,7 @@ export class CarnetizacionComponent implements OnInit {
     private alert: AlertService
   ) {
     this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar' para poder continuar.";
-    this.mensajeEstado = 'Tu solicitud de carnetización aún no ha sido respondida';
+    this.mensajeEstado = 'Tu solicitud de carnetización se encuentra en tramite';
     this.mensajeEstadoAceptado = 'Tu solicitud de carnetización ha sido ACEPTADA';
     this.mensajeEstadoRechazado = 'Tu solicitud de carnetización ha sido RECHAZADA.';
     this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema, por favor dirigirse al área de EGRESADOS';
@@ -84,7 +84,7 @@ export class CarnetizacionComponent implements OnInit {
       });
     }else{
         this.alert.showconfirmationMessage(
-                '¿cancelar solicitud de carnet?.',
+                '¿Cancelar solicitud de carnet?.',
                 "Para continuar presione Aceptar."
               )
               .then(result => {

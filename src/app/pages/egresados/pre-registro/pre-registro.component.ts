@@ -585,9 +585,5 @@ export class PreRegistroComponent implements OnInit {
     }
   }
 
-  btnguardar(){
-    this.guardar=!this.guardar;
-  }
-
 
 }
