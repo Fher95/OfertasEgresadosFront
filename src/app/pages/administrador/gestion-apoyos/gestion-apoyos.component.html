@@ -90,12 +90,12 @@
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-6">
-            <mat-label>Correo</mat-label>
+            <mat-label>Correo electrónico</mat-label>
             <input
               type="text"
               [(ngModel)]="model.email"
               name="email"
-              pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+              pattern="^(('[\w-\s]+')|([\w-]+(?:\.[\w-]+)*)|('[\w-\s]+')([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$"
               #email="ngModel"
               matInput
               placeholder="Correo"
@@ -106,35 +106,27 @@
               Campo requerido
             </mat-error>
             <mat-error *ngIf="email.invalid && email.hasError('pattern')">
-              Debe ingresar un correo válido
+              Debe ingresar un correo electrónico válido
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-6">
-            <mat-label>Correo secundario</mat-label>
+            <mat-label>Correo electrónico secundario</mat-label>
             <input
               type="text"
               [(ngModel)]="model.emailSecundario"
               #emailSecundario="ngModel"
               name="emailSecundario"
               matInput
-              pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
+              pattern="^(('[\w-\s]+')|([\w-]+(?:\.[\w-]+)*)|('[\w-\s]+')([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$"
               placeholder="Correo Secundario"
-              required
             />
             <mat-icon matSuffix>email</mat-icon>
-            <mat-error
-              *ngIf="
-                emailSecundario.invalid && emailSecundario.hasError('required')
-              "
-            >
-              Campo requerido
-            </mat-error>
             <mat-error
               *ngIf="
                 emailSecundario.invalid && emailSecundario.hasError('pattern')
               "
             >
-              Debe ingresar un correo válido
+              Debe ingresar un correo electrónico válido
             </mat-error>
           </mat-form-field>
         </div>
