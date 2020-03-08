@@ -44,9 +44,9 @@ export class LocalizacionComponent implements OnInit {
 	private departamentos = ['Trujillo', 'Cauca', 'Apure', 'Valle del Cauca', 'Guárico', 'Bahía', 'Para', 'Amazonas', 'Bueno Aires', 'La Pampa'];
  	private ciudades = ['Popayán', 'Cali', 'Medellin', 'Rio de Janeiro', 'Ciudad de Cordoba', 'Rosario', 'Sao Pablo', 'Caracas'];
 	*/
-	private mensaje1 = 'País ';
-	private mensaje2 = 'Departamento, estado o provincia ';
-	private mensaje3 = 'Municipio o ciudad ';
+	private pais = 'País ';
+	private departamento = 'Departamento, estado o provincia ';
+	private municipio = 'Municipio o ciudad ';
 
 	private paises: Pais[];
 	private departamentos: DepartamentoInterface[];

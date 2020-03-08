@@ -57,6 +57,7 @@ export class PreRegistroComponent implements OnInit {
   nivelAFormControl = new FormControl('', [Validators.required]);
   anioGFormControl = new FormControl('', [Validators.required]);
   identificacionFormControl = new FormControl('', [Validators.required]);
+  tipoIdentificacionFormControl = new FormControl('', [Validators.required,]);
   paisExpedicionFormControl = new FormControl('', [Validators.required,]);
   departamentoExpedicionFormControl = new FormControl('', [Validators.required,]);
   ciudadExpedicionFormControl = new FormControl('', [Validators.required,]);
@@ -70,6 +71,8 @@ export class PreRegistroComponent implements OnInit {
   private user: User;
 
   private btnGuardar: boolean = false;
+  private tamanioIdentificacio = 9;
+  private patternIdentificacion: string;
 
   // Variables para mostrar errores de correo y identificación
   private msgErrorIdentificacion: String;
@@ -94,9 +97,11 @@ export class PreRegistroComponent implements OnInit {
   private ciudadesRes: CiudadInterface[];
 
 
-  private mensaje1 = 'País ';
-  private mensaje2 = 'Departamento, estado o provincia ';
-  private mensaje3 = 'Municipio o ciudad ';
+  private pais = 'País ';
+  private departamento = 'Departamento, estado o provincia ';
+  private municipio = 'Municipio o ciudad ';
+
+  private mesajeTipoID: string;
 
   //variables para tomar referencia al año de graduacion
   private fecha: number = new Date().getFullYear();
@@ -121,6 +126,14 @@ export class PreRegistroComponent implements OnInit {
     'Mestizo',
     'Blanco',
     'Otro'
+  ];
+
+  private tiposIdentificacion: string[] = [
+    'Cédula de ciudadanía',
+    'Cédula de extranjería',
+    'Tarjeta de extrangería',
+    'Pasaporte',
+    'Documento de identificación extranjero'
   ];
 
   // Variable para capturar y acotar la fecha seleccionada
@@ -203,6 +216,22 @@ export class PreRegistroComponent implements OnInit {
     this.obtenerNivelEstudio();
   }
 
+  identificacion(tipoID: string){
+    console.log(tipoID);
+    this.tamanioIdentificacio = 9;
+    this.mesajeTipoID='El campo solo debe contener valores numéricos un máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
+    this.patternIdentificacion = '[1-9][0-9]'
+    if(tipoID == 'Cédula de extranjería' || 
+    tipoID == 'Tarjeta de extrangería' || 
+    tipoID == 'Documento de identificación extranjero'){
+      this.tamanioIdentificacio = 17;
+      this.mesajeTipoID='El campo solo debe contener valores numéricos un máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
+    }else if(tipoID == 'Pasaporte'){
+      this.patternIdentificacion = '[a-zA-Z0-9]';
+      this.mesajeTipoID='El campo  debe contener valores alfanuméricos un máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
+    }
+  }
+
   opcionGuardar(){
     this.btnGuardar=!this.btnGuardar;
   }
@@ -218,11 +247,6 @@ export class PreRegistroComponent implements OnInit {
     }
     return validar;
   }
-
-  filtro() {
-    console.log("cargar paises con la clase");
-  }
-
 
   validarIdentificacion() {
     var bandera: boolean = false;
@@ -247,7 +271,7 @@ export class PreRegistroComponent implements OnInit {
   }
 
   validarNumeroHihos() {
-    if (this.user.num_hijos < 0 || (typeof (this.user.num_hijos) != 'number' && this.user.num_hijos < 0) || this.user.num_hijos == Math.E) {
+    if (this.user.num_hijos < 0 || (typeof (this.user.num_hijos) != 'number' && this.user.num_hijos < 0)  ) {
       this.user.num_hijos = 0;
     }
   }
@@ -282,36 +306,30 @@ export class PreRegistroComponent implements OnInit {
     this.catalogoService.getPaises().subscribe(data => this.paises = data);
   }
   obtenerDepartamentoExp(pais) {
-    console.log("Obtiene departamento");
     this.catalogoService.getDepartamentosBy(pais).subscribe(data => this.departamentosExp = data);
   }
   obtenerCiudadExp(departamento) {
     this.catalogoService.getCiudadesBy(departamento).subscribe(data => {
-      console.log("Retorno de ciudades");
       this.ciudadesExp = data;
       console.log(data);
     });
   }
 
   obtenerDepartamentoNac(pais) {
-    console.log("Obtiene departamento");
     this.catalogoService.getDepartamentosBy(pais).subscribe(data => this.departamentosNac = data);
   }
   obtenerCiudadNac(departamento) {
     this.catalogoService.getCiudadesBy(departamento).subscribe(data => {
-      console.log("Retorno de ciudades");
       this.ciudadesNac = data;
       console.log(data);
     });
   }
 
   obtenerDepartamentoRes(pais) {
-    console.log("Obtiene departamento");
     this.catalogoService.getDepartamentosBy(pais).subscribe(data => this.departamentosRes = data);
   }
   obtenerCiudadRes(departamento) {
     this.catalogoService.getCiudadesBy(departamento).subscribe(data => {
-      console.log("Retorno de ciudades");
       this.ciudadesRes = data;
       console.log(data);
     });
@@ -392,7 +410,6 @@ export class PreRegistroComponent implements OnInit {
         console.log("aqui va " + index);
         if (index >= 0) {
           this.discapacidadesAux.splice(index, 1);
-          console.log("estos tiene index " + index);
         }
       }
       this.discapacidadesAux.push(discapacidad);
@@ -453,7 +470,6 @@ export class PreRegistroComponent implements OnInit {
 
   //Método para guardar las discapacidades del usuario
   discapacidadesUsuario(idDiscapacidad: number, indice: number, event) {
-    console.log('Indice: ' + indice);
     if (this.discapacidades[indice].Nombre == 'Ninguna' && event.checked) {
       this.discapacidad = [];
       this.discapacidad.push(idDiscapacidad);
@@ -463,10 +479,8 @@ export class PreRegistroComponent implements OnInit {
 
       this.discapacidad.push(idDiscapacidad);
     } else {
-      console.log("no se para que llega aqui " + idDiscapacidad);
       this.discapacidad.splice(this.discapacidad.indexOf(idDiscapacidad), 1);
     }
-    console.log('discapacidades: ' + this.discapacidad);
   }
 
   // Método para validar los datos ingresados por el usuario
@@ -570,6 +584,7 @@ export class PreRegistroComponent implements OnInit {
       );
     }
   }
+
   btnguardar(){
     this.guardar=!this.guardar;
   }

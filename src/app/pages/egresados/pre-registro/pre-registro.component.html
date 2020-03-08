@@ -28,14 +28,25 @@
             </div>
 
             <div class="row">
+            <mat-form-field appearance="outline" class="form-group col-md-6 ">
+              <mat-label>Tipo de documento</mat-label>
+              <mat-select  [formControl]="tipoIdentificacionFormControl" required (selectionChange)="identificacion(tipoIdentificacionFormControl.value)">
+                <mat-option *ngFor="let tipoIdentificacion of tiposIdentificacion" [value]="tipoIdentificacion">
+                  {{tipoIdentificacion}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="tipoIdentificacionFormControl.hasError('required')">Ingresa tu tipo de identificación.</mat-error>
+            </mat-form-field>
+
+            
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Identificación</mat-label>
-                <input matInput (input)="validarIdentificacion()" type="text" pattern="[1-9][0-9]{6,17}"
+                <input matInput (input)="validarIdentificacion()" type="text" pattern="{{patternIdentificacion}}{6,{{tamanioIdentificacio}}}"
                   placeholder="Identificación" #name="ngModel" name="identificacion" [(ngModel)]="user.identificacion"
                   required>
                 <mat-error *ngIf="user.identificacion == ''">Ingresa tu identificación.
                 </mat-error>
-                <mat-error *ngIf="user.identificacion != null && user.identificacion != ''">El campo solo debe contener valores numéricos de un máximo 12 digitos y mínimo 6 digitos.
+                <mat-error *ngIf="user.identificacion != null && user.identificacion != ''">{{mesajeTipoID}}
                 </mat-error>
               </mat-form-field>
 
@@ -43,52 +54,53 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Confirmar número de identificación</mat-label>
                 <input matInput (input)="validarIdentificacion()" placeholder="Confirmar numero de Identificación"
-                  pattern="[1-9][0-9]{6,17}" [formControl]="identificacionFormControl" required>
+                  pattern="{{patternIdentificacion}}{6,{{tamanioIdentificacio}}}" [formControl]="identificacionFormControl" required>
                 <mat-error *ngIf="identificacionFormControl.hasError('required')">Verifica tu identificación.
                 </mat-error>
-                <mat-error *ngIf="identificacionFormControl.hasError('pattern')">El campo solo debe contener valores numéricos.
+                <mat-error *ngIf="identificacionFormControl.hasError('pattern')">{{mesajeTipoID}}
                 </mat-error>
                 
               </mat-form-field>
               <p id="msgError" *ngIf="msgError != ''">{{msgErrorIdentificacion}}</p>
             </div>
+
             <div class="let">
               <h5 >Lugar de expedición del documento</h5></div>
             <div class="row">
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
 
-                <mat-label>{{mensaje1}} de expedición del documento</mat-label>
+                <mat-label>{{pais}} de expedición del documento</mat-label>
                 <mat-select [formControl]="paisExpedicionFormControl" required
                   (selectionChange)="obtenerDepartamentoExp(paisExpedicionFormControl.value)">
                   <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
                     {{pais.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="paisExpedicionFormControl.hasError('required')">Ingresa el {{mensaje1}} de expedición del documento.</mat-error>
+                <mat-error *ngIf="paisExpedicionFormControl.hasError('required')">Ingresa el {{pais}} de expedición del documento.</mat-error>
               </mat-form-field>
 
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
-                <mat-label>{{mensaje2}} de expedición del documento</mat-label>
+                <mat-label>{{departamento}} de expedición del documento</mat-label>
                 <mat-select [formControl]="departamentoExpedicionFormControl" required
                   (selectionChange)="obtenerCiudadExp(departamentoExpedicionFormControl.value)">
                   <mat-option *ngFor="let departamento of departamentosExp" [value]="departamento.id_aut_dep">
                     {{departamento.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="departamentoExpedicionFormControl.hasError('required')">Ingresa el {{mensaje2}} de expedición del documento.
+                <mat-error *ngIf="departamentoExpedicionFormControl.hasError('required')">Ingresa el {{departamento}} de expedición del documento.
                 </mat-error>
               </mat-form-field>
 
             </div>
             <div class="row">
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
-                <mat-label>{{mensaje3}} de expedición del documento</mat-label>
+                <mat-label>{{municipio}} de expedición del documento</mat-label>
                 <mat-select [formControl]="ciudadExpedicionFormControl" required>
                   <mat-option *ngFor="let ciudad of ciudadesExp" [value]="ciudad.id_aut_ciudad">
                     {{ciudad.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="ciudadExpedicionFormControl.hasError('required')">Ingresa el {{mensaje3}} de expedicón del documento.</mat-error>
+                <mat-error *ngIf="ciudadExpedicionFormControl.hasError('required')">Ingresa el {{municipio}} de expedicón del documento.</mat-error>
               </mat-form-field>
             </div>
 
@@ -104,38 +116,38 @@
               </mat-form-field>
 
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
-                <mat-label>{{mensaje1}} de nacimiento</mat-label>
+                <mat-label>{{pais}} de nacimiento</mat-label>
                 <mat-select [formControl]="paisNacimientoFormControl" required
                   (selectionChange)="obtenerDepartamentoNac(paisNacimientoFormControl.value)">
                   <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
                     {{pais.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="paisNacimientoFormControl.hasError('required')">Ingresa tu {{mensaje1}} de nacimiento.</mat-error>
+                <mat-error *ngIf="paisNacimientoFormControl.hasError('required')">Ingresa tu {{pais}} de nacimiento.</mat-error>
               </mat-form-field>
             </div>
             <div class="row">
 
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
-                <mat-label>{{mensaje2}} de nacimiento</mat-label>
+                <mat-label>{{departamento}} de nacimiento</mat-label>
                 <mat-select [formControl]="departamentoNacimientoFormControl" required
                   (selectionChange)="obtenerCiudadNac(departamentoNacimientoFormControl.value)">
                   <mat-option *ngFor="let departamento of departamentosNac" [value]="departamento.id_aut_dep">
                     {{departamento.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="departamentoNacimientoFormControl.hasError('required')">Ingresa tu {{mensaje2}} de nacimiento.
+                <mat-error *ngIf="departamentoNacimientoFormControl.hasError('required')">Ingresa tu {{departamento}} de nacimiento.
                 </mat-error>
               </mat-form-field>
 
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
-                <mat-label>{{mensaje3}} de nacimiento</mat-label>
+                <mat-label>{{municipio}} de nacimiento</mat-label>
                 <mat-select [formControl]="ciudadNacimientoFormControl" required>
                   <mat-option *ngFor="let ciudad of ciudadesNac" [value]="ciudad.id_aut_ciudad">
                     {{ciudad.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="ciudadNacimientoFormControl.hasError('required')">Ingresa tu {{mensaje3}} de nacimiento.</mat-error>
+                <mat-error *ngIf="ciudadNacimientoFormControl.hasError('required')">Ingresa tu {{municipio}} de nacimiento.</mat-error>
               </mat-form-field>
             </div>
             
@@ -360,38 +372,38 @@
             <div class="row">
 
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
-                <mat-label>{{mensaje1}} de residencia</mat-label>
+                <mat-label>{{pais}} de residencia</mat-label>
                 <mat-select [formControl]="paisResidenciaFormControl" required
                   (selectionChange)="obtenerDepartamentoRes(paisResidenciaFormControl.value)">
                   <mat-option *ngFor="let pais of paises" [value]="pais.id_aut_pais">
                     {{pais.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="paisResidenciaFormControl.hasError('required')">Ingresa tu {{mensaje1}} de residencia.</mat-error>
+                <mat-error *ngIf="paisResidenciaFormControl.hasError('required')">Ingresa tu {{pais}} de residencia.</mat-error>
               </mat-form-field>
 
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
-                <mat-label>{{mensaje2}} de residencia</mat-label>
+                <mat-label>{{departamento}} de residencia</mat-label>
                 <mat-select [formControl]="departamentoResidenciaFormControl" required
                   (selectionChange)="obtenerCiudadRes(departamentoResidenciaFormControl.value)">
                   <mat-option *ngFor="let departamento of departamentosRes" [value]="departamento.id_aut_dep">
                     {{departamento.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="departamentoResidenciaFormControl.hasError('required')">Ingresa tu {{mensaje2}} de residencia.
+                <mat-error *ngIf="departamentoResidenciaFormControl.hasError('required')">Ingresa tu {{departamento}} de residencia.
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="row">
 
               <mat-form-field class="form-group col-md-6 " floatLabel="auto" appearance="outline">
-                <mat-label>{{mensaje3}} de residencia</mat-label>
+                <mat-label>{{municipio}} de residencia</mat-label>
                 <mat-select [formControl]="ciudadResidenciaFormControl" required>
                   <mat-option *ngFor="let ciudad of ciudadesRes" [value]="ciudad.id_aut_ciudad">
                     {{ciudad.nombre}}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="ciudadResidenciaFormControl.hasError('required')">Ingresa tu {{mensaje3}} de residencia.</mat-error>
+                <mat-error *ngIf="ciudadResidenciaFormControl.hasError('required')">Ingresa tu {{municipio}} de residencia.</mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
