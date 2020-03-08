@@ -8,7 +8,7 @@ import { Component, OnInit, Inject } from '@angular/core';
   styleUrls: ['./trabajo-actual.component.css']
 })
 export class TrabajoActualComponent implements OnInit {
-  private experiencia: ExperienciaModel;
+  experiencia: ExperienciaModel;
   constructor(
     @Inject(MAT_DIALOG_DATA) data,
     private dialogRef: MatDialogRef<TrabajoActualComponent>

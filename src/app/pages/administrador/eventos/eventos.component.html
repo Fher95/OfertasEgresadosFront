@@ -1,8 +1,9 @@
 <div class="container">
   <mat-toolbar color="primary">
-    GESTIÓN DE EVENTOS
+    <span class="toolbar-title-center">Gestión de eventos</span>
   </mat-toolbar>
   <div class="divider"></div>
   <app-registro-evento (eventoGuardar)="procesarGuardar($event)" class="mt-2"></app-registro-evento>
+  <div class="divider"></div>
   <app-lista-eventos #tblEventos class="mt-2"></app-lista-eventos>
 </div>

@@ -24,7 +24,7 @@ import { GradoService } from 'src/app/shared/servicios/egresados/grado.service';
 })
 export class PerfilEgresadoComponent implements OnInit, AfterViewInit {
   egresado: EgresadoModel;
-  private egresadoObservable$: Observable<EgresadoModel>;
+  egresadoObservable$: Observable<EgresadoModel>;
 
   isLoading = true;
 

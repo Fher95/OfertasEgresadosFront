@@ -1,11 +1,12 @@
-<h2 mat-dialog-title>VER INFORMACIÓN GRADO</h2>
+<h2 mat-dialog-title>Información grado</h2>
 <mat-dialog-content *ngIf="gradoObservable$ | async as grado; else loading">
   <form
     #frmInformacionGrado="ngForm"
-    (ngSubmit)="acutalizarGrado(frmInformacionGrado)"
+    (ngSubmit)="actualizarGrado(frmInformacionGrado)"
   >
     <div class="form-row">
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Sede</mat-label>
         <input
           type="text"
           matInput
@@ -16,7 +17,8 @@
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Nivel de estudio</mat-label>
         <input
           type="text"
           matInput
@@ -27,7 +29,8 @@
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Facultad</mat-label>
         <input
           type="text"
           placeholder="Facultad"
@@ -40,7 +43,8 @@
     </div>
 
     <div class="form-row">
-      <mat-form-field class="form-group col-md-6">
+      <mat-form-field class="form-group col-md-6" appearance="outline">
+        <mat-label>Programa</mat-label>
         <input
           type="text"
           matInput
@@ -50,7 +54,8 @@
           [ngModel]="grado.programa.Nombre"
         />
       </mat-form-field>
-      <mat-form-field class="form-group col-md-6">
+      <mat-form-field class="form-group col-md-6" appearance="outline">
+        <mat-label>Título</mat-label>
         <input
           type="text"
           matInput
@@ -61,7 +66,8 @@
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-6">
+      <mat-form-field class="form-group col-md-6" appearance="outline">
+        <mat-label>Mención</mat-label>
         <input
           type="text"
           matInput
@@ -69,13 +75,13 @@
           disabled
           placeholder="Mención"
           name="mencion"
-          [ngModel]="grado.mencion"
+          [ngModel]="grado.mencion_honor"
         />
       </mat-form-field>
     </div>
 
     <div class="form-row" *ngFor="let observacion of grado.comentarios">
-      <mat-form-field class="col-md-12">
+      <mat-form-field class="col-md-12" appearance="outline">
         <mat-label>{{ observacion.pregunta }}</mat-label>
         <textarea
           matInput
@@ -83,7 +89,7 @@
           name="observacion{{ observacion.id }}"
           rows="3"
         >
-        {{ observacion.respuesta }}
+        <!-- TODO: Add respuesta -->
       </textarea
         >
       </mat-form-field>

@@ -3,11 +3,11 @@ export class DateMinMaxControl {
   maxDate?: Date;
 
   onMinDateSelect() {
-    console.log("Min date selection changed");
+    console.log('Min date selection changed');
     if (this.minDate instanceof Date) {
-      console.log("Min date is instance of Date")
+      console.log('Min date is instance of Date');
       if (this.minDate > this.maxDate) {
-        console.log("Changing max date");
+        console.log('Changing max date');
         this.maxDate = this.minDate;
       }
     }
@@ -19,5 +19,15 @@ export class DateMinMaxControl {
         this.maxDate = this.minDate;
       }
     }
+  }
+
+  datesAreEquals() {
+    return (
+      this.minDate != null &&
+      this.maxDate != null &&
+      this.minDate.getDate() == this.maxDate.getDate() &&
+      this.minDate.getMonth() == this.maxDate.getMonth() &&
+      this.minDate.getFullYear() == this.maxDate.getFullYear()
+    );
   }
 }

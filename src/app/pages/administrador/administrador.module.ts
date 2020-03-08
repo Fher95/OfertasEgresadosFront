@@ -22,7 +22,11 @@ import { GestionApoyosComponent } from './gestion-apoyos/gestion-apoyos.componen
 import { DialogoEditarComponent } from './gestion-apoyos/dialogo-editar/dialogo-editar.component';
 import { AjustesAdministradorComponent } from './ajustes-administrador/ajustes-administrador.component';
 import { SolicitudCarnetizacionComponent } from './solicitud-carnetizacion/solicitud-carnetizacion.component';
-import { MatSidenavModule } from '@angular/material';
+import {
+  MatSidenavModule,
+  MAT_DATE_LOCALE,
+  MatPaginatorIntl
+} from '@angular/material';
 import { InfoSolicitudEmpresaComponent } from './info-solicitud-empresa/info-solicitud-empresa.component';
 import { InfoOfertaLaboralComponent } from './info-oferta-laboral/info-oferta-laboral.component';
 import { ListaApoyosComponent } from './gestion-apoyos/lista-apoyos/lista-apoyos.component';
@@ -42,8 +46,12 @@ import { GradoComponent } from './egresados/perfil-egresado/grado/grado.componen
 import { InformarcionPersonalComponent } from './egresados/perfil-egresado/informarcion-personal/informarcion-personal.component';
 import { ListaGestionEgresadoComponent } from './egresados/lista-gestion-egresado/lista-gestion-egresado.component';
 import { EgrFileUploadUpdateComponent } from './eventos/egr-file-upload-update/egr-file-upload-update.component';
-import { HourDomainValidator } from 'src/app/shared/common/custom-validators';
-
+import {
+  HourDomainValidator,
+  LetterValidator,
+  NotOnlyNumbersValidator
+} from 'src/app/shared/common/custom-validators';
+import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
 
 const routes: Routes = [
   {
@@ -60,7 +68,7 @@ const routes: Routes = [
       },
       { path: 'egresados', component: EgresadosComponent },
       { path: 'egresados/perfil/:id', component: PerfilEgresadoComponent },
-      { path: 'carnetizacion', component: SolicitudCarnetizacionComponent  },
+      { path: 'carnetizacion', component: SolicitudCarnetizacionComponent },
       {
         path: 'ofertasLaborales',
         component: ListarOfertasComponent,
@@ -117,7 +125,9 @@ const routes: Routes = [
     ListaSolicitudesCarnetizacionComponent,
     ListaGestionEgresadoComponent,
     EgrFileUploadUpdateComponent,
-    HourDomainValidator
+    HourDomainValidator,
+    LetterValidator,
+    NotOnlyNumbersValidator
   ],
   imports: [
     CommonModule,
@@ -144,6 +154,11 @@ const routes: Routes = [
     VerificarExcelComponent,
     ListarEgresadosAceptadosComponent
   ],
-  providers: [CatalogosService, ApoyoService]
+  providers: [
+    CatalogosService,
+    ApoyoService,
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
+    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
+  ]
 })
 export class AdministradorModule {}

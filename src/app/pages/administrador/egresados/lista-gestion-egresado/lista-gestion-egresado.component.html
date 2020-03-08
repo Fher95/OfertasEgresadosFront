@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>
-      LISTA DE EGRESADOS
+      Lista de egresados
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -11,6 +11,7 @@
     >
       <div class="form-row">
         <mat-form-field appearance="outline" class="form-group col-md-6">
+          <mat-label>Número de identificación</mat-label>
           <input
             type="text"
             matInput
@@ -21,6 +22,7 @@
           />
         </mat-form-field>
         <mat-form-field appearance="outline" class="form-group col-md-6">
+          <mat-label>Nombre completo</mat-label>
           <input
             type="text"
             matInput
@@ -33,6 +35,7 @@
       </div>
       <div class="form-row">
         <mat-form-field appearance="outline" class="form-group col-md-6">
+          <mat-label>Programa</mat-label>
           <input
             type="text"
             matInput
@@ -43,6 +46,7 @@
           />
         </mat-form-field>
         <mat-form-field appearance="outline" class="form-group col-md-6">
+          <mat-label>Título</mat-label>
           <input
             type="text"
             matInput
@@ -57,6 +61,7 @@
         <mat-form-field appearance="outline" class="form-group col-md-6">
           <mat-label>Estado</mat-label>
           <mat-select name="estado" ngModel #estado>
+            <mat-option selected [value]=""></mat-option>
             <mat-option *ngFor="let estado of estados" [value]="estado">
               {{ estado }}
             </mat-option>
@@ -110,11 +115,11 @@
             <button
               type="button"
               mat-icon-button
-              matTooltip="Presione para editar el evento"
+              matTooltip="Presione para ver el egresado"
               class="btn"
               [routerLink]="['/admin/egresados/perfil', egresado.id]"
             >
-              <mat-icon aria-label="Editar">edit</mat-icon>
+              <mat-icon aria-label="Ver evento">remove_red_eye</mat-icon>
             </button>
           </td>
         </ng-container>
@@ -127,7 +132,7 @@
         No se encontraron resultados
       </div>
 
-      <mat-paginator [length]="totalResults" [pageSize]="10"></mat-paginator>
+      <mat-paginator [length]="totalResults" [pageSizeOptions]="[5,10,20,50]" [pageSize]="10"></mat-paginator>
     </div>
   </mat-card-content>
 </mat-card>
