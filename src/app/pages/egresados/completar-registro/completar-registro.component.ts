@@ -51,7 +51,7 @@ export class CompletarRegistroComponent implements OnInit {
 
   //Grado adicional
   otroGrado = new FormControl('',Validators.required);
-  mencionAdicional = new FormControl('');
+  mencionAdicional = new FormControl('',Validators.maxLength(50));
   comentariosRespuestaAdicional = new Array<Comentario>();
 
   idEgresado : number;
@@ -63,7 +63,8 @@ export class CompletarRegistroComponent implements OnInit {
 
   ngOnInit() {
     this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
-      data => { console.log('data: '+data.id_aut_egresado); this.idEgresado = data.id_aut_egresado;
+      data => {
+        this.idEgresado = data.id_aut_egresado;
         console.log(this.idEgresado);
         this.servicioCompletar.validarCompletar(this.idEgresado).subscribe(
           respuesta => { 
@@ -83,6 +84,8 @@ export class CompletarRegistroComponent implements OnInit {
     this.haTrabajado = new FormControl('', [Validators.required]);
     this.Labora_Actualmente = new FormControl('', [Validators.required]);
     this.comentariosRespuesta = new Array<Comentario>();
+    this.otroGrado = new FormControl('',Validators.required);
+    this.mencionAdicional = new FormControl('',Validators.maxLength(50));
     this.comentariosRespuestaAdicional = new Array<Comentario>();
   }
   //Añadir datos referidos
@@ -100,7 +103,7 @@ export class CompletarRegistroComponent implements OnInit {
     if(bandera){
       this.referidos.push(referido);
       if(this.referidos.length!=0){
-        this.alert.showSuccesMessage('','Referencia agregada exitosamente.');
+        this.alert.showSuccesMessage('','Referencia agregada exitosamente a la lista.');
         this.referido.limpiarDatos();
       }
       this.dataReferidos = new MatTableDataSource<any>(this.referidos);
@@ -147,7 +150,7 @@ export class CompletarRegistroComponent implements OnInit {
     }
     this.expActuales.push(experiencia);
     if(this.expActuales.length!=0){
-      this.alert.showSuccesMessage('','Labor actual agregada exitosamente.');
+      this.alert.showSuccesMessage('','Labor actual agregada exitosamente a la lista.');
       this.expActual.limpiarDatos();
     }
     this.dataExpActual = new MatTableDataSource<any>(this.expActuales);
@@ -161,6 +164,7 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Labor actual eliminada');
     }
   }
+  //Comentarios
   agregarComentario(comentarios : Array<Comentario>){
     this.comentariosRespuesta = comentarios;
     console.log('comentarios: '+comentarios.length);
@@ -171,12 +175,14 @@ export class CompletarRegistroComponent implements OnInit {
     if(this.programaAdicional.verificarCampos()){
       if(this.programaAdicional.Programa.value!=this.idPrograma){
         this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
-        this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
-        this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value.toUpperCase();
+        if(this.programaAdicional.existenTitulos){
+          this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
+        }
+        this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
         this.varCompletarRegistro.gradoAdicional.comentarios = this.comentariosRespuestaAdicional;
       }
       else{
-        this.alert.showErrorMessage('Error','No se puede registrar el nuevo grado.');
+        this.alert.showErrorMessage('Error','Ya existe el grado.');
       }
     }
     else{
@@ -220,9 +226,16 @@ export class CompletarRegistroComponent implements OnInit {
   verificarCampos()
   {
     var bandera:boolean = false;
-    if(this.referidos.length!=0 && this.Labora_Actualmente.value!='')
-    {
-      bandera = true;
+    if(this.referidos.length!=0 && this.Labora_Actualmente.value!=''){
+      if(this.otroGrado.value==0 && this.programaAdicional.Programa.value!=''){    
+        bandera=true;
+      }
+      else if(this.otroGrado.value==1){
+        bandera=true;
+      }
+      else{
+        bandera=false;
+      }
     }
     return bandera;
   }
@@ -233,7 +246,7 @@ export class CompletarRegistroComponent implements OnInit {
       this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
         respuesta => {
           this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
-            ()=>{ this.router.navigateByUrl('home');});
+            ()=>{ this.router.navigateByUrl('egresados');});
           console.log(respuesta);
         },
         error => {

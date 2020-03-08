@@ -30,10 +30,10 @@ export class ExplaboralComponent implements OnInit {
   Departamento = new FormControl('', [Validators.required]);
   Ciudad = new FormControl('', [Validators.required]);
   NombreCategoria = new FormControl('', [Validators.required]);
-  NombreEmpresa = new FormControl('', [Validators.required]);
+  NombreEmpresa = new FormControl('', [Validators.required,Validators.maxLength(50)]);
   DirTrabajo = new FormControl('', [Validators.required]);
-  TelTrabajo = new FormControl('', [Validators.required]);
-  Cargo = new FormControl('', [Validators.required]);
+  TelTrabajo = new FormControl('', [Validators.required,Validators.minLength(7),Validators.maxLength(10)]);
+  Cargo = new FormControl('', [Validators.required,Validators.maxLength(50)]);
   RangoSalario = new FormControl('', [Validators.required]);
   TipoContrato = new FormControl('', [Validators.required]);
   Sector = new FormControl('', [Validators.required]);
@@ -69,25 +69,41 @@ export class ExplaboralComponent implements OnInit {
     this.Departamento = new FormControl('', [Validators.required]);
     this.Ciudad = new FormControl('', [Validators.required]);
     this.NombreCategoria = new FormControl('', [Validators.required]);
-    this.NombreEmpresa = new FormControl('', [Validators.required]);
+    this.NombreEmpresa = new FormControl('', [Validators.required,Validators.maxLength(50)]);
     this.DirTrabajo = new FormControl('', [Validators.required]);
     this.TelTrabajo = new FormControl('', [Validators.required,Validators.minLength(7),Validators.maxLength(10)]);
-    this.Cargo = new FormControl('', [Validators.required]);
+    this.Cargo = new FormControl('', [Validators.required,Validators.maxLength(50)]);
     this.RangoSalario = new FormControl('', [Validators.required]);
     this.TipoContrato = new FormControl('', [Validators.required]);
     this.Sector = new FormControl('', [Validators.required]);
     this.fechaInicio = new FormControl('', [Validators.required]);
     this.maxDate = new Date();
   }
-  validarDatos(){
+  validarDatos() { 
+    var bandera=false;
+    if(this.validarCampoVacio() && this.validarMensajeInvalido()){
+      bandera=true;
+    }    
+    return bandera;
+  }
+  validarMensajeInvalido(){
     var bandera:boolean = false;
-
+    if(this.Labora_Area.status == "VALID" && this.Pais.status== "VALID" && this.Departamento.status== "VALID" 
+      && this.Ciudad.status== "VALID" && this.NombreEmpresa.status== "VALID" && this.NombreCategoria.status== "VALID"
+      && this.DirTrabajo.status== "VALID" && this.TelTrabajo.status== "VALID" && this.Cargo.status== "VALID"
+      && this.RangoSalario.status== "VALID" && this.TipoContrato.status== "VALID" && this.Sector.status== "VALID"
+      && this.fechaInicio.status== "VALID"){
+        bandera = true;
+    }
+    return bandera;
+  }
+  validarCampoVacio(){
+    var bandera:boolean = false;
     if(this.Labora_Area.value!='' && this.Pais.value!='' && this.Departamento.value!='' && this.Ciudad.value!=''
       && this.NombreEmpresa.value!='' && this.NombreCategoria.value!='' && this.DirTrabajo.value!='' 
       && this.TelTrabajo.value!='' && this.Cargo.value!='' && this.RangoSalario.value!='' 
-      && this.TipoContrato.value!='' && this.Sector.value!='' && this.fechaInicio.value!='')
-    {
-      bandera = true;
+      && this.TipoContrato.value!='' && this.Sector.value!='' && this.fechaInicio.value!=''){
+        bandera = true;
     }
     return bandera;
   }
@@ -103,22 +119,22 @@ export class ExplaboralComponent implements OnInit {
   guardarExperienciaLaboral()
   {
     if(this.validarDatos()){
-      this.varExperiencia.trabajo_en_su_area = this.Labora_Area.value.toUpperCase();
+      this.varExperiencia.trabajo_en_su_area = this.Labora_Area.value;
       this.varExperiencia.id_ciudad = this.Ciudad.value;
-      this.varExperiencia.categoria= this.NombreCategoria.value.toUpperCase();
-      this.varExperiencia.nombre_empresa = this.NombreEmpresa.value.toUpperCase();
-      this.varExperiencia.dir_empresa = this.DirTrabajo.value.toUpperCase();
-      this.varExperiencia.tel_trabajo = this.TelTrabajo.value.toUpperCase();
-      this.varExperiencia.cargo_nombre = this.Cargo.value.toUpperCase();
-      this.varExperiencia.rango_salario = this.RangoSalario.value.toUpperCase();
-      this.varExperiencia.tipo_contrato = this.TipoContrato.value.toUpperCase();
-      this.varExperiencia.sector = this.Sector.value.toUpperCase();
+      this.varExperiencia.categoria= this.NombreCategoria.value;
+      this.varExperiencia.nombre_empresa = this.NombreEmpresa.value;
+      this.varExperiencia.dir_empresa = this.DirTrabajo.value;
+      this.varExperiencia.tel_trabajo = this.TelTrabajo.value;
+      this.varExperiencia.cargo_nombre = this.Cargo.value;
+      this.varExperiencia.rango_salario = this.RangoSalario.value;
+      this.varExperiencia.tipo_contrato = this.TipoContrato.value;
+      this.varExperiencia.sector = this.Sector.value;
       this.varExperiencia.fecha_inicio = this.fechaInicio.value;
 
       this.darExperiencia.emit(this.varExperiencia);
     }
     else{
-      this.alert.showErrorMessage('Error','Complete todos los datos.');
+      this.alert.showErrorMessage('Error','Verifique todos los datos.');
     }
   }
   cancelar(){

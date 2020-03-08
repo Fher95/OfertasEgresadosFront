@@ -9,6 +9,7 @@
         <mat-step>
           <ng-template matStepLabel>Referencias personales</ng-template>
           <app-referido [cantidadHijos]=cantHijos #referido (darReferido)="addToList($event)"></app-referido>
+          <p></p>
           <div class="mat-elevation-z8" *ngIf="referidos.length>0">
             <table mat-table [dataSource]="dataReferidos" >
               <ng-container matColumnDef="nombres">
@@ -43,13 +44,15 @@
           <mat-step>
             <ng-template matStepLabel>Trabajo actual</ng-template>
             <mat-label>¿Labora actualmente?: </mat-label>
-            <mat-radio-group [formControl]="Labora_Actualmente" (change)=validar()>
+            <mat-radio-group [formControl]="Labora_Actualmente" (change)=validar() required>
               <mat-radio-button value=0>Si</mat-radio-button>
               <mat-radio-button value=1>No</mat-radio-button>
             </mat-radio-group>
+            <mat-error *ngIf="Labora_Actualmente.hasError('required')">Seleccione su estado de labor actual.</mat-error>
             <div *ngIf="Labora_Actualmente.value=='0'">
               <app-explaboral  #expActual (darExperiencia)="addExpActual($event)">
               </app-explaboral>
+              <p></p>
               <div class="mat-elevation-z8" *ngIf="expActuales.length>0"> 
                 <table mat-table [dataSource]="dataExpActual">
                   <ng-container matColumnDef="cargo_nombre">
@@ -85,10 +88,11 @@
             <ng-template matStepLabel>Comentarios y sugerencias</ng-template>
             <app-comentarios #comentario (comentarios)="agregarComentario($event)"></app-comentarios>
             <mat-label>¿Se esta graduando de otra carrera en esta fecha?: </mat-label>
-            <mat-radio-group [formControl]="otroGrado">
+            <mat-radio-group [formControl]="otroGrado" required>
               <mat-radio-button value=0>Si</mat-radio-button>
               <mat-radio-button value=1>No</mat-radio-button>
             </mat-radio-group>
+            <mat-error *ngIf="otroGrado.hasError('required')">Seleccione si se esta graduando de otro grado.</mat-error>
             <button class="botones" mat-button mat-raised-button matStepperPrevious>Atrás</button>
             <button class="botones" color="primary" *ngIf="otroGrado.value=='0'" mat-button mat-raised-button
               matStepperNext>Siguiente</button>
@@ -103,7 +107,8 @@
                 <app-programa #programaAdicional></app-programa>
                 <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                   <mat-label>Mención</mat-label>
-                  <input matInput [formControl]="mencionAdicional">
+                  <input matInput [formControl]="mencionAdicional" type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,50}">
+                  <mat-error *ngIf="mencionAdicional.hasError('pattern')">El campo solo debe contener letras con un máximo de 50 caracteres.</mat-error>
                 </mat-form-field>
                 <app-comentarios #comentarioGradoAdic (comentarios)="agregarComentarioGradoAdic($event)"></app-comentarios>
               </form>

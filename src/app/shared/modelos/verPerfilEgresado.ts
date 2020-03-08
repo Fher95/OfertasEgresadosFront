@@ -25,5 +25,6 @@ export class VerPerfilEgresado {
     public grados?: GradoModel[],
     public referenciasPersonales?: Referido[],
     public trabajosActuales?: Experiencia[],
+    public estado_completar?:boolean
   ) {}
 }
