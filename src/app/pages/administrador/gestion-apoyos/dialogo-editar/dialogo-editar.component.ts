@@ -77,6 +77,8 @@ export class DialogoEditarComponent implements OnInit {
           this.dialogRef.close(false);
         }
       });
+    } else {
+      this.dialogRef.close(false);
     }
   }
 

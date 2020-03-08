@@ -501,7 +501,7 @@ datosFormChecked: FormGroup;
   openDialog(datos) {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
       width: '60%',
-      data: { datos: datos, crear: true} //Envia los datos del form al componente
+      data: { datos: datos, crear: true, estado: 'Pendiente' } //Envia los datos del form al componente
     });
     dialogRef.afterClosed().subscribe(result => {
         //Al cerrar el dialog si el resultado es verdadero se crea la oferta
