@@ -154,6 +154,10 @@ export class ListarSolicitudesEmpresaComponent implements OnInit {
     
     this.dataSource = new MatTableDataSource<Solicitud>(this.filtrarSolicitudes(columna));
     this.dataSource.paginator = this.paginator;    
-  }    
+  }
+
+  buscar(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
 }

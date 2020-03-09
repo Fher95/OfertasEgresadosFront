@@ -2,9 +2,11 @@
 <app-navbar-home-ofertas></app-navbar-home-ofertas-->
 
 <div class="container" role="main">
-  <mat-toolbar color="primary"><mat-toolbar-row class="justify-content-center">
-    Lista de ofertas laborales
-  </mat-toolbar-row> </mat-toolbar>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="justify-content-center">
+      Lista de ofertas laborales
+    </mat-toolbar-row>
+  </mat-toolbar>
   <p></p>
   <div *ngIf="!auxiliar" class="row">
     <h3 class="text-centered px-3"> Cargando ofertas...</h3>
@@ -23,6 +25,11 @@
           <mat-option value="Pendiente">Pendientes</mat-option>
           <mat-option value="Rechazada">Rechazadas</mat-option>
         </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-10">
+      <mat-form-field>
+        <input matInput (keyup)="buscar($event.target.value)" placeholder="Buscar">
       </mat-form-field>
     </div>
   </div>
@@ -82,8 +89,8 @@
 
       <ng-container matColumnDef="Acciones">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
-        <td mat-cell *matCellDef="let element"><button mat-button (click)="setOfertaActual(element.id_aut_oferta)">          
-            Ver información</button></td>            
+        <td mat-cell *matCellDef="let element"><button mat-button (click)="setOfertaActual(element.id_aut_oferta)">
+            Ver información</button></td>
       </ng-container>
 
 

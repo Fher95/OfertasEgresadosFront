@@ -65,29 +65,29 @@ export class ListarOfertasComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  setOfertaActual(parId: number): void {    
+  setOfertaActual(parId: number): void {
     for (let index = 0; index < this.ofertas.length; index++) {
       if (this.ofertas[index].id_aut_oferta === parId) {
         this.ofertaSeleccionada = this.ofertas[index];
         this.estadoActivacion = this.ofertaSeleccionada.estado;
       }
-    }    
+    }
     this.openDialog();
   }
 
   aprobarEmpresa(parOferta: OfertaLaboral): void {
     if (OfertaLaboral != null) {
       this.servicioOfertas.aprobarOferta(parOferta.id_aut_oferta)
-        .subscribe(result => {          
-          this.getOfertas();          
+        .subscribe(result => {
+          this.getOfertas();
         });
     }
   }
   desaprobarEmpresa(parOferta: OfertaLaboral): void {
     if (OfertaLaboral != null) {
       this.servicioOfertas.desaprobarOferta(parOferta.id_aut_oferta, this.motivoInactivacion)
-        .subscribe(result => {          
-          this.getOfertas();          
+        .subscribe(result => {
+          this.getOfertas();
         });
     }
   }
@@ -138,7 +138,7 @@ export class ListarOfertasComponent implements OnInit {
     } else if (this.estadoActivacion === 'Rechazada') {
       this.servicioOfertas.desaprobarOferta(this.ofertaSeleccionada.id_aut_oferta, this.motivoInactivacion)
         .subscribe(result => {
-          this.getOfertas();          
+          this.getOfertas();
         });
     }
 
@@ -164,9 +164,9 @@ export class ListarOfertasComponent implements OnInit {
     dial.afterClosed().subscribe((result) => {
       //this.getOfertas();        
       if (result) {
-        setTimeout(() => {          
+        setTimeout(() => {
           this.getOfertas();
-        }, 1500);      
+        }, 1500);
       }
     });
   }
@@ -188,6 +188,14 @@ export class ListarOfertasComponent implements OnInit {
   filtrar(columna) {
     this.dataSource = new MatTableDataSource<OfertaLaboral>(this.filtrarOfertas(columna));
     this.dataSource.paginator = this.paginator;
+  }
+
+  /**
+ * Filtra la tabla dependiendo lo que se introduzca en la barra de busqueda.
+ * La busqueda la realiza comparando por cualquier columna o dato de la oferta.
+ */
+  buscar(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
