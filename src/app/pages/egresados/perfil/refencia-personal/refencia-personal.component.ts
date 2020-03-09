@@ -23,6 +23,10 @@ export class RefenciaPersonalComponent implements OnInit {
   
   ngOnInit() { }
   
+  /*3 METODOS DIFERENTES PARA NUEVO-EDITAR-ELIMINAR
+    EN TODOS ENVIAR EGRESADO Y REFERIDO
+  */
+
   agregarReferido(){
     console.log('entro agregar');
     /*const dialogConfig = new MatDialogConfig();
@@ -87,4 +91,3 @@ export class RefenciaPersonalComponent implements OnInit {
     });
   }
 }
-
