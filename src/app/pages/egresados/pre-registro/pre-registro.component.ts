@@ -72,7 +72,10 @@ export class PreRegistroComponent implements OnInit {
 
   private btnGuardar: boolean = false;
   private tamanioIdentificacio = 9;
-  private patternIdentificacion: string;
+  private patternIdentificacion: string = '[1-9][0-9]';
+  private estdoTipoID: boolean = false;
+  private estdoTipoID2: boolean = false;
+  cantidadHijos: number = 0;
 
   // Variables para mostrar errores de correo y identificación
   private msgErrorIdentificacion: String;
@@ -216,20 +219,29 @@ export class PreRegistroComponent implements OnInit {
     this.obtenerNivelEstudio();
   }
 
+
+  onHijosChange() {
+    console.log("si lo llama")
+    if (this.cantidadHijos < 0) {
+      this.cantidadHijos = 0;
+    }
+  }
+
   //metodo para validar el tipo de identificación
   identificacion(tipoID: string){
-    console.log(tipoID);
+    this.estdoTipoID = true;
+    this.estdoTipoID2 = true;
     this.tamanioIdentificacio = 9;
-    this.mesajeTipoID='El campo solo debe contener valores numéricos un máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
+    this.mesajeTipoID='El campo solo debe contener valores numéricos con máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
     this.patternIdentificacion = '[1-9][0-9]'
     if(tipoID == 'Cédula de extranjería' || 
     tipoID == 'Tarjeta de extrangería' || 
     tipoID == 'Documento de identificación extranjero'){
       this.tamanioIdentificacio = 17;
-      this.mesajeTipoID='El campo solo debe contener valores numéricos un máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
+      this.mesajeTipoID='El campo solo debe contener valores numéricos con máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
     }else if(tipoID == 'Pasaporte'){
-      this.patternIdentificacion = '[a-zA-Z0-9]';
-      this.mesajeTipoID='El campo  debe contener valores alfanuméricos un máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
+      this.patternIdentificacion = "[a-zA-Z0-9]";
+      this.mesajeTipoID='El campo  debe contener valores alfanuméricos con máximo'+ (this.tamanioIdentificacio+1) +' digitos y mínimo 6 digitos.';
     }
   }
 

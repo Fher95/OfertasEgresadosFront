@@ -8,7 +8,7 @@
       <form id="form" #registerForm="ngForm" (ngSubmit)="registrarEgresado()" >
         <mat-horizontal-stepper [linear]="isLinear" #stepper>
           <mat-step>
-            <ng-template matStepLabel>Información Personal</ng-template>
+            <ng-template matStepLabel>Información personal</ng-template>
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Nombres</mat-label>
@@ -41,27 +41,31 @@
             
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Identificación</mat-label>
-                <input matInput (input)="validarIdentificacion()" type="text" pattern="{{patternIdentificacion}}{6,{{tamanioIdentificacio}}}"
-                  placeholder="Identificación" #name="ngModel" name="identificacion" [(ngModel)]="user.identificacion"
-                  required>
-                <mat-error *ngIf="user.identificacion == ''">Ingresa tu identificación.
+                <input matInput [readonly]='!estdoTipoID' (input)="validarIdentificacion()" type="text" 
+                  placeholder="Identificación" #name="ngModel" name="identificacion" [(ngModel)]="user.identificacion" pattern="{{patternIdentificacion}}{6,{{tamanioIdentificacio}}}"
+                  required >
+                <mat-error *ngIf="tipoIdentificacionFormControl.value == ''"> Ingresa tu tipo de documento</mat-error>
+                <mat-error *ngIf="user.identificacion == '' && tipoIdentificacionFormControl.value != ''">Ingresa tu identificación.
                 </mat-error>
-                <mat-error *ngIf="user.identificacion != null && user.identificacion != ''">{{mesajeTipoID}}
+                <mat-error *ngIf="user.identificacion != ''">{{mesajeTipoID}}
                 </mat-error>
               </mat-form-field>
 
 
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Confirmar número de identificación</mat-label>
-                <input matInput (input)="validarIdentificacion()" placeholder="Confirmar numero de Identificación"
-                  pattern="{{patternIdentificacion}}{6,{{tamanioIdentificacio}}}" [formControl]="identificacionFormControl" required>
-                <mat-error *ngIf="identificacionFormControl.hasError('required')">Verifica tu identificación.
+                <input matInput [readonly]='!estdoTipoID' (input)="validarIdentificacion()" placeholder="Confirmar numero de Identificación"
+                   [formControl]="identificacionFormControl" required pattern="{{patternIdentificacion}}{6,{{tamanioIdentificacio}}}">
+                <mat-error *ngIf="tipoIdentificacionFormControl.value == ''"> Ingresa tu tipo de documento</mat-error>
+                <mat-error *ngIf="identificacionFormControl.hasError('required') && tipoIdentificacionFormControl.value != ''">Verifica tu identificación.
                 </mat-error>
                 <mat-error *ngIf="identificacionFormControl.hasError('pattern')">{{mesajeTipoID}}
                 </mat-error>
                 
               </mat-form-field>
+              <div class="form-group col-md-6 ">
               <p id="msgError" *ngIf="msgError != ''">{{msgErrorIdentificacion}}</p>
+            </div>
             </div>
 
             <div class="let">
@@ -322,7 +326,7 @@
 
           <mat-step>
 
-            <ng-template matStepLabel>Información de Contacto</ng-template>
+            <ng-template matStepLabel>Información de contacto</ng-template>
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Celular</mat-label>
