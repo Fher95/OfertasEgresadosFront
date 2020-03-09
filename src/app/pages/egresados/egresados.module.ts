@@ -28,6 +28,8 @@ import { RefenciaPersonalComponent } from './perfil/refencia-personal/refencia-p
 import { ReferidoPerfilComponent } from './perfil/referido-perfil/referido-perfil.component';
 import { ExperienciaLaboralComponent } from './perfil/experiencia-laboral/experiencia-laboral.component';
 import { ExperienciaPerfilComponent } from './perfil/experiencia-perfil/experiencia-perfil.component';
+import { MAT_DATE_LOCALE, MatPaginatorIntl } from '@angular/material';
+import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -75,7 +77,10 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   providers: [
-    ConfirmarEmailService, RouterModule, AlertService, AuthGuard
+    ConfirmarEmailService, RouterModule, AlertService, AuthGuard,
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
+    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
+
   ],
   entryComponents: [
     VerEventoComponent,
