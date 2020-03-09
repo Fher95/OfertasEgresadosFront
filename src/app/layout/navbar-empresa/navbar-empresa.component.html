@@ -2,13 +2,19 @@
   <div class="row">
     <ul class="nav col-6">
       <li class="nav-item">
-        <a class="nav-link active" role="button" (click)="onIncio()">Inicio</a>
+        <a class="nav-link active" type="button" (click)="onIncio()">Inicio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" role="button" (click)="onMisOfertas()">Mis Ofertas Laborales</a>
+        <a class="nav-link" type="button" (click)="onMisOfertas()">Mis Ofertas Laborales</a>
+      </li>
+      <!--li class="nav-item">
+        <a class="nav-link"  [routerLink]="['empresa/38/crearOfertaLaboral']">Publicar Oferta Laboral</a>
+      </li-->
+      <li class="nav-item">
+        <a class="nav-link" type="button" (click)="onPublicarOferta()">Publicar Oferta Laboral</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" role="button" (click)="onPublicarOferta()">Publicar Oferta Laboral</a>
+        <a class="nav-link" type="button">Contacto </a>
       </li>
     </ul>
     <ul class="nav justify-content-end col-6">
