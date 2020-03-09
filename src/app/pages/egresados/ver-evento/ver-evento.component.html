@@ -5,7 +5,7 @@
       <div class="col-md-6">
         <div id="imagen">
           <div  *ngIf="data.event.imagePath && data.event.imagePath != 'null'">
-            <img src="{{eventImageApi+data.event.imagePath}}" style="width: 100%; height: 190px;" alt="">
+            <img src="{{eventImageApi+data.event.imagePath}}" style="width: 80%; height: 250px;" alt="">
           </div>
         </div>
       </div>
@@ -43,18 +43,18 @@
       </div>
 
     </div>
-    <div>
+    <div class="descripcion">
       <b>Descripción</b>
       {{data.event.descripcion}}
     </div>
-
-
+   
 
   </form>
   <mat-dialog-content class="mat-typography">
-
   </mat-dialog-content>
-  <mat-dialog-actions align="center">
-    <button class='btnSalir' [mat-dialog-close]="false" mat-button>Salir</button>
-  </mat-dialog-actions>
+    <mat-dialog-actions align="center">
+      <button  [mat-dialog-close]="false" mat-button>Salir</button>
+    </mat-dialog-actions>
+
+  
 </div>
