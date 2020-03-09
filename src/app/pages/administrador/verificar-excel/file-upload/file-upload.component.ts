@@ -6,6 +6,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -15,11 +16,12 @@ import {
 export class FileUploadComponent implements OnInit {
   fileText?: string;
   showError = false;
+  accept = '.xsl,.xlsx,.csv';
 
   @Output() importFile = new EventEmitter();
   fileToUpload: File = null;
-
-  constructor() {}
+  disabled = true;
+  constructor(private alert: AlertService) {}
 
   ngOnInit() {}
 
@@ -27,9 +29,21 @@ export class FileUploadComponent implements OnInit {
     this.fileText = Array.from(fileList)
       .map(f => f.name)
       .join(', ');
-    this.fileToUpload = fileList.item(0);
-    if (this.fileText == '') {
-      this.showError == true;
+    let extension = '.' + this.fileText.split('.').pop();
+    let finding = false;
+    this.accept.split(',').forEach((value, idx) => {
+      console.log(value.trim() + ' ==? ' + extension);
+      if (value.trim() == extension) finding = true;
+    });
+    if (finding) {
+      this.fileToUpload = fileList.item(0);
+      this.showError = false;
+      this.disabled = false;
+    } else {
+      this.disabled = true;
+      this.showError = true;
+      this.fileText = '';
+      this.alert.showErrorMessage('Error', 'Solo se permiten extensiones ' + this.accept);
     }
   }
 
