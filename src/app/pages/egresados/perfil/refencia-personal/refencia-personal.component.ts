@@ -17,7 +17,9 @@ export class RefenciaPersonalComponent implements OnInit {
 
   varReferido : ReferenciaPersonalModel;
     
-  constructor(private dialog: MatDialog,private alert: AlertService) { }
+  constructor(private dialog: MatDialog,private alert: AlertService) {
+    
+   }
   
   ngOnInit() { }
   
