@@ -125,9 +125,15 @@
             </div>
       </div>
       <div class="row">
-                  <div class="col-sm-12 col-md-6">
+                  <div *ngIf="datosOferta.requisitos.experienciaLaboral !== 'Sin experiencia'; else sinExperiencia" class="col-sm-12 col-md-6">
                               <label><Strong>Experiencia laboral: </Strong>{{datosOferta.requisitos.experienciaLaboral}} {{datosOferta.requisitos.anios}} años</label>
                         </div>
+                        <ng-template #sinExperiencia>
+                              <div class="col-sm-12 col-md-6">
+                                    <label><Strong>Experiencia laboral: </Strong>{{datosOferta.requisitos.experienciaLaboral}}</label>
+                              </div>
+                        </ng-template>
+
 
       </div>
       <div class="row" *ngIf="datosOferta.requisitos.idiomas.length == 0; else idiomas">
