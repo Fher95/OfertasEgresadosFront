@@ -53,6 +53,7 @@ import {
 } from 'src/app/shared/common/custom-validators';
 import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
 import { DiscapacidadesPipe } from 'src/app/shared/pipes/discapacidades.pipe';
+import { EgCapitalizePipe } from 'src/app/shared/pipes/eg-capitalize.pipe';
 
 const routes: Routes = [
   {
@@ -129,7 +130,8 @@ const routes: Routes = [
     HourDomainValidator,
     LetterValidator,
     NotOnlyNumbersValidator,
-    DiscapacidadesPipe
+    DiscapacidadesPipe,
+    EgCapitalizePipe
   ],
   imports: [
     CommonModule,

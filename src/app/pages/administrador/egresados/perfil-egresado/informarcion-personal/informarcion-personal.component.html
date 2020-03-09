@@ -84,7 +84,7 @@
             name="identificacion"
             #identificacion
             placeholder="Identificación"
-            [ngModel]="egresado.identificacion"
+            [ngModel]="egresado.identificacion | egcapitalize"
           />
         </mat-form-field>
       </div>

@@ -42,19 +42,19 @@
       <!-- Number Column -->
       <ng-container matColumnDef="nombres">
         <th mat-header-cell *matHeaderCellDef>Nombres</th>
-        <td mat-cell *matCellDef="let row">{{ row.nombres }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.nombres |egcapitalize }}</td>
       </ng-container>
 
       <!-- Number Column -->
       <ng-container matColumnDef="apellidos">
         <th mat-header-cell *matHeaderCellDef>Apellidos</th>
-        <td mat-cell *matCellDef="let row">{{ row.apellidos }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.apellidos | egcapitalize }}</td>
       </ng-container>
 
       <!-- Number Column -->
       <ng-container matColumnDef="nombreRol">
         <th mat-header-cell *matHeaderCellDef>Nombre rol</th>
-        <td mat-cell *matCellDef="let row">{{ row.nombreRol }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.nombreRol | egcapitalize }}</td>
       </ng-container>
 
       <!-- Number Column -->

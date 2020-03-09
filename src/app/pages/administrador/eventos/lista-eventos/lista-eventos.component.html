@@ -52,7 +52,7 @@
         <!-- Nombre del evento -->
         <ng-container matColumnDef="nombre">
           <th mat-header-cell *matHeaderCellDef>Nombre</th>
-          <td mat-cell *matCellDef="let evento">{{ evento.nombre }}</td>
+          <td mat-cell *matCellDef="let evento">{{ evento.nombre | egcapitalize }}</td>
         </ng-container>
 
         <!-- Fecha de inicio -->
