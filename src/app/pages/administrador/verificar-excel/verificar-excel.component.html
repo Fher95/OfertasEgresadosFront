@@ -1,5 +1,10 @@
-<h3>VERIFICAR EGRESADO</h3>
-<div class="container-fluid mt-3">
+<div class="container">
+  <mat-toolbar color="primary">
+    <span class="toolbar-title-center">
+      Verificar egresados
+    </span>
+  </mat-toolbar>
+  <div class="divider"></div>
   <div class="row">
     <!-- File upload component -->
     <app-file-upload (importFile)="verificarArchivo($event)"></app-file-upload>
@@ -14,14 +19,14 @@
           class="list-group-item"
           [ngClass]="{ activo: showActivos }"
         >
-          Activos Logueado
+          Activos logueado
         </li>
         <li
           (click)="mostrarPendientes()"
           class="list-group-item"
           [ngClass]="{ activo: showPendientes }"
         >
-          Activos No Logueados
+          Activos no logueados
         </li>
         <li
           (click)="mostrarInconsistentes()"
@@ -35,7 +40,7 @@
     <div class="col-12 col-md-9 main-content">
       <div class="aceptados mat-elevation-z8" *ngIf="showActivos">
         <mat-toolbar color="primary">
-          ACTIVOS LOGUEADOS
+          Activos logueados
         </mat-toolbar>
         <app-lista-egresados
           [dataSource]="activos"
@@ -44,7 +49,7 @@
       </div>
       <div class="pendientes mat-elevation-z8" *ngIf="showPendientes">
         <mat-toolbar color="primary">
-          ACTIVOS NO LOGUEADOS
+          Activos no logueados
         </mat-toolbar>
         <app-lista-egresados
           [dataSource]="pendientes"
@@ -53,7 +58,7 @@
       </div>
       <div class="inconsistentes mat-elevation-z8" *ngIf="showInconsistentes">
         <mat-toolbar color="primary">
-          INCONSISTENTES
+          Inconsistentes
         </mat-toolbar>
         <app-lista-egresados
           [dataSource]="inconsistentes"

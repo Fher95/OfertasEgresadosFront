@@ -19,6 +19,7 @@ export class EgresadoModel {
     public correoAlternativo?: string,
     public estadoCivil?: string,
     public celular?: string,
+    public tituloEspecial?: string,
     public telefonoFijo?: string,
     public lugarNacimiento?: CiudadModel,
     public lugarResidencia?: LocalizacionModel,

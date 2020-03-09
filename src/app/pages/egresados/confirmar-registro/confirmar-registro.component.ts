@@ -31,7 +31,7 @@ export class ConfirmarRegistroComponent implements OnInit {
         .subscribe(res => {
           this.alert.showSuccesMessage(
             'Verificado',
-            'Tu correo sea verificado correctamente'
+            'Tu correo ha sido verificado correctamente'
           ).then(res => {
             // TODO: Redireccionar al login.
             this.router.navigateByUrl("/home");
@@ -52,7 +52,7 @@ export class ConfirmarRegistroComponent implements OnInit {
       this.codigo = params.codigo;
       this.service.cuentaYaActiva(this.codigo).subscribe(res => {
         if (res) {
-          this.alert.showInfoMessage('Activo', 'El usuario ya se encuentra activo.')
+          this.alert.showInfoMessage('Activo', 'El usuario ya se encuentra activo')
             .then(() => {
               // TODO: Redireccionar al login.
               this.router.navigateByUrl("/home");
