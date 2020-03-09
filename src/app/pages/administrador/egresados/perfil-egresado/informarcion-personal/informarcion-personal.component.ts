@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { EgresadoSharedService } from '../egresado.shared.service';
 import { take } from 'rxjs/operators';
+import { DiscapacidadInterface } from 'src/app/shared/modelos/discapacidadInterface';
 
 @Component({
   selector: 'app-informacion-personal',
@@ -16,11 +17,20 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./informarcion-personal.component.css']
 })
 export class InformarcionPersonalComponent implements OnInit {
-  nombreCompleto = 'Nombre completo';
+  nombreCompleto = '';
+  discapacidades = '';
   isLoadingResults = false;
   @Input()
   public egresado: EgresadoModel;
   constructor(private sharedService: EgresadoSharedService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+
+  getDiscapacidades(discapacidades: DiscapacidadInterface[]): string {
+    let retstr = discapacidades.map(d => d.Nombre).join(', ');
+    console.log('Discapacidades: ', retstr);
+    return retstr;
+  }
 }

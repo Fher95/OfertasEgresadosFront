@@ -16,6 +16,34 @@ export function hourDomainValidator(control: FormControl) {
   return null;
 }
 
+export function notOnlyNumbersValidator(control: FormControl) {
+  const value = control.value as string;
+  const regex = /^[0-9]+$/;
+  if(value != null && regex.test(value)) {
+    return {
+      notOnlyNumbers: {
+        domain: value
+      }
+    }
+  }
+  return null;
+}
+
+export function letterValidator(control: FormControl) {
+  const value = control.value as string;
+  const regex = /^[a-zA-Z\u00E0-\u00FC\s]*$/;
+  console.log(value);
+  console.log(regex.test(value));
+  if (value != null && !regex.test(value)) {
+    return {
+      letter: {
+        domain: value
+      }
+    };
+  }
+  return null;
+}
+
 @Directive({
   selector: '[hourDomain][ngModel]',
   providers: [
@@ -27,3 +55,27 @@ export function hourDomainValidator(control: FormControl) {
   ]
 })
 export class HourDomainValidator {}
+
+@Directive({
+  selector: '[letter][ngModel]',
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useValue: letterValidator,
+      multi: true
+    }
+  ]
+})
+export class LetterValidator {}
+
+@Directive({
+  selector: '[notOnlyNumbers][ngModel]',
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useValue: notOnlyNumbersValidator,
+      multi: true
+    }
+  ]
+})
+export class NotOnlyNumbersValidator {}

@@ -49,7 +49,7 @@ export class DialogoActualizarEventoComponent implements OnInit {
     private eventoService: EventosService
   ) {
     this.evento = data;
-    console.log("Id Evento a actualizar: " + this.evento.id);
+    console.log('Id Evento a actualizar: ' + this.evento.id);
   }
 
   ngOnInit() {
@@ -131,5 +131,32 @@ export class DialogoActualizarEventoComponent implements OnInit {
           }
         });
     } else this.dialogRef.close(false);
+  }
+
+  errorEnHora(frm: NgForm) {
+    if (this.minmaxdate.datesAreEquals()) {
+      console.log('Son iguales');
+      let horaInicio = frm.value.horaInicio
+        .split(':')
+        .map((v: string) => parseInt(v));
+      let horaFin = frm.value.horaFin
+        .split(':')
+        .map((v: string) => parseInt(v));
+      if (horaInicio[0] > horaFin[0]) {
+        console.log('La hora de inicio es mayor a la de fin');
+        frm.controls['horaFin'].setErrors({ horaInvalida: true });
+      } else if (horaInicio[1] > horaFin[1]) {
+        console.log('Los minutos de inicio son mayores a los de fin');
+        frm.controls['horaFin'].setErrors({ horaInvalida: true });
+      } else {
+        console.log('No hay error');
+        frm.controls['horaFin'].setErrors({ horaInvalida: null });
+        frm.controls['horaFin'].updateValueAndValidity();
+      }
+    } else {
+      console.log('No hay error');
+      frm.controls['horaFin'].setErrors({ horaInvalida: null });
+      frm.controls['horaFin'].updateValueAndValidity();
+    }
   }
 }

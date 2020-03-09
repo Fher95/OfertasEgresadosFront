@@ -555,7 +555,7 @@ datosFormChecked: FormGroup;
   openDialog(datos) {
     const dialogRef = this.matDialog.open(DialogInfoOfertaComponent, {
       width: '60%',
-      data: { datos: datos, crear: false} //Envia los datos del form al componente
+      data: { datos: datos, crear: false,  estado: 'Pendiente' } //Envia los datos del form al componente
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result)

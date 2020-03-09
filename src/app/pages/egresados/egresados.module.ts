@@ -17,7 +17,6 @@ import { InicioEgresadosComponent } from '../home/inicio-egresados/inicio-egresa
 import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/nav-egresados.component';
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
-import { CancelarDialogComponent } from './cancelar-dialog/cancelar-dialog.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { EventosComponent} from './eventos/eventos.component';
 import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
@@ -27,7 +26,6 @@ import { GradoVerPerfilComponent } from './perfil/grado-ver-perfil/grado-ver-per
 import { UpdateDeleteDialogComponent } from './perfil/grado-ver-perfil/update-delete-dialog/update-delete-dialog.component';
 import { RefenciaPersonalComponent } from './perfil/refencia-personal/refencia-personal.component';
 import { ReferidoPerfilComponent } from './perfil/referido-perfil/referido-perfil.component';
-import { NuevaReferenciaComponent } from './perfil/nueva-referencia/nueva-referencia.component';
 import { ExperienciaLaboralComponent } from './perfil/experiencia-laboral/experiencia-laboral.component';
 import { ExperienciaPerfilComponent } from './perfil/experiencia-perfil/experiencia-perfil.component';
 
@@ -57,7 +55,6 @@ const routes: Routes = [
     ComentariosComponent,
     ExplaboralComponent,
     ReferidoComponent,
-    CancelarDialogComponent,
     PerfilComponent,
     EventosComponent,
     CarnetizacionComponent,
@@ -67,7 +64,6 @@ const routes: Routes = [
     ReferidoPerfilComponent,
     GradoVerPerfilComponent,
     UpdateDeleteDialogComponent,
-    NuevaReferenciaComponent,
     ExperienciaLaboralComponent,
     ExperienciaPerfilComponent,
   ],
@@ -82,11 +78,9 @@ const routes: Routes = [
     ConfirmarEmailService, RouterModule, AlertService, AuthGuard
   ],
   entryComponents: [
-    CancelarDialogComponent,
     VerEventoComponent,
     ReferidoPerfilComponent,
     UpdateDeleteDialogComponent,
-    NuevaReferenciaComponent,
     UpdateDeleteDialogComponent
   ],
 })

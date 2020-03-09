@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="card">
         <div class="card-body">
             <div class="input-group mb-3">
@@ -17,4 +17,49 @@
             </div>
         </div>
     </div>
+</div -->
+<input
+  type="file"
+  name="importFile"
+  style="display: none;"
+  id="importFile"
+  (change)="onFileChange($event.target.files)"
+  accept=".xsl,.xlsx,.csv"
+/>
+<mat-form-field class="col-md-8" appearance="outline">
+  <mat-label>Excel de secretaria general</mat-label>
+  <input
+    type="text"
+    disabled
+    matInput
+    name="fileName"
+    #fileName="ngModel"
+    [(ngModel)]="fileText"
+    placeholder="Seleccione un archivo"
+    required
+  />
+  <mat-error *ngIf="showError">
+    Campo requerido
+  </mat-error>
+</mat-form-field>
+<div class="col-md-2">
+  <button
+    type="button"
+    (click)="fileSelected()"
+    color="primary"
+    mat-raised-button
+  >
+    <mat-icon>file_upload</mat-icon> Abrir archivo
+  </button>
+</div>
+<div class="col-md-2">
+  <button
+    type="button"
+    (click)="import()"
+    color="primary"
+    [disabled]="disabled"
+    mat-raised-button
+  >
+    <mat-icon>check_circle_outline</mat-icon> Verificar
+  </button>
 </div>

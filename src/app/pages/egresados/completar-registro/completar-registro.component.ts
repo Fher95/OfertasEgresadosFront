@@ -13,7 +13,6 @@ import { Experiencia } from 'src/app/shared/modelos/experiencia';
 import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Comentario } from 'src/app/shared/modelos/comentario';
-import { CancelarDialogComponent } from '../cancelar-dialog/cancelar-dialog.component';
 
 @Component({
   selector: 'app-completar-registro',
@@ -51,10 +50,11 @@ export class CompletarRegistroComponent implements OnInit {
 
   //Grado adicional
   otroGrado = new FormControl('',Validators.required);
-  mencionAdicional = new FormControl('');
+  mencionAdicional = new FormControl('',Validators.maxLength(50));
   comentariosRespuestaAdicional = new Array<Comentario>();
 
   idEgresado : number;
+  deshabilitarCompletar:boolean = false;
 
   constructor(private dialog:MatDialog,private servicioCompletar: RegistroService, private alert: AlertService, 
     private router:Router, private auth: AuthService) {
@@ -63,11 +63,11 @@ export class CompletarRegistroComponent implements OnInit {
 
   ngOnInit() {
     this.servicioCompletar.idEgresado(this.auth.userEmail).subscribe(
-      data => { console.log('data: '+data.id_aut_egresado); this.idEgresado = data.id_aut_egresado;
+      data => {
+        this.idEgresado = data.id_aut_egresado;
         console.log(this.idEgresado);
         this.servicioCompletar.validarCompletar(this.idEgresado).subscribe(
           respuesta => { 
-            console.log('respuesta1: '+respuesta);
             this.estadoCompletar = respuesta.estado_completar;
             this.cantHijos = respuesta.num_hijos;
             this.idPrograma = respuesta.id_programa;
@@ -83,6 +83,8 @@ export class CompletarRegistroComponent implements OnInit {
     this.haTrabajado = new FormControl('', [Validators.required]);
     this.Labora_Actualmente = new FormControl('', [Validators.required]);
     this.comentariosRespuesta = new Array<Comentario>();
+    this.otroGrado = new FormControl('',Validators.required);
+    this.mencionAdicional = new FormControl('',Validators.maxLength(50));
     this.comentariosRespuestaAdicional = new Array<Comentario>();
   }
   //Añadir datos referidos
@@ -100,7 +102,7 @@ export class CompletarRegistroComponent implements OnInit {
     if(bandera){
       this.referidos.push(referido);
       if(this.referidos.length!=0){
-        this.alert.showSuccesMessage('','Referencia agregada exitosamente.');
+        this.alert.showSuccesMessage('','Referencia agregada exitosamente a la lista.');
         this.referido.limpiarDatos();
       }
       this.dataReferidos = new MatTableDataSource<any>(this.referidos);
@@ -147,7 +149,7 @@ export class CompletarRegistroComponent implements OnInit {
     }
     this.expActuales.push(experiencia);
     if(this.expActuales.length!=0){
-      this.alert.showSuccesMessage('','Labor actual agregada exitosamente.');
+      this.alert.showSuccesMessage('','Labor actual agregada exitosamente a la lista.');
       this.expActual.limpiarDatos();
     }
     this.dataExpActual = new MatTableDataSource<any>(this.expActuales);
@@ -161,38 +163,37 @@ export class CompletarRegistroComponent implements OnInit {
       console.log('Labor actual eliminada');
     }
   }
-  agregarComentario(comentarios : Array<Comentario>){
-    this.comentariosRespuesta = comentarios;
-    console.log('comentarios: '+comentarios.length);
-    console.log('comentariosRespuesta: '+this.comentariosRespuesta.length);
-  }
   //Grado adicional 
   agregarGradoAdicional(){
     if(this.programaAdicional.verificarCampos()){
       if(this.programaAdicional.Programa.value!=this.idPrograma){
         this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
-        this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
-        this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value.toUpperCase();
-        this.varCompletarRegistro.gradoAdicional.comentarios = this.comentariosRespuestaAdicional;
+        if(this.programaAdicional.existenTitulos){
+          this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
+        }
+        this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
+        this.varCompletarRegistro.gradoAdicional.comentarios = this.comentarioGradoAdic.enviarComentario();
       }
       else{
-        this.alert.showErrorMessage('Error','No se puede registrar el nuevo grado.');
+        this.alert.showErrorMessage('Error','Ya existe el grado.');
       }
     }
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.');
     }
   }
-  agregarComentarioGradoAdic(comentarios : Array<Comentario>){
-    this.comentariosRespuestaAdicional = comentarios;
-  }
   validar(){
     if(this.Labora_Actualmente.value==1 && this.expActuales.length>0){
-      this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
+      var mensaje : string = 'Si selecciona la opción no labora actualmente, entonces se borraran todos los trabajos agregados en la lista.\
+      ¿Desea continuar?';
+      this.alert.showconfirmationMessage('Cancelar',mensaje).then(
         resultado => { 
-          if(resultado==0){
+          if(resultado.value){
             this.expActuales = [];
             this.dataExpActual= new MatTableDataSource<any>([]);
+          }
+          else{
+            this.Labora_Actualmente.setValue(0);
           }
         }
       );
@@ -202,7 +203,7 @@ export class CompletarRegistroComponent implements OnInit {
   {
     console.log('Llenar Datos Completar');
     this.varCompletarRegistro.referidos = this.referidos;
-    if(this.Labora_Actualmente.value==0)
+    if(this.Labora_Actualmente.value==0 && this.expActuales.length>0)
     {
       this.varCompletarRegistro.trabajo_actualmente = true;
       this.varCompletarRegistro.expActual = this.expActuales;
@@ -210,7 +211,7 @@ export class CompletarRegistroComponent implements OnInit {
     else if(this.Labora_Actualmente.value==1){
       this.varCompletarRegistro.trabajo_actualmente = false;
     }
-    this.varCompletarRegistro.comentarios = this.comentariosRespuesta;
+    this.varCompletarRegistro.comentarios = this.comentario.enviarComentario();
     console.log('cantidad comentarios:'+this.varCompletarRegistro.comentarios.length);
     if(this.otroGrado.value==0){    
       this.varCompletarRegistro.otroGrado = true;
@@ -220,35 +221,47 @@ export class CompletarRegistroComponent implements OnInit {
   verificarCampos()
   {
     var bandera:boolean = false;
-    if(this.referidos.length!=0 && this.Labora_Actualmente.value!='')
-    {
-      bandera = true;
+    if(this.referidos.length!=0 && this.Labora_Actualmente.value!='' && this.otroGrado.value!=''){
+      if(this.Labora_Actualmente.value == 0 && this.expActuales.length>0 && this.otroGrado.value==0 
+        && this.programaAdicional.Programa.value!=''){    
+        bandera=true;
+      }
+      else if(this.Labora_Actualmente.value == 1 && this.otroGrado.value==0 
+        && this.programaAdicional.Programa.value!=''){    
+        bandera=true;
+      }
+      else if(this.Labora_Actualmente.value == 1 && this.otroGrado.value==1){    
+        bandera=true;
+      }
+      else if(this.Labora_Actualmente.value == 0 && this.expActuales.length>0 && this.otroGrado.value==1){
+        bandera=true;
+      }
+      else {
+        bandera=false;
+      }
     }
     return bandera;
   }
   enviarDatos()
   {
+    this.deshabilitarCompletar=true;
     if(this.verificarCampos()){
       this.llenarDatos();
+      console.log('var completar: '+this.varCompletarRegistro.trabajo_actualmente);
       this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
         respuesta => {
           this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
-            ()=>{ this.router.navigateByUrl('home');});
+            ()=>{ this.router.navigateByUrl('egresados');});
           console.log(respuesta);
         },
         error => {
-          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');
+          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.').then(
+            ()=>{ this.deshabilitarCompletar=false;});
         });
     }
     else{
-      this.alert.showErrorMessage('Error','Complete todos los datos.');
+      this.alert.showErrorMessage('Error','Complete todos los datos.').then(
+        ()=>{ this.deshabilitarCompletar=false;});
     }
-  }
-  cancelar(){
-    this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
-      resultado => { 
-        if(resultado==0){
-          this.limpiarFormulario();
-        }});
   }
 }

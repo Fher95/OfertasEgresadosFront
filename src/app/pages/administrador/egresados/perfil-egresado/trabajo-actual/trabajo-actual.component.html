@@ -1,8 +1,9 @@
-<h2 mat-dialog-title>VER TRABAJO ACTUAL</h2>
+<h2 mat-dialog-title>Trabajo actual</h2>
 <mat-dialog-content>
   <form>
     <div class="row">
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Cargo</mat-label>
         <input
           type="text"
           matInput
@@ -12,7 +13,8 @@
           name="cargo"
         />
       </mat-form-field>
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Nombre empresa</mat-label>
         <input
           type="text"
           matInput
@@ -22,7 +24,8 @@
           name="nombreEpresa"
         />
       </mat-form-field>
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Fecha de inicio</mat-label>
         <input
           type="text"
           matInput
@@ -35,7 +38,8 @@
     </div>
 
     <div class="row">
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Fecha de finalización</mat-label>
         <input
           type="text"
           placeholder="Fecha fin"
@@ -45,18 +49,20 @@
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Tipo de contrato</mat-label>
         <input
           type="text"
           name="tipoContrato"
           matInput
           [ngModel]="experiencia.tipoContrato"
-          placeholder="Tipo de contrado"
+          placeholder="Tipo de contrato"
           disabled
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>País lugar de trabajo</mat-label>
         <input
           type="text"
           matInput
@@ -69,7 +75,8 @@
     </div>
 
     <div class="row">
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Departamento lugar de trabajo</mat-label>
         <input
           type="text"
           matInput
@@ -80,18 +87,20 @@
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Ciudad lugar de trabajo</mat-label>
         <input
           type="text"
           matInput
           name="ciudad"
           [ngModel]="experiencia.ciudad?.nombre"
-          placeholder="Ciuad lugar de trabajo"
+          placeholder="Ciudad lugar de trabajo"
           disabled
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Dirección lugar de trabajo</mat-label>
         <input
           type="text"
           matInput
@@ -104,7 +113,8 @@
     </div>
 
     <div class="row">
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Rango salarial</mat-label>
         <input
           matInput
           name="salario"
@@ -115,7 +125,8 @@
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Sector</mat-label>
         <input
           type="text"
           name="sector"
@@ -126,7 +137,8 @@
         />
       </mat-form-field>
 
-      <mat-form-field class="form-group col-md-4">
+      <mat-form-field class="form-group col-md-4" appearance="outline">
+        <mat-label>Teléfono lugar de trabajo</mat-label>
         <input
           type="text"
           matInput
@@ -149,7 +161,7 @@
       </mat-checkbox>
     </div>
 
-    <mat-dialog-actions>
+    <mat-dialog-actions class="align-center" align="center">
       <button type="button" (click)="cerrar()" class="btn btn-danger">
         Cerrar
       </button>

@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     CommonModule
   ],
-  exports: [AdministradorModule, EgresadosModule, AuthModule]
+  exports: [AdministradorModule, EgresadosModule, AuthModule],
+  declarations: []
 })
 export class PagesModule { }
