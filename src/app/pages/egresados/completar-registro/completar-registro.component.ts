@@ -68,7 +68,6 @@ export class CompletarRegistroComponent implements OnInit {
         console.log(this.idEgresado);
         this.servicioCompletar.validarCompletar(this.idEgresado).subscribe(
           respuesta => { 
-            console.log('respuesta1: '+respuesta);
             this.estadoCompletar = respuesta.estado_completar;
             this.cantHijos = respuesta.num_hijos;
             this.idPrograma = respuesta.id_programa;
@@ -194,7 +193,7 @@ export class CompletarRegistroComponent implements OnInit {
             this.dataExpActual= new MatTableDataSource<any>([]);
           }
           else{
-            this.Labora_Actualmente.setValue(0);
+            this.Labora_Actualmente.setValue(1);
           }
         }
       );
@@ -204,7 +203,7 @@ export class CompletarRegistroComponent implements OnInit {
   {
     console.log('Llenar Datos Completar');
     this.varCompletarRegistro.referidos = this.referidos;
-    if(this.Labora_Actualmente.value==0)
+    if(this.Labora_Actualmente.value==0 && this.expActuales.length>0)
     {
       this.varCompletarRegistro.trabajo_actualmente = true;
       this.varCompletarRegistro.expActual = this.expActuales;
@@ -222,14 +221,22 @@ export class CompletarRegistroComponent implements OnInit {
   verificarCampos()
   {
     var bandera:boolean = false;
-    if(this.referidos.length!=0 && this.Labora_Actualmente.value!=''){
-      if(this.otroGrado.value==0 && this.programaAdicional.Programa.value!=''){    
+    if(this.referidos.length!=0 && this.Labora_Actualmente.value!='' && this.otroGrado.value!=''){
+      if(this.Labora_Actualmente.value == 0 && this.expActuales.length>0 && this.otroGrado.value==0 
+        && this.programaAdicional.Programa.value!=''){    
         bandera=true;
       }
-      else if(this.otroGrado.value==1){
+      else if(this.Labora_Actualmente.value == 1 && this.otroGrado.value==0 
+        && this.programaAdicional.Programa.value!=''){    
         bandera=true;
       }
-      else{
+      else if(this.Labora_Actualmente.value == 1 && this.otroGrado.value==1){    
+        bandera=true;
+      }
+      else if(this.Labora_Actualmente.value == 0 && this.expActuales.length>0 && this.otroGrado.value==1){
+        bandera=true;
+      }
+      else {
         bandera=false;
       }
     }
@@ -240,6 +247,7 @@ export class CompletarRegistroComponent implements OnInit {
     this.deshabilitarCompletar=true;
     if(this.verificarCampos()){
       this.llenarDatos();
+      console.log('var completar: '+this.varCompletarRegistro.trabajo_actualmente);
       this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
         respuesta => {
           this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
