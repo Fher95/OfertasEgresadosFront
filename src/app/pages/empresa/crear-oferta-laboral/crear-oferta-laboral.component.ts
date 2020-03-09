@@ -458,6 +458,11 @@ datosFormChecked: FormGroup;
       this.formOfertaLaboral.controls['requisitos'].get('idDiscapacidades').setValue(null)
       this.formOfertaLaboral.controls['requisitos'].get('discapacidades').setValue(null)}
   }
+  //CAmbia el valor a 0 años
+  sinExperiencia(){
+    this.formOfertaLaboral.controls['requisitos'].get('anios').setValue(0)
+  }
+
   //Crea la oferta laboral
   registrarOfertaLaboral(form)
   {
