@@ -71,10 +71,29 @@ export class ReferidoPerfilComponent implements OnInit {
       this.dialogRef.close(false);
     }
   }
-  validarDatos() {  
+  validarDatos(){
+    var bandera: boolean = false;
+    if(this.camposVacios() && this.mensajeInvalido()){
+      bandera = true;
+    }
+    return bandera;
+  }
+  mensajeInvalido(){
+    var bandera: boolean = false;
+    if (this.Correo.status == 'VALID' && this.Celular.status == 'VALID') {
+      bandera = true;
+    }
+    return bandera;
+  }
+  camposVacios() {  
     var bandera: boolean = false;
     if (this.Correo.value != '' && this.Celular.value != '' && this.Egresado.value !='') {
-      bandera = true;
+      if(this.Egresado.value == 0 && this.programa.Programa.value !=''){
+        bandera = true;
+      }
+      else if(this.Egresado.value == 1){
+        bandera = true;
+      }
     }
     return bandera;
   }

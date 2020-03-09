@@ -193,7 +193,7 @@ export class CompletarRegistroComponent implements OnInit {
             this.dataExpActual= new MatTableDataSource<any>([]);
           }
           else{
-            this.Labora_Actualmente.setValue(1);
+            this.Labora_Actualmente.setValue(0);
           }
         }
       );
