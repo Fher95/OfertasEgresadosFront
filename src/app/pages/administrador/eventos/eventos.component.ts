@@ -42,7 +42,8 @@ export class EventosComponent implements OnInit, OnDestroy {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = evento;
-    dialogConfig.maxHeight = '600px';
+    dialogConfig.maxHeight = '800px';
+    dialogConfig.minWidth = '800px';
 
     const dialogRef = this.dialog.open(
       DialogoActualizarEventoComponent,

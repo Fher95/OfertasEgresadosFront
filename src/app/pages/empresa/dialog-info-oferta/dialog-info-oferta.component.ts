@@ -7,8 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
   styleUrls: ['./dialog-info-oferta.component.css']
 })
 export class DialogInfoOfertaComponent implements OnInit {
-  estado1 = 'Finalizada con contratación';
-  estado2 = 'Finalizada sin contratación';
+
   constructor(
     public dialogRef: MatDialogRef<DialogInfoOfertaComponent>,
     @Inject(MAT_DIALOG_DATA) public datos: any, // Datos enviaidos de la oferta
@@ -16,6 +15,7 @@ export class DialogInfoOfertaComponent implements OnInit {
   datosOferta ;
   ngOnInit() {
     this.datosOferta = this.datos.datos;
+    console.log("estado:", this.datos.estado);
   }
   
   formatNumber(rangoSalarial:string){

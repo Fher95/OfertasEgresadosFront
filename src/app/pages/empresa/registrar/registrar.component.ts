@@ -35,6 +35,7 @@ export class RegistrarComponent implements OnInit {
   code: string;
   isLinear = true;
   contOculto = true;
+  enviarPeticion = false;
 
   formRegistroEmp: FormGroup;
 
@@ -114,35 +115,39 @@ export class RegistrarComponent implements OnInit {
    * encargados de las peticiones.
    * <p>
    * Si existe un error al cargarlo imprime en la consola el error
-   * @param  formulario  Id del pais escogido en la lista de departamentos
    */
-  registrarEmpresa(formulario) {
-    let formData = new FormData();
-    //getrawvaluec
-    formData.append('datos', JSON.stringify(this.formRegistroEmp.getRawValue()));
-    if (this.fileInput.nativeElement.files[0]) {
-      formData.append('fileInput', this.fileInput.nativeElement.files[0]);
+  registrarEmpresa() {
+    if (!this.enviarPeticion) {
+      this.enviarPeticion = true;
+      let formData = new FormData();
+      //getrawvaluec
+      formData.append('datos', JSON.stringify(this.formRegistroEmp.getRawValue()));
+      if (this.fileInput.nativeElement.files[0]) {
+        formData.append('fileInput', this.fileInput.nativeElement.files[0]);
+      }
+      if (this.logoInput.nativeElement.files[0]) {
+        formData.append('logoInput', this.logoInput.nativeElement.files[0]);
+      }
+      this.empService.registrarUsuario(formData).toPromise().then(data => {
+        console.log("registro completo: " + JSON.stringify(data));
+        this.openDialog();
+        //Al enviar los archivos se muestra el dialog y se termina el registro
+        //this.enviarArchivos(data);
+      },
+        errorRegistro => {
+          this.enviarPeticion = false;
+          this.mensajesError = [];
+          // Obteniendo todas las claves del JSON
+          /*for (var clave in errorRegistro.error) {
+            // Controlando que json realmente tenga esa propiedad
+            if (errorRegistro.error.hasOwnProperty(clave)) {
+              // Mostrando en pantalla la clave junto a su valor
+              this.mensajesError.push(errorRegistro.error[clave]);
+            }
+          }*/
+          this.mensajesError.push("Existen campos incorrectos, por favor revise");
+        });
     }
-    if (this.logoInput.nativeElement.files[0]) {
-      formData.append('logoInput', this.logoInput.nativeElement.files[0]);
-    }
-    this.empService.registrarUsuario(formData).toPromise().then(data => {
-      this.openDialog();
-      //Al enviar los archivos se muestra el dialog y se termina el registro
-      //this.enviarArchivos(data);
-    },
-      errorRegistro => {
-        this.mensajesError = [];
-        // Obteniendo todas las claves del JSON
-        /*for (var clave in errorRegistro.error) {
-          // Controlando que json realmente tenga esa propiedad
-          if (errorRegistro.error.hasOwnProperty(clave)) {
-            // Mostrando en pantalla la clave junto a su valor
-            this.mensajesError.push(errorRegistro.error[clave]);
-          }
-        }*/
-        this.mensajesError.push("Existen campos incorrectos, por favor revise");
-      });
   }
 
   /**
@@ -188,7 +193,7 @@ export class RegistrarComponent implements OnInit {
     //Llama al servicio general de peticiones http
     this.servGenerales.obtenerListaCiudades(idDepartamento).subscribe(resultado => {
       this.ciudades = resultado;
-      this.ciudades.sort(function (a,b) {
+      this.ciudades.sort(function (a, b) {
         return a.nombre.localeCompare(b.nombre);
       })
     },
@@ -499,6 +504,13 @@ export class RegistrarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.router.navigate(['/home']);
     });
+  }
+  /**
+   * Deshabilita el boton de registro al dar click
+  */
+  actionMethod(event: any) {
+    event.target.disabled = true;
+    event.setValue="Enviando..."; 
   }
 
 }

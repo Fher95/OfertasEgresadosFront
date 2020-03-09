@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
-  egresado: EgresadoModel = new VerPerfilEgresado;
+  egresado: EgresadoModel = new EgresadoModel;
   private egresadoObservable$: Observable<EgresadoModel>;
 
   constructor(private auth: AuthService, private perfilService: PerfilService) {}

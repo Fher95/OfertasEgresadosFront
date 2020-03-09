@@ -1,6 +1,8 @@
 <div class="container">
   <mat-toolbar color="primary">
-    Gestion de apoyo
+    <span class="toolbar-title-center">
+      Gestión de apoyo
+    </span>
   </mat-toolbar>
   <div class="divider"></div>
   <mat-card>
@@ -13,6 +15,7 @@
       <form #form="ngForm" novalidate (ngSubmit)="guardar(form)">
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-4">
+            <mat-label>Nombres</mat-label>
             <input
               matInput
               type="text"
@@ -21,12 +24,21 @@
               [(ngModel)]="model.nombre"
               placeholder="Nombres"
               required
+              letter
             />
             <mat-error *ngIf="nombre.invalid && nombre.hasError('required')">
-              El nombre es requerido
+              Campo requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+                nombre.invalid && nombre.touched && nombre.hasError('letter')
+              "
+            >
+              El campo solo admite letras
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-4">
+            <mat-label>Apellidos</mat-label>
             <input
               matInput
               type="text"
@@ -35,14 +47,23 @@
               name="apellido"
               placeholder="Apellidos"
               required
+              letter
             />
             <mat-error
               *ngIf="apellido.invalid && apellido.hasError('required')"
             >
-              El apellido es requerido
+              Campo requerido
+            </mat-error>
+            <mat-error
+              *ngIf="
+              apellido.invalid && apellido.touched && apellido.hasError('letter')
+              "
+            >
+              El campo solo admite letras
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-4">
+            <mat-label>Rol apoyo</mat-label>
             <input
               matInput
               type="text"
@@ -51,59 +72,61 @@
               name="nombreApoyo"
               placeholder="Rol apoyo"
               required
+              letter
             />
             <mat-error
               *ngIf="nombreApoyo.invalid && nombreApoyo.hasError('required')"
             >
               El rol del apoyo es requerido
             </mat-error>
+            <mat-error
+              *ngIf="
+              nombreApoyo.invalid && nombreApoyo.touched && nombreApoyo.hasError('letter')
+              "
+            >
+              El campo solo admite letras
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="form-row">
           <mat-form-field appearance="outline" class="form-group col-md-6">
+            <mat-label>Correo electrónico</mat-label>
             <input
               type="text"
               [(ngModel)]="model.email"
               name="email"
-              email
+              pattern="^[a-zA-Z0-9.\-_]{1,}@[a-zA-Z.\-]{2,}[.]{1}[a-zA-Z]{2,}$"
               #email="ngModel"
               matInput
-              placeholder="Email"
+              placeholder="Correo"
               required
             />
             <mat-icon matSuffix>email</mat-icon>
             <mat-error *ngIf="email.invalid && email.hasError('required')">
-              El email es requerido
+              Campo requerido
             </mat-error>
-            <mat-error *ngIf="email.invalid && email.hasError('email')">
-              Debe ingresar un email válido
+            <mat-error *ngIf="email.invalid && email.hasError('pattern')">
+              Debe ingresar un correo electrónico válido
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="form-group col-md-6">
+            <mat-label>Correo electrónico secundario</mat-label>
             <input
               type="text"
               [(ngModel)]="model.emailSecundario"
               #emailSecundario="ngModel"
               name="emailSecundario"
               matInput
-              email
-              placeholder="Email Secundario"
-              required
+              pattern="^[a-zA-Z0-9.\-_]{1,}@[a-zA-Z.\-]{2,}[.]{1}[a-zA-Z]{2,}$"
+              placeholder="Correo Secundario"
             />
             <mat-icon matSuffix>email</mat-icon>
             <mat-error
               *ngIf="
-                emailSecundario.invalid && emailSecundario.hasError('required')
+                emailSecundario.invalid && emailSecundario.hasError('pattern')
               "
             >
-              El email secundario es requerido
-            </mat-error>
-            <mat-error
-              *ngIf="
-                emailSecundario.invalid && emailSecundario.hasError('email')
-              "
-            >
-              Debe ingresar un email válido
+              Debe ingresar un correo electrónico válido
             </mat-error>
           </mat-form-field>
         </div>
@@ -144,7 +167,14 @@
         </div>
 
         <mat-card-actions>
-          <button type="button" mat-button class="btn btn-danger" (click)="onCancelar(form)">Cancelar</button>
+          <button
+            type="button"
+            mat-button
+            class="btn btn-danger"
+            (click)="onCancelar(form)"
+          >
+            Cancelar
+          </button>
           <button
             [disabled]="
               !(
@@ -160,8 +190,14 @@
             type="submit"
           >
             Guardar
-            <mat-spinner *ngIf="isSaving" diameter="30"></mat-spinner>
           </button>
+          <div
+            class="spinner-grow text-danger ml-2 mt-2"
+            role="status"
+            *ngIf="isSaving"
+          >
+            <span class="sr-only">Guardando...</span>
+          </div>
         </mat-card-actions>
       </form>
     </mat-card-content>
@@ -171,11 +207,14 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>
-        Listar apoyos
+        Lista de apoyos
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <app-lista-apoyos #tblApoyos (seleccionarApoyo)="abrirDialogo($event)"></app-lista-apoyos>
+      <app-lista-apoyos
+        #tblApoyos
+        (seleccionarApoyo)="abrirDialogo($event)"
+      ></app-lista-apoyos>
     </mat-card-content>
   </mat-card>
 </div>

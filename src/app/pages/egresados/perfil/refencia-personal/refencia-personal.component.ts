@@ -3,7 +3,6 @@ import { ReferenciaPersonalModel } from 'src/app/shared/modelos/referencia-perso
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 import { ReferidoPerfilComponent } from '../referido-perfil/referido-perfil.component';
-import { NuevaReferenciaComponent } from '../nueva-referencia/nueva-referencia.component';
 import { Referido } from 'src/app/shared/modelos/referido';
 @Component({
   selector: 'app-refencia-personal',
@@ -14,11 +13,13 @@ export class RefenciaPersonalComponent implements OnInit {
   columnas: string[] = ['nombres', 'parentesco', 'celular', 'acciones'];
   
   @Input()
-  public referidos: Referido[];
+  public referidos: ReferenciaPersonalModel[];
 
-  varReferido : Referido;
+  varReferido : ReferenciaPersonalModel;
     
-  constructor(private dialog: MatDialog,private alert: AlertService) { }
+  constructor(private dialog: MatDialog,private alert: AlertService) {
+    
+   }
   
   ngOnInit() { }
   
@@ -58,7 +59,7 @@ export class RefenciaPersonalComponent implements OnInit {
         }*/
   }
 
-  eliminarReferido(referido: Referido){
+  eliminarReferido(referido: ReferenciaPersonalModel){
     console.log('Referido a eliminar: ' + referido);
     if(this.referidos.length>2){
       const index = this.referidos.indexOf(referido);
@@ -79,6 +80,7 @@ export class RefenciaPersonalComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = referido;
     dialogConfig.maxHeight = '1000px';
+    console.log('telefono '+dialogConfig.data.telefonoMovil);
     const dialogRef = this.dialog.open(ReferidoPerfilComponent,dialogConfig);
     dialogRef.afterClosed().subscribe(response => {
       console.log(response);

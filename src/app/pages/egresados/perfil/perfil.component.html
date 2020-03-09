@@ -1,32 +1,44 @@
 <app-nav-egresados> </app-nav-egresados>
-<mat-card *ngIf="egresadoObservable$ | async as egresado; else loading">
-  <mat-toolbar color="primary">
-    <span class="titulo">Mi perfil</span>
-  </mat-toolbar>
-  <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Información personal</mat-panel-title>
-        </mat-expansion-panel-header>
-        <app-informacion-personal-ver-perfil [egresado]="egresado"></app-informacion-personal-ver-perfil>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Referencias personales</mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-refencia-personal [referidos]="egresado.referenciasPersonales"> </app-refencia-personal>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Experiencia laboral</mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-experiencia-laboral [experiencia]="egresado.trabajosActuales"></app-experiencia-laboral>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>Grados</mat-panel-title>
-      </mat-expansion-panel-header>
-      <app-grado-ver-perfil [egresado]="egresado"></app-grado-ver-perfil>
-    </mat-expansion-panel>
-  </mat-accordion>
-</mat-card>
+<div *ngIf="egresadoObservable$ | async as egresado; else loading">
+  <div *ngIf="egresado.estado_completar==false">
+    <mat-card>
+      <mat-toolbar color="primary">
+        <span class="titulo">Perfil</span>
+      </mat-toolbar>
+      <mat-card-title>Para acceder a la opción "perfil", primero debe completar la información.</mat-card-title>
+    </mat-card>
+  </div>
+  <div *ngIf="egresado.estado_completar==true">
+    <mat-card>
+      <mat-toolbar color="primary">
+        <span class="titulo">Perfil</span>
+      </mat-toolbar>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Información personal</mat-panel-title>
+          </mat-expansion-panel-header>
+          <app-informacion-personal-ver-perfil [egresado]="egresado"></app-informacion-personal-ver-perfil>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Referencias personales</mat-panel-title>
+          </mat-expansion-panel-header>
+          <app-refencia-personal [referidos]="egresado.referenciasPersonales"> </app-refencia-personal>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Experiencia laboral</mat-panel-title>
+          </mat-expansion-panel-header>
+        <app-experiencia-laboral [experiencia]="egresado.trabajosActuales"></app-experiencia-laboral>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Grados</mat-panel-title>
+          </mat-expansion-panel-header>
+          <app-grado-ver-perfil [egresado]="egresado"></app-grado-ver-perfil>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card>
+  </div>
+</div>

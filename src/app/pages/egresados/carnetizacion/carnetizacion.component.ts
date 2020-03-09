@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { RegistroService } from 'src/app/shared/servicios/egresados/registro.service';
 import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/shared/servicios/common/alert.service';
 
 @Component({
   selector: 'app-carnetizacion',
@@ -21,18 +22,23 @@ export class CarnetizacionComponent implements OnInit {
   private mensajeEstadoAceptado: String;
   private mensajeEstadoRechazado: String;
   private mensajeEstadoEgresado: String;
+  private mensajeSolicitar: string;
+  private mensajeCancelar: string;
 
   constructor(
     private catalogoService: CatalogosService,
     private servicioCompletar: RegistroService,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private alert: AlertService
   ) {
     this.mensajeCompletar = " Aún no ha completado el registro, Presione 'Completar' para poder continuar.";
-    this.mensajeEstado = 'Tu solicitud de carnetización aún no ha sido respondida';
+    this.mensajeEstado = 'Tu solicitud de carnetización se encuentra en tramite';
     this.mensajeEstadoAceptado = 'Tu solicitud de carnetización ha sido ACEPTADA';
     this.mensajeEstadoRechazado = 'Tu solicitud de carnetización ha sido RECHAZADA.';
     this.mensajeEstadoEgresado = 'Aún no ha sido validado en el sistema, por favor dirigirse al área de EGRESADOS';
+    this.mensajeSolicitar = '¿Deseas solicita de nuevo tu carnet?';
+    this.mensajeCancelar = '¿Deseas cancelar la solicitud de tu carnet?';
   }
 
   ngOnInit() {
@@ -61,14 +67,45 @@ export class CarnetizacionComponent implements OnInit {
     });
   }
   
-  entro(number: number){
-    console.log("aqui llego"+ number);
-  }
-
   solicitudCarnet(solicitud: string) {
-    console.log("esto es lo que se hace "+this.idEgresado);
-    this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud).subscribe(res=>{});
-    this.router.navigateByUrl('/egresados');
+    let mensaje: string;
+    if(solicitud == "PENDIENTE"){
+      this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud).subscribe(res=>{
+        this.alert
+              .showSuccesMessage(
+                '',
+                "Solicitud de carnet enviada."
+              )
+              .then(result => {
+                if (result.value) {
+                  this.router.navigateByUrl('/egresados');
+                } 
+              });
+      });
+    }else{
+        this.alert.showconfirmationMessage(
+                '¿Cancelar solicitud de carnet?.',
+                "Para continuar presione Aceptar."
+              )
+              .then(result => {
+                if (result.value) {
+                  this.catalogoService.enviarSolicitudCarnet(this.idEgresado, solicitud).subscribe(res=>{
+                    this.alert
+                    .showSuccesMessage(
+                      '',
+                      "Solicitud de carnet cancelada."
+                    )
+                    .then(result => {
+                      if (result.value) {
+                        this.router.navigateByUrl('/egresados');
+                      } 
+                    });
+                  });
+                } 
+              });
+    }
+    
+    
 
     //this.cargarDatos();
   }
