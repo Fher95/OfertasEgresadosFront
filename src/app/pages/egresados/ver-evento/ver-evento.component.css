@@ -14,17 +14,25 @@
     font-weight: bold;
     box-shadow: 2px 2px 6px rgb(87, 87, 87);
 }
-#descripcion {
+.descripcion {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 10px;
     text-align: justify;
     border: none;
     background-color: rgb(255, 255, 255);
     height: 130px;
 }
 #imagen {
-    height: 200px;
-    width: 80%;
+    margin-left: 30px;
+    height: 250px;
+    width: 100%;
 }
 
+
+
 #data{
-    margin-left: 20px;
+    margin-top: 20px;
+    margin-left: 10px;
 }
+

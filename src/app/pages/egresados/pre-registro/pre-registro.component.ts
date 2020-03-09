@@ -134,7 +134,7 @@ export class PreRegistroComponent implements OnInit {
   private tiposIdentificacion: string[] = [
     'Cédula de ciudadanía',
     'Cédula de extranjería',
-    'Tarjeta de extrangería',
+    'Tarjeta de extranjería',
     'Pasaporte',
     'Documento de identificación extranjero'
   ];
@@ -283,8 +283,8 @@ export class PreRegistroComponent implements OnInit {
     return bandera;
   }
 
-  validarNumeroHihos() {
-    if (this.user.num_hijos < 0 || (typeof (this.user.num_hijos) != 'number' && this.user.num_hijos < 0)  ) {
+  validarNumeroHijos() {
+    if (this.user.num_hijos < 0 || this.user.num_hijos == null || (typeof (this.user.num_hijos) !== 'number' && this.user.num_hijos < 0)  ) {
       this.user.num_hijos = 0;
     }
   }

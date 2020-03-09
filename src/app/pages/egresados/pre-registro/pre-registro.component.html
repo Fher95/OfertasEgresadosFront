@@ -158,7 +158,7 @@
             <div class="row">
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Número de hijos</mat-label>
-                <input (input)=" validarNumeroHihos()" type="number" min="0" max="10" matInput 
+                <input (change)=" validarNumeroHijos()" type="number" min="0" max="10" matInput 
                   placeholder="Número de hijos" #name="ngModel" name="num_hijos" [(ngModel)]="user.num_hijos"  pattern = "[0-9]{1,5}">
                   <mat-error *ngIf=" user.num_hijos != ''">El campo solo permite números.</mat-error>
               </mat-form-field>
@@ -349,9 +349,9 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Correo electrónico</mat-label>
                 <input matInput type="email" placeholder="Correo Electronico " [formControl]="emailFormControl" required
-                  pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                  pattern="^[a-zA-Z0-9.\-_]{1,}@[a-zA-Z.\-]{2,}[.]{1}[a-zA-Z]{2,}$">
                 <mat-error *ngIf="emailFormControl.hasError('pattern')">
-                  Solo se permite letras (a-z), números (0-9), guion (- _) y punto(.). Ejemplo: Ejemplo@dominio.com.
+                  Solo se permite letras (a-z), números (0-9), guion (- _) y punto(.). Ejemplo: ejemplo@dominio.com.
                 </mat-error>
                 <mat-error *ngIf="emailFormControl.hasError('required')">
                   Ingresa tu correo electrónico
@@ -361,7 +361,7 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Correo electrónico alternativo</mat-label>
                 <input (input)="validarCorreos()" matInput placeholder="Correo Electrónico Alternativo"
-                  [formControl]="emailFormControl2" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+                  [formControl]="emailFormControl2" pattern="^[a-zA-Z0-9.\-_]{1,}@[a-zA-Z.\-]{2,}[.]{1}[a-zA-Z]{2,}$">
                 <mat-error *ngIf=" emailFormControl2.hasError('pattern') ">
                   Solo se permite letras (a-z), números (0-9), guion (- _) y punto(.). Ejemplo: ejemplo@dominio.com.
                 </mat-error>
