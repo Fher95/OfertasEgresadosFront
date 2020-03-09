@@ -1,3 +1,9 @@
 .file-upload-container {
-    margin: 0 auto;
+  margin: 0 auto;
+}
+
+button {
+  margin-top: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
