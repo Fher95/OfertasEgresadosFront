@@ -222,7 +222,7 @@
 
           </mat-step>
           <mat-step>
-            <ng-template matStepLabel>Información academica</ng-template>
+            <ng-template matStepLabel>Información académica</ng-template>
             <mat-radio-group name="nivel_estudio" [formControl]="nivelAFormControl" required (click)="obtenerSedes()">
               <h5>Nivel académico*</h5>
               <mat-error *ngIf="nivelAFormControl.hasError('required')">Selecciona tu nivel academico.</mat-error>
@@ -303,7 +303,7 @@
               <mat-form-field appearance="outline" class="form-group col-md-6 ">
                 <mat-label>Mención de honor</mat-label>
                 <input matInput placeholder="Mención" #name="ngModel" name="mencion" [(ngModel)]="user.mencion" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,50}">
-                <mat-error *ngIf="user.Mencion != ''">Ingresa tu mención de honor.
+                <mat-error *ngIf="user.Mencion != ''">El campo solo debe contener letras.
                 </mat-error>
               </mat-form-field>
               <div class="form-group col-md-6 "></div>
