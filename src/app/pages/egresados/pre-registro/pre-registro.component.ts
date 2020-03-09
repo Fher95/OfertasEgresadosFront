@@ -216,6 +216,7 @@ export class PreRegistroComponent implements OnInit {
     this.obtenerNivelEstudio();
   }
 
+  //metodo para validar el tipo de identificación
   identificacion(tipoID: string){
     console.log(tipoID);
     this.tamanioIdentificacio = 9;
@@ -278,7 +279,7 @@ export class PreRegistroComponent implements OnInit {
 
   bloquearAnio: boolean = true;
 
-  //Metodo para poner el año a partir de la fecha de grado
+  //Metodo para obtener el año de grado a partir de la fecha de grado
   grado() {
     var bandera: boolean = false;
     if (this.fechaGFormControl.value != null || this.fechaGFormControl.value != '') {
@@ -305,9 +306,11 @@ export class PreRegistroComponent implements OnInit {
   obtenerPais() {
     this.catalogoService.getPaises().subscribe(data => this.paises = data);
   }
+
   obtenerDepartamentoExp(pais) {
     this.catalogoService.getDepartamentosBy(pais).subscribe(data => this.departamentosExp = data);
   }
+
   obtenerCiudadExp(departamento) {
     this.catalogoService.getCiudadesBy(departamento).subscribe(data => {
       this.ciudadesExp = data;
@@ -425,8 +428,6 @@ export class PreRegistroComponent implements OnInit {
 
   //Metodo para habilitar el campo otra discapacidad
   otraDiscapacidad(discapacidad: DiscapacidadInterface, evento: boolean) {
-    /*     console.log('Nombre discapacidad' + discapacidad.Nombre);
-        console.log('estado' + evento); */
     var aux = -1;
     if (discapacidad.Nombre == 'Otra(s)' && evento) {
       this.respuestaDiscapacidad = true;
@@ -484,7 +485,7 @@ export class PreRegistroComponent implements OnInit {
   }
 
   // Método para validar los datos ingresados por el usuario
-  validData() {
+  validarDatos() {
     this.discapacidadesEgersado();
     this.opcionGuardar();
     var valid: boolean = false;
@@ -530,7 +531,7 @@ export class PreRegistroComponent implements OnInit {
 
   // Método para registrar la solicitud
   registrarEgresado() {
-    if (this.validData()) {
+    if (this.validarDatos()) {
       this.user.fecha_grado = Utilities.parseDateToString(
         this.fechaGFormControl.value,
         '-'
