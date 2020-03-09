@@ -80,18 +80,15 @@
       </mat-form-field>
     </div>
 
-    <div class="form-row" *ngFor="let observacion of grado.comentarios">
+    <div
+      class="form-row"
+      *ngFor="let observacion of grado.comentarios; let idx = index"
+    >
       <mat-form-field class="col-md-12" appearance="outline">
         <mat-label>{{ observacion.pregunta }}</mat-label>
-        <textarea
-          matInput
-          disabled
-          name="observacion{{ observacion.id }}"
-          rows="3"
-        >
-        <!-- TODO: Add respuesta -->
-      </textarea
-        >
+        <textarea matInput disabled name="observacion{{ idx }}" rows="3">
+        {{ observacion.respuesta }}
+        </textarea>
       </mat-form-field>
     </div>
     <mat-dialog-actions class="align-center" align="center">
