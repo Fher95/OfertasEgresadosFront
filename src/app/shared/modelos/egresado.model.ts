@@ -26,6 +26,7 @@ export class EgresadoModel {
     public referenciasPersonales?: ReferenciaPersonalModel[],
     public trabajosActuales?: ExperienciaModel[],
     public solicitudes?: SolicitudModel[],
-    public discapacidades?: DiscapacidadInterface[]
+    public discapacidades?: DiscapacidadInterface[],
+    public estado_completar?:boolean
   ) {}
 }

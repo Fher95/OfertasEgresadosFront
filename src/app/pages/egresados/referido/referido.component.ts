@@ -5,7 +5,6 @@ import { Referido } from 'src/app/shared/modelos/referido';
 import { ErrorStateMatcher, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
-import { CancelarDialogComponent } from '../cancelar-dialog/cancelar-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -117,9 +116,9 @@ export class ReferidoComponent implements OnInit {
     return bandera;
   }
   cancelar(){
-    this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
+    this.alert.showconfirmationMessage('Cancelar','¿Desea cancelar la actualización?').then(
       resultado => { 
-        if(resultado==0){
+        if(resultado.value){
           this.limpiarDatos();
         }});
   }

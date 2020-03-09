@@ -114,7 +114,7 @@
               </form>
             </mat-card>
             <button class="botones" mat-button mat-raised-button matStepperPrevious>Atrás</button>
-            <button class="botones" color="primary" mat-raised-button (click)="enviarDatos()">Completar
+            <button class="botones" color="primary" mat-raised-button [disabled]="deshabilitarCompletar" (click)="enviarDatos()">Completar
               información</button>
           </mat-step>
         </div>

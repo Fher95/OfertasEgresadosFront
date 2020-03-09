@@ -13,7 +13,6 @@ import { Experiencia } from 'src/app/shared/modelos/experiencia';
 import { AuthService } from 'src/app/shared/servicios/auth/auth.service';
 import { ProgramaComponent } from '../programa/programa.component';
 import { Comentario } from 'src/app/shared/modelos/comentario';
-import { CancelarDialogComponent } from '../cancelar-dialog/cancelar-dialog.component';
 
 @Component({
   selector: 'app-completar-registro',
@@ -55,6 +54,7 @@ export class CompletarRegistroComponent implements OnInit {
   comentariosRespuestaAdicional = new Array<Comentario>();
 
   idEgresado : number;
+  deshabilitarCompletar:boolean = false;
 
   constructor(private dialog:MatDialog,private servicioCompletar: RegistroService, private alert: AlertService, 
     private router:Router, private auth: AuthService) {
@@ -185,11 +185,16 @@ export class CompletarRegistroComponent implements OnInit {
   }
   validar(){
     if(this.Labora_Actualmente.value==1 && this.expActuales.length>0){
-      this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
+      var mensaje : string = 'Si selecciona la opción no labora actualmente, entonces se borraran todos los trabajos agregados en la lista.\
+      ¿Desea continuar?';
+      this.alert.showconfirmationMessage('Cancelar',mensaje).then(
         resultado => { 
-          if(resultado==0){
+          if(resultado.value){
             this.expActuales = [];
             this.dataExpActual= new MatTableDataSource<any>([]);
+          }
+          else{
+            this.Labora_Actualmente.setValue(0);
           }
         }
       );
@@ -232,6 +237,7 @@ export class CompletarRegistroComponent implements OnInit {
   }
   enviarDatos()
   {
+    this.deshabilitarCompletar=true;
     if(this.verificarCampos()){
       this.llenarDatos();
       this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
@@ -241,18 +247,13 @@ export class CompletarRegistroComponent implements OnInit {
           console.log(respuesta);
         },
         error => {
-          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.');
+          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.').then(
+            ()=>{ this.deshabilitarCompletar=false;});
         });
     }
     else{
-      this.alert.showErrorMessage('Error','Complete todos los datos.');
+      this.alert.showErrorMessage('Error','Complete todos los datos.').then(
+        ()=>{ this.deshabilitarCompletar=false;});
     }
-  }
-  cancelar(){
-    this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
-      resultado => { 
-        if(resultado==0){
-          this.limpiarFormulario();
-        }});
   }
 }

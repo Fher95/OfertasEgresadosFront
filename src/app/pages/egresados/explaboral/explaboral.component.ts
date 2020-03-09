@@ -3,7 +3,6 @@ import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/fo
 import { Experiencia } from 'src/app/shared/modelos/experiencia';
 import { MatDialog, ErrorStateMatcher } from '@angular/material';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
-import { CancelarDialogComponent } from '../cancelar-dialog/cancelar-dialog.component';
 import { CatalogosService } from 'src/app/shared/servicios/common/catalogos.service';
 import { Pais } from 'src/app/shared/modelos/paisInterface';
 import { DepartamentoInterface } from 'src/app/shared/modelos/departamentoInterface';
@@ -136,12 +135,5 @@ export class ExplaboralComponent implements OnInit {
     else{
       this.alert.showErrorMessage('Error','Verifique todos los datos.');
     }
-  }
-  cancelar(){
-    this.dialog.open(CancelarDialogComponent).afterClosed().subscribe(
-      resultado => {
-        if(resultado==0){
-          this.limpiarDatos();
-        }});
   }
 }
