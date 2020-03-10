@@ -18,8 +18,8 @@ import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/na
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
-import { EventosComponent} from './eventos/eventos.component';
-import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
+import { EventosComponent } from './eventos/eventos.component';
+import { CarnetizacionComponent } from './carnetizacion/carnetizacion.component';
 import { VerEventoComponent } from './ver-evento/ver-evento.component';
 import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
 import { GradoVerPerfilComponent } from './perfil/grado-ver-perfil/grado-ver-perfil.component';
@@ -28,15 +28,28 @@ import { RefenciaPersonalComponent } from './perfil/refencia-personal/refencia-p
 import { ReferidoPerfilComponent } from './perfil/referido-perfil/referido-perfil.component';
 import { ExperienciaLaboralComponent } from './perfil/experiencia-laboral/experiencia-laboral.component';
 import { ExperienciaPerfilComponent } from './perfil/experiencia-perfil/experiencia-perfil.component';
+import { MAT_DATE_LOCALE, MatPaginatorIntl } from '@angular/material';
+import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
+import { VerPerfilComponent } from './ver-perfil/ver-perfil.component';
+import { InformacionPersonalEgresadoComponent } from './ver-perfil/informacion-personal-egresado/informacion-personal-egresado.component';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
-  { path: 'verPerfil', component: PerfilComponent},
-  { path: 'eventos', component: EventosComponent},
-  { path: 'carnetizacion', component: CarnetizacionComponent,canActivate: [AuthGuard] },
-  { path: '', component: InicioEgresadosComponent}
+  {
+    path: 'completarRegistro',
+    component: CompletarRegistroComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'verPerfil', component: VerPerfilComponent },
+  { path: 'eventos', component: EventosComponent },
+  {
+    path: 'carnetizacion',
+    component: CarnetizacionComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '', component: InicioEgresadosComponent }
 
   //{ path: '**', component: InicioEgresadosComponent }
 ];
@@ -66,22 +79,30 @@ const routes: Routes = [
     UpdateDeleteDialogComponent,
     ExperienciaLaboralComponent,
     ExperienciaPerfilComponent,
+    VerPerfilComponent,
+    InformacionPersonalEgresadoComponent
   ],
   imports: [
     CommonModule,
+    PipesModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   providers: [
-    ConfirmarEmailService, RouterModule, AlertService, AuthGuard
+    ConfirmarEmailService,
+    RouterModule,
+    AlertService,
+    AuthGuard,
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
+    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
   ],
   entryComponents: [
     VerEventoComponent,
     ReferidoPerfilComponent,
     UpdateDeleteDialogComponent,
     UpdateDeleteDialogComponent
-  ],
+  ]
 })
-export class EgresadosModule { }
+export class EgresadosModule {}

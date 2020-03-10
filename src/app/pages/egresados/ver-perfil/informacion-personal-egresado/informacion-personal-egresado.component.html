@@ -1,0 +1,293 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Información personal
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="loading-shape">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <form *ngIf="!isLoadingResults">
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Nombre Completo</mat-label>
+          <input
+            type="text"
+            matInput
+            [value]="egresado.nombres + ' ' + egresado.apellidos"
+            placeholder="Nombre Completo"
+            name="name"
+            #name
+            disabled
+          />
+        </mat-form-field>
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Grupo étnico</mat-label>
+          <input
+            type="text"
+            matInput
+            [ngModel]="egresado.grupoEtnico"
+            placeholder="Grupo étnico"
+            #grupoEtnico
+            name="grupoEtnico"
+            disabled
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Estado</mat-label>
+          <input
+            type="text"
+            matInput
+            [ngModel]="egresado.estado"
+            placeholder="Estado"
+            name="estado"
+            #estado
+            disabled
+          />
+        </mat-form-field>
+        <!--mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Discapacidades</mat-label>
+          <input
+            type="text"
+            matInput
+            #discapacidades
+            name="discapacidades"
+            [value]="egresado.discapacidades | discapacidades"
+            disabled
+          />
+        </mat-form-field-->
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Discapacidades</mat-label>
+          <input
+            type="text"
+            matInput
+            #discapacidades
+            name="discapacidades"
+            [value]="egresado.discapacidades"
+            disabled
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Estado civil</mat-label>
+          <input
+            type="text"
+            matInput
+            disabled
+            name="estadiCivil"
+            #estadoCivil
+            placeholder="Estado civil"
+            [ngModel]="egresado.estadoCivil"
+          />
+        </mat-form-field>
+        <!--mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Identificación</mat-label>
+          <input
+            type="text"
+            matInput
+            disabled
+            name="identificacion"
+            #identificacion
+            placeholder="Identificación"
+            [ngModel]="egresado.identificacion | egcapitalize"
+          />
+        </mat-form-field-->
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Identificación</mat-label>
+          <input
+            type="text"
+            matInput
+            disabled
+            name="identificacion"
+            #identificacion
+            placeholder="Identificación"
+            [ngModel]="egresado.identificacion"
+          />
+        </mat-form-field>
+      </div>
+
+      <!-- TODO: Agregar país, departamento y ciudad de expedición del documento -->
+
+      <div class="row">
+        <!-- FIXME: Cambiar por ciudad de expedición -->
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Lugar de expedición</mat-label>
+          <input
+            type="text"
+            matInput
+            disabled
+            name="lugarExpedicion"
+            #lugarExpedicion
+            placeholder="Lugar de expedición"
+            [ngModel]="egresado.lugarExpedicion?.nombre"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>País de residencia</mat-label>
+          <input
+            type="text"
+            matInput
+            disabled
+            name="paisResidencia"
+            #paisResidencia
+            placeholder="País de residencia"
+            [ngModel]="
+              egresado.lugarResidencia?.ciudad.departamento.pais.nombre
+            "
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Departamento de residencia</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Departamento residencia"
+            name="departamentoResidencia"
+            [ngModel]="egresado.lugarResidencia?.ciudad.departamento.nombre"
+            disabled
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Municipio/Ciudad de residencia</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Municipio/Ciudad residencia"
+            disabled
+            name="municipioResidencia"
+            [ngModel]="egresado.lugarResidencia?.ciudad.nombre"
+          />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Dirección de residencia</mat-label>
+          <input
+            type="text"
+            placeholder="Dirección residencia"
+            disabled
+            matInput
+            name="direccionResidencia"
+            [ngModel]="egresado.lugarResidencia?.direccion"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>País de nacimiento</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="País nacimiento"
+            name="paisNacimiento"
+            #paisNacimiento
+            disabled
+            [ngModel]="egresado.lugarNacimiento?.departamento.pais.nombre"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Departamento de nacimiento</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Departamento nacimiento"
+            disabled
+            name="departamentoNaciminto"
+            [ngModel]="egresado.lugarNacimiento?.departamento.nombre"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Municipio/Ciudad de nacimiento</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Municipio/Ciudad nacimiento"
+            disabled
+            name="ciudadNacimiento"
+            [ngModel]="egresado.lugarNacimiento?.nombre"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Género</mat-label>
+          <input
+            type="text"
+            placeholder="Género"
+            disabled
+            matInput
+            name="genero"
+            [ngModel]="egresado.genero"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input
+            type="text"
+            placeholder="Correo"
+            matInput
+            name="correo"
+            #correo
+            disabled
+            [(ngModel)]="egresado.correo"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Correo secundario</mat-label>
+          <input
+            type="text"
+            placeholder="Correo secundario "
+            matInput
+            name="correoAlternativo"
+            disabled
+            [ngModel]="egresado.correoAlternativo"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Teléfono fijo</mat-label>
+          <input
+            type="text"
+            placeholder="Teléfono fijo"
+            matInput
+            name="telefono"
+            disabled
+            [ngModel]="egresado.telefonoFijo"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Celular</mat-label>
+          <input
+            type="text"
+            placeholder="Celular"
+            matInput
+            name="celular"
+            disabled
+            [ngModel]="egresado.celular"
+          />
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

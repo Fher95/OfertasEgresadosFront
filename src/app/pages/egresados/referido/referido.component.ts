@@ -28,7 +28,7 @@ export class ReferidoComponent implements OnInit {
   Nombre = new FormControl('', [Validators.required,Validators.maxLength(50)]);
   //Nombre = new FormControl('', [Validators.required,Validators.pattern("^[A-Za-zñÑáéíóúÁÉÍÓÚ]{1,50}"),Validators.maxLength(50)]);
   Egresado = new FormControl('', [Validators.required]);
-  Correo = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]);
+  Correo = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.\-_]{1,}@[a-zA-Z.\-]{2,}[.]{1}[a-zA-Z]{2,}")]);
   Celular = new FormControl('', [Validators.required, Validators.minLength(10)]);
   Parentesco = new FormControl('', [Validators.required]);
 
@@ -81,7 +81,7 @@ export class ReferidoComponent implements OnInit {
     //this.Nombre = new FormControl('', [Validators.required,Validators.pattern("^[A-Za-zñÑáéíóúÁÉÍÓÚ]{1,50}"),Validators.maxLength(50)]);
     this.Parentesco = new FormControl('', [Validators.required]);
     this.Egresado = new FormControl('', [Validators.required]);
-    this.Correo = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}")]);
+    this.Correo = new FormControl('', [Validators.required, Validators.email, Validators.pattern("[a-zA-Z0-9.\-_]{1,}@[a-zA-Z.\-]{2,}[.]{1}[a-zA-Z]{2,}")]);
     this.Celular = new FormControl('', [Validators.required, Validators.pattern("[0-9]{10}"),Validators.minLength(10)]);
   }
   validarDatos() { 
@@ -116,7 +116,7 @@ export class ReferidoComponent implements OnInit {
     return bandera;
   }
   cancelar(){
-    this.alert.showconfirmationMessage('Cancelar','¿Desea cancelar la actualización?').then(
+    this.alert.showconfirmationMessage('Cancelar','¿Desea cancelar el registro?').then(
       resultado => { 
         if(resultado.value){
           this.limpiarDatos();

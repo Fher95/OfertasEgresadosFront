@@ -24,7 +24,7 @@
       <div class="form-group col-md-6">
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
           <mat-label>Correo electrónico </mat-label>
-          <input matInput type="email" [formControl]="Correo" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
+          <input matInput type="email" [formControl]="Correo" pattern="[a-zA-Z0-9.\-_]{1,}@[a-zA-Z.\-]{2,}[.]{1}[a-zA-Z]{2,}" required>
           <mat-error *ngIf="Correo.hasError('pattern')">Solo se permite letras (a-z), números (0-9), guion (- _) y punto(.). Ejemplo: ejemplo@dominio.com</mat-error>
           <mat-error *ngIf="Correo.hasError('required')">Ingresa su correo.</mat-error>
         </mat-form-field>

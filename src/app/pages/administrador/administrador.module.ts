@@ -52,8 +52,7 @@ import {
   NotOnlyNumbersValidator
 } from 'src/app/shared/common/custom-validators';
 import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
-import { DiscapacidadesPipe } from 'src/app/shared/pipes/discapacidades.pipe';
-import { EgCapitalizePipe } from 'src/app/shared/pipes/eg-capitalize.pipe';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 const routes: Routes = [
   {
@@ -129,9 +128,7 @@ const routes: Routes = [
     EgrFileUploadUpdateComponent,
     HourDomainValidator,
     LetterValidator,
-    NotOnlyNumbersValidator,
-    DiscapacidadesPipe,
-    EgCapitalizePipe
+    NotOnlyNumbersValidator
   ],
   imports: [
     CommonModule,
@@ -140,6 +137,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     MatSidenavModule,
+    PipesModule,
     MaterialModule
   ],
   entryComponents: [

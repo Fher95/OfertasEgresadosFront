@@ -21,7 +21,7 @@
 }
 
 .imagenEvento {
-    height: 150px;
+    height: 180px;
     width: 100%;
 }
 
@@ -32,6 +32,7 @@
 }
 
 .nombreEvento {
+    margin-top: 20px;
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;

@@ -43,11 +43,11 @@ export class ReferidoPerfilComponent implements OnInit {
       this.referido.telefonoMovil = this.Celular.value;
       if(this.Egresado.value==0){
         this.referido.esEgresado = true;
-        //this.referido.programa.titulo = this.programa.NivelAcademico.value;
+        /*this.referido.programa.titulo = this.programa.NivelAcademico.value;
         console.log('Antes de');
         this.referido.programa.idPrograma = this.programa.Programa.value;
         console.log('Programa: id '+this.referido.programa.idPrograma);
-        console.log('progra nombre: '+this.referido.programa.Nombre);
+        console.log('progra nombre: '+this.referido.programa.Nombre);*/
       }
       else if(this.Egresado.value==1){
         this.referido.esEgresado = false;
