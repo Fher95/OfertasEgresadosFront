@@ -32,8 +32,6 @@ import { MAT_DATE_LOCALE, MatPaginatorIntl } from '@angular/material';
 import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
 import { VerPerfilComponent } from './ver-perfil/ver-perfil.component';
 import { InformacionPersonalEgresadoComponent } from './ver-perfil/informacion-personal-egresado/informacion-personal-egresado.component';
-import { DiscapacidadesPipe } from 'src/app/shared/pipes/discapacidades.pipe';
-import { EgCapitalizePipe } from 'src/app/shared/pipes/eg-capitalize.pipe';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -74,8 +72,6 @@ const routes: Routes = [
     ExperienciaPerfilComponent,
     VerPerfilComponent,
     InformacionPersonalEgresadoComponent,
-    DiscapacidadesPipe,
-    EgCapitalizePipe
   ],
   imports: [
     CommonModule,

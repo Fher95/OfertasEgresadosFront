@@ -175,7 +175,7 @@ export class CompletarRegistroComponent implements OnInit {
         this.varCompletarRegistro.gradoAdicional.comentarios = this.comentarioGradoAdic.enviarComentario();
       }
       else{
-        this.alert.showErrorMessage('Error','Ya existe el grado.');
+        this.alert.showErrorMessage('Error','Ya existe un grado adicionado con ese programa.');
       }
     }
     else{
@@ -193,7 +193,7 @@ export class CompletarRegistroComponent implements OnInit {
             this.dataExpActual= new MatTableDataSource<any>([]);
           }
           else{
-            this.Labora_Actualmente.setValue(0);
+            this.Labora_Actualmente.setValue('0');
           }
         }
       );
@@ -247,12 +247,13 @@ export class CompletarRegistroComponent implements OnInit {
     this.deshabilitarCompletar=true;
     if(this.verificarCampos()){
       this.llenarDatos();
-      console.log('var completar: '+this.varCompletarRegistro.trabajo_actualmente);
       this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
         respuesta => {
           this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
             ()=>{ this.router.navigateByUrl('egresados');});
           console.log(respuesta);
+          console.log('var trabajo actual: '+this.varCompletarRegistro.trabajo_actualmente);
+          console.log('exp actuales: '+this.varCompletarRegistro.expActual.length);
         },
         error => {
           this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.').then(

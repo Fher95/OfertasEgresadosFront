@@ -17,7 +17,6 @@ import { Config } from './shared/servicios/config/config';
 import { AlertService } from './shared/servicios/common/alert.service';
 import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interceptor';
 import { AuthModule } from './pages/auth/auth.module';
-import { EgCapitalizePipe } from './shared/pipes/eg-capitalize.pipe';
 
 @NgModule({
   declarations: [AppComponent, HomeOfertasComponent],
