@@ -99,8 +99,7 @@
       <div class="card-column-1">
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
           <mat-label>Nombre de la empresa</mat-label>
-          <input matInput [formControl]="NombreEmpresa" type="text" pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]{1,50}" required>
-          <mat-error *ngIf="NombreEmpresa.hasError('pattern')">El campo solo debe contener letras con un máximo de 50 caracteres.</mat-error>
+          <input matInput [formControl]="NombreEmpresa" type="text" required>
           <mat-error *ngIf="NombreEmpresa.hasError('required')">Ingrese el nombre de la empresa.</mat-error>
         </mat-form-field>
       </div>

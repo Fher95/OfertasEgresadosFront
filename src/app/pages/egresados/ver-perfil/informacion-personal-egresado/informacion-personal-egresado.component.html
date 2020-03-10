@@ -49,7 +49,7 @@
             disabled
           />
         </mat-form-field>
-        <mat-form-field class="form-group col-md-6" appearance="outline">
+        <!--mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Discapacidades</mat-label>
           <input
             type="text"
@@ -57,6 +57,17 @@
             #discapacidades
             name="discapacidades"
             [value]="egresado.discapacidades | discapacidades"
+            disabled
+          />
+        </mat-form-field-->
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Discapacidades</mat-label>
+          <input
+            type="text"
+            matInput
+            #discapacidades
+            name="discapacidades"
+            [value]="egresado.discapacidades"
             disabled
           />
         </mat-form-field>
@@ -75,7 +86,7 @@
             [ngModel]="egresado.estadoCivil"
           />
         </mat-form-field>
-        <mat-form-field class="form-group col-md-6" appearance="outline">
+        <!--mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Identificación</mat-label>
           <input
             type="text"
@@ -85,6 +96,18 @@
             #identificacion
             placeholder="Identificación"
             [ngModel]="egresado.identificacion | egcapitalize"
+          />
+        </mat-form-field-->
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Identificación</mat-label>
+          <input
+            type="text"
+            matInput
+            disabled
+            name="identificacion"
+            #identificacion
+            placeholder="Identificación"
+            [ngModel]="egresado.identificacion"
           />
         </mat-form-field>
       </div>
