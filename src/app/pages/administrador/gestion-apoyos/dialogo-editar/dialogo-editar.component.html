@@ -86,7 +86,7 @@
     </div>
     <div class="form-row">
       <mat-form-field appearance="outline" class="form-group col-md-6">
-        <mat-label>Correo</mat-label>
+        <mat-label>Correo electrónico</mat-label>
         <input
           matInput
           type="email"
@@ -119,27 +119,17 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-group col-md-6">
-        <mat-label>Correo secundario</mat-label>
+        <mat-label>Correo electrónico secundario</mat-label>
         <input
           matInput
           type="email"
           #emailSecundariod="ngModel"
           name="emailSecundariod"
-          required
           [(ngModel)]="apoyo.correoSecundario"
           placeholder="Correo secundario"
           pattern="^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$"
         />
         <mat-icon matSuffix>email</mat-icon>
-        <mat-error
-          *ngIf="
-            emailSecundariod.invalid &&
-            (emailSecundariod.dirty || emailSecundariod.touched) &&
-            emailSecundariod.errors.required
-          "
-        >
-          Campo requerido
-        </mat-error>
         <mat-error
           *ngIf="
             emailSecundariod.invalid &&
@@ -233,7 +223,6 @@
         "
         color="primary"
         class="btn"
-        (click)="onSubmit()"
       >
         Guardar
       </button>

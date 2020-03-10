@@ -12,7 +12,6 @@ import { RespuestaVerificarExcel } from 'src/app/shared/modelos/respuestaVerific
   styleUrls: ['./verificar-excel.component.css']
 })
 export class VerificarExcelComponent implements OnInit {
-
   /**
    * Tablas de resultados
    */
@@ -44,7 +43,7 @@ export class VerificarExcelComponent implements OnInit {
   constructor(
     private service: FileUploadService,
     private alert: AlertService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.showActivos = false;
@@ -76,20 +75,31 @@ export class VerificarExcelComponent implements OnInit {
     this.showSpinner = true;
     const formData = new FormData();
     formData.append('fileInput', file);
-    this.service.uploadFile(formData).subscribe((response) => {
-      this.procesarRespuesta(response);
-      this.processFinished = true;
-      this.showSpinner = false;
-    }, err => {
-      this.showSpinner = false;
-      console.log(err);
-      this.alert.showErrorMessage('Error', err);
-    });
+    this.service.uploadFile(formData).subscribe(
+      response => {
+        this.procesarRespuesta(response);
+        this.processFinished = true;
+        this.showSpinner = false;
+      },
+      err => {
+        this.showSpinner = false;
+        if (err.error.code == 701) {
+          this.alert.showErrorMessage('Error', err.error.error);
+        } else {
+          this.alert.showErrorMessage(
+            'Error',
+            'Error inesperado comuniquese con el administrador del sistema'
+          );
+        }
+      }
+    );
   }
 
   private procesarRespuesta(response) {
     this.pendientes = new MatTableDataSource<any>(response.data.pendientes);
     this.activos = new MatTableDataSource<any>(response.data.aceptados);
-    this.inconsistentes = new MatTableDataSource<any>(response.data.inconsistentes);
+    this.inconsistentes = new MatTableDataSource<any>(
+      response.data.inconsistentes
+    );
   }
 }
