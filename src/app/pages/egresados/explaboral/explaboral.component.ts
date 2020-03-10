@@ -136,4 +136,11 @@ export class ExplaboralComponent implements OnInit {
       this.alert.showErrorMessage('Error','Verifique todos los datos.');
     }
   }
+  cancelar(){
+    this.alert.showconfirmationMessage('Cancelar','¿Desea cancelar el registro?').then(
+      resultado => { 
+        if(resultado.value){
+          this.limpiarDatos();
+        }});
+  }
 }

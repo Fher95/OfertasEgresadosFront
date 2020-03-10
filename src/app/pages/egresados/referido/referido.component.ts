@@ -116,7 +116,7 @@ export class ReferidoComponent implements OnInit {
     return bandera;
   }
   cancelar(){
-    this.alert.showconfirmationMessage('Cancelar','¿Desea cancelar la actualización?').then(
+    this.alert.showconfirmationMessage('Cancelar','¿Desea cancelar el registro?').then(
       resultado => { 
         if(resultado.value){
           this.limpiarDatos();
