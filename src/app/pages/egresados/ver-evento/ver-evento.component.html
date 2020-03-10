@@ -46,15 +46,15 @@
     <div class="descripcion">
       <b>Descripción</b>
       {{data.event.descripcion}}
+      <div align="center">
+        <button class="btnSalir" [mat-dialog-close]="false" mat-button>Salir</button>
+      </div>
     </div>
    
 
   </form>
   <mat-dialog-content class="mat-typography">
   </mat-dialog-content>
-    <mat-dialog-actions align="center">
-      <button  [mat-dialog-close]="false" mat-button>Salir</button>
-    </mat-dialog-actions>
 
   
 </div>
