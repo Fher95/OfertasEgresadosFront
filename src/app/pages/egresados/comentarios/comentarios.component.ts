@@ -135,24 +135,19 @@ export class ComentariosComponent implements OnInit {
     return bandera;
   }
   enviarComentario(){
-    if(this.validarCampos()){
-      if(this.EstudiarUnicauca.value==0){
-        this.respuestas.push(this.agregarComentario(1,'Si'));
-        this.respuestas.push(this.agregarComentario(2,this.Carrera.value));
-      }
-      else if(this.EstudiarUnicauca.value==1){
-        this.respuestas.push(this.agregarComentario(1,'No'));
-        this.respuestas.push(this.agregarComentario(3,this.Razon.value));
-      }
-      this.respuestas.push(this.agregarComentario(4,this.ComentarioPrograma.value));
-      this.respuestas.push(this.agregarComentario(5,this.DocenteInfluencia.value));
-      this.respuestas.push(this.agregarComentario(6,this.ComentarioFuturoEgresado.value));
+    if(this.EstudiarUnicauca.value==0){
+      this.respuestas.push(this.agregarComentario(1,'Si'));
+      this.respuestas.push(this.agregarComentario(2,this.Carrera.value));
+    }
+    else if(this.EstudiarUnicauca.value==1){
+      this.respuestas.push(this.agregarComentario(1,'No'));
+      this.respuestas.push(this.agregarComentario(3,this.Razon.value));
+    }
+    this.respuestas.push(this.agregarComentario(4,this.ComentarioPrograma.value));
+    this.respuestas.push(this.agregarComentario(5,this.DocenteInfluencia.value));
+    this.respuestas.push(this.agregarComentario(6,this.ComentarioFuturoEgresado.value));
       
-      return this.respuestas;
-    }
-    else{
-      this.alert.showErrorMessage('Error','Verifique los datos.');
-    }
+    return this.respuestas;
   }
   agregarComentario(id : number, resp : string){
     var varComentario = new Comentario;

@@ -165,22 +165,12 @@ export class CompletarRegistroComponent implements OnInit {
   }
   //Grado adicional 
   agregarGradoAdicional(){
-    if(this.programaAdicional.verificarCampos()){
-      if(this.programaAdicional.Programa.value!=this.idPrograma){
-        this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
-        if(this.programaAdicional.existenTitulos){
-          this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
-        }
-        this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
-        this.varCompletarRegistro.gradoAdicional.comentarios = this.comentarioGradoAdic.enviarComentario();
-      }
-      else{
-        this.alert.showErrorMessage('Error','Ya existe un grado adicionado con ese programa.');
-      }
+    this.varCompletarRegistro.gradoAdicional.id_aut_programa = this.programaAdicional.Programa.value;
+    if(this.programaAdicional.existenTitulos){
+      this.varCompletarRegistro.gradoAdicional.titulo_especial = this.programaAdicional.Titulo.value;
     }
-    else{
-      this.alert.showErrorMessage('Error','Complete todos los datos.');
-    }
+    this.varCompletarRegistro.gradoAdicional.mencion_honor = this.mencionAdicional.value;
+    this.varCompletarRegistro.gradoAdicional.comentarios = this.comentarioGradoAdic.enviarComentario();
   }
   validar(){
     if(this.Labora_Actualmente.value==1 && this.expActuales.length>0){
@@ -218,17 +208,24 @@ export class CompletarRegistroComponent implements OnInit {
       this.agregarGradoAdicional();
     }
   }
+  validarGradoAdicional(){
+    var bandera:boolean=false;
+    if(this.programaAdicional.Programa.value!=this.idPrograma){
+      bandera=true;
+    }
+    return bandera;
+  }
   verificarCampos()
   {
     var bandera:boolean = false;
-    if(this.referidos.length!=0 && this.Labora_Actualmente.value!='' && this.otroGrado.value!=''){
+    if(this.referidos.length!=0 && this.Labora_Actualmente.value!='' && this.otroGrado.value!='' && this.comentario.validarCampos()){
       if(this.Labora_Actualmente.value == 0 && this.expActuales.length>0 && this.otroGrado.value==0 
-        && this.programaAdicional.Programa.value!=''){    
+        && this.programaAdicional.Programa.value!='' && this.comentarioGradoAdic.validarCampos()){    
         bandera=true;
       }
       else if(this.Labora_Actualmente.value == 1 && this.otroGrado.value==0 
-        && this.programaAdicional.Programa.value!=''){    
-        bandera=true;
+        && this.programaAdicional.Programa.value!='' && this.comentarioGradoAdic.validarCampos()){ 
+          bandera=true;
       }
       else if(this.Labora_Actualmente.value == 1 && this.otroGrado.value==1){    
         bandera=true;
@@ -246,19 +243,23 @@ export class CompletarRegistroComponent implements OnInit {
   {
     this.deshabilitarCompletar=true;
     if(this.verificarCampos()){
-      this.llenarDatos();
-      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
-        respuesta => {
-          this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
-            ()=>{ this.router.navigateByUrl('egresados');});
-          console.log(respuesta);
-          console.log('var trabajo actual: '+this.varCompletarRegistro.trabajo_actualmente);
-          console.log('exp actuales: '+this.varCompletarRegistro.expActual.length);
-        },
-        error => {
-          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.').then(
-            ()=>{ this.deshabilitarCompletar=false;});
-        });
+      if(this.validarGradoAdicional()){
+        this.llenarDatos();
+        this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
+          respuesta => {
+            this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
+              ()=>{ this.router.navigateByUrl('egresados');});
+            console.log(respuesta);
+          },
+          error => {
+            this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.').then(
+              ()=>{ this.deshabilitarCompletar=false;});
+          });
+      }
+      else{
+        this.alert.showErrorMessage('Error','Ya existe un grado registrado con este programa.').then(
+          ()=>{ this.deshabilitarCompletar=false;});
+      }
     }
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.').then(
