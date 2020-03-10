@@ -23,11 +23,11 @@ export class EgresadoModel {
     public telefonoFijo?: string,
     public lugarNacimiento?: CiudadModel,
     public lugarResidencia?: LocalizacionModel,
+    public lugarExpedicion?: CiudadModel,
     public grados?: GradoModel[],
     public referenciasPersonales?: ReferenciaPersonalModel[],
     public trabajosActuales?: ExperienciaModel[],
     public solicitudes?: SolicitudModel[],
     public discapacidades?: DiscapacidadInterface[],
-    public estado_completar?:boolean
   ) {}
 }
