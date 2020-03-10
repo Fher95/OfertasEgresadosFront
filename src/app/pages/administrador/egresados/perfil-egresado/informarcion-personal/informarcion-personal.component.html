@@ -100,19 +100,19 @@
             name="paisExpedicion"
             #paisExpedicion
             placeholder="País de expedición"
-            [ngModel]="egresado.identificacion"
+            [ngModel]="egresado.lugarExpedicion?.departamento.pais.nombre"
           />
         </mat-form-field>
         <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Departamento de expedición</mat-label>
           <input
             type="text"
-            matINput
+            matInput
             disabled
             name="departamentoExpedicion"
             #departamentoExpedicion
             placeholder="Departamento de expedición"
-            [ngModel]="egresado.identificacion"
+            [ngModel]="egresado.lugarExpedicion?.departamento.nombre"
           />
         </mat-form-field>
       </div>
@@ -127,7 +127,7 @@
             name="ciudadExpedicion"
             #ciudadExpedicion
             placeholder="Ciudad de expedición"
-            [ngModel]="egresado.identificacion"
+            [ngModel]="egresado.lugarExpedicion?.nombre"
           />
         </mat-form-field>
 
