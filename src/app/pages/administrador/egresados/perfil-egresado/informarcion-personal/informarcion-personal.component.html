@@ -90,18 +90,43 @@
       </div>
 
       <!-- TODO: Agregar país, departamento y ciudad de expedición del documento -->
-
       <div class="row">
-        <!-- FIXME: Cambiar por ciudad de expedición -->
         <mat-form-field class="form-group col-md-6" appearance="outline">
-          <mat-label>Lugar de expedición</mat-label>
+          <mat-label>País de expedición</mat-label>
           <input
             type="text"
             matInput
             disabled
-            name="lugarExpedicion"
-            #lugarExpedicion
-            placeholder="Lugar de expedición"
+            name="paisExpedicion"
+            #paisExpedicion
+            placeholder="País de expedición"
+            [ngModel]="egresado.identificacion"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Departamento de expedición</mat-label>
+          <input
+            type="text"
+            matINput
+            disabled
+            name="departamentoExpedicion"
+            #departamentoExpedicion
+            placeholder="Departamento de expedición"
+            [ngModel]="egresado.identificacion"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Ciudad/Municipio de expedición</mat-label>
+          <input
+            type="text"
+            matInput
+            disabled
+            name="ciudadExpedicion"
+            #ciudadExpedicion
+            placeholder="Ciudad de expedición"
             [ngModel]="egresado.identificacion"
           />
         </mat-form-field>
