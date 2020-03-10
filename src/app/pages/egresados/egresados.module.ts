@@ -18,8 +18,8 @@ import { NavEgresadosComponent } from '../home/inicio-egresados/nav-egresados/na
 import { FooterEgresadosComponent } from '../home/inicio-egresados/footer-egresados/footer-egresados.component';
 import { AuthGuard } from 'src/app/shared/guard/auth.guard';
 import { PerfilComponent } from './perfil/perfil.component';
-import { EventosComponent} from './eventos/eventos.component';
-import { CarnetizacionComponent} from './carnetizacion/carnetizacion.component';
+import { EventosComponent } from './eventos/eventos.component';
+import { CarnetizacionComponent } from './carnetizacion/carnetizacion.component';
 import { VerEventoComponent } from './ver-evento/ver-evento.component';
 import { InformacionPersonalVerPerfilComponent } from './perfil/informacion-personal-ver-perfil/informacion-personal-ver-perfil.component';
 import { GradoVerPerfilComponent } from './perfil/grado-ver-perfil/grado-ver-perfil.component';
@@ -34,15 +34,24 @@ import { VerPerfilComponent } from './ver-perfil/ver-perfil.component';
 import { InformacionPersonalEgresadoComponent } from './ver-perfil/informacion-personal-egresado/informacion-personal-egresado.component';
 import { DiscapacidadesPipe } from 'src/app/shared/pipes/discapacidades.pipe';
 import { EgCapitalizePipe } from 'src/app/shared/pipes/eg-capitalize.pipe';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
   { path: 'confirmar/:codigo', component: ConfirmarRegistroComponent },
-  { path: 'completarRegistro', component: CompletarRegistroComponent, canActivate: [AuthGuard]},
-  { path: 'verPerfil', component: VerPerfilComponent},
-  { path: 'eventos', component: EventosComponent},
-  { path: 'carnetizacion', component: CarnetizacionComponent,canActivate: [AuthGuard] },
-  { path: '', component: InicioEgresadosComponent}
+  {
+    path: 'completarRegistro',
+    component: CompletarRegistroComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: 'verPerfil', component: VerPerfilComponent },
+  { path: 'eventos', component: EventosComponent },
+  {
+    path: 'carnetizacion',
+    component: CarnetizacionComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '', component: InicioEgresadosComponent }
 
   //{ path: '**', component: InicioEgresadosComponent }
 ];
@@ -73,28 +82,29 @@ const routes: Routes = [
     ExperienciaLaboralComponent,
     ExperienciaPerfilComponent,
     VerPerfilComponent,
-    InformacionPersonalEgresadoComponent,
-    DiscapacidadesPipe,
-    EgCapitalizePipe
+    InformacionPersonalEgresadoComponent
   ],
   imports: [
     CommonModule,
+    PipesModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   providers: [
-    ConfirmarEmailService, RouterModule, AlertService, AuthGuard,
+    ConfirmarEmailService,
+    RouterModule,
+    AlertService,
+    AuthGuard,
     { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
     { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
-
   ],
   entryComponents: [
     VerEventoComponent,
     ReferidoPerfilComponent,
     UpdateDeleteDialogComponent,
     UpdateDeleteDialogComponent
-  ],
+  ]
 })
-export class EgresadosModule { }
+export class EgresadosModule {}

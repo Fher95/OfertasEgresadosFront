@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AdministradorModule } from './administrador/administrador.module';
 import { EgresadosModule } from './egresados/egresados.module';
 import { AuthModule } from './auth/auth.module';
+import { DiscapacidadesPipe } from '../shared/pipes/discapacidades.pipe';
+import { EgCapitalizePipe } from '../shared/pipes/eg-capitalize.pipe';
+import { PipesModule } from '../shared/pipes/pipes.module';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  exports: [AdministradorModule, EgresadosModule, AuthModule],
-  declarations: []
+  imports: [CommonModule],
+  exports: [AdministradorModule, EgresadosModule, AuthModule]
 })
-export class PagesModule { }
+export class PagesModule {}
