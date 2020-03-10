@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Solicitud } from '../listar-solicitudes-empresa/Solicitud';
-import { ListarSolicitudesEmpresaComponent, DialogData } from '../listar-solicitudes-empresa/listar-solicitudes-empresa.component';
+import { DialogData } from '../listar-solicitudes-empresa/listar-solicitudes-empresa.component';
 import { ListarSolicitudesService } from '../listar-solicitudes-empresa/listar-solicitudes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertService } from 'src/app/shared/servicios/common/alert.service';
@@ -23,7 +23,7 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
     private alert: AlertService) { }
 
   ngOnInit() {
-    
+
   }
 
 
@@ -51,7 +51,7 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
     this.seleccionValida = false;
   }
 
-  activarEmpresa(parSolicitud: Solicitud): void {    
+  activarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null) {
       this.servicioLista.activarSolicitud(parSolicitud.id_aut_empresa, this.seleccionNumOfertas)
         .subscribe(result => {
@@ -63,7 +63,7 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
     }
   }
 
-  desactivarEmpresa(parSolicitud: Solicitud): void {    
+  desactivarEmpresa(parSolicitud: Solicitud): void {
     if (parSolicitud != null) {
       this.servicioLista.desactivarSolicitud(parSolicitud.id_aut_empresa)
         .subscribe(result => {
@@ -79,6 +79,11 @@ export class InfoSolicitudEmpresaComponent implements OnInit {
     this._snackBar.open(message, 'Cerrar', {
       duration: 5000,
     });
+  }
+
+  getUrlEmpresa(parUrl: string): string {
+    const urlCompleta = 'http://'.concat(parUrl);
+    return urlCompleta;
   }
 
 }

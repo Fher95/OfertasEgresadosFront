@@ -111,6 +111,10 @@ export class VerPostuladosComponent implements OnInit {
     });
   }
 
+  buscar(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   filtrar() {
     if (this.filtroEstado === 'Todos') {
       this.dataSource = new MatTableDataSource<IEgresado>(this.listaPostulados);
@@ -167,5 +171,5 @@ export class DialogPostuladoComponent {
       duration: 5000,
     });
   }
-
+    
 }

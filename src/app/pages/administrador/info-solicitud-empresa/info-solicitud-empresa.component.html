@@ -10,7 +10,7 @@
   <p></p>
   <strong>Razon social: </strong> <a>{{data.solicitud.razon_social}}</a>
   <p></p>
-  <strong>Sitio Web: </strong> <a href={{data.solicitud.sitio_web}}>{{data.solicitud.sitio_web}}</a>
+  <strong>Sitio Web: </strong> <a href={{this.getUrlEmpresa(data.solicitud.sitio_web)}}>{{data.solicitud.sitio_web}}</a>
   <p></p>
   <strong>Número de empleados: </strong> <a>{{data.solicitud.numero_empleados}}</a>
   <p></p>
@@ -25,7 +25,8 @@
   <div *ngIf="data.solicitud.estado === 'Pendiente' || data.solicitud.estado === 'Inactivo'" class="form-group">
     <strong for="numOfertas">Número de publicaciones permitidas: </strong>
     <h6 *ngIf="this.seleccionNumOfertas === 0" class="text-muted">Ingrese un número de publicaciones para activar</h6>
-    <p *ngIf="this.seleccionNumOfertas > this.limitePublicaciones" class="text-danger">El límite de publicaciones es de {{this.limitePublicaciones}}</p>
+    <p *ngIf="this.seleccionNumOfertas > this.limitePublicaciones" class="text-danger">El límite de publicaciones es de
+      {{this.limitePublicaciones}}</p>
     <p></p>
     <input [(ngModel)]="seleccionNumOfertas" type="number" class="form-control"
       placeholder="Debe ingresar un numero para activar" (change)="activacionValida()" (keyup)="activacionValida()"

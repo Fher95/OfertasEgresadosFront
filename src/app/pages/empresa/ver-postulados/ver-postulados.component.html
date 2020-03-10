@@ -28,6 +28,11 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <div class="col-10">
+      <mat-form-field>
+        <input matInput (keyup)="buscar($event.target.value)" placeholder="Buscar">
+      </mat-form-field>
+    </div>
   </div>
   <h3 *ngIf="arregloVacio" class="text-centered"> No se encontraron postulados </h3>
   <div *ngIf="!arregloVacio" class="mat-elevation-z8">
