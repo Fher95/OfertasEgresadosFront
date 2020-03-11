@@ -1,0 +1,101 @@
+<h2 mat-dialog-title>Información grado</h2>
+<mat-dialog-content *ngIf="gradoObservable$ | async as grado; else loading">
+  <div class="form-row">
+    <mat-form-field class="form-group col-md-4" appearance="outline">
+      <mat-label>Sede</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Sede"
+        [ngModel]="grado.programa?.sede.nombre"
+        name="sede"
+        disabled
+      />
+    </mat-form-field>
+    <mat-form-field class="form-group col-md-4" appearance="outline">
+      <mat-label>Nivel de estudio</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Nivel de estudio"
+        disabled
+        name="nivelEstudio"
+        [ngModel]="grado.programa.nivelEstudio.nombre"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-group col-md-4" appearance="outline">
+      <mat-label>Facultad</mat-label>
+      <input
+        type="text"
+        placeholder="Facultad"
+        matInput
+        disabled
+        [ngModel]="grado.programa.facultad.nombre"
+        name="facultad"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field class="form-group col-md-6" appearance="outline">
+      <mat-label>Programa</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Programa"
+        disabled
+        name="programa"
+        [ngModel]="grado.programa.Nombre"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-group col-md-6" appearance="outline">
+      <mat-label>Título</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Título"
+        disabled
+        name="titulo"
+        [ngModel]="grado.titulo"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-group col-md-6" appearance="outline">
+      <mat-label>Mención</mat-label>
+      <input
+        type="text"
+        matInput
+        #mencion
+        disabled
+        placeholder="Mención"
+        name="mencion"
+        [ngModel]="grado.mencion_honor"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="form-row" *ngFor="let observacion of grado.comentarios; let idx = index">
+    <mat-form-field class="col-md-12" appearance="outline">
+      <mat-label>{{ observacion.pregunta }}</mat-label>
+      <textarea matInput disabled name="observacion{{ idx }}" rows="3">
+        {{ observacion.respuesta }}
+      </textarea>
+    </mat-form-field>
+  </div>
+
+  <mat-dialog-actions class="align-center">
+    <button
+      class="btn btn-danger"
+      mat-raised-button
+      type="button"
+      (click)="cerrar()"
+    >
+      Cerrar
+    </button>
+    <!-- <button class="btn" color="primary" mat-raised-button type="button">
+      Guardar
+    </button> -->
+  </mat-dialog-actions>
+</mat-dialog-content>
+<ng-template #loading>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</ng-template>
