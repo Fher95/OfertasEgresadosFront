@@ -149,5 +149,6 @@ export class GestionApoyosComponent implements OnInit {
         this.isSaving = false;
       }
     );
+    console.log('guardando');
   }
 }

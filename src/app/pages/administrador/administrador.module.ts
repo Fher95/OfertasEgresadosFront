@@ -53,6 +53,7 @@ import {
 } from 'src/app/shared/common/custom-validators';
 import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
+import { EventosGuard } from 'src/app/shared/guard/apoyos/eventos.guard';
 
 const routes: Routes = [
   {
@@ -61,7 +62,7 @@ const routes: Routes = [
     children: [
       { path: 'apoyos', component: GestionApoyosComponent },
       { path: 'verificar', component: VerificarExcelComponent },
-      { path: 'eventos', component: EventosComponent },
+      { path: 'eventos', component: EventosComponent, canActivate: [AdminGuard, EventosGuard] },
       {
         path: 'solicitudesEmpresas',
         component: ListarSolicitudesEmpresaComponent,
