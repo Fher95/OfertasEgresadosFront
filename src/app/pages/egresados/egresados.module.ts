@@ -33,6 +33,8 @@ import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
 import { VerPerfilComponent } from './ver-perfil/ver-perfil.component';
 import { InformacionPersonalEgresadoComponent } from './ver-perfil/informacion-personal-egresado/informacion-personal-egresado.component';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
+import { ListaGradosEgresadoComponent } from './ver-perfil/lista-grados-egresado/lista-grados-egresado.component';
+import { GradoEgresadoComponent } from './ver-perfil/lista-grados-egresado/grado-egresado/grado-egresado.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -80,7 +82,9 @@ const routes: Routes = [
     ExperienciaLaboralComponent,
     ExperienciaPerfilComponent,
     VerPerfilComponent,
-    InformacionPersonalEgresadoComponent
+    InformacionPersonalEgresadoComponent,
+    ListaGradosEgresadoComponent,
+    GradoEgresadoComponent
   ],
   imports: [
     CommonModule,
@@ -101,6 +105,7 @@ const routes: Routes = [
   entryComponents: [
     VerEventoComponent,
     ReferidoPerfilComponent,
+    GradoEgresadoComponent,
     UpdateDeleteDialogComponent,
     UpdateDeleteDialogComponent
   ]

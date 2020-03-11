@@ -1,8 +1,6 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>
-      Información personal
-    </mat-card-title>
+    <mat-card-title>Información personal</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div class="loading-shape">
@@ -49,17 +47,6 @@
             disabled
           />
         </mat-form-field>
-        <!--mat-form-field class="form-group col-md-6" appearance="outline">
-          <mat-label>Discapacidades</mat-label>
-          <input
-            type="text"
-            matInput
-            #discapacidades
-            name="discapacidades"
-            [value]="egresado.discapacidades | discapacidades"
-            disabled
-          />
-        </mat-form-field-->
         <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Discapacidades</mat-label>
           <input
@@ -67,7 +54,7 @@
             matInput
             #discapacidades
             name="discapacidades"
-            [value]="egresado.discapacidades"
+            [value]="egresado.discapacidades | discapacidades"
             disabled
           />
         </mat-form-field>
@@ -86,7 +73,7 @@
             [ngModel]="egresado.estadoCivil"
           />
         </mat-form-field>
-        <!--mat-form-field class="form-group col-md-6" appearance="outline">
+        <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Identificación</mat-label>
           <input
             type="text"
@@ -97,38 +84,47 @@
             placeholder="Identificación"
             [ngModel]="egresado.identificacion | egcapitalize"
           />
-        </mat-form-field-->
+        </mat-form-field>
+      </div>
+
+      <div class="row">
         <mat-form-field class="form-group col-md-6" appearance="outline">
-          <mat-label>Identificación</mat-label>
+          <mat-label>País de expedición</mat-label>
           <input
             type="text"
             matInput
             disabled
-            name="identificacion"
-            #identificacion
-            placeholder="Identificación"
-            [ngModel]="egresado.identificacion"
+            name="paisExpedicion"
+            #paisResidencia
+            placeholder="País de expedición"
+            [ngModel]="egresado.lugarExpedicion?.departamento.pais.nombre"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-group col-md-6" appearance="outline">
+          <mat-label>Departamento de expedición</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Departamento de expedición"
+            name="departamentoExpedicion"
+            [ngModel]="egresado.lugarExpedicion?.departamento.nombre"
+            disabled
           />
         </mat-form-field>
       </div>
 
-      <!-- TODO: Agregar país, departamento y ciudad de expedición del documento -->
-
       <div class="row">
-        <!-- FIXME: Cambiar por ciudad de expedición -->
         <mat-form-field class="form-group col-md-6" appearance="outline">
-          <mat-label>Lugar de expedición</mat-label>
+          <mat-label>Municipio/Ciudad de expedición</mat-label>
           <input
             type="text"
             matInput
+            placeholder="Municipio/Ciudad expedición"
             disabled
-            name="lugarExpedicion"
-            #lugarExpedicion
-            placeholder="Lugar de expedición"
+            name="municipioExpedicion"
             [ngModel]="egresado.lugarExpedicion?.nombre"
           />
         </mat-form-field>
-
         <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>País de residencia</mat-label>
           <input
@@ -139,8 +135,7 @@
             #paisResidencia
             placeholder="País de residencia"
             [ngModel]="
-              egresado.lugarResidencia?.ciudad.departamento.pais.nombre
-            "
+              egresado.lugarResidencia?.ciudad.departamento.pais.nombre"
           />
         </mat-form-field>
       </div>
@@ -157,7 +152,6 @@
             disabled
           />
         </mat-form-field>
-
         <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Municipio/Ciudad de residencia</mat-label>
           <input
@@ -170,6 +164,7 @@
           />
         </mat-form-field>
       </div>
+
       <div class="row">
         <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Dirección de residencia</mat-label>
@@ -182,7 +177,6 @@
             [ngModel]="egresado.lugarResidencia?.direccion"
           />
         </mat-form-field>
-
         <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>País de nacimiento</mat-label>
           <input
@@ -209,7 +203,6 @@
             [ngModel]="egresado.lugarNacimiento?.departamento.nombre"
           />
         </mat-form-field>
-
         <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Municipio/Ciudad de nacimiento</mat-label>
           <input
@@ -235,7 +228,6 @@
             [ngModel]="egresado.genero"
           />
         </mat-form-field>
-
         <mat-form-field class="form-group col-md-6" appearance="outline">
           <mat-label>Correo</mat-label>
           <input
