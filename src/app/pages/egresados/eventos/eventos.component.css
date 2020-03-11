@@ -1,7 +1,14 @@
 #base {
-    margin: 1% 15% 15% 15%;
+    margin: 0% 15% 15% 15%;
 }
 
+#content {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 5% 5% 5% 5%;
+    box-shadow: 0px 0px 3px grey;
+}
 
 .icon {
     margin-right: 5px;
@@ -9,20 +16,21 @@
 }
 
 #listaEventos {
-    margin-top: 10px;
     background-color: #fff;
     padding: 2%;
 }
 
 .evento {
-    margin: 7px 4px 7px 4px;
+    margin: 7px 7px 7px 4px;
     background-color: #fff;
+    box-shadow: 0px 0px 3px grey;
     /* box-shadow: 2px 2px 6px rgb(177, 177, 177); */ 
 }
 
 .imagenEvento {
     height: 180px;
     width: 100%;
+    
 }
 
 .infoEvento {
@@ -69,7 +77,12 @@
 }
 
 .barra{
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 
 }
 
+.paginador{
+    text-align-last: center;
+    justify-content: center;
+    display: flex;
+}

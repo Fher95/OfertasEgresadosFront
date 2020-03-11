@@ -5,36 +5,16 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form
-      #formBuscarEventos="ngForm"
-      (ngSubmit)="filtarEventos(formBuscarEventos)"
-    >
+    <form #formBuscarEventos="ngForm" (ngSubmit)="filtarEventos(formBuscarEventos)">
       <div class="form-row">
         <mat-form-field appearance="outline" class="form-group col-md-6">
           <mat-label>Lugar</mat-label>
-          <input
-            type="text"
-            matInput
-            #lugar
-            name="lugar"
-            ngModel
-            placeholder="Lugar"
-          />
+          <input type="text" matInput #lugar name="lugar" ngModel placeholder="Lugar" />
         </mat-form-field>
         <mat-form-field appearance="outline" class="form-group col-md-6">
           <mat-label>Fecha</mat-label>
-          <input
-            matInput
-            [matDatepicker]="fechaPicker"
-            placeholder="Fecha"
-            ngModel
-            #fecha="ngModel"
-            name="fecha"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="fechaPicker"
-          ></mat-datepicker-toggle>
+          <input matInput [matDatepicker]="fechaPicker" placeholder="Fecha" ngModel #fecha="ngModel" name="fecha" />
+          <mat-datepicker-toggle matSuffix [for]="fechaPicker"></mat-datepicker-toggle>
           <mat-datepicker #fechaPicker></mat-datepicker>
         </mat-form-field>
       </div>
@@ -73,13 +53,8 @@
         <ng-container matColumnDef="opciones">
           <th mat-header-cell *matHeaderCellDef>Opciones</th>
           <td mat-cell *matCellDef="let evento">
-            <button
-              type="button"
-              mat-icon-button
-              matTooltip="Presione para editar el evento"
-              class="btn"
-              (click)="onEventoSeleccionado(evento)"
-            >
+            <button type="button" mat-icon-button matTooltip="Presione para editar el evento" class="btn"
+              (click)="onEventoSeleccionado(evento)">
               <mat-icon aria-label="Editar">edit</mat-icon>
             </button>
           </td>

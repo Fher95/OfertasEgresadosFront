@@ -1,6 +1,8 @@
 <div id="base">
-  <h2>Solicitudes</h2>
-  <hr>
+  <mat-toolbar class="barra" color="primary">
+    <span class="titulo">Solicitudes carnet</span>
+  </mat-toolbar>
+  <div id="content">
   <p class="info-count">{{obtenerInformacionMensaje()}}</p>
   <div class="panel" *ngFor="let solicitud of solicitudes; let index = index">
     <mat-accordion>
@@ -41,4 +43,5 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
+</div>
 </div>
