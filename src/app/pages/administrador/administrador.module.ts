@@ -53,24 +53,54 @@ import {
 } from 'src/app/shared/common/custom-validators';
 import { getSpanishPaginatorIntl } from 'src/app/shared/common/table-translate';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
-import { EventosGuard } from 'src/app/shared/guard/apoyos/eventos.guard';
+import { ApoyosGuard } from 'src/app/shared/guard/apoyos.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: InicioComponent,
     children: [
-      { path: 'apoyos', component: GestionApoyosComponent },
-      { path: 'verificar', component: VerificarExcelComponent },
-      { path: 'eventos', component: EventosComponent, canActivate: [AdminGuard, EventosGuard] },
+      {
+        path: 'apoyos',
+        component: GestionApoyosComponent,
+        canActivate: [AdminGuard]
+      },
+
+      {
+        path: 'verificar',
+        component: VerificarExcelComponent,
+        canActivate: [ApoyosGuard],
+        data: { servicios: 'egresados' }
+      },
+      {
+        path: 'eventos',
+        component: EventosComponent,
+        canActivate: [ApoyosGuard],
+        data: { servicios: 'eventos' }
+      },
       {
         path: 'solicitudesEmpresas',
         component: ListarSolicitudesEmpresaComponent,
         canActivate: [AdminGuard]
       },
-      { path: 'egresados', component: EgresadosComponent },
-      { path: 'egresados/perfil/:id', component: PerfilEgresadoComponent },
-      { path: 'carnetizacion', component: SolicitudCarnetizacionComponent },
+      {
+        path: 'egresados',
+        component: EgresadosComponent,
+        canActivate: [ApoyosGuard],
+        data: { servicios: 'egresados' }
+      },
+      {
+        path: 'egresados/perfil/:id',
+        component: PerfilEgresadoComponent,
+        canActivate: [ApoyosGuard],
+        data: { servicios: 'egresados' }
+      },
+      {
+        path: 'carnetizacion',
+        component: SolicitudCarnetizacionComponent,
+        canActivate: [ApoyosGuard],
+        data: { servicios: 'egresados' }
+      },
       {
         path: 'ofertasLaborales',
         component: ListarOfertasComponent,
