@@ -6,12 +6,14 @@ import { InicioEgresadosComponent } from './inicio-egresados/inicio-egresados.co
 import { FooterEgresadosComponent } from './inicio-egresados/footer-egresados/footer-egresados.component';
 import { NavEgresadosComponent } from './inicio-egresados/nav-egresados/nav-egresados.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { EgresadosModule } from '../egresados/egresados.module';
 
 @NgModule({
-  declarations: [InicioEgresadosComponent, FooterEgresadosComponent, NavEgresadosComponent],
+  declarations: [],
   imports: [
     CommonModule,
-    LayoutModule
+    LayoutModule,
+    EgresadosModule
   ]
 })
 export class HomeModule { }

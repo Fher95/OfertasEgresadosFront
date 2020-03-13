@@ -13,10 +13,10 @@ import { Config } from './servicios/config/config';
     CommonModule,
   ],
   exports: [
-    ServiciosModule,
-    GeneralesService,
-    EmpresaService,
+    
   ],
-  providers: [Config]
+  providers: [Config, ServiciosModule,
+    GeneralesService,
+    EmpresaService]
 })
 export class SharedModule { }

@@ -16,31 +16,44 @@ import { AuthService } from './auth/auth.service';
 import { EventosService } from './admin/eventos.service';
 @NgModule({
   declarations: [
-    GeneralesService,
+    /*GeneralesService,
     AuthServicesService,
     CatalogosService,
     ConfirmarEmailService,
     FileUploadService,
-    RegistroService,
-    Utilities,
+    RegistroService,*/
+    /* Utilities ,
     EmpresaService,
-    EventosService
+    EventosService */
   ],
   imports: [CommonModule],
   exports: [
+    /*
     GeneralesService,
     AuthServicesService,
     CatalogosService,
     ConfirmarEmailService,
     FileUploadService,
     RegistroService,
-    Utilities,
     EmpresaService,
     AlertService,
+    EventosService, 
+    Utilities,
     EgresadosGuard,
-    AdminGuard,
-    EventosService
+    AdminGuard
+    */
   ],
-  providers: [Config, AuthService]
+  providers: [Config, AuthService,GeneralesService,
+    AuthServicesService,
+    CatalogosService,
+    ConfirmarEmailService,
+    FileUploadService,
+    RegistroService,
+    EmpresaService,
+    AlertService,
+    EventosService, 
+    Utilities,
+    EgresadosGuard,
+    AdminGuard]
 })
 export class ServiciosModule {}
