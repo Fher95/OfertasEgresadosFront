@@ -1,0 +1,64 @@
+<h2 mat-dialog-title>Referencia personal</h2>
+<mat-dialog-content>
+  <div class="row">
+    <mat-form-field class="form-group col-md-6" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Nombre"
+        [ngModel]="referido.nombres"
+        disabled
+      />
+    </mat-form-field>
+    <mat-form-field class="form-group col-md-6" appearance="outline">
+      <mat-label>Parentesco</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Parentesco"
+        [ngModel]="referido.parentesco"
+        disabled
+      />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="form-group col-md-6" appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Correo"
+        [ngModel]="referido.correo"
+        disabled
+      />
+    </mat-form-field>
+    <mat-form-field class="form-group col-md-6" appearance="outline">
+      <mat-label>Celular/Teléfono</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Celular/Teléfono"
+        [ngModel]="referido.telefonoMovil"
+        disabled
+      />
+    </mat-form-field>
+  </div>
+  <div class="row" *ngIf="referido.esEgresado">
+    <mat-form-field class="form-group col-md-6" appearance="outline">
+      <mat-label>Programa</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Programa"
+        [ngModel]="referido.programa?.Nombre"
+        disabled
+      />
+    </mat-form-field>
+  </div>
+  <mat-dialog-actions class="align-center">
+    <button type="button" class="btn btn-danger" (click)="cerrar()">
+      Cerrar
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

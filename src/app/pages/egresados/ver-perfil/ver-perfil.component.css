@@ -5,9 +5,6 @@ mat-form-field{
     position: relative;
     top: 25px;
 }
-:disabled{
-    color:black;
-}
 mat-label,mat-radio-button{
     margin-right: 20px;
 }
@@ -27,4 +24,7 @@ h2{
 .titulo{
     margin: 0 auto;
     text-align: center;
+}
+.divider {
+    margin-top: 10px;
 }

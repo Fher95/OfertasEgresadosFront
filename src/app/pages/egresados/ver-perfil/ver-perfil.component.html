@@ -1,26 +1,24 @@
 <app-nav-egresados> </app-nav-egresados>
-<!--div class="container"-->
-  <div *ngIf="egresadoObservable$ | async as egresado; else loading">
-    <mat-card>
-      <mat-toolbar color="primary">
-        <span class="titulo">Perfil</span>
-      </mat-toolbar>
-    
-      <app-informacion-personal-egresado [egresado]="egresado"></app-informacion-personal-egresado>
+<div *ngIf="egresadoObservable$ | async as egresado; else loading">
+  <mat-card>
+    <mat-toolbar color="primary">
+      <span class="titulo">Perfil</span>
+    </mat-toolbar>
+   
+    <app-informacion-personal-egresado [egresado]="egresado"></app-informacion-personal-egresado>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
-      <app-lista-grados-egresado [grados]="egresado.grados"></app-lista-grados-egresado>
+    <app-lista-grados-egresado [grados]="egresado.grados"></app-lista-grados-egresado>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
-      <!--app-lista-referencias-personales [referidos]="egresado.referenciasPersonales"></app-lista-referencias-personales-->
+    <app-lista-referencias-personales-egresado [referidos]="egresado.referenciasPersonales"></app-lista-referencias-personales-egresado>
 
-      <div class="divider"></div>
+    <div class="divider"></div>
 
-      <!--app-lista-trabajos-actuales [experiencias]="egresado.trabajosActuales"></app-lista-trabajos-actuales-->
-    </mat-card>
-  <!--/div-->
+    <app-lista-trabajos-actuales-egresado [experiencias]="egresado.trabajosActuales"></app-lista-trabajos-actuales-egresado>
+  </mat-card>
   <ng-template #loading>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
   </ng-template>

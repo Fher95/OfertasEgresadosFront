@@ -35,6 +35,10 @@ import { InformacionPersonalEgresadoComponent } from './ver-perfil/informacion-p
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { ListaGradosEgresadoComponent } from './ver-perfil/lista-grados-egresado/lista-grados-egresado.component';
 import { GradoEgresadoComponent } from './ver-perfil/lista-grados-egresado/grado-egresado/grado-egresado.component';
+import { ListaReferenciasPersonalesEgresadoComponent } from './ver-perfil/lista-referencias-personales-egresado/lista-referencias-personales-egresado.component';
+import { ReferenciaEgresadoComponent } from './ver-perfil/lista-referencias-personales-egresado/referencia-egresado/referencia-egresado.component';
+import { ListaTrabajosActualesEgresadoComponent } from './ver-perfil/lista-trabajos-actuales-egresado/lista-trabajos-actuales-egresado.component';
+import { TrabajoActualEgresadoComponent } from './ver-perfil/lista-trabajos-actuales-egresado/trabajo-actual-egresado/trabajo-actual-egresado.component';
 
 const routes: Routes = [
   { path: 'pre-registro', component: PreRegistroComponent },
@@ -84,7 +88,11 @@ const routes: Routes = [
     VerPerfilComponent,
     InformacionPersonalEgresadoComponent,
     ListaGradosEgresadoComponent,
-    GradoEgresadoComponent
+    GradoEgresadoComponent,
+    ListaReferenciasPersonalesEgresadoComponent,
+    ReferenciaEgresadoComponent,
+    ListaTrabajosActualesEgresadoComponent,
+    TrabajoActualEgresadoComponent
   ],
   imports: [
     CommonModule,
@@ -104,7 +112,8 @@ const routes: Routes = [
   ],
   entryComponents: [
     VerEventoComponent,
-    ReferidoPerfilComponent,
+    TrabajoActualEgresadoComponent,
+    ReferenciaEgresadoComponent,
     GradoEgresadoComponent,
     UpdateDeleteDialogComponent,
     UpdateDeleteDialogComponent
