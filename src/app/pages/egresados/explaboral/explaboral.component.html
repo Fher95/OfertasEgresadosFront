@@ -58,7 +58,7 @@
       </div>
       <div class="card-column-3">
         <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
-          <input matInput [max]="maxDate" [matDatepicker]="picker1" placeholder="Fecha Inicio" [formControl]="fechaInicio" required>
+          <input type="date" matInput [max]="maxDate" [matDatepicker]="picker1" placeholder="Fecha Inicio" [formControl]="fechaInicio" required>
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
           <mat-error *ngIf="fechaInicio.hasError('required')">Seleccione la fecha de inicio.</mat-error>
