@@ -34,6 +34,10 @@ export class ApoyoService {
   update(apoyo: ApoyoModel): Observable<ApoyoModel> {
     return this.http.put<ApoyoModel>(`${this.baseUrl}apoyos`, apoyo);
   }
+
+  activarEmail(codigo: string) : Observable<any>{
+    return this.http.put(`${this.baseUrl}apoyos/activaremail/${codigo}`, {});
+  }
 }
 
 export interface ApoyoResponse {

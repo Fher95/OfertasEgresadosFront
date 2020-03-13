@@ -8,6 +8,7 @@ import { LogoutComponent } from './pages/auth/logout/logout.component';
 import { AjustesAdministradorComponent } from './pages/administrador/ajustes-administrador/ajustes-administrador.component';
 import { SolicitudCarnetizacionComponent } from './pages/administrador/solicitud-carnetizacion/solicitud-carnetizacion.component';
 import { AdminApoyoGuard } from './shared/guard/admin-apoyo.guard';
+import { CambioEmailApoyoComponent } from './pages/cambio-email-apoyo/cambio-email-apoyo.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,7 +19,10 @@ const routes: Routes = [
     path: 'egresados',
     loadChildren: './pages/egresados/egresados.module#EgresadosModule'
   },
-
+  {
+    path: 'apoyos/cambio-email/:codigo',
+    component: CambioEmailApoyoComponent
+  },
   {
     path: 'empresa',
     loadChildren: './pages/empresa/empresa.module#EmpresaModule'

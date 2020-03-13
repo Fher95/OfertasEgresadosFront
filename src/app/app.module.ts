@@ -17,9 +17,10 @@ import { Config } from './shared/servicios/config/config';
 import { AlertService } from './shared/servicios/common/alert.service';
 import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interceptor';
 import { AuthModule } from './pages/auth/auth.module';
+import { CambioEmailApoyoComponent } from './pages/cambio-email-apoyo/cambio-email-apoyo.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeOfertasComponent],
+  declarations: [AppComponent, HomeOfertasComponent, CambioEmailApoyoComponent],
   imports: [
     EmpresaModule,
     LayoutModule,
