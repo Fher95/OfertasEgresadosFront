@@ -75,6 +75,8 @@ export class DialogoEditarComponent implements OnInit {
       this.alertService.showconfirmationMessage('Confirmación', 'Desea de cancelar la actualización del apoyo').then(res => {
         if(res) {
           this.dialogRef.close(false);
+        } else  {
+          return;
         }
       });
     } else {
