@@ -55,6 +55,7 @@ export class CompletarRegistroComponent implements OnInit {
 
   idEgresado : number;
   deshabilitarCompletar:boolean = false;
+  existeOtroGrado:boolean = false;
 
   constructor(private dialog:MatDialog,private servicioCompletar: RegistroService, private alert: AlertService, 
     private router:Router, private auth: AuthService) {
@@ -220,20 +221,27 @@ export class CompletarRegistroComponent implements OnInit {
     var bandera:boolean = false;
     if(this.referidos.length!=0 && this.Labora_Actualmente.value!='' && this.otroGrado.value!='' && this.comentario.validarCampos()){
       if(this.Labora_Actualmente.value == 0 && this.expActuales.length>0 && this.otroGrado.value==0 
-        && this.programaAdicional.Programa.value!='' && this.comentarioGradoAdic.validarCampos()){    
-        bandera=true;
+        && this.programaAdicional.Programa.value!='' && this.comentarioGradoAdic.validarCampos()){   
+          console.log('Entro 1 '); 
+          this.existeOtroGrado = true;
+          bandera=true;
       }
       else if(this.Labora_Actualmente.value == 1 && this.otroGrado.value==0 
         && this.programaAdicional.Programa.value!='' && this.comentarioGradoAdic.validarCampos()){ 
+          console.log('Entro 2 '); 
+          this.existeOtroGrado = true;
           bandera=true;
       }
       else if(this.Labora_Actualmente.value == 1 && this.otroGrado.value==1){    
+        console.log('Entro 3 '); 
         bandera=true;
       }
       else if(this.Labora_Actualmente.value == 0 && this.expActuales.length>0 && this.otroGrado.value==1){
+        console.log('Entro 4 '); 
         bandera=true;
       }
       else {
+        console.log('Entro error '); 
         bandera=false;
       }
     }
@@ -242,24 +250,33 @@ export class CompletarRegistroComponent implements OnInit {
   enviarDatos()
   {
     this.deshabilitarCompletar=true;
-    if(this.verificarCampos()){
-      if(this.validarGradoAdicional()){
-        this.llenarDatos();
-        this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
-          respuesta => {
-            this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
-              ()=>{ this.router.navigateByUrl('egresados');});
-            console.log(respuesta);
-          },
-          error => {
-            this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.').then(
-              ()=>{ this.deshabilitarCompletar=false;});
-          });
+    if(this.verificarCampos())
+    {
+      if(this.existeOtroGrado)
+      {
+        if(this.validarGradoAdicional())
+        {
+          this.llenarDatos();
+        }
+        else{
+          this.alert.showErrorMessage('Error','Ya existe un grado registrado con este programa.').then(
+            ()=>{ this.deshabilitarCompletar=false;});
+        }
       }
       else{
-        this.alert.showErrorMessage('Error','Ya existe un grado registrado con este programa.').then(
-          ()=>{ this.deshabilitarCompletar=false;});
+        this.llenarDatos();
       }
+      this.servicioCompletar.completarRegistroEgresado(this.varCompletarRegistro,this.idEgresado).subscribe(
+        respuesta => {
+          this.alert.showSuccesMessage('','Se completo la información correctamente.').then(
+            ()=>{ this.router.navigateByUrl('egresados');});
+          console.log(respuesta);
+        },
+        error => {
+          this.alert.showErrorMessage('Error','Ocurrió un error en completar la información.').then(
+            ()=>{ this.deshabilitarCompletar=false;});
+        }
+      );
     }
     else{
       this.alert.showErrorMessage('Error','Complete todos los datos.').then(
