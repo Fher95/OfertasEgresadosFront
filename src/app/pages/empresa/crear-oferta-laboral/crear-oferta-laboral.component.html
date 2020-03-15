@@ -27,18 +27,18 @@
                         <mat-form-field  floatLabel="auto" appearance="outline">
                             <mat-label>Nombre del cargo/Perfil requerido</mat-label>
                             <input formControlName="nombreOferta" matInput required>
-                            <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.nombreOferta.errors?.required">campo
+                            <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').get('nombreOferta').errors?.required">campo
                                 requerido</mat-error>
                         </mat-form-field>
                         <mat-form-field  floatLabel="auto" appearance="outline">
                             <mat-label>Número de vacantes</mat-label>
                             <input type="number" pattern="[0-9]*"  formControlName="numVacantes" matInput required>
-                            <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.numVacantes.errors?.required">campo
+                            <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').get('numVacantes').errors?.required">campo
                                 requerido</mat-error>
                                 <mat-error
-                                    *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.numVacantes.errors?.min">
+                                    *ngIf="formOfertaLaboral.get('informacionPrincipal').get('numVacantes').errors?.min">
                                     minimo 1 vacante</mat-error>
-                                    <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.numVacantes.errors?.pattern">
+                                    <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').get('numVacantes').errors?.pattern">
                                         no se permiten números decimales</mat-error>
                         </mat-form-field>
                         <mat-form-field  floatLabel="auto" appearance="outline" >
@@ -49,7 +49,7 @@
                                             </mat-option>
                                             <mat-option value="otro">Otro</mat-option>
                                             <mat-error class="ml-3"
-                                                *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.cargo.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('informacionPrincipal').get('cargo').errors?.required">
                                                 campo requerido</mat-error>
                                         </mat-select>
                         </mat-form-field>
@@ -58,7 +58,7 @@
                                         <mat-label>Cual?</mat-label>
                                         <input formControlName="cargo" value="" required matInput>
                                         <mat-error
-                                                *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.cargo.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('informacionPrincipal').get('cargo').errors?.required">
                                                 campo requerido</mat-error>
                         </mat-form-field>
                     </div>
@@ -70,7 +70,7 @@
                                             {{area.nombre}}
                                         </mat-option>
                                         <mat-error class="ml-3"
-                                            *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.idAreasConocimiento.errors?.required">
+                                            *ngIf="formOfertaLaboral.get('informacionPrincipal').get('idAreasConocimiento').errors?.required">
                                             campo requerido</mat-error>
                                       </mat-select>
                                 </mat-form-field>
@@ -81,7 +81,7 @@
                                             {{sector.Nombre}}
                                         </mat-option>
                                         <mat-error class="ml-3"
-                                            *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.idSector.errors?.required">
+                                            *ngIf="formOfertaLaboral.get('informacionPrincipal').get('idSector').errors?.required">
                                             campo requerido</mat-error>
                                       </mat-select>
                                 </mat-form-field>
@@ -95,7 +95,7 @@
                                 <mat-form-field class="full-width" floatLabel="auto" appearance="outline">
                                         <mat-label>Descripción de la oferta</mat-label>
                                         <textarea  matInput formControlName="descripcion" required rows="3"></textarea>
-                                        <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.descripcion.errors?.required">campo
+                                        <mat-error *ngIf="formOfertaLaboral.get('informacionPrincipal').get('descripcion').errors?.required">campo
                                             requerido</mat-error>
                                 </mat-form-field>
                         </div>
@@ -119,7 +119,7 @@
                             <mat-option value="Obra a labor determinada">Obra a labor determinada</mat-option>
                             <mat-option value="Término fijo">Término fijo</mat-option>
                             <mat-error class="ml-3"
-                                *ngIf="formOfertaLaboral.get('contrato').controls.tipoContrato.errors?.required">
+                                *ngIf="formOfertaLaboral.get('contrato').get('tipoContrato').errors?.required">
                                 campo requerido</mat-error>
                             </mat-select>
                     </mat-form-field>
@@ -138,7 +138,7 @@
                                     <mat-option value="Tiempo parcial">Tiempo parcial</mat-option>
                                   </mat-select>
                                   <mat-error class="ml-3"
-                                      *ngIf="formOfertaLaboral.get('contrato').controls.jornada.errors?.required">
+                                      *ngIf="formOfertaLaboral.get('contrato').get('jornada').errors?.required">
                                       campo requerido</mat-error>
                           </mat-form-field>
                     </div>
@@ -154,7 +154,7 @@
                                         <mat-option value="US Dolar">US Dolar</mat-option>
                                       </mat-select>
                                       <mat-error class="ml-3"
-                                          *ngIf="formOfertaLaboral.get('contrato').controls.formaPago.errors?.required">
+                                          *ngIf="formOfertaLaboral.get('contrato').get('formaPago').errors?.required">
                                           campo requerido</mat-error>
                                  </mat-form-field>
                                  <mat-form-field  floatLabel="auto" appearance="outline" >
@@ -203,7 +203,7 @@
                                     <mat-radio-button class="ml-3" value="Magister">Magister</mat-radio-button>
                                     <mat-radio-button class="ml-3" value="Doctor">Doctor</mat-radio-button>
                                     <mat-error
-                                        *ngIf="formOfertaLaboral.get('requisitos').controls.perfil.errors?.required">
+                                        *ngIf="formOfertaLaboral.get('requisitos').get('perfil').errors?.required">
                                         campo requerido</mat-error>
                                 </mat-radio-group>
                         </section>
@@ -216,7 +216,7 @@
                                                 {{estudioMinimo.nombre}}
                                             </mat-option>
                                         <mat-error class="ml-3"
-                                            *ngIf="formOfertaLaboral.get('requisitos').controls.idEstudioMinimo.errors?.required">
+                                            *ngIf="formOfertaLaboral.get('requisitos').get('idEstudioMinimo').errors?.required">
                                             campo requerido</mat-error>
                                       </mat-select>
                             </mat-form-field>
@@ -227,7 +227,7 @@
                                                 {{programa.Nombre}}
                                             </mat-option>
                                         <mat-error class="ml-3"
-                                            *ngIf="formOfertaLaboral.get('requisitos').controls.idProgramas.errors?.required">
+                                            *ngIf="formOfertaLaboral.get('requisitos').get('idProgramas').errors?.required">
                                             campo requerido</mat-error>
                                       </mat-select>
                             </mat-form-field>
@@ -239,7 +239,7 @@
                                         <mat-option value="Mayor o igual que">Mayor o igual que</mat-option>
                                         <mat-option value="Menor o igual que">Menor o igual que</mat-option>
                                         <mat-error class="ml-3"
-                                            *ngIf="formOfertaLaboral.get('requisitos').controls.experienciaLaboral.errors?.required">
+                                            *ngIf="formOfertaLaboral.get('requisitos').get('experienciaLaboral').errors?.required">
                                             campo requerido</mat-error>
                                 </mat-select>
                             </mat-form-field>
@@ -247,12 +247,12 @@
                                     <mat-label>Años</mat-label>
                                     <input type="number" pattern="[0-9]*"  value="null" formControlName="anios" matInput required >            
                                     <mat-error
-                                            *ngIf="formOfertaLaboral.get('requisitos').controls.anios.errors?.required">
+                                            *ngIf="formOfertaLaboral.get('requisitos').get('anios').errors?.required">
                                             campo requerido</mat-error>
                                             <mat-error
-                                            *ngIf="formOfertaLaboral.get('requisitos').controls.anios.errors?.min">
+                                            *ngIf="formOfertaLaboral.get('requisitos').get('anios').errors?.min">
                                             minimo 0 años</mat-error>
-                                            <mat-error *ngIf="formOfertaLaboral.get('requisitos').controls.anios.errors?.pattern">
+                                            <mat-error *ngIf="formOfertaLaboral.get('requisitos').get('anios').errors?.pattern">
                                                 no se permiten números decimales</mat-error>
 
                             </mat-form-field>
@@ -265,7 +265,7 @@
                                   </mat-card-header>
                             <mat-card-content>
                                 <mat-list >
-                                    <mat-list-item *ngFor="let programa of formOfertaLaboral.get('requisitos').controls.programas.value">{{programa}}                                    <mat-divider></mat-divider>
+                                    <mat-list-item *ngFor="let programa of formOfertaLaboral.get('requisitos').get('programas').value">{{programa}}                                    <mat-divider></mat-divider>
                                     </mat-list-item>
                                   </mat-list>
                             </mat-card-content>
@@ -428,7 +428,7 @@
                                     <mat-form-field class="full-width"  floatLabel="auto" appearance="outline">
                                             <mat-label>Requisitos minimos</mat-label>
                                             <textarea  matInput formControlName="requisitosMinimos" required rows="3"></textarea>
-                                            <mat-error *ngIf="formOfertaLaboral.get('requisitos').controls.requisitosMinimos.errors?.required">campo
+                                            <mat-error *ngIf="formOfertaLaboral.get('requisitos').get('requisitosMinimos').errors?.required">campo
                                                 requerido</mat-error>
                                     </mat-form-field>
                             </div>
@@ -483,7 +483,7 @@
                                             <mat-option  [value]="1">Si</mat-option>
                                             <mat-option  [value]="0">No</mat-option>
                                             <mat-error class="ml-3"
-                                                *ngIf="formOfertaLaboral.get('requisitos').controls.movilizacionPropia.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('requisitos').get('movilizacionPropia').errors?.required">
                                                 campo requerido</mat-error>
                                     </mat-select>
                                 </mat-form-field>
@@ -501,7 +501,7 @@
                                             <mat-option value="C2">C2</mat-option>
                                             <mat-option value="C3">C3</mat-option>
                                             <mat-error class="ml-3"
-                                                *ngIf="formOfertaLaboral.get('requisitos').controls.licenciaConduccion.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('requisitos').get('licenciaConduccion').errors?.required">
                                                 campo requerido</mat-error>
                                     </mat-select>
                                 </mat-form-field>
@@ -600,7 +600,7 @@
                                         <mat-form-field  floatLabel="auto" appearance="outline">
                                                 <mat-label>E-mail recepción Hv's</mat-label>
                                                 <input formControlName="correo" matInput  required >
-                                                <mat-error *ngIf="formOfertaLaboral.get('contactoHV').controls.correo.errors?.email">
+                                                <mat-error *ngIf="formOfertaLaboral.get('contactoHV').get('correo').errors?.email">
                                                     Digite
                                                     un
                                                     correo valido. ej: ejemplo@gmail.com</mat-error>
@@ -609,23 +609,23 @@
                                                 <mat-label>Nombres</mat-label>
                                                 <input formControlName="nombres" matInput  required >
                                                 <mat-error
-                                                *ngIf="formOfertaLaboral.get('contactoHV').controls.nombres.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('contactoHV').get('nombres').errors?.required">
                                                 campo requerido</mat-error>
                                         </mat-form-field>
                                         <mat-form-field  floatLabel="auto" appearance="outline">
                                                 <mat-label>Apellidos</mat-label>
                                                 <input formControlName="apellidos" matInput  required >
                                                 <mat-error
-                                                *ngIf="formOfertaLaboral.get('contactoHV').controls.apellidos.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('contactoHV').get('apellidos').errors?.required">
                                                 campo requerido</mat-error>
                                         </mat-form-field>
                                         <mat-form-field  floatLabel="auto" appearance="outline">
                                                 <mat-label>Teléfono celular</mat-label>
                                                 <input pattern="[0-9]*"  formControlName="telefonoMovil" matInput  required >
                                                 <mat-error
-                                                *ngIf="formOfertaLaboral.get('contactoHV').controls.telefonoMovil.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('contactoHV').get('telefonoMovil').errors?.required">
                                                 campo requerido</mat-error>
-                                                <mat-error *ngIf="formOfertaLaboral.get('contactoHV').controls.telefonoMovil.errors?.pattern">
+                                                <mat-error *ngIf="formOfertaLaboral.get('contactoHV').get('telefonoMovil').errors?.pattern">
                                                     Solo se aceptan números</mat-error>
                                         </mat-form-field>
                         </div>
@@ -647,7 +647,7 @@
                                             <mat-option value="15">15 días</mat-option>
                                             <mat-option value="30">30 días</mat-option>
                                             <mat-error class="ml-3"
-                                                *ngIf="formOfertaLaboral.get('informacionPrincipal').controls.vigenciaDias.errors?.required">
+                                                *ngIf="formOfertaLaboral.get('informacionPrincipal').get('vigenciaDias').errors?.required">
                                                 campo requerido</mat-error>
                                          </mat-select>     
                                 </mat-form-field>                            

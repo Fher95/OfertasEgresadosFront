@@ -40,6 +40,18 @@ export class CrearOfertaLaboralComponent implements OnInit {
   ubicaciones = []
   rangosSalariales = []
 
+  cargo:any;
+  tipoContrato:any;
+  formaPago:any;
+  experienciaLaboral:any;
+  idiomaChecked:any;
+  softwareChecked:any;
+  preguntasChecked:any;
+  discapacidadChecked:any;
+  departamento:any;
+
+
+
 datosFormChecked: FormGroup;
   constructor( private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,private matDialog: MatDialog,
     private servGenerales: GeneralesService,private alert: AlertService,
