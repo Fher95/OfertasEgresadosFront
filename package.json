@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "lite": "lite-server",
+    "preinstall": "npm install -g @angular-cli@7.2.2",
     "postinstall": "ng build --prod",
     "deploy": "git add . && git commit -m \"deploy\" && git push heroku master"
   },
