@@ -24,6 +24,9 @@ export class ApoyosGuard implements CanActivate {
       (this.auth.userRol.toUpperCase() == 'APOYO' ||
         this.auth.userRol.toUpperCase() == 'ADMINISTRADOR')
     ) {
+      if (this.auth.userRol.toUpperCase() == 'ADMINISTRADOR') {
+        return true;
+      }
       const servicio = route.data['servicios'] as string;
       const serviciosApoyo = await this.servicioService
         .getServicioApoyoBy(this.auth.userEmail)
@@ -40,6 +43,6 @@ export class ApoyosGuard implements CanActivate {
       .then(() => {
         this.router.navigateByUrl('/home');
       });
-      return false;
+    return false;
   }
 }
