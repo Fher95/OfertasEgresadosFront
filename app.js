@@ -1,12 +1,9 @@
-const express = require('express');
-const path = require('path');
-const appname = 'OfertasEgresadosFront';
+"use strict";
+const  fs    = require('fs'),
+        http = require("http");
 
-const app = express();
+http.createServer(function (request, response) {
+  fs.createReadStream(`${__dirname}/index.html`).pipe(response);
+}).listen(8000);
 
-app.use(express.static(__dirname + `/dist/${appname}`));
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + `/dist/${appname}/index.html`));
-});
-
-app.listen(process.env.PORT || 8080);
+console.log('Listening on port 8000.');
