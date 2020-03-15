@@ -2,7 +2,7 @@
   "name": "ofertas-egresados-front",
   "version": "0.0.0",
   "scripts": {
-    "start": "lite-server --baseDir=\"dist/OfertasEgresadosFront\"",
+    "start": "node app.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
