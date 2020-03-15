@@ -29,7 +29,7 @@ export class DialogoEditarComponent implements OnInit {
     }
   ];
 
-  estadoSeleccionado: boolean
+  estadoSeleccionado: boolean;
 
   isSaving = false;
 
@@ -71,14 +71,17 @@ export class DialogoEditarComponent implements OnInit {
   }
 
   cancelar(frm: NgForm) {
-    if(frm.dirty){
-      this.alertService.showconfirmationMessage('Confirmación', 'Desea de cancelar la actualización del apoyo').then(res => {
-        if(res) {
-          this.dialogRef.close(false);
-        } else  {
-          return;
-        }
-      });
+    if (frm.dirty) {
+      this.alertService
+        .showconfirmationMessage(
+          'Confirmación',
+          'Desea de cancelar la actualización del apoyo'
+        )
+        .then(res => {
+          if (res.value) {
+            this.dialogRef.close(false);
+          }
+        });
     } else {
       this.dialogRef.close(false);
     }
@@ -105,5 +108,46 @@ export class DialogoEditarComponent implements OnInit {
         this.isSaving = false;
       }
     );
+  }
+
+  async onStateChange() {
+    if (false == this.estadoSeleccionado) {
+      // Pasa a inactivo.
+      this.alertService
+        .showconfirmationMessageYesNoOptions(
+          'Advertencia',
+          'Si inactiva este apoyo, no podrá acceder al sistema de egresados ¿Desea Continuar?'
+        )
+        .then(res => {
+          if (!res.value) {
+            this.estadoSeleccionado = !this.estadoSeleccionado;
+          }
+        });
+    } else {
+      const enProceso = await this.apoyoService
+        .enProceso(this.apoyo.id)
+        .toPromise();
+      if (enProceso) {
+        this.alertService
+          .showErrorMessage(
+            'Error',
+            'El apoyo está en proceso de actualizar correo electrónico, no se permitirá la activación hasta que sea verificado'
+          )
+          .then(() => {
+            this.estadoSeleccionado = !this.estadoSeleccionado;
+          });
+      } else {
+        this.alertService
+          .showconfirmationMessageYesNoOptions(
+            'Advertencia',
+            'Si activa este apoyo, podrá acceder al sistema de egresados ¿Desea continuar?'
+          )
+          .then(res => {
+            if (!res.value) {
+              this.estadoSeleccionado = !this.estadoSeleccionado;
+            }
+          });
+      }
+    }
   }
 }
