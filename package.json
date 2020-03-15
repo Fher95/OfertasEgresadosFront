@@ -2,7 +2,7 @@
   "name": "ofertas-egresados",
   "version": "0.0.0",
   "scripts": {
-    "start": "node server.js",
+    "start": "node app.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
