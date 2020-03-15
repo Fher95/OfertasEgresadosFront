@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const appname = 'ofertas-egresados-front';
+const appname = 'OfertasEgresadosFront';
 
 const app = express();
 
