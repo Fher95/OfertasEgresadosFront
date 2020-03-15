@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { EgresadoSaveInterface } from 'src/app/shared/modelos/egresadoSaveInterface';
 import { User } from '../../modelos/user';
 import { CompletarRegistro } from '../../modelos/completarRegistro';
+import { environment } from 'src/environments/environment';
 
 
-const URL = 'http://localhost:8081/api/egresados';
-const URLBase = 'http://localhost:8081/api/';
+const URLBase = environment.baseUrl;
+const URL = URLBase + 'egresados';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class RegistroService {
   public validarCompletar(idEgresado: number){
     const URLValidar = URLBase + 'validaCompletarRegistro/'+idEgresado;
     return this.http.get<any>(URLValidar);
-  } 
+  }
   public cuestionarioComentario(){
     const URLComentario = URLBase + 'cuestionario';
     return this.http.get<any>(URLComentario);

@@ -15,8 +15,9 @@ import { EventoInterface } from '../../../shared/modelos/evento';
 import { TituloInterface } from '../../../shared/modelos/tituloInterface.';
 import { ArrayRHttpResponse } from '../../base/array-r-http-response';
 import { ArrayHttpResponse } from '../../base/array-http-response';
+import { environment } from 'src/environments/environment';
 
-const baseUrl = 'http://localhost:8081/api/';
+const baseUrl = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
