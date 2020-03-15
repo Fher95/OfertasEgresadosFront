@@ -8,7 +8,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "lite": "lite-server",
-    "postinstall": "ng build --prod",
+    "postinstall": "ng build",
     "deploy": "git add . && git commit -m \"deploy\" && git push heroku master"
   },
   "private": true,
