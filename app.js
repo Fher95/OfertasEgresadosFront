@@ -20,7 +20,7 @@ var allowedExt = [
 var Server = (function () {
     function Server() {
         var _this = this;
-        this.port = 9090;
+        this.port = process.env.PORT || 9090;
         // Create expressjs application
         this.app = express();
         //Route our backend calls
