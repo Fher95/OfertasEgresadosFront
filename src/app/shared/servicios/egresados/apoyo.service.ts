@@ -5,6 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApoyoFilter } from '../../modelos/filters/apoyo.filter';
 import { buildParamsFiltersWithPages } from '../../common/build-param-filters';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,15 @@ export class ApoyoService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(pageIndex: number, pageSize: number, filter: ApoyoFilter): Observable<ApoyoResponse> {
+  getAll(
+    pageIndex: number,
+    pageSize: number,
+    filter: ApoyoFilter
+  ): Observable<ApoyoResponse> {
     let httpParams = buildParamsFiltersWithPages(filter, pageSize, pageIndex);
-    return this.http.get<ApoyoResponse>(
-      `${this.baseUrl}apoyos`, {
-        params: httpParams
-      }
-    );
+    return this.http.get<ApoyoResponse>(`${this.baseUrl}apoyos`, {
+      params: httpParams
+    });
   }
 
   getById(idApoyo: number): Observable<ApoyoModel> {
@@ -35,8 +38,14 @@ export class ApoyoService {
     return this.http.put<ApoyoModel>(`${this.baseUrl}apoyos`, apoyo);
   }
 
-  activarEmail(codigo: string) : Observable<any>{
+  activarEmail(codigo: string): Observable<any> {
     return this.http.put(`${this.baseUrl}apoyos/activaremail/${codigo}`, {});
+  }
+
+  enProceso(idApoyo: number): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}apoyos/enProceso/${idApoyo}`)
+      .pipe(map(res => res.data.enProceso));
   }
 }
 

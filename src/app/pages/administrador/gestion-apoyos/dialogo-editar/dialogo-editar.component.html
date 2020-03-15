@@ -184,6 +184,7 @@
           class="example-radio-group"
           [(ngModel)]="estadoSeleccionado"
           #estado="ngModel"
+          (change)="onStateChange()"
           name="estado"
 
         >
