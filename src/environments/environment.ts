@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:8081/api/'
+  baseUrl: 'https://tranquil-depths-37037.herokuapp.com/api/'
 };
 
 /*
