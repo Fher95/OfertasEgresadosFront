@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "lite": "lite-server",
     "postinstall": "ng build --prod",
-    "deploy": "git add . && git commit -m \"deploy\" && git push origin master && git push heroku master"
+    "deploy": "git add . && git commit -m \"deploy\" && git push heroku master"
   },
   "private": true,
   "dependencies": {
