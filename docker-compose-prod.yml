@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+    app:
+        image: 'my-angular-app'
+        build:
+          context: '.'
+          dockerfile: Dockerfile
+        environment:
+          - VIRTUAL_HOST=egresadosunicauca.live,www.egresadosunicauca.live
+          - LETSENCRYPT_HOST=egresadosunicauca.live,www.egresadosunicauca.live
+          - LETSENCRYPT_EMAIL=egresado0809@gmail.com
+networks:
+  default:
+    external:
+      name: work

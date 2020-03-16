@@ -1,7 +1,13 @@
-FROM node:10.13-alpine
-#ENV NODE_ENV production
+### STAGE 1: Build ###
+
+FROM node:12.7-alpine AS build
 WORKDIR /usr/src/app
-COPY . .
-RUN npm i -g @angular/cli@7.2.2
+COPY package.json ./
 RUN npm install
-CMD ng serve --host 0.0.0.0
+COPY . .
+RUN npm run build
+
+### STAGE 2: Run ###
+FROM nginx:1.17.1-alpine
+LABEL authors="CristianPip3"
+COPY --from=build /usr/src/app/dist/OfertasEgresadosFront /usr/share/nginx/html
