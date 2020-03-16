@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { NavbarHomeOfertasComponent } from './navbar-home-ofertas/navbar-home-ofertas.component';
 import { MaterialModule } from './material/material.module';
-import { NavbarEmpresaComponent } from './navbar-empresa/navbar-empresa.component';
+import { NavbarEmpresaComponent, DialogContactoComponent } from './navbar-empresa/navbar-empresa.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    NavbarHomeOfertasComponent, 
+    NavbarHomeOfertasComponent,
+    DialogContactoComponent,
     NavbarEmpresaComponent],
   imports: [
     MaterialModule,
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     RouterModule
   ],
+  entryComponents: [DialogContactoComponent],
   exports: [
     MaterialModule,
     HeaderComponent,
