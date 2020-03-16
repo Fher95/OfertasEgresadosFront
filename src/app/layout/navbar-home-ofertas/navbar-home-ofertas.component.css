@@ -4,5 +4,9 @@ nav{
 }
 
 a:not([href]){
-    color: #007bff;
+    
+    color:#3f51b5;
+}
+.nav-link {
+    color:#3f51b5;
 }

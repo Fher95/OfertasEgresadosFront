@@ -7,9 +7,10 @@ nav{
     line-height:20px;
     font-size:45px;
     vertical-align:middle;
-    margin-right: 15px;
+    margin-right: 15px;    
 }
 
 a:not([href]){
     color: #007bff;
+    color:#3f51b5;       
 }

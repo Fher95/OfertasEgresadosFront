@@ -7,8 +7,7 @@ import { CompletarRegistro } from '../../modelos/completarRegistro';
 import { environment } from 'src/environments/environment';
 
 
-const URLBase = environment.baseUrl;
-const URL = URLBase + 'egresados';
+const URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -21,25 +20,25 @@ export class RegistroService {
 
   public storeEgresado(egresado: User) {
     console.log("Sending POST request");
-    return this.http.post(URL, egresado);
+    return this.http.post(URL+'egresados', egresado);
   }
 
   public completarRegistroEgresado(completar: CompletarRegistro, idEgresado: number) {
     console.log("Egresado: "+idEgresado);
-    const URLCompletar = URLBase +'completeEgresados/' + idEgresado;
+    const URLCompletar = URL +'completeEgresados/' + idEgresado;
     return this.http.put(URLCompletar, completar);
   }
 
   public idEgresado(correo: string): Observable<any> {
-    const URLId = URLBase + 'getIdegresados/' + correo;
+    const URLId = URL + 'getIdegresados/' + correo;
     return this.http.get<any>(URLId);
   }
   public validarCompletar(idEgresado: number){
-    const URLValidar = URLBase + 'validaCompletarRegistro/'+idEgresado;
+    const URLValidar = URL + 'validaCompletarRegistro/'+idEgresado;
     return this.http.get<any>(URLValidar);
   }
   public cuestionarioComentario(){
-    const URLComentario = URLBase + 'cuestionario';
+    const URLComentario = URL + 'cuestionario';
     return this.http.get<any>(URLComentario);
   }
 }
