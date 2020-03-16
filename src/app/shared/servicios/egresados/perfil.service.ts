@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+const URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,7 @@ export class PerfilService {
   }
 
   public perfilEgresado(correo: string): Observable<any> {
-    const URLId = 'http://localhost:8081/api/verPerfilEgresado/' + correo;
+    const URLId = URL +'verPerfilEgresado/' + correo;
     return this.http.get<any>(URLId);
   }
   
