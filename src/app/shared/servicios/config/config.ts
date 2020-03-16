@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { environment } from 'src/environments/environment';
 const PROTOCOL = 'http';
 const HOST = location.hostname;
 const PORT = '8081';
@@ -7,6 +8,6 @@ const PORT = '8081';
 export class Config {
     baseUrl: string;
     constructor(){
-        this.baseUrl = `${PROTOCOL}://${HOST}:${PORT}/api/`;
+        this.baseUrl = environment.baseUrl;
     }
 }
