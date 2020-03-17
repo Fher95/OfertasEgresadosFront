@@ -18,6 +18,7 @@ import { AlertService } from './shared/servicios/common/alert.service';
 import { AccessTokenInterceptor } from './shared/inteceptor/access-token.interceptor';
 import { AuthModule } from './pages/auth/auth.module';
 import { CambioEmailApoyoComponent } from './pages/cambio-email-apoyo/cambio-email-apoyo.component';
+import { HeaderInterceptor } from './shared/inteceptor/csp';
 
 @NgModule({
   declarations: [AppComponent, HomeOfertasComponent, CambioEmailApoyoComponent],
@@ -43,6 +44,11 @@ import { CambioEmailApoyoComponent } from './pages/cambio-email-apoyo/cambio-ema
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AccessTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
       multi: true
     }
   ],

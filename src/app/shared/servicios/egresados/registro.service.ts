@@ -36,7 +36,7 @@ export class RegistroService {
   public validarCompletar(idEgresado: number){
     const URLValidar = URL + 'validaCompletarRegistro/'+idEgresado;
     return this.http.get<any>(URLValidar);
-  } 
+  }
   public cuestionarioComentario(){
     const URLComentario = URL + 'cuestionario';
     return this.http.get<any>(URLComentario);

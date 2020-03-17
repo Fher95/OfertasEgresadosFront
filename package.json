@@ -1,5 +1,5 @@
 {
-  "name": "ofertas-egresados",
+  "name": "ofertas-egresados-front",
   "version": "0.0.0",
   "scripts": {
     "start": "node app.js",
@@ -8,7 +8,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "lite": "lite-server",
-    "postinstall": "ng build --prod",
+    "postinstall": "ng build",
     "deploy": "git add . && git commit -m \"deploy\" && git push heroku master"
   },
   "private": true,
@@ -32,6 +32,7 @@
     "@types/node": "~8.9.4",
     "angular-in-memory-web-api": "^0.9.0",
     "bootstrap": "^4.4.1",
+    "browser-sync": "^2.26.7",
     "codelyzer": "~4.5.0",
     "core-js": "^2.6.11",
     "express": "^4.17.1",
@@ -46,12 +47,14 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "lite-server": "^2.5.4",
     "ng-captcha": "^1.0.4",
     "ng-recaptcha": "^5.0.0",
     "ngx-bootstrap": "^5.2.0",
     "popper.js": "^1.16.0",
     "protractor": "~5.4.0",
     "rxjs": "~6.3.3",
+    "serve": "^11.3.0",
     "sweetalert2": "^9.5.3",
     "ts-node": "~7.0.0",
     "tslib": "^1.9.0",

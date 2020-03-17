@@ -1,0 +1,7 @@
+{
+  "headers": {
+    "/**": {
+      "Content-Security-Policy": "default-src 'self'; script-src *.fontawesome.com https://static.ads-twitter.com https://www.google-analytics.com; img-src 'self' *.fontawesome.com https://s3.amazonaws.com https://twitter.com https://pbs.twimg.com; font-src 'self' *.fontawesome.com https://fonts.gstatic.com; style-src 'self' *.fontawesome.com https://fonts.googleapis.com; frame-ancestors 'none';"
+    }
+  }
+}
